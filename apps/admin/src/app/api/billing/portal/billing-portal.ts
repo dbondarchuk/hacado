@@ -2,7 +2,7 @@ import { auth } from "@/app/auth";
 import { getServicesContainer } from "@/app/utils";
 import { resolveAppOrigin } from "@/lib/resolve-app-origin";
 import { getLoggerFactory } from "@hacado/logger";
-import { getPolarClient } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
 import { headers } from "next/headers";
 
 export async function createPolarBillingPortalSession(): Promise<

@@ -2,13 +2,18 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppointmentChoice, resolveBookingTips } from "@hacado/types";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { AppointmentChoice } from "@hacado/types/booking";
+import { resolveBookingTips } from "@hacado/types/configuration/booking";
 import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
-} from "@hacado/ui-admin-kit";
-import { canReassignAppointment, canUpdateAppointment } from "@hacado/utils";
+} from "@hacado/ui-admin-kit/appointments";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import {
+  canReassignAppointment,
+  canUpdateAppointment,
+} from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, notFound } from "next/navigation";
 
@@ -34,9 +39,9 @@ export default async function NewAssetsPage(props: Props) {
   );
 
   const [fields, addons, options, bookingConfig] = await Promise.all([
-    servicesContainer.servicesService.getFields({}),
-    servicesContainer.servicesService.getAddons({}),
-    servicesContainer.servicesService.getOptions({}),
+    servicesContainer.catalogService.getFields({}),
+    servicesContainer.catalogService.getAddons({}),
+    servicesContainer.catalogService.getServices({}),
     servicesContainer.configurationService.getConfiguration("booking"),
   ]);
 
@@ -71,7 +76,7 @@ export default async function NewAssetsPage(props: Props) {
       link: "/dashboard/appointments",
     },
     {
-      title: appointment.option.name,
+      title: appointment.service.name,
       link: `/dashboard/appointments/${id}`,
     },
     {
@@ -94,7 +99,7 @@ export default async function NewAssetsPage(props: Props) {
   const canAssignMember = canReassignAppointment(session.user);
 
   const from: AppointmentScheduleFormFrom = {
-    optionId: appointment.option._id,
+    optionId: appointment.service._id,
     addonsIds: appointment.addons?.map((addon) => addon._id),
     customerId: appointment.customer._id,
     fields: appointment.fields,

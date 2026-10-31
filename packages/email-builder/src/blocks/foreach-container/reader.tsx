@@ -1,4 +1,5 @@
-import { evaluate, ReaderBlock } from "@hacado/builder";
+import { evaluate } from "@hacado/builder/helpers";
+import { ReaderBlock } from "@hacado/builder/reader";
 import { Fragment } from "react";
 import { ForeachContainerReaderProps } from "./schema";
 import { sliceForeachArray } from "./utils";

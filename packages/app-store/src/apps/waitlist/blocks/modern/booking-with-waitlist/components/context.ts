@@ -1,3 +1,4 @@
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   ActiveStaffOption,
   ApplyDiscountResponse,
@@ -7,7 +8,6 @@ import {
   AppointmentFields,
   AppointmentPackage,
   AvailabilityByMember,
-  BookingCatalogNode,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
   DateTime,
@@ -17,7 +17,8 @@ import {
   getActiveStaffAcrossAssignments,
   PublicStaffMember,
   WithLabelFieldData,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { BookingCatalogNode } from "@hacado/types/configuration/booking";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext, useMemo } from "react";
 import { WaitlistDate } from "../../../../models/waitlist";
@@ -121,6 +122,7 @@ export type ScheduleContextProps = {
   ) => void;
 
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   discount?: ApplyDiscountResponse;
   setDiscount: (promoCode?: ApplyDiscountResponse) => void;
 

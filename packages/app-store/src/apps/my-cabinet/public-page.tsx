@@ -1,5 +1,5 @@
-import type { PublicPageRendererProps } from "@hacado/types";
-import { Skeleton } from "@hacado/ui";
+import type { PublicPageRendererProps } from "@hacado/types/apps";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Suspense } from "react";
 import { MyCabinetBlockComponent } from "./blocks/my-cabinet/component";
 import type { MyCabinetConnectedApp } from "./service";

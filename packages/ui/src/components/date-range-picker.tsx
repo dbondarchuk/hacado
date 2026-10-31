@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { DateRange } from "@hacado/types";
+import { DateRange } from "@hacado/types/general";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { X } from "lucide-react";
 import { DateTime } from "luxon";
@@ -52,88 +52,90 @@ export const CalendarDateRangePicker: React.FC<
   };
 
   return (
-    <div className={cn("grid gap-2 w-full", className)}>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            id="date"
-            variant={"outline"}
-            className={cn(
-              "w-full justify-start text-left font-normal text-base",
-            )}
-          >
-            <CalendarIcon className="mr-2 size-3.5" />
-            {date?.start ? (
-              date.end ? (
-                <>
-                  {getDateTime(date.start).toFormat("LLL dd, y")} -{" "}
-                  {getDateTime(date.end).toFormat("LLL dd, y")}
-                </>
-              ) : (
-                getDateTime(date.start).toFormat("LLL dd, y")
-              )
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          id="date"
+          variant={"outline"}
+          className={cn(
+            "w-full justify-start text-left font-normal text-base",
+            className,
+          )}
+        >
+          <CalendarIcon className="mr-2 size-3.5" />
+          {date?.start ? (
+            date.end ? (
+              <>
+                {getDateTime(date.start).toFormat("LLL dd, y")} -{" "}
+                {getDateTime(date.end).toFormat("LLL dd, y")}
+              </>
             ) : (
-              <span className="text-muted-foreground">
-                {t("dateRangePicker.placeholder")}
-              </span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 flex flex-row gap-2" align="end">
-          {!!rangeOptions?.length && (
-            <div className="flex flex-col gap-1 px-2 py-4">
-              {rangeOptions?.map((option) => (
-                <Button
-                  key={option.name}
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => onSelect(option.value)}
-                >
-                  {option.label}
-                </Button>
-              ))}
+              getDateTime(date.start).toFormat("LLL dd, y")
+            )
+          ) : (
+            <span className="text-muted-foreground">
+              {t("dateRangePicker.placeholder")}
+            </span>
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="w-auto p-0 flex gap-2 max-md:max-w-[100vw] flex-col md:flex-row"
+        align="end"
+      >
+        {!!rangeOptions?.length && (
+          <div className="flex flex-row overflow-auto md:flex-col gap-1 px-2 py-4">
+            {rangeOptions?.map((option) => (
+              <Button
+                key={option.name}
+                variant="outline"
+                className="w-full"
+                onClick={() => onSelect(option.value)}
+              >
+                {option.label}
+              </Button>
+            ))}
+          </div>
+        )}
+        <div className="flex flex-col">
+          <Calendar
+            autoFocus
+            {...rest}
+            mode="range"
+            defaultMonth={date?.start}
+            selected={{
+              from: date?.start,
+              to: date?.end,
+            }}
+            numberOfMonths={2}
+            onSelect={(range) =>
+              onSelect(
+                range
+                  ? {
+                      start: range.from
+                        ? getDateTime(range.from).startOf("day").toJSDate()
+                        : undefined,
+                      end: range.to
+                        ? getDateTime(range.to).endOf("day").toJSDate()
+                        : undefined,
+                    }
+                  : undefined,
+              )
+            }
+          />
+          {(!!date?.start || !!date?.end) && (
+            <div className="px-2 py-1 w-full">
+              <Button
+                variant="ghost"
+                onClick={() => onSelect(undefined)}
+                className="w-full"
+              >
+                <X /> {t("common.clear")}
+              </Button>
             </div>
           )}
-          <div className="flex flex-col">
-            <Calendar
-              autoFocus
-              {...rest}
-              mode="range"
-              defaultMonth={date?.start}
-              selected={{
-                from: date?.start,
-                to: date?.end,
-              }}
-              numberOfMonths={2}
-              onSelect={(range) =>
-                onSelect(
-                  range
-                    ? {
-                        start: range.from
-                          ? getDateTime(range.from).startOf("day").toJSDate()
-                          : undefined,
-                        end: range.to
-                          ? getDateTime(range.to).endOf("day").toJSDate()
-                          : undefined,
-                      }
-                    : undefined,
-                )
-              }
-            />
-            {(!!date?.start || !!date?.end) && (
-              <div className="px-2 py-1 w-full">
-                <Button
-                  variant="ghost"
-                  onClick={() => onSelect(undefined)}
-                  className="w-full"
-                >
-                  <X /> {t("common.clear")}
-                </Button>
-              </div>
-            )}
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };

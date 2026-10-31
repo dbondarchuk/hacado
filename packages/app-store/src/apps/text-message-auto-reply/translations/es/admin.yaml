@@ -3,9 +3,9 @@ app:
   displayName: Respuesta automática de mensajes de texto
   description: Responde automáticamente a los mensajes de texto entrantes.
 form:
-  autoReplyTemplate:
-    label: Plantilla de respuesta automática
-    tooltip: La plantilla que se utilizará para enviar la respuesta.
+  autoReply:
+    label: Respuesta automática
+    description: Se envía cuando un cliente escribe a este número. Usa las mismas variables que una plantilla de texto, hasta 300 caracteres. La línea para cancelar la suscripción se agrega automáticamente.
   connectWith: Conéctese con <app></app>
 statusText:
   successfully_set_up: Configurado exitosamente
@@ -13,6 +13,8 @@ statusText:
   template_not_found: Plantilla no encontrada
 handler: Respuesta automática de mensaje de texto
 validation:
+  replyText:
+    max: El texto de la respuesta automática debe tener 300 caracteres o menos
   autoReplyTemplateId:
     required: Se requiere plantilla
     min: Se requiere plantilla

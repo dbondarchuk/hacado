@@ -1,28 +1,30 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
+import { usePortalContext } from "@hacado/builder/portal";
 import { richTextToString, StaticText } from "@hacado/rte-inline/reader";
 import {
   ButtonMenuItem,
   LinkMenuItem,
   MenuItem,
   MenuItemWithSubMenu,
-  PageHeaderUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
+import { PageHeaderUpdateModel } from "@hacado/types/pages";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  cn,
-  Drawer,
+} from "@hacado/ui/accordion";
+import { cn } from "@hacado/ui/cn";
+import { Drawer } from "@hacado/ui/drawer";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Icon,
-  Link,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { Icon } from "@hacado/ui/icon";
+import { Link } from "@hacado/ui/link";
 import { ChevronDown } from "lucide-react";
 import React, {
   CSSProperties,
@@ -161,11 +163,24 @@ export const Header: React.FC<HeaderProps> = ({
     return () => effectiveWindow.removeEventListener("scroll", scrollHandler);
   }, [forceScrolled, portalDocument]);
 
-  const style = resolveHeaderStyle(config, isScrolled);
+  const desktopHeaderStyle = resolveHeaderStyle(config, isScrolled, false);
+  const mobileHeaderStyle = resolveHeaderStyle(config, isScrolled, true);
   const mobileHeaderItem = config.menu?.find(isMobilePinnedMenuItem);
-  // Mobile applies scrolled menu appearance (see mergeMenuItemAppearance).
-  const resolveItem = (item: MenuItemWithSubMenu) =>
-    mergeMenuItemAppearance(item, { isScrolled, isMobile });
+
+  // Each menu chrome is shown with CSS, so resolve its appearance directly.
+  // Waiting on the viewport flag swaps labels after hydration.
+  const resolveItem = (item: MenuItemWithSubMenu, forMobile: boolean) =>
+    mergeMenuItemAppearance(item, { isScrolled, isMobile: forMobile });
+
+  const logoFields = (headerStyle: ReturnType<typeof resolveHeaderStyle>) => ({
+    logo: headerStyle.logo || logo,
+    showLogo: headerStyle.showLogo ?? undefined,
+    hideName: headerStyle.hideName ?? undefined,
+    logoSize: headerStyle.logoSize,
+    logoNameFontSize: headerStyle.logoNameFontSize,
+    logoNameFontWeight: headerStyle.logoNameFontWeight,
+    customLogoText: headerStyle.customLogoText ?? undefined,
+  });
 
   const getLink = (
     item: MenuItem,
@@ -248,7 +263,7 @@ export const Header: React.FC<HeaderProps> = ({
     index: number,
     isSidebar: boolean,
   ) => {
-    const resolved = resolveItem(item);
+    const resolved = resolveItem(item, isSidebar);
 
     if (resolved.type !== "submenu") {
       return (
@@ -265,17 +280,17 @@ export const Header: React.FC<HeaderProps> = ({
             <AccordionTrigger
               className={itemClassName(
                 resolved,
-                "justify-end",
+                "justify-end text-right",
                 resolved.hideChevron ? "[&>svg]:hidden" : undefined,
               )}
               style={itemColorStyle(resolved)}
             >
               <LinkRender item={resolved} />
             </AccordionTrigger>
-            <AccordionContent className="flex flex-col gap-2 px-3">
+            <AccordionContent className="flex flex-col gap-2">
               {resolved.children.map((subItem, jndex) => (
-                <div key={jndex} className="inline-flex justify-end">
-                  {getLink(resolveItem(subItem) as MenuItem, true)}
+                <div key={jndex} className="inline-flex justify-end text-right">
+                  {getLink(resolveItem(subItem, true) as MenuItem, true)}
                 </div>
               ))}
             </AccordionContent>
@@ -317,7 +332,7 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <ReplaceOriginalColors />
           {resolved.children.map((subItem, jndex) => {
-            const child = resolveItem(subItem) as MenuItem;
+            const child = resolveItem(subItem, false) as MenuItem;
             return (
               <DropdownMenuItem
                 key={jndex}
@@ -346,6 +361,7 @@ export const Header: React.FC<HeaderProps> = ({
       className={className}
       headerId={headerId}
       forceScrolled={forceScrolled}
+      isMobile={isMobile}
       preview={preview}
     >
       <ReplaceOriginalColors />
@@ -357,14 +373,18 @@ export const Header: React.FC<HeaderProps> = ({
       >
         <Logo
           name={name}
-          logo={style.logo || logo}
-          showLogo={style.showLogo ?? undefined}
-          hideName={style.hideName ?? undefined}
-          logoSize={style.logoSize}
-          logoNameFontSize={style.logoNameFontSize}
-          logoNameFontWeight={style.logoNameFontWeight}
-          customLogoText={style.customLogoText ?? undefined}
           headerId={headerId}
+          {...logoFields(
+            forceMobile === true ? mobileHeaderStyle : desktopHeaderStyle,
+          )}
+          breakpointVariants={
+            forceMobile === undefined
+              ? {
+                  mobile: logoFields(mobileHeaderStyle),
+                  desktop: logoFields(desktopHeaderStyle),
+                }
+              : undefined
+          }
         />
         <div
           className={cn(
@@ -390,7 +410,7 @@ export const Header: React.FC<HeaderProps> = ({
         >
           {mobileHeaderItem &&
             getLink(
-              resolveItem(mobileHeaderItem) as MenuItem,
+              resolveItem(mobileHeaderItem, true) as MenuItem,
               false,
               "header-mobile-pinned-item",
             )}

@@ -3,12 +3,15 @@
 import {
   AppSelectorInput,
   BooleanInput,
-  ConfigurationProps,
   SelectInput,
-} from "@hacado/builder";
+} from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base";
-import { Button, deepMemo, Input, Label } from "@hacado/ui";
+import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base/slot-panel";
+import { Button } from "@hacado/ui/button";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { deepMemo } from "@hacado/ui/utils";
 import { Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { GIFT_CARD_STUDIO_APP_NAME } from "../../const";

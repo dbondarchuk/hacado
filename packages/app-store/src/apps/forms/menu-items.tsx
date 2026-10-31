@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { Form, RectangleEllipsis } from "lucide-react";
 import { FORMS_UNREAD_RESPONSES_BADGE_KEY } from "./const";
 import { FormsEditPage } from "./forms/pages/edit";

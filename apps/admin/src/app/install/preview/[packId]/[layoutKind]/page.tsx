@@ -1,6 +1,6 @@
 import { InstallLayoutPreviewClient } from "@/app/install/preview/[packId]/[layoutKind]/install-layout-preview-client";
 import { getSession } from "@/app/utils";
-import type { LayoutTemplateService } from "@hacado/builder";
+import type { LayoutTemplateService } from "@hacado/builder/types";
 import { languages, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import {
@@ -13,8 +13,8 @@ import {
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
-import { ServicesContainer } from "@hacado/services";
-import { flattenCatalogOptionIds } from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import { flattenCatalogServiceIds } from "@hacado/types/configuration/booking";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -60,11 +60,11 @@ async function loadLayoutServices(
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const optionIds = flattenCatalogOptionIds(booking?.catalog);
+  const optionIds = flattenCatalogServiceIds(booking?.catalog);
   const output: LayoutTemplateService[] = [];
 
   for (const optionId of optionIds) {
-    const option = await services.servicesService.getOption(optionId);
+    const option = await services.catalogService.getService(optionId);
     if (!option) continue;
     const descriptionMarkdown =
       typeof option.description === "string" ? option.description : "";

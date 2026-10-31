@@ -1,4 +1,4 @@
-import { asOptionalField, zNonEmptyString } from "@hacado/types";
+import { asOptionalField, zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 import { SmtpAdminAllKeys } from "./translations/types";
 

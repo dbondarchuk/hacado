@@ -1,29 +1,31 @@
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
-import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { discountsApi } from "@hacado/api-sdk/client/discounts";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import {
   ApplyDiscountRequest,
   CustomerPackage,
   effectiveAddonDuration,
   effectiveAddonPrice,
   summarizePackageItems,
-  timeZones,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  Checkbox,
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Input,
-  Markdown,
-  Spinner,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime, template } from "@hacado/utils";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Input } from "@hacado/ui/input";
+import { Markdown } from "@hacado/ui/markdown";
+import { Spinner } from "@hacado/ui/spinner";
+import { template } from "@hacado/utils/string";
+import { durationToTime } from "@hacado/utils/time";
 import { TimeZone } from "@vvo/tzdb";
 import {
   AlertTriangle,
@@ -139,7 +141,7 @@ export const ReviewCard: React.FC = () => {
 
       const data = isEditor
         ? { code: promoCode, value: 10, type: "percentage" as const }
-        : await clientApi.discounts.applyDiscount(request);
+        : await discountsApi.applyDiscount(request);
 
       setDiscount(data);
       setPromoCodeError(undefined);
@@ -242,9 +244,9 @@ export const ReviewCard: React.FC = () => {
     }
 
     if (!selectedAppointmentOption?._id || !selectedMemberId) return;
-    clientApi.customerAuth
+    customerAuthApi
       .getEligiblePackages({
-        optionId: selectedAppointmentOption._id,
+        serviceId: selectedAppointmentOption._id,
         memberId: selectedMemberId,
       })
       .then((response) => {
@@ -420,7 +422,7 @@ export const ReviewCard: React.FC = () => {
               <ul className="space-y-0.5 text-xs text-muted-foreground review-package-included-list">
                 {purchasingIncluded.map((item) => (
                   <li
-                    key={item.optionId}
+                    key={item.serviceId}
                     className="flex items-center justify-between gap-2 review-package-included-item"
                   >
                     <span className="review-package-included-item-name">

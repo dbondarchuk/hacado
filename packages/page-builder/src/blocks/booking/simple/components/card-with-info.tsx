@@ -1,7 +1,9 @@
-import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { Time, timeZones } from "@hacado/types";
-import { useCurrencyFormat } from "@hacado/ui";
-import { durationToTime, formatTimeLocale } from "@hacado/utils";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
+import { Time } from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { durationToTime, formatTimeLocale } from "@hacado/utils/time";
 import { TimeZone } from "@vvo/tzdb";
 import { Calendar, Clock, DollarSign, Globe2, Timer } from "lucide-react";
 import { HourNumbers, DateTime as Luxon, MinuteNumbers } from "luxon";

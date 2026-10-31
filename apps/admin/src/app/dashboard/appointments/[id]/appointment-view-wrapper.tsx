@@ -1,10 +1,11 @@
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentView,
   AppointmentViewButtons,
   AppointmentViewProvider,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/appointments";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";
 import React from "react";
 import { AppointmentDeclineDialogWrapper } from "./appointment-decline-dialog";
@@ -27,7 +28,7 @@ export const AppointmentViewWrapper: React.FC<{
       title: t("navigation.appointments"),
       link: "/dashboard/appointments",
     },
-    { title: appointment.option.name, link: "/dashboard/appointments" },
+    { title: appointment.service.name, link: "/dashboard/appointments" },
   ];
 
   return (
@@ -36,7 +37,7 @@ export const AppointmentViewWrapper: React.FC<{
         <Breadcrumbs items={breadcrumbItems} />
         <div className="flex flex-row gap-4 justify-between">
           <Heading
-            title={appointment.option.name}
+            title={appointment.service.name}
             description={t("appointments.detail.by", {
               name: appointment.fields.name,
             })}

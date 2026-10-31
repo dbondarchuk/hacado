@@ -6,14 +6,16 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbsContext,
   BreadcrumbSeparator,
+} from "@hacado/ui/breadcrumb";
+import { BreadcrumbsContext } from "@hacado/ui/breadcrumbs";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Link,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { Link } from "@hacado/ui/link";
 import { ChevronDownIcon } from "lucide-react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
@@ -35,8 +37,8 @@ export const BreadcrumbsRender = () => {
   if (!items?.length) return null;
 
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
+    <Breadcrumb className="flex-1">
+      <BreadcrumbList className="text-sm @container/breadcrumbs flex-nowrap">
         {items.map((item, index) =>
           "subItems" in item ? (
             <DropdownMenu key={index}>
@@ -55,14 +57,14 @@ export const BreadcrumbsRender = () => {
           ) : (
             <Fragment key={item.title}>
               {index !== items.length - 1 && (
-                <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbItem className="hidden @xs/breadcrumbs:block">
                   <BreadcrumbLink asChild>
                     <NextLink href={item.link}>{item.title}</NextLink>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               )}
               {index < items.length - 1 && (
-                <BreadcrumbSeparator className="hidden md:block">
+                <BreadcrumbSeparator className="hidden @xs/breadcrumbs:block">
                   {/* <Slash /> */}
                 </BreadcrumbSeparator>
               )}

@@ -1,9 +1,9 @@
-import { ReaderBlock, TReaderBlock } from "@hacado/builder";
+import { ReaderBlock, TReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Fragment } from "react";
 import { MarketingFeaturesShowcaseClient } from "./marketing-features-showcase.client";
 import { MarketingFeaturesShowcaseReaderProps } from "./schema";

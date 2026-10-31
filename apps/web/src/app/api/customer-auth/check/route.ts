@@ -26,6 +26,12 @@ export async function GET() {
     );
   }
 
+  const smsConsent = customer.phone
+    ? await servicesContainer.smsConsentService.hasActiveCustomerSmsConsent(
+        customer.phone,
+      )
+    : false;
+
   logger.debug({ customerId: session.customerId }, "Session valid");
   return NextResponse.json({
     success: true,
@@ -33,5 +39,6 @@ export async function GET() {
     email: customer.email,
     phone: customer.phone,
     id: customer._id,
+    smsConsent,
   });
 }

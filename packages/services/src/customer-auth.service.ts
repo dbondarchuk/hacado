@@ -1,16 +1,24 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import type {
   CustomerAuthConfiguration,
+  CustomerOtpChannels,
+} from "@hacado/types/configuration/customer-auth";
+import {
+  customerOtpAllowsEmail,
+  customerOtpAllowsPhone,
+  normalizeCustomerAuthConfiguration,
+  resolveCustomerOtpChannels,
+} from "@hacado/types/configuration/customer-auth";
+import type {
   CustomerSession,
   CustomerSessionPayload,
-  ICustomerAuthService,
-  IServicesContainer,
   RequestOtpPayload,
   RequestOtpResult,
   VerifyOtpPayload,
   VerifyOtpResult,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
 import {
   CUSTOMER_OTP_MAX_REQUESTS,
   CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
@@ -18,25 +26,27 @@ import {
   CUSTOMER_SESSION_COOKIE,
   CUSTOMER_SESSION_TTL_SECONDS,
   CustomerAuthError,
-  customerOtpAllowsEmail,
-  customerOtpAllowsPhone,
-} from "@hacado/types";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/types/customer-auth";
+import type {
+  ICustomerAuthService,
+  IServicesContainer,
+} from "@hacado/types/services";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { createHmac, randomInt, randomUUID } from "node:crypto";
+import { getCustomerOtpSms } from "./customer-auth/messages";
 import { BaseService } from "./services/base.service";
 
 // Re-export for consumers
 export {
   CUSTOMER_SESSION_COOKIE,
   CustomerAuthError,
-  type RequestOtpResult,
-  type VerifyOtpResult,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
+export type {
+  RequestOtpResult,
+  VerifyOtpResult,
+} from "@hacado/types/customer-auth";
 
 type OtpState = {
   customerId: string;
@@ -59,6 +69,7 @@ export class CustomerAuthService
       | "organizationService"
       | "redisClient"
       | "templatesService"
+      | "textMessageConfigurationService"
     >,
   ) {
     super("CustomerAuthService", organizationId);
@@ -69,7 +80,7 @@ export class CustomerAuthService
     logger.debug({}, "Loading customer auth options");
 
     const config = await this.getCustomerAuthConfig();
-    const otpChannels = config.otpChannels ?? "email";
+    const otpChannels = await this.effectiveOtpChannels(config);
     const options = { otpChannels };
 
     logger.debug({ otpChannels }, "Customer auth options loaded");
@@ -93,7 +104,7 @@ export class CustomerAuthService
     }
 
     const config = await this.getCustomerAuthConfig();
-    const otpChannels = config.otpChannels ?? "email";
+    const otpChannels = await this.effectiveOtpChannels(config);
 
     if (channel === "email" && !customerOtpAllowsEmail(otpChannels)) {
       logger.warn({ otpChannels, ip }, "Email OTP not enabled");
@@ -134,6 +145,18 @@ export class CustomerAuthService
       logger.info(
         { channel, destination },
         "OTP request completed with generic response (customer not found)",
+      );
+      return genericResponse();
+    }
+
+    if (
+      channel === "email" &&
+      !config.emailEnabled &&
+      !config.otpEmailTemplateId
+    ) {
+      logger.info(
+        { customerId: customer._id },
+        "OTP skipped: text messaging is off and no email template is set",
       );
       return genericResponse();
     }
@@ -383,15 +406,31 @@ export class CustomerAuthService
     return `${CUSTOMER_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
   }
 
+  private async effectiveOtpChannels(
+    config: CustomerAuthConfiguration,
+  ): Promise<CustomerOtpChannels> {
+    const smsEnabled = config.phoneEnabled
+      ? await this.services.textMessageConfigurationService.isEnabled()
+      : false;
+
+    return resolveCustomerOtpChannels({
+      emailEnabled: config.emailEnabled,
+      phoneEnabled: config.phoneEnabled,
+      smsEnabled,
+    });
+  }
+
   private async getCustomerAuthConfig(): Promise<CustomerAuthConfiguration> {
     const logger = this.loggerFactory("getCustomerAuthConfig");
-    const config =
+    const stored =
       await this.services.configurationService.getConfiguration("customerAuth");
+    const config = normalizeCustomerAuthConfiguration(stored);
 
     logger.debug(
       {
         hasEmailTemplate: !!config.otpEmailTemplateId,
-        otpChannels: config.otpChannels ?? "email",
+        emailEnabled: config.emailEnabled,
+        phoneEnabled: config.phoneEnabled,
         hasTextTemplate: !!config.otpTextTemplateId,
       },
       "Customer auth configuration loaded",
@@ -450,38 +489,34 @@ export class CustomerAuthService
     args: ReturnType<typeof getArguments>,
   ) {
     const logger = this.loggerFactory("sendOtpText");
-    const templateId = config.otpTextTemplateId;
+    logger.debug({ customerId }, "Sending OTP text message");
 
-    if (!templateId) {
-      logger.warn({ customerId }, "OTP text template not configured");
-      return;
-    }
+    const access =
+      await this.services.textMessageConfigurationService.getSmsMessagingAccess();
+    const templateId = access.allowCustomTemplates
+      ? config.otpTextTemplateId
+      : undefined;
 
-    const template =
-      await this.services.templatesService.getTemplate(templateId);
-    if (!template || template.type !== "text-message") {
-      logger.warn(
-        { customerId, templateId, templateType: template?.type },
-        "OTP text template missing or wrong type",
-      );
-      return;
-    }
+    const stored = templateId
+      ? await this.services.templatesService.getTemplate(templateId)
+      : null;
 
-    logger.debug({ customerId, templateId }, "Sending OTP text message");
+    const body =
+      stored?.type === "text-message" && typeof stored.value === "string"
+        ? templateSafeWithError(stored.value, args, true)
+        : template(getCustomerOtpSms(args.locale ?? "en"), args, true);
 
     await this.services.notificationService.sendTextMessage({
       phone,
-      body: templateSafeWithError(template.value as string, args, true),
+      body,
+      dontRequireConsent: true,
       handledBy:
         "admin.settings.customerAccess.handlers.otpRequest" satisfies BaseAllKeys,
       participantType: "customer",
       customerId,
     });
 
-    logger.info(
-      { customerId, templateId },
-      "OTP text message queued for delivery",
-    );
+    logger.info({ customerId }, "OTP text message queued for delivery");
   }
 
   private async consumeRateLimit(

@@ -1,14 +1,15 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@hacado/ui-admin";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
-import { Settings2, ShoppingCart } from "lucide-react";
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { ShoppingCart } from "lucide-react";
 import React from "react";
 import {
   GiftCardStudioAdminKeys,
@@ -56,7 +57,7 @@ export const PurchasesTableAction: React.FC<{
 
   return (
     <div className="flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
         <DataTableSearch
           searchKey={"search"}
           searchQuery={searchQuery}
@@ -64,17 +65,7 @@ export const PurchasesTableAction: React.FC<{
           setPage={setPage}
           placeholder={t("purchases.table.searchPlaceholder")}
         />
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="md:hidden">
-              <Settings2 size={16} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {additionalFilters}
-          </PopoverContent>
-        </Popover>
-        <div className="hidden md:flex flex-row gap-4">{additionalFilters}</div>
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}

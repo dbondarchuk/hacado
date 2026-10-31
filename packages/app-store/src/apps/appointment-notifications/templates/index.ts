@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@hacado/types";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { appointmentReminderEmailTemplate as appointmentReminderEmailTemplateEn } from "./en/emailReminder";
 import { appointmentReminderTextMessageTemplate as appointmentReminderTextMessageTemplateEn } from "./en/textMessageReminder";
 import { appointmentReminderEmailTemplate as appointmentReminderEmailTemplateEs } from "./es/emailReminder";

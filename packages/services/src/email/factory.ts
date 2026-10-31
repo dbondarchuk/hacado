@@ -1,4 +1,4 @@
-import { IAssetsStorage, IMailSender } from "@hacado/types";
+import { IAssetsStorage, IMailSender } from "@hacado/types/apps";
 import { ResendService } from "./resend";
 import { getResendConfiguration } from "./resend/utils";
 import { SmtpService } from "./smtp";

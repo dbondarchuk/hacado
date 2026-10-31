@@ -2,7 +2,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentNoShowEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -12,7 +12,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Vous avez été marqué comme non-présentation pour {{option.name}}",
+        text: "Vous avez été marqué comme non-présentation pour {{service.name}}",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
 
 Merci d'avoir sélectionné {{config.name}} !
 
-Nous avons enregistré que vous n'étiez pas présent à votre rendez-vous du {{option.name}} le {{dateTime.full}} avec {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
+Nous avons enregistré que vous n'étiez pas présent à votre rendez-vous du {{service.name}} le {{dateTime.full}} avec {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Veuillez nous appeler au {{config.phone}} si vous souhaitez réserver une autre fois.
 

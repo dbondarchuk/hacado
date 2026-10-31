@@ -533,7 +533,7 @@ async function seedAppointmentsForOrg(
         email: slot.customer.email,
         phone: slot.customer.phone,
       },
-      option: {
+      service: {
         _id: slot.option._id,
         name: slot.option.name,
         durationType: slot.option.durationType,
@@ -867,7 +867,9 @@ async function main() {
   loadEnvIfPresent(path.join(REPO_ROOT, "apps/admin"));
   if (opts.envFile?.trim()) loadEnvFile(opts.envFile.trim());
 
-  ensurePackMediaBundle();
+  if (opts.mode === "seed") {
+    ensurePackMediaBundle();
+  }
 
   const rl = readline.createInterface({ input, output });
 

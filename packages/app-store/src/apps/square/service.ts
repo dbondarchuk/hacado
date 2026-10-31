@@ -11,21 +11,25 @@ import {
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   ConnectedOauthAppTokens,
-  EventEnvelope,
   IConnectedAppProps,
   IConnectedAppWithWebhook,
   IEventSubscriber,
   IOAuthConnectedApp,
   IPaymentProcessor,
-  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-  OrganizationDomainChangedPayload,
+} from "@hacado/types/apps";
+import {
   Payment,
   PaymentFee,
   SyncedPaymentTransaction,
+} from "@hacado/types/booking";
+import {
+  EventEnvelope,
+  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
+  OrganizationDomainChangedPayload,
   systemEventSource,
-} from "@hacado/types";
-import { getAppsExternalUrl, getWebsiteDomain } from "@hacado/utils";
+} from "@hacado/types/events";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAppsExternalUrl, getWebsiteDomain } from "@hacado/utils/website";
 import { getApplePayDomainAssociation } from "./apple-pay";
 import { getSquareOrder, getSquarePayment } from "./client";
 import { SQUARE_APP_NAME } from "./const";

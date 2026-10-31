@@ -1,7 +1,7 @@
 import { collectPageBodies } from "@/utils/page-metadata";
 import { getServicesContainer, getWebsiteUrl } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { pageSlugHasPlaceholder } from "@hacado/types";
+import { pageSlugHasPlaceholder } from "@hacado/types/apps";
 import { NextRequest } from "next/server";
 
 type Props = {

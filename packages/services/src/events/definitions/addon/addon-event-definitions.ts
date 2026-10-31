@@ -1,13 +1,16 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  AddonCreatedPayload,
+  AddonDeletedPayload,
+  AddonUpdatedPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   ADDON_CREATED_EVENT_TYPE,
   ADDON_DELETED_EVENT_TYPE,
   ADDON_UPDATED_EVENT_TYPE,
-  type AddonCreatedPayload,
-  type AddonDeletedPayload,
-  type AddonUpdatedPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

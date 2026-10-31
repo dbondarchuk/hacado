@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import type { ActivityRecord } from "@hacado/types";
-import { systemEventSource } from "@hacado/types";
+import type { ActivityRecord } from "@hacado/types/activity";
+import { systemEventSource } from "@hacado/types/events";
 
 import { ActivityService } from "./activity.service";
 

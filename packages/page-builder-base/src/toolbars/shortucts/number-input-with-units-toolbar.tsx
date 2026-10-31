@@ -1,22 +1,18 @@
 "use client";
 
 import { AllKeys, useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ToolbarButton,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ToolbarButton } from "@hacado/ui/toolbar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@hacado/ui/tooltip";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { ShortcutWithNumberWithUnit } from "../../shortcuts";

@@ -1,5 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Checkbox, Label } from "@hacado/ui";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
 import { EyeOff } from "lucide-react";
 import { useId } from "react";
 import * as z from "zod";

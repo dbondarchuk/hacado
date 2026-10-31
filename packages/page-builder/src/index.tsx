@@ -1,16 +1,14 @@
 "use client";
 
-import {
-  Builder,
-  EditorDocumentBlocksDictionary,
-  generateId,
-  SidebarTab,
-  TEditorConfiguration,
-} from "@hacado/builder";
+import { Builder, SidebarTab } from "@hacado/builder/builder";
+import { TEditorConfiguration } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { Header } from "@hacado/page-builder-base";
-import { PageHeader, UploadedFile } from "@hacado/types";
-import { deepMemo } from "@hacado/ui";
+import { Header } from "@hacado/page-builder-base/reader";
+import { UploadedFile } from "@hacado/types/assets";
+import { PageHeader } from "@hacado/types/pages";
+import { deepMemo } from "@hacado/ui/utils";
 import { useMemo } from "react";
 import {
   BlockProviderRegistry,

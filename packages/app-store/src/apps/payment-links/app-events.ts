@@ -1,5 +1,6 @@
-import type { AppEventConfig, EventDefinition } from "@hacado/types";
-import { formatAmountWithCurrency, getAdminUrl } from "@hacado/utils";
+import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { getAdminUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import { buildPaymentPaidEmailNotifications } from "./emails/paid-email";
 import type { PaymentLinksSettings } from "./models";
@@ -127,7 +128,7 @@ export const PAYMENT_LINKS_APP_EVENTS: AppEventConfig = {
           );
 
           if (appointment) {
-            appointmentLabel = `${appointment.option?.name ?? "Appointment"} · ${DateTime.fromJSDate(
+            appointmentLabel = `${appointment.service?.name ?? "Appointment"} · ${DateTime.fromJSDate(
               new Date(appointment.dateTime),
             )
               .setZone(general.timeZone)

@@ -1,6 +1,6 @@
 "use client";
 
-import { useClipboard } from "@hacado/ui";
+import { useClipboard } from "@hacado/ui/hooks";
 import { useCallback, useMemo, useState } from "react";
 import { TEditorBlock } from "./core";
 

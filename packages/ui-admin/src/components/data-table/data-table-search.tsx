@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, Input } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Input } from "@hacado/ui/input";
 import { Options } from "nuqs";
 import { useTransition } from "react";
 
@@ -17,6 +18,7 @@ interface DataTableSearchProps {
     options?: Options | undefined,
   ) => Promise<URLSearchParams>;
   placeholder?: string;
+  className?: string;
 }
 
 /*************  ✨ Command ⭐  *************/
@@ -47,6 +49,7 @@ export function DataTableSearch({
   setSearchQuery,
   setPage,
   placeholder,
+  className,
 }: DataTableSearchProps) {
   const t = useI18n("ui");
   const [isLoading, startTransition] = useTransition();
@@ -57,13 +60,15 @@ export function DataTableSearch({
   };
 
   return (
-    <Input
-      placeholder={
-        placeholder ?? t("dataTable.searchPlaceholder", { searchKey })
-      }
-      value={searchQuery ?? ""}
-      onChange={(e) => handleSearch(e.target.value)}
-      className={cn("w-full md:max-w-sm", isLoading && "animate-pulse")}
-    />
+    <div className={cn("min-w-56 flex-1", className)}>
+      <Input
+        placeholder={
+          placeholder ?? t("dataTable.searchPlaceholder", { searchKey })
+        }
+        value={searchQuery ?? ""}
+        onChange={(e) => handleSearch(e.target.value)}
+        className={cn("w-full min-w-0", isLoading && "animate-pulse")}
+      />
+    </div>
   );
 }

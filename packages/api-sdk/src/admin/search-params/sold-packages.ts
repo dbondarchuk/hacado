@@ -9,7 +9,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { customerPackageStatuses } from "@hacado/types";
+import { customerPackageStatuses } from "@hacado/types/booking";
 import { baseSearchParams } from "./base";
 
 export const soldPackagesSearchParams = {

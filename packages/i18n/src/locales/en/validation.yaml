@@ -41,22 +41,74 @@ customers:
 templates:
   nameMustBeUnique: Template name must be unique
 services:
-  discounts:
-    nameUnique: Discount name must be unique
-    codeUnique: Discount code must be unique
-  fields:
-    nameUnique: Field name must be unique
-  options:
-    nameUnique: Option name must be unique
+  name:
+    unique: Service name must be unique
+    required: Service name must be at least 2 characters long
+    max: Service name must be no more than 256 characters long
+  description:
+    required: Service description is required
+    max: Service description must be no more than 1024 characters long
+  duration:
+    required: Duration is required
+    positive: Duration must be a integer number greater or equal to 1 minute
+  durationType:
+    required: Duration type is required
+  durationMin:
+    required: Duration min is required
+    positive: Duration min must be a integer number greater or equal to 1 minute
+  durationMax:
+    required: Duration max is required
+    positive: Duration max must be a integer number greater or equal to 1 minute
+    max: Duration max must be at most 1 day
+  durationStep:
+    required: Duration step is required
+    positive: Duration step must be a integer number greater or equal to 1 minute
+  pricePerHour:
+    required: Price per hour is required
+    min: Price per hour must be at least 1
+  price:
+    min: Price must be at least 1
+  paymentType:
+    required: Payment calculation type is required
   addons:
-    nameUnique: Add-on name must be unique
+    id:
+      required: Add-on ID is required
+      unique: Add-on IDs should be unique
+  fields:
+    id:
+      required: Field ID is required
+      unique: Field IDs should be unique
+  isOnline:
+    required: "If selected, meeting URL provider app is required"
+  meetingUrlProviderAppId:
+    required: Meeting URL provider app is required if selected
+  requireDeposit:
+    required: Deposit amount is required if set to always
+  depositAmount:
+    required: Deposit amount must be a positive number
+  depositPercentage:
+    required: Deposit percentage must be an integer number between 10 and 100
+  tipsMode:
+    required: Tips mode is required
+  duplicateAppointmentCheck:
+    enabled:
+      required: >-
+        Amount of days before or after the appointment to ask for confirmation
+        is required
+    days:
+      min: Amount of days must be between 1 and 30
+      max: Amount of days must be between 1 and 30
+    message:
+      required: Message is required
+  cancellationPolicyType:
+    required: Cancellation policy type is required
 install:
   nameMin: Name must be at least 3 characters long
   titleMin: Title must be at least 3 characters long
 appointments:
   request:
-    optionId:
-      required: Option ID is required
+    serviceId:
+      required: Service is required
     addonsIds:
       required: Add-on IDs are required
       unique: Add-on IDs should be unique
@@ -84,71 +136,11 @@ appointments:
       max: Maximum 2 gift card codes can be applied
     appointmentId:
       required: Appointment ID is required
-  option:
-    name:
-      required: Option name must be at least 2 characters long
-      max: Option name must be no more than 256 characters long
-    description:
-      required: Option description is required
-      max: Option description must be no more than 1024 characters long
-    duration:
-      required: Duration is required
-      positive: Duration must be a integer number greater or equal to 1 minute
-    durationType:
-      required: Duration type is required
-    durationMin:
-      required: Duration min is required
-      positive: Duration min must be a integer number greater or equal to 1 minute
-    durationMax:
-      required: Duration max is required
-      positive: Duration max must be a integer number greater or equal to 1 minute
-      max: Duration max must be at most 1 day
-    durationStep:
-      required: Duration step is required
-      positive: Duration step must be a integer number greater or equal to 1 minute
-    pricePerHour:
-      required: Price per hour is required
-      min: Price per hour must be at least 1
-    price:
-      min: Price must be at least 1
-    paymentType:
-      required: Payment calculation type is required
-    addons:
-      id:
-        required: Add-on ID is required
-        unique: Add-on IDs should be unique
-    fields:
-      id:
-        required: Field ID is required
-        unique: Field IDs should be unique
-    isOnline:
-      required: "If selected, meeting URL provider app is required"
-    meetingUrlProviderAppId:
-      required: Meeting URL provider app is required if selected
-    requireDeposit:
-      required: Deposit amount is required if set to always
-    depositAmount:
-      required: Deposit amount must be a positive number
-    depositPercentage:
-      required: Deposit percentage must be an integer number between 10 and 100
-    tipsMode:
-      required: Tips mode is required
-    duplicateAppointmentCheck:
-      enabled:
-        required: >-
-          Amount of days before or after the appointment to ask for confirmation
-          is required
-      days:
-        min: Amount of days must be between 1 and 30
-        max: Amount of days must be between 1 and 30
-      message:
-        required: Message is required
-    cancellationPolicyType:
-      required: Cancellation policy type is required
 addons:
   name:
     required: Add-on name must be at least 2 characters long
     max: Add-on name must be no more than 256 characters long
+    unique: Add-on name must be unique
   description:
     required: Add-on description is required
     max: Add-on description must be no more than 1024 characters long
@@ -172,9 +164,11 @@ discount:
   name:
     required: Discount name must be at least 2 characters long
     max: Discount name must be no more than 256 characters long
+    unique: Discount name must be unique
   code:
     required: Discount code must be at least 2 characters long
     max: Discount code must be no more than 256 characters long
+    unique: Discount code must be unique
   maxUsage:
     min: Max usage must be a integer number greater or equal to 1
   maxUsagePerCustomer:
@@ -185,8 +179,8 @@ discount:
       unique: Add-on IDs should be unique
       min: At least one addon is required
     options:
-      required: Option ID is required
-      unique: Option IDs should be unique
+      required: Service is required
+      unique: Services should be unique
     packages:
       required: Package ID is required
       unique: Package IDs should be unique
@@ -203,7 +197,7 @@ discount:
     min: End date should be greater than start date
   applyRequest:
     optionId:
-      required: Option ID is required
+      required: Service is required
     packageId:
       required: Package ID is required
     dateTime:
@@ -225,9 +219,12 @@ fields:
   name:
     required: Field name must be at least 2 characters long
     max: Field name must be no more than 64 characters long
+    unique: Field name must be unique
     invalid: >-
       Field name must start with letter and contain only letters, digits, and
       underscore (_)
+  options:
+    min: At least one option is required
   option:
     required: Option value is required
     unique: Option values should be unique
@@ -283,10 +280,38 @@ configuration:
   customerAuth:
     otpEmailTemplateId:
       required: OTP email template is required
-    otpTextTemplateId:
-      required: OTP text message template is required when phone OTP is enabled
-    otpChannels:
-      required: OTP verification channel is required
+    channel:
+      required: At least one channel is required. Turn on email, text message, or both.
+    phoneRequiresTextMessaging: Turn on text messaging before enabling phone codes.
+  textMessaging:
+    entityType:
+      required: Business type is required
+    legalName:
+      required: Legal name is required
+    website:
+      required: Website is required
+    streetAddress:
+      required: Street address is required
+    city:
+      required: City is required
+    state:
+      required: State or province is required
+    postalCode:
+      required: Postal code is required
+    contactFirstName:
+      required: Contact first name is required
+    contactLastName:
+      required: Contact last name is required
+    contactEmail:
+      required: Contact email is required
+    contactPhone:
+      required: Contact phone is required
+    registrationNumber:
+      required: EIN or business number is required
+    privacyPage:
+      required: Privacy policy page is required
+    termsPage:
+      required: Terms page is required
   apps:
     email:
       required: Email sender APP is required
@@ -319,7 +344,7 @@ configuration:
         max: Group name must be no more than 256 characters
       groupDescription:
         max: Group description must be no more than 1024 characters
-      optionId:
+      serviceId:
         required: Service is required
         unique: This service is already in the catalog
       packageId:
@@ -569,6 +594,7 @@ package:
   name:
     required: Package name is required
     max: Package name must be no more than 256 characters
+    unique: Package name must be unique
   description:
     required: Package description is required
     max: Package description must be no more than 1024 characters
@@ -576,7 +602,7 @@ package:
     min: Package price must be at least 0
   items:
     min: At least one service is required
-    optionId:
+    serviceId:
       required: Service is required
     credits:
       integer: Credits must be an integer

@@ -1,4 +1,4 @@
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { OrganizationDomainInput } from "../schemas";
 import { fetchAdminApi } from "./utils";
 

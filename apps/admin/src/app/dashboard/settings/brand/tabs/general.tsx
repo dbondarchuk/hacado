@@ -2,46 +2,45 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import type {
-  OrganizationBillingSubscriptionDetails,
-  PostalAddress,
-} from "@hacado/types";
+import type { OrganizationBillingSubscriptionDetails } from "@hacado/types/billing";
+import type { PostalAddress } from "@hacado/types/utils";
 import {
   businessIndustryDefinitions,
   countryOptions,
   Currency,
   currencyOptions,
   CurrencySymbolMap,
-} from "@hacado/types";
+} from "@hacado/types/utils";
+import { AddressAutocomplete } from "@hacado/ui-admin/address-autocomplete";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  BooleanSelect,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Combobox,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  InfoTooltip,
-  Input,
-  PhoneInput,
-} from "@hacado/ui";
-import { AddressAutocomplete } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { getTimeZones } from "@vvo/tzdb";
 import { UseFormReturn } from "react-hook-form";
 import { SiteSettingsFormValues } from "../site-settings-schema";
 import { GeneralBillingCard } from "./general-billing-card";
 
+const timeZoneValues: IComboboxItem[] = getTimeZones().map((zone) => ({
+  label: `GMT${zone.currentTimeFormat}`,
+  value: zone.name,
+}));
+
 export const GeneralTab: React.FC<{
   form: UseFormReturn<SiteSettingsFormValues>;
   loading: boolean;
-  timeZoneValues: IComboboxItem[];
   billingSubscriptionDetails: OrganizationBillingSubscriptionDetails;
-}> = ({ form, loading, timeZoneValues, billingSubscriptionDetails }) => {
+}> = ({ form, loading, billingSubscriptionDetails }) => {
   const t = useI18n("admin");
   const tUI = useI18n("ui");
 
@@ -91,14 +90,16 @@ export const GeneralTab: React.FC<{
             {t("navigation.general")}
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-6">
+        <CardContent className="pt-6 gap-2 md:gap-4 flex flex-col">
           <div className="gap-2 flex flex-col md:grid md:grid-cols-2 md:gap-4">
             <FormField
               control={form.control}
               name="general.name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("settings.general.form.name")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.general.form.name")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={loading}
@@ -106,6 +107,9 @@ export const GeneralTab: React.FC<{
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("settings.general.form.nameDescription")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -115,12 +119,7 @@ export const GeneralTab: React.FC<{
               name="general.industry"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t("settings.general.form.industry")}{" "}
-                    <InfoTooltip>
-                      {t("settings.general.form.industryTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("settings.general.form.industry")}</FormLabel>
                   <FormControl>
                     <Combobox
                       useCategories
@@ -140,6 +139,9 @@ export const GeneralTab: React.FC<{
                       }}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("settings.general.form.industryTooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -149,7 +151,9 @@ export const GeneralTab: React.FC<{
               name="general.email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("settings.general.form.email")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.general.form.email")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={loading}
@@ -179,65 +183,67 @@ export const GeneralTab: React.FC<{
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="general.timeZone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("settings.general.form.timeZone")}</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      className="flex w-full font-normal text-lg"
-                      values={timeZoneValues}
-                      searchLabel={t("settings.general.form.selectTimeZone")}
-                      disabled={loading}
-                      customSearch={(search) =>
-                        timeZoneValues.filter(
-                          (zone) =>
-                            (zone.label as string)
-                              .toLocaleLowerCase()
-                              .indexOf(search.toLocaleLowerCase()) >= 0,
-                        )
-                      }
-                      value={field.value}
-                      onItemSelect={(value) => field.onChange(value)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="general.useClientTimezone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("settings.general.form.useClientTimezone")}{" "}
-                    <InfoTooltip>
-                      <I18nRichText
-                        namespace="admin"
-                        text="settings.general.form.useClientTimezoneTooltip"
-                      />
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      className="w-full"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          </div>
+          <FormField
+            control={form.control}
+            name="general.timeZone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabelWithRequiredIndicator required>
+                  {t("settings.general.form.timeZone")}
+                </FormLabelWithRequiredIndicator>
+                <FormControl>
+                  <Combobox
+                    className="flex w-full font-normal text-lg"
+                    values={timeZoneValues}
+                    searchLabel={t("settings.general.form.selectTimeZone")}
+                    disabled={loading}
+                    customSearch={(search) =>
+                      timeZoneValues.filter(
+                        (zone) =>
+                          (zone.label as string)
+                            .toLocaleLowerCase()
+                            .indexOf(search.toLocaleLowerCase()) >= 0,
+                      )
+                    }
+                    value={field.value}
+                    onItemSelect={(value) => field.onChange(value)}
+                  />
+                </FormControl>
+                <FormDescription>
+                  {t("settings.general.form.timeZoneDescription")}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="general.useClientTimezone"
+            render={({ field }) => (
+              <SwitchCardFormItem
+                label={t("settings.general.form.useClientTimezone")}
+                description={
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.general.form.useClientTimezoneTooltip"
+                  />
+                }
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                disabled={loading}
+              />
+            )}
+          />
+          <div className="gap-2 flex flex-col md:grid md:grid-cols-2 md:gap-4">
             <FormField
               control={form.control}
               name="general.country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("settings.general.form.country")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.general.form.country")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Combobox
                       values={countryOptions.map((country) => ({
@@ -261,7 +267,9 @@ export const GeneralTab: React.FC<{
               name="general.currency"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("settings.general.form.currency")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.general.form.currency")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Combobox
                       values={currencyOptions.map((currency: Currency) => ({
@@ -288,12 +296,9 @@ export const GeneralTab: React.FC<{
               control={form.control}
               name="general.address.streetAddress"
               render={({ field }) => (
-                <FormItem className="md:col-span-2">
+                <FormItem className="md:col-span-2 flex flex-col gap-2">
                   <FormLabel>
-                    {t("settings.general.form.streetAddress")}{" "}
-                    <InfoTooltip>
-                      {t("settings.general.form.addressTooltip")}
-                    </InfoTooltip>
+                    {t("settings.general.form.streetAddress")}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -305,14 +310,15 @@ export const GeneralTab: React.FC<{
                       value={field.value ?? ""}
                     />
                   </FormControl>
-                  <FormMessage />
                   <FormDescription>
-                    <AddressAutocomplete
-                      disabled={loading}
-                      countryBias={form.watch("general.country")}
-                      onSelect={applyAddressSuggestion}
-                    />
+                    {t("settings.general.form.addressTooltip")}
                   </FormDescription>
+                  <FormMessage />
+                  <AddressAutocomplete
+                    disabled={loading}
+                    countryBias={form.watch("general.country")}
+                    onSelect={applyAddressSuggestion}
+                  />
                 </FormItem>
               )}
             />

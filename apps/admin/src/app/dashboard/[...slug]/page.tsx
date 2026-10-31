@@ -4,12 +4,13 @@ import { AvailableApps } from "@hacado/app-store";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
-} from "@hacado/ui-admin-kit";
-import { meetsRequiredPermission } from "@hacado/utils";
+} from "@hacado/ui-admin-kit/page";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import { meetsRequiredPermission } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, redirect } from "next/navigation";
 import { cache } from "react";
@@ -149,7 +150,7 @@ export default async function Page(props: Props) {
       <HeaderActionButtonsProvider>
         <div className="flex flex-1 flex-col gap-4 w-full">
           <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex flex-row items-center gap-4 justify-between">
+          <div className="flex flex-row items-center gap-4 justify-between empty:hidden">
             {!menuItem.hideHeading && (
               <Heading
                 title={title}

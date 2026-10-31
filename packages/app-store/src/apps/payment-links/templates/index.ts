@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@hacado/types";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { paymentLinksEmailTemplate as paymentLinksEmailTemplateEn } from "./en/payment-links-email";
 import { paymentLinksSmsTemplate as paymentLinksSmsTemplateEn } from "./en/payment-links-sms";
 import { paymentLinksEmailTemplate as paymentLinksEmailTemplateEs } from "./es/payment-links-email";

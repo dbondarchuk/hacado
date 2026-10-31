@@ -1,14 +1,14 @@
 "use client";
 
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
 import { RadioReceiver } from "lucide-react";
 import React from "react";
 

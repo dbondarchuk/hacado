@@ -1,7 +1,7 @@
 import type { Language } from "@hacado/i18n";
 import { USERS_COLLECTION_NAME } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import type { PendingMemberProfile, User } from "@hacado/types";
+import type { PendingMemberProfile, User } from "@hacado/types/users";
 
 export type { PendingMemberProfile };
 

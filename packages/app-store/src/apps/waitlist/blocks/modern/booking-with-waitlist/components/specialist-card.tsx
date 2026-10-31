@@ -1,14 +1,10 @@
 import { useI18n } from "@hacado/i18n/client";
-import { PublicStaffMember } from "@hacado/types";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  cn,
-  Markdown,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import { PublicStaffMember } from "@hacado/types/booking";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, Users } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";

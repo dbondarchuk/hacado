@@ -2,20 +2,20 @@
 
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
-import { ConnectedApp } from "@hacado/types";
-import {
-  Button,
-  Link,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
-} from "@hacado/ui";
+import { ConnectedApp } from "@hacado/types/apps";
 import {
   AppName,
   ConnectedAppAccount,
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { Link } from "@hacado/ui/link";
+import {
+  TooltipResponsive,
+  TooltipResponsiveContent,
+  TooltipResponsiveTrigger,
+} from "@hacado/ui/tooltip-responsive";
 import { RefreshCcw, Unplug } from "lucide-react";
 import { AddOrUpdateAppButton } from "./add-or-update-app-dialog";
 import { DeleteAppButton } from "./delete-app-button";

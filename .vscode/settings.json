@@ -8,7 +8,7 @@
     }
   },
   "svg.preview.background": "dark-transparent",
-  "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
+  "js/ts.tsserver.experimental.enableProjectDiagnostics": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "[svg]": {
@@ -17,10 +17,47 @@
   "files.exclude": {
     "**/node_modules": true,
     "**/dist": true,
-    "**/build": true
+    "**/build": true,
+    "**/.next/cache": true,
+    "**/.next/server": true,
+    "**/.next/static": true,
+    "**/.turbo": true,
+    "**/coverage": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.next/cache/**": true,
+    "**/.next/server/**": true,
+    "**/.next/static/**": true,
+    "**/.turbo/**": true,
+    "**/coverage/**": true,
+    "**/*.tsbuildinfo": true
   },
   "search.exclude": {
     "**/node_modules": true,
-    "**/dist": true
-  }
+    "**/dist": true,
+    "**/build": true,
+    "**/.next/cache": true,
+    "**/.next/server": true,
+    "**/.next/static": true,
+    "**/.turbo": true,
+    "**/coverage": true
+  },
+  "typescript.tsserver.watchOptions": {
+    "excludeDirectories": [
+      "**/node_modules",
+      "**/dist",
+      "**/build",
+      "**/.next/cache",
+      "**/.next/server",
+      "**/.next/static",
+      "**/.turbo",
+      "**/coverage"
+    ]
+  },
+  "js/ts.tsserver.log": "off",
+  "js/ts.tsserver.maxMemory": 8192,
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

@@ -1,32 +1,38 @@
+import { IPaymentLinkProvider } from "@hacado/types/apps";
 import {
-  DateRange,
-  GIFT_CARD_CREATED_EVENT_TYPE,
-  GIFT_CARD_DELETED_EVENT_TYPE,
-  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
-  GIFT_CARD_UPDATED_EVENT_TYPE,
   GiftCard,
   GiftCardListModel,
   GiftCardStatus,
   GiftCardUpdateModel,
-  IConnectedAppsService,
-  IEventService,
-  IGiftCardsService,
   InPersonPaymentMethod,
   inPersonPaymentMethod,
-  IPaymentLinkProvider,
-  IPaymentsService,
   Payment,
   PaymentLinkPayment,
   PaymentSummary,
-  Query,
-  WithTotal,
-  type EventSource,
-  type GiftCardCreatedPayload,
-  type GiftCardDeletedPayload,
-  type GiftCardStatusChangedPayload,
-  type GiftCardUpdatedPayload,
-} from "@hacado/types";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { Query, WithTotal } from "@hacado/types/database";
+import type {
+  EventSource,
+  GiftCardCreatedPayload,
+  GiftCardDeletedPayload,
+  GiftCardStatusChangedPayload,
+  GiftCardUpdatedPayload,
+} from "@hacado/types/events";
+import {
+  GIFT_CARD_CREATED_EVENT_TYPE,
+  GIFT_CARD_DELETED_EVENT_TYPE,
+  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
+  GIFT_CARD_UPDATED_EVENT_TYPE,
+} from "@hacado/types/events";
+import { DateRange } from "@hacado/types/general";
+import {
+  IConnectedAppsService,
+  IEventService,
+  IGiftCardsService,
+  IPaymentsService,
+} from "@hacado/types/services";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,
@@ -892,7 +898,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
               $first: "$customer.name",
             },
             serviceName: {
-              $first: "$appointment.option.name",
+              $first: "$appointment.service.name",
             },
           },
         },

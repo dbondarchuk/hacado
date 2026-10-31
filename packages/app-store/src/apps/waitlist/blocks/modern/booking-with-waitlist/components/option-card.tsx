@@ -1,20 +1,28 @@
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
-  catalogNodesAtPath,
   creditsPerRedemptionForItem,
   CustomerPackage,
   effectiveStaffDuration,
   effectiveStaffPrice,
-  filterCatalogNodes,
   getActiveStaffForAssignments,
   minEffectiveDuration,
   minEffectivePrice,
   summarizePackageItems,
-} from "@hacado/types";
-import { Button, cn, Markdown, Skeleton, useCurrencyFormat } from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/types/booking";
+import {
+  catalogNodesAtPath,
+  filterCatalogNodes,
+} from "@hacado/types/configuration/booking";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, Minus, Plus } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";
@@ -88,7 +96,7 @@ export const AppointmentOptionCard: React.FC = () => {
     () =>
       filterCatalogNodes(catalog, {
         excludePackages,
-        optionIds: visibleOptions.map((option) => option._id),
+        serviceIds: visibleOptions.map((option) => option._id),
         packageIds: excludePackages
           ? undefined
           : packages?.map((pkg) => pkg._id),
@@ -294,7 +302,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setSelectedAppointmentOption(undefined);
     setSelectedAddons([]);
     try {
-      const session = await clientApi.customerAuth.checkSession();
+      const session = await customerAuthApi.checkSession();
       if (session?.success) {
         setOtpVerified(true);
         setFields({
@@ -302,6 +310,7 @@ export const AppointmentOptionCard: React.FC = () => {
           name: session.name || fields.name,
           email: session.email || fields.email,
           phone: session.phone || fields.phone,
+          smsConsent: session.smsConsent === true,
         });
         await refreshBookingOptions?.();
         return;
@@ -322,12 +331,14 @@ export const AppointmentOptionCard: React.FC = () => {
     let cancelled = false;
     setPackagesLoading(true);
     setPackagesError(false);
-    clientApi.customerAuth
+    customerAuthApi
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
         setMyPackages(
-          (response.items ?? []).filter((pkg) => pkg.remainingCredits > 0),
+          (response.items ?? []).filter(
+            (pkg) => pkg.status !== "pending" && pkg.remainingCredits > 0,
+          ),
         );
       })
       .catch((error) => {
@@ -351,11 +362,11 @@ export const AppointmentOptionCard: React.FC = () => {
       const needed = creditsPerRedemptionForItem(item);
       return (
         remaining >= needed &&
-        appointmentOptions.some((option) => option._id === item.optionId)
+        appointmentOptions.some((option) => option._id === item.serviceId)
       );
     });
     const option = redeemableItem
-      ? appointmentOptions.find((item) => item._id === redeemableItem.optionId)
+      ? appointmentOptions.find((item) => item._id === redeemableItem.serviceId)
       : undefined;
     if (!option) {
       setPackagesError(true);
@@ -385,8 +396,8 @@ export const AppointmentOptionCard: React.FC = () => {
     setIsLoading(true);
     setCurrentStep("calendar");
     if (!isEditor) {
-      clientApi.booking.trackAdvanceFromUiStep("option", {
-        optionId: option._id,
+      bookingApi.trackAdvanceFromUiStep("option", {
+        serviceId: option._id,
         memberId: memberId ?? undefined,
         duration: nextDuration,
       });
@@ -538,7 +549,7 @@ export const AppointmentOptionCard: React.FC = () => {
                     )}
                     onClick={() => {
                       const option = appointmentOptions.find(
-                        (item) => item._id === pkg.items[0]?.optionId,
+                        (item) => item._id === pkg.items[0]?.serviceId,
                       );
                       if (!option) return;
                       setFlow("booking");
@@ -576,7 +587,7 @@ export const AppointmentOptionCard: React.FC = () => {
                         <ul className="space-y-0.5 text-xs text-muted-foreground package-card-included-list">
                           {included.map((item) => (
                             <li
-                              key={item.optionId}
+                              key={item.serviceId}
                               className="flex items-center justify-between gap-2 package-card-included-item"
                             >
                               <span className="package-card-included-item-name">
@@ -603,7 +614,7 @@ export const AppointmentOptionCard: React.FC = () => {
                 );
               }
               const option = visibleOptions.find(
-                (item) => item._id === node.optionId,
+                (item) => item._id === node.serviceId,
               );
               if (!option) return null;
               return renderServiceOption(option, {

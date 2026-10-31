@@ -1,18 +1,20 @@
 import { assertBookingCustomerAccess } from "@/utils/appointments/assert-booking-customer-access";
 import { getAppointmentEventAndIsPaymentRequired } from "@/utils/appointments/get-payment-required";
 import { getLoggerFactory } from "@hacado/logger";
+import { IPaymentProcessor } from "@hacado/types/apps";
 import {
   AppointmentRequest,
   CollectPayment,
   createOrUpdatePaymentIntentRequestSchema,
   getIntentBaseAmount,
-  IPaymentProcessor,
-  isBookingTipsVisible,
   ModifyAppointmentRequest,
   PaymentIntentUpdateModel,
   PaymentType,
+} from "@hacado/types/booking";
+import {
+  isBookingTipsVisible,
   resolveBookingTips,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import { NextRequest, NextResponse } from "next/server";
 import { getModifyAppointmentInformationRequestResult } from "../appointments/get-modify-appointment-request";
 import {

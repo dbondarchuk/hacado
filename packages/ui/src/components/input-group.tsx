@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 import React from "react";
 import { cn } from "../utils";
+import { invalidGroupedClass } from "./invalid-field";
 
 export const InputGroupAddonClasses = cva(
   [
@@ -81,16 +82,19 @@ export const InputGroupInput: React.FC<ChildrenWithClassName> = ({
   );
 };
 
-export const InputGroup: React.FC<ChildrenWithClassName> = ({
+export const InputGroup = ({
   children,
   className,
-}) => {
+  ...props
+}: React.ComponentProps<"div">) => {
   return (
     <div
       className={cn(
         "rounded-md relative flex focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+        invalidGroupedClass,
         className,
       )}
+      {...props}
     >
       {children}
     </div>

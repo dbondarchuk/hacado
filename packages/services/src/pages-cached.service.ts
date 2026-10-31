@@ -1,10 +1,6 @@
-import {
-  IEventService,
-  IOrganizationService,
-  Page,
-  PageUpdateModel,
-  type EventSource,
-} from "@hacado/types";
+import type { EventSource } from "@hacado/types/events";
+import { Page, PageUpdateModel } from "@hacado/types/pages";
+import { IEventService, IOrganizationService } from "@hacado/types/services";
 import type { Redis } from "ioredis";
 import { PageRouteEntry, PagesService } from "./pages.service";
 

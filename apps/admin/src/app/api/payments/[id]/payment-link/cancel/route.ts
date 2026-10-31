@@ -1,8 +1,9 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getLoggerFactory } from "@hacado/logger";
-import { IPaymentLinkProvider, PaymentLinkPayment } from "@hacado/types";
-import { hasPermission } from "@hacado/utils";
+import { IPaymentLinkProvider } from "@hacado/types/apps";
+import { PaymentLinkPayment } from "@hacado/types/booking";
+import { hasPermission } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

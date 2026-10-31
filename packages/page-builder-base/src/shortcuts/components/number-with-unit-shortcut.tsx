@@ -1,4 +1,5 @@
-import { BuilderKeys } from "@hacado/i18n";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+
 import { RawNumberInputWithUnit } from "../../style-inputs/base/raw-number-input-with-units";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";

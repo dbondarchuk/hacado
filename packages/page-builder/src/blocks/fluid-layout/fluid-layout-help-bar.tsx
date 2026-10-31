@@ -1,8 +1,8 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
+import { usePortalContext } from "@hacado/builder/portal";
 import { useI18n } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { useMemo } from "react";
 import { createPortal } from "react-dom";
 import type { FluidPlacementTier } from "./responsive";

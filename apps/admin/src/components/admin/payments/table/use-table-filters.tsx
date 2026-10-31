@@ -1,6 +1,6 @@
 "use client";
 
-import { paymentsSearchParams } from "@hacado/api-sdk";
+import { paymentsSearchParams } from "@hacado/api-sdk/admin/search-params/payments";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

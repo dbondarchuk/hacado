@@ -1,7 +1,7 @@
 import type { SlateElementProps } from "@udecode/plate";
 import type { TColumnElement } from "@udecode/plate-layout";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SlateElement } from "@udecode/plate";
 
 export function ColumnElementStatic({

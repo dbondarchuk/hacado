@@ -1,7 +1,12 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { Checkbox, Link, useTimeZone } from "@hacado/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+import {
+  tableSortHeader,
+  tableSortNoopFunction,
+} from "@hacado/ui-admin/data-table";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Lock } from "lucide-react";
 import { DateTime } from "luxon";

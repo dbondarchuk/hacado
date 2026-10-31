@@ -1,9 +1,9 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
-import { discountsSearchParamsLoader } from "@hacado/api-sdk";
+import { discountsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/discounts";
 import { getLoggerFactory } from "@hacado/logger";
-import { discountSchema } from "@hacado/types";
+import { discountSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
   const end = params.end ?? undefined;
   const type = params.type;
 
-  const res = await servicesContainer.servicesService.getDiscounts({
+  const res = await servicesContainer.catalogService.getDiscounts({
     offset,
     limit,
     search,
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
   }
 
   logger.debug({ discount: data }, "Creating discount");
-  const discount = await servicesContainer.servicesService.createDiscount(
+  const discount = await servicesContainer.catalogService.createDiscount(
     data,
     actor,
   );

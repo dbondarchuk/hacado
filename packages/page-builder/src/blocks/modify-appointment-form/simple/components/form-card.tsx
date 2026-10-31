@@ -7,22 +7,20 @@ import { DateTime as LuxonDateTime } from "luxon";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  Combobox,
-  DateTimePicker,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  IComboboxItem,
-  use12HourFormat,
-  usePrevious,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { use12HourFormat, usePrevious } from "@hacado/ui/hooks";
+import { DateTimePicker } from "@hacado/ui/time-picker";
 
 import { useI18n } from "@hacado/i18n/client";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { getTimeZones } from "@vvo/tzdb";
 import { ModifyAppointmentFields } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";

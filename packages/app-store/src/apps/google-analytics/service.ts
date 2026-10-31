@@ -6,7 +6,6 @@ import {
   ConnectedAppError,
   ConnectedAppRequestError,
   ConnectedAppResponse,
-  EventEnvelope,
   IConnectedAppProps,
   IEventSubscriber,
   INeedsAttentionApp,
@@ -15,13 +14,13 @@ import {
   IScriptProvider,
   LayoutScriptProviderContext,
   NeedsAttentionItem,
-  okStatus,
-  OrganizationMember,
   ScriptContribution,
-  SessionUser,
-} from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+} from "@hacado/types/apps";
+import { EventEnvelope } from "@hacado/types/events";
+import { okStatus } from "@hacado/types/general";
+import { OrganizationMember, SessionUser } from "@hacado/types/users";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import {
   GA4_USER_DATA_COLLECTION_ACKNOWLEDGEMENT,
   GOOGLE_ANALYTICS_APP_NAME,

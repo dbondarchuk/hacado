@@ -145,9 +145,12 @@ export const getDiscountSchemaWithUniqueCheck = (
   codeMessage: string,
 ) => {
   return discountSchema.superRefine(async (arg, ctx) => {
+    const codes = arg.codes?.filter(Boolean) ?? [];
+    if (!arg.name && codes.length === 0) return;
+
     const isUnique = await uniqueNameAndCodeCheckFn(arg.name, arg.codes);
 
-    if (!isUnique.name) {
+    if (arg.name && !isUnique.name) {
       ctx.addIssue({
         code: "custom",
         path: ["name"],

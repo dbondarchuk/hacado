@@ -2,7 +2,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { forwardRef } from "react";
 import { ImageLightbox } from "./image-lightbox";
 import { ImageReaderProps } from "./schema";

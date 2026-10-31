@@ -1,25 +1,25 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-  Spinner,
-  toast,
-  useDebounceCacheFn,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -85,7 +85,7 @@ export const FormBlockComponent = ({
           return false;
         }
 
-        const res = await clientApi.apps.callAppApi<
+        const res = await appsApi.callAppApi<
           | {
               customerFound: boolean;
             }
@@ -218,7 +218,7 @@ export const FormBlockComponent = ({
     formData.append("json", JSON.stringify(data));
 
     try {
-      const res = await clientApi.apps.callAppApi<{
+      const res = await appsApi.callAppApi<{
         success: boolean;
         error?: string;
         message?: string;

@@ -1,7 +1,8 @@
 import { getServicesContainer } from "@/app/utils";
 import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
 import { getLoggerFactory } from "@hacado/logger";
-import { ConnectedAppUpdateModel, okStatus } from "@hacado/types";
+import { ConnectedAppUpdateModel } from "@hacado/types/apps";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -1,4 +1,4 @@
-import { zNonEmptyString, zUniqueArray } from "@hacado/types";
+import { zNonEmptyString, zUniqueArray } from "@hacado/types/utils";
 import * as z from "zod";
 import { UrlBusyEventsAdminAllKeys } from "./translations/types";
 import { isValidUrlWithPlaceholders } from "./url-placeholders";

@@ -4,12 +4,14 @@ import {
   GIFT_CARD_STUDIO_APP_NAME,
   WAITLIST_APP_NAME,
 } from "@hacado/app-store";
-import { generateId, type LayoutTemplateService } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
+import { type LayoutTemplateService } from "@hacado/builder/types";
 import type { Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   getPackLayoutBlocks,
+  legalDocumentBlocks,
   packUsesOverlayHeader,
   suggestWebsitePackId,
   WEBSITE_PACK_IDS,
@@ -17,17 +19,16 @@ import {
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
-import {
-  flattenCatalogOptionIds,
-  IServicesContainer,
-  systemEventSource,
-} from "@hacado/types";
+import { flattenCatalogServiceIds } from "@hacado/types/configuration/booking";
+import { systemEventSource } from "@hacado/types/events";
+import { IServicesContainer } from "@hacado/types/services";
 import { bookDefaultPage } from "../defaults/book";
 import { footerDefaultPage } from "../defaults/footer";
 import { giftCardsDefaultPage } from "../defaults/gift-cards";
 import { homeDefaultPage, TemplateServiceArg } from "../defaults/home";
 import { modifyDefaultPage } from "../defaults/modify";
 import { serviceDefaultPage } from "../defaults/service";
+import { smsLegalCopy } from "../defaults/sms-legal-copy";
 
 type CompleteInstallPagesInput = {
   services: IServicesContainer;
@@ -270,6 +271,8 @@ async function getInstallPageDefaultsLabels(language: Language) {
         "wizard.finish.pageDefaults.footer.cancelOrRescheduleLabel",
       ),
       policiesLabel: t("wizard.finish.pageDefaults.footer.policiesLabel"),
+      privacyLabel: t("wizard.finish.pageDefaults.footer.privacyLabel"),
+      termsLabel: t("wizard.finish.pageDefaults.footer.termsLabel"),
     },
     homeLabels: {
       title: t("wizard.finish.pageDefaults.home.title"),
@@ -302,11 +305,11 @@ async function getTemplateServices(
   logger.debug("Building template services payload");
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const optionIds = flattenCatalogOptionIds(booking?.catalog);
+  const optionIds = flattenCatalogServiceIds(booking?.catalog);
 
   const output: TemplateServiceArg[] = [];
   for (const optionId of optionIds) {
-    const option = await services.servicesService.getOption(optionId);
+    const option = await services.catalogService.getService(optionId);
     if (!option) continue;
 
     const descriptionMarkdown =
@@ -386,7 +389,7 @@ async function upsertPackPage(
     content: unknown;
     published?: boolean;
   },
-): Promise<void> {
+): Promise<string> {
   const pagesService = services.pagesService;
   const existing = await pagesService.getPageBySlug(args.slug);
   const pageData = {
@@ -402,9 +405,23 @@ async function upsertPackPage(
   };
   if (existing) {
     await pagesService.updatePage(existing._id, pageData, systemEventSource);
-    return;
+    return existing._id;
   }
-  await pagesService.createPage(pageData, systemEventSource);
+
+  const created = await pagesService.createPage(pageData, systemEventSource);
+  return created._id;
+}
+
+async function enableInstallSms(
+  services: IServicesContainer,
+  privacyPageId: string,
+  termsPageId: string,
+) {
+  await services.configurationService.setConfiguration(
+    "textMessaging",
+    { enabled: true, privacyPageId, termsPageId },
+    systemEventSource,
+  );
 }
 
 async function upsertDefaultFooter(
@@ -845,17 +862,41 @@ export async function createInstallDefaultPages(
     ),
   });
 
-  await upsertPackPage(input.services, {
-    slug: "terms",
-    title: "Terms",
-    description: `${input.businessName} terms`,
-    keywords: `${input.businessName}, terms, policies`,
+  const legalDate = new Intl.DateTimeFormat(input.language, {
+    dateStyle: "long",
+  }).format(new Date());
+  const installT = await getI18nAsync({
+    locale: input.language,
+    namespace: "install",
+  });
+  const privacy = smsLegalCopy(
+    installT,
+    input.businessName,
+    legalDate,
+    "privacy",
+  );
+  const terms = smsLegalCopy(installT, input.businessName, legalDate, "terms");
+
+  const privacyPageId = await upsertPackPage(input.services, {
+    slug: "privacy",
+    title: privacy.title,
+    description: `${input.businessName} privacy policy`,
+    keywords: `${input.businessName}, privacy, sms`,
     headerId,
     footerId,
-    content: pageContentFromBlocks(
-      getPackLayoutBlocks(packId, "terms", t, layoutCtx),
-    ),
+    content: pageContentFromBlocks(legalDocumentBlocks(privacy)),
   });
+
+  const termsPageId = await upsertPackPage(input.services, {
+    slug: "terms",
+    title: terms.title,
+    description: `${input.businessName} terms`,
+    keywords: `${input.businessName}, terms, sms`,
+    headerId,
+    footerId,
+    content: pageContentFromBlocks(legalDocumentBlocks(terms)),
+  });
+  await enableInstallSms(input.services, privacyPageId, termsPageId);
 
   await upsertDefaultGiftCardsPage(input.services, {
     businessName: input.businessName,

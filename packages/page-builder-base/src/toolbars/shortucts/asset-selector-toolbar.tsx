@@ -1,7 +1,7 @@
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { UploadedFile } from "@hacado/types";
-import { ToolbarButton } from "@hacado/ui";
-import { AssetSelectorDialog } from "@hacado/ui-admin";
+import { UploadedFile } from "@hacado/types/assets";
+import { AssetSelectorDialog } from "@hacado/ui-admin/assets-selector-dialog";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import React from "react";
 import { ShortcutWithAssetSelector } from "../../shortcuts";
 import { BaseStyleDictionary } from "../../style/types";

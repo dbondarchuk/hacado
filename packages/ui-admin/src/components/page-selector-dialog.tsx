@@ -1,20 +1,17 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import { useI18n } from "@hacado/i18n/client";
-import { PageListModelWithUrl } from "@hacado/types";
-import {
-  Button,
-  cn,
-  Input,
-  Modal,
-  RadioGroup,
-  RadioGroupItem,
-  ScrollArea,
-  Skeleton,
-  toast,
-  useDebounce,
-} from "@hacado/ui";
+import { PageListModelWithUrl } from "@hacado/types/pages";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { Modal } from "@hacado/ui/modal";
+import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -83,7 +80,7 @@ export const PageSelectorDialog: React.FC<PageSelectorDialogProps> = ({
   }, [debouncedSearch]);
 
   const loadPages = React.useCallback(async (page: number, search?: string) => {
-    const result = await adminApi.pages.getPages({
+    const result = await pagesApi.getPages({
       page,
       limit: toLoad,
       search,

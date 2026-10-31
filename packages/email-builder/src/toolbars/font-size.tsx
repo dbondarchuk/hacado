@@ -1,6 +1,7 @@
-import { ConfigurationProps, NumberInputToolbarMenu } from "@hacado/builder";
+import { NumberInputToolbarMenu } from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 
 const fontSizes = [8, 9, 10, 12, 14, 16, 18, 24, 30, 36, 48];
 

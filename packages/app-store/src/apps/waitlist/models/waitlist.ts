@@ -1,19 +1,20 @@
 import {
   AppointmentEventAddon,
-  AppointmentEventOption,
+  AppointmentEventService,
+} from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
+import { WithDatabaseId, WithOrganizationId } from "@hacado/types/database";
+import { WithEmail } from "@hacado/types/general";
+import { OrganizationMember } from "@hacado/types/users";
+import {
   asOptionalField,
-  Customer,
-  OrganizationMember,
   Prettify,
-  WithDatabaseId,
-  WithEmail,
-  WithOrganizationId,
   zEmail,
   zNonEmptyString,
   zObjectId,
   zPhone,
   zUniqueArray,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { WaitlistPublicAllKeys } from "../translations/types";
 
@@ -47,6 +48,7 @@ export const waitlistRequestFormSchemaBase = z.object({
     "app_waitlist_public.block.name.max" satisfies WaitlistPublicAllKeys,
   ),
   phone: zPhone,
+  smsConsent: z.boolean().optional(),
   note: asOptionalField(
     z
       .string()
@@ -100,7 +102,7 @@ export type WaitlistRequestForm = Prettify<
 
 export const waitlistRequestSchema = waitlistRequestFormSchema.and(
   z.object({
-    optionId: zObjectId("appointments.request.optionId.required"),
+    optionId: zObjectId("appointments.request.serviceId.required"),
     memberId: zObjectId("appointments.request.memberId.required"),
     addonsIds: zUniqueArray(
       z.array(zObjectId("appointments.request.addonsIds.required")),
@@ -137,7 +139,7 @@ export type WaitlistEntry = Prettify<
   WaitlistEntryEntity & {
     customer: Customer;
     member: WithEmail<OrganizationMember>;
-    option: AppointmentEventOption;
+    service: AppointmentEventService;
     addons?: AppointmentEventAddon[];
   }
 >;

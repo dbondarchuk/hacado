@@ -1,4 +1,4 @@
-import type { StylingConfiguration } from "@hacado/types";
+import type { StylingConfiguration } from "@hacado/types/configuration/styling";
 import type { WebsitePackId } from "./types";
 
 /** Suggested brand tokens from Series A–D HTML mockups. */

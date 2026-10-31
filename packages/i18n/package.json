@@ -20,6 +20,7 @@
     ".": "./src/index.ts",
     "./client": "./src/client.tsx",
     "./server": "./src/server.ts",
+    "./keys": "./src/types-keys.ts",
     "./request": "./src/request.ts",
     "./components": "./src/components.tsx"
   },

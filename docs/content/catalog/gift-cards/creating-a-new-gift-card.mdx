@@ -1,0 +1,87 @@
+---
+description: Create a gift card with code, amount, expiry, customer, and in-person or payment-link payment.
+---
+
+# Creating a new gift card
+
+<PlanRequirement plan="Solo" />
+
+Issue a gift card when a client buys prepaid credit they can spend on bookings. You record payment in person (**Cash** or **Card**) or send a **Payment link** so they pay online. After save, the code is fixed; you cannot change it later.
+
+## Before you start
+
+- Know the **Amount** and whether the card should expire.
+- Have the **Customer** in your client list.
+- For a **Payment link**, install a payment app under **Apps** (for example Stripe, Square, or PayPal). **Payment link** only appears in the payment method list when at least one such app can send a link.
+
+## Create the gift card
+
+1. Open **Appointments → Catalog → Gift cards**.
+2. Click **Add New**.
+
+The **New gift card** form opens.
+
+![New gift card form](/img/catalog/gift-cards/create-form.png)
+
+## Gift card code
+
+1. Keep the generated **Code**, or click the dice / regenerate control for another unique code.
+2. Optionally copy the code with the copy control so you can send it outside Hacado.
+
+Rules:
+
+- Required, unique in the workspace.
+- Length is limited (typically a short segmented code such as `27D-51C-BJJ`).
+- You **cannot** edit the code after the gift card is saved.
+
+## Amount and expiry
+
+1. Enter **Amount** - the prepaid balance the customer can spend (currency). Must be greater than zero.
+2. Optionally set **Expires at**. Leave empty for no expiry. After that date the card cannot be used for new payments even if balance remains.
+
+Example: **$100** with expiry **31 Dec 2027** → client can redeem until that datetime, up to $100 of bookings.
+
+## Customer and payment
+
+1. Pick the **Customer** who bought the card. Required. Credits and history stay tied to that customer.
+2. Choose **Payment method**:
+
+![Payment method Cash or Card](/img/catalog/gift-cards/payment-method.png)
+
+| Method | When to use | What happens on Save |
+| --- | --- | --- |
+| **Cash** | Paid in person with cash | Gift card is created and treated as paid. |
+| **Card** | Paid in person by card (terminal / offline) | Same as cash: created as paid in Catalog. |
+| **Payment link** | Customer will pay online | Appears only when a payment-link app is available. Card stays pending until the link is paid (or cancelled). |
+
+### Payment link
+
+![Payment link options](/img/catalog/gift-cards/payment-link.png)
+
+1. Choose **Payment link** as the payment method.
+2. If more than one payment app is installed, pick the **App**.
+3. Set **Send via**:
+   - **Email** - send the link to a customer email destination.
+   - **SMS** - send by text (requires SMS setup and consent when Hacado asks).
+   - **Copy link** - Hacado copies the URL after create so you can paste it yourself.
+4. For **Email** or **SMS**, pick the **Destination** from the customer’s known contacts.
+5. Click **Save**.
+
+### In-person payment
+
+1. Choose **Cash** or **Card**.
+2. Click **Save**.
+
+Hacado records the in-store payment and creates the gift card immediately.
+
+## Save
+
+1. Click **Save**.
+
+Hacado opens the gift card (or confirms create). For **Copy link**, copy the URL from the confirmation when shown.
+
+### Good to know
+
+- Configure a default payment app under **Apps → Default apps** if create fails with a payment-app error.
+- Activating or deactivating later is covered in [Activating and deactivating](./activating-and-deactivating).
+- Delete rules (when delete is blocked) are in [Deleting a gift card](./deleting-a-gift-card).

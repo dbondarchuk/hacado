@@ -1,4 +1,4 @@
-import { BookingStep } from "@hacado/types";
+import { BookingStep } from "@hacado/types/booking";
 
 // Constants
 export const BOOKING_TRACKING_APP_ID = "booking-tracking";

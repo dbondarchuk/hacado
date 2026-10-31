@@ -1,4 +1,5 @@
-import type { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { PACK_MEDIA } from "./media";
 import { PACK_THEMES } from "./theme";
 import type { WebsitePackDefinition, WebsitePackId } from "./types";

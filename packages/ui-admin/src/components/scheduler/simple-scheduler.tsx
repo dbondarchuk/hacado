@@ -1,20 +1,20 @@
 "use client";
 
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { AvailablePeriod, ScheduleDaySource } from "@hacado/types";
+import { AvailablePeriod } from "@hacado/types/booking";
+import { ScheduleDaySource } from "@hacado/types/configuration/schedule";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  SimpleTimePicker,
-  use12HourFormat,
-} from "@hacado/ui";
-import { parseTime } from "@hacado/utils";
+} from "@hacado/ui/accordion";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent } from "@hacado/ui/card";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { SimpleTimePicker } from "@hacado/ui/time-picker";
+import { parseTime } from "@hacado/utils/time";
 import { Clock, Plus, X } from "lucide-react";
 import { DateTime } from "luxon";
 import React, { useMemo, useState } from "react";

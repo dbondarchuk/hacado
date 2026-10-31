@@ -1,14 +1,14 @@
 import type { AppSession } from "@/app/utils";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import type { AllKeys } from "@hacado/i18n";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import {
   canManageSyncedPayments,
   canManageTeam,
   canReadActivity,
   canViewFinancials,
   hasPermission,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
 import {
   Activity,
   BookUser,
@@ -110,7 +110,7 @@ export const CORE_QUICK_LINKS: CoreQuickLinkDefinition[] = [
   {
     id: "services",
     order: 70,
-    href: "/dashboard/services/options",
+    href: "/dashboard/catalog/services",
     labelKey: "admin.navigation.services",
     icon: <HandPlatter {...iconProps} />,
     predicate: ({ user }) => hasPermission(user, "service", "read"),

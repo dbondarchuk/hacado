@@ -1,18 +1,18 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { zPhone } from "@hacado/types";
+import { zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  PhoneInput,
-  Spinner,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -49,7 +49,9 @@ export function CompleteProfilePhoneStep({
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("auth.signUp.phone")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("auth.signUp.phone")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <PhoneInput
                   label={t("auth.signUp.phone")}

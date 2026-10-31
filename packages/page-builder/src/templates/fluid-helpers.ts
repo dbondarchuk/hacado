@@ -1,5 +1,7 @@
-import { generateId, TEditorBlock } from "@hacado/builder";
-import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+import { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
+import type { I18nFn } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { ButtonPropsDefaults } from "../blocks/button";
 import {
   FLUID_COLUMNS,

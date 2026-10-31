@@ -1,4 +1,6 @@
-import { cn, Slider, Text } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Slider } from "@hacado/ui/slider";
+import { Text } from "@hacado/ui/text";
 import React, { JSX } from "react";
 
 type SliderInputProps = {

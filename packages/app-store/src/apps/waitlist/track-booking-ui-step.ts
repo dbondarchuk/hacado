@@ -1,5 +1,5 @@
-import { clientApi } from "@hacado/api-sdk";
-import type { BookingTrackingMetadata } from "@hacado/types";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import type { BookingTrackingMetadata } from "@hacado/types/booking";
 
 /** Waitlist wizard screens that core booking tracking does not know about. */
 const WAITLIST_UI_STEP_TRACKING = {
@@ -11,11 +11,11 @@ export function trackWaitlistBookingUiStep(
   metadata?: BookingTrackingMetadata,
 ) {
   if (uiStep === "waitlist-form") {
-    void clientApi.booking.trackStep(
+    void bookingApi.trackStep(
       WAITLIST_UI_STEP_TRACKING["waitlist-form"],
       metadata,
     );
     return;
   }
-  clientApi.booking.trackAdvanceFromUiStep(uiStep, metadata);
+  bookingApi.trackAdvanceFromUiStep(uiStep, metadata);
 }

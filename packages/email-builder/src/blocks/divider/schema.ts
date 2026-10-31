@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { EMAIL_BRAND } from "../../brand";
 import {
   zColor,
   zColorNullable,
@@ -32,7 +33,7 @@ export type DividerProps = z.infer<typeof DividerPropsSchema>;
 export const DividerPropsDefaults = {
   props: {
     lineHeight: 1,
-    lineColor: "#333333",
+    lineColor: EMAIL_BRAND.ink,
   },
   style: { padding: { top: 16, right: 0, bottom: 16, left: 0 } },
 };

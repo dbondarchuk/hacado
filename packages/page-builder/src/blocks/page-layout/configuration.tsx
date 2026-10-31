@@ -1,6 +1,6 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import {
   backgroundColorStyle,
@@ -8,7 +8,9 @@ import {
   colorStyle,
   fontFamilyStyle,
 } from "@hacado/page-builder-base/style";
-import { Checkbox, deepMemo, Label } from "@hacado/ui";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback } from "react";
 import { PageLayoutDefaultProps, PageLayoutProps } from "./schema";
 

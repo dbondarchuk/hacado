@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarGroup } from "@hacado/ui";
+import { ToolbarGroup } from "@hacado/ui/toolbar";
 import { useCallback, useMemo } from "react";
 import {
   useBlock,

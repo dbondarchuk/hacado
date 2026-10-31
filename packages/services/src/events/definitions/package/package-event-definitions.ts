@@ -1,4 +1,18 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  AppointmentPackageCreatedPayload,
+  AppointmentPackageDeletedPayload,
+  AppointmentPackageUpdatedPayload,
+  CustomerPackageAdjustedPayload,
+  CustomerPackageCancelledPayload,
+  CustomerPackageExhaustedPayload,
+  CustomerPackageExpiredPayload,
+  CustomerPackageIssuedPayload,
+  CustomerPackageRedeemedPayload,
+  CustomerPackageRestoredPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
   APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
@@ -10,18 +24,7 @@ import {
   CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
   CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
   CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
-  type AppointmentPackageCreatedPayload,
-  type AppointmentPackageDeletedPayload,
-  type AppointmentPackageUpdatedPayload,
-  type CustomerPackageAdjustedPayload,
-  type CustomerPackageCancelledPayload,
-  type CustomerPackageExhaustedPayload,
-  type CustomerPackageExpiredPayload,
-  type CustomerPackageIssuedPayload,
-  type CustomerPackageRedeemedPayload,
-  type CustomerPackageRestoredPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 import { buildCustomerPackagePurchasedOwnerEmails } from "./package-purchased-owner-email";
@@ -123,15 +126,15 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         toast: {
           type: "info",
           title: {
-            key: "admin.services.packages.notifications.issued.title" satisfies BaseAllKeys,
+            key: "admin.catalog.packages.notifications.issued.title" satisfies BaseAllKeys,
           },
           message: {
-            key: "admin.services.packages.notifications.issued.message" satisfies BaseAllKeys,
+            key: "admin.catalog.packages.notifications.issued.message" satisfies BaseAllKeys,
             args: { name: customerPackage.name },
           },
           action: {
             label: {
-              key: "admin.services.packages.notifications.issued.action" satisfies BaseAllKeys,
+              key: "admin.catalog.packages.notifications.issued.action" satisfies BaseAllKeys,
             },
             href: dashboardUrls.customer(customerPackage.customerId),
           },

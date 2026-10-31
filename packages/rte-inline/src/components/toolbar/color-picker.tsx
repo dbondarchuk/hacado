@@ -1,18 +1,17 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
-import { colors } from "@hacado/types";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+import { colors } from "@hacado/types/configuration/styling";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import {
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ToolbarButton,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { Sketch } from "@uiw/react-color";
 import { Plus, X } from "lucide-react";
 import { useCallback, useState } from "react";

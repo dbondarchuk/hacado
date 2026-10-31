@@ -1,6 +1,6 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
-import { asOptinalNumberField, asOptionalField } from "@hacado/types";
+import { asOptinalNumberField, asOptionalField } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const styles = ALL_STYLES;

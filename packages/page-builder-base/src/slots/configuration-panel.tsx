@@ -1,7 +1,8 @@
 "use client";
 
-import type { BaseBlockProps, SelectedSlotRef } from "@hacado/builder";
-import { useSelectedSlotStyleHandlers } from "@hacado/builder";
+import type { SelectedSlotRef } from "@hacado/builder/reader";
+import { useSelectedSlotStyleHandlers } from "@hacado/builder/slot-styles";
+import type { BaseBlockProps } from "@hacado/builder/types";
 import type { ReactNode } from "react";
 import { StylesConfigurationPanel } from "../configuration-panel/styles-configuration-panel";
 import type { Shortcut } from "../shortcuts/types";

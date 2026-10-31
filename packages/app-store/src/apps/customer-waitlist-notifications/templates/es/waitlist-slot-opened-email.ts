@@ -4,13 +4,13 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "waitlist-slot-opened-email",
     name: "Correo electrónico con espacio en lista de espera abierto",
-    subject: "Un tiempo abierto para {{waitlistEntry.option.name}}",
+    subject: "Un tiempo abierto para {{waitlistEntry.service.name}}",
     content: [
       {
         type: "title",
@@ -22,7 +22,7 @@ export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
 
 Hay disponible un horario que coincide con su solicitud de lista de espera{{#isMorning}} por la mañana{{/isMorning}}{{#isAfternoon}} por la tarde{{/isAfternoon}}{{#isEvening}} por la noche{{/isEvening}}:
 
-Servicio: {{waitlistEntry.option.name}}
+Servicio: {{waitlistEntry.service.name}}
 Especialista: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}
 Cuándo: {{slotDateTime.full}}{{#hasOtherTimes}} (y otras veces también){{/hasOtherTimes}}
 

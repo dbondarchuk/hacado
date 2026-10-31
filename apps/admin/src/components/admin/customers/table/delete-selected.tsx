@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerListModel } from "@hacado/types";
+import { CustomerListModel } from "@hacado/types/customers";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,10 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -33,7 +33,7 @@ export const DeleteSelectedCustomersButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.customers.deleteCustomers(selected.map((page) => page._id)),
+        customersApi.deleteCustomers(selected.map((page) => page._id)),
         {
           success: t("customers.table.delete.success"),
           error: t("customers.table.delete.error"),

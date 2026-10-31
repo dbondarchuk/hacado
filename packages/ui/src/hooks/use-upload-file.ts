@@ -1,8 +1,8 @@
+import { UploadedFile } from "@hacado/types/assets";
 import {
   AssetTotalSizeLimitReachedError,
   FREE_TIER_LIMITS,
-  UploadedFile,
-} from "@hacado/types";
+} from "@hacado/types/billing";
 import React from "react";
 
 import { toast } from "sonner";

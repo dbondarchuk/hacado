@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { GOOGLE_CALENDAR_APP_NAME } from "./const";
 import { GoogleCalendarLogo } from "./logo";
 import {

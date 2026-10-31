@@ -1,18 +1,14 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
-import {
-  ComboboxAsync,
-  deepMemo,
-  IComboboxItem,
-  Icon,
-  iconNames,
-  Label,
-  type IconName,
-} from "@hacado/ui";
-import { capitalize } from "@hacado/utils";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Icon, iconNames, type IconName } from "@hacado/ui/icon";
+import { Label } from "@hacado/ui/label";
+import { deepMemo } from "@hacado/ui/utils";
+import { capitalize } from "@hacado/utils/string";
 import { useCallback } from "react";
 import { IconProps, IconPropsDefaults } from "./schema";
 import { iconShortcuts } from "./shortcuts";

@@ -1,7 +1,12 @@
 "use client";
 
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
-import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { availabilityApi } from "@hacado/api-sdk/client/availability";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { giftCardsApi } from "@hacado/api-sdk/client/gift-cards";
+import { paymentsApi } from "@hacado/api-sdk/client/payments";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
+import { useI18n } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import type {
   ApplyGiftCardsSuccessResponse,
   Availability,
@@ -12,8 +17,11 @@ import type {
   ModifyAppointmentReason,
   ModifyAppointmentRequest,
   ModifyAppointmentType,
-} from "@hacado/types";
-import { AutoSkeleton, Button, cn, toast } from "@hacado/ui";
+} from "@hacado/types/booking";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { toast } from "@hacado/ui/sonner";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";
 import {
@@ -123,7 +131,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
     if (!appt || !appt.allowed || !appt.duration || !appt.memberId) return;
     setIsLoading(true);
     try {
-      const data = await clientApi.availability.getAvailability({
+      const data = await availabilityApi.getAvailability({
         memberIds: [appt.memberId],
         durations: [appt.duration],
       });
@@ -191,7 +199,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
     codes: string[],
     amount: number,
   ): Promise<ApplyGiftCardsSuccessResponse["giftCards"] | undefined> => {
-    const data = await clientApi.giftCards.applyGiftCards({ codes, amount });
+    const data = await giftCardsApi.applyGiftCards({ codes, amount });
     if (data.success) {
       setGiftCards(data.giftCards);
       return data.giftCards;
@@ -227,8 +235,8 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
 
       setIsLoading(true);
       const response = await (intentId
-        ? clientApi.payments.updatePaymentIntent(intentId, body)
-        : clientApi.payments.createPaymentIntent(body));
+        ? paymentsApi.updatePaymentIntent(intentId, body)
+        : paymentsApi.createPaymentIntent(body));
 
       return response;
     } catch (e) {
@@ -246,7 +254,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
 
     setIsLoading(true);
     try {
-      await clientApi.booking.modifyAppointment(appointment.id, {
+      await bookingApi.modifyAppointment(appointment.id, {
         type: action,
         dateTime: newDateTime?.toUTC().toJSDate() as Date,
         paymentIntentId: paymentIntentId ?? paymentInformation?.intent?._id,

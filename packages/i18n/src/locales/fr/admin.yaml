@@ -88,6 +88,19 @@ common:
     leave: Partir
   pricePerHour: "{price}/heure"
 platformEvents:
+  smsVerification:
+    created:
+      title: Messages personnalisés envoyés
+      description: La vérification a été envoyée pour révision.
+    pending:
+      title: Messages personnalisés en révision
+      description: La vérification est en attente.
+    failed:
+      title: Les messages personnalisés n'ont pas été approuvés
+      description: "{reason}"
+    succeeded:
+      title: Messages personnalisés vérifiés
+      description: Les textos utilisent {phoneNumber}.
   customer:
     created:
       title: Nouveau client
@@ -218,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# add-on} other {# add-ons}}"
   appointmentOption:
     created:
-      title: Option de service créée
+      title: Service créé
       description: "{name}"
     updated:
-      title: Option de service mise à jour
+      title: Service mis à jour
       description: "{name}"
     deleted:
-      title: Options de service supprimées
-      description: "{count, plural, =1 {# option} other {# options}}"
+      title: Services supprimés
+      description: "{count, plural, =1 {# service} other {# services}}"
   discount:
     created:
       title: Remise créée
@@ -383,6 +396,30 @@ billing:
       title: Recharge SMS terminée
       message: Ajout de {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Ils sont utilisés après votre pool d'abonnement inclus.
       action: Ouvrir les paramètres de facturation
+commandPalette:
+  placeholder: Rechercher
+  typeHint: "Cherchez un seul type avec un préfixe, comme customer: ou blog:."
+  empty: Aucun résultat
+  loading: Recherche…
+  viewAll: Tout voir {label}
+  groups:
+    actions: Actions rapides
+    apps: Apps
+    installedApps: Apps installées
+  actions:
+    newAppointment: Nouveau rendez-vous
+    newCustomer: Nouveau client
+    newPage: Nouvelle page
+    newHeader: Nouvel en-tête
+    newFooter: Nouveau pied de page
+    newTemplate: Nouveau modèle d'e-mail
+    newOption: Nouveau service
+    newAddon: Nouveau supplément
+    newField: Nouveau champ
+    newDiscount: Nouvelle réduction
+    newGiftCard: Nouvelle carte-cadeau
+    newPackage: Nouveau forfait
+    newAsset: Nouveau fichier
 navigation:
   overview: Aperçu
   dashboard: Tableau de bord
@@ -393,12 +430,14 @@ navigation:
   paymentsInbox: Boîte de réception des paiements
   financialOverview: Aperçu
   customerAccess: Accès client
+  textMessaging: Messages texte
   schedule: Calendrier
   defaultSchedule: Calendrier par défaut
+  catalog: Catalogue
   services: Services
   fields: Champs
   addons: Modules complémentaires
-  options: Possibilités
+  options: Services
   discounts: Réductions
   giftCards: Cartes cadeaux
   packages: Forfaits
@@ -415,6 +454,17 @@ navigation:
   header: En-tête
   footer: Pied de page
   settings: Paramètres
+  descriptions:
+    templates: Modèles de courriel et de texto pour les messages aux clients.
+    store: Parcourez les applications que vous pouvez installer.
+    defaultApps: Choisissez les applications par défaut pour les paiements, les courriels et les textos.
+    fields: Questions posées lors de la réservation d'un service.
+    addons: Extras facultatifs que les clients peuvent ajouter à une réservation.
+    services: Services réservables, avec durée et prix.
+    discounts: Codes promo et réductions de prix.
+    giftCards: Cartes cadeaux que les clients peuvent acheter et utiliser.
+    packages: Forfaits de visites prépayés.
+    soldPackages: Forfaits achetés par les clients.
   general: Général
   brand: Marque
   social: Sociale
@@ -843,7 +893,7 @@ appointments:
     columns:
       status: Statut
       statusAriaLabel: "Statut : {status}"
-      option: Option
+      option: Service
       customer: Client
       member: Membre de l'équipe
       dateTime: Date et heure
@@ -853,9 +903,9 @@ appointments:
       package: Emballer
       packageRestored: restauré
       price: Prix
-      optionName: Nom de l'option
-      optionPrice: Prix ​​des options
-      optionDuration: Durée des options
+      optionName: Nom du service
+      optionPrice: Prix du service
+      optionDuration: Durée du service
       selectedAddons: Modules complémentaires sélectionnés
       note: Note
       customerName: Nom
@@ -930,7 +980,10 @@ appointments:
     refundError: Une ou plusieurs demandes de remboursement ont échoué.
     giftCardCode: Code de la carte cadeau
     paymentDescription: Description
+    refundPayment: Rembourser ce paiement
+    refundPaymentDescription: Remboursez tout ou partie de ce paiement.
     refundFees: Frais de remboursement
+    refundFeesDescription: Inclure les frais de traitement dans le remboursement.
   rescheduleDialog:
     title: Reprogrammer le rendez-vous
     by: par
@@ -1012,8 +1065,8 @@ appointments:
     yes: Oui
     no: Non
     service: Service
-    selectedOption: Option sélectionnée
-    option: Option
+    selectedOption: Service sélectionné
+    option: Service
     description: Description
     selectedAddons: Modules complémentaires sélectionnés
     meetingInformation:
@@ -1246,6 +1299,8 @@ communicationLogs:
     columns:
       direction: Direction
       channel: Canal
+      status: Statut
+      reason: Raison
       participantType: Participant
       participant: Participant
       handler: Gestionnaire
@@ -1287,6 +1342,14 @@ customers:
   addPayment: Ajouter un paiement
   files: Fichiers
   communications: Communications
+  smsConsent:
+    title: Messages texte
+    inactive: Ce client n'a pas accepté de recevoir des textos.
+    noPhone: Ajoutez un numéro de téléphone pour gérer le consentement SMS.
+    revoke: Révoquer le consentement
+    attested: Consentement enregistré
+    revoked: Consentement révoqué
+    error: Impossible de mettre à jour le consentement SMS
   deletedCustomer: Client supprimé
   form:
     customerPhoto: Photo client
@@ -1313,7 +1376,7 @@ customers:
     selectOption: Sélectionnez une option
     always: Toujours
     never: Jamais
-    inherit: Identique à l'option sélectionnée ou à la configuration générale
+    inherit: Identique au service sélectionné ou à la configuration générale
     knownNames: Noms connus
     knownNamesTooltip: Noms alternatifs fournis par les clients lors de la demande de rendez-vous
     knownEmails: E-mails connus
@@ -1326,6 +1389,19 @@ customers:
     remove: Retirer
     changePhoto: Changer de photo
     customerPhotoAlt: Photo client
+    photo: Photo
+    onlineBooking: Réservation en ligne
+    onlineBookingDescription: Si cette option est désactivée, ce client ne peut pas réserver lui-même. Vous seul pouvez ajouter des rendez-vous.
+    deposit: Acompte
+    depositDescription: Choisissez si ce client doit payer un acompte lors de la réservation.
+    customDeposit: Exigence d'acompte personnalisée
+    customDepositTooltip: Utilisez une règle d'acompte pour ce client à la place du service ou de la configuration générale.
+    notesPrivate: Vous et votre équipe seuls pouvez voir les notes.
+    alsoKnownAs: Également connu sous le nom de
+    alsoKnownAsDescription: Autres informations que ce client peut utiliser. Nous les utilisons pour associer les nouvelles demandes de rendez-vous à ce profil.
+    names: Noms
+    emails: E-mails
+    phones: Téléphones
   uploadFiles:
     title: Télécharger des fichiers
     description: Téléchargez des fichiers pour votre client
@@ -1393,6 +1469,13 @@ pages:
     pageSlug: Limace de page
     pageSlugTooltip: URL relative de la page. Par exemple, la page avec le slug « ma-nouvelle-page » sera disponible sur « votredomaine.com/my-new-page ».
     pageSlugPlaceholder: Limace de page
+    pageName: Nom de la page
+    pageNamePlaceholder: p. ex. Politiques
+    url: URL
+    editUrl: Modifier l'URL
+    slugGeneratedPlaceholder: cree-a-partir-du-nom
+    slugAutoHint: Rempli automatiquement à partir du nom. Vous pouvez le modifier.
+    slugChangeWarning: Modifier l'URL peut casser les liens que vous avez déjà partagés.
     published: Publié ?
     publishedTooltip: La page est-elle visible par vos visiteurs
     publishDate: Date de publication
@@ -1570,6 +1653,8 @@ pages:
         tooltip: Couleur du nom du logo et du texte du menu
       defaultColumn: Défaut
       onScrollColumn: Au défilement
+      mobileColumn: Mobile
+      mobileOnScrollColumn: Mobile au défilement
       onScrollSection: Sur l'apparence du défilement
       onScrollSectionDescription: Remplacements facultatifs appliqués après le défilement de la page
       mobileSection: Apparence mobile
@@ -1653,6 +1738,7 @@ services:
   fieldSelectCard:
     moveField: Déplacer le champ {type}
     field: Champ
+    fieldDescription: Sélectionnez le champ personnalisé recueilli lors de la réservation.
     required: Requis
     requiredTooltip: Champ de marquage obligatoire
     deleteConfirmTitle: Etes-vous absolument sûr ?
@@ -1672,7 +1758,252 @@ services:
   memberSelector:
     loading: Chargement des membres...
     selectMember: Sélectionner un membre
-  options:
+templates:
+  page:
+    title: Modèles de communication
+  formPage:
+    typeTemplates: "{type} modèles"
+    new: Nouveau
+  newPage:
+    title: Nouveau modèle {type}
+  editPage:
+    title: Mettre à jour le modèle
+    clone: Cloner
+  addNew:
+    emptyTemplate: Modèle vide
+    add: Ajouter
+    addNewTemplate: Ajouter un nouveau modèle
+    type: Taper
+    selectTemplateType: Sélectionnez le type de modèle
+    template: Modèle
+    close: Fermer
+  form:
+    subject: Objet de l'e-mail
+    subjectTooltip: Objet de l'e-mail qui sera utilisé pour envoyer le message
+    subjectPlaceholder: Sujet
+    name: Nom du modèle
+    nameTooltip: Nom de modèle unique
+    namePlaceholder: Nom du modèle
+    validation:
+      templateNotValid: Le modèle n'est pas valide
+    toasts:
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+  textMessageBuilder:
+    content: Contenu du message texte
+    viewContext: Afficher le contexte
+    contextValues: Valeurs contextuelles
+    copied: Copié
+    copyPath: Copier le chemin
+    close: Fermer
+    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    preview: Aperçu
+  table:
+    filters:
+      type: Taper
+      filters: Filtres
+    columns:
+      type: Taper
+      name: Nom
+      updatedAt: Mis à jour à
+    cellAction:
+      templateDeleted: Le modèle « {name} » a été supprimé.
+      deleteError: Il y a eu un problème avec votre demande.
+      actions: Actes
+      update: Mise à jour
+      delete: Supprimer
+      clone: Cloner
+    deleteSelected:
+      success: Les modèles sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {template} other {# templates}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modèles sélectionnés et pourrait interrompre les notifications qui les utilisent.
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+appearance:
+  styling:
+    title: Stylisme
+    description: Ajuster le style général
+    form:
+      primaryFont: Police principale
+      secondaryFont: Police secondaire
+      tertiaryFont: Police tertiaire
+      selectFont: Sélectionnez la police
+      colorOverrides: Remplacements de couleur
+      invalidField: Champ invalide
+      duplicateType: Type en double
+      remove: Retirer
+      deleteConfirmTitle: Etes-vous absolument sûr ?
+      deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce remplacement de couleur ?
+      cancel: Annuler
+      delete: Supprimer
+      type: Taper
+      typeDescription: La couleur du thème que ce remplacement modifie.
+      selectColorOverrideType: Sélectionnez le type de remplacement de couleur
+      color: Couleur
+      colorTooltip: Couleur au format CSS (HEX, rgb, rgba, hsl)
+      additionalCss: CSS supplémentaire
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+      fonts:
+        seeOnGoogleFonts: Voir sur Google Fonts
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Variantes : {variants}"
+          regular: Régulier
+          italic: Italique
+          bold: Audacieux
+          medium: Moyen
+          semibold: Semi-gras
+          extrabold: Extra-audacieux
+          100italic: 100 italique
+          200italic: 200 italique
+          300italic: 300 italique
+          400italic: 400 italique
+          500italic: 500 italique
+          600italic: 600 italique
+          700italic: 700 italique
+          800italic: 800 italique
+          900italic: 900 italique
+        subsets:
+          label: "Sous-ensembles : {subsets}"
+          latin: latin
+          latin-ext: Latin étendu
+          vietnamese: vietnamien
+          cyrillic: cyrillique
+          cyrillic-ext: Cyrillique étendu
+          greek: grec
+          greek-ext: Grec étendu
+          hebrew: hébreu
+          math: Mathématiques
+          symbols: Symboles
+        category:
+          label: "Catégorie : {category}"
+          sans-serif: Sans empattement
+          serif: Serif
+          monospace: Monospace
+          display: Afficher
+          handwriting: Écriture
+          script: Scénario
+          fantasy: Fantaisie
+    colors:
+      default: Défaut
+      custom: Couleur personnalisée
+      background: Arrière-plan
+      foreground: Texte
+      card: Carte
+      card-foreground: Texte de la carte
+      popover: Popover
+      popover-foreground: Texte contextuel
+      primary: Primaire
+      primary-foreground: Texte principal
+      secondary: Secondaire
+      secondary-foreground: Texte secondaire
+      muted: En sourdine
+      muted-foreground: Texte en sourdine
+      accent: Accent
+      accent-foreground: Texte accentué
+      destructive: Destructeur
+      destructive-foreground: Texte destructeur
+      border: Frontière
+  footer:
+    title: Pied de page
+    description: Ajuster les liens dans le pied de page
+    form:
+      useCustomFooter: Utiliser un pied de page personnalisé
+      footerContent: Contenu du pied de page
+      preview: Aperçu
+      contactUsLabel: Étiquette Contactez-nous
+      contactUsLabelTooltip: La valeur par défaut est « Contactez-nous »
+      contactUsPlaceholder: Contactez-nous
+      links: Links
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+apps:
+  heading: Applications connectées
+  description: Gérez vos applications connectées
+  defaultApps: Applications par défaut
+  appStore: Magasin d'applications
+  searchPlaceholder: Rechercher les applications installées
+  noResults: Aucune application trouvée pour votre recherche
+  noConnectedApps: Vous n'avez aucune application connectée
+  defaultAppsForm:
+    payment:
+      label: Processeur de paiement
+      placeholder: Désactiver les paiements
+    emailSender:
+      label: Expéditeur d'e-mail
+      placeholder: Utiliser l'expéditeur de courrier électronique par défaut
+    textMessageSender:
+      label: Expéditeur de SMS
+      placeholder: Utiliser l'expéditeur de message texte par défaut
+      tooltip: L'application qui envoie les messages texte aux clients. Facultatif.
+    textMessageResponder:
+      label: Répondeur aux SMS
+      tooltip: S'il n'est pas géré par l'expéditeur, il sera utilisé comme application par défaut pour répondre aux messages texte (c'est-à-dire réponse automatique). Facultatif.
+    assetsStorage: Stockage des actifs
+    toasts:
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+  defaultAppsDescription: Sélectionnez les applications par défaut
+  migrateAssetsDialog:
+    migrateAssets: Migrer les actifs
+    title: Migrer les actifs existants
+    description: Migrez vos actifs existants depuis votre stockage précédent
+    sourceApp: Application de stockage des actifs sources
+    done: "Terminé : {count}"
+    success: "Succès : {count}"
+    error: "Erreur : {count}"
+    total: "Total : {count}"
+    migrate: Émigrer
+    toasts:
+      requestError: Votre demande a échoué
+  events:
+    installed:
+      title: Application installée
+      description: "{appDisplayName} a été installé."
+    connected:
+      title: Application connectée
+      description: "{appDisplayName} connecté."
+    uninstalled:
+      title: Application désinstallée
+      description: "{appDisplayName} a été désinstallé."
+    failed:
+      title: L'application a échoué
+      description: "{appDisplayName} n'a pas réussi à se connecter."
+  notifications:
+    failed:
+      title: La connexion à l'application a échoué
+      message: "{appDisplayName} n'a pas réussi à se connecter. Vérifiez les paramètres de l'application."
+      action: Ouvrir des applications
+  emails:
+    failed:
+      subject: "{appDisplayName} - échec de la connexion"
+      preview: "{appDisplayName} n'a pas pu rester connecté"
+      title: Nous n'avons pas pu garder votre application connectée
+      body: |-
+        Bonjour {userName},
+
+        **{appDisplayName}** a signalé un problème de connexion ou n'a pas terminé la configuration avec succès. Ouvrez **Apps** dans votre tableau de bord pour vérifier les informations d'identification et les paramètres, puis réessayez de vous connecter.
+
+        Si tout semble déjà correct, vous pouvez ignorer cet e-mail.
+      button: Ouvrir des applications
+      handledBy: "Échec de la connexion à l'application : {appDisplayName}"
+catalog:
+  hub:
+    description: Services, extras, forfaits et autres articles que les clients peuvent réserver ou acheter.
+  services:
     title: Services
     description: Gérer les services que vous fournissez
     addNew: Ajouter un nouveau
@@ -1685,12 +2016,18 @@ services:
     upgradeRequired: Le forfait gratuit comprend un service. Passez à Solo pour en ajouter davantage.
     upgradeLink: Mise à niveau dans les paramètres de la marque
     new: Nouveau
-    newTitle: Nouvelle option de service
+    newTitle: Nouveau service
     newDescription: Ajoutez un nouveau service que vous fournissez
-    editDescription: Modifier l'option
+    editDescription: Modifier le service
     form:
+      details: Détails
+      durationAndPrice: Durée et prix
+      customAutoConfirm: Confirmation automatique personnalisée
+      customAutoConfirmTooltip: Utilisez une règle de confirmation automatique pour ce service à la place de la configuration générale.
+      virtualAppointment: Rendez-vous virtuel
+      virtualAppointmentTooltip: Tenez ce rendez-vous par vidéo, audio ou téléphone au lieu d'en personne.
       name: Nom
-      namePlaceholder: Nom de l'option
+      namePlaceholder: Nom du service
       description: Brève description
       descriptionTooltip: Texte court qui sera visible lors de la réservation
       duration: Durée
@@ -1748,6 +2085,12 @@ services:
           tooltip: Application qui sera utilisée pour fournir l'URL de la réunion
       paymentSettings:
         title: Paramètres de paiement
+        customDeposit:
+          label: Exigence d'acompte personnalisée
+          tooltip: Utilisez une règle d'acompte pour ce service à la place de la configuration générale.
+        customTips:
+          label: Configuration des pourboires personnalisée
+          tooltip: Utilisez les paramètres de pourboire de ce service à la place de la configuration générale.
         requireDeposit:
           label: Exiger un dépôt
           tooltip: Si cette option nécessite un dépôt<br></br>Nécessite une application de paiement configurée
@@ -1806,6 +2149,9 @@ services:
           description: Configurer la politique d'annulation pour l'option lorsque le dépôt n'est pas requis
           enabled: Activé
           enabledTooltip: S'il faut autoriser l'annulation pour l'option lorsque le dépôt n'est pas requis
+        customPolicy:
+          label: Politique personnalisée
+          tooltip: Ce service a-t-il une politique d'annulation personnalisée, différente de la politique générale ?
       reschedulePolicy:
         title: Reprogramme
         type:
@@ -1814,6 +2160,9 @@ services:
           inherit: Identique à la configuration générale
           custom: Politique personnalisée
           placeholder: Sélectionnez le type de politique de reprogrammation
+        customPolicy:
+          label: Politique personnalisée
+          tooltip: Ce service a-t-il une politique de reprogrammation personnalisée, différente de la politique générale ?
         enabled:
           label: Activé
           tooltip: S'il faut autoriser la reprogrammation pour l'option
@@ -1912,6 +2261,8 @@ services:
     newDescription: Ajouter un nouveau champ personnalisé
     editDescription: Modifier le champ personnalisé
     form:
+      details: Détails
+      fileSettings: Paramètres des fichiers
       name: Nom
       namePlaceholder: Nom du champ
       nameTooltip: ID unique du champ. Ne peut contenir que des lettres, des chiffres et un trait de soulignement
@@ -1949,9 +2300,9 @@ services:
         label: Étiquette
         updatedAt: Mis à jour à
         addons: Modules complémentaires
-        options: Possibilités
+        options: Services
         addonsInDialog: "{label} dans les modules complémentaires"
-        optionsInDialog: "{label} en options"
+        optionsInDialog: "{label} dans les services"
       cellAction:
         fieldDeleted: Le champ d'option "{label}" a été supprimé.
         deleteError: Il y a eu un problème avec votre demande.
@@ -1998,6 +2349,9 @@ services:
       status: Statut
       active: Actif
       disabled: Désactivé
+      details: Détails
+      dates: Dates
+      maximumUses: Utilisations maximales
       codes: Codes
       codesPlaceholder: Codes de réduction
       codesTooltip: Codes pouvant être utilisés pour appliquer cette réduction
@@ -2079,7 +2433,7 @@ services:
     editDescription: Modifier le package
     sell: Vendre un forfait
     sellTitle: Vendre un forfait
-    sellDescription: Délivrez ce colis à un client et enregistrez un paiement en magasin
+    sellDescription: Émettre ce forfait à un client et encaisser le paiement
     sellForm:
       package: Emballer
       customer: Client
@@ -2089,6 +2443,7 @@ services:
       title: Forfaits vendus
       description: Colis délivrés aux clients
       statusBadges:
+        pending: Paiement en attente
         active: Actif
         exhausted: Épuisé
         expired: Expiré
@@ -2140,6 +2495,9 @@ services:
       cancel: Annuler
       deleteSelected: Supprimer la sélection
     form:
+      details: Détails
+      service: Service
+      priceAndLimits: Prix et limites
       name:
         label: Nom
         placeholder: 10x Massages
@@ -2293,6 +2651,9 @@ services:
       cancel: Annuler
       deleteSelected: Supprimer la sélection
     form:
+      giftCard: Carte cadeau
+      amountAndExpiry: Montant et expiration
+      customerAndPayment: Client et paiement
       code:
         label: Code
         placeholder: XXX-XXX-XXX
@@ -2319,10 +2680,15 @@ services:
       customerId:
         label: Client
         tooltip: Client qui a acheté la carte cadeau
+      paymentLinkAppId:
+        description: Application utilisée pour envoyer le lien de paiement de cette carte-cadeau.
+      channel:
+        description: Comment le lien de paiement est envoyé au client.
       toasts:
         created: Carte cadeau créée avec succès
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
+        smsConsentRequired: Le consentement aux SMS est requis avant d'envoyer le lien de paiement.
   addons:
     title: Modules complémentaires
     description: Gérer les modules complémentaires
@@ -2332,6 +2698,8 @@ services:
     newDescription: Ajouter un nouveau module complémentaire
     editDescription: Modifier le module complémentaire
     form:
+      details: Détails
+      durationAndPrice: Durée et prix
       name: Nom
       namePlaceholder: Nom du module complémentaire
       nameTooltip: Nom unique du module complémentaire
@@ -2368,8 +2736,8 @@ services:
       columns:
         name: Nom
         updatedAt: Mis à jour à
-        options: Possibilités
-        optionsInDialog: "{name} en options"
+        options: Services
+        optionsInDialog: "{name} dans les services"
       cellAction:
         addonDeleted: Le module complémentaire "{name}" a été supprimé.
         deleteError: Il y a eu un problème avec votre demande.
@@ -2385,247 +2753,9 @@ services:
       confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modules complémentaires sélectionnés et les supprimera de toutes les options qui les utilisent
       cancel: Annuler
       deleteSelected: Supprimer la sélection
-templates:
-  page:
-    title: Modèles de communication
-  formPage:
-    typeTemplates: "{type} modèles"
-    new: Nouveau
-  newPage:
-    title: Nouveau modèle {type}
-  editPage:
-    title: Mettre à jour le modèle
-    clone: Cloner
-  addNew:
-    emptyTemplate: Modèle vide
-    add: Ajouter
-    addNewTemplate: Ajouter un nouveau modèle
-    type: Taper
-    selectTemplateType: Sélectionnez le type de modèle
-    template: Modèle
-    close: Fermer
-  form:
-    subject: Objet de l'e-mail
-    subjectTooltip: Objet de l'e-mail qui sera utilisé pour envoyer le message
-    subjectPlaceholder: Sujet
-    name: Nom du modèle
-    nameTooltip: Nom de modèle unique
-    namePlaceholder: Nom du modèle
-    validation:
-      templateNotValid: Le modèle n'est pas valide
-    toasts:
-      changesSaved: Vos modifications ont été enregistrées.
-      requestError: Il y a eu un problème avec votre demande.
-  textMessageBuilder:
-    content: Contenu du message texte
-    viewContext: Afficher le contexte
-    contextValues: Valeurs contextuelles
-    copied: Copié
-    copyPath: Copier le chemin
-    close: Fermer
-    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
-    preview: Aperçu
-  table:
-    filters:
-      type: Taper
-      filters: Filtres
-    columns:
-      type: Taper
-      name: Nom
-      updatedAt: Mis à jour à
-    cellAction:
-      templateDeleted: Le modèle « {name} » a été supprimé.
-      deleteError: Il y a eu un problème avec votre demande.
-      actions: Actes
-      update: Mise à jour
-      delete: Supprimer
-      clone: Cloner
-    deleteSelected:
-      success: Les modèles sélectionnés ont été supprimés
-      error: Il y a eu un problème avec votre demande.
-      button: Supprimer le {count, plural, =1 {template} other {# templates}} sélectionné
-      confirmTitle: Etes-vous absolument sûr ?
-      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modèles sélectionnés et pourrait interrompre les notifications qui les utilisent.
-      cancel: Annuler
-      deleteSelected: Supprimer la sélection
-appearance:
-  styling:
-    title: Stylisme
-    description: Ajuster le style général
-    form:
-      primaryFont: Police principale
-      secondaryFont: Police secondaire
-      tertiaryFont: Police tertiaire
-      selectFont: Sélectionnez la police
-      colorOverrides: Remplacements de couleur
-      invalidField: Champ invalide
-      duplicateType: Type en double
-      remove: Retirer
-      deleteConfirmTitle: Etes-vous absolument sûr ?
-      deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce remplacement de couleur ?
-      cancel: Annuler
-      delete: Supprimer
-      type: Taper
-      selectColorOverrideType: Sélectionnez le type de remplacement de couleur
-      color: Couleur
-      colorTooltip: Couleur au format CSS (HEX, rgb, rgba, hsl)
-      additionalCss: CSS supplémentaire
-      toasts:
-        changesSaved: Vos modifications ont été enregistrées.
-        requestError: Il y a eu un problème avec votre demande.
-      fonts:
-        seeOnGoogleFonts: Voir sur Google Fonts
-        variants:
-          "100": "100"
-          "200": "200"
-          "300": "300"
-          "400": "400"
-          "500": "500"
-          "600": "600"
-          "700": "700"
-          "800": "800"
-          "900": "900"
-          label: "Variantes : {variants}"
-          regular: Régulier
-          italic: Italique
-          bold: Audacieux
-          medium: Moyen
-          semibold: Semi-gras
-          extrabold: Extra-audacieux
-          100italic: 100 italique
-          200italic: 200 italique
-          300italic: 300 italique
-          400italic: 400 italique
-          500italic: 500 italique
-          600italic: 600 italique
-          700italic: 700 italique
-          800italic: 800 italique
-          900italic: 900 italique
-        subsets:
-          label: "Sous-ensembles : {subsets}"
-          latin: latin
-          latin-ext: Latin étendu
-          vietnamese: vietnamien
-          cyrillic: cyrillique
-          cyrillic-ext: Cyrillique étendu
-          greek: grec
-          greek-ext: Grec étendu
-          hebrew: hébreu
-          math: Mathématiques
-          symbols: Symboles
-        category:
-          label: "Catégorie : {category}"
-          sans-serif: Sans empattement
-          serif: Serif
-          monospace: Monospace
-          display: Afficher
-          handwriting: Écriture
-          script: Scénario
-          fantasy: Fantaisie
-    colors:
-      default: Défaut
-      custom: Couleur personnalisée
-      background: Arrière-plan
-      foreground: Texte
-      card: Carte
-      card-foreground: Texte de la carte
-      popover: Popover
-      popover-foreground: Texte contextuel
-      primary: Primaire
-      primary-foreground: Texte principal
-      secondary: Secondaire
-      secondary-foreground: Texte secondaire
-      muted: En sourdine
-      muted-foreground: Texte en sourdine
-      accent: Accent
-      accent-foreground: Texte accentué
-      destructive: Destructeur
-      destructive-foreground: Texte destructeur
-      border: Frontière
-  footer:
-    title: Pied de page
-    description: Ajuster les liens dans le pied de page
-    form:
-      useCustomFooter: Utiliser un pied de page personnalisé
-      footerContent: Contenu du pied de page
-      preview: Aperçu
-      contactUsLabel: Étiquette Contactez-nous
-      contactUsLabelTooltip: La valeur par défaut est « Contactez-nous »
-      contactUsPlaceholder: Contactez-nous
-      links: Links
-      toasts:
-        changesSaved: Vos modifications ont été enregistrées.
-        requestError: Il y a eu un problème avec votre demande.
-apps:
-  heading: Applications connectées
-  description: Gérez vos applications connectées
-  defaultApps: Applications par défaut
-  appStore: Magasin d'applications
-  searchPlaceholder: Rechercher les applications installées
-  noResults: Aucune application trouvée pour votre recherche
-  noConnectedApps: Vous n'avez aucune application connectée
-  defaultAppsForm:
-    payment:
-      label: Processeur de paiement
-      placeholder: Désactiver les paiements
-    emailSender:
-      label: Expéditeur d'e-mail
-      placeholder: Utiliser l'expéditeur de courrier électronique par défaut
-    textMessageSender:
-      label: Expéditeur de SMS
-      placeholder: Utiliser l'expéditeur de message texte par défaut
-    textMessageResponder:
-      label: Répondeur aux SMS
-      tooltip: S'il n'est pas géré par l'expéditeur, il sera utilisé comme application par défaut pour répondre aux messages texte (c'est-à-dire réponse automatique). Facultatif.
-    assetsStorage: Stockage des actifs
-    toasts:
-      changesSaved: Vos modifications ont été enregistrées.
-      requestError: Il y a eu un problème avec votre demande.
-  defaultAppsDescription: Sélectionnez les applications par défaut
-  migrateAssetsDialog:
-    migrateAssets: Migrer les actifs
-    title: Migrer les actifs existants
-    description: Migrez vos actifs existants depuis votre stockage précédent
-    sourceApp: Application de stockage des actifs sources
-    done: "Terminé : {count}"
-    success: "Succès : {count}"
-    error: "Erreur : {count}"
-    total: "Total : {count}"
-    migrate: Émigrer
-    toasts:
-      requestError: Votre demande a échoué
-  events:
-    installed:
-      title: Application installée
-      description: "{appDisplayName} a été installé."
-    connected:
-      title: Application connectée
-      description: "{appDisplayName} connecté."
-    uninstalled:
-      title: Application désinstallée
-      description: "{appDisplayName} a été désinstallé."
-    failed:
-      title: L'application a échoué
-      description: "{appDisplayName} n'a pas réussi à se connecter."
-  notifications:
-    failed:
-      title: La connexion à l'application a échoué
-      message: "{appDisplayName} n'a pas réussi à se connecter. Vérifiez les paramètres de l'application."
-      action: Ouvrir des applications
-  emails:
-    failed:
-      subject: "{appDisplayName} - échec de la connexion"
-      preview: "{appDisplayName} n'a pas pu rester connecté"
-      title: Nous n'avons pas pu garder votre application connectée
-      body: |-
-        Bonjour {userName},
-
-        **{appDisplayName}** a signalé un problème de connexion ou n'a pas terminé la configuration avec succès. Ouvrez **Apps** dans votre tableau de bord pour vérifier les informations d'identification et les paramètres, puis réessayez de vous connecter.
-
-        Si tout semble déjà correct, vous pouvez ignorer cet e-mail.
-      button: Ouvrir des applications
-      handledBy: "Échec de la connexion à l'application : {appDisplayName}"
 settings:
+  hub:
+    description: Ouvrez une section des paramètres de votre entreprise.
   general:
     title: Paramètres généraux
     description: Nom de l'entreprise, coordonnées, emplacement et paramètres régionaux par défaut de votre organisation.
@@ -2709,6 +2839,7 @@ settings:
     form:
       name: Nom de l'entreprise
       namePlaceholder: Le nom de votre entreprise
+      nameDescription: Le nom public de votre entreprise.
       industry: Industrie
       industryPlaceholder: Sélectionnez l'industrie
       industryTooltip: Utilisé pour les listes de recherche et l’optimisation des moteurs de recherche.
@@ -2737,6 +2868,7 @@ settings:
       currencyPlaceholder: Sélectionnez la devise
       currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Fuseau horaire
+      timeZoneDescription: Le fuseau horaire de l'entreprise utilisé pour la planification et la page de réservation.
       selectTimeZone: Sélectionnez le fuseau horaire
       useClientTimezone: Utiliser le fuseau horaire du client
       useClientTimezoneTooltip: Sélectionnez cette option si vous souhaitez utiliser par défaut le fuseau horaire du client pour la page de prise de rendez-vous/modification de rendez-vous.<br></br>Par défaut, le fuseau horaire sera celui de l'entreprise.
@@ -2821,7 +2953,7 @@ settings:
     form:
       tabs:
         main: Principal
-        options: Possibilités
+        catalog: Services et forfaits
         payments: Paiements
         cancellations: Annulations
         reschedules: Reprogramme
@@ -2835,6 +2967,8 @@ settings:
         requireCustomerOtp: Exiger une vérification du client
         requireCustomerOtpTooltip: Lorsqu'il est activé, les clients doivent vérifier leur e-mail ou leur téléphone avec un code à usage unique avant de payer ou de confirmer une réservation. L’utilisation d’un forfait prépayé nécessite toujours une session vérifiée.
         autoConfirmTooltip: Sélectionnez cette option si vous souhaitez confirmer automatiquement tous les rendez-vous créés par les clients.<br></br>Par défaut, vous devrez confirmer manuellement chaque rendez-vous.
+        scheduleSettingsLabel: Paramètres de l'horaire
+        scheduleProviderLabel: Fournisseurs d'horaire
         allowStaffCalendarSources: Autoriser le personnel à gérer les sources de calendrier
         allowStaffCalendarSourcesTooltip: Lorsque cette option est activée, les membres du personnel peuvent connecter des sources de calendrier personnel sur leur profil et ces calendriers sont utilisés lors de la vérification de la disponibilité. Lorsqu'il est désactivé, le personnel ne peut pas gérer les sources de calendrier et les périodes de pointe ignorent leurs calendriers personnels.
         showPromoCodeField: Afficher le champ du code promotionnel
@@ -2868,11 +3002,16 @@ settings:
         title: Catalogue
         addGroup: Ajouter un groupe
         addService: Ajouter un service
-        addPackage: Ajouter un paquet
+        addPackage: Ajouter un forfait
+        group: Groupe
+        groupWithName: "Groupe : {name}"
+        service: Service
+        serviceWithName: "Service : {name}"
         groupName: Nom du groupe
         groupDescription: Brève description
         emptyGroup: Ce groupe est vide
-        package: Emballer
+        package: Forfait
+        packageWithName: "Forfait : {name}"
       payments:
         enableDeposits: Activer les dépôts
         enableDepositsTooltip: Permet de demander un acompte pour prendre rendez-vous. L'application de paiement par défaut doit être configurée dans la section des applications par défaut.
@@ -2882,8 +3021,7 @@ settings:
         appointments: rendez-vous
         paymentsAppTooltip: Quel processeur de paiement utiliser pour les paiements
         requireDeposit: Exiger un dépôt
-        requireDepositTooltip1: Si activé, chaque client devra payer un acompte pour prendre rendez-vous
-        requireDepositTooltip2: Peut être remplacé par chaque client
+        requireDepositTooltip: Si activé, chaque client devra payer un acompte pour prendre rendez-vous<br></br>Peut être remplacé par chaque client ou service
         require: Exiger
         doNotRequire: Ne nécessite pas
         depositAmount: Montant du dépôt
@@ -2914,7 +3052,9 @@ settings:
             title: Pour rendez-vous avec acompte
           withoutDeposit:
             title: Pour rendez-vous sans acompte
-          enabledTooltip: Permet aux clients d'annuler eux-mêmes un rendez-vous
+          enabled:
+            label: Autorisé
+            tooltip: Indiquez si les clients peuvent annuler un rendez-vous eux-mêmes
           doNotAllowIfRescheduled:
             label: Autoriser si reprogrammé
             tooltip: Configurer si un client peut annuler un rendez-vous s'il a été reprogrammé
@@ -2923,7 +3063,9 @@ settings:
               "false": Permettre
         reschedules:
           title: Reprogramme
-          enabledTooltip: Permet aux clients de reprogrammer eux-mêmes un rendez-vous
+          enabled:
+            label: Autorisé
+            tooltip: Indiquez si les clients peuvent reprogrammer un rendez-vous eux-mêmes
           minutesToAppointment:
             label: Délai minimum pour prendre rendez-vous
             tooltip: Configurer la durée minimale du rendez-vous pour permettre la reprogrammation
@@ -2931,7 +3073,7 @@ settings:
             label: Nombre maximum de reprogrammations
             tooltip: Configurer combien de fois un client peut reprogrammer un rendez-vous
         enabled:
-          label: Activé
+          label: Autorisé
           selectPlaceholder: Sélectionnez une option
           labels:
             disabled: Désactivé
@@ -2962,7 +3104,7 @@ settings:
           deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer cette option de la liste des options disponibles ?
           cancel: Annuler
           delete: Supprimer
-        optionSelector:
+        serviceSelector:
           time: "{hours}h {minutes}min"
           requestFailed: La demande a échoué.
           loadingOptions: Options de chargement...
@@ -3061,26 +3203,138 @@ settings:
         cancel: Annuler
         delete: Supprimer
         type: Taper
+        typeDescription: Le réseau social de ce profil.
         selectType: Sélectionnez le type de lien social
         url: URL
         urlTooltip: Lien complet vers votre profil
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
+  textMessaging:
+    title: Messages texte
+    description: Activez les textos clients dans les formulaires de réservation et de liste d'attente.
+    countryOnly: Les messages personnalisés sont offerts aux entreprises des États-Unis et du Canada.
+    verification:
+      title: Messages personnalisés
+      description: Vérifiez votre entreprise pour que les textos clients utilisent un numéro dédié.
+      prompt: Vous voulez activer les messages personnalisés?
+      action: Vérifiez les renseignements de votre entreprise maintenant
+      verifiedPrompt: Vous avez activé les modèles de messages personnalisés.
+      verifiedAction: Voir vos renseignements
+      failedPrompt: La vérification des messages personnalisés a échoué.
+      failedAction: Voir vos renseignements
+      pendingPrompt: La vérification des messages personnalisés est en révision.
+      pendingAction: Voir vos renseignements
+      disabled: Activez les messages texte avant de faire vérifier un numéro dédié.
+    customTemplate:
+      label: Modèle de message personnalisé
+      tooltip: Facultatif. Lorsqu'un modèle est sélectionné, les messages au client l'utilisent à la place du message intégré.
+      renderFailed: Le rendu de ce modèle a échoué. Veuillez vérifier <link>votre modèle</link>.
+    notifications:
+      failed:
+        title: Les messages personnalisés n'ont pas été approuvés
+        message: "{reason}"
+        action: Voir les renseignements
+      succeeded:
+        title: Les messages personnalisés sont vérifiés
+        message: Les textos utilisent maintenant votre numéro dédié.
+        action: Voir les renseignements
+    emails:
+      failed:
+        subject: Les messages personnalisés n'ont pas été approuvés
+        preview: Mettez à jour les renseignements et envoyez la vérification de nouveau.
+        title: Les messages personnalisés n'ont pas été approuvés
+        body: "{reason} Mettez à jour le formulaire et envoyez la vérification de nouveau."
+        button: Voir les renseignements
+        handledBy: Vérification des messages texte
+      succeeded:
+        subject: Les messages personnalisés sont vérifiés
+        preview: Les textos utilisent maintenant votre numéro dédié.
+        title: Les messages personnalisés sont vérifiés
+        body: Les textos utilisent maintenant votre numéro dédié et vos modèles personnalisés.
+        button: Voir les renseignements
+        handledBy: Vérification des messages texte
+    status:
+      pending: La révision est en cours. Les textos continuent d'utiliser le numéro partagé jusqu'à l'approbation.
+      verified: Les messages personnalisés sont vérifiés. Les textos utilisent votre numéro.
+      verifiedWithNumber: Les messages personnalisés sont vérifiés. Les textos utilisent {number}.
+      rejected: La vérification n'a pas été approuvée.
+      preparing: Un numéro est en préparation. Les messages personnalisés pourront être envoyés lorsqu'il sera prêt.
+    form:
+      smsEnabled: Activer les messages texte
+      smsEnabledDescription: Les clients peuvent accepter les textos dans vos formulaires de réservation et de liste d'attente.
+      save: Enregistrer
+      enabled: Activer les messages personnalisés
+      enabledDescription: Après la vérification, les textos clients utilisent un numéro dédié et vos propres modèles.
+      disableTitle: Désactiver les messages personnalisés?
+      disableDescription: Le désactiver relance le processus de vérification. Vous recevrez un numéro qui peut être différent, et les réponses à l'ancien numéro ne vous parviendront pas.
+      disableConfirm: Désactiver
+      disableCancel: Le garder actif
+      unlock: Déverrouiller
+      submit: Envoyer
+      entityType:
+        label: Type d'entreprise
+        PRIVATE_PROFIT: Entreprise privée
+        PUBLIC_PROFIT: Entreprise publique
+        SOLE_PROPRIETOR: Propriétaire unique
+        NON_PROFIT: Organisme de bienfaisance
+      legalName:
+        label: Nom légal
+      doingBusinessAs:
+        label: Nom commercial
+        hint: Ajoutez-le lorsque le nom de réservation diffère du nom légal.
+      registrationNumber:
+        label: EIN ou numéro d'entreprise
+        hint: Un EIN américain ou un numéro d'entreprise canadien.
+        soleHint: Un propriétaire unique peut laisser ce champ vide.
+      website:
+        label: Site web
+      legalPages:
+        note: Ces pages sont liées depuis les formulaires de réservation et de liste d'attente. Ajoutez-les au pied de page de votre site pour la conformité légale. La configuration a déjà ajouté des pages avec le texte SMS requis. Vous pouvez les modifier, puis les sélectionner ici.
+      privacyPage:
+        label: Politique de confidentialité
+        hint: La page doit indiquer que les données d'adhésion mobile ne sont pas partagées avec des tiers ou des affiliés à des fins de marketing, et que les numéros servent seulement aux textos de réservation.
+      termsPage:
+        label: Conditions
+        hint: La page doit indiquer la fréquence des messages, que des frais de messages et de données peuvent s'appliquer, que l'on peut répondre STOP pour se désinscrire et HELP pour obtenir de l'aide, et que les fournisseurs ne sont pas responsables des messages retardés ou non livrés.
+      streetAddress:
+        label: Adresse
+      addressLine2:
+        label: Adresse ligne 2
+      city:
+        label: Ville
+      state:
+        label: État ou province
+      postalCode:
+        label: Code postal
+      contactFirstName:
+        label: Prénom du contact
+      contactLastName:
+        label: Nom du contact
+      contactEmail:
+        label: E-mail du contact
+      contactPhone:
+        label: Téléphone du contact
+    toasts:
+      saved: Vos modifications ont été enregistrées.
+      submitted: La demande de vérification a été envoyée. L'examen peut prendre jusqu'à 7 jours ouvrables.
+      preparing: Un numéro est en préparation. Nous avons enregistré vos informations.
+      error: Il y a eu un problème avec votre demande.
   customerAccess:
     title: Accès client
-    description: Modèles OTP et canaux de vérification pour les flux orientés client
+    description: Choisissez comment les clients reçoivent leur code de connexion.
     form:
-      otpEmailTemplateId:
-        label: Modèle d'e-mail OTP
-      otpChannels:
-        label: Canal de vérification OTP
-        options:
-          email: E-mail uniquement
-          phone: Téléphone uniquement
-          email_or_phone: Email ou téléphone
-      otpTextTemplateId:
-        label: Modèle de message texte OTP
+      email:
+        label: E-mail
+        description: Envoyez un code à usage unique à l'adresse e-mail du client.
+        templateLabel: Modèle d'e-mail
+        templateDescription: Obligatoire. C'est l'e-mail que le client reçoit avec son code.
+      phone:
+        label: Message texte
+        description: Envoyez un code à usage unique au numéro de téléphone du client. Les messages texte doivent être activés.
+        builtIn: Les clients reçoivent un message intégré avec leur code.
+      smsDisabled: Les codes par téléphone nécessitent les messages texte. Tant qu'ils sont désactivés, cette option reste indisponible et la connexion utilise le courriel.
+      smsDisabledAction: Activer les messages texte
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
@@ -3182,6 +3436,14 @@ dashboard:
       title: Les membres inactifs de l'équipe ont des rendez-vous à venir
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Afficher les rendez-vous
+    smsVerification:
+      title: Les messages texte n'ont pas été approuvés
+      description: Mettez à jour les informations de l'entreprise et envoyez à nouveau la vérification.
+      action: Revoir
+    customerOtpPhone:
+      title: La vérification par téléphone nécessite les messages texte
+      description: La connexion client utilise des codes par téléphone, mais les messages texte sont désactivés. Les codes sont envoyés par courriel.
+      action: Ouvrir les paramètres OTP
     failedApp:
       title: "{appName} a besoin d'attention"
       description: "{appName} ne fonctionne pas correctement et devra peut-être être reconnecté."
@@ -3211,6 +3473,27 @@ dashboard:
     calendar: Calendrier
     pendingAppointments: Rendez-vous en attente
 communications:
+  status:
+    preparing: Préparation
+    sending: Envoi
+    sent: Envoyé
+    received: Reçu
+    failed: Échec
+    failedWithRetries: "Échec : {done}/{max} tentatives"
+    failedFinal: Échec.
+  reason:
+    optedOut: Le client s'est désabonné
+    noConsent: Le client n'a pas accepté les textos
+    smsDisabled: Les textos sont désactivés
+    invalidPhone: Numéro de téléphone invalide
+    creditsExhausted: Les crédits texto sont épuisés
+    platformLimit: "{limit, select, rate {Trop de textos cette minute.} daily {Limite quotidienne de textos atteinte.} other {Limite de textos atteinte.}}"
+    numberNotReady: Le numéro texto n'est pas prêt
+    linkOnly: Le message ne contenait qu'un lien
+    deliveryFailed: "Échec de la livraison : {detail}"
+  retries: "{done} tentatives utilisées, {left} restantes"
+  retryable: Nouvel essai possible
+  notRetryable: Aucun nouvel essai
   viewMore: Voir plus
   payloadLoadError: Impossible de charger le message complet.
   logContent: Contenu du message
@@ -3220,7 +3503,7 @@ communications:
   sendNew: Envoyer nouveau
   requestError: Il y a eu un problème avec votre demande.
   sendNewMessage: Envoyer un nouveau message
-  sendNewMessageDescription: Envoyer un nouvel e-mail ou SMS au client
+  sendNewMessageDescription: Envoyer un nouvel e-mail au client
   closeDialogWarning: Vous perdrez tout le contenu si vous fermez la boîte de dialogue
   contentNotValid: Le contenu n'est pas valide
   messageSent: Votre message a été envoyé avec succès.
@@ -3510,12 +3793,15 @@ menuItem:
     label: Étiquette
     labelPlaceholder: Étiquette
     icon: Icône
+    iconDescription: Icône affichée pour cet élément de menu
     variant: Variante
+    variantDescription: Style visuel de ce lien ou bouton
     selectVariant: Sélectionner une variante de lien
     size: Taille
     selectSize: Sélectionnez la taille
     selectButtonVariant: Sélectionner une variante de bouton
     textFont: Police du texte
+    textFontDescription: Police utilisée pour le libellé de cet élément de menu
     selectTextFont: Sélectionnez la police du texte
     textSize: Taille du texte
     selectTextSize: Sélectionnez la taille du texte
@@ -3524,6 +3810,7 @@ menuItem:
     prefixIcon: Icône de préfixe
     suffixIcon: Icône de suffixe
     additionalClasses: Cours supplémentaires
+    additionalClassesDescription: Classes CSS supplémentaires appliquées à cet élément de menu
     additionalClassesPlaceholder: police-gras
     doNotCombineClassName: Ne pas combiner avec les valeurs par défaut
     doNotCombineClassNameDescription: Lorsqu'elle est activée, seules vos classes supplémentaires sont appliquées (les classes par défaut sont ignorées)
@@ -3531,6 +3818,7 @@ menuItem:
     textColorDescription: Remplacer la couleur du texte de l'élément de menu
     showOnMobileHeader: Afficher sur l'en-tête mobile
     showOnMobileHeaderDescription: Gardez cet élément visible dans l’en-tête sur mobile (à côté du bouton de menu). Un seul objet peut l’utiliser ; il apparaît toujours dans le tiroir.
+    useDifferentLabel: Utiliser un libellé différent
   card:
     moveMenuItem: Déplacer un élément de menu
     itemType: Type d'article
@@ -3689,6 +3977,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: Réponse par message texte - informer l'utilisateur
+text-message-reply:
+  handledBy: Réponse par message texte
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Quand il est au moins {duration} avant le rendez-vous
@@ -3702,7 +3992,9 @@ cancellationsAndReschedules:
       title: Pour rendez-vous avec acompte
     withoutDeposit:
       title: Pour rendez-vous sans acompte
-    enabledTooltip: Permet aux clients d'annuler eux-mêmes un rendez-vous
+    enabled:
+      label: Autorisé
+      tooltip: Indiquez si les clients peuvent annuler un rendez-vous eux-mêmes
     doNotAllowIfRescheduled:
       label: Autoriser si reprogrammé
       tooltip: Configurer si un client peut annuler un rendez-vous s'il a été reprogrammé
@@ -3762,7 +4054,9 @@ cancellationsAndReschedules:
     delete: Supprimer
   reschedulePolicy:
     title: Reprogramme
-    enabledTooltip: Permet aux clients de reprogrammer eux-mêmes un rendez-vous
+    enabled:
+      label: Autorisé
+      tooltip: Indiquez si les clients peuvent reprogrammer un rendez-vous eux-mêmes
     default:
       title: Règle par défaut
       tooltip: Configurer la règle par défaut qui sera appliquée si aucune autre règle n'est applicable
@@ -4038,4 +4332,8 @@ users:
       max: Le titre ne doit pas comporter plus de 80 caractères
     bio:
       max: La biographie ne doit pas contenir plus de 1 024 caractères
+smsConsent:
+  attest: J'atteste que le client a accepté de recevoir des textos
+  already: Ce client a déjà accepté de recevoir des textos.
+  optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
 

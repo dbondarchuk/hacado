@@ -1,8 +1,9 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { AppLogger, getLoggerFactory } from "@hacado/logger";
-import { assetUpdateSchema, okStatus, UploadedFile } from "@hacado/types";
-import { canUpdateAppointment } from "@hacado/utils";
+import { assetUpdateSchema, UploadedFile } from "@hacado/types/assets";
+import { okStatus } from "@hacado/types/general";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

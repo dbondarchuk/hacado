@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
 import { AvatarReader } from "./avatar";
 import { Button } from "./button";
 import { ColumnsContainerReader } from "./columns-container";

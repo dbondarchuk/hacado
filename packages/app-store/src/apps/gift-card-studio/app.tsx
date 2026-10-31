@@ -1,8 +1,6 @@
-import {
-  App,
-  BillingPlanTier,
-  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
-} from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { GIFT_CARD_STATUS_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 import { Gift } from "lucide-react";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./const";
 import {
@@ -25,6 +23,7 @@ export const GiftCardStudioApp: App<
     "communication-templates-provider",
     "dashboard-notifier",
     "quick-link-provider",
+    "command-search-provider",
     "event-subscriber",
   ],
   subscribeTo: [GIFT_CARD_STATUS_CHANGED_EVENT_TYPE],

@@ -3,35 +3,33 @@
 import { authClient } from "@/app/auth-client";
 import { LanguageOptions } from "@/constants/texts";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
-import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
+import {
+  UserUpdate,
+  userUpdateSchema,
+} from "@hacado/api-sdk/admin/schemas/user";
 import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
-import { CalendarSourceConfiguration } from "@hacado/types";
+import { CalendarSourceConfiguration } from "@hacado/types/configuration/booking";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
+import { AssetSelectorDialog } from "@hacado/ui-admin/assets-selector-dialog";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Combobox,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  AppSelector,
-  AssetSelectorDialog,
-  NonSortable,
-  SaveButton,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { toast, toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
@@ -240,7 +238,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("users.profile.form.name")}</FormLabel>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("users.profile.form.name")}
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
                         <Input
                           disabled={loading}
@@ -258,12 +258,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   name="jobTitle"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-1">
-                        {t("users.profile.form.jobTitle")}
-                        <InfoTooltip>
-                          {t("users.profile.form.jobTitleTooltip")}
-                        </InfoTooltip>
-                      </FormLabel>
+                      <FormLabel>{t("users.profile.form.jobTitle")}</FormLabel>
                       <FormControl>
                         <Input
                           disabled={loading}
@@ -274,6 +269,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           value={field.value ?? ""}
                         />
                       </FormControl>
+                      <FormDescription>
+                        {t("users.profile.form.jobTitleTooltip")}
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -399,12 +397,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>
-                            {t("users.profile.form.meetingUrlProvider.app")}{" "}
-                            <InfoTooltip>
-                              {t(
-                                "users.profile.form.meetingUrlProvider.appTooltip",
-                              )}
-                            </InfoTooltip>
+                            {t("users.profile.form.meetingUrlProvider.app")}
                           </FormLabel>
                           <FormControl>
                             <AppSelector
@@ -418,6 +411,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                               allowClear
                             />
                           </FormControl>
+                          <FormDescription>
+                            {t(
+                              "users.profile.form.meetingUrlProvider.appTooltip",
+                            )}
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

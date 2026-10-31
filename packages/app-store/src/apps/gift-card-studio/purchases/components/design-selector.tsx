@@ -1,7 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Archive } from "lucide-react";
 import React from "react";
 import { getDesigns } from "../../actions";
@@ -37,56 +40,72 @@ export type DesignSelectorProps = {
   includeArchived?: boolean;
 };
 
-export const DesignSelector: React.FC<DesignSelectorProps> = ({
-  appId,
-  value,
-  onItemSelect,
-  disabled,
-  className,
-  includeArchived = false,
-}) => {
-  const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
-    giftCardStudioAdminNamespace,
-  );
-
-  const fetchDesigns = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 15;
-      const offset = (page - 1) * limit;
-      const result = await getDesigns(appId, {
-        limit,
-        offset,
-        search: search?.trim() || undefined,
-        priorityIds: value ? [value] : undefined,
-        isArchived: includeArchived ? [true, false] : [false],
-      });
-
-      const items: IComboboxItem[] = (result.items ?? []).map(
-        (d: DesignListModel) => ({
-          value: d._id,
-          label: <DesignLabel design={d} />,
-          shortLabel: <DesignLabel design={d} />,
-        }),
-      );
-
-      const total = result.total ?? 0;
-      const hasMore = offset + items.length < total;
-
-      return { items, hasMore };
+export const DesignSelector = React.forwardRef<
+  HTMLButtonElement,
+  DesignSelectorProps
+>(
+  (
+    {
+      appId,
+      value,
+      onItemSelect,
+      disabled,
+      className,
+      includeArchived = false,
+      ...rest
     },
-    [appId, value, includeArchived],
-  );
+    ref,
+  ) => {
+    const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
+      giftCardStudioAdminNamespace,
+    );
 
-  return (
-    <ComboboxAsync
-      value={value}
-      onChange={(value) => onItemSelect(value ?? "")}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full min-w-0", className)}
-      placeholder={t("purchases.manualForm.designPlaceholder")}
-      fetchItems={fetchDesigns}
-      loader={<DesignLoader />}
-      allowClear={false}
-    />
-  );
-};
+    const fetchDesigns = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 15;
+        const offset = (page - 1) * limit;
+        const result = await getDesigns(appId, {
+          limit,
+          offset,
+          search: search?.trim() || undefined,
+          priorityIds: value ? [value] : undefined,
+          isArchived: includeArchived ? [true, false] : [false],
+        });
+
+        const items: IComboboxItem[] = (result.items ?? []).map(
+          (d: DesignListModel) => ({
+            value: d._id,
+            label: <DesignLabel design={d} />,
+            shortLabel: <DesignLabel design={d} />,
+          }),
+        );
+
+        const total = result.total ?? 0;
+        const hasMore = offset + items.length < total;
+
+        return { items, hasMore };
+      },
+      [appId, value, includeArchived],
+    );
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        value={value}
+        onChange={(value) => onItemSelect(value ?? "")}
+        disabled={disabled}
+        className={cn(
+          "flex font-normal text-base max-w-full min-w-0",
+          className,
+        )}
+        placeholder={t("purchases.manualForm.designPlaceholder")}
+        fetchItems={fetchDesigns}
+        loader={<DesignLoader />}
+        allowClear={false}
+      />
+    );
+  },
+);
+
+DesignSelector.displayName = "DesignSelector";

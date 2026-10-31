@@ -1,6 +1,6 @@
 "use client";
 
-import { appointmentsSearchParams } from "@hacado/api-sdk";
+import { appointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

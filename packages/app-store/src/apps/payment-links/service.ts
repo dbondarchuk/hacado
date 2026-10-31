@@ -2,22 +2,14 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   ApiRequest,
   ApiResponse,
-  CollectPayment,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   CreatePaymentLinkRequest,
-  CUSTOMER_SESSION_COOKIE,
-  customerEventSource,
-  EventEnvelope,
-  EventSource,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -25,33 +17,49 @@ import {
   IPaymentLinkProvider,
   IPaymentProcessor,
   IPublicPageProvider,
-  Payment,
-  PAYMENT_INTENT_PAID_EVENT_TYPE,
-  PAYMENT_UPDATED_EVENT_TYPE,
-  PaymentIntentPaidPayload,
-  PaymentIntentUpdateModel,
-  PaymentLinkPayment,
   PaymentLinkResult,
-  PaymentUpdatedPayload,
   PublicPageChrome,
   PublicPageChromeContext,
   PublicPageClaim,
-  readCookieValue,
-  resolvePageHeaderPosition,
   SendPaymentLinkRequest,
-  systemEventSource,
-  TemplateTemplatesList,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import {
-  formatAmountWithCurrency,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+  CollectPayment,
+  Payment,
+  PaymentIntentUpdateModel,
+  PaymentLinkPayment,
+} from "@hacado/types/booking";
+import {
+  CUSTOMER_SESSION_COOKIE,
+  readCookieValue,
+} from "@hacado/types/customer-auth";
+import {
+  customerEventSource,
+  EventEnvelope,
+  EventSource,
+  PAYMENT_INTENT_PAID_EVENT_TYPE,
+  PAYMENT_UPDATED_EVENT_TYPE,
+  PaymentIntentPaidPayload,
+  PaymentUpdatedPayload,
+  systemEventSource,
+} from "@hacado/types/events";
+import { resolvePageHeaderPosition } from "@hacado/types/pages";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { getArguments } from "@hacado/utils/get-arguments";
+import {
+  appendSharedPoolSuffix,
+  isPlatformSmsCountry,
+  isSmsEnabled,
+  smsCustomerName,
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { canUseFeature } from "@hacado/utils/subscription";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { PAYMENT_LINK_VERIFIED_COOKIE } from "./const";
+import { getPaymentLinkSms } from "./messages";
 import { PaymentLinksSettings, paymentLinksSettingsSchema } from "./models";
 import {
   PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE,
@@ -478,6 +486,7 @@ export class PaymentLinksConnectedApp
           description,
         },
         paymentLinkUrl,
+        customerName: smsCustomerName(customer?.name),
       },
     });
 
@@ -569,36 +578,67 @@ export class PaymentLinksConnectedApp
       "Sending SMS",
     );
 
-    const templateId = settings.smsTemplateId;
-    if (!templateId) {
+    const smsOn = isSmsEnabled(settings.smsEnabled);
+    if (!smsOn) {
       logger.error(
         { paymentId: payment._id, appId: appData._id },
-        "SMS template missing",
+        "SMS is disabled",
       );
 
+      throw new ConnectedAppRequestError(
+        "sms_disabled",
+        { appId: appData._id },
+        400,
+      );
+    }
+
+    let body: string;
+    if (isPlatformSmsCountry(request.to)) {
+      const builtIn = template(
+        getPaymentLinkSms(args.config.language),
+        args,
+        true,
+      );
+
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
+
+      const stored =
+        allowCustom && settings.smsTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              settings.smsTemplateId,
+            )
+          : null;
+
+      body =
+        stored?.type === "text-message"
+          ? templateSafeWithError(stored.value as string, args, true)
+          : allowCustom
+            ? builtIn
+            : appendSharedPoolSuffix(builtIn);
+    } else if (settings.smsTemplateId) {
+      const smsTemplate =
+        await this.props.services.templatesService.getTemplate(
+          settings.smsTemplateId,
+        );
+
+      if (!smsTemplate || smsTemplate.type !== "text-message") {
+        throw new ConnectedAppRequestError(
+          "sms_template_invalid",
+          { templateId: settings.smsTemplateId },
+          400,
+        );
+      }
+
+      body = templateSafeWithError(smsTemplate.value as string, args, true);
+    } else {
       throw new ConnectedAppRequestError(
         "sms_template_missing",
         { appId: appData._id },
         400,
       );
     }
-
-    const smsTemplate =
-      await this.props.services.templatesService.getTemplate(templateId);
-    if (!smsTemplate || smsTemplate.type !== "text-message") {
-      logger.error(
-        { paymentId: payment._id, appId: appData._id, templateId },
-        "SMS template invalid",
-      );
-
-      throw new ConnectedAppRequestError(
-        "sms_template_invalid",
-        { templateId },
-        400,
-      );
-    }
-
-    const body = templateSafeWithError(smsTemplate.value as string, args, true);
 
     await this.props.services.notificationService.sendTextMessage({
       phone: request.to,
@@ -636,13 +676,6 @@ export class PaymentLinksConnectedApp
   ): Promise<void> {
     const logger = this.loggerFactory("onEvent");
     logger.debug({ appId: appData._id, envelope }, "Handling event");
-
-    if (envelope.type === PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE) {
-      const { payment } = envelope.payload as PaymentLinksPaymentPaidPayload;
-      await this.activateGiftCardForPaidPayment(payment._id);
-
-      return;
-    }
 
     if (envelope.type !== PAYMENT_INTENT_PAID_EVENT_TYPE) {
       logger.debug({ appId: appData._id, envelope }, "Skipping event");
@@ -1377,31 +1410,6 @@ export class PaymentLinksConnectedApp
         "Failed to emit payment-links.payment.paid",
       );
     }
-  }
-
-  private async activateGiftCardForPaidPayment(
-    paymentId: string,
-  ): Promise<void> {
-    const logger = this.loggerFactory("activateGiftCardForPaidPayment");
-    const giftCard =
-      await this.props.services.giftCardsService.getGiftCardByPaymentId(
-        paymentId,
-      );
-
-    if (!giftCard || giftCard.status === "active") {
-      return;
-    }
-
-    logger.debug(
-      { paymentId, giftCardId: giftCard._id },
-      "Activating gift card after payment link paid",
-    );
-
-    await this.props.services.giftCardsService.setGiftCardStatus(
-      giftCard._id,
-      "active",
-      systemEventSource,
-    );
   }
 }
 

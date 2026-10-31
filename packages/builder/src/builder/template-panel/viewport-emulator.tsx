@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, ScrollArea, ScrollBar, Skeleton } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { ScrollArea, ScrollBar } from "@hacado/ui/scroll-area";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ViewportSize } from "../../documents/editor/context";

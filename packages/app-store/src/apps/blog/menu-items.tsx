@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { FileText, MessageSquare, Settings } from "lucide-react";
 import { BlogCommentApprovePage } from "./comments/pages/approve";
 import { BlogCommentsPage } from "./comments/pages/main";

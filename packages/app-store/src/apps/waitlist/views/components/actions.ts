@@ -1,4 +1,4 @@
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import {
   dismissWaitlistEntries,
   getWaitlistEntry as getWaitlistEntryAction,

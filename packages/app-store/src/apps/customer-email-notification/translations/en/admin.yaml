@@ -9,41 +9,77 @@ newDescription: Create new customer email notification
 editDescription: Update customer email notification
 form:
   pending:
+    enabled:
+      label: Send email when an appointment is pending
+      description: Sent when a customer requests an appointment and it is waiting for confirmation.
     templateId:
-      label: Pending email template
-      description: Email template that will be used to send to customers when they requested an appointment and their appointment is pending
+      label: Email template
+      description: The email customers receive when an appointment is pending.
+      required: Select an email template
   confirmed:
+    enabled:
+      label: Send email when an appointment is confirmed
+      description: Sent when an appointment is confirmed.
     templateId:
-      label: Confirmed email template
-      description: Email template that will be used to send to customers when their appointment was confirmed
+      label: Email template
+      description: The email customers receive when an appointment is confirmed.
+      required: Select an email template
   pendingPackage:
+    enabled:
+      label: Send a different email for pending package appointments
+      description: Used instead of the pending email when the appointment is covered by a package.
     templateId:
-      label: Pending package appointment email (optional)
-      description: Optional. Used instead of the pending template when the appointment is covered by a package. Leave empty to use the regular pending template.
+      label: Email template
+      description: The email customers receive for a pending package appointment.
+      required: Select an email template
   confirmedPackage:
+    enabled:
+      label: Send a different email for confirmed package appointments
+      description: Used instead of the confirmed email when the appointment is covered by a package.
     templateId:
-      label: Confirmed package appointment email (optional)
-      description: Optional. Used instead of the confirmed template when the appointment is covered by a package. Leave empty to use the regular confirmed template.
+      label: Email template
+      description: The email customers receive for a confirmed package appointment.
+      required: Select an email template
   declined:
+    enabled:
+      label: Send email when an appointment is declined
+      description: Sent when you decline a booking request.
     templateId:
-      label: Declined email template
-      description: Sent when you decline a booking request
+      label: Email template
+      description: The email customers receive when a booking request is declined.
+      required: Select an email template
   canceled:
+    enabled:
+      label: Send email when an appointment is canceled
+      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer.
     templateId:
-      label: Canceled email template
-      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer
+      label: Email template
+      description: The email customers receive when an appointment is canceled.
+      required: Select an email template
   noShow:
+    enabled:
+      label: Send email when a customer does not show
+      description: Sent when you mark the customer as a no-show. You can still skip it on a single appointment.
     templateId:
-      label: No-show email template
-      description: Optional. Sent when you mark the customer as a no-show. Leave empty to send nothing, or check “Do not notify customer” on the appointment.
+      label: Email template
+      description: The email customers receive when they are marked as a no-show.
+      required: Select an email template
   rescheduled:
+    enabled:
+      label: Send email when an appointment is rescheduled
+      description: Sent when an appointment is rescheduled.
     templateId:
-      label: Rescheduled email template
-      description: Email template that will be used to send to customers when their appointment was rescheduled
+      label: Email template
+      description: The email customers receive when an appointment is rescheduled.
+      required: Select an email template
   calendarEventTemplate:
+    enabled:
+      label: Include a calendar event
+      description: Added to the email so customers can save the appointment on their calendar.
     templateId:
       label: Calendar event template
-      description: Content of the event, that your customers will see in their calendar
+      description: The event customers see in their calendar.
+      required: Select a calendar event template
 statusText:
   email_app_not_configured: Email sender default is not configured
   successfully_set_up: Successfully set up
@@ -66,13 +102,13 @@ validation:
       min: Event summary is required
       max: Event summary must be no more than 256 characters
     templateId:
-      required: Event template is required
-      min: Event template is required
+      required: Select a calendar event template
+      min: Select a calendar event template
   emailTemplate:
     subject:
       required: Email subject is required
       min: Email subject is required
       max: Email subject must be no more than 256 characters
     templateId:
-      required: Email template is required
-      min: Email template is required
+      required: Select an email template
+      min: Select an email template

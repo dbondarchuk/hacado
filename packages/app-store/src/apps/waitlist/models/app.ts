@@ -1,10 +1,6 @@
-import {
-  dateRangeSchema,
-  querySchema,
-  zObjectId,
-  zTaggedUnion,
-  zUniqueArray,
-} from "@hacado/types";
+import { querySchema } from "@hacado/types/database";
+import { dateRangeSchema } from "@hacado/types/general";
+import { zObjectId, zTaggedUnion, zUniqueArray } from "@hacado/types/utils";
 import * as z from "zod";
 
 import { WaitlistAdminAllKeys } from "../translations/types";
@@ -83,7 +79,8 @@ export const createWaitlistEntryRequestSchema = z
         "app_waitlist_admin.validation.createWaitlistEntry.note.max" satisfies WaitlistAdminAllKeys,
       )
       .optional(),
-    optionId: zObjectId("validation.appointments.request.optionId.required"),
+    smsConsent: z.boolean().optional(),
+    optionId: zObjectId("validation.appointments.request.serviceId.required"),
     /** Preferred/assigned staff member; resolved to the owner member when omitted. */
     memberId: zObjectId(
       "validation.appointments.request.memberId.required",
@@ -133,6 +130,13 @@ export type CreateWaitlistEntryAction = z.infer<
   typeof createWaitlistEntryActionSchema
 >;
 export const CreateWaitlistEntryActionType = "create-waitlist-entry" as const;
+
+export const getWaitlistSmsTextActionSchema = z.object({});
+
+export type GetWaitlistSmsTextAction = z.infer<
+  typeof getWaitlistSmsTextActionSchema
+>;
+export const GetWaitlistSmsTextActionType = "get-sms-text" as const;
 // Request action
 
 export const requestActionSchema = zTaggedUnion([
@@ -146,6 +150,10 @@ export const requestActionSchema = zTaggedUnion([
   {
     type: CreateWaitlistEntryActionType,
     data: createWaitlistEntryActionSchema,
+  },
+  {
+    type: GetWaitlistSmsTextActionType,
+    data: getWaitlistSmsTextActionSchema,
   },
 ]);
 

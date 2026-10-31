@@ -1,16 +1,14 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import {
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import {
   AlertCircle,
   CheckCircle,

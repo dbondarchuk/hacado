@@ -1,26 +1,26 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
+import { ConnectedAppData, IConnectedAppProps } from "@hacado/types/apps";
+import { Appointment } from "@hacado/types/booking";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { getArguments } from "@hacado/utils/get-arguments";
 import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
-import {
-  AppJobRequest,
-  Appointment,
-  ConnectedAppData,
-  IConnectedAppProps,
-} from "@hacado/types";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+  appendSharedPoolSuffix,
+  isPlatformSmsCountry,
+  smsCustomerName,
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { canUseFeature } from "@hacado/utils/subscription";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import pLimit from "p-limit";
+import { getAppointmentReminderSms } from "./messages";
 import {
   AppointmentNotification,
   AppointmentNotificationsJobPayload,
+  readAppointmentNotificationChannels,
 } from "./models";
 import { AppointmentNotificationsRepository } from "./repository";
 import { AppointmentNotificationsAdminAllKeys } from "./translations/types";
@@ -171,19 +171,17 @@ export class AppointmentNotificationsJobProcessor {
         websiteUrl,
       });
 
-      const channel = appointmentNotification.channel;
-      const template = await this.props.services.templatesService.getTemplate(
-        appointmentNotification.templateId,
+      const channels = readAppointmentNotificationChannels(
+        appointmentNotification,
       );
 
-      if (!template) {
-        logger.warn(
+      if (!channels.emailEnabled && !channels.textEnabled) {
+        logger.info(
           {
             appId: appData._id,
             appointmentNotificationId: appointmentNotification._id,
-            templateId: appointmentNotification.templateId,
           },
-          "Template not found for appointment notification",
+          "Appointment notification has no channels selected",
         );
         return;
       }
@@ -233,14 +231,29 @@ export class AppointmentNotificationsJobProcessor {
         {
           appId: appData._id,
           appointmentNotificationId: appointmentNotification._id,
-          channel,
-          templateId: appointmentNotification.templateId,
+          emailEnabled: channels.emailEnabled,
+          textEnabled: channels.textEnabled,
         },
-        "Template found, sending appointment notification",
+        "Sending appointment notification",
       );
 
-      switch (channel) {
-        case "email":
+      if (channels.emailEnabled) {
+        const emailTemplate = channels.emailTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              channels.emailTemplateId,
+            )
+          : null;
+
+        if (!emailTemplate || emailTemplate.type !== "email") {
+          logger.warn(
+            {
+              appId: appData._id,
+              appointmentNotificationId: appointmentNotification._id,
+              templateId: channels.emailTemplateId,
+            },
+            "Template is not an email template, skipping email appointment notification",
+          );
+        } else {
           logger.debug(
             {
               appId: appData._id,
@@ -251,25 +264,13 @@ export class AppointmentNotificationsJobProcessor {
             "Sending email appointment notification",
           );
 
-          if (template.type !== "email") {
-            logger.warn(
-              {
-                appId: appData._id,
-                appointmentNotificationId: appointmentNotification._id,
-              },
-              "Template is not an email template, skipping email appointment notification",
-            );
-
-            throw new Error("Template is not an email template");
-          }
-
           await this.props.services.notificationService.sendEmail({
             email: {
               body: await renderToStaticMarkup({
                 args: args,
-                document: template.value,
+                document: emailTemplate.value,
               }),
-              subject: templateSafeWithError(template.subject, args),
+              subject: templateSafeWithError(emailTemplate.subject, args),
               to: appointment.fields.email,
             },
             participantType: "customer",
@@ -291,90 +292,115 @@ export class AppointmentNotificationsJobProcessor {
             },
             "Successfully sent email appointment notification",
           );
-          return;
-
-        case "text-message": {
-          const organization =
-            await this.props.services.organizationService.getOrganization();
-          const planTier = resolvePlanTierFromOrganization(organization);
-          if (!canUseFeature(planTier, "sms")) {
-            logger.info(
-              {
-                appId: appData._id,
-                appointmentNotificationId: appointmentNotification._id,
-                appointmentId: appointment._id,
-              },
-              "Skipping text message appointment notification for subscription plan tier",
-            );
-            return;
-          }
-
-          const phone =
-            appointment.fields?.phone ?? appointment.customer?.phone;
-
-          if (!phone) {
-            logger.warn(
-              {
-                appId: appData._id,
-                appointmentNotificationId: appointmentNotification._id,
-                appointmentId: appointment._id,
-              },
-              "Phone number not found for text message appointment notification",
-            );
-            return;
-          }
-
-          logger.debug(
-            {
-              appId: appData._id,
-              appointmentNotificationId: appointmentNotification._id,
-              appointmentId: appointment._id,
-              phone,
-            },
-            "Sending text message appointment notification",
-          );
-
-          await this.props.services.notificationService.sendTextMessage({
-            phone,
-            sender: config.general.name,
-            body: templateSafeWithError(template.value, args),
-            webhookData: {
-              appointmentId: appointment._id,
-              appId: appData._id,
-            },
-            participantType: "customer",
-            handledBy: {
-              key: `app_appointment-notifications_admin.handler` satisfies AppointmentNotificationsAdminAllKeys,
-              args: {
-                appointmentNotificationName: appointmentNotification.name,
-              },
-            },
-            appointmentId: appointment._id,
-            memberId: appointment.memberId,
-          });
-
-          logger.info(
-            {
-              appId: appData._id,
-              appointmentNotificationId: appointmentNotification._id,
-              appointmentId: appointment._id,
-            },
-            "Successfully sent text message appointment notification",
-          );
-          return;
         }
-
-        default:
-          logger.error(
-            {
-              appId: appData._id,
-              appointmentNotificationId: (appointmentNotification as any)._id,
-              channel,
-            },
-            "Unknown appointment notification channel type",
-          );
-          return;
       }
+
+      if (!channels.textEnabled) return;
+
+      const planTier = resolvePlanTierFromOrganization(organization);
+      if (!canUseFeature(planTier, "sms")) {
+        logger.info(
+          {
+            appId: appData._id,
+            appointmentNotificationId: appointmentNotification._id,
+            appointmentId: appointment._id,
+          },
+          "Skipping text message appointment notification for subscription plan tier",
+        );
+        return;
+      }
+
+      const phone = appointment.fields?.phone ?? appointment.customer?.phone;
+      if (!phone) {
+        logger.warn(
+          {
+            appId: appData._id,
+            appointmentNotificationId: appointmentNotification._id,
+            appointmentId: appointment._id,
+          },
+          "Phone number not found for text message appointment notification",
+        );
+        return;
+      }
+
+      logger.debug(
+        {
+          appId: appData._id,
+          appointmentNotificationId: appointmentNotification._id,
+          appointmentId: appointment._id,
+          phone,
+        },
+        "Sending text message appointment notification",
+      );
+
+      const manageLink = isPlatformSmsCountry(phone)
+        ? await this.props.services.pagesService.findManageAppointmentUrl(
+            websiteUrl,
+          )
+        : undefined;
+      const smsArgs = {
+        ...args,
+        manageLink,
+        customerName: smsCustomerName(appointment.fields?.name),
+      };
+      const platformCountry = isPlatformSmsCountry(phone);
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
+      const builtIn = template(
+        getAppointmentReminderSms(config.brand.language),
+        smsArgs,
+        true,
+      );
+      const stored =
+        allowCustom && channels.textTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              channels.textTemplateId,
+            )
+          : null;
+
+      const customBody =
+        stored?.type === "text-message"
+          ? templateSafeWithError(stored.value, smsArgs, true)
+          : undefined;
+
+      const smsBody =
+        customBody ??
+        (platformCountry && !allowCustom
+          ? appendSharedPoolSuffix(builtIn)
+          : builtIn);
+
+      await this.props.services.notificationService.sendTextMessage({
+        phone,
+        sender: config.general.name,
+        body: smsBody,
+        ...(appointmentSkipsSmsConsent(appointment.createdAt)
+          ? { dontRequireConsent: true }
+          : {}),
+        idempotencyKey: `sms_${appointment.organizationId}_${appointment._id}_reminder_${appointmentNotification._id}`,
+        webhookData: {
+          appointmentId: appointment._id,
+          appId: appData._id,
+        },
+        participantType: "customer",
+        handledBy: {
+          key: `app_appointment-notifications_admin.handler` satisfies AppointmentNotificationsAdminAllKeys,
+          args: {
+            appointmentNotificationName: appointmentNotification.name,
+          },
+        },
+        appointmentId: appointment._id,
+        memberId: appointment.memberId,
+      });
+
+      logger.info(
+        {
+          appId: appData._id,
+          appointmentNotificationId: appointmentNotification._id,
+          appointmentId: appointment._id,
+        },
+        "Successfully sent text message appointment notification",
+      );
     } catch (error: any) {
       logger.error(
         {

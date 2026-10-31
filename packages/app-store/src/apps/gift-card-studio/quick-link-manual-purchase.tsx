@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { ManualPurchaseDialog } from "./purchases/components/manual-purchase-form";
@@ -10,14 +10,23 @@ export function GiftCardStudioManualPurchaseQuickLink({
   label,
   icon,
   className,
+  open: controlledOpen,
+  onOpenChange,
 }: {
   appId?: string;
   label: string;
   icon: React.ReactNode;
   className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }) {
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
+  const open = controlledOpen ?? uncontrolledOpen;
+  const setOpen = (next: boolean) => {
+    onOpenChange?.(next);
+    if (controlledOpen === undefined) setUncontrolledOpen(next);
+  };
 
   if (!appId) {
     return null;
@@ -25,17 +34,19 @@ export function GiftCardStudioManualPurchaseQuickLink({
 
   return (
     <>
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        className={className}
-        aria-label={label}
-        onClick={() => setOpen(true)}
-      >
-        {icon}
-        {label}
-      </Button>
+      {controlledOpen === undefined ? (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className={className}
+          aria-label={label}
+          onClick={() => setOpen(true)}
+        >
+          {icon}
+          {label}
+        </Button>
+      ) : null}
       <ManualPurchaseDialog
         appId={appId}
         open={open}

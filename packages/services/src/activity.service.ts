@@ -1,16 +1,18 @@
 import type {
   ActivityEntry,
-  ActivityFeedPreview,
   ActivityListItem,
   ActivityListQuery,
   ActivityRecord,
   ActivitySeverity,
+} from "@hacado/types/activity";
+import type { ActivityFeedPreview } from "@hacado/types/apps";
+import type { WithTotal } from "@hacado/types/database";
+import type { Organization } from "@hacado/types/organizations";
+import type {
   IActivityService,
   IDashboardNotificationsService,
-  Organization,
-  WithTotal,
-} from "@hacado/types";
-import { escapeRegex } from "@hacado/utils";
+} from "@hacado/types/services";
+import { escapeRegex } from "@hacado/utils/string";
 import type { Redis } from "ioredis";
 import type { Document, Filter } from "mongodb";
 import { ObjectId } from "mongodb";

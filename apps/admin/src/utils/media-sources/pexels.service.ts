@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type { PexelsMedia, PexelsSearchResult } from "@hacado/types";
+import type { PexelsMedia, PexelsSearchResult } from "@hacado/types/pexels";
 import type { Redis } from "ioredis";
 
 const PEXELS_API_BASE = "https://api.pexels.com";

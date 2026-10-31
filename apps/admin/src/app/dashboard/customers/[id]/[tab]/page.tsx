@@ -3,41 +3,50 @@ import { AppointmentsTable } from "@/components/admin/appointments/table/table";
 import { AppointmentsTableAction } from "@/components/admin/appointments/table/table-action";
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
 import { CustomerForm } from "@/components/admin/customers/form";
+import { CustomerSmsConsent } from "@/components/admin/customers/sms-consent";
 import PageContainer from "@/components/admin/layout/page-container";
 import { PaymentsTable } from "@/components/admin/payments/table/table";
 import { PaymentsTableAction } from "@/components/admin/payments/table/table-action";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import {
   appointmentsSearchParamsCache,
+  serializeAppointmentsSearchParams,
+} from "@hacado/api-sdk/admin/search-params/appointments";
+import {
   assetsSearchParamsCache,
+  serializeAssetsSearchParams,
+} from "@hacado/api-sdk/admin/search-params/assets";
+import {
   communicationLogsSearchParamsCache,
+  serializeCommunicationLogsSearchParams,
+} from "@hacado/api-sdk/admin/search-params/communication-logs";
+import {
   paymentsSearchParamsCache,
   paymentsSearchParamsSerializer,
-  serializeAppointmentsSearchParams,
-  serializeAssetsSearchParams,
-  serializeCommunicationLogsSearchParams,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/payments";
 import { CustomerTabInjectorApps } from "@hacado/app-store/injectors/customer-tab";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  Breadcrumbs,
-  Heading,
-  Link,
-  ResponsiveTabsList,
-  TabsContent,
-  TabsTrigger,
-  TabsViaUrl,
-} from "@hacado/ui";
-import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin";
+  RecentCommunications,
+  SendCommunicationButton,
+} from "@hacado/ui-admin-kit/communications";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsPortal,
   HeaderActionButtonsProvider,
-  RecentCommunications,
-  SendCommunicationButton,
-} from "@hacado/ui-admin-kit";
-import { hasPermission } from "@hacado/utils";
+} from "@hacado/ui-admin-kit/page";
+import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import { Link } from "@hacado/ui/link";
+import {
+  ResponsiveTabsList,
+  TabsContent,
+  TabsTrigger,
+  TabsViaUrl,
+} from "@hacado/ui/tabs";
+import { hasPermission } from "@hacado/utils/permissions";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -209,7 +218,7 @@ export default async function CustomerPage(props: Props) {
     [detailsTab]: t("customers.details"),
     [appointmentsTab]: t("customers.appointments"),
     [paymentsTab]: t("customers.payments"),
-    [packagesTab]: t("services.packages.customer.title"),
+    [packagesTab]: t("catalog.packages.customer.title"),
     [filesTab]: t("customers.files"),
     [communicationsTab]: t("customers.communications"),
   };
@@ -256,7 +265,24 @@ export default async function CustomerPage(props: Props) {
               </ResponsiveTabsList>
               <TabsContent value={detailsTab}>
                 {activeTab === detailsTab && (
-                  <CustomerForm initialData={customer} />
+                  <CustomerForm
+                    initialData={customer}
+                    smsConsent={
+                      <CustomerSmsConsent
+                        customerId={customer._id}
+                        hasPhone={Boolean(customer.phone)}
+                        canUpdate={canUpdateCustomer}
+                        isDeleted={customer.isDeleted}
+                        status={
+                          customer.phone
+                            ? await servicesContainer.smsConsentService.getCustomerSmsConsentStatus(
+                                customer.phone,
+                              )
+                            : { consented: false, optedOut: false }
+                        }
+                      />
+                    }
+                  />
                 )}
               </TabsContent>
               {activeTab === appointmentsTab && (
@@ -374,7 +400,20 @@ export default async function CustomerPage(props: Props) {
                       <DataTableSkeleton columnCount={10} rowCount={10} />
                     }
                   >
-                    <RecentCommunications customerId={params.id} />
+                    <RecentCommunications
+                      customerId={params.id}
+                      direction={communicationLogsSearchParamsCache.get(
+                        "direction",
+                      )}
+                      channel={communicationLogsSearchParamsCache.get(
+                        "channel",
+                      )}
+                      status={communicationLogsSearchParamsCache.get("status")}
+                      start={communicationLogsSearchParamsCache.get("start")}
+                      end={communicationLogsSearchParamsCache.get("end")}
+                      search={communicationLogsSearchParamsCache.get("search")}
+                      member={communicationLogsSearchParamsCache.get("member")}
+                    />
                   </Suspense>
                 </TabsContent>
               )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { assetsSearchParams } from "@hacado/api-sdk";
+import { assetsSearchParams } from "@hacado/api-sdk/admin/search-params/assets";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

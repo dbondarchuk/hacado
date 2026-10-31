@@ -3,26 +3,23 @@
 import { SmsTopupPurchaseDialog } from "@/app/dashboard/settings/brand/tabs/sms-topup-purchase-dialog";
 import { PurchaseSeatsDialog } from "@/components/admin/team/purchase-seats-dialog";
 import { SeatsPurchaseSuccessToast } from "@/components/admin/team/seats-purchase-success-toast";
-import { adminApi } from "@hacado/api-sdk";
+import { billingApi } from "@hacado/api-sdk/admin/billing";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   BillingPlanTier,
   OrganizationBillingSubscriptionDetails,
   OrganizationSubscriptionStatus,
-} from "@hacado/types";
+} from "@hacado/types/billing";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Spinner,
-  toast,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { ExternalLink } from "lucide-react";
 import { DateTime } from "luxon";
 import Link from "next/link";
@@ -139,7 +136,7 @@ export function GeneralBillingCard({
   const openPortal = async () => {
     setOpening(true);
     try {
-      const result = await adminApi.billing.getBillingPortalUrl();
+      const result = await billingApi.getBillingPortalUrl();
       window.location.assign(result);
     } catch (error) {
       toast.error(t("settings.general.billing.portalError"));

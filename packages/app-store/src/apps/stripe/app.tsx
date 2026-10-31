@@ -1,8 +1,6 @@
-import {
-  type App,
-  BillingPlanTier,
-  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-} from "@hacado/types";
+import type { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 import { STRIPE_APP_NAME } from "./const";
 import { StripeLogo } from "./logo";
 import { StripeAdminKeys, StripeAdminNamespace } from "./translations/types";

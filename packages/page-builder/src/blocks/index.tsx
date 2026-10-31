@@ -1,9 +1,8 @@
 "use client";
-import {
-  EditorDocumentBlocksDictionary,
-  generateId,
-  TEditorBlock,
-} from "@hacado/builder";
+import { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import {
   AppWindow,
   ArrowBigRightDash,
@@ -37,6 +36,7 @@ import {
   Table as TableIcon,
   Text,
   Type,
+  Variable,
   Zap,
 } from "lucide-react";
 import {
@@ -70,7 +70,6 @@ import {
   LinkToolbar,
 } from "./link";
 
-import { BaseAllKeys } from "@hacado/i18n";
 import {
   BookingConfirmationConfiguration as BookingConfirmationModernConfiguration,
   BookingConfirmationEditor as BookingConfirmationModernEditor,
@@ -99,6 +98,12 @@ import {
   CarouselPropsDefaults,
   CarouselToolbar,
 } from "./carousel";
+import {
+  CatalogValueConfiguration,
+  CatalogValueEditor,
+  CatalogValuePropsDefaults,
+  CatalogValueToolbar,
+} from "./catalog-value";
 import {
   ConditionalContainerConfiguration,
   ConditionalContainerEditor,
@@ -612,6 +617,19 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     },
     capabilities: ["text", "inline"],
     tags: ["text", "inline"],
+  },
+  CatalogValue: {
+    displayName:
+      "builder.pageBuilder.blocks.catalogValue.displayName" satisfies BaseAllKeys,
+    icon: <Variable />,
+    Editor: CatalogValueEditor,
+    Configuration: CatalogValueConfiguration,
+    Toolbar: CatalogValueToolbar,
+    defaultValue: CatalogValuePropsDefaults,
+    category:
+      "builder.pageBuilder.blocks.categories.text" satisfies BaseAllKeys,
+    capabilities: ["text", "inline", "block"],
+    tags: ["text", "catalog", "service", "price"],
   },
   TypewriterText: {
     displayName:

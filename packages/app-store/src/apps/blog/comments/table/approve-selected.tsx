@@ -1,8 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Spinner, toastPromise } from "@hacado/ui";
-import { useReload } from "@hacado/ui-admin";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Check } from "lucide-react";
 import React from "react";
 import { approveSelectedBlogComments } from "../../actions";

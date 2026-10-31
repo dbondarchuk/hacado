@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { CalendarDays } from "lucide-react";
 import { WeeklyScheduleAppSetup } from "./setup";
 import {

@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { CALDAV_APP_NAME } from "./const";
 import { CaldavLogo } from "./logo";
 import { CaldavAdminKeys, CaldavAdminNamespace } from "./translations/types";

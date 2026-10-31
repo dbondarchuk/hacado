@@ -16,16 +16,16 @@ import {
 } from "@hacado/app-store";
 import { languages } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
+import { ServicesContainer } from "@hacado/services/container";
+import type { ConnectedApp } from "@hacado/types/apps";
+import { fontName } from "@hacado/types/configuration/styling";
 import {
-  fontName,
   normalizePostalAddress,
   zBusinessIndustry,
   zCountry,
   zCurrency,
   zTimeZone,
-  type ConnectedApp,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { headers } from "next/headers";
 import * as z from "zod";
 

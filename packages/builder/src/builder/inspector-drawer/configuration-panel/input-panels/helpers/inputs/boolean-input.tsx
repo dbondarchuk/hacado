@@ -1,4 +1,5 @@
-import { Checkbox, Label } from "@hacado/ui";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
 import React, { useId } from "react";
 
 type Props = {

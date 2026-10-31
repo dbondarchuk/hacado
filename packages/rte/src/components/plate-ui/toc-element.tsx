@@ -7,7 +7,7 @@ import {
 } from "@udecode/plate-heading/react";
 import { cva } from "class-variance-authority";
 
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { PlateElement } from "./plate-element";
 
 const headingItemVariants = cva(

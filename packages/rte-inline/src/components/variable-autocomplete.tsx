@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { VariableData } from "../lib/rich-text-types";
 

@@ -89,10 +89,13 @@ export const getCustomerSchemaWithUniqueCheck = (
   phoneMessage: string,
 ) => {
   return customerSchema.superRefine(async (args, ctx) => {
+    if (!args.email && !args.phone) return;
+
     const isUnique = await uniqueEmailOrPhoneCheckFn(
       [args.email, ...(args.knownEmails || [])],
       [args.phone, ...(args.knownPhones || [])],
     );
+
     if (!isUnique.email) {
       ctx.addIssue({
         code: "custom",

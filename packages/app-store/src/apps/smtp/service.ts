@@ -9,7 +9,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IMailSenderApp,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import { createEvent } from "ics";
 import nodemailer from "nodemailer";

@@ -5,7 +5,7 @@ import {
   normalizeAuthErrorCode,
 } from "@/lib/auth/auth-error";
 import { useI18n } from "@hacado/i18n/client";
-import { Link } from "@hacado/ui";
+import { Link } from "@hacado/ui/link";
 import { useSearchParams } from "next/navigation";
 
 export function AuthErrorContent() {

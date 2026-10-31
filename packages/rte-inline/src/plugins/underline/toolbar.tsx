@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { ToolbarButton } from "@hacado/ui";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { Underline } from "lucide-react";
 import { useRTEContext } from "../../context/rte-context";
 

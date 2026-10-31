@@ -3,7 +3,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -25,7 +25,7 @@ Nous avons reçu votre demande d'inscription sur notre liste d'attente.
 
 Nous vous contacterons dès qu'un créneau horaire sera disponible pour la date souhaitée.
 
-Service demandé : {{waitlistEntry.option.name}}
+Service demandé : {{waitlistEntry.service.name}}
 
 Spécialiste : {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}`,
       },

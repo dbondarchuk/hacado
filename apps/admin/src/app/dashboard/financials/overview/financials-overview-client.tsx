@@ -1,24 +1,23 @@
 "use client";
 
-import { AdminKeys, useI18n } from "@hacado/i18n/client";
-import type { BookingStep, DateRange, PaymentSummary } from "@hacado/types";
+import { useI18n } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
+import type { BookingStep, PaymentSummary } from "@hacado/types/booking";
+import type { DateRange } from "@hacado/types/general";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
+import { PaymentCard } from "@hacado/ui-admin-kit/payments";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { CalendarDateRangePicker } from "@hacado/ui/date-range-picker";
 import {
-  CalendarDateRangePicker,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Skeleton,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { useReload } from "@hacado/ui-admin";
-import { PaymentCard } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/select";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { DateTime } from "luxon";
 import { useQueryState } from "nuqs";
 import React from "react";
@@ -273,55 +272,50 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4">
-        {/* Date Range Selector */}
-        <div className="flex flex-col lg:flex-row lg:items-center gap-4 justify-end w-full">
-          <div className="flex flex-col md:flex-row gap-4 w-full md:max-w-fit">
-            <div className="w-full md:w-48">
-              <Select
-                value={timeGrouping || "day"}
-                onValueChange={(value) => setTimeGrouping(value)}
-              >
-                <SelectTrigger>
-                  <SelectValue
-                    placeholder={t("financialOverview.view.timeGrouping.label")}
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="day">
-                    {t("financialOverview.view.timeGrouping.daily")}
-                  </SelectItem>
-                  <SelectItem value="week">
-                    {t("financialOverview.view.timeGrouping.weekly")}
-                  </SelectItem>
-                  <SelectItem value="month">
-                    {t("financialOverview.view.timeGrouping.monthly")}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="w-full md:max-w-fit">
-              <CalendarDateRangePicker
-                range={{
-                  start: start
-                    ? DateTime.fromJSDate(start).setZone(timeZone).toJSDate()
-                    : undefined,
-                  end: end
-                    ? DateTime.fromJSDate(end).setZone(timeZone).toJSDate()
-                    : undefined,
-                }}
-                rangeOptions={dateRangeOptions.map((option) => ({
-                  label: t(`financialOverview.view.rangeOptions.${option}`),
-                  name: option,
-                  value: getDateRange(option, timeZone),
-                }))}
-                onChange={handleCalendarChange}
-                timeZone={timeZone}
+      <HeaderActionButtonsPortal>
+        <div className="w-full sm:w-32">
+          <Select
+            value={timeGrouping || "day"}
+            onValueChange={(value) => setTimeGrouping(value)}
+          >
+            <SelectTrigger size="sm" className="px-2.5 text-sm">
+              <SelectValue
+                placeholder={t("financialOverview.view.timeGrouping.label")}
               />
-            </div>
-          </div>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="day">
+                {t("financialOverview.view.timeGrouping.daily")}
+              </SelectItem>
+              <SelectItem value="week">
+                {t("financialOverview.view.timeGrouping.weekly")}
+              </SelectItem>
+              <SelectItem value="month">
+                {t("financialOverview.view.timeGrouping.monthly")}
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-
+        <CalendarDateRangePicker
+          className="h-8 w-full px-2.5 text-sm sm:w-auto"
+          range={{
+            start: start
+              ? DateTime.fromJSDate(start).setZone(timeZone).toJSDate()
+              : undefined,
+            end: end
+              ? DateTime.fromJSDate(end).setZone(timeZone).toJSDate()
+              : undefined,
+          }}
+          rangeOptions={dateRangeOptions.map((option) => ({
+            label: t(`financialOverview.view.rangeOptions.${option}`),
+            name: option,
+            value: getDateRange(option, timeZone),
+          }))}
+          onChange={handleCalendarChange}
+          timeZone={timeZone}
+        />
+      </HeaderActionButtonsPortal>
+      <div className="flex flex-col gap-4">
         {/* Financial Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <Card>
@@ -430,8 +424,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
           {/* Revenue Over Time Line Chart */}
           <Card>
-            <CardHeader>
-              <CardTitle>
+            <CardHeader className="px-4 pt-4 pb-2">
+              <CardTitle className="text-base font-semibold leading-tight">
                 {t("financialOverview.view.revenueAndPayments")}
               </CardTitle>
             </CardHeader>
@@ -500,8 +494,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           {/* Appointment Status Distribution Chart */}
           <Card>
-            <CardHeader>
-              <CardTitle>
+            <CardHeader className="px-4 pt-4 pb-2">
+              <CardTitle className="text-base font-semibold leading-tight">
                 {t("financialOverview.view.appointmentStatusDistribution")}
               </CardTitle>
             </CardHeader>
@@ -579,8 +573,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           {/* Service Distribution Pie Chart */}
           <Card>
-            <CardHeader>
-              <CardTitle>
+            <CardHeader className="px-4 pt-4 pb-2">
+              <CardTitle className="text-base font-semibold leading-tight">
                 {t("financialOverview.view.serviceDistribution")}
               </CardTitle>
             </CardHeader>
@@ -639,8 +633,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           {/* Customer Acquisition vs Retention Chart */}
           <Card>
-            <CardHeader>
-              <CardTitle>
+            <CardHeader className="px-4 pt-4 pb-2">
+              <CardTitle className="text-base font-semibold leading-tight">
                 {t("financialOverview.view.customerAcquisitionVsRetention")}
               </CardTitle>
             </CardHeader>
@@ -699,7 +693,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
         {/* Booking Tracking Section */}
         <div className="flex flex-col gap-4">
-          <h3 className="text-2xl font-semibold leading-none tracking-tight wrap-anywhere">
+          <h3 className="text-base font-semibold leading-tight tracking-tight wrap-anywhere">
             {t("financialOverview.view.bookingTracking.title")}
           </h3>
 
@@ -798,8 +792,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {/* Booking Completion vs Abandonment Over Time */}
             <Card>
-              <CardHeader>
-                <CardTitle>
+              <CardHeader className="px-4 pt-4 pb-2">
+                <CardTitle className="text-base font-semibold leading-tight">
                   {t(
                     "financialOverview.view.bookingTracking.completionVsAbandonment",
                   )}
@@ -880,8 +874,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             {/* Reached / entered by Step */}
             <Card>
-              <CardHeader>
-                <CardTitle>
+              <CardHeader className="px-4 pt-4 pb-2">
+                <CardTitle className="text-base font-semibold leading-tight">
                   {t(
                     "financialOverview.view.bookingTracking.enteredByStep.title",
                   )}
@@ -942,8 +936,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             {/* Abandonment by Step */}
             <Card>
-              <CardHeader>
-                <CardTitle>
+              <CardHeader className="px-4 pt-4 pb-2">
+                <CardTitle className="text-base font-semibold leading-tight">
                   {t(
                     "financialOverview.view.bookingTracking.abandonmentByStep.title",
                   )}
@@ -1019,8 +1013,8 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             {/* Conversion by Type */}
             <Card>
-              <CardHeader>
-                <CardTitle>
+              <CardHeader className="px-4 pt-4 pb-2">
+                <CardTitle className="text-base font-semibold leading-tight">
                   {t(
                     "financialOverview.view.bookingTracking.conversionByType.title",
                   )}
@@ -1097,7 +1091,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
       </div>
 
       <div className="flex flex-col gap-4 @container/recent-payments">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight wrap-anywhere">
+        <h3 className="text-base font-semibold leading-tight tracking-tight wrap-anywhere">
           {t("financialOverview.view.recentPayments")}
         </h3>
         <div className="grid grid-cols-1 @2xl/recent-payments:grid-cols-2 @4xl/recent-payments:grid-cols-3 gap-4">

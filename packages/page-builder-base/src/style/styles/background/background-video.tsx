@@ -1,6 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Label } from "@hacado/ui";
-import { AssetSelectorInput } from "@hacado/ui-admin";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Label } from "@hacado/ui/label";
 import { Video } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

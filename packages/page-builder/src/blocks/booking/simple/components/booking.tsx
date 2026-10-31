@@ -1,10 +1,10 @@
 "use client";
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import {
   applyBookingLocks,
   GetAppointmentOptionsResponse,
-} from "@hacado/types";
-import { Skeleton } from "@hacado/ui";
+} from "@hacado/types/booking";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../utils/fixtures";
 import { Appointments } from "./appointments";
@@ -30,7 +30,7 @@ export const Booking: React.FC<
     React.useState<GetAppointmentOptionsResponse | null>(null);
 
   const loadOptions = React.useCallback(async () => {
-    const data = await clientApi.booking.getBookingOptions();
+    const data = await bookingApi.getBookingOptions();
     setResponse(data);
   }, []);
 
@@ -70,6 +70,7 @@ export const Booking: React.FC<
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}
+      smsText={response.smsText}
       bookingRestriction={response.bookingRestriction}
       catalog={response.catalog}
       packages={response.packages}

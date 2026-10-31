@@ -1,6 +1,9 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Button, cn, ScrollArea, useTimeZone } from "@hacado/ui";
-import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils/time";
 import { CalendarIcon, ChevronDown, ChevronRight, Clock } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

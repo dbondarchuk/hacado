@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { CustomerAuthError } from "@hacado/types";
+import { CustomerAuthError } from "@hacado/types/customer-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

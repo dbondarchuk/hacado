@@ -1,8 +1,5 @@
-import {
-  BuilderSchema,
-  ReaderDocumentBlocksDictionary,
-  TemplatesConfiguration,
-} from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
+import { BuilderSchema, TemplatesConfiguration } from "@hacado/builder/types";
 
 export type BlockProvider<T extends BuilderSchema = any> = {
   providerName: string; // appName

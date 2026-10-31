@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerOtpForm } from "@hacado/ui";
+import { CustomerOtpForm } from "@hacado/ui/customer-otp-form";
 import { useCallback } from "react";
 import {
   MyCabinetPublicKeys,
@@ -41,6 +41,7 @@ export const AuthScreen = ({ onAuthenticated }: AuthScreenProps) => {
           name: result.name,
           email: result.email,
           phone: result.phone,
+          smsConsent: result.smsConsent === true,
         })
       }
       labels={{

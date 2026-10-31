@@ -1,9 +1,9 @@
 import type {
   ConnectedAppData,
   IConnectedAppProps,
-  Page,
   SitemapUrlEntry,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { Page } from "@hacado/types/pages";
 import { BlogRepositoryService } from "./repository-service";
 
 function blogPathPrefixFromPageSlug(slug: string): string | null {

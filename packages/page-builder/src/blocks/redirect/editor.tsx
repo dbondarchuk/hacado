@@ -1,6 +1,7 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { EditorRedirect } from "./editor-redirect";
 import { RedirectDefaultUrl, RedirectProps } from "./schema";
 

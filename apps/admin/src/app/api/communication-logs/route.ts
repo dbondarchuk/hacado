@@ -1,8 +1,9 @@
 import { getServicesContainer, getUser } from "@/app/utils";
-import { communicationLogsSearchParamsLoader } from "@hacado/api-sdk";
+import { communicationLogsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/communication-logs";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
-import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
+import { okStatus } from "@hacado/types/general";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
+import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -34,6 +35,7 @@ export async function GET(request: NextRequest) {
   const appointmentId = params.appointmentId ?? undefined;
   const direction = params.direction;
   const channel = params.channel;
+  const status = params.status;
   const start = params.start ?? undefined;
   const end = params.end ?? undefined;
   const participantType = params.participantType ?? undefined;
@@ -63,6 +65,7 @@ export async function GET(request: NextRequest) {
       appointmentId,
       direction,
       channel,
+      status,
       participantType,
       memberId: memberIds ?? undefined,
       range:

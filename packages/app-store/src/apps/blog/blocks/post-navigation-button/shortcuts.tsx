@@ -3,7 +3,7 @@ import {
   colorShortcut,
   fontFamilyShortcut,
   Shortcut,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/shortcuts";
 import { AllStylesSchemas, COLORS } from "@hacado/page-builder-base/style";
 import {
   AlignLeft,

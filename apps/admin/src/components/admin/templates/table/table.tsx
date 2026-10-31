@@ -1,9 +1,10 @@
 import { getServicesContainer } from "@/app/utils";
+import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import {
   templateSearchParams,
   templateSearchParamsCache,
-} from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+} from "@hacado/api-sdk/admin/search-params/templates";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 
 export const TemplatesTable: React.FC = async () => {
@@ -11,7 +12,10 @@ export const TemplatesTable: React.FC = async () => {
   const search = templateSearchParamsCache.get("search") || undefined;
   const limit = templateSearchParamsCache.get("limit");
   const sort = templateSearchParamsCache.get("sort");
-  const type = templateSearchParamsCache.get("type");
+  const allowTextTemplates = await customTextTemplatesAllowed();
+  const type = templateSearchParamsCache
+    .get("type")
+    ?.filter((channel) => allowTextTemplates || channel !== "text-message");
 
   const offset = (page - 1) * limit;
 
@@ -21,7 +25,7 @@ export const TemplatesTable: React.FC = async () => {
     limit,
     search,
     sort,
-    type,
+    type: type && type.length > 0 ? type : ["email"],
   });
 
   return (

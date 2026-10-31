@@ -1,7 +1,4 @@
 import {
-  APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
-  APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
-  APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE,
   AppointmentEntity,
   AppointmentPackage,
   AppointmentPackageListModel,
@@ -9,6 +6,31 @@ import {
   AppointmentPackageUpdateModel,
   AppointmentPackageUsage,
   canUsePackageForAppointment,
+  CustomerPackage,
+  CustomerPackageListModel,
+  PackageAdjustRequest,
+  PackageError,
+  resolveCustomerPackageStatus,
+  sumRemainingCredits,
+} from "@hacado/types/booking";
+import { Query, WithTotal } from "@hacado/types/database";
+import type {
+  AppointmentPackageCreatedPayload,
+  AppointmentPackageDeletedPayload,
+  AppointmentPackageUpdatedPayload,
+  CustomerPackageAdjustedPayload,
+  CustomerPackageCancelledPayload,
+  CustomerPackageExhaustedPayload,
+  CustomerPackageExpiredPayload,
+  CustomerPackageIssuedPayload,
+  CustomerPackageRedeemedPayload,
+  CustomerPackageRestoredPayload,
+  EventSource,
+} from "@hacado/types/events";
+import {
+  APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE,
   CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
   CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
   CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
@@ -16,33 +38,17 @@ import {
   CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
   CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
   CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
-  CustomerPackage,
-  CustomerPackageListModel,
+} from "@hacado/types/events";
+import {
+  ICatalogService,
   IEventService,
   IPackagesService,
   IPaymentsService,
-  IServicesService,
   IssueCustomerPackageInput,
-  PackageAdjustRequest,
-  PackageError,
-  Query,
   RedeemPackageInput,
-  resolveCustomerPackageStatus,
-  sumRemainingCredits,
-  WithTotal,
-  type AppointmentPackageCreatedPayload,
-  type AppointmentPackageDeletedPayload,
-  type AppointmentPackageUpdatedPayload,
-  type CustomerPackageAdjustedPayload,
-  type CustomerPackageCancelledPayload,
-  type CustomerPackageExhaustedPayload,
-  type CustomerPackageExpiredPayload,
-  type CustomerPackageIssuedPayload,
-  type CustomerPackageRedeemedPayload,
-  type CustomerPackageRestoredPayload,
-  type EventSource,
-} from "@hacado/types";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+} from "@hacado/types/services";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { DateTime } from "luxon";
 import {
   ClientSession,
@@ -64,7 +70,7 @@ import { BaseService } from "./services/base.service";
 export class PackagesService extends BaseService implements IPackagesService {
   public constructor(
     organizationId: string,
-    private readonly servicesService: IServicesService,
+    private readonly catalogService: ICatalogService,
     private readonly paymentsService: IPaymentsService,
     private readonly eventService: IEventService,
   ) {
@@ -83,7 +89,7 @@ export class PackagesService extends BaseService implements IPackagesService {
   private async snapshotItems(data: AppointmentPackageUpdateModel) {
     const items = await Promise.all(
       data.items.map(async (item) => {
-        const option = await this.servicesService.getOption(item.optionId);
+        const option = await this.catalogService.getService(item.serviceId);
         if (!option) {
           throw new PackageError(
             "option_not_included",
@@ -92,7 +98,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         }
         return {
           _id: item._id ?? new ObjectId().toString(),
-          optionId: item.optionId,
+          serviceId: item.serviceId,
           credits: item.credits,
           creditsPerRedemption: item.creditsPerRedemption ?? 1,
           optionName: option.name,
@@ -106,6 +112,11 @@ export class PackagesService extends BaseService implements IPackagesService {
     data: AppointmentPackageUpdateModel,
     source: EventSource,
   ): Promise<AppointmentPackage> {
+    const isUnique = await this.checkPackageUniqueName(data.name);
+    if (!isUnique) {
+      throw new PackageError("name_already_exists", "Name already exists");
+    }
+
     const items = await this.snapshotItems(data);
     const now = new Date();
     const doc: AppointmentPackage = {
@@ -144,6 +155,11 @@ export class PackagesService extends BaseService implements IPackagesService {
     const existing = await this.getPackage(id);
     if (!existing) return null;
 
+    const isUnique = await this.checkPackageUniqueName(data.name, id);
+    if (!isUnique) {
+      throw new PackageError("name_already_exists", "Name already exists");
+    }
+
     const items = await this.snapshotItems({
       ...data,
       items: data.items.map((item, index) => ({
@@ -177,6 +193,31 @@ export class PackagesService extends BaseService implements IPackagesService {
       source,
     );
     return updated;
+  }
+
+  public async checkPackageUniqueName(
+    name: string,
+    id?: string,
+  ): Promise<boolean> {
+    const logger = this.loggerFactory("checkPackageUniqueName");
+    logger.debug({ name, id }, "Checking package unique name");
+    const db = await getDbConnection();
+    const filter: Filter<AppointmentPackage> = {
+      name,
+      organizationId: this.organizationId,
+    };
+
+    if (id) {
+      filter._id = { $ne: id };
+    }
+
+    const hasNext = await db
+      .collection<AppointmentPackage>(APPOINTMENT_PACKAGES_COLLECTION_NAME)
+      .aggregate([{ $match: filter }])
+      .hasNext();
+
+    logger.debug({ name, id, hasNext }, "Package unique name check result");
+    return !hasNext;
   }
 
   public async setPackageStatus(
@@ -451,7 +492,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       eligibleMemberIds: definition.eligibleMemberIds,
       purchasedAt: now,
       expiresAt,
-      status: "active",
+      status: await this.purchaseStatus(input.paymentId),
       paymentId: input.paymentId,
       paymentIntentId: input.paymentIntentId,
       channel: input.channel,
@@ -486,6 +527,26 @@ export class PackagesService extends BaseService implements IPackagesService {
     );
 
     return customerPackage;
+  }
+
+  public async activatePendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void> {
+    const existing = await this.findByPaymentId(paymentId);
+    if (!existing || existing.status !== "pending") return;
+
+    await this.adjust(existing._id, { reactivate: true }, source);
+  }
+
+  public async cancelPendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void> {
+    const existing = await this.findByPaymentId(paymentId);
+    if (!existing || existing.status !== "pending") return;
+
+    await this.adjust(existing._id, { cancel: true }, source);
   }
 
   public async issueFromPayment(input: {
@@ -537,7 +598,7 @@ export class PackagesService extends BaseService implements IPackagesService {
 
     const eligibility = canUsePackageForAppointment({
       customerPackage,
-      optionId: input.optionId,
+      serviceId: input.serviceId,
       memberId: input.memberId,
       appointmentDate: input.appointmentDate,
       optionStaffMemberIds: input.optionStaffMemberIds,
@@ -742,7 +803,10 @@ export class PackagesService extends BaseService implements IPackagesService {
       source,
     );
 
-    if (request.cancel && previousStatus === "active") {
+    if (
+      request.cancel &&
+      (previousStatus === "active" || previousStatus === "pending")
+    ) {
       await this.eventService.emit(
         CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
         {
@@ -912,7 +976,7 @@ export class PackagesService extends BaseService implements IPackagesService {
 
   public async findEligible(input: {
     customerId: string;
-    optionId: string;
+    serviceId: string;
     memberId: string;
     appointmentDate: Date;
     optionStaffMemberIds: string[];
@@ -931,7 +995,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     return items.filter((pkg) => {
       const result = canUsePackageForAppointment({
         customerPackage: pkg,
-        optionId: input.optionId,
+        serviceId: input.serviceId,
         memberId: input.memberId,
         appointmentDate: input.appointmentDate,
         optionStaffMemberIds: input.optionStaffMemberIds,
@@ -942,7 +1006,7 @@ export class PackagesService extends BaseService implements IPackagesService {
 
   public async canUsePackageForAppointment(input: {
     customerPackageId: string;
-    optionId: string;
+    serviceId: string;
     memberId: string;
     appointmentDate: Date;
     optionStaffMemberIds: string[];
@@ -958,11 +1022,34 @@ export class PackagesService extends BaseService implements IPackagesService {
     }
     return canUsePackageForAppointment({
       customerPackage,
-      optionId: input.optionId,
+      serviceId: input.serviceId,
       memberId: input.memberId,
       appointmentDate: input.appointmentDate,
       optionStaffMemberIds: input.optionStaffMemberIds,
     });
+  }
+
+  private async purchaseStatus(
+    paymentId?: string,
+  ): Promise<CustomerPackage["status"]> {
+    if (!paymentId) return "active";
+
+    const payment = await this.paymentsService.getPayment(paymentId);
+    if (payment?.method === "payment-link" && payment.status === "pending") {
+      return "pending";
+    }
+
+    return "active";
+  }
+
+  private async findByPaymentId(paymentId: string) {
+    const db = await getDbConnection();
+    return db
+      .collection<CustomerPackage>(CUSTOMER_PACKAGES_COLLECTION_NAME)
+      .findOne({
+        organizationId: this.organizationId,
+        paymentId,
+      });
   }
 
   private async findByPaymentIntent(paymentIntentId: string) {

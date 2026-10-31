@@ -1,4 +1,4 @@
-import { DashboardQuickLinkInjectorApp } from "@hacado/types";
+import { DashboardQuickLinkInjectorApp } from "@hacado/types/apps";
 import { FileText } from "lucide-react";
 import { BlogAdminKeys, BlogAdminNamespace } from "./translations/types";
 

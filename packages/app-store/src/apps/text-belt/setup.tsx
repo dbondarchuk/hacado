@@ -1,23 +1,23 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Input,
-  Spinner,
-} from "@hacado/ui";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabelWithRequiredIndicator,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { TextBeltApp } from "./app";
@@ -57,10 +57,9 @@ export const TextBeltAppSetup: React.FC<AppSetupProps> = ({
               name="apiKey"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.apiKey.label")}{" "}
-                    <InfoTooltip>{t("form.apiKey.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.apiKey.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -69,6 +68,7 @@ export const TextBeltAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.apiKey.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

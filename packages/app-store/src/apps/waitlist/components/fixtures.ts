@@ -1,7 +1,7 @@
 import {
   AvailabilityByMember,
   GetAppointmentOptionsResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime } from "luxon";
 
 /** Generates bookable demo slots for the next ~2 weeks (skips Sundays), as UTC wall-clock instants matching API availability encoding. */
@@ -158,6 +158,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   ],
   fieldsSchema: {},
   showPromoCode: true,
+  smsText: { notifications: true, reminders: true, other: false },
   members: [
     {
       id: "member-1",
@@ -173,9 +174,9 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
     },
   ],
   catalog: [
-    { type: "option", id: "option-1", optionId: "option-1" },
-    { type: "option", id: "option-2", optionId: "option-2" },
-    { type: "option", id: "option-3", optionId: "option-3" },
+    { type: "service", id: "option-1", serviceId: "option-1" },
+    { type: "service", id: "option-2", serviceId: "option-2" },
+    { type: "service", id: "option-3", serviceId: "option-3" },
   ],
   hasActiveCustomerPackages: false,
 };

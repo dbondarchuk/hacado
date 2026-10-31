@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AutoSkeleton, toast } from "@hacado/ui";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
+import { toast } from "@hacado/ui/sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { getAppointmentNotification } from "./actions";

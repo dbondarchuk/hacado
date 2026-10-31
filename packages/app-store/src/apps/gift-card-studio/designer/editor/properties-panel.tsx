@@ -1,23 +1,21 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Button } from "@hacado/ui/button";
+import { type IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Icon, type IconName, iconNames } from "@hacado/ui/icon";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
 import {
-  Button,
-  ComboboxAsync,
-  type IComboboxItem,
-  Icon,
-  type IconName,
-  iconNames,
-  Input,
-  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Slider,
-} from "@hacado/ui";
-import { AssetSelectorInput } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { Slider } from "@hacado/ui/slider";
 import { ArrowDown, ArrowUp, Lock, Unlock } from "lucide-react";
 import { DateTime } from "luxon";
 import {

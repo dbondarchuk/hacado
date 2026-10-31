@@ -1,6 +1,6 @@
 import type { SlateLeafProps } from "@udecode/plate";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SlateLeaf } from "@udecode/plate";
 
 export const CodeLeafStatic = ({

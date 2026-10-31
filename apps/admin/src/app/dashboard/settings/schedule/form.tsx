@@ -1,13 +1,15 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import {
   ScheduleConfiguration,
   scheduleConfigurationSchema,
-} from "@hacado/types";
-import { Form, FormField, toastPromise } from "@hacado/ui";
-import { SaveButton, Scheduler } from "@hacado/ui-admin";
+} from "@hacado/types/configuration/schedule";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Scheduler } from "@hacado/ui-admin/scheduler";
+import { Form, FormField } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -34,13 +36,10 @@ export const ScheduleSettingsForm: React.FC<ScheduleSettingsFormProps> = ({
   const onSubmit = async (data: ScheduleConfiguration) => {
     try {
       setLoading(true);
-      await toastPromise(
-        adminApi.configuration.setConfiguration("schedule", data),
-        {
-          success: t("settings.schedule.form.toasts.changesSaved"),
-          error: t("settings.schedule.form.toasts.requestError"),
-        },
-      );
+      await toastPromise(configurationApi.setConfiguration("schedule", data), {
+        success: t("settings.schedule.form.toasts.changesSaved"),
+        error: t("settings.schedule.form.toasts.requestError"),
+      });
       router.refresh();
     } catch (error: any) {
       console.error(error);

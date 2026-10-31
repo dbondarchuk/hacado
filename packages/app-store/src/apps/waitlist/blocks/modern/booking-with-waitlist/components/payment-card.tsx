@@ -1,7 +1,9 @@
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
-import { BookingPaymentTips, cn, useCurrencyFormat } from "@hacado/ui";
-import { formatAmount } from "@hacado/utils";
+import { BookingPaymentTips } from "@hacado/ui/booking-payment-tips";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { formatAmount } from "@hacado/utils/currency";
 import { CreditCard } from "lucide-react";
 import { useCallback, useRef } from "react";
 import { useScheduleContext } from "./context";

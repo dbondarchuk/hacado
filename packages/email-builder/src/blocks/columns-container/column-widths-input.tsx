@@ -1,4 +1,4 @@
-import { TextDimensionInput } from "@hacado/builder";
+import { TextDimensionInput } from "@hacado/builder/inputs";
 import { useI18n } from "@hacado/i18n/client";
 import { useState } from "react";
 

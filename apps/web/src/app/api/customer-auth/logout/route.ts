@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { CUSTOMER_SESSION_COOKIE } from "@hacado/types";
+import { CUSTOMER_SESSION_COOKIE } from "@hacado/types/customer-auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

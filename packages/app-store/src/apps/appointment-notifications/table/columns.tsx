@@ -1,10 +1,18 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Checkbox, Link, useTimeZone } from "@hacado/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+import {
+  tableSortHeader,
+  tableSortNoopFunction,
+} from "@hacado/ui-admin/data-table";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
-import { AppointmentNotification } from "../models";
+import {
+  AppointmentNotification,
+  readAppointmentNotificationChannels,
+} from "../models";
 import {
   AppointmentNotificationsAdminKeys,
   AppointmentNotificationsAdminNamespace,
@@ -75,7 +83,13 @@ export const columns: ColumnDef<AppointmentNotification>[] = [
         AppointmentNotificationsAdminNamespace,
         AppointmentNotificationsAdminKeys
       >(appointmentNotificationsAdminNamespace);
-      return t(`channels.${row.original.channel}`);
+      const channels = readAppointmentNotificationChannels(row.original);
+      const labels = [
+        channels.emailEnabled ? t("channels.email") : null,
+        channels.textEnabled ? t("channels.text-message") : null,
+      ].filter((label): label is string => Boolean(label));
+
+      return labels.join(", ");
     },
     id: "channel",
     header: tableSortHeader<

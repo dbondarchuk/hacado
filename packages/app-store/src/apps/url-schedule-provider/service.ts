@@ -4,11 +4,11 @@ import {
   ConnectedAppError,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  DaySchedule,
   IConnectedApp,
   IConnectedAppProps,
   IScheduleProvider,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import { DateTime } from "luxon";
 import {
   UrlScheduleProviderConfiguration,

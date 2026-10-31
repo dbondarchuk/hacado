@@ -1,18 +1,18 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit/communications";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useReload } from "@hacado/ui-admin";
-import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { CalendarPlus, MoreHorizontal, Send, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, cn } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
   useCommentDeleteButton,
   useCommentEditButton,
@@ -13,7 +14,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
 
 export function CommentMoreDropdown() {
   const { props: editProps } = useCommentEditButton();

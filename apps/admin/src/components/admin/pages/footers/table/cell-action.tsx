@@ -1,18 +1,18 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import { useI18n } from "@hacado/i18n/client";
-import { PageFooterListModel } from "@hacado/types";
+import { PageFooterListModel } from "@hacado/types/pages";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -33,15 +33,12 @@ export const CellAction: React.FC<CellActionProps> = ({ pageFooter }) => {
     try {
       setLoading(true);
 
-      await toastPromise(
-        adminApi.pageFooters.deletePageFooter(pageFooter._id),
-        {
-          success: t("pages.footers.toasts.pageFooterDeleted", {
-            name: pageFooter.name,
-          }),
-          error: t("pages.footers.table.delete.error"),
-        },
-      );
+      await toastPromise(pageFootersApi.deletePageFooter(pageFooter._id), {
+        success: t("pages.footers.toasts.pageFooterDeleted", {
+          name: pageFooter.name,
+        }),
+        error: t("pages.footers.table.delete.error"),
+      });
 
       setOpen(false);
       router.refresh();

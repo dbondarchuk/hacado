@@ -10,7 +10,11 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { paymentMethods, paymentStatus, paymentType } from "@hacado/types";
+import {
+  paymentMethods,
+  paymentStatus,
+  paymentType,
+} from "@hacado/types/booking";
 import { baseSearchParams } from "./base";
 
 export const paymentsSearchParams = {

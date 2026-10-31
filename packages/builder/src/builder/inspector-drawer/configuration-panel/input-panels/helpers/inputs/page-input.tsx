@@ -1,7 +1,12 @@
 import React from "react";
 
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { PageSelectorInput, PageSelectorInputProps } from "@hacado/ui-admin";
+import {
+  PageSelectorInput,
+  PageSelectorInputProps,
+} from "@hacado/ui-admin/page-selector-input";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 import { ResetButton } from "./reset-button";
 
 type Props = Omit<PageSelectorInputProps, "value" | "onChange" | "onBlur"> & {

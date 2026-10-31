@@ -1,15 +1,11 @@
 "use client";
 
-import { AllKeys, BuilderKeys, useI18n } from "@hacado/i18n/client";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ScrollArea,
-  Separator,
-  ToolbarButton,
-  ToolbarGroup,
-} from "@hacado/ui";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Separator } from "@hacado/ui/separator";
+import { ToolbarButton, ToolbarGroup } from "@hacado/ui/toolbar";
 import { AlertTriangle, Check, TriangleAlert } from "lucide-react";
 import { Fragment, useMemo } from "react";
 import {
@@ -47,6 +43,10 @@ export const ToolbarErrorGroup = () => {
       ),
     [errors, blocks],
   );
+
+  if (flattendErrors.length > 0 && process.env.NODE_ENV === "development") {
+    console.log(flattendErrors);
+  }
 
   return (
     <ToolbarGroup>

@@ -1,4 +1,5 @@
-import { BuilderKeys } from "@hacado/i18n";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+
 import { ColorExtendedInput } from "../../style-inputs/base/color-exteneded-input";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";
@@ -34,7 +35,8 @@ export const ColorShortcut = <T extends BaseStyleDictionary>({
     (s) => !s.breakpoint?.length && !s.state?.length,
   );
 
-  const currentColorValue: string | null = currentStyle?.value || null;
+  const currentColorValue =
+    typeof currentStyle?.value === "string" ? currentStyle.value : null;
 
   const handleValueChange = (value: string | null) => {
     const newStyles = { ...styles };

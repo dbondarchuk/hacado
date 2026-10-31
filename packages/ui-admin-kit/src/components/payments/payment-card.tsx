@@ -1,26 +1,26 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
-import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
+import { AllKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import {
   InStorePaymentUpdateModel,
   Payment,
   PaymentStatus,
   PaymentSummary,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import { toastPromise } from "@hacado/ui/sonner";
 import {
-  Badge,
-  Button,
-  Link,
-  toastPromise,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
-import { canManageSyncedPayments } from "@hacado/utils";
+} from "@hacado/ui/tooltip-responsive";
+import { canManageSyncedPayments } from "@hacado/utils/permissions";
 import {
   Ban,
   Check,
@@ -207,7 +207,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
       setLinkActionLoading(true);
       await toastPromise(
         (async () => {
-          const { url } = await adminApi.payments.getPaymentLinkUrl(_id);
+          const { url } = await paymentsApi.getPaymentLinkUrl(_id);
           await navigator.clipboard.writeText(url);
         })(),
         {
@@ -225,13 +225,10 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
   const onCancelLink = async () => {
     try {
       setLinkActionLoading(true);
-      const updated = await toastPromise(
-        adminApi.payments.cancelPaymentLink(_id),
-        {
-          success: tAdmin("common.toasts.saved"),
-          error: tAdmin("common.toasts.error"),
-        },
-      );
+      const updated = await toastPromise(paymentsApi.cancelPaymentLink(_id), {
+        success: tAdmin("common.toasts.saved"),
+        error: tAdmin("common.toasts.error"),
+      });
       onUpdate(updated);
     } catch (error) {
       console.error(error);
@@ -366,7 +363,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
                 {t("admin.payment.card.giftCardCode")}
               </span>
               <Link
-                href={`/dashboard/services/gift-cards/${rest.giftCardId}`}
+                href={`/dashboard/catalog/gift-cards/${rest.giftCardId}`}
                 variant="none"
                 className="text-sm font-mono text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-lg"
               >

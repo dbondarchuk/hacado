@@ -1,11 +1,11 @@
 import type { Language } from "@hacado/i18n";
+import type { Schedule } from "@hacado/types/configuration/schedule";
 import type {
   BusinessIndustry,
   Country,
   Currency,
   PostalAddress,
-  Schedule,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 
 export type WizardStep = "verify" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 

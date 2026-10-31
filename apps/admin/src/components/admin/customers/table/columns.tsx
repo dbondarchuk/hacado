@@ -1,14 +1,17 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { AppointmentEntity, CustomerListModel } from "@hacado/types";
-import { Checkbox, Link, useTimeZone } from "@hacado/ui";
+import { AppointmentEntity } from "@hacado/types/booking";
+import { CustomerListModel } from "@hacado/types/customers";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
-  useAuth,
-} from "@hacado/ui-admin";
-import { hasPermission } from "@hacado/utils";
+} from "@hacado/ui-admin/data-table";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import { hasPermission } from "@hacado/utils/permissions";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 // import Image from "next/image";
@@ -21,12 +24,12 @@ const AppointmentCell: React.FC<{ appointment?: AppointmentEntity }> = ({
   const locale = useLocale();
   const timeZone = useTimeZone();
 
-  return appointment && appointment.option ? (
+  return appointment && appointment.service ? (
     <Link
       href={`/dashboard/appointments/${appointment._id}`}
       variant="underline"
     >
-      {appointment.option.name} at{" "}
+      {appointment.service.name} at{" "}
       {DateTime.fromJSDate(appointment.dateTime)
         .setZone(timeZone)
         .toLocaleString(DateTime.DATETIME_MED, { locale })}

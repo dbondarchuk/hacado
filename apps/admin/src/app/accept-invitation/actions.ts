@@ -5,7 +5,7 @@ import {
   type PublicInvitation,
 } from "@/lib/auth/pending-invitation";
 import { getDbConnection } from "@hacado/services/database";
-import type { Organization as OrganizationDbModel } from "@hacado/types";
+import type { Organization as OrganizationDbModel } from "@hacado/types/organizations";
 
 export { findPendingInvitationForEmail };
 export type { PublicInvitation };

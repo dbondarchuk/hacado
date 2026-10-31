@@ -1,25 +1,26 @@
-import { AllKeys } from "@hacado/i18n";
-import { Leaves } from "@hacado/types";
 import { BUSY_EVENTS_APP_NAME } from "../const";
-import type adminKeys from "./en/admin.generated";
-import type publicKeys from "./en/public.generated";
+import type {
+  PrefixedKeys as BusyEventsAdminAllKeys,
+  Keys as BusyEventsAdminKeys,
+} from "./en/admin.keys";
+import type {
+  PrefixedKeys as BusyEventsPublicAllKeys,
+  Keys as BusyEventsPublicKeys,
+} from "./en/public.keys";
 
-export type BusyEventsAdminKeys = Leaves<typeof adminKeys>;
+export type {
+  BusyEventsAdminAllKeys,
+  BusyEventsAdminKeys,
+  BusyEventsPublicAllKeys,
+  BusyEventsPublicKeys,
+};
+
 export const busyEventsAdminNamespace =
   `app_${BUSY_EVENTS_APP_NAME}_admin` as const;
 
 export type BusyEventsAdminNamespace = typeof busyEventsAdminNamespace;
-export type BusyEventsAdminAllKeys = AllKeys<
-  BusyEventsAdminNamespace,
-  BusyEventsAdminKeys
->;
 
-export type BusyEventsPublicKeys = Leaves<typeof publicKeys>;
 export const busyEventsPublicNamespace =
   `app_${BUSY_EVENTS_APP_NAME}_public` as const;
 
 export type BusyEventsPublicNamespace = typeof busyEventsPublicNamespace;
-export type BusyEventsPublicAllKeys = AllKeys<
-  BusyEventsPublicNamespace,
-  BusyEventsPublicKeys
->;

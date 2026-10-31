@@ -1,4 +1,4 @@
-import { generateId } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
 import { AccordionItemPropsDefaults } from "../accordion-item/schema";
 import type { AccordionProps } from "./schema";
 

@@ -1,28 +1,30 @@
 import { LanguageOptions } from "@/constants/texts";
-import { BaseSidebarPanel } from "@hacado/builder";
+import { BaseSidebarPanel } from "@hacado/builder/inputs";
 import { languages, useI18n } from "@hacado/i18n/client";
 import {
   PageFooterListModel,
   PageHeaderListModel,
   pageTagSchema,
-  zNonEmptyString,
-} from "@hacado/types";
+} from "@hacado/types/pages";
+import { zNonEmptyString } from "@hacado/types/utils";
+import { AssetPreview } from "@hacado/ui-admin/asset-preview";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Checkbox,
-  Combobox,
-  DateTimePicker,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  TagInput,
-  Textarea,
-  use12HourFormat,
-} from "@hacado/ui";
-import { AssetPreview, AssetSelectorInput } from "@hacado/ui-admin";
-import { fileNameToMimeType } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { TagInput } from "@hacado/ui/tag-input";
+import { Textarea } from "@hacado/ui/textarea";
+import { DateTimePicker } from "@hacado/ui/time-picker";
+import { fileNameToMimeType } from "@hacado/utils/assets";
 import { memo, useCallback } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import { FooterSelector } from "./footer-selector";
@@ -111,17 +113,21 @@ export const PageSettingsPanel = memo(
           control={form.control}
           name="published"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center gap-2 space-y-0 py-2">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>
-                {t("pages.form.published")}{" "}
-                <InfoTooltip>{t("pages.form.publishedTooltip")}</InfoTooltip>
-              </FormLabel>
+            <FormItem className="py-2">
+              <div className="flex flex-row items-start gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="grid gap-1">
+                  <FormLabel>{t("pages.form.published")}</FormLabel>
+                  <FormDescription>
+                    {t("pages.form.publishedTooltip")}
+                  </FormDescription>
+                </div>
+              </div>
             </FormItem>
           )}
         />
@@ -130,10 +136,9 @@ export const PageSettingsPanel = memo(
           name="publishDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t("pages.form.publishDate")}
-                <InfoTooltip>{t("pages.form.publishDateTooltip")}</InfoTooltip>
-              </FormLabel>
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <DateTimePicker
                   use12HourFormat={uses12HourFormat}
@@ -148,6 +153,9 @@ export const PageSettingsPanel = memo(
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                {t("pages.form.publishDateTooltip")}
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -188,10 +196,7 @@ export const PageSettingsPanel = memo(
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("pages.form.tags")}{" "}
-                <InfoTooltip>{t("pages.form.tagsTooltip")}</InfoTooltip>
-              </FormLabel>
+              <FormLabel>{t("pages.form.tags")}</FormLabel>
               <FormControl>
                 <TagInput
                   {...field}
@@ -204,6 +209,7 @@ export const PageSettingsPanel = memo(
                   tagValidator={pageTagSchema}
                 />
               </FormControl>
+              <FormDescription>{t("pages.form.tagsTooltip")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -213,10 +219,9 @@ export const PageSettingsPanel = memo(
           name="keywords"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("pages.form.keywords")}{" "}
-                <InfoTooltip>{t("pages.form.keywordsTooltip")}</InfoTooltip>
-              </FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("pages.form.keywords")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <TagInput
                   {...field}
@@ -231,6 +236,9 @@ export const PageSettingsPanel = memo(
                   )}
                 />
               </FormControl>
+              <FormDescription>
+                {t("pages.form.keywordsTooltip")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -240,19 +248,21 @@ export const PageSettingsPanel = memo(
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("pages.form.description")}{" "}
-                <InfoTooltip>{t("pages.form.descriptionTooltip")}</InfoTooltip>
-              </FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("pages.form.description")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Textarea
                   disabled={loading}
                   autoResize
                   placeholder={t("pages.form.descriptionPlaceholder")}
                   {...field}
-                  className="text-sm px-2 py-1"
+                  className="px-2 py-1"
                 />
               </FormControl>
+              <FormDescription>
+                {t("pages.form.descriptionTooltip")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -267,12 +277,7 @@ export const PageSettingsPanel = memo(
 
             return (
               <FormItem>
-                <FormLabel>
-                  {t("pages.form.featuredImage")}{" "}
-                  <InfoTooltip>
-                    {t("pages.form.featuredImageTooltip")}
-                  </InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("pages.form.featuredImage")}</FormLabel>
                 <FormControl>
                   <div className="flex flex-col gap-3">
                     <AssetSelectorInput
@@ -294,6 +299,9 @@ export const PageSettingsPanel = memo(
                     )}
                   </div>
                 </FormControl>
+                <FormDescription>
+                  {t("pages.form.featuredImageTooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             );
@@ -303,24 +311,24 @@ export const PageSettingsPanel = memo(
           control={form.control}
           name="doNotCombine.title"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center gap-2 space-y-0 py-2">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>
-                {t("pages.form.doNotCombineTitle")}{" "}
-                <InfoTooltip>
-                  <p>{t("pages.form.doNotCombineTitleTooltip")}</p>
-                  <p>
-                    <code className="text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-2">
+            <FormItem className="py-2">
+              <div className="flex flex-row items-start gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="grid gap-1">
+                  <FormLabel>{t("pages.form.doNotCombineTitle")}</FormLabel>
+                  <FormDescription className="flex flex-col gap-2">
+                    {t("pages.form.doNotCombineTitleTooltip")}
+                    <code className="text-sm inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-2">
                       {"{page title} | {website title}"}
                     </code>
-                  </p>
-                </InfoTooltip>
-              </FormLabel>
+                  </FormDescription>
+                </div>
+              </div>
             </FormItem>
           )}
         />
@@ -328,26 +336,28 @@ export const PageSettingsPanel = memo(
           control={form.control}
           name="doNotCombine.description"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center gap-2 space-y-0 py-2">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>
-                {t("pages.form.doNotCombineDescription")}{" "}
-                <InfoTooltip>
-                  <p>{t("pages.form.doNotCombineDescriptionTooltip")}</p>
-                  <p>
-                    <code className="text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-2">
+            <FormItem className="py-2">
+              <div className="flex flex-row items-start gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="grid gap-1">
+                  <FormLabel>
+                    {t("pages.form.doNotCombineDescription")}
+                  </FormLabel>
+                  <FormDescription className="flex flex-col gap-2">
+                    {t("pages.form.doNotCombineDescriptionTooltip")}
+                    <code className="text-sm inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-2">
                       {"{website description}"}
                       <br />
                       {"{page description}"}
                     </code>
-                  </p>
-                </InfoTooltip>
-              </FormLabel>
+                  </FormDescription>
+                </div>
+              </div>
             </FormItem>
           )}
         />
@@ -355,24 +365,24 @@ export const PageSettingsPanel = memo(
           control={form.control}
           name="doNotCombine.keywords"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center gap-2 space-y-0 py-2">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>
-                {t("pages.form.doNotCombineKeywords")}{" "}
-                <InfoTooltip>
-                  <p>{t("pages.form.doNotCombineKeywordsTooltip")}</p>
-                  <p>
-                    <code className="text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-2">
+            <FormItem className="py-2">
+              <div className="flex flex-row items-start gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="grid gap-1">
+                  <FormLabel>{t("pages.form.doNotCombineKeywords")}</FormLabel>
+                  <FormDescription className="flex flex-col gap-2">
+                    {t("pages.form.doNotCombineKeywordsTooltip")}
+                    <code className="text-sm inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-2">
                       {"{website keywords}, {page keywords}"}
                     </code>
-                  </p>
-                </InfoTooltip>
-              </FormLabel>
+                  </FormDescription>
+                </div>
+              </div>
             </FormItem>
           )}
         />

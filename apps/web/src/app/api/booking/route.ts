@@ -4,12 +4,12 @@ import { trackBookingStepWithCustomer } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentLimitReachedError } from "@hacado/types/billing";
 import {
-  AppointmentLimitReachedError,
   appointmentRequestSchema,
   AppointmentTimeNotAvaialbleError,
   getIntentBaseAmount,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -60,6 +60,16 @@ export async function POST(request: NextRequest) {
   if (!parseSuccess) {
     logger.warn({ parseError }, "Invalid appointment request format");
     return NextResponse.json(parseError, { status: 400 });
+  }
+
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (typeof appointmentRequest.smsConsent === "boolean") {
+    await servicesContainer.smsConsentService.recordCustomerSmsConsent({
+      phone: appointmentRequest.fields.phone,
+      consented: appointmentRequest.smsConsent,
+      source: "web_form",
+      ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+    });
   }
 
   const otpGate = await assertBookingCustomerAccess(appointmentRequest, logger);
@@ -254,7 +264,7 @@ export async function POST(request: NextRequest) {
           : "appointment",
         convertedId: result._id,
         appointmentId: result._id,
-        optionId: eventOrError.event.option._id,
+        serviceId: eventOrError.event.service._id,
         duration: eventOrError.event.totalDuration,
         customerId: appointmentRequest.fields.email,
         customerEmail: appointmentRequest.fields.email,

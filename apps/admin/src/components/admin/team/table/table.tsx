@@ -1,7 +1,10 @@
 import { getServicesContainer } from "@/app/utils";
-import { teamsSearchParams, teamsSearchParamsCache } from "@hacado/api-sdk";
-import type { MemberStatus, UserRole } from "@hacado/types";
-import { DataTable } from "@hacado/ui-admin";
+import {
+  teamsSearchParams,
+  teamsSearchParamsCache,
+} from "@hacado/api-sdk/admin/search-params/teams";
+import type { MemberStatus, UserRole } from "@hacado/types/users";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 
 export const TeamMembersTable: React.FC = async () => {

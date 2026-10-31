@@ -1,4 +1,4 @@
-import type { Payment } from "@hacado/types";
+import type { Payment } from "@hacado/types/booking";
 
 export const dashboardUrls = {
   customer: (id: string) => `/dashboard/customers/${id}`,
@@ -9,18 +9,18 @@ export const dashboardUrls = {
   syncedPayment: (record: { externalId: string }) =>
     `/dashboard/financials/inbox?externalId=${encodeURIComponent(record.externalId)}`,
   syncedPayments: "/dashboard/financials/inbox",
-  giftCard: (id: string) => `/dashboard/services/gift-cards/${id}`,
-  giftCards: "/dashboard/services/gift-cards",
-  appointmentPackage: (id: string) => `/dashboard/services/packages/${id}`,
-  appointmentPackages: "/dashboard/services/packages",
-  field: (id: string) => `/dashboard/services/fields/${id}`,
-  fields: "/dashboard/services/fields",
-  addon: (id: string) => `/dashboard/services/addons/${id}`,
-  addons: "/dashboard/services/addons",
-  option: (id: string) => `/dashboard/services/options/${id}`,
-  options: "/dashboard/services/options",
-  discount: (id: string) => `/dashboard/services/discounts/${id}`,
-  discounts: "/dashboard/services/discounts",
+  giftCard: (id: string) => `/dashboard/catalog/gift-cards/${id}`,
+  giftCards: "/dashboard/catalog/gift-cards",
+  appointmentPackage: (id: string) => `/dashboard/catalog/packages/${id}`,
+  appointmentPackages: "/dashboard/catalog/packages",
+  field: (id: string) => `/dashboard/catalog/fields/${id}`,
+  fields: "/dashboard/catalog/fields",
+  addon: (id: string) => `/dashboard/catalog/addons/${id}`,
+  addons: "/dashboard/catalog/addons",
+  option: (id: string) => `/dashboard/catalog/services/${id}`,
+  options: "/dashboard/catalog/services",
+  discount: (id: string) => `/dashboard/catalog/discounts/${id}`,
+  discounts: "/dashboard/catalog/discounts",
   template: (id: string) => `/dashboard/templates/${id}`,
   templates: "/dashboard/templates",
   page: (id: string) => `/dashboard/pages/${id}`,
@@ -35,6 +35,7 @@ export const dashboardUrls = {
   team: "/dashboard/settings/team",
   teamMember: (id: string) => `/dashboard/settings/team/${id}/profile`,
   billing: "/dashboard/settings/brand",
+  textMessagingVerification: "/dashboard/settings/text-messaging/verification",
   /** Brand settings; opens the SMS top-up purchase dialog (see `SmsTopupPurchaseDialog`). */
   billingPurchaseSmsTopup: "/dashboard/settings/brand?purchase_sms_topup=true",
 };

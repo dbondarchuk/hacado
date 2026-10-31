@@ -1,36 +1,41 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  APP_UNINSTALLED_EVENT_TYPE,
-  Appointment,
-  AppointmentStatus,
-  AppUninstalledPayload,
   CalendarWriterEvent,
   ConnectedApp,
   ConnectedAppData,
   ConnectedAppError,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
-  EventSource,
-  formatPostalAddress,
   ICalendarWriter,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-  isClosedAppointmentStatus,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import {
-  AppointmentStatusToICalMethodMap,
+  Appointment,
+  AppointmentStatus,
+  isClosedAppointmentStatus,
+} from "@hacado/types/booking";
+import {
+  APP_UNINSTALLED_EVENT_TYPE,
+  AppUninstalledPayload,
+  EventEnvelope,
+  EventSource,
+} from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
+import { formatPostalAddress } from "@hacado/types/utils";
+import {
   dispatchAppointmentEventPayload,
-  getAdminUrl,
-  getArguments,
-  getIcsEventUid,
-  getWebsiteUrl,
   resolveAppointmentEventForMemberId,
+} from "@hacado/utils/appointment-event-dispatch";
+import { AppointmentStatusToICalMethodMap } from "@hacado/utils/email";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getIcsEventUid } from "@hacado/utils/ics-uid";
+import {
   resolveProcessOtherMembersAppointmentsConfig,
   subscriptionAllowsMultipleUsers,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { convert } from "html-to-text";
 import {
   CalendarWriterConfiguration,
@@ -579,7 +584,7 @@ export class CalendarWriterConnectedApp
             config.general.country,
             true,
           ),
-          onlineUrl: appointment.option.isOnline
+          onlineUrl: appointment.service.isOnline
             ? appointment.meetingInformation?.url
             : undefined,
         },

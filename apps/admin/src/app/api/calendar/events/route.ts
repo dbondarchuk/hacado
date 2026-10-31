@@ -4,8 +4,8 @@ import {
   AppointmentStatus,
   appointmentStatuses,
   isClosedAppointmentStatus,
-} from "@hacado/types";
-import { resolveCalendarMemberId } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { resolveCalendarMemberId } from "@hacado/utils/permissions";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
 

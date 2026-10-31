@@ -1,13 +1,11 @@
-import {
-  EditorChildren,
-  useBlockEditor,
-  useCurrentBlock,
-} from "@hacado/builder";
+import { EditorChildren } from "@hacado/builder/blocks";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import {
   BackgroundVideoLayer,
   BlockStyle,
   useClassName,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { GridContainerProps, styles } from "./schema";
 
 export const GridContainerEditor = ({ style, props }: GridContainerProps) => {

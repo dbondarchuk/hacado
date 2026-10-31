@@ -1,5 +1,6 @@
 import { Language } from "@hacado/i18n";
-import { Currency, Discount } from "@hacado/types";
+import { Discount } from "@hacado/types/booking";
+import { Currency } from "@hacado/types/utils";
 
 /** Rounds a number to two decimal places (e.g. currency amounts). */
 export const round2 = (value: number): number => Math.round(value * 100) / 100;

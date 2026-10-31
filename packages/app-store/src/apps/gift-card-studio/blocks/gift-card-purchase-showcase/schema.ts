@@ -1,11 +1,11 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import type { I18nFn } from "@hacado/i18n";
 import {
   embeddedSlotSchema,
   migratePropsSlots,
 } from "@hacado/page-builder-base/slots";
 import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { DEFAULT_AMOUNT_PRESETS, MAX_AMOUNT_PRESETS } from "./presets";
 import { createShowcaseSlots } from "./slot-defaults";

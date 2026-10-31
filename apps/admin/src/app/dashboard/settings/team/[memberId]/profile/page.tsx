@@ -2,9 +2,10 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { TeamMemberProfileForm } from "@/components/admin/team/team-member-profile-form";
 import { getI18nAsync } from "@hacado/i18n/server";
-import type { SessionUser } from "@hacado/types";
-import { Breadcrumbs, Heading } from "@hacado/ui";
-import { canUpdateTeamMemberProfile } from "@hacado/utils";
+import type { SessionUser } from "@hacado/types/users";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import { canUpdateTeamMemberProfile } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, notFound, redirect } from "next/navigation";
 
@@ -43,7 +44,7 @@ export default async function EditTeamMemberProfilePage(props: Params) {
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.settings"), link: "/dashboard/settings/brand" },
+    { title: t("navigation.settings"), link: "/dashboard/settings" },
     { title: t("team.title"), link: "/dashboard/settings/team" },
     {
       title: t("team.editProfile.title"),

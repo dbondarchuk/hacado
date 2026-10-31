@@ -3,7 +3,7 @@ import {
   renderUserEmailTemplate,
 } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
-import { template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
 import { UserEmailTemplates } from ".";
 import { EmailTemplateKey } from "./types";
 

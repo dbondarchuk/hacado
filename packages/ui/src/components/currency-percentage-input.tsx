@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useI18n } from "@hacado/i18n/client";
-import { formatAmountString } from "@hacado/utils";
+import { formatAmountString } from "@hacado/utils/currency";
 import { DollarSign, Percent } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useCurrencyFormat, useCurrencySymbol } from "../context/config";

@@ -3,21 +3,22 @@
 import { ActivityActorDisplayView } from "@/components/admin/activity/actor-display";
 import {} from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { useActivityFeedStore } from "@/notifications/store";
-import { adminApi } from "@hacado/api-sdk";
+import { activitiesApi } from "@hacado/api-sdk/admin/activities";
 import { useI18n } from "@hacado/i18n/client";
-import type { ActivityFeedPreview, ActivitySeverity } from "@hacado/types";
+import type { ActivitySeverity } from "@hacado/types/activity";
+import type { ActivityFeedPreview } from "@hacado/types/apps";
+import { ResolvedI18nText } from "@hacado/ui-admin/hooks";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  Button,
-  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  useTimeZone,
-} from "@hacado/ui";
-import { ResolvedI18nText } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
 import { Activity, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import NextLink from "next/link";
@@ -75,7 +76,7 @@ export const ActivityFeedHeaderButton: React.FC = () => {
 
   const onOpenChange = (open: boolean) => {
     if (open) {
-      void adminApi.activities.markActivityFeedRead().then(() => {
+      void activitiesApi.markActivityFeedRead().then(() => {
         clearSeverity();
       });
     }
@@ -88,7 +89,7 @@ export const ActivityFeedHeaderButton: React.FC = () => {
           type="button"
           variant="outline"
           size="icon"
-          className="relative size-9 rounded-full border-border/70"
+          className="relative size-8 rounded-full border-border/70"
           aria-label={t("activity.header.openFeed")}
         >
           <Activity className="size-4 stroke-[1.5]" />

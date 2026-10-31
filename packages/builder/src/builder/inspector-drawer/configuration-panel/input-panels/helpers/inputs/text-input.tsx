@@ -1,8 +1,10 @@
 "use client";
 import { JSX, useCallback, useId } from "react";
 
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 import React from "react";
 import { useEditorArgs } from "../../../../../../documents/editor/context";
 import { ResetButton } from "./reset-button";

@@ -1,4 +1,4 @@
-import type { CustomerPackage } from "@hacado/types";
+import type { CustomerPackage } from "@hacado/types/booking";
 
 /**
  * Demo customer package for template preview (e.g. package lifecycle emails).
@@ -19,7 +19,7 @@ export const demoCustomerPackage: CustomerPackage = {
   items: [
     {
       _id: itemId,
-      optionId: "dfjkdlfj",
+      serviceId: "dfjkdlfj",
       credits: 10,
       creditsPerRedemption: 1,
       optionName: "Demo option",

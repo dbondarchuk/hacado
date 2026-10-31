@@ -2,7 +2,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentReminderEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -12,7 +12,7 @@ export const appointmentReminderEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Нагадування про ваш візит на послугу {{option.name}} {{dateTime.full}}",
+        text: "Нагадування про ваш візит на послугу {{service.name}} {{dateTime.full}}",
       },
       {
         type: "text",

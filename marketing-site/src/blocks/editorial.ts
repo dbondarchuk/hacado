@@ -1,12 +1,12 @@
 /** Home page in the editorial visual system, built from page blocks. */
 import { bid, block, C, gap, pad, radius, size, sv } from "./core";
-import { ctaSpark, customHtml } from "./layout";
+import { ctaSpark } from "./layout";
 import {
+  arrowIcon,
   button,
   container,
   grid,
   heading,
-  arrowIcon,
   icon,
   image,
   inlineContainer,
@@ -15,14 +15,6 @@ import {
   text,
 } from "./primitives";
 import { accordion, checkMark, listRowMotion, step, tilt } from "./widgets";
-
-function e(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
 
 const titleSize = [
   { value: { value: 2.4, unit: "rem" } },
@@ -143,6 +135,8 @@ function split(opts: {
   body?: string;
   link?: { href: string; label: string };
   after?: unknown[];
+  /** Space between the heading and the content under it. */
+  contentGap?: number;
 }) {
   const copy: unknown[] = [];
   if (opts.body) {
@@ -183,7 +177,7 @@ function split(opts: {
       ...(opts.after ?? []),
     ],
     opts.id,
-    { gap: gap(4) },
+    { gap: gap(opts.contentGap ?? 4) },
   );
 }
 
@@ -217,6 +211,7 @@ export type EditorialBits = {
   href: string;
   title: string;
   body: string;
+  kicker?: string;
 };
 
 export type EditorialHomeInput = {
@@ -229,24 +224,8 @@ export type EditorialHomeInput = {
   note: string;
   industries: string[];
   signupUrl: string;
-  heroImage: string;
-  bookingImage: string;
   integrations: string[];
   integrationsHref: string;
-  productKicker: string;
-  productTitleLead: string;
-  productTitleEm: string;
-  productBody: string;
-  productHref: string;
-  cards: {
-    n: string;
-    title: string[];
-    body: string;
-    href: string;
-    link: string;
-    tone: "dark" | "tan";
-  }[];
-  stat: { value: string; label: string[]; href: string };
   audienceKicker: string;
   audienceTitleLead: string;
   audienceTitleEm: string;
@@ -300,6 +279,7 @@ export type EditorialHomeInput = {
     href: string;
   }[];
   pricingDetailsHref: string;
+  faqKicker: string;
   faqTitleLead: string;
   faqTitleEm: string;
   faqs: { q: string; a: string }[];
@@ -309,58 +289,6 @@ export type EditorialHomeInput = {
   ctaBody: string;
   ctaLabel: string;
 };
-
-const VISUAL_CSS = `
-.hv{--ink:hsl(var(--value-foreground-color));--muted:hsl(var(--value-muted-foreground-color));--paper:hsl(var(--value-background-color));--cream:hsl(var(--value-muted-color));--sage:hsl(var(--value-accent-color));--dark:hsl(var(--value-primary-color));--on-dark:hsl(var(--value-primary-foreground-color));--accent-ink:hsl(var(--value-accent-foreground-color));--tan:hsl(var(--value-secondary-color));--line:hsl(var(--value-border-color));--serif:var(--font-secondary-value),Georgia,serif;--sans:var(--font-primary-value),Arial,sans-serif;--mono:var(--font-tertiary-value),ui-monospace,monospace;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px hsl(var(--value-secondary-color) / .55);background:var(--tan);transform:rotate(-1deg);color:var(--ink);font-family:var(--sans);width:100%;}
-.hv:has(#hv-booking:checked){box-shadow:0 24px 70px hsl(var(--value-accent-foreground-color) / .16);transform:rotate(1deg);}
-.hv-radio{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
-.hv-switch{position:absolute;top:18px;right:18px;z-index:2;display:flex;gap:4px;padding:4px;background:hsl(var(--value-background-color) / .78);border:1px solid var(--line);border-radius:999px;backdrop-filter:blur(10px);}
-.hv-switch label{padding:8px 11px;border-radius:999px;color:var(--muted);font:500 9px var(--mono);cursor:pointer;}
-.hv:has(#hv-studio:checked) label[for="hv-studio"],.hv:has(#hv-booking:checked) label[for="hv-booking"]{background:var(--dark);color:var(--on-dark);}
-.hv-book{display:none;}
-.hv:has(#hv-booking:checked) .hv-book{display:block;}
-.hv:has(#hv-booking:checked) .hv-studio{display:none;}
-.hv-studio{position:relative;min-height:460px;background:var(--tan);}
-.hv-studio img{display:block;width:100%;height:460px;object-fit:cover;object-position:center 18%;}
-.hv-note{position:absolute;left:25px;bottom:24px;display:grid;grid-template-columns:10px 1fr;column-gap:8px;align-items:center;padding:14px 17px;background:hsl(var(--value-background-color) / .92);box-shadow:0 12px 30px hsl(var(--value-foreground-color) / .12);}
-.hv-dot{width:6px;height:6px;background:var(--accent-ink);border-radius:50%;}
-.hv-note .hv-dot{grid-row:span 2;}
-.hv-note strong{font:600 11px var(--sans);}
-.hv-note small{margin-top:3px;color:var(--muted);font:9px var(--mono);}
-.hv-stamp{position:absolute;top:27px;left:25px;width:63px;height:63px;display:grid;place-content:center;text-align:center;color:var(--on-dark);background:var(--accent-ink);border-radius:50%;font:8px/1.05 var(--mono);transform:rotate(9deg);}
-.hv-stamp b{font:500 25px var(--serif);line-height:.9;}
-.hv-book img{display:block;width:100%;height:460px;object-fit:cover;object-position:center;}
-@media (max-width:800px){
-  .hv{transform:none;}
-  .hv-switch{top:12px;right:12px;max-width:calc(100% - 24px);}
-  .hv-switch label{padding:7px 8px;}
-  .hv-stamp{width:54px;height:54px;top:14px;left:14px;}
-  .hv-studio,.hv-studio img,.hv-book img{min-height:0;height:280px;}
-}
-`;
-
-function heroVisual(input: EditorialHomeInput) {
-  return customHtml(
-    `<div class="hv">
-<style>${VISUAL_CSS}</style>
-<input class="hv-radio" type="radio" name="hv-hero" id="hv-studio" checked>
-<input class="hv-radio" type="radio" name="hv-hero" id="hv-booking">
-<div class="hv-switch" role="tablist" aria-label="Hero preview">
-<label for="hv-studio">Your day</label>
-<label for="hv-booking">Your booking site</label>
-</div>
-<div class="hv-studio">
-<img src="${e(input.heroImage)}" alt="Salon owner arranging her studio before clients arrive">
-<div class="hv-stamp">MON<br><b>09</b><br>JUNE</div>
-<div class="hv-note"><span class="hv-dot"></span><strong>More time for your craft.</strong><small>Hacado handles the rest.</small></div>
-</div>
-<div class="hv-book">
-<img src="${e(input.bookingImage)}" alt="Barber booking page with services, prices, and a continue button">
-</div>
-</div>`,
-    { minWidth: size(0), width: size(100, "%") },
-  );
-}
 
 function phraseCycle(phrases: string[]) {
   return block("PhraseCycle", {
@@ -398,7 +326,7 @@ function homeHero(input: EditorialHomeInput) {
           }),
           inlineContainer(
             [kicker("For", C.foreground), phraseCycle(input.eyebrowPhrases)],
-            { gap: gap(0.35), alignItems: sv("center") },
+            { gap: gap(0.35), alignItems: sv("center"), textAlign: sv("left") },
           ),
         ],
         {
@@ -411,12 +339,20 @@ function homeHero(input: EditorialHomeInput) {
           width: [{ value: "max-content" }],
         },
       ),
-      serifTitle("h1", input.titleLead, input.titleEm, heroTitleSize),
+      serifTitle(
+        "h1",
+        input.titleLead,
+        input.titleEm,
+        heroTitleSize,
+        C.accentFg,
+        "center",
+      ),
       text(input.body, {
         color: sv(C.mutedFg),
         fontSize: size(0.95),
         lineHeight: sv({ value: 1.7, unit: "" }),
-        maxWidth: size(28, "rem"),
+        textAlign: sv("center"),
+        maxWidth: size(36, "rem"),
       }),
       container(
         [
@@ -440,8 +376,10 @@ function homeHero(input: EditorialHomeInput) {
           display: sv("flex"),
           flexDirection: sv("row"),
           flexWrap: sv("wrap"),
+          justifyContent: sv("center"),
           alignItems: sv("center"),
           gap: gap(1.25),
+          width: size(100, "%"),
         },
       ),
       inlineContainer(
@@ -451,31 +389,44 @@ function homeHero(input: EditorialHomeInput) {
             fontFamily: sv("TERTIARY"),
             fontSize: size(0.625),
             color: sv(C.mutedFg),
+            textAlign: sv("center"),
           }),
         ],
-        { gap: gap(0.4), flexWrap: sv("wrap") },
+        {
+          gap: gap(0.4),
+          flexWrap: sv("wrap"),
+          justifyContent: sv("center"),
+        },
       ),
       inlineText(input.industries.join(" · "), {
         fontFamily: sv("TERTIARY"),
         fontSize: size(0.625),
         textTransform: sv("uppercase"),
         letterSpacing: sv({ value: 0.04, unit: "rem" }),
+        textAlign: sv("center"),
         color: sv(C.mutedFg),
       }),
     ],
-    { gap: gap(1.35), minWidth: size(0), alignItems: sv("flex-start") },
+    {
+      gap: gap(1.35),
+      alignItems: sv("center"),
+      textAlign: sv("center"),
+      maxWidth: size(46, "rem"),
+      width: size(100, "%"),
+      margin: autoMargin,
+    },
   );
 
   return withId(
     block("PageHero", {
       style: {
         padding: [
-          ...pad(3, 1.5, 3.5, 1.5),
+          ...pad(4.5, 1.5, 4.5, 1.5),
           {
             value: {
-              top: { value: 5, unit: "vw" },
+              top: { value: 7, unit: "vw" },
               right: { value: 5.5, unit: "vw" },
-              bottom: { value: 6, unit: "vw" },
+              bottom: { value: 7, unit: "vw" },
               left: { value: 5.5, unit: "vw" },
             },
             breakpoint: ["md"],
@@ -483,29 +434,12 @@ function homeHero(input: EditorialHomeInput) {
         ],
         display: sv("flex"),
         flexDirection: sv("column"),
-        alignItems: sv("stretch"),
+        alignItems: sv("center"),
         backgroundColor: sv(C.background),
         width: size(100, "%"),
       },
       props: {
-        title: {
-          children: [
-            grid([copy, heroVisual(input)], "1fr", {
-              alignItems: sv("center"),
-              gap: gap(2.5),
-              maxWidth: size(82.5, "rem"),
-              width: size(100, "%"),
-              margin: autoMargin,
-              gridTemplateColumns: [
-                { value: "1fr" },
-                {
-                  value: "minmax(0, 0.86fr) minmax(0, 1.14fr)",
-                  breakpoint: ["md"],
-                },
-              ],
-            }),
-          ],
-        },
+        title: { children: [copy] },
         subtitle: { children: [] },
         buttons: { children: [] },
       },
@@ -654,144 +588,178 @@ function detailRows(items: EditorialBits[]) {
   );
 }
 
-function featureCard(card: EditorialHomeInput["cards"][number], index: number) {
-  const dark = card.tone === "dark";
-  const ink = dark ? C.primaryFg : C.foreground;
-  const muted = dark ? C.primaryFg : C.mutedFg;
-  const external = /^https?:\/\//.test(card.href);
+function productCard(feature: EditorialBits, index: number) {
+  const external = /^https?:\/\//.test(feature.href);
+  const children: unknown[] = [];
+  if (feature.kicker) {
+    children.push(kicker(feature.kicker));
+  }
+
+  children.push(
+    heading("h3", feature.title, {
+      fontSize: size(1.125),
+      fontWeight: sv("500"),
+      letterSpacing: sv({ value: -0.03, unit: "rem" }),
+    }),
+    text(feature.body, {
+      color: sv(C.mutedFg),
+      fontSize: size(0.8125),
+      lineHeight: sv({ value: 1.55, unit: "" }),
+    }),
+  );
   return block("Link", {
     props: {
-      url: card.href,
+      url: feature.href,
       target: external ? "_blank" : "_self",
-      children: [
-        container(
-          [
-            kicker(card.n, muted),
-            icon("sparkles", {
-              width: size(0.875),
-              height: size(0.875),
-              color: sv(muted),
-            }),
-          ],
-          {
-            display: sv("flex"),
-            flexDirection: sv("row"),
-            justifyContent: sv("space-between"),
-            alignItems: sv("center"),
-          },
-        ),
-        heading("h3", card.title.join(" "), {
-          fontSize: size(1.9),
-          fontWeight: sv("500"),
-          letterSpacing: sv({ value: -0.04, unit: "rem" }),
-          color: sv(ink),
-        }),
-        text(card.body, {
-          color: sv(muted),
-          fontSize: size(0.75),
-          lineHeight: sv({ value: 1.7, unit: "" }),
-          maxWidth: size(16, "rem"),
-        }),
-        container(
-          [
-            inlineText(card.link, {
-              fontSize: size(0.7),
-              fontWeight: sv("700"),
-              color: sv(ink),
-            }),
-            arrowIcon({ width: size(0.85), height: size(0.85) }),
-          ],
-          {
-            display: sv("flex"),
-            flexDirection: sv("row"),
-            alignItems: sv("center"),
-            gap: gap(0.35),
-          },
-        ),
-      ],
+      children,
     },
     style: {
       display: sv("flex"),
       flexDirection: sv("column"),
-      justifyContent: sv("space-between"),
-      gap: gap(1),
-      minHeight: size(20, "rem"),
+      gap: gap(0.45),
       height: size(100, "%"),
-      padding: pad(1.7, 1.75, 1.7, 1.75),
-      backgroundColor: sv(dark ? C.primary : C.secondary),
-      color: sv(ink),
+      padding: pad(1, 1.05, 1.05, 1.05),
+      backgroundColor: sv(C.card),
+      borderStyle: sv("solid"),
+      borderWidth: size(1, "px"),
+      borderColor: sv(C.border),
+      borderRadius: radius(12),
       textDecoration: sv("none"),
+      color: sv(C.foreground),
+      boxShadow: [
+        {
+          value: {
+            x: 0,
+            y: 14,
+            blur: 36,
+            spread: -18,
+            color: C.foreground,
+            inset: false,
+          },
+        },
+      ],
       ...tilt(index),
     },
   });
 }
 
-function band(input: EditorialHomeInput) {
-  return container(
-    [
-      grid(
-        [
-          ...input.cards.map(featureCard),
-          block("Link", {
-            props: {
-              url: input.stat.href,
-              target: "_self",
-              children: [
-                heading("h2", input.stat.value, {
-                  fontSize: [
-                    { value: { value: 4.5, unit: "rem" } },
-                    { value: { value: 6.5, unit: "rem" }, breakpoint: ["md"] },
-                  ],
-                  fontWeight: sv("500"),
-                  letterSpacing: sv({ value: -0.06, unit: "rem" }),
-                  lineHeight: sv({ value: 0.85, unit: "" }),
-                }),
-                kicker(input.stat.label.join(" ")),
-              ],
-            },
-            style: {
-              display: sv("flex"),
-              flexDirection: sv("column"),
-              justifyContent: sv("center"),
-              gap: gap(1),
-              minHeight: size(20, "rem"),
-              height: size(100, "%"),
-              padding: pad(1.7, 1.75, 1.7, 1.75),
-              backgroundColor: sv(C.accent),
-              color: sv(C.foreground),
-              textDecoration: sv("none"),
-              ...tilt(2),
-            },
-          }),
-        ],
-        "1fr 1fr 1fr",
+function productGrid(features: EditorialBits[]) {
+  return grid(
+    features.map((feature, index) => productCard(feature, index)),
+    "1fr 1fr",
+    {
+      gap: gap(0.75),
+      alignItems: sv("stretch"),
+      width: size(100, "%"),
+      gridTemplateColumns: [
+        { value: "1fr" },
+        { value: "1fr 1fr", breakpoint: ["md"] },
+      ],
+    },
+  );
+}
+
+function templateCarousel(
+  images: { src: string; alt: string }[],
+  href: string,
+) {
+  return block("Carousel", {
+    style: {
+      width: size(100, "%"),
+      // padding: pad(2, 0, 2, 0),
+      carouselChildrenItemsPerSlide: [{ value: 1 }],
+      // Repeated class outranks the items-per-slide flex-basis rule.
+      flexBasis: [
         {
-          gap: gap(0.8),
-          alignItems: sv("stretch"),
-          gridTemplateColumns: [
-            { value: "1fr" },
-            { value: "1fr 1fr 1fr", breakpoint: ["lg"] },
+          value: 55,
+          state: [
+            {
+              state: "default" as const,
+              target: {
+                type: "selector" as const,
+                data: {
+                  stateType: "selector" as const,
+                  selector: ".carousel-item.carousel-item",
+                },
+              },
+            },
           ],
         },
-      ),
-    ],
-    {
-      maxWidth: size(82.5, "rem"),
-      width: size(100, "%"),
-      margin: autoMargin,
+      ],
       padding: [
-        ...pad(1, 1.5, 4, 1.5),
         {
           value: {
-            top: { value: 1, unit: "rem" },
-            right: { value: 5.5, unit: "vw" },
-            bottom: { value: 6, unit: "rem" },
-            left: { value: 5.5, unit: "vw" },
+            top: { value: 2, unit: "rem" },
+            right: { value: 0, unit: "rem" },
+            bottom: { value: 2, unit: "rem" },
+            left: { value: 0, unit: "rem" },
+          },
+        },
+        {
+          value: {
+            top: { value: 2, unit: "rem" },
+            right: { value: 0, unit: "rem" },
+            bottom: { value: 2, unit: "rem" },
+            left: { value: 0, unit: "rem" },
           },
           breakpoint: ["md"],
+          state: {
+            state: "default" as const,
+            target: {
+              type: "selector" as const,
+              data: {
+                stateType: "selector" as const,
+                selector: ".carousel-content-container",
+              },
+            },
+          },
         },
       ],
     },
+    props: {
+      orientation: "horizontal",
+      navigation: false,
+      loop: true,
+      scale: true,
+      autoPlay: 4,
+      align: "center",
+      startIndex: Math.floor((images.length - 1) / 2),
+      children: images.map((shot) =>
+        image(
+          shot.src,
+          shot.alt,
+          {
+            height: [
+              { value: { value: 16, unit: "rem" } },
+              { value: { value: 24, unit: "rem" }, breakpoint: ["md"] },
+            ],
+            objectFit: sv("cover"),
+            objectPosition: [{ value: { x: 50, y: 0 } }],
+            borderRadius: radius(16),
+            width: size(100, "%"),
+          },
+          href,
+        ),
+      ),
+    },
+  });
+}
+
+function templateShowcase(input: EditorialHomeInput) {
+  const templates = input.templates;
+  return container(
+    [
+      split({
+        kicker: templates.kicker,
+        titleLead: templates.titleLead,
+        titleEm: templates.titleEm,
+        body: templates.body,
+        link: { href: templates.href, label: templates.cta },
+        contentGap: 1.5,
+      }),
+      templateCarousel(templates.images, templates.href),
+    ],
+    { width: size(100, "%"), gap: gap(1.5) },
   );
 }
 
@@ -938,62 +906,15 @@ export function buildEditorialHome(input: EditorialHomeInput) {
     trust(input),
     split({
       id: "product",
-      kicker: input.productKicker,
-      titleLead: input.productTitleLead,
-      titleEm: input.productTitleEm,
-      body: input.productBody,
-      link: { href: input.productHref, label: "See what's included" },
-    }),
-    band(input),
-    split({
-      id: "use-cases",
-      kicker: input.audienceKicker,
-      titleLead: input.audienceTitleLead,
-      titleEm: input.audienceTitleEm,
-      body: input.audienceBody,
-      after: [detailRows(input.audiences)],
-    }),
-    split({
-      id: "features",
       kicker: input.featuresKicker,
       titleLead: input.featuresTitleLead,
       titleEm: input.featuresTitleEm,
       body: input.featuresBody,
       link: { href: "/features", label: "All features" },
-      after: [detailRows(input.features)],
+      contentGap: 2,
+      after: [productGrid(input.features)],
     }),
-    split({
-      kicker: input.templates.kicker,
-      titleLead: input.templates.titleLead,
-      titleEm: input.templates.titleEm,
-      body: input.templates.body,
-      link: { href: input.templates.href, label: input.templates.cta },
-      after: [
-        grid(
-          input.templates.images.map((shot, index) =>
-            image(
-              shot.src,
-              shot.alt,
-              {
-                height: size(13.75, "rem"),
-                borderRadius: radius(0),
-                objectPosition: [{ value: { x: 50, y: 0 } }],
-                ...tilt(index),
-              },
-              input.templates.href,
-            ),
-          ),
-          "1fr 1fr 1fr",
-          {
-            gap: gap(0.8),
-            gridTemplateColumns: [
-              { value: "1fr" },
-              { value: "1fr 1fr 1fr", breakpoint: ["md"] },
-            ],
-          },
-        ),
-      ],
-    }),
+    templateShowcase(input),
     split({
       id: "how-it-works",
       kicker: input.stepsKicker,
@@ -1014,6 +935,14 @@ export function buildEditorialHome(input: EditorialHomeInput) {
           },
         ),
       ],
+    }),
+    split({
+      id: "use-cases",
+      kicker: input.audienceKicker,
+      titleLead: input.audienceTitleLead,
+      titleEm: input.audienceTitleEm,
+      body: input.audienceBody,
+      after: [detailRows(input.audiences)],
     }),
     split({
       kicker: input.storiesKicker,
@@ -1072,7 +1001,13 @@ export function buildEditorialHome(input: EditorialHomeInput) {
     }),
     framed(
       [
-        serifTitle("h2", input.faqTitleLead, input.faqTitleEm, titleSize),
+        container(
+          [
+            kicker(input.faqKicker),
+            serifTitle("h2", input.faqTitleLead, input.faqTitleEm, titleSize),
+          ],
+          { gap: gap(1.5) },
+        ),
         accordion(input.faqs),
       ],
       "questions",

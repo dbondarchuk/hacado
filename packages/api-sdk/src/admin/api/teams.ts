@@ -1,10 +1,10 @@
+import { WithTotal } from "@hacado/types/database";
+import { DeactivateMemberResult } from "@hacado/types/services";
 import {
-  DeactivateMemberResult,
   OrganizationMember,
   TeamMemberListModel,
   UserRole,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/users";
 import type { UserUpdate } from "../schemas/user";
 import {
   TeamsSearchParams,

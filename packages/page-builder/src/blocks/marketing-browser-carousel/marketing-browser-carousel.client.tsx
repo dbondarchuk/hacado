@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import {
   forwardRef,
   useEffect,

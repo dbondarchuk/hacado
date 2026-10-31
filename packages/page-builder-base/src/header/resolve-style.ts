@@ -1,13 +1,18 @@
 import {
   MenuItemAppearanceOverride,
   MenuItemWithSubMenu,
+} from "@hacado/types/configuration/styling";
+import {
   PageHeaderScrolledStyle,
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 
 type ScrolledPickSource = PageHeaderUpdateModel & {
   scrolled?: PageHeaderScrolledStyle;
+  mobile?: PageHeaderScrolledStyle & {
+    scrolled?: PageHeaderScrolledStyle;
+  };
 };
 
 function headerLogoOverride(value: string | null | undefined) {
@@ -31,67 +36,144 @@ export function pickScrolledValue<T>(
   return override;
 }
 
+/**
+ * Desktop uses default, then on-scroll.
+ * Mobile rest overrides the default. Mobile on-scroll overrides that.
+ * When mobile on-scroll is unset, a set mobile rest value stays;
+ * otherwise the desktop on-scroll value is used.
+ */
+export function pickHeaderAppearanceValue<T>(
+  rest: T | null | undefined,
+  scrolled: T | null | undefined,
+  mobile: T | null | undefined,
+  mobileScrolled: T | null | undefined,
+  isScrolled: boolean,
+  isMobile: boolean,
+): T | null | undefined {
+  if (!isMobile) {
+    return pickScrolledValue(rest, scrolled, isScrolled);
+  }
+
+  const atRest = mobile === undefined ? rest : mobile;
+  if (!isScrolled) {
+    return atRest;
+  }
+
+  if (mobileScrolled !== undefined) {
+    return mobileScrolled;
+  }
+
+  if (mobile === undefined && scrolled !== undefined) {
+    return scrolled;
+  }
+
+  return atRest;
+}
+
 export function resolveHeaderStyle(
   config: ScrolledPickSource,
   isScrolled: boolean,
+  isMobile = false,
 ) {
   const scrolled = config.scrolled;
+  const mobile = config.mobile;
+  const mobileScrolled = mobile?.scrolled;
+  const pick = <T>(
+    rest: T | null | undefined,
+    scrolledValue: T | null | undefined,
+    mobileValue: T | null | undefined,
+    mobileScrolledValue: T | null | undefined,
+  ) =>
+    pickHeaderAppearanceValue(
+      rest,
+      scrolledValue,
+      mobileValue,
+      mobileScrolledValue,
+      isScrolled,
+      isMobile,
+    );
+
   const position = resolvePageHeaderPosition(config);
 
   return {
     position,
-    backgroundColor: pickScrolledValue(
+    backgroundColor: pick(
       config.backgroundColor,
       scrolled?.backgroundColor,
-      isScrolled,
+      mobile?.backgroundColor,
+      mobileScrolled?.backgroundColor,
     ),
-    textColor: pickScrolledValue(
+    textColor: pick(
       config.textColor,
       scrolled?.textColor,
-      isScrolled,
+      mobile?.textColor,
+      mobileScrolled?.textColor,
     ),
-    hideName: pickScrolledValue(
+    hideName: pick(
       config.hideName,
       scrolled?.hideName,
-      isScrolled,
+      mobile?.hideName,
+      mobileScrolled?.hideName,
     ),
-    showLogo: pickScrolledValue(
+    showLogo: pick(
       config.showLogo,
       scrolled?.showLogo,
-      isScrolled,
+      mobile?.showLogo,
+      mobileScrolled?.showLogo,
     ),
-    logo: pickScrolledValue(
+    logo: pick(
       headerLogoOverride(config.logo),
       headerLogoOverride(scrolled?.logo),
-      isScrolled,
+      headerLogoOverride(mobile?.logo),
+      headerLogoOverride(mobileScrolled?.logo),
     ),
-    logoSize: pickScrolledValue(
+    logoSize: pick(
       config.logoSize,
       scrolled?.logoSize,
-      isScrolled,
+      mobile?.logoSize,
+      mobileScrolled?.logoSize,
     ),
-    logoNameFontSize: pickScrolledValue(
+    logoNameFontSize: pick(
       config.logoNameFontSize,
       scrolled?.logoNameFontSize,
-      isScrolled,
+      mobile?.logoNameFontSize,
+      mobileScrolled?.logoNameFontSize,
     ),
-    logoNameFontWeight: pickScrolledValue(
+    logoNameFontWeight: pick(
       config.logoNameFontWeight,
       scrolled?.logoNameFontWeight,
-      isScrolled,
+      mobile?.logoNameFontWeight,
+      mobileScrolled?.logoNameFontWeight,
     ),
-    customLogoText: pickScrolledValue(
+    customLogoText: pick(
       config.customLogoText,
       scrolled?.customLogoText,
-      isScrolled,
+      mobile?.customLogoText,
+      mobileScrolled?.customLogoText,
     ),
-    shadow: pickScrolledValue(config.shadow, scrolled?.shadow, isScrolled),
-    backdropBlur: pickScrolledValue(
+    shadow: pick(
+      config.shadow,
+      scrolled?.shadow,
+      mobile?.shadow,
+      mobileScrolled?.shadow,
+    ),
+    backdropBlur: pick(
       config.backdropBlur,
       scrolled?.backdropBlur,
-      isScrolled,
+      mobile?.backdropBlur,
+      mobileScrolled?.backdropBlur,
     ),
   };
+}
+
+function hasMenuLabel(value: unknown) {
+  if (typeof value === "string") {
+    return value.trim().length > 0;
+  }
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  }
+  return false;
 }
 
 function applyMenuItemAppearanceOverride<T extends MenuItemWithSubMenu>(
@@ -112,6 +194,10 @@ function applyMenuItemAppearanceOverride<T extends MenuItemWithSubMenu>(
       continue;
     }
 
+    if (key === "useDifferentLabel" || key === "label") {
+      continue;
+    }
+
     // Additional classes append to existing classes (null keeps existing only).
     if (key === "className") {
       if (value === null) {
@@ -128,6 +214,10 @@ function applyMenuItemAppearanceOverride<T extends MenuItemWithSubMenu>(
     }
 
     merged[key as string] = value;
+  }
+
+  if (override.useDifferentLabel && hasMenuLabel(override.label)) {
+    merged.label = override.label;
   }
 
   return merged;

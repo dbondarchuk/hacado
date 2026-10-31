@@ -1,17 +1,17 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { ModifyAppointmentInformation } from "@hacado/types";
+import { ModifyAppointmentInformation } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
 import {
-  Button,
-  Checkbox,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Input,
-  Label,
-  Spinner,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { Spinner } from "@hacado/ui/spinner";
 import { Gift } from "lucide-react";
 import { DateTime as Luxon } from "luxon";
 import React from "react";

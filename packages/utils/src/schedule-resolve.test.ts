@@ -1,4 +1,7 @@
-import type { DaySchedule, ScheduleException } from "@hacado/types";
+import type {
+  DaySchedule,
+  ScheduleException,
+} from "@hacado/types/configuration/schedule";
 import { DateTime } from "luxon";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";

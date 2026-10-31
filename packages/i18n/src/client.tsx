@@ -5,9 +5,9 @@ import {
   useLocale as useLocaleNext,
   useTranslations,
 } from "next-intl";
-import { I18nFn, I18nNamespaces } from "./types";
+import { I18nFn, I18nNamespaces } from "./types-core";
 
-export * from "./types";
+export * from "./types-core";
 export * from "./utils";
 
 export const useI18n = <

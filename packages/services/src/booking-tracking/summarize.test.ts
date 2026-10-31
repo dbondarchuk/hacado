@@ -1,4 +1,4 @@
-import { BookingProgressAnalyticsDaily } from "@hacado/types";
+import { BookingProgressAnalyticsDaily } from "@hacado/types/booking";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { groupingKey, summarizeBookingProgress } from "./summarize";

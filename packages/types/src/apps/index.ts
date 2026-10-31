@@ -4,6 +4,7 @@ export * from "./app-target";
 export * from "./assets";
 export * from "./availability-provider";
 export * from "./calendars";
+export * from "./command-search-provider";
 export * from "./communication-templates-provider";
 export * from "./connected-app.data";
 export * from "./connected-app.props";

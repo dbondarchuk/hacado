@@ -3,9 +3,9 @@
 import { updateMyPhone } from "@/app/dashboard/users/me/profile/update-phone-action";
 import { PhoneOtpStep } from "@/components/admin/auth/phone-otp-step";
 import { useI18n } from "@hacado/i18n/client";
-import { zPhone } from "@hacado/types";
+import { zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -14,17 +14,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  PhoneInput,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -134,9 +136,9 @@ export const PhoneChangeDialog = ({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("users.profile.phoneChange.form.phone")}
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <PhoneInput
                         label={t("users.profile.phoneChange.form.phone")}

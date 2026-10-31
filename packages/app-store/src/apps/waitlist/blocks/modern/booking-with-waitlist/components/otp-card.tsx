@@ -1,8 +1,11 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, CustomerOtpForm, Input } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { CustomerOtpForm } from "@hacado/ui/customer-otp-form";
+import { Input } from "@hacado/ui/input";
 import React, { useCallback } from "react";
 import { useScheduleContext } from "./context";
 
@@ -25,7 +28,7 @@ export const OtpCard: React.FC = () => {
   const nameOk = localName.trim().length > 0;
 
   const getAuthOptions = useCallback(
-    () => clientApi.customerAuth.getAuthOptions(),
+    () => customerAuthApi.getAuthOptions(),
     [],
   );
 
@@ -65,7 +68,7 @@ export const OtpCard: React.FC = () => {
           initialPhone={fields.phone}
           getAuthOptions={getAuthOptions}
           requestOtp={({ channel, email, phone }) =>
-            clientApi.customerAuth.requestBookingOtp({
+            customerAuthApi.requestBookingOtp({
               name: otpFields.name,
               email,
               phone,
@@ -73,18 +76,19 @@ export const OtpCard: React.FC = () => {
             })
           }
           verifyOtp={({ channel, email, phone, otp }) =>
-            clientApi.customerAuth.verifyOtp(
+            customerAuthApi.verifyOtp(
               channel === "phone" ? { phone, otp } : { email, otp },
             )
           }
           onVerified={async (result) => {
-            clientApi.booking.trackOtpVerified();
+            bookingApi.trackOtpVerified();
             setOtpVerified(true);
             setFields({
               ...fields,
               name: result.name || localName.trim() || fields.name,
               email: result.email || fields.email,
               phone: result.phone || fields.phone,
+              smsConsent: result.smsConsent === true,
             });
 
             if (otpReturnStep === "packages" || otpReturnStep === "review") {
@@ -100,7 +104,7 @@ export const OtpCard: React.FC = () => {
             if (!payment || payment.intent?.status === "paid") {
               onSubmit(payment?.intent?._id);
             } else {
-              clientApi.booking.trackPaymentReached(payment.intent?.amount);
+              bookingApi.trackPaymentReached(payment.intent?.amount);
               setCurrentStep("payment");
             }
           }}

@@ -1,4 +1,4 @@
-import type { ScheduleDaySource } from "@hacado/types";
+import type { ScheduleDaySource } from "@hacado/types/configuration/schedule";
 
 /** Block / chip colors aligned with weekly-schedule source badges. */
 export const scheduleSourceBlockClass: Record<ScheduleDaySource, string> = {

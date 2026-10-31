@@ -2,12 +2,12 @@
 
 import { useDraggable } from "@dnd-kit/react";
 import { useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { GripVertical, Layers, LayoutTemplate } from "lucide-react";
 import Image from "next/image";
 import { memo, useMemo } from "react";

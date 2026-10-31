@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, cn } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import { Copy, Eye, EyeOff, Group, Lock, Trash2, Ungroup } from "lucide-react";
 import {
   GiftCardStudioAdminKeys,

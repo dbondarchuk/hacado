@@ -4,8 +4,9 @@ import React, { useCallback, useRef } from "react";
 
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
-import { BookingPaymentTips, useCurrencyFormat } from "@hacado/ui";
-import { formatAmount } from "@hacado/utils";
+import { BookingPaymentTips } from "@hacado/ui/booking-payment-tips";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { formatAmount } from "@hacado/utils/currency";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";
 

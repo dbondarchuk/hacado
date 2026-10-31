@@ -1,10 +1,10 @@
-import { ReaderBlock } from "@hacado/builder";
+import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { StickyBannerReaderProps } from "./schema";
 import { StickyBanner } from "./sticky-banner";
 import { styles } from "./styles";

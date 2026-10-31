@@ -1,4 +1,4 @@
-import { generateId } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
 import type { I18nFn } from "@hacado/i18n";
 import { migrateSlotValue } from "@hacado/page-builder-base/slots";
 import { GiftCardStudioPublicAllKeys } from "../../translations/types";

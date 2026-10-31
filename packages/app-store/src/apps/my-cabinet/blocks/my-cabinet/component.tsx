@@ -6,13 +6,10 @@ import {
   ReplaceOriginalColors,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import {
-  Skeleton,
-  cn,
-  toast,
-  useTimeZone,
-  useUseClientTimezone,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone, useUseClientTimezone } from "@hacado/ui/context";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useEffect, useState } from "react";
 import {
@@ -109,6 +106,7 @@ export const MyCabinetBlockComponent = ({
           name: res.name,
           email: res.email,
           phone: res.phone,
+          smsConsent: res.smsConsent === true,
         });
       })
       .catch(() => {})

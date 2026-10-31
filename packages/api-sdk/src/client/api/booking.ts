@@ -9,8 +9,17 @@ import {
   ModifyAppointmentInformation,
   ModifyAppointmentInformationRequest,
   ModifyAppointmentRequest,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { fetchClientApi } from "./utils";
+
+export const getSmsConsent = async (phone: string) => {
+  const response = await fetchClientApi(
+    `/booking/sms-consent?phone=${encodeURIComponent(phone)}`,
+    { method: "GET" },
+  );
+
+  return response.json<{ consented: boolean }>();
+};
 
 export const getBookingOptions = async () => {
   console.debug("Getting booking options");

@@ -4,7 +4,7 @@ import {
   ReaderEmbeddedSlotChildren,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { GiftCardPurchaseShowcaseReader } from "./reader-component";
 import { GiftCardPurchaseShowcaseBlockReaderProps, styles } from "./schema";
 

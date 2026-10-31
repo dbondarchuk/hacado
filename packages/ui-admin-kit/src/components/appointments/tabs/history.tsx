@@ -4,23 +4,22 @@ import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   AppointmentHistoryEntry,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { useInView } from "react-intersection-observer";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { AvailableApps } from "@hacado/app-store";
+import { Badge } from "@hacado/ui/badge";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useIsMobile } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import {
-  Badge,
-  cn,
-  Skeleton,
-  toast,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useCurrencyFormat,
-  useIsMobile,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import {
   Banknote,
   BanknoteX,
@@ -314,7 +313,7 @@ export const AppointmentHistory: React.FC<AppointmentHistoryProps> = ({
 
   const loadEntries = React.useCallback(
     async (page: number) => {
-      const result = await adminApi.appointments.getAppointmentHistory(
+      const result = await appointmentsApi.getAppointmentHistory(
         appointmentId,
         {
           page,

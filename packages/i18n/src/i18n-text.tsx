@@ -1,7 +1,7 @@
 "use client";
 import { useI18n } from "./client";
 import { richTextArgs } from "./rich-text-args";
-import { I18nKey, I18nNamespaces } from "./types";
+import { I18nKey, I18nNamespaces } from "./types-core";
 
 export const I18nText = <T extends I18nNamespaces>({
   namespace,

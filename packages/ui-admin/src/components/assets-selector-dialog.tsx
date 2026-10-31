@@ -1,24 +1,27 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
+import { pexelsApi } from "@hacado/api-sdk/admin/pexels";
+import { unsplashApi } from "@hacado/api-sdk/admin/unsplash";
 import { useI18n } from "@hacado/i18n/client";
-import { PexelsMedia, UnsplashPhoto, UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
+import { PexelsMedia } from "@hacado/types/pexels";
+import { UnsplashPhoto } from "@hacado/types/unsplash";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { DndFileInput } from "@hacado/ui/dnd-file-input";
+import { useDebounce, useUploadFile } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { Modal } from "@hacado/ui/modal";
+import { Progress } from "@hacado/ui/progress";
 import {
-  Button,
-  cn,
-  DndFileInput,
-  Input,
-  Modal,
-  Progress,
   RadioButtonGroup,
   RadioButtonGroupItem,
-  ScrollArea,
-  Skeleton,
-  Spinner,
-  toast,
-  useDebounce,
-  useUploadFile,
-} from "@hacado/ui";
+} from "@hacado/ui/radio-button-group";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { Accept } from "react-dropzone";
 import { useInView } from "react-intersection-observer";
@@ -176,7 +179,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
   const loadAssets = React.useCallback(
     async (page: number, search?: string) => {
-      const result = await adminApi.assets.getAssets({
+      const result = await assetsApi.getAssets({
         page,
         limit: toLoad,
         search,
@@ -193,7 +196,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
   const loadUnsplash = React.useCallback(
     async (page: number, search?: string) => {
-      const result = await adminApi.unsplash.searchUnsplashPhotos({
+      const result = await unsplashApi.searchUnsplashPhotos({
         page,
         limit: toLoad,
         query: search || undefined,
@@ -209,7 +212,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
   const loadPexels = React.useCallback(
     async (page: number, search?: string, type: PexelsMediaType = "photo") => {
-      const result = await adminApi.pexels.searchPexelsMedia({
+      const result = await pexelsApi.searchPexelsMedia({
         page,
         limit: toLoad,
         query: search || undefined,
@@ -310,7 +313,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
       if (!selectedUnsplash) return;
 
       try {
-        await adminApi.unsplash.trackUnsplashDownload(
+        await unsplashApi.trackUnsplashDownload(
           selectedUnsplash.downloadLocation,
         );
       } catch (error) {
@@ -419,8 +422,9 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
       className="sm:max-w-[80%]"
     >
       {showStockSources && (
-        <div className="w-full mb-4 flex flex-wrap gap-3">
+        <div className="w-full mb-4 flex flex-wrap gap-3 justify-between">
           <RadioButtonGroup
+            joined
             value={source}
             onValueChange={(value) => {
               if (
@@ -448,6 +452,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
           </RadioButtonGroup>
           {source === "pexels" && pexelsNeedsTypeToggle && (
             <RadioButtonGroup
+              joined
               value={pexelsType}
               onValueChange={(value) => {
                 if (value === "photo" || value === "video") {

@@ -5,7 +5,7 @@ import {
   fontSizeShortcut,
   Shortcut,
   textAlignmentShortcut,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/shortcuts";
 import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 
 /** Same shortcuts as InlineText - for blog blocks that render static text. */

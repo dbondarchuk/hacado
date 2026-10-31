@@ -1,4 +1,4 @@
-import { BillingPlanTier } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types/billing";
 
 export type PolarBillingPlanDef = {
   slug: BillingPlanTier;

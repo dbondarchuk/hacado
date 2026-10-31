@@ -1,4 +1,4 @@
-import { fetchWithJson } from "@hacado/utils";
+import { fetchWithJson } from "@hacado/utils/fetch-with-json";
 
 export const BASE_CLIENT_API_URL = "/api";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import type { ReactNode } from "react";
 import { AccordionProvider } from "./context";
 import { AccordionProps } from "./schema";

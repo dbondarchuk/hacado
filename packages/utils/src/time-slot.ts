@@ -7,7 +7,7 @@ import {
   TimeSlotPeriod,
   TimeSlotsFinderConfiguration,
   TimeSlotsFinderError,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 
 export type DateTimePeriod = {
   startAt: Luxon;

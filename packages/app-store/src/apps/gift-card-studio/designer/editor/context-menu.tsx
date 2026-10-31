@@ -7,7 +7,7 @@ import {
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/context-menu";
 import {
   ArrowDown,
   ArrowUp,

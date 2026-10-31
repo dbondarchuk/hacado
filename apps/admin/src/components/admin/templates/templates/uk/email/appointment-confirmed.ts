@@ -3,7 +3,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentConfirmedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -13,7 +13,7 @@ export const appointmentConfirmedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Візит на послугу {{option.name}} підтверджено",
+        text: "Візит на послугу {{service.name}} підтверджено",
       },
       {
         type: "text",
@@ -23,7 +23,7 @@ export const appointmentConfirmedEmailTemplate: TemplatesTemplate =
 
 Ми підтвердили ваш візит на {{dateTime.full}}.
 
-Послуга: {{option.name}}
+Послуга: {{service.name}}
 
 Спеціаліст: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },

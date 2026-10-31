@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarButton } from "@hacado/ui";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { useCommentAddButton } from "@udecode/plate-comments/react";
 import { MessageSquarePlus } from "lucide-react";
 

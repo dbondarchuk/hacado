@@ -1,4 +1,4 @@
-import type { AppLogoProps } from "@hacado/types";
+import type { AppLogoProps } from "@hacado/types/apps";
 
 const TEAL = "#1a6462";
 const SLATE = "#465a71";

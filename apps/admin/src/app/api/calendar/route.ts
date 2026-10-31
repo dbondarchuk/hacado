@@ -1,13 +1,13 @@
 import { getServicesContainer, getUser } from "@/app/utils";
-import { calendarSearchParamsLoader } from "@hacado/api-sdk";
+import { calendarSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/calendar";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   AppointmentStatus,
   appointmentStatuses,
   CalendarEvent,
   isClosedAppointmentStatus,
-} from "@hacado/types";
-import { resolveCalendarMemberId } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { resolveCalendarMemberId } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

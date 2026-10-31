@@ -1,27 +1,31 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
+import { useCurrencySymbol } from "@hacado/ui/context";
 import {
-  AutoSkeleton,
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  MonthsInput,
-  Switch,
-  toastPromise,
-  useCurrencySymbol,
-} from "@hacado/ui";
-import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { MonthsInput } from "@hacado/ui/months-input";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Switch } from "@hacado/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -118,139 +122,149 @@ export const GiftCardStudioSettingsPage: React.FC<{ appId: string }> = ({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="emailTemplateIdToPurchaser"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("settings.emailTemplateToPurchaser")}</FormLabel>
-                <FormControl>
-                  <TemplateSelector
-                    type="email"
-                    value={field.value ?? undefined}
-                    onItemSelect={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="emailTemplateIdToRecipient"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("settings.emailTemplateToRecipient")}</FormLabel>
-                <FormControl>
-                  <TemplateSelector
-                    type="email"
-                    value={field.value ?? undefined}
-                    onItemSelect={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="expirationMonths"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("settings.expirationMonths")}</FormLabel>
-                <FormControl>
-                  <MonthsInput
-                    value={field.value}
-                    onChange={(value) => {
-                      field.onChange(value);
-                      form.trigger("expirationMonths");
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="minAmount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("settings.minAmount")}</FormLabel>
-                <FormControl>
-                  <InputGroup>
-                    <InputGroupAddon
-                      className={InputGroupAddonClasses({
-                        variant: "prefix",
-                      })}
-                    >
-                      {currencySymbol}
-                    </InputGroupAddon>
-                    <InputGroupInput>
-                      <Input
-                        type="number"
-                        step={0.01}
-                        min={0}
-                        {...field}
-                        value={field.value ?? ""}
-                        className={InputGroupInputClasses({
+          <div className="gap-2 flex flex-col md:gap-4 border rounded-lg p-4">
+            <FormField
+              control={form.control}
+              name="emailTemplateIdToPurchaser"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.emailTemplateToPurchaser")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <TemplateSelector
+                      type="email"
+                      value={field.value ?? undefined}
+                      onItemSelect={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="emailTemplateIdToRecipient"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.emailTemplateToRecipient")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <TemplateSelector
+                      type="email"
+                      value={field.value ?? undefined}
+                      onItemSelect={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="expirationMonths"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("settings.expirationMonths")}</FormLabel>
+                  <FormControl>
+                    <MonthsInput
+                      value={field.value}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        form.trigger("expirationMonths");
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="minAmount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.minAmount")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <InputGroup>
+                      <InputGroupAddon
+                        className={InputGroupAddonClasses({
                           variant: "prefix",
                         })}
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value === ""
-                              ? undefined
-                              : Number(e.target.value),
-                          )
-                        }
-                      />
-                    </InputGroupInput>
-                  </InputGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="maxAmount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("settings.maxAmount")}</FormLabel>
-                <FormControl>
-                  <InputGroup>
-                    <InputGroupAddon
-                      className={InputGroupAddonClasses({
-                        variant: "prefix",
-                      })}
-                    >
-                      {currencySymbol}
-                    </InputGroupAddon>
-                    <InputGroupInput>
-                      <Input
-                        type="number"
-                        step={0.01}
-                        min={0}
-                        {...field}
-                        value={field.value ?? ""}
-                        className={InputGroupInputClasses({
+                      >
+                        {currencySymbol}
+                      </InputGroupAddon>
+                      <InputGroupInput>
+                        <Input
+                          type="number"
+                          step={0.01}
+                          min={0}
+                          {...field}
+                          value={field.value ?? ""}
+                          className={InputGroupInputClasses({
+                            variant: "prefix",
+                          })}
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === ""
+                                ? undefined
+                                : Number(e.target.value),
+                            )
+                          }
+                        />
+                      </InputGroupInput>
+                    </InputGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="maxAmount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.maxAmount")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <InputGroup>
+                      <InputGroupAddon
+                        className={InputGroupAddonClasses({
                           variant: "prefix",
                         })}
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value === ""
-                              ? undefined
-                              : Number(e.target.value),
-                          )
-                        }
-                      />
-                    </InputGroupInput>
-                  </InputGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                      >
+                        {currencySymbol}
+                      </InputGroupAddon>
+                      <InputGroupInput>
+                        <Input
+                          type="number"
+                          step={0.01}
+                          min={0}
+                          {...field}
+                          value={field.value ?? ""}
+                          className={InputGroupInputClasses({
+                            variant: "prefix",
+                          })}
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === ""
+                                ? undefined
+                                : Number(e.target.value),
+                            )
+                          }
+                        />
+                      </InputGroupInput>
+                    </InputGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <SaveButton form={form} isLoading={loading || initialLoading} />
         </form>
       </Form>

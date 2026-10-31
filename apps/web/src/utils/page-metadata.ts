@@ -2,9 +2,9 @@ import { getServicesContainer } from "@/utils/utils";
 import type {
   AppPageMetadata,
   IPageMetadataProvider,
-  Page,
   PageContentEntry,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { Page } from "@hacado/types/pages";
 import type { Metadata } from "next";
 
 function mergeContentEntries(

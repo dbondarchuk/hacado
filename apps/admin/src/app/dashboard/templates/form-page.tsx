@@ -1,20 +1,14 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { TemplateForm } from "@/components/admin/templates/form";
+import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import { getI18nAsync } from "@hacado/i18n/server";
-import {
-  CommunicationChannel,
-  DemoArguments,
-  IDemoArgumentsProvider,
-  Template,
-  TemplatesTemplate,
-} from "@hacado/types";
-import { Breadcrumbs } from "@hacado/ui";
-import {
-  demoAppointment,
-  demoOtp,
-  getAdminUrl,
-  getArguments,
-} from "@hacado/utils";
+import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
+import { CommunicationChannel } from "@hacado/types/communication";
+import { Template, TemplatesTemplate } from "@hacado/types/templates";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { demoAppointment, demoOtp } from "@hacado/utils/fixtures";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getAdminUrl } from "@hacado/utils/website";
 import { notFound } from "next/navigation";
 import React from "react";
 import { getTemplate } from "./cached";
@@ -104,6 +98,10 @@ export const TemplateFormPage: React.FC<
 
       template = possibleTemplate;
     }
+  }
+
+  if (type === "text-message" && !(await customTextTemplatesAllowed())) {
+    notFound();
   }
 
   const breadcrumbItems = [

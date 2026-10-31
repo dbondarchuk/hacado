@@ -1,8 +1,8 @@
 "use client";
 
 import { arrayMove } from "@dnd-kit/sortable";
-import { FormDescription } from "@hacado/ui";
-import { Sortable } from "@hacado/ui-admin";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { FormDescription } from "@hacado/ui/form";
 import React from "react";
 import { FieldError, UseFormReturn } from "react-hook-form";
 import { TipPresetCard } from "./tip-preset-card";

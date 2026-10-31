@@ -2,7 +2,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -12,7 +12,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "La cita para {{option.name}} fue cancelada",
+        text: "La cita para {{service.name}} fue cancelada",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
 
 ¡Gracias por seleccionar {{config.name}}!
 
-Desafortunadamente, no podemos confirmar su cita para {{option.name}} el {{dateTime.full}} con {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} en este momento.
+Desafortunadamente, no podemos confirmar su cita para {{service.name}} el {{dateTime.full}} con {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} en este momento.
 
 Llámenos al {{config.phone}} o intente seleccionar otro horario.
 

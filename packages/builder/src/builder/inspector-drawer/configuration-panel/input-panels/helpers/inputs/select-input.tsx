@@ -1,14 +1,14 @@
 import React from "react";
 
+import { Label } from "@hacado/ui/label";
 import {
-  Label,
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { ResetButton } from "./reset-button";
 
 type Props = Pick<React.ComponentProps<typeof SelectTrigger>, "size"> & {

@@ -2,7 +2,8 @@
 
 import { type ComponentPropsWithoutRef } from "react";
 
-import { buttonVariants, cn } from "@hacado/ui";
+import { buttonVariants } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
   useColorsCustom,
   useColorsCustomState,
@@ -15,7 +16,7 @@ import {
 } from "./color-dropdown-menu-items";
 import { ColorInput } from "./color-input";
 // import { ColorInput } from './color-input';
-import { DropdownMenuItem } from "@hacado/ui";
+import { DropdownMenuItem } from "@hacado/ui/dropdown-menu";
 
 type ColorCustomProps = {
   colors: TColor[];

@@ -38,7 +38,7 @@ File: [{{filename}}]({{ websiteUrl }}/assets/{{filename}})
 
 {{/files}}
 
-Option selected: {{ option.name }}
+Service selected: {{service.name}}
 
 Addons selected:
 
@@ -55,7 +55,7 @@ Duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{
 
 {{#discount}}
 
-Promo code: {{code}} (-{{discountAmountFormatted}}) ([{{name}}]({{ adminUrl }}/dashboard/services/discounts/{{id}}))
+Promo code: {{code}} (-{{discountAmountFormatted}}) ([{{name}}]({{ adminUrl }}/dashboard/catalog/discounts/{{id}}))
 
 {{/discount}} {{#totalPriceFormatted}}
 

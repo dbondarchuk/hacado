@@ -1,25 +1,25 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { useAuth } from "@hacado/ui-admin/context";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  MemberSelector,
-  useAuth,
-} from "@hacado/ui-admin";
-import { subscriptionAllowsMultipleUsers } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
+import { subscriptionAllowsMultipleUsers } from "@hacado/utils/permissions";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { TextMessageResenderApp } from "./app";
@@ -68,12 +68,7 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
                 name="defaultMemberId"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>
-                      {t("form.defaultMemberId.label")}
-                      <InfoTooltip>
-                        {t("form.defaultMemberId.tooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("form.defaultMemberId.label")}</FormLabel>
                     <FormControl>
                       <MemberSelector
                         value={field.value}
@@ -86,6 +81,9 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.defaultMemberId.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

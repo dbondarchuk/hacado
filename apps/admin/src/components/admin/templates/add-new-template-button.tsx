@@ -1,10 +1,14 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templates";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
-import { CommunicationChannel, communicationChannels } from "@hacado/types";
 import {
-  Button,
-  Combobox,
+  CommunicationChannel,
+  communicationChannels,
+} from "@hacado/types/communication";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,19 +16,22 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 
 export const AddNewTemplateButton: React.FC = () => {
   const t = useI18n("admin");
+  const allowTextTemplates = useCustomTextTemplatesAllowed();
   const [type, setType] = React.useState<CommunicationChannel>("email");
   const [template, setTemplate] = React.useState<string>("");
   const [availableTemplates, setAvailableTemplates] = React.useState<
@@ -50,7 +57,7 @@ export const AddNewTemplateButton: React.FC = () => {
 
   const fetchAvailableTemplates = async (type: CommunicationChannel) => {
     setIsLoading(true);
-    const templates = await adminApi.templates.getTemplateTemplates(type);
+    const templates = await templatesApi.getTemplateTemplates(type);
     setAvailableTemplates(templates);
     setIsLoading(false);
   };
@@ -97,11 +104,16 @@ export const AddNewTemplateButton: React.FC = () => {
                   />
                 </SelectTrigger>
                 <SelectContent side="bottom">
-                  {communicationChannels.map((channel) => (
-                    <SelectItem key={channel} value={channel}>
-                      {t(`common.labels.channel.${channel}`)}
-                    </SelectItem>
-                  ))}
+                  {communicationChannels
+                    .filter(
+                      (channel) =>
+                        allowTextTemplates || channel !== "text-message",
+                    )
+                    .map((channel) => (
+                      <SelectItem key={channel} value={channel}>
+                        {t(`common.labels.channel.${channel}`)}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             </div>

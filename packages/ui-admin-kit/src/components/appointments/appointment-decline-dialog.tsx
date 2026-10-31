@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
@@ -8,7 +8,8 @@ import {
   ClosedAppointmentStatus,
   getPaymentProcessorRefundTarget,
   Payment,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { SwitchCard } from "@hacado/ui-admin/switch-card";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,25 +20,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Badge,
-  Checkbox,
-  cn,
-  CurrencyPercentageInput,
-  Label,
-  Link,
+} from "@hacado/ui/alert-dialog";
+import { Badge } from "@hacado/ui/badge";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { CurrencyPercentageInput } from "@hacado/ui/currency-percentage-input";
+import { Label } from "@hacado/ui/label";
+import { Link } from "@hacado/ui/link";
+import {
   RadioButtonGroup,
   RadioButtonGroupItem,
-  ScrollArea,
+} from "@hacado/ui/radio-button-group";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { formatAmount } from "@hacado/utils";
+} from "@hacado/ui/tooltip-responsive";
+import { formatAmount } from "@hacado/utils/currency";
 import { CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
-import React, { useCallback, useEffect, useId } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   getPaymentDescription,
   getPaymentMethod,
@@ -100,7 +102,6 @@ const PaymentRefundCard = ({
       : 0);
 
   const refundAmount = paymentState?.amount ?? refundableAmount;
-  const refundFeesId = useId();
 
   const commitValue = useCallback(
     (amount: number) => {
@@ -129,21 +130,7 @@ const PaymentRefundCard = ({
   }, [refundAmount, refundableAmount, commitValue]);
 
   return (
-    <div
-      className={cn(
-        "w-full flex flex-col rounded-lg border border-border bg-background overflow-hidden relative cursor-pointer",
-        paymentState?.selected && "bg-blue-50 dark:bg-sky-600/20",
-      )}
-      onClick={() => isRefundable && setSelected(payment._id, refundableAmount)}
-    >
-      {isRefundable && (
-        <Checkbox
-          id={`payment-${payment._id}`}
-          checked={isSelected}
-          className="absolute top-1 left-1 bg-background dark:bg-background"
-        />
-      )}
-
+    <div className="w-full flex flex-col rounded-lg border border-border bg-background overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-border">
         <div className="flex items-center gap-3">
@@ -218,7 +205,7 @@ const PaymentRefundCard = ({
                 {t("admin.appointments.declineDialog.giftCardCode")}
               </span>
               <Link
-                href={`/dashboard/services/gift-cards/${payment.giftCardId}`}
+                href={`/dashboard/catalog/gift-cards/${payment.giftCardId}`}
                 variant="none"
                 className="text-sm font-mono text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-lg"
               >
@@ -270,45 +257,62 @@ const PaymentRefundCard = ({
               </span>
             </div>
           )}
-          <div
-            className="flex justify-between items-center text-base"
-            onClick={(e) => isSelected && e.stopPropagation()}
-          >
-            <div className="flex flex-col gap-2">
-              <span className="text-foreground">
-                {t(
-                  isSelected
-                    ? "admin.appointments.declineDialog.refundAmount"
-                    : "admin.appointments.declineDialog.refundableAmount",
-                )}
-              </span>
-              {isSelected && (
-                <div className="flex flex-row gap-2 items-center">
-                  <Checkbox
-                    id={refundFeesId}
-                    checked={refundFees}
-                    onCheckedChange={(checked) => setRefundFees(!!checked)}
-                  />
-                  <Label htmlFor={refundFeesId}>
-                    {t("admin.appointments.declineDialog.refundFees")}
-                  </Label>
-                </div>
-              )}
-            </div>
-            {isSelected ? (
-              <CurrencyPercentageInput
-                maxAmount={refundableAmount}
-                value={refundAmount}
-                onChange={commitValue}
-              />
-            ) : (
-              <span className="text-foreground">
-                {currencyFormat(totalRefundedAmount)}
-              </span>
-            )}
+          <div className="flex justify-between items-center text-base">
+            <span className="text-foreground">
+              {t("admin.appointments.declineDialog.refundableAmount")}
+            </span>
+            <span className="text-foreground">
+              {currencyFormat(totalRefundedAmount)}
+            </span>
           </div>
         </div>
       </div>
+      {isRefundable && (
+        <SwitchCard
+          noCard
+          className="px-5 py-4"
+          label={t("admin.appointments.declineDialog.refundPayment")}
+          description={t(
+            "admin.appointments.declineDialog.refundPaymentDescription",
+          )}
+          checked={isSelected}
+          onCheckedChange={(checked) => {
+            setSelected(
+              payment._id,
+              refundableAmount,
+              checked,
+              undefined,
+              refundFees,
+            );
+          }}
+        >
+          {isSelected && (
+            <>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-sm font-medium">
+                  {t("admin.appointments.declineDialog.refundAmount")}
+                </span>
+                <CurrencyPercentageInput
+                  maxAmount={refundableAmount}
+                  value={refundAmount}
+                  onChange={commitValue}
+                />
+              </div>
+              {!!payment.fees?.length && (
+                <SwitchCard
+                  noCard
+                  label={t("admin.appointments.declineDialog.refundFees")}
+                  description={t(
+                    "admin.appointments.declineDialog.refundFeesDescription",
+                  )}
+                  checked={refundFees}
+                  onCheckedChange={setRefundFees}
+                />
+              )}
+            </>
+          )}
+        </SwitchCard>
+      )}
     </div>
   );
 };
@@ -398,7 +402,7 @@ export const AppointmentDeclineDialog: React.FC<{
   );
 
   const refundSelected = async () => {
-    const result = await adminApi.payments.refundPayments({
+    const result = await paymentsApi.refundPayments({
       refunds: selectedPayments,
     });
 
@@ -464,7 +468,7 @@ export const AppointmentDeclineDialog: React.FC<{
                     {t("admin.appointments.declineDialog.service")}
                   </span>
                   <span className="font-semibold">
-                    {appointment.option.name}
+                    {appointment.service.name}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -484,11 +488,12 @@ export const AppointmentDeclineDialog: React.FC<{
             <div className="flex flex-col gap-2">
               <Label>{t("admin.appointments.declineDialog.reason")}</Label>
               <RadioButtonGroup
+                joined="md"
                 value={closeReason}
                 onValueChange={(value) =>
                   setCloseReason(value as ClosedAppointmentStatus)
                 }
-                className="md:grid md:grid-cols-3"
+                className="md:grid md:grid-cols-3 md:w-full"
               >
                 {(
                   [
@@ -508,25 +513,15 @@ export const AppointmentDeclineDialog: React.FC<{
                 ))}
               </RadioButtonGroup>
             </div>
-            <div className="flex flex-col gap-1">
-              <div className="flex flex-row gap-2 items-center">
-                <Checkbox
-                  id="doNotNotifyCustomer"
-                  checked={doNotNotifyCustomer}
-                  onCheckedChange={(checked) =>
-                    setDoNotNotifyCustomer(!!checked)
-                  }
-                />
-                <Label htmlFor="doNotNotifyCustomer">
-                  {t("admin.appointments.declineDialog.doNotNotifyCustomer")}
-                </Label>
-              </div>
-              <p className="text-sm text-muted-foreground pl-6">
-                {t(
-                  "admin.appointments.declineDialog.doNotNotifyCustomerDescription",
-                )}
-              </p>
-            </div>
+            <SwitchCard
+              label={t("admin.appointments.declineDialog.doNotNotifyCustomer")}
+              description={t(
+                "admin.appointments.declineDialog.doNotNotifyCustomerDescription",
+              )}
+              checked={doNotNotifyCustomer}
+              onCheckedChange={setDoNotNotifyCustomer}
+              disabled={isLoading}
+            />
             {!!paymentsAvailableToRefund.length && (
               <div className="flex flex-col gap-2">
                 <div className="font-semibold">

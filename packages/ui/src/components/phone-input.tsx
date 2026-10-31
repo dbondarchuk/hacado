@@ -2,7 +2,7 @@ import countries from "countries-phone-masks";
 import React from "react";
 import { Mask, MaskedInput } from "./masked-input";
 
-import { countryOptions } from "@hacado/types";
+import { countryOptions } from "@hacado/types/utils";
 import { cn } from "../utils";
 import { Combobox } from "./combobox";
 import "./css/flags.css";

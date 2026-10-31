@@ -10,10 +10,78 @@ export type LegalSection = {
   title: string;
   paragraphs: string[];
   bullets?: string[];
+  links?: { label: string; href: string }[];
 };
 
-export const privacyUpdated = "August 24, 2026";
-export const termsUpdated = "August 24, 2026";
+export const privacyUpdated = "October 17, 2026";
+export const termsUpdated = "October 17, 2026";
+export const smsPolicyUpdated = "October 17, 2026";
+
+export const smsPolicySections: LegalSection[] = [
+  {
+    title: "Who sends the texts",
+    paragraphs: [
+      "Hacado sends text messages for the business you book with. The message names that business. Hacado is the platform that delivers the text from a toll-free number for United States and Canada mobile numbers.",
+      "A business may also connect its own texting provider. This page describes texts Hacado sends from the platform number. If a business uses another provider, that provider’s terms also apply.",
+    ],
+  },
+  {
+    title: "What we text",
+    paragraphs: [
+      "Texts are about a booking, waitlist request, payment, or account sign-in you started. They are not marketing messages. They can include:",
+    ],
+    bullets: [
+      "A request received, confirmed, declined, canceled, rescheduled, or marked as a no-show.",
+      "A reminder before an appointment, or a follow-up after one.",
+      "A waitlist opening, or confirmation that you left a waitlist.",
+      "A payment link for an amount the business requested.",
+      "A one-time sign-in code for your customer account. That code can be sent without a separate text-message checkbox, and it still honors STOP.",
+    ],
+  },
+  {
+    title: "How you opt in",
+    paragraphs: [
+      "On a booking or waitlist form, you can check a box such as “Text me notifications and reminders about my appointment.” The box is unchecked until you check it. You can finish the booking without checking it. Confirmations and reminders then go to the email address you entered.",
+      "Next to the box, the form says that messages are from Hacado on behalf of the business, that message frequency varies, that message and data rates may apply, and that you can reply STOP to opt out. It links to these Terms, the Privacy Policy, and this SMS Privacy and Policy.",
+      "If you already agreed for that business and have not opted out, the form shows that texts will be sent to that number instead of asking again.",
+      "A business owner can also record that you agreed when they create an appointment or waitlist entry for you. That record is kept as the owner’s attestation.",
+    ],
+  },
+  {
+    title: "Information we keep",
+    paragraphs: [
+      "When you opt in or opt out, we store the mobile number, whether you agreed, which business the choice applies to, the time, and the IP address of the request when one is available. We also store delivery status for texts we send, so we can avoid duplicate sends and apply the first-message notice below.",
+      "Consent is per business. Agreeing with one business does not agree for every business on Hacado. An opt-out applies to the phone number across Hacado’s platform number.",
+      "We share the phone number and the message contents with our texting provider, Telnyx, so the text can be delivered to your carrier. We do not sell phone numbers.",
+    ],
+  },
+  {
+    title: "Frequency, rates, and examples",
+    paragraphs: [
+      "Message frequency varies with your appointments. You might receive a confirmation, a reminder, and a change notice for one visit, or no texts if you did not opt in. Message and data rates may apply.",
+      "A confirmation looks like: “Ada Salon: Hi Jessica, your Cut is confirmed for Fri, Oct 17, 3:00 PM. Manage: https://example.hacado.me/my-cabinet”. A reminder for the next day says “tomorrow” before that date. The name is the one entered on the booking. The first text to your number for a business also includes: “Msg&data rates may apply. Reply STOP to cancel, HELP for help.” Every platform text ends with: “Txt STOP to unsubscribe.”",
+    ],
+  },
+  {
+    title: "Opting out, help, and opting back in",
+    paragraphs: [
+      "Reply STOP, STOPALL, UNSUBSCRIBE, CANCEL, END, or QUIT to opt out of further texts from the platform number. We stop appointment, waitlist, payment, and sign-in texts to that number after an opt-out.",
+      "Reply HELP for help. The reply includes support@hacado.com.",
+      "Reply START, YES, UNSTOP, or SUBSCRIBE to opt back in. That works only if you had previously agreed to texts. A keyword alone does not create a new consent.",
+    ],
+  },
+  {
+    title: "Where this applies",
+    paragraphs: [
+      "The platform number texts United States and Canada numbers. Other countries are not texted from this number. Texts are not directed to children, and the program is not age-gated.",
+      "Questions about a text: support@hacado.com. Privacy requests: see the Privacy Policy. This page is part of the Privacy Policy and the Terms of Service for text messages.",
+    ],
+    links: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+    ],
+  },
+];
 
 /** Based on hacado.com/privacy (4 Dec 2025), expanded for production SaaS. */
 export const privacySections: LegalSection[] = [
@@ -76,7 +144,7 @@ export const privacySections: LegalSection[] = [
     bullets: [
       "Billing: Polar (subscriptions, customer portal, tax invoices).",
       "Payments you enable: Stripe, Square, PayPal (and similar processors you connect).",
-      "Communications: email delivery (including SMTP you configure) and SMS providers (such as TextBelt) when you send texts.",
+      "Communications: email delivery (including SMTP you configure) and SMS providers (including Telnyx for platform texts, and TextBelt when a workspace uses that app).",
       "Integrations you connect: Google, Microsoft, Zoom, and other calendar or video providers.",
       "Infrastructure, monitoring, and analytics providers (including Google Analytics on our marketing site where cookies are allowed).",
       "Professional advisers and authorities when required by law.",
@@ -121,6 +189,15 @@ export const privacySections: LegalSection[] = [
       "Withdraw consent where processing is based on consent.",
       "Opt out of “sale” or “sharing” of personal information where those terms apply - we do not sell personal information.",
     ],
+  },
+  {
+    title: "Text messages",
+    paragraphs: [
+      "If you book with a business on Hacado and you agree to texts, we send appointment, waitlist, and related account messages to your mobile number. For United States and Canada numbers, those texts come from Hacado’s toll-free number and name the business you booked with. The checkbox is optional. You can still complete the booking, and we email the confirmation and reminders to the address you entered.",
+      "We store the phone number, whether you agreed, the business, the time, and the IP address when one is available. We also store opt-out requests and message delivery status. We share the number and the message with Telnyx so your carrier can deliver the text. We do not sell phone numbers, and these texts are not marketing.",
+      "Reply STOP to opt out and HELP for help. Message frequency varies with your appointments. Message and data rates may apply. The full description of what we text, how consent is stored, and how to opt back in is in the SMS Privacy and Policy.",
+    ],
+    links: [{ label: "SMS Privacy and Policy", href: "/sms-policy" }],
   },
   {
     title: "Your clients’ rights",
@@ -207,8 +284,11 @@ export const termsSections: LegalSection[] = [
   {
     title: "SMS and email",
     paragraphs: [
-      "If you send SMS or email through Hacado, you represent that you have obtained any required consent from recipients and will honor opt-outs. Unused SMS credits typically do not constitute a cash refund except as required by law or stated at purchase.",
+      "Appointment texts are optional. A client opts in by checking the text box on a booking or waitlist form, or when a business records that the client agreed. Consent is not required to complete a booking. Reply STOP to opt out and HELP for help. Message frequency varies with appointments, and message and data rates may apply.",
+      "If you are a business using Hacado, you may send texts only when the recipient has agreed, and you must honor opt-outs. You will not use the Service for marketing or unsolicited texts. Unused SMS credits typically do not constitute a cash refund except as required by law or stated at purchase.",
+      "The SMS Privacy and Policy is part of these Terms for text messages. It describes the message types, the consent record, and how to opt out.",
     ],
+    links: [{ label: "SMS Privacy and Policy", href: "/sms-policy" }],
   },
   {
     title: "Intellectual property",

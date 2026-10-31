@@ -1,4 +1,5 @@
-import { ConnectedAppData, Customer } from "@hacado/types";
+import { ConnectedAppData } from "@hacado/types/apps";
+import { Customer } from "@hacado/types/customers";
 import { FormModel, FormResponseModel } from "./form";
 
 export const FORMS_HOOK_NAME = "forms-hook";

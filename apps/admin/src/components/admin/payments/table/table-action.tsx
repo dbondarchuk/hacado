@@ -1,14 +1,13 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { paymentMethods, paymentStatus, paymentType } from "@hacado/types";
 import {
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+  paymentMethods,
+  paymentStatus,
+  paymentType,
+} from "@hacado/types/booking";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   AppointmentsDataTableAsyncFilterBox,
   CustomersDataTableAsyncFilterBox,
@@ -16,8 +15,9 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@hacado/ui-admin";
-import { Settings2 } from "lucide-react";
+} from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
+
 import React from "react";
 import { AddPaymentButton } from "../add-payment-button";
 import { ExportPaymentsButton } from "./export-payments-button";
@@ -112,44 +112,32 @@ export const PaymentsTableAction: React.FC<{
   );
 
   return (
-    <div
-      className={cn(
-        "flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row",
-        className,
-      )}
-    >
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
-        <DataTableSearch
-          searchKey="search"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-          placeholder={t("paymentsList.table.filters.searchPlaceholder")}
-        />
-        <Popover>
-          <PopoverTrigger
-            tooltip={t("communicationLogs.table.filters.filters")}
-            asChild
-            className="md:hidden"
-          >
-            <Button variant="outline">
-              <Settings2 size={16} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {additionalFilters}
-          </PopoverContent>
-        </Popover>
-        <div className="hidden md:flex flex-row gap-4">{additionalFilters}</div>
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
+    <>
+      <HeaderActionButtonsPortal>
         <ExportPaymentsButton customerIdLock={customerIdLock} />
         {showAddPayment && <AddPaymentButton customerId={customerIdLock} />}
+      </HeaderActionButtonsPortal>
+      <div
+        className={cn(
+          "flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row",
+          className,
+        )}
+      >
+        <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-2 md:gap-4">
+          <DataTableSearch
+            searchKey="search"
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setPage={setPage}
+            placeholder={t("paymentsList.table.filters.searchPlaceholder")}
+          />
+          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+          <DataTableResetFilter
+            isFilterActive={isAnyFilterActive}
+            onReset={resetFilters}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

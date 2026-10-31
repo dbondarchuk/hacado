@@ -1,4 +1,5 @@
-import { ActivityFeedPreview, ActivitySeverity } from "@hacado/types";
+import { ActivitySeverity } from "@hacado/types/activity";
+import { ActivityFeedPreview } from "@hacado/types/apps";
 import { DateTime } from "luxon";
 import { create } from "zustand";
 

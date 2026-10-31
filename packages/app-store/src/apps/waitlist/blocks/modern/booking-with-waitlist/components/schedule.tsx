@@ -1,7 +1,13 @@
 "use client";
 
-import { clientApi, handleBookingSubmitError } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { availabilityApi } from "@hacado/api-sdk/client/availability";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { handleBookingSubmitError } from "@hacado/api-sdk/client/booking-submit-error";
+import { giftCardsApi } from "@hacado/api-sdk/client/gift-cards";
+import { paymentsApi } from "@hacado/api-sdk/client/payments";
 import { useI18n } from "@hacado/i18n/client";
+import type { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -9,26 +15,27 @@ import type {
   AppointmentFields,
   AppointmentPackage,
   AppointmentRequest,
-  BookingCatalogNode,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
   FieldSchema,
   PublicStaffMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   ApplyDiscountResponse,
   AvailabilityByMember,
   BookingRestriction,
-  catalogPathForOption,
   CheckDuplicateAppointmentsResponse,
   effectiveAddonDuration,
   getActiveStaffAcrossAssignments,
   getActiveStaffForAssignments,
   isAddonAvailableForMember,
   isBookingLimitRestriction,
-} from "@hacado/types";
-import { toast, useTimeZone } from "@hacado/ui";
+} from "@hacado/types/booking";
+import type { BookingCatalogNode } from "@hacado/types/configuration/booking";
+import { catalogPathForService } from "@hacado/types/configuration/booking";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
@@ -64,6 +71,7 @@ export type ScheduleProps = {
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   className?: string;
   id?: string;
   isEditor?: boolean;
@@ -96,6 +104,7 @@ export const Schedule: React.FC<
   successPage,
   fieldsSchema,
   showPromoCode,
+  smsText,
   className,
   id,
   isEditor,
@@ -305,7 +314,7 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!waitlistOffer || appliedOfferCatalogPath.current) return;
-    const path = catalogPathForOption(catalog, waitlistOffer.optionId);
+    const path = catalogPathForService(catalog, waitlistOffer.optionId);
     if (path === undefined) return;
     setCatalogPath(path);
     appliedOfferCatalogPath.current = true;
@@ -348,6 +357,7 @@ export const Schedule: React.FC<
 
   const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
   const locksBootstrapped = React.useRef(!lockServiceId && !lockMemberId);
+  const suppressNextScrollRef = React.useRef(false);
 
   React.useEffect(() => {
     if (locksBootstrapped.current) return;
@@ -359,22 +369,25 @@ export const Schedule: React.FC<
     if (option) setSelectedAppointmentOption(option);
     if (lockMemberId) setSelectedMemberId(lockMemberId);
 
-    setCurrentStep(
-      getInitialBookingStep({
-        flow,
-        flowOrder,
-        lockServiceId,
-        lockMemberId,
-        lockCustomerPackageId,
-        selectedOption: option,
-        activeStaffCount: getActiveStaffForAssignments(
-          option?.staff,
-          members,
-          undefined,
-          undefined,
-        ).length,
-      }),
-    );
+    const nextStep = getInitialBookingStep({
+      flow,
+      flowOrder,
+      lockServiceId,
+      lockMemberId,
+      lockCustomerPackageId,
+      selectedOption: option,
+      activeStaffCount: getActiveStaffForAssignments(
+        option?.staff,
+        members,
+        undefined,
+        undefined,
+      ).length,
+    });
+    if (nextStep !== currentStep) {
+      suppressNextScrollRef.current = true;
+      setCurrentStep(nextStep);
+    }
+
     locksBootstrapped.current = true;
   }, [
     areAppointmentOptionsLoading,
@@ -385,6 +398,7 @@ export const Schedule: React.FC<
     flowOrder,
     flow,
     members,
+    currentStep,
   ]);
 
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
@@ -541,13 +555,16 @@ export const Schedule: React.FC<
         name: fields.name,
         phone: fields.phone,
         note: fields.note,
+        ...(typeof fields.smsConsent === "boolean"
+          ? { smsConsent: fields.smsConsent }
+          : {}),
         optionId: selectedAppointmentOption._id,
         memberId: selectedMemberId,
         addonsIds: selectedAddons?.map((addon) => addon._id),
         duration: totalDuration,
       };
 
-      await clientApi.apps.callAppApi({
+      await appsApi.callAppApi({
         appId: waitlistAppId,
         path: "waitlist",
         method: "POST",
@@ -595,7 +612,7 @@ export const Schedule: React.FC<
           .toJSDate(),
         timeZone: dateTime.timeZone,
         duration: duration,
-        optionId: selectedAppointmentOption._id,
+        serviceId: selectedAppointmentOption._id,
         memberId: selectedMemberId ?? undefined,
         addonsIds: selectedAddons?.map((addon) => addon._id),
         promoCode: promoCode?.code,
@@ -604,8 +621,14 @@ export const Schedule: React.FC<
         giftCards: giftCards?.map((giftCard) => giftCard.code),
         customerPackageId,
         purchasePackageId,
+        ...(typeof fields.smsConsent === "boolean"
+          ? { smsConsent: fields.smsConsent }
+          : {}),
         fields: Object.entries(fields)
-          .filter(([_, value]) => !((value as any) instanceof File))
+          .filter(
+            ([key, value]) =>
+              key !== "smsConsent" && !((value as any) instanceof File),
+          )
           .reduce(
             (obj, cur) => ({
               ...obj,
@@ -686,7 +709,7 @@ export const Schedule: React.FC<
             return;
           }
 
-          const data = await clientApi.availability.getAvailability({
+          const data = await availabilityApi.getAvailability({
             memberIds: requests.map((r) => r.memberId),
             durations: requests.map((r) => r.duration),
           });
@@ -703,7 +726,7 @@ export const Schedule: React.FC<
           return;
         }
 
-        const data = await clientApi.availability.getAvailability({
+        const data = await availabilityApi.getAvailability({
           memberIds: [resolvedMemberId],
           durations: [totalDuration],
         });
@@ -755,8 +778,7 @@ export const Schedule: React.FC<
       setIsLoading(true);
 
       try {
-        const data =
-          await clientApi.booking.checkDuplicateAppointments(request);
+        const data = await bookingApi.checkDuplicateAppointments(request);
 
         return data;
       } catch (e) {
@@ -792,7 +814,7 @@ export const Schedule: React.FC<
       }
 
       try {
-        const data = await clientApi.giftCards.applyGiftCards({
+        const data = await giftCardsApi.applyGiftCards({
           codes,
           amount,
         });
@@ -915,8 +937,8 @@ export const Schedule: React.FC<
       try {
         setIsLoading(true);
         const data = await (intentId
-          ? clientApi.payments.updatePaymentIntent(intentId, body)
-          : clientApi.payments.createPaymentIntent(body));
+          ? paymentsApi.updatePaymentIntent(intentId, body)
+          : paymentsApi.createPaymentIntent(body));
 
         return data;
       } catch (e) {
@@ -965,10 +987,7 @@ export const Schedule: React.FC<
           ),
         );
 
-        const { id } = await clientApi.booking.createAppointment(
-          eventBody,
-          files,
-        );
+        const { id } = await bookingApi.createAppointment(eventBody, files);
 
         if (successPage) {
           const expireDate = LuxonDateTime.now().plus({ minutes: 1 });
@@ -1066,6 +1085,7 @@ export const Schedule: React.FC<
       flow,
       setFlow,
       showPromoCode,
+      smsText,
       formFields,
       availabilityByMember,
       paymentInformation,
@@ -1146,6 +1166,7 @@ export const Schedule: React.FC<
       flow,
       setFlow,
       showPromoCode,
+      smsText,
       formFields,
       availabilityByMember,
       paymentInformation,
@@ -1191,6 +1212,7 @@ export const Schedule: React.FC<
         hideTitle={hideTitle}
         hideSteps={hideSteps}
         summaryPosition={summaryPosition}
+        suppressNextScrollRef={suppressNextScrollRef}
         className={className}
         {...props}
       />

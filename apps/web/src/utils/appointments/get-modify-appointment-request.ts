@@ -4,7 +4,6 @@ import {
   Appointment,
   CANCELLATION_NOT_ALLOWED_BY_POLICY_REASON,
   CANCELLATION_NOT_ALLOWED_REASON,
-  CustomerSession,
   isClosedAppointmentStatus,
   MAX_RESCHEDULES_REACHED_REASON,
   ModifyAppointmentInformation,
@@ -13,8 +12,10 @@ import {
   RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON,
   RESCHEDULE_NOT_ALLOWED_REASON,
   RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON,
-} from "@hacado/types";
-import { formatAmount, getPolicyForRequest } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { CustomerSession } from "@hacado/types/customer-auth";
+import { getPolicyForRequest } from "@hacado/utils/cancellation-policy";
+import { formatAmount } from "@hacado/utils/currency";
 import { DateTime } from "luxon";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
@@ -153,15 +154,15 @@ export const getModifyAppointmentInformationRequestResult = async (
     canUsePayments && defaultApps?.paymentAppId,
   );
 
-  const option = await servicesContainer.servicesService.getOption(
-    appointment.option._id,
+  const option = await servicesContainer.catalogService.getService(
+    appointment.service._id,
   );
 
   const appointmentInformation = {
     type: request.type,
     id: appointment._id,
     name: appointment.customer?.name,
-    optionName: appointment.option.name,
+    optionName: appointment.service.name,
     addonsNames: appointment.addons?.map((addon) => addon.name),
     dateTime: appointment.dateTime,
     timeZone: appointment.timeZone,

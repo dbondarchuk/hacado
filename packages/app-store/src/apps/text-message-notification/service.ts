@@ -1,35 +1,37 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  Appointment,
-  AppointmentStatus,
-  BookingConfiguration,
-  BrandConfiguration,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
-  GeneralConfiguration,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-  isClosedAppointmentStatus,
   ITextMessageResponder,
   RespondResult,
-  SessionUser,
-  SocialConfiguration,
   TextMessageReply,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import {
+  Appointment,
+  AppointmentStatus,
+  isClosedAppointmentStatus,
+} from "@hacado/types/booking";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { SocialConfiguration } from "@hacado/types/configuration/social";
+import { EventEnvelope } from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
 import {
   dispatchAppointmentEventPayload,
-  formatAmountString,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
   resolveAppointmentEventForMemberId,
+} from "@hacado/utils/appointment-event-dispatch";
+import { getArguments } from "@hacado/utils/get-arguments";
+import {
   resolveProcessOtherMembersAppointmentsConfig,
   subscriptionAllowsMultipleUsers,
-  template,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
+import { template } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { getTextMessageNotificationMessages } from "./messages";
 import {
   TextMessageNotificationConfiguration,
@@ -219,14 +221,6 @@ export class TextMessageNotificationConnectedApp
           "social",
         );
 
-      const totalAmountPaid = appointment.payments
-        ?.filter((payment) => payment.status === "paid")
-        .reduce((sum, payment) => sum + payment.amount, 0);
-
-      const totalAmountPaidFormatted = totalAmountPaid
-        ? formatAmountString(totalAmountPaid)
-        : undefined;
-
       const organization =
         await this.props.services.organizationService.getOrganization();
       if (!organization) {
@@ -261,10 +255,6 @@ export class TextMessageNotificationConnectedApp
         config,
         customer: appointment.customer,
         locale: config.brand.language,
-        additionalProperties: {
-          confirmed,
-          totalAmountPaidFormatted,
-        },
         adminUrl,
         websiteUrl,
         user: member,

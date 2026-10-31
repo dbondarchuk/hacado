@@ -37,7 +37,7 @@ Archivo: [{{filename}}]({{ websiteUrl }}/assets/{{filename}})
 
 {{/files}}
 
-Opción seleccionada: {{ option.name }}
+Servicio seleccionado: {{service.name}}
 
 Complementos seleccionados:
 
@@ -54,7 +54,7 @@ Duración: {{#duration.hours}}{{.}} h {{/duration.hours}}{{#duration.minutes}}{{
 
 {{#discount}}
 
-Código de promoción: {{code}} (-{{discountAmountFormatted}}) ([{{name}}]({{ adminUrl }}/dashboard/services/discounts/{{id}}))
+Código de promoción: {{code}} (-{{discountAmountFormatted}}) ([{{name}}]({{ adminUrl }}/dashboard/catalog/discounts/{{id}}))
 
 {{/discount}} {{#totalPriceFormatted}}
 

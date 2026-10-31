@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
-import { Prettify } from "@hacado/types";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const CustomHTMLPropsSchema = z.object({

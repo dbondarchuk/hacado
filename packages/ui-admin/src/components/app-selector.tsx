@@ -1,9 +1,12 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
-import { AppScope, ConnectedApp, Prettify } from "@hacado/types";
-import { cn, Combobox, ComboboxProps, IComboboxItem, toast } from "@hacado/ui";
+import { AppScope, ConnectedApp } from "@hacado/types/apps";
+import { Prettify } from "@hacado/types/utils";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, ComboboxProps, IComboboxItem } from "@hacado/ui/combobox";
+import { toast } from "@hacado/ui/sonner";
 import React from "react";
 import {
   ConnectedAppAccount,
@@ -73,93 +76,109 @@ export type AppSelectorProps = Prettify<
     (ClearableAppSelectorProps | NonClearableAppSelectorProps)
 >;
 
-export const AppSelector: React.FC<AppSelectorProps> = ({
-  appName,
-  scope,
-  placeholder,
-  searchLabel,
-  disabled,
-  className,
-  excludeIds,
-  value,
-  onItemSelect,
-  allowClear,
-  setAppName,
-  size,
-}) => {
-  const [apps, setApps] = React.useState<ConnectedApp[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const t = useI18n("apps");
+export const AppSelector = React.forwardRef<
+  HTMLButtonElement,
+  AppSelectorProps
+>(
+  (
+    {
+      appName,
+      scope,
+      placeholder,
+      searchLabel,
+      disabled,
+      className,
+      excludeIds,
+      value,
+      onItemSelect,
+      allowClear,
+      setAppName,
+      size,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [apps, setApps] = React.useState<ConnectedApp[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const t = useI18n("apps");
 
-  React.useEffect(() => {
-    const fn = async () => {
-      if (!scope && !appName) {
-        console.warn("No scope or app name provided");
-        setApps([]);
-        setIsLoading(false);
-        return;
-      }
+    React.useEffect(() => {
+      const fn = async () => {
+        if (!scope && !appName) {
+          console.warn("No scope or app name provided");
+          setApps([]);
+          setIsLoading(false);
+          return;
+        }
 
-      try {
-        setIsLoading(true);
-        const apps = scope
-          ? await adminApi.apps.getAppsByScope(scope)
-          : await adminApi.apps.getAppsByName(appName!);
-        setApps(apps);
-      } catch (e) {
-        toast.error(t("common.requestFailed"));
-        console.error(e);
-        setApps([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+        try {
+          setIsLoading(true);
+          const apps = scope
+            ? await appsApi.getAppsByScope(scope)
+            : await appsApi.getAppsByName(appName!);
+          setApps(apps);
+        } catch (e) {
+          toast.error(t("common.requestFailed"));
+          console.error(e);
+          setApps([]);
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-    fn();
-  }, [scope, appName]);
+      fn();
+    }, [scope, appName]);
 
-  React.useEffect(() => {
-    setAppName?.(apps?.find((app) => app._id === value)?.name);
-  }, [apps, value]);
+    React.useEffect(() => {
+      setAppName?.(apps?.find((app) => app._id === value)?.name);
+    }, [apps, value]);
 
-  const appValues = (apps: ConnectedApp[]): IComboboxItem[] =>
-    apps
-      .filter(({ _id }) => !excludeIds?.find((id) => id === _id))
-      .map((app) => {
-        return {
-          value: app._id,
-          shortLabel: <AppShortLabel app={app} />,
-          label: (
-            <div className="flex flex-col gap-2">
-              <AppShortLabel app={app} />
-              <ConnectedAppStatusMessage
-                status={app.status}
-                statusText={app.statusText}
-              />
-            </div>
-          ),
-        };
-      });
+    const appValues = (apps: ConnectedApp[]): IComboboxItem[] =>
+      apps
+        .filter(({ _id }) => !excludeIds?.find((id) => id === _id))
+        .map((app) => {
+          return {
+            value: app._id,
+            shortLabel: <AppShortLabel app={app} />,
+            label: (
+              <div className="flex flex-col gap-2">
+                <AppShortLabel app={app} />
+                <ConnectedAppStatusMessage
+                  status={app.status}
+                  statusText={app.statusText}
+                />
+              </div>
+            ),
+          };
+        });
 
-  return (
-    // @ts-ignore Allow clear passthrough
-    <Combobox
-      allowClear={allowClear}
-      size={size}
-      disabled={disabled || isLoading}
-      className={cn("flex font-normal text-base max-w-full min-w-0", className)}
-      values={appValues(apps)}
-      placeholder={placeholder || t("common.selectApp")}
-      searchLabel={
-        isLoading
-          ? t("common.loadingApps")
-          : searchLabel || t("common.selectApp")
-      }
-      value={value}
-      customSearch={(search) =>
-        appValues(apps.filter((app) => checkAppSearch(app, search)))
-      }
-      onItemSelect={onItemSelect}
-    />
-  );
-};
+    return (
+      // @ts-ignore Allow clear passthrough
+      <Combobox
+        {...rest}
+        ref={ref}
+        allowClear={allowClear}
+        size={size}
+        disabled={disabled || isLoading}
+        className={cn(
+          "flex font-normal text-base max-w-full min-w-0",
+          className,
+        )}
+        values={appValues(apps)}
+        placeholder={placeholder || t("common.selectApp")}
+        searchLabel={
+          isLoading
+            ? t("common.loadingApps")
+            : searchLabel || t("common.selectApp")
+        }
+        value={value}
+        customSearch={(search) =>
+          appValues(apps.filter((app) => checkAppSearch(app, search)))
+        }
+        onItemSelect={onItemSelect}
+      />
+    );
+  },
+);
+
+AppSelector.displayName = "AppSelector";

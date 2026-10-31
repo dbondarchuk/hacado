@@ -362,6 +362,37 @@ wizard:
         bookNowLabel: Book now
         cancelOrRescheduleLabel: Cancel or reschedule
         policiesLabel: Policies
+        privacyLabel: Privacy
+        termsLabel: Terms
+      legalFallbackName: Our business
+      privacy:
+        title: Privacy Policy
+        updated: "Last Updated: {date}"
+        intro: "{businessName} (\"we,\" \"us,\" or \"our\") respects your privacy and is committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your information when you book services or interact with us online through our website provided by our scheduling platform partner, Hacado."
+        collectTitle: Information We Collect
+        collectBody: When you book an appointment, join a waitlist, or communicate with us, we may collect personal details including your name, email address, and mobile phone number.
+        useTitle: How We Use Your Information
+        useBody: We use your personal information strictly to fulfill appointment requests, manage bookings, provide customer support, and send transactional notifications (such as booking confirmations, rescheduling updates, and appointment reminders).
+        smsTitle: Mobile Terms & SMS Privacy Disclosure
+        smsConsent: "SMS Consent & Opt-In Data: No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties under any circumstances."
+        smsUse: "Text Messaging Usage: Mobile numbers collected for text messaging are used exclusively to deliver transactional service updates, appointment reminders, and account notifications related to your bookings with us."
+        contactTitle: Contact Us
+        contactBody: If you have any questions regarding this Privacy Policy or your personal data, please contact us directly or email our platform provider at support@hacado.com.
+      terms:
+        title: Terms of Service
+        updated: "Last Updated: {date}"
+        intro: Welcome to {businessName}. By booking an appointment or using our online scheduling page powered by Hacado, you agree to the following terms and conditions.
+        bookingsTitle: Appointment Bookings & Cancellations
+        bookingsBody: By submitting a booking, you agree to provide accurate contact information. Cancellations or rescheduling requests must be submitted in accordance with our posted scheduling policies.
+        smsTitle: SMS / Text Messaging Program Terms
+        smsConsent: By entering your mobile phone number on our booking form and opting in to receive notifications, you consent to receive automated transactional text messages (such as appointment confirmations, reminders, and updates) from {businessName} via our booking infrastructure partner, Hacado.
+        smsFrequency: "Message Frequency: Message frequency varies depending on your appointment activity and bookings."
+        smsRates: "Message and Data Rates: Standard message and data rates may apply depending on your mobile carrier and plan."
+        smsStop: "Opt-Out Instructions: You may cancel or opt out of SMS notifications at any time by replying STOP to any text message. Upon sending STOP, you will receive a single confirmation text confirming your opt-out."
+        smsHelp: "Help & Support: For assistance with text messaging notifications, reply HELP to any text message or contact support at support@hacado.com."
+        smsCarriers: "Carriers: Mobile carriers are not liable for delayed or undelivered messages."
+        platformTitle: Platform Infrastructure
+        platformBody: Online booking, scheduling services, and automated notification delivery are facilitated by Hacado. Terms and policies governing the Hacado platform infrastructure can be reviewed at https://hacado.com/terms.
       home:
         title: Book your next visit
         description: Choose a service and reserve your time in minutes.

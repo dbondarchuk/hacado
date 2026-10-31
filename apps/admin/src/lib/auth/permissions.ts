@@ -1,8 +1,8 @@
+import type { UserRole } from "@hacado/types/users";
 import {
   teamPermissionStatements,
   teamRolePermissions,
-  type UserRole,
-} from "@hacado/types";
+} from "@hacado/types/users";
 import { createAccessControl } from "better-auth/plugins/access";
 
 /**

@@ -11,11 +11,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+} from "@hacado/ui/card";
+import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@hacado/ui";
+} from "@hacado/ui/chart";
 
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },

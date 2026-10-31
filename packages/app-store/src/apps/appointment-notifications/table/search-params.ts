@@ -5,8 +5,8 @@ import {
   parseAsStringEnum,
 } from "nuqs";
 
-import { baseSearchParams } from "@hacado/api-sdk";
-import { communicationChannels } from "@hacado/types";
+import { baseSearchParams } from "@hacado/api-sdk/admin/search-params/base";
+import { communicationChannels } from "@hacado/types/communication";
 import { appointmentNotificationTypes } from "../models";
 
 export const searchParams = {

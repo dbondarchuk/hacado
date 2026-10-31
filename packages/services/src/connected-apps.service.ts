@@ -2,39 +2,45 @@ import {
   AvailableAppServices,
   ServiceAvailableApps,
 } from "@hacado/app-store/services";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import {
   ApiRequest,
   App,
-  APP_CONNECTED_EVENT_TYPE,
-  APP_FAILED_EVENT_TYPE,
-  APP_INSTALLED_EVENT_TYPE,
-  APP_UNINSTALLED_EVENT_TYPE,
   AppScope,
-  BookingConfiguration,
-  BookingProviderScope,
-  bookingProviderScopes,
-  CalendarSourceScope,
-  calendarSourceScopes,
   ConnectedApp,
   ConnectedAppData,
   ConnectedAppUninstallResult,
   ConnectedAppUpdateModel,
-  DefaultAppsConfiguration,
-  DefaultAppScope,
-  defaultAppScopes,
-  EventSource,
   IConnectedApp,
   IConnectedAppProps,
-  IConnectedAppsService,
   IConnectedAppWithWebhook,
   IOAuthConnectedApp,
   IPublicEventContextProvider,
-  IServicesContainer,
-  OrganizationMember,
+} from "@hacado/types/apps";
+import {
+  BookingProviderScope,
+  bookingProviderScopes,
+  CalendarSourceScope,
+  calendarSourceScopes,
+  DefaultAppsConfiguration,
+  DefaultAppScope,
+  defaultAppScopes,
+} from "@hacado/types/configuration/apps";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import {
+  APP_CONNECTED_EVENT_TYPE,
+  APP_FAILED_EVENT_TYPE,
+  APP_INSTALLED_EVENT_TYPE,
+  APP_UNINSTALLED_EVENT_TYPE,
+  EventSource,
   PublicEventContextByApp,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import {
+  IConnectedAppsService,
+  IServicesContainer,
+} from "@hacado/types/services";
+import { OrganizationMember, SessionUser } from "@hacado/types/users";
 import { ObjectId } from "mongodb";
 import pLimit from "p-limit";
 import { cache } from "react";

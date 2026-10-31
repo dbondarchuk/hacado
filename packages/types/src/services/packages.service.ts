@@ -29,7 +29,7 @@ export type IssueCustomerPackageInput = {
 export type RedeemPackageInput = {
   customerPackageId: string;
   appointmentId: string;
-  optionId: string;
+  serviceId: string;
   memberId: string;
   appointmentDate: Date;
   optionStaffMemberIds: string[];
@@ -47,6 +47,7 @@ export type IPackagesService = {
     data: AppointmentPackageUpdateModel,
     source: EventSource,
   ): Promise<AppointmentPackage | null>;
+  checkPackageUniqueName(name: string, id?: string): Promise<boolean>;
   setPackageStatus(
     id: string,
     status: AppointmentPackageStatus,
@@ -64,6 +65,14 @@ export type IPackagesService = {
   getPublicPackages(): Promise<AppointmentPackage[]>;
   hasActiveCustomerPackages(): Promise<boolean>;
   issue(input: IssueCustomerPackageInput): Promise<CustomerPackage>;
+  activatePendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void>;
+  cancelPendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void>;
   issueFromPayment(input: {
     paymentIntentId: string;
     packageId: string;
@@ -99,14 +108,14 @@ export type IPackagesService = {
   ): Promise<WithTotal<CustomerPackageListModel>>;
   findEligible(input: {
     customerId: string;
-    optionId: string;
+    serviceId: string;
     memberId: string;
     appointmentDate: Date;
     optionStaffMemberIds: string[];
   }): Promise<CustomerPackage[]>;
   canUsePackageForAppointment(input: {
     customerPackageId: string;
-    optionId: string;
+    serviceId: string;
     memberId: string;
     appointmentDate: Date;
     optionStaffMemberIds: string[];

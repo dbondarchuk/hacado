@@ -2,23 +2,23 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
   AppointmentPackage,
-  BookingCatalogNode,
   minEffectiveDuration,
   minEffectivePrice,
   PublicStaffMember,
   summarizePackageItems,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { BookingCatalogNode } from "@hacado/types/configuration/booking";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  cn,
-  Markdown,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
+import { durationToTime } from "@hacado/utils/time";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
 
@@ -281,7 +281,7 @@ export const CatalogCards: React.FC<CatalogCardsProps> = ({
                 <ul className="space-y-0.5 text-sm text-muted-foreground package-card-included-list">
                   {included.map((item) => (
                     <li
-                      key={item.optionId}
+                      key={item.serviceId}
                       className="flex items-center justify-between gap-2 package-card-included-item"
                     >
                       <span className="package-card-included-item-name">
@@ -322,7 +322,7 @@ export const CatalogCards: React.FC<CatalogCardsProps> = ({
         />,
       ];
     }
-    const choice = options.find((item) => item._id === node.optionId);
+    const choice = options.find((item) => item._id === node.serviceId);
     if (!choice) return [];
     return [
       <AppointmentChoiceCard

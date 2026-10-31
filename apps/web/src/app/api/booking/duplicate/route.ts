@@ -5,7 +5,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   appointmentRequestSchema,
   CheckDuplicateAppointmentsResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
   if ("error" in eventOrError) {
     logger.error(
       {
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
         error: eventOrError.error,
       },
       "Failed to get event",
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
   if (!eventOrError.option.duplicateAppointmentCheck?.enabled) {
     logger.debug(
       {
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
       },
       "Option does not need duplicate appointments confirmation",
     );
@@ -84,11 +84,11 @@ export async function POST(request: NextRequest) {
   }
 
   if (!eventOrError.customer) {
-    logger.error(
+    logger.info(
       {
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
       },
-      "Customer not found",
+      "Customer not found - maybe new customer",
     );
 
     return NextResponse.json({
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
   try {
     const closestAppointments =
       await servicesContainer.bookingService.getAppointments({
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
         customerId: eventOrError.customer._id,
         range,
         status: ["pending", "confirmed"],
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     logger.error(
       {
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
         customerId: eventOrError.customer._id,
         range,
         status: ["pending", "confirmed"],

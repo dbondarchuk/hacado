@@ -1,4 +1,4 @@
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import type { CSSProperties } from "react";
 import { getFontFamily, getPadding } from "../../style-inputs/helpers/styles";
 import { type OnlineMeetingProps } from "./schema";

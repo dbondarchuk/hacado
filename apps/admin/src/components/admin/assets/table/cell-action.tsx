@@ -1,21 +1,20 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
-import { Asset } from "@hacado/types";
+import { Asset } from "@hacado/types/assets";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
+import { useWebsiteUrl } from "@hacado/ui/context";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toast,
-  toastPromise,
-  useClipboard,
-  useWebsiteUrl,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { useClipboard } from "@hacado/ui/hooks";
+import { toast, toastPromise } from "@hacado/ui/sonner";
 import {
   Copy,
   CopyCheck,
@@ -65,7 +64,7 @@ export const CellAction: React.FC<CellActionProps> = ({ asset }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.assets.deleteAsset(asset._id), {
+      await toastPromise(assetsApi.deleteAsset(asset._id), {
         success: t("assets.toasts.assetDeleted", { filename: asset.filename }),
         error: t("common.toasts.error"),
       });

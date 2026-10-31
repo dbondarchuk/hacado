@@ -1,8 +1,8 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentRescheduledTextMessageTemplate: TemplatesTemplate = {
   name: "Перенесений запис (текстовий)",
   type: "text-message",
   value:
-    "Привіт, {{fields.name}}!\nВаш запис на послугу {{option.name}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} було перенесено на {{dateTime.full}}.\n\nЯкщо цей час вам не підходить або у вас є запитання, зателефонуйте чи напишіть нам за номером {{config.phone}}.\n\nЗ нетерпінням чекаємо на зустріч!\n{{config.name}}",
+    "Привіт, {{fields.name}}!\nВаш запис на послугу {{service.name}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} було перенесено на {{dateTime.full}}.\n\nЯкщо цей час вам не підходить або у вас є запитання, зателефонуйте чи напишіть нам за номером {{config.phone}}.\n\nЗ нетерпінням чекаємо на зустріч!\n{{config.name}}",
 };

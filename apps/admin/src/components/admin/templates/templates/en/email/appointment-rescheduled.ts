@@ -2,7 +2,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -12,7 +12,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Appointment for {{option.name}} was rescheduled",
+        text: "Appointment for {{service.name}} was rescheduled",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
 
 Thank you for selecting {{config.name}}!
 
-Your appointment for {{option.name}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} was rescheduled{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}} and duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
+Your appointment for {{service.name}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} was rescheduled{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}} and duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
 
 Please give us a call at {{config.phone}} as soon as possible if this time does not work for you.
 

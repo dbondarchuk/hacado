@@ -1,13 +1,16 @@
-import { TranslationKeys } from "@hacado/i18n";
+import type { TranslationKeys } from "@hacado/i18n/keys";
+
 import {
   Field,
   FieldFileData,
   FieldOptionsData,
   FieldType,
   WithLabelFieldData,
+} from "@hacado/types/booking";
+import {
   zNonEmptyString,
   zPossiblyOptionalMinMaxLengthString,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { Control } from "react-hook-form";
 import { z, ZodSchema, ZodTypeAny } from "zod";
 import { CheckboxField } from "./checkbox-field";

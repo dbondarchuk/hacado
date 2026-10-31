@@ -1,8 +1,6 @@
-import {
-  shiftsSchema,
-  weekIdentifierSchema,
-  zTaggedUnion,
-} from "@hacado/types";
+import { shiftsSchema } from "@hacado/types/configuration/schedule";
+import { weekIdentifierSchema } from "@hacado/types/general";
+import { zTaggedUnion } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const setSchedulesActionSchema = z.object({

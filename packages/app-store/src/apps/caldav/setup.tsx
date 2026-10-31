@@ -1,30 +1,33 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  toast,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { CaldavApp } from "./app";
@@ -72,11 +75,11 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
     setFetchingCalendars(true);
     try {
       const result = existingAppId
-        ? await adminApi.apps.processRequest(existingAppId, {
+        ? await appsApi.processRequest(existingAppId, {
             type: "fetchCalendars",
             data: form.getValues(),
           })
-        : await adminApi.apps.processStaticRequest(CALDAV_APP_NAME, {
+        : await appsApi.processStaticRequest(CALDAV_APP_NAME, {
             ...form.getValues(),
             fetchCalendars: true,
           });
@@ -104,13 +107,15 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="serverUrl"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("form.serverUrl.label")}
-                    <InfoTooltip>{t("form.serverUrl.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input placeholder="https://" {...field} />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.serverUrl.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -120,13 +125,13 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="username"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.username.label")}
-                    <InfoTooltip>{t("form.username.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.username.label")}</FormLabel>
                   <FormControl>
                     <Input placeholder="username" {...field} />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.username.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -136,10 +141,7 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="password"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.password.label")}
-                    <InfoTooltip>{t("form.password.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.password.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -148,6 +150,9 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.password.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -157,7 +162,9 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="calendarName"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.calendar.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.calendar.label")}
+                  </FormLabelWithRequiredIndicator>
                   <div className="flex flex-row gap-2 items-center">
                     <FormControl className="flex-grow">
                       <Select

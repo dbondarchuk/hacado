@@ -1,4 +1,4 @@
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { createSlateEditor, type SlateEditor } from "@udecode/plate";
 import {
   BaseCodeBlockPlugin,

@@ -1,7 +1,7 @@
 import {
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
-} from "@hacado/utils";
+} from "@hacado/utils/fonts";
 import { getDefaultInstallSchedule } from "./default-schedule";
 import type { PersistedState } from "./types";
 

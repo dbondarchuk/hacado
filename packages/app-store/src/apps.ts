@@ -1,4 +1,4 @@
-import type { App } from "@hacado/types";
+import type { App } from "@hacado/types/apps";
 import { AppointmentNotificationsApp } from "./apps/appointment-notifications/app";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
 import { AutomaticAiDiscoveryApp } from "./apps/automatic-ai-discovery/app";

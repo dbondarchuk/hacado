@@ -1,5 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Label, RadioGroup, RadioGroupItem } from "@hacado/ui";
+import { Label } from "@hacado/ui/label";
+import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutOption, ShortcutWithRadio } from "../types";
 

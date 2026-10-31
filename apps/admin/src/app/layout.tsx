@@ -1,5 +1,5 @@
 import Providers from "@/components/admin/layout/providers";
-import { SonnerToaster } from "@hacado/ui";
+import { SonnerToaster } from "@hacado/ui/sonner";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";

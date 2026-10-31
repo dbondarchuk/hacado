@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -83,6 +83,7 @@ const nav: NavItem[] = [
   },
   { label: "Pricing", href: "/pricing" },
   { label: "Integrations", href: "/integrations" },
+  { label: "Docs", href: DOCS_URL },
 ];
 
 const footerColumns = [

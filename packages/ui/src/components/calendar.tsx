@@ -5,7 +5,7 @@ import React from "react";
 import { DayPicker, DropdownProps } from "react-day-picker";
 
 import { useLocale } from "@hacado/i18n/client";
-import { resolveIanaTimeZone } from "@hacado/utils";
+import { resolveIanaTimeZone } from "@hacado/utils/time";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { DateTime } from "luxon";
 import { useIsMobile } from "../hooks";

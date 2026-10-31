@@ -4,7 +4,7 @@ import { PageHeaderForm } from "@/components/admin/pages/headers/form";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { Styling } from "@hacado/page-builder/reader";
-import { PageHeaderUpdateModel } from "@hacado/types";
+import { PageHeaderUpdateModel } from "@hacado/types/pages";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

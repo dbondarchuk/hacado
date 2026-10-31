@@ -348,7 +348,7 @@ purchases:
       error: Échec de la création d'un achat par carte-cadeau
 settings:
   notifyOwnerOnPurchase:
-    label: E-mail lors d'un nouvel achat
+    label: Notifier les administrateurs de l'organisation lors d'un nouvel achat
     description: Envoyer un e-mail aux administrateurs de l'organisation lorsqu'un client achète une carte-cadeau sur votre site Web
   emailTemplateToPurchaser: Modèle d'e-mail (carte-cadeau à l'acheteur)
   emailTemplateToRecipient: Modèle d'e-mail (carte-cadeau au destinataire)
@@ -477,4 +477,3 @@ emails:
       **Client :** {customerName} ({customerEmail})
       **Destinataire :** {recipientName} ({recipientEmail})
     view: Voir l'achat
-

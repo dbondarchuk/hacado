@@ -21,6 +21,13 @@ export type EmailNotificationRequest<
       };
   appointmentId?: string;
   customerId?: string;
+  /** Set by the queue when the log row already exists. */
+  communicationLogId?: string;
+  /** Attempt counters from the queue worker. */
+  deliveryAttempt?: {
+    made: number;
+    max: number;
+  };
 } & (
   | {
       participantType: Extract<CommunicationParticipantType, "customer">;
@@ -49,6 +56,16 @@ export type TextMessageNotificationRequest<
   webhookData?: TextMessageData;
   appointmentId?: string;
   customerId?: string;
+  /** Customer SMS requires phone consent unless this is set. */
+  dontRequireConsent?: boolean;
+  idempotencyKey?: string;
+  /** Set by the queue when the log row already exists. */
+  communicationLogId?: string;
+  /** Attempt counters from the queue worker. */
+  deliveryAttempt?: {
+    made: number;
+    max: number;
+  };
 } & (
   | {
       participantType: Extract<CommunicationParticipantType, "customer">;

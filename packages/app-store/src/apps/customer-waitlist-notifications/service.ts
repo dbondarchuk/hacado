@@ -2,19 +2,11 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { AllKeys, resolveLanguageFromMap } from "@hacado/i18n";
 import { LoggerFactory, getLoggerFactory } from "@hacado/logger";
 import {
-  APPOINTMENT_RESCHEDULED_EVENT_TYPE,
-  APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
-  APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  AppJobRequest,
-  BookingConfiguration,
-  BrandConfiguration,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   DemoArguments,
-  EventEnvelope,
-  GeneralConfiguration,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -22,27 +14,41 @@ import {
   IEventSubscriber,
   IScheduled,
   ITextMessageResponder,
-  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
   RespondResult,
-  SCHEDULE_CHANGED_EVENT_TYPE,
-  SocialConfiguration,
-  TemplateTemplatesList,
   TextMessageReply,
-  systemEventSource,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatusChangedPayload,
-  type MemberProfileUpdatedPayload,
-  type ScheduleChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { SocialConfiguration } from "@hacado/types/configuration/social";
+import type {
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  MemberProfileUpdatedPayload,
+  ScheduleChangedPayload,
+} from "@hacado/types/events";
 import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+  APPOINTMENT_RESCHEDULED_EVENT_TYPE,
+  APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
+  APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
+  EventEnvelope,
+  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
+  SCHEDULE_CHANGED_EVENT_TYPE,
+  systemEventSource,
+} from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { isSmsEnabled } from "@hacado/utils/sms";
+import { templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import { ObjectId } from "mongodb";
+import {
+  CustomerWaitlistTextOffer,
+  ICustomerWaitlistTextMessage,
+} from "../waitlist/customer-waitlist-text";
 import { demoWaitlistEntry } from "../waitlist/demo-arguments";
 import {
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,
@@ -55,6 +61,7 @@ import {
   CustomerWaitlistNotificationsConfiguration,
   CustomerWaitlistNotificationsJobPayload,
   customerWaitlistNotificationsConfigurationSchema,
+  isWaitlistEmailEnabled,
 } from "./models";
 import { matchesSmsRemoveKeyword } from "./slot-match";
 import { CustomerWaitlistNotificationsTemplates } from "./templates";
@@ -85,7 +92,8 @@ export class CustomerWaitlistNotificationsConnectedApp
     IScheduled,
     ICommunicationTemplatesProvider,
     IDemoArgumentsProvider,
-    ITextMessageResponder
+    ITextMessageResponder,
+    ICustomerWaitlistTextMessage
 {
   protected readonly loggerFactory: LoggerFactory;
   protected readonly jobProcessor: CustomerWaitlistNotificationsJobProcessor;
@@ -97,6 +105,22 @@ export class CustomerWaitlistNotificationsConnectedApp
     );
 
     this.jobProcessor = new CustomerWaitlistNotificationsJobProcessor(props);
+  }
+
+  public async getCustomerWaitlistTextOffer(
+    appData: ConnectedAppData,
+  ): Promise<CustomerWaitlistTextOffer> {
+    const data = (appData.data ??
+      {}) as Partial<CustomerWaitlistNotificationsConfiguration>;
+    const openSlot =
+      data.notifyOnSlotOpened === true &&
+      isSmsEnabled(data.slotOpenedSmsEnabled);
+
+    return {
+      notifications: false,
+      openSlot,
+      other: isSmsEnabled(data.leaveWaitlistSmsEnabled),
+    };
   }
 
   public async onEvent(
@@ -677,6 +701,21 @@ export class CustomerWaitlistNotificationsConnectedApp
       ...current,
       ...createdTemplateIds,
       notifyOnSlotOpened: current.notifyOnSlotOpened ?? true,
+      customerNewEntryEmailEnabled:
+        typeof current.customerNewEntryEmailEnabled === "boolean"
+          ? current.customerNewEntryEmailEnabled
+          : Boolean(
+              createdTemplateIds.customerNewEntryTemplateId ??
+                current.customerNewEntryTemplateId,
+            ),
+      slotOpenedEmailEnabled:
+        typeof current.slotOpenedEmailEnabled === "boolean"
+          ? current.slotOpenedEmailEnabled
+          : Boolean(
+              (current.notifyOnSlotOpened ?? true) &&
+                (createdTemplateIds.slotOpenedEmailTemplateId ??
+                  current.slotOpenedEmailTemplateId),
+            ),
       bookingPageId,
       cooldownMinutes: current.cooldownMinutes ?? DEFAULT_COOLDOWN_MINUTES,
       exclusiveAccessMinutes:
@@ -783,7 +822,12 @@ export class CustomerWaitlistNotificationsConnectedApp
 
     const data = appData.data as CustomerWaitlistNotificationsConfiguration;
 
-    if (!data?.customerNewEntryTemplateId) {
+    if (
+      !isWaitlistEmailEnabled(
+        data?.customerNewEntryEmailEnabled,
+        data?.customerNewEntryTemplateId,
+      )
+    ) {
       logger.debug(
         {
           appId: appData._id,
@@ -861,8 +905,15 @@ export class CustomerWaitlistNotificationsConnectedApp
       });
 
       const data = appData.data as CustomerWaitlistNotificationsConfiguration;
+      const customerNewEntryTemplateId = data.customerNewEntryTemplateId;
 
-      if (!data.customerNewEntryTemplateId) {
+      if (
+        !isWaitlistEmailEnabled(
+          data.customerNewEntryEmailEnabled,
+          customerNewEntryTemplateId,
+        ) ||
+        !customerNewEntryTemplateId
+      ) {
         logger.warn(
           { appId: appData._id, entryId: entry._id },
           "No customer new entry template ID configured, skipping email notification",
@@ -871,7 +922,7 @@ export class CustomerWaitlistNotificationsConnectedApp
       }
 
       const template = await this.props.services.templatesService.getTemplate(
-        data.customerNewEntryTemplateId,
+        customerNewEntryTemplateId,
       );
 
       if (!template) {

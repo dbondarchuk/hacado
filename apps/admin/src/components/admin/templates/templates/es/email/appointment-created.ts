@@ -3,7 +3,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentCreatedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -13,7 +13,7 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Nueva solicitud de cita para {{option.name}}",
+        text: "Nueva solicitud de cita para {{service.name}}",
       },
       {
         type: "text",
@@ -23,7 +23,7 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate =
 
 Confirmaremos su cita para {{dateTime.full}} en breve
 
-Servicio solicitado: {{option.name}}
+Servicio solicitado: {{service.name}}
 
 Especialista: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },

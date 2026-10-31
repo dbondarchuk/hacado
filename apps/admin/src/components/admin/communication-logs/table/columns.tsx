@@ -1,14 +1,18 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { CommunicationLog } from "@hacado/types";
-import { Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
+import { CommunicationLog } from "@hacado/types/communication";
+import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit/communications";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
-import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
@@ -63,6 +67,60 @@ export const columns: ColumnDef<CommunicationLog>[] = [
       "admin",
     ),
     sortingFn: tableSortNoopFunction,
+  },
+  {
+    id: "status",
+    header: tableSortHeader(
+      "communicationLogs.table.columns.status",
+      "default",
+      "admin",
+    ),
+    sortingFn: tableSortNoopFunction,
+    cell: ({ row }) => {
+      const t = useI18n("admin");
+      const { status, retriesDone, retriesLeft } = row.original;
+      const done = retriesDone ?? 0;
+      const left = retriesLeft ?? 0;
+      const label =
+        status === "failed"
+          ? left > 0
+            ? t("communications.status.failedWithRetries", {
+                done,
+                max: done + left,
+              })
+            : t("communications.status.failedFinal")
+          : t(`communications.status.${status}`);
+
+      return (
+        <Badge variant={status === "failed" ? "destructive" : "outline"}>
+          {label}
+        </Badge>
+      );
+    },
+  },
+  {
+    id: "reason",
+    enableSorting: false,
+    header: () => {
+      const t = useI18n("admin");
+      return t("communicationLogs.table.columns.reason");
+    },
+    cell: ({ row }) => {
+      const t = useI18n();
+      const { status, reason } = row.original;
+      if (status !== "failed" || !reason) return null;
+
+      const text =
+        typeof reason === "string"
+          ? t.has(reason as any)
+            ? t(reason as any)
+            : reason
+          : t.has(reason.key)
+            ? t(reason.key, reason.args)
+            : reason.key;
+
+      return <span className="line-clamp-2 max-w-64">{text}</span>;
+    },
   },
   {
     cell: ({ row }) => {
@@ -197,7 +255,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    id: "appointment.option.name",
+    id: "appointment.service.name",
     sortingFn: tableSortNoopFunction,
     header: tableSortHeader(
       "communicationLogs.table.columns.appointment",
@@ -212,7 +270,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
           variant="default"
           href={`/dashboard/appointments/${row.original.appointmentId}`}
         >
-          {row.original.appointment?.option.name}
+          {row.original.appointment?.service.name}
         </Link>
       );
     },

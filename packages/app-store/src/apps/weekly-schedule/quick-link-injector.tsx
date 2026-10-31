@@ -1,4 +1,4 @@
-import { DashboardQuickLinkInjectorApp } from "@hacado/types";
+import { DashboardQuickLinkInjectorApp } from "@hacado/types/apps";
 import { CalendarDays } from "lucide-react";
 import {
   WeeklyScheduleAdminKeys,

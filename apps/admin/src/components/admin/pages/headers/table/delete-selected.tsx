@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
-import { PageHeaderListModel } from "@hacado/types";
+import { PageHeaderListModel } from "@hacado/types/pages";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,10 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -33,7 +33,7 @@ export const DeleteSelectedPageHeadersButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.pageHeaders.deletePageHeaders(
+        pageHeadersApi.deletePageHeaders(
           selected.map((pageHeader) => pageHeader._id),
         ),
         {

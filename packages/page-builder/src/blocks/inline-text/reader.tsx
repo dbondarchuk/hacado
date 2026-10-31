@@ -3,7 +3,7 @@ import {
   generateClassName,
 } from "@hacado/page-builder-base/reader";
 import { StaticText } from "@hacado/rte-inline/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { InlineTextPropsDefaults, InlineTextReaderProps } from "./schema";
 import { styles } from "./styles";
 

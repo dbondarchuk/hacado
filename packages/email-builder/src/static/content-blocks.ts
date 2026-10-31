@@ -1,4 +1,5 @@
-import { TReaderBlock, generateId as generateBlockId } from "@hacado/builder";
+import { generateId as generateBlockId } from "@hacado/builder/helpers";
+import { TReaderBlock } from "@hacado/builder/reader";
 import { deserializeMarkdown } from "@hacado/rte";
 import { EMAIL_BRAND } from "../brand";
 
@@ -67,7 +68,7 @@ function buildBusinessFooterBlock(): TReaderBlock {
   const muted = (text: string) => ({
     text,
     fontSize: "11px",
-    color: "#999999",
+    color: EMAIL_BRAND.muted,
   });
 
   return {

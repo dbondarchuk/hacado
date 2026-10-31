@@ -1,16 +1,18 @@
+import { Customer } from "@hacado/types/customers";
 import {
-  asOptionalField,
-  Customer,
-  dateRangeSchema,
-  Prettify,
   querySchema,
   WithAppId,
   WithDatabaseId,
   WithOrganizationId,
+} from "@hacado/types/database";
+import { dateRangeSchema } from "@hacado/types/general";
+import {
+  asOptionalField,
+  Prettify,
   zEmail,
   zNonEmptyString,
   zObjectId,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { FormsAdminAllKeys } from "../translations/types";
 import { formsFieldsSchema, FormsFieldType } from "./fields";
@@ -44,6 +46,8 @@ export const getFormSchemaWithUniqueCheck = (
   message: string = "app_forms_admin.validation.form.name.unique" satisfies FormsAdminAllKeys,
 ) => {
   return formSchemaBase.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

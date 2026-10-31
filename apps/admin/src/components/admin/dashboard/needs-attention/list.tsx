@@ -3,8 +3,10 @@
 import { AddOrUpdateAppButton } from "@/components/admin/apps/add-or-update-app-dialog";
 import type { AllKeys } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
-import type { ConnectedApp, NeedsAttentionLevel } from "@hacado/types";
-import { Button, cn, Link } from "@hacado/ui";
+import type { ConnectedApp, NeedsAttentionLevel } from "@hacado/types/apps";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Link } from "@hacado/ui/link";
 import {
   AlertTriangle,
   CheckCircle2,

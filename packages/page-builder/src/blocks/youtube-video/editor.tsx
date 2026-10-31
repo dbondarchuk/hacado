@@ -1,8 +1,9 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
-import { useClassName } from "@hacado/page-builder-base";
-import { cn } from "@hacado/ui";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { useClassName } from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
 import { Ref } from "react";
 import { YouTubeVideoProps, YouTubeVideoPropsDefaults } from "./schema";
 import { YouTubeVideo } from "./youtube-video";

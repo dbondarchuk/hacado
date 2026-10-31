@@ -1,34 +1,39 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { usersApi } from "@hacado/api-sdk/admin/users";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateEditor } from "@hacado/rte";
-import { DatabaseId } from "@hacado/types";
+import { DatabaseId } from "@hacado/types/database";
+import { AssetPreview } from "@hacado/ui-admin/asset-preview";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  BooleanSelect,
-  Breadcrumbs,
-  Combobox,
-  DateTimePicker,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
+} from "@hacado/ui/form";
+import { Heading } from "@hacado/ui/heading";
+import { use12HourFormat, useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  TagInput,
-  toastPromise,
-  use12HourFormat,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { AssetPreview, AssetSelectorInput, SaveButton } from "@hacado/ui-admin";
-import { fileNameToMimeType } from "@hacado/utils";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
+import { TagInput } from "@hacado/ui/tag-input";
+import { DateTimePicker } from "@hacado/ui/time-picker";
+import { fileNameToMimeType } from "@hacado/utils/assets";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
@@ -129,7 +134,7 @@ export const BlogPostForm: React.FC<{
     }
 
     let cancelled = false;
-    void adminApi.users.getMyUser().then((user) => {
+    void usersApi.getMyUser().then((user) => {
       if (cancelled) {
         return;
       }
@@ -220,61 +225,72 @@ export const BlogPostForm: React.FC<{
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full h-full space-y-8"
       >
-        <div className="flex flex-col gap-2 w-full">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    className="md:text-xl lg:text-2xl font-bold tracking-tight border-0 w-full px-0"
-                    autoFocus
-                    h={"lg"}
-                    disabled={loading}
-                    placeholder={t("form.titlePlaceholder")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <Heading
+          title={t(isNewPost ? "app.pages.new.title" : "app.pages.edit.title")}
+          description={t(
+            isNewPost
+              ? "app.pages.new.description"
+              : "app.pages.edit.description",
+          )}
+        />
         <div className="grid lg:grid-cols-3 gap-4">
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem className="lg:col-span-2 w-full flex-grow relative h-full">
-                <FormLabel>
-                  <span>{t("form.content")}</span>{" "}
-                  <InfoTooltip>{t("form.contentTooltip")}</InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <div className="min-h-[400px] border rounded-md min-w-0">
-                    <PlateEditor
-                      className="bg-background px-4 sm:px-4 pb-24 min-h-[400px]"
+          <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.title")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <Input
+                      autoFocus
                       disabled={loading}
-                      value={field.value || []}
-                      onChange={(v) => {
-                        field.onChange(v);
-                        field.onBlur();
-                      }}
+                      placeholder={t("form.titlePlaceholder")}
+                      {...field}
+                      value={field.value ?? ""}
                     />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  </FormControl>
+                  <FormDescription>{t("form.titleTooltip")}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem className="w-full flex-grow relative h-full">
+                  <FormLabel>{t("form.content")}</FormLabel>
+                  <FormControl>
+                    <div className="min-h-[400px] border rounded-md min-w-0">
+                      <PlateEditor
+                        className="bg-background px-4 sm:px-4 pb-24 min-h-[400px]"
+                        disabled={loading}
+                        value={field.value || []}
+                        onChange={(v) => {
+                          field.onChange(v);
+                          field.onBlur();
+                        }}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormDescription>{t("form.contentTooltip")}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="flex flex-col gap-4">
             <FormField
               control={form.control}
               name="slug"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.slug")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.slug")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={loading}
@@ -297,12 +313,9 @@ export const BlogPostForm: React.FC<{
                 const uses12HourFormat = use12HourFormat();
                 return (
                   <FormItem>
-                    <FormLabel>
-                      <span>{t("form.publicationDate")}</span>{" "}
-                      <InfoTooltip>
-                        {t("form.publicationDateTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("form.publicationDate")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DateTimePicker
                         use12HourFormat={uses12HourFormat}
@@ -312,11 +325,12 @@ export const BlogPostForm: React.FC<{
                         }}
                         value={field.value}
                         className="w-full"
-                        classNames={{
-                          trigger: "h-8 text-xs",
-                        }}
+                        classNames={{}}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.publicationDateTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -327,10 +341,7 @@ export const BlogPostForm: React.FC<{
               name="isPublished"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    <span>{t("form.isPublished.label")}</span>{" "}
-                    <InfoTooltip>{t("form.isPublished.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.isPublished.label")}</FormLabel>
                   <FormControl>
                     <BooleanSelect
                       disabled={loading}
@@ -343,6 +354,9 @@ export const BlogPostForm: React.FC<{
                       value={field.value}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.isPublished.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -357,10 +371,9 @@ export const BlogPostForm: React.FC<{
 
                 return (
                   <FormItem className="w-full">
-                    <FormLabel>
-                      <span>{t("form.author.label")}</span>{" "}
-                      <InfoTooltip>{t("form.author.tooltip")}</InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("form.author.label")}
+                    </FormLabelWithRequiredIndicator>
                     <Select
                       disabled={loading}
                       value={authorSource}
@@ -386,7 +399,7 @@ export const BlogPostForm: React.FC<{
                       }}
                     >
                       <FormControl>
-                        <SelectTrigger className="h-8 text-xs">
+                        <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
@@ -441,6 +454,9 @@ export const BlogPostForm: React.FC<{
                         />
                       </FormControl>
                     )}
+                    <FormDescription>
+                      {t("form.author.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -457,12 +473,7 @@ export const BlogPostForm: React.FC<{
 
                 return (
                   <FormItem>
-                    <FormLabel>
-                      <span>{t("form.featuredImage.label")}</span>{" "}
-                      <InfoTooltip>
-                        {t("form.featuredImage.tooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("form.featuredImage.label")}</FormLabel>
                     <FormControl>
                       <div className="flex flex-col gap-4">
                         <AssetSelectorInput
@@ -484,6 +495,9 @@ export const BlogPostForm: React.FC<{
                         )}
                       </div>
                     </FormControl>
+                    <FormDescription>
+                      {t("form.featuredImage.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -495,10 +509,7 @@ export const BlogPostForm: React.FC<{
               name="tags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <span>{t("form.tags")}</span>{" "}
-                    <InfoTooltip>{t("form.tagsTooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.tags")}</FormLabel>
                   <FormControl>
                     <TagInput
                       {...field}
@@ -511,6 +522,7 @@ export const BlogPostForm: React.FC<{
                       tagValidator={blogPostTagSchema}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.tagsTooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  ConfigurationProps,
   RadioGroupInput,
   RadioGroupInputItem,
   TextInput,
-} from "@hacado/builder";
+} from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { HeadingProps, HeadingPropsDefaults } from "./schema";

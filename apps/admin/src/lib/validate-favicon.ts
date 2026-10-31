@@ -1,11 +1,11 @@
-import type { IAssetsService } from "@hacado/types";
+import type { IAssetsService } from "@hacado/types/services";
 import {
   isSvgFaviconSource,
   parseSvgViewBoxSize,
-  stream2buffer,
   validateFaviconDimensions,
   type FaviconValidationResult,
-} from "@hacado/utils";
+} from "@hacado/utils/favicon";
+import { stream2buffer } from "@hacado/utils/stream";
 import sharp from "sharp";
 
 function assetPathFromFavicon(favicon: string): string | null {

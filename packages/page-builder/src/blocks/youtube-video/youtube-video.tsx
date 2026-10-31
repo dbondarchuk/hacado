@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { forwardRef, HTMLAttributes, MouseEvent, useCallback } from "react";
 import { extractYouTubeVideoId } from "./utils";
 

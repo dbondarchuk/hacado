@@ -1,4 +1,4 @@
-import { asOptinalNumberField, zObjectId } from "@hacado/types";
+import { asOptinalNumberField, zObjectId } from "@hacado/types/utils";
 import * as z from "zod";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 

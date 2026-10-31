@@ -1,4 +1,4 @@
-import { Shortcut } from "@hacado/page-builder-base";
+import { Shortcut } from "@hacado/page-builder-base/shortcuts";
 import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 import { Proportions, RotateCcw } from "lucide-react";
 

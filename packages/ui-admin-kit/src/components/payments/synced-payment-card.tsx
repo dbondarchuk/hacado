@@ -1,17 +1,18 @@
 "use client";
 
 import { AvailableApps } from "@hacado/app-store";
-import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { HydratedSyncedPayment, SyncedPaymentStatus } from "@hacado/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import {
-  Button,
-  Card,
-  Link,
-  cn,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { CustomerName } from "@hacado/ui-admin";
+  HydratedSyncedPayment,
+  SyncedPaymentStatus,
+} from "@hacado/types/booking";
+import { CustomerName } from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { Card } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import {
   ArrowLeftRight,
   Check,
@@ -231,7 +232,7 @@ export const SyncedPaymentCard = ({
                   href={`/dashboard/appointments/${payment.appointment._id}`}
                   variant="underline"
                 >
-                  {payment.appointment.option.name}
+                  {payment.appointment.service.name}
                   {" · "}
                   {formatAppointmentTime(payment.appointment.dateTime)}
                 </Link>
@@ -266,7 +267,7 @@ export const SyncedPaymentCard = ({
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm">
                     {suggestion.appointment
-                      ? `${suggestion.appointment.option.name} · ${formatAppointmentTime(
+                      ? `${suggestion.appointment.service.name} · ${formatAppointmentTime(
                           suggestion.appointment.dateTime,
                         )}`
                       : suggestion.appointmentId}

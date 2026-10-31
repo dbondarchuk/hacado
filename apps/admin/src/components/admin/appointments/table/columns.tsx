@@ -1,23 +1,25 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment, isAppointmentCoveredByPackage } from "@hacado/types";
 import {
-  Button,
-  Link,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
+  Appointment,
+  isAppointmentCoveredByPackage,
+} from "@hacado/types/booking";
+import { AppointmentDialog } from "@hacado/ui-admin-kit/appointments";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
-import { AppointmentDialog } from "@hacado/ui-admin-kit";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import {
+  TooltipResponsive,
+  TooltipResponsiveContent,
+  TooltipResponsiveTrigger,
+} from "@hacado/ui/tooltip-responsive";
+import { durationToTime } from "@hacado/utils/time";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   CalendarCheck,
@@ -92,7 +94,7 @@ const OptionCell: React.FC<{
         // href={`/dashboard/appointments/${appointment._id}`}
         onClick={() => setIsDialogOpen(true)}
       >
-        {appointment.option.name}
+        {appointment.service.name}
       </Button>
       {/* <TooltipProvider>
         <Tooltip>
@@ -103,26 +105,26 @@ const OptionCell: React.FC<{
               // href={`/dashboard/appointments/${appointment._id}`}
               onClick={() => setIsDialogOpen(true)}
             >
-              {appointment.option.name}
+              {appointment.service.name}
             </Button>
           </TooltipTrigger>
           <TooltipContent className="flex flex-col gap-2 w-full py-2 px-4">
             <div className="grid grid-cols-2 gap-1 pb-2 border-b">
               <div>{t("appointments.table.columns.optionName")}:</div>
-              <div>{appointment.option.name}</div>
-              {(appointment.option.price ?? 0) > 0 && (
+              <div>{appointment.service.name}</div>
+              {(appointment.service.price ?? 0) > 0 && (
                 <>
                   <div>{t("appointments.table.columns.optionPrice")}:</div>
-                  <div>${appointment.option.price}</div>
+                  <div>${appointment.service.price}</div>
                 </>
               )}
-              {appointment.option.duration &&
-                appointment.option.duration > 0 && (
+              {appointment.service.duration &&
+                appointment.service.duration > 0 && (
                   <>
                     <div>{t("appointments.table.columns.optionDuration")}:</div>
                     <div>
-                      {durationToTime(appointment.option.duration).hours} hr{" "}
-                      {durationToTime(appointment.option.duration).minutes} min
+                      {durationToTime(appointment.service.duration).hours} hr{" "}
+                      {durationToTime(appointment.service.duration).minutes} min
                     </div>
                   </>
                 )}
@@ -254,7 +256,7 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     cell: ({ row }) => <OptionCell appointment={row.original} />,
-    id: "option.name",
+    id: "service.name",
     header: tableSortHeader(
       "appointments.table.columns.option",
       "string",
@@ -431,7 +433,7 @@ function DiscountCell({ appointment }: { appointment: Appointment }) {
       <TooltipResponsiveTrigger>
         <Link
           variant="underline"
-          href={`/dashboard/services/discounts/${appointment.discount.id}`}
+          href={`/dashboard/catalog/discounts/${appointment.discount.id}`}
         >
           {appointment.discount.code}{" "}
           <span className="text-sm">

@@ -1,8 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AlertModal, Button, Spinner, toastPromise } from "@hacado/ui";
-import { useReload } from "@hacado/ui-admin";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { ArchiveRestore } from "lucide-react";
 import React from "react";
 import { setFormsArchived } from "../../actions";

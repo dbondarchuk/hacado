@@ -1,8 +1,11 @@
 import React from "react";
 
-import { AppScope, Prettify } from "@hacado/types";
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { AppSelector, AppSelectorProps } from "@hacado/ui-admin";
+import { AppScope } from "@hacado/types/apps";
+import { Prettify } from "@hacado/types/utils";
+import { AppSelector, AppSelectorProps } from "@hacado/ui-admin/app-selector";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 import { ResetButton } from "./reset-button";
 
 type Props = Prettify<
@@ -42,50 +45,58 @@ type Props = Prettify<
       }
   );
 
-export const AppSelectorInput: React.FC<Props> = ({
-  helperText,
-  label,
-  defaultValue,
-  onChange,
-  nullable,
-  className,
-  appName,
-  scope,
-  ...rest
-}) => {
-  const [value, setValue] = React.useState(defaultValue);
-  React.useEffect(() => {
-    setValue(defaultValue);
-  }, [defaultValue, setValue]);
+export const AppSelectorInput = React.forwardRef<HTMLButtonElement, Props>(
+  (
+    {
+      helperText,
+      label,
+      defaultValue,
+      onChange,
+      nullable,
+      className,
+      appName,
+      scope,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [value, setValue] = React.useState(defaultValue);
+    React.useEffect(() => {
+      setValue(defaultValue);
+    }, [defaultValue, setValue]);
 
-  return (
-    <div className="flex flex-col gap-2">
-      <Label>{label}</Label>
-      <div className="flex w-full">
-        <AppSelector
-          className={cn("w-full", className)}
-          appName={appName as any}
-          scope={scope as any}
-          {...rest}
-          value={value ?? undefined}
-          size="sm"
-          allowClear={nullable}
-          onItemSelect={(v: string | undefined) => {
-            setValue(v ?? null);
-            onChange((v ?? null) as string);
-          }}
-        />
-        {nullable && (
-          <ResetButton
-            onClick={() => {
-              setValue(null);
-              onChange(null);
-            }}
+    return (
+      <div className="flex flex-col gap-2">
+        <Label>{label}</Label>
+        <div className="flex w-full">
+          <AppSelector
+            {...rest}
+            ref={ref}
+            className={cn("w-full", className)}
+            appName={appName as any}
+            scope={scope as any}
+            value={value ?? undefined}
             size="sm"
+            allowClear={nullable}
+            onItemSelect={(v: string | undefined) => {
+              setValue(v ?? null);
+              onChange((v ?? null) as string);
+            }}
           />
-        )}
+          {nullable && (
+            <ResetButton
+              onClick={() => {
+                setValue(null);
+                onChange(null);
+              }}
+              size="sm"
+            />
+          )}
+        </div>
+        {helperText && <FormDescription>{helperText}</FormDescription>}
       </div>
-      {helperText && <FormDescription>{helperText}</FormDescription>}
-    </div>
-  );
-};
+    );
+  },
+);
+
+AppSelectorInput.displayName = "AppSelectorInput";

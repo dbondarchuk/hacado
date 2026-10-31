@@ -4,7 +4,7 @@ import React from "react";
 
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
-import { useCurrencyFormat } from "@hacado/ui";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { useModifyAppointmentFormContext } from "./context";
 
 export const PaymentCard: React.FC = () => {

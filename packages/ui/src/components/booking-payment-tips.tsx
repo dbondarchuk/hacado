@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { isBookingTipsVisible, type ResolvedBookingTips } from "@hacado/types";
+import type { ResolvedBookingTips } from "@hacado/types/configuration/booking";
+import { isBookingTipsVisible } from "@hacado/types/configuration/booking";
 import { useCurrencyFormat } from "../context/config";
 import { BookingTipsPicker } from "./tips-picker";
 

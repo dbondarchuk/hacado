@@ -1,30 +1,30 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  BooleanSelect,
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  OptionSelector,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { SmartScheduleApp } from "./app";
 import {
   SmartScheduleConfiguration,
-  smartScheduleConfigurationSchema,
+  SmartScheduleSetupConfiguration,
+  smartScheduleSetupSchema,
 } from "./models";
 import {
   SmartScheduleAdminKeys,
@@ -41,128 +41,135 @@ export const SmartScheduleAppSetup: React.FC<AppSetupProps> = ({
     smartScheduleAdminNamespace,
   );
   const { appStatus, form, isLoading, isValid, onSubmit } =
-    useConnectedAppSetup<SmartScheduleConfiguration>({
+    useConnectedAppSetup<SmartScheduleSetupConfiguration>({
       appId: existingAppId,
       appName: SmartScheduleApp.name,
-      schema: smartScheduleConfigurationSchema,
+      schema: smartScheduleSetupSchema,
       onSuccess,
       onError,
+      processDataForSubmit: ({
+        maximizeForService,
+        maximizeForOption,
+        ...configuration
+      }): SmartScheduleConfiguration => ({
+        ...configuration,
+        maximizeForOption:
+          maximizeForService === false
+            ? undefined
+            : maximizeForOption || undefined,
+      }),
     });
+
+  const maximizeForOption = form.watch("maximizeForOption");
+
+  React.useEffect(() => {
+    if (!maximizeForOption || form.getValues("maximizeForService")) {
+      return;
+    }
+
+    form.setValue("maximizeForService", true);
+  }, [form, maximizeForOption]);
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="flex flex-col items-center gap-4 w-full">
-            {/* <div className="gap-2 flex flex-col md:grid md:grid-cols-2 md:gap-4 w-full"> */}
             <FormField
               control={form.control}
               name="allowSkipBreak"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.allowSkipBreak")}{" "}
-                    <InfoTooltip>{t("form.allowSkipBreakTooltip")}</InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      className="w-full"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.allowSkipBreak")}
+                  description={t("form.allowSkipBreakTooltip")}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                />
               )}
             />
             <FormField
               control={form.control}
               name="preferBackToBack"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.preferBackToBack")}{" "}
-                    <InfoTooltip>
-                      {t("form.preferBackToBackTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      className="w-full"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.preferBackToBack")}
+                  description={t("form.preferBackToBackTooltip")}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                />
               )}
             />
             <FormField
               control={form.control}
               name="preferLaterStartsEarlierEnds"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.preferLaterStartsEarlierEnds")}{" "}
-                    <InfoTooltip>
-                      {t("form.preferLaterStartsEarlierEndsTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      className="w-full"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.preferLaterStartsEarlierEnds")}
+                  description={t("form.preferLaterStartsEarlierEndsTooltip")}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                />
               )}
             />
             <FormField
               control={form.control}
               name="allowSmartSlotStarts"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.allowSmartSlotStarts")}{" "}
-                    <InfoTooltip>
-                      {t("form.allowSmartSlotStartsTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      className="w-full"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.allowSmartSlotStarts")}
+                  description={t("form.allowSmartSlotStartsTooltip")}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                />
               )}
             />
             <FormField
               control={form.control}
-              name="maximizeForOption"
+              name="maximizeForService"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.preferredService")}{" "}
-                    <InfoTooltip>
-                      {t("form.preferredServiceTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <OptionSelector
-                      allowClear
-                      disabled={isLoading}
-                      className="flex w-full font-normal text-base"
-                      value={field.value}
-                      onItemSelect={field.onChange}
+                <SwitchCardFormItem
+                  label={t("form.maximizeForService")}
+                  description={t("form.maximizeForServiceTooltip")}
+                  checked={field.value ?? false}
+                  disabled={isLoading}
+                  onCheckedChange={(checked) => {
+                    field.onChange(checked);
+
+                    if (!checked) {
+                      form.setValue("maximizeForOption", "", {
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      });
+                    } else {
+                      void form.trigger("maximizeForOption");
+                    }
+                  }}
+                >
+                  {field.value && (
+                    <FormField
+                      control={form.control}
+                      name="maximizeForOption"
+                      render={({ field: optionField }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>{t("form.preferredService")}</FormLabel>
+                          <FormControl>
+                            <ServiceSelector
+                              disabled={isLoading}
+                              className="flex w-full font-normal text-base"
+                              value={optionField.value}
+                              onItemSelect={optionField.onChange}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                  )}
+                </SwitchCardFormItem>
               )}
             />
             <Button

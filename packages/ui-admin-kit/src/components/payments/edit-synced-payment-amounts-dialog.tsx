@@ -1,38 +1,41 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { syncedPaymentsApi } from "@hacado/api-sdk/admin/synced-payments";
 import { useI18n } from "@hacado/i18n/client";
 import {
   HydratedSyncedPayment,
   SyncedPaymentAssignablePaymentType,
   syncedPaymentAssignablePaymentTypes,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useCurrencySymbol } from "@hacado/ui/context";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Input,
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Label,
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  toastPromise,
-  useCurrencyFormat,
-  useCurrencySymbol,
-} from "@hacado/ui";
-import { round2 } from "@hacado/utils";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { round2 } from "@hacado/utils/currency";
 import { RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -234,9 +237,7 @@ export const EditSyncedPaymentAmountsDialog = ({
             type="button"
             disabled={submitting || !canRevert}
             onClick={() =>
-              run(
-                adminApi.syncedPayments.revertSyncedPaymentAmounts(payment._id),
-              )
+              run(syncedPaymentsApi.revertSyncedPaymentAmounts(payment._id))
             }
           >
             <RotateCcw className="size-4" />{" "}
@@ -256,14 +257,11 @@ export const EditSyncedPaymentAmountsDialog = ({
               disabled={submitting}
               onClick={() =>
                 run(
-                  adminApi.syncedPayments.updateSyncedPaymentAmounts(
-                    payment._id,
-                    {
-                      paymentAmount: parsedPayment,
-                      tip: parsedTip,
-                      paymentType,
-                    },
-                  ),
+                  syncedPaymentsApi.updateSyncedPaymentAmounts(payment._id, {
+                    paymentAmount: parsedPayment,
+                    tip: parsedTip,
+                    paymentType,
+                  }),
                 )
               }
             >

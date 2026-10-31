@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
 import { BlogCommentAuthorReader } from "./comment-author/reader";
 import { BlogCommentBodyReader } from "./comment-body/reader";
 import { BlogCommentContainerReader } from "./comment-container/reader";

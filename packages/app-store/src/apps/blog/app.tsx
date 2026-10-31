@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { FileText } from "lucide-react";
 import { BLOG_APP_NAME } from "./const";
 import { BlogAdminKeys } from "./translations/types";
@@ -12,6 +13,7 @@ export const BlogApp: App<"app_blog_admin", BlogAdminKeys> = {
     "sitemap-items-provider",
     "dashboard-notifier",
     "quick-link-provider",
+    "command-search-provider",
     "page-seo-arguments-provider",
   ],
   type: "complex",

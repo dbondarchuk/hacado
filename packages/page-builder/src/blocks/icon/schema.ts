@@ -1,6 +1,6 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
-import { Prettify } from "@hacado/types";
-import { iconNames } from "@hacado/ui";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
+import { Prettify } from "@hacado/types/utils";
+import { iconNames } from "@hacado/ui/icon";
 import * as z from "zod";
 import { zStyles } from "./styles";
 

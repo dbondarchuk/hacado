@@ -1,5 +1,6 @@
-import { ServicesContainer } from "@hacado/services";
-import { memberEventSource, SessionUser } from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import { memberEventSource } from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
 import { cache } from "react";

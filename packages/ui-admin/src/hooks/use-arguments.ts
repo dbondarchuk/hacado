@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import React from "react";
 
 export const useArguments = (
@@ -11,7 +11,7 @@ export const useArguments = (
     "appointmentId" in options ? options.appointmentId : undefined;
 
   React.useEffect(() => {
-    adminApi.templates
+    templatesApi
       .getTemplateArguments(
         customerId
           ? { customerId: customerId! }

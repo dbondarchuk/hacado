@@ -10,11 +10,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Input,
-  ScrollArea,
-  useDebounce,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { Search, X } from "lucide-react";
 import { memo, useCallback, useMemo, useState } from "react";
 import {

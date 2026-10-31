@@ -1,18 +1,18 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Input,
-  ScrollArea,
-  ToolbarButton,
-  useDebounceCallback,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { useDebounceCallback } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { Minus, Plus } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRTEContext } from "../../context/rte-context";

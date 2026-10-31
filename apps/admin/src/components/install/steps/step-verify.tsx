@@ -2,15 +2,11 @@
 
 import { authClient } from "@/app/auth-client";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  Progress,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@hacado/ui/input-otp";
+import { Progress } from "@hacado/ui/progress";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -4,7 +4,7 @@ import {
   sessionCanUseFeature,
 } from "@/lib/billing/subscription-plan-access";
 import type { AppLogger } from "@hacado/logger";
-import type { SubscriptionFeature } from "@hacado/types";
+import type { SubscriptionFeature } from "@hacado/types/billing";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 

@@ -1,43 +1,5 @@
 import * as z from "zod";
 
-import { zUniqueArray } from "../../utils";
-import { resourceSchema } from "../resources";
-
-// export const allFonts = {
-//   items: [
-//     {
-//       family: "Inter",
-//       variants: ["400", "500", "600", "700"],
-//       subsets: ["latin"],
-//       category: "sans-serif",
-//     },
-//   ],
-// };
-import allFonts from "./fonts.json";
-
-export const fontsNames = allFonts.items.map((font) => font.family);
-
-const [firstFont, ...restFonts] = fontsNames;
-
-export const fontName = z.enum([firstFont, ...restFonts], {
-  error: "configuration.styling.fonts.unknown",
-});
-
-export const fontsOptions = allFonts.items.reduce(
-  (acc, font) => {
-    acc[font.family] = {
-      variants: font.variants,
-      subsets: font.subsets,
-      category: font.category,
-    };
-    return acc;
-  },
-  {} as Record<
-    string,
-    { variants: string[]; subsets: string[]; category: string }
-  >,
-);
-
 export const colors = [
   "background",
   "foreground",
@@ -82,8 +44,25 @@ export const colorsEnum = z.enum(colors, {
   error: "configuration.styling.colors.invalid",
 });
 
-const themeColorPresetVars = colors.map((c) => `var(--value-${c}-color)`);
-const [firstThemeColorPreset, ...restThemeColorPresets] = themeColorPresetVars;
+export const themeColorPresets = [
+  "var(--value-background-color)",
+  "var(--value-foreground-color)",
+  "var(--value-border-color)",
+  "var(--value-card-color)",
+  "var(--value-card-foreground-color)",
+  "var(--value-popover-color)",
+  "var(--value-popover-foreground-color)",
+  "var(--value-primary-color)",
+  "var(--value-primary-foreground-color)",
+  "var(--value-secondary-color)",
+  "var(--value-secondary-foreground-color)",
+  "var(--value-muted-color)",
+  "var(--value-muted-foreground-color)",
+  "var(--value-accent-color)",
+  "var(--value-accent-foreground-color)",
+  "var(--value-destructive-color)",
+  "var(--value-destructive-foreground-color)",
+] as const satisfies readonly `var(--value-${(typeof colors)[number]}-color)`[];
 
 /** Custom HSL `"H S% L%"`. */
 export const zThemeColorCustom = z
@@ -91,10 +70,7 @@ export const zThemeColorCustom = z
   .regex(/^(\d+)\s+([\d.]+)%\s+([\d.]+)%$/);
 
 /** System theme color CSS var. */
-export const zThemeColorPreset = z.enum([
-  firstThemeColorPreset,
-  ...restThemeColorPresets,
-]);
+export const zThemeColorPreset = z.enum(themeColorPresets);
 
 /** System color or custom HSL (no transparent). */
 export const zThemeColor = z.union([zThemeColorCustom, zThemeColorPreset]);
@@ -106,6 +82,19 @@ export const zThemeColorWithTransparent = z.union([
   z.literal("transparent"),
 ]);
 
+export const zThemeColorWithCurrentColor = z.union([
+  zThemeColorCustom,
+  zThemeColorPreset,
+  z.literal("currentColor"),
+]);
+
+export const zThemeColorWithTransparentAndCurrentColor = z.union([
+  zThemeColorCustom,
+  zThemeColorPreset,
+  z.literal("currentColor"),
+  z.literal("transparent"),
+]);
+
 export const colorOverrideSchema = z.object({
   type: colorsEnum,
   value: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
@@ -114,21 +103,3 @@ export const colorOverrideSchema = z.object({
 });
 
 export type ColorOverrideSchema = z.infer<typeof colorOverrideSchema>;
-
-export const stylingConfigurationSchema = z.object({
-  colors: zUniqueArray(
-    colorOverrideSchema.array(),
-    (item) => item.type,
-    "configuration.styling.colors.unique",
-  ).optional(),
-  fonts: z
-    .object({
-      primary: fontName.optional(),
-      secondary: fontName.optional(),
-      tertiary: fontName.optional(),
-    })
-    .optional(),
-  css: z.array(resourceSchema).optional(),
-});
-
-export type StylingConfiguration = z.infer<typeof stylingConfigurationSchema>;

@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@hacado/types";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { enTemplates } from "./en";
 import { esTemplates } from "./es";
 import { frTemplates } from "./fr";

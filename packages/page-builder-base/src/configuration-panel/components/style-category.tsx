@@ -1,14 +1,15 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Badge,
-  Button,
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
 import { ChevronRight, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import * as z from "zod";
@@ -149,7 +150,7 @@ export const StyleCategoryComponent = <T extends BaseStyleDictionary>({
                 <StyleCategoryStyle
                   key={style.name}
                   style={style}
-                  styleVariants={styleVariants}
+                  styleVariants={styleVariants as StyleVariant<T[keyof T]>[]}
                   searchTerm={searchTerm}
                   onAddVariant={onAddVariant}
                   onUpdateVariant={onUpdateVariant}

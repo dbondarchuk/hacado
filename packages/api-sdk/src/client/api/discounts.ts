@@ -1,4 +1,7 @@
-import { ApplyDiscountRequest, ApplyDiscountResponse } from "@hacado/types";
+import {
+  ApplyDiscountRequest,
+  ApplyDiscountResponse,
+} from "@hacado/types/booking";
 import { fetchClientApi } from "./utils";
 
 export const applyDiscount = async (request: ApplyDiscountRequest) => {

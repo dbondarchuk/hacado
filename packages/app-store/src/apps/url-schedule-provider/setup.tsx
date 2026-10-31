@@ -2,24 +2,24 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
@@ -76,18 +76,18 @@ export const UrlScheduleProviderAppSetup: React.FC<AppSetupProps> = ({
               name="url"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.url.label")}{" "}
-                    <InfoTooltip>
-                      <I18nRichText
-                        text="form.url.tooltip"
-                        namespace={urlScheduleProviderAdminNamespace}
-                      />
-                    </InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.url.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input placeholder={t("form.url.placeholder")} {...field} />
                   </FormControl>
+                  <FormDescription>
+                    <I18nRichText
+                      text="form.url.tooltip"
+                      namespace={urlScheduleProviderAdminNamespace}
+                    />
+                  </FormDescription>
                   <FormDescription>
                     <I18nRichText
                       text="form.url.description"
@@ -101,14 +101,14 @@ export const UrlScheduleProviderAppSetup: React.FC<AppSetupProps> = ({
 
             <div className="w-full space-y-2">
               <FormLabel className="flex items-center gap-2">
-                {t("form.headers.label")}{" "}
-                <InfoTooltip>
-                  <I18nRichText
-                    text="form.headers.tooltip"
-                    namespace={urlScheduleProviderAdminNamespace}
-                  />
-                </InfoTooltip>
+                {t("form.headers.label")}
               </FormLabel>
+              <FormDescription>
+                <I18nRichText
+                  text="form.headers.tooltip"
+                  namespace={urlScheduleProviderAdminNamespace}
+                />
+              </FormDescription>
               <FormDescription>
                 <I18nRichText
                   text="form.headers.description"
@@ -125,9 +125,12 @@ export const UrlScheduleProviderAppSetup: React.FC<AppSetupProps> = ({
                         name={`headers.${index}.key`}
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-sm">
+                            <FormLabelWithRequiredIndicator
+                              required
+                              className="text-sm"
+                            >
                               {t("form.headers.keyLabel")}
-                            </FormLabel>
+                            </FormLabelWithRequiredIndicator>
                             <FormControl>
                               <Input
                                 placeholder={t("form.headers.keyPlaceholder")}
@@ -145,9 +148,12 @@ export const UrlScheduleProviderAppSetup: React.FC<AppSetupProps> = ({
                         name={`headers.${index}.value`}
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-sm">
+                            <FormLabelWithRequiredIndicator
+                              required
+                              className="text-sm"
+                            >
                               {t("form.headers.valueLabel")}
-                            </FormLabel>
+                            </FormLabelWithRequiredIndicator>
                             <FormControl>
                               <Input
                                 placeholder={t("form.headers.valuePlaceholder")}

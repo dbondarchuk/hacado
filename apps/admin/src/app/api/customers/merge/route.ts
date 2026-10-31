@@ -1,7 +1,8 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus, zNonEmptyString } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
+import { zNonEmptyString } from "@hacado/types/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

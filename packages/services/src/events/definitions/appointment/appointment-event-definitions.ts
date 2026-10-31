@@ -1,16 +1,19 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  AppointmentCreatedPayload,
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  type AppointmentCreatedPayload,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatusChangedPayload,
-  type EventDefinition,
-} from "@hacado/types";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/types/events";
+import { durationToTime } from "@hacado/utils/time";
 
 import { buildAppointmentLimitReachedEmails } from "./appointment-limit-email";
 
@@ -41,7 +44,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           key: "admin.appointments.events.created.description" satisfies BaseAllKeys,
           args: {
             customerName: appointment.customer.name,
-            serviceName: appointment.option.name,
+            serviceName: appointment.service.name,
           },
         },
         source: envelope.source,
@@ -68,7 +71,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             key: "admin.appointments.notifications.appointmentCreated.message" satisfies BaseAllKeys,
             args: {
               name: payload.appointment.customer.name,
-              service: payload.appointment.option.name,
+              service: payload.appointment.service.name,
               dt_dateTime: {
                 value: payload.appointment.dateTime.toISOString(),
                 format: "DATETIME_HUGE",
@@ -104,7 +107,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           key: "admin.appointments.events.updated.description" satisfies BaseAllKeys,
           args: {
             customerName: updatedAppointment.customer.name,
-            serviceName: updatedAppointment.option.name,
+            serviceName: updatedAppointment.service.name,
           },
         },
         source: envelope.source,
@@ -129,7 +132,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
                   key: "admin.appointments.notifications.appointmentRescheduled.message" satisfies BaseAllKeys,
                   args: {
                     name: payload.updatedAppointment.customer.name,
-                    service: payload.updatedAppointment.option.name,
+                    service: payload.updatedAppointment.service.name,
                   },
                 },
                 action: {
@@ -187,7 +190,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
                   key: "admin.appointments.notifications.appointmentCancelled.message" satisfies BaseAllKeys,
                   args: {
                     name: payload.appointment.customer.name,
-                    service: payload.appointment.option.name,
+                    service: payload.appointment.service.name,
                   },
                 },
                 action: {
@@ -218,7 +221,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           key: "admin.appointments.events.rescheduled.description" satisfies BaseAllKeys,
           args: {
             customerName: appointment.customer.name,
-            serviceName: appointment.option.name,
+            serviceName: appointment.service.name,
           },
         },
         source: envelope.source,
@@ -243,7 +246,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
                   key: "admin.appointments.notifications.appointmentRescheduled.message" satisfies BaseAllKeys,
                   args: {
                     name: payload.appointment.customer.name,
-                    service: payload.appointment.option.name,
+                    service: payload.appointment.service.name,
                   },
                 },
                 action: {

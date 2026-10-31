@@ -1,5 +1,5 @@
 import { isJsScriptContribution } from "@/utils/app-scripts";
-import type { ScriptContribution } from "@hacado/types";
+import type { ScriptContribution } from "@hacado/types/apps";
 import NextScript from "next/script";
 
 export function AppScriptRenderer({

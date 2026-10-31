@@ -1,5 +1,9 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Button, cn, Spinner, Stepper, usePrevious } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { usePrevious } from "@hacado/ui/hooks";
+import { Spinner } from "@hacado/ui/spinner";
+import { Stepper } from "@hacado/ui/stepper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
@@ -115,7 +119,7 @@ export const CabinetModifyLayout = ({
         )}
 
         {!isModificationConfirmed && (
-          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container modify-summary">
+          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 border rounded-lg p-4 mt-6 summary-container modify-summary">
             {!!appointment && (
               <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full modify-summary-dates">
                 {!!appointment.dateTime && (

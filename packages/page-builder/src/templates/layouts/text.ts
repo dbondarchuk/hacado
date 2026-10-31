@@ -1,4 +1,5 @@
-import { generateId, type TEditorBlock } from "@hacado/builder";
+import { type TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import { COLORS } from "@hacado/page-builder-base/style";
 import { ButtonPropsDefaults } from "../../blocks/button";
 import { HeadingPropsDefaults } from "../../blocks/heading/schema";

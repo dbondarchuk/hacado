@@ -1,20 +1,19 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
 import {
-  Breadcrumbs,
-  Card,
-  CardContent,
-  CardHeader,
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  toastPromise,
-} from "@hacado/ui";
-import { CustomerSelector, SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
@@ -202,10 +201,11 @@ export const ResponseForm: React.FC<{
               name="customerId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={form.requireCustomerId}
+                  >
                     {t("responses.edit.customerLabel")}
-                    {form.requireCustomerId && " *"}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl className="flex">
                     <CustomerSelector
                       onItemSelect={(id: string | undefined) =>

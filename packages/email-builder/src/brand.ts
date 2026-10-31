@@ -1,19 +1,25 @@
-/** Hacado brand colors for user-facing emails. */
+/** Hacado brand colors for user-facing emails. Matches the editorial site palette. */
 export const EMAIL_BRAND = {
-  /** Sage - primary CTAs */
-  primary: "#7C8B6F",
-  /** Darker sage - secondary CTAs */
-  primaryDark: "#5C6A50",
-  /** Ochre - highlights / accents */
-  accent: "#C98A4B",
-  /** Deep pit brown - body text */
-  ink: "#4A3728",
-  /** Cream paper - email backdrop */
-  cream: "#F6F3EA",
-  /** Lighter cream - canvas / card */
-  creamLight: "#FBF9F3",
-  /** Button label on sage / ochre */
-  onPrimary: "#FBF9F3",
+  /** Ink - primary CTAs */
+  primary: "#20231F",
+  /** Dark sage - secondary CTAs */
+  primaryDark: "#41533D",
+  /** Sage - highlights */
+  accent: "#DCE9D5",
+  /** Ink - body text */
+  ink: "#20201D",
+  /** Cream - email backdrop */
+  cream: "#F8F6F1",
+  /** Paper - canvas / card */
+  creamLight: "#FFFFFF",
+  /** Cream label on ink buttons */
+  onPrimary: "#F8F6F1",
+  /** Tan - chips and quiet fills */
+  tan: "#F4EEE4",
+  /** Hairline */
+  border: "#E4E2DA",
+  /** Muted captions and footers */
+  muted: "#77756E",
   /** Destructive actions (decline, dismiss) */
-  destructive: "#ef4444",
+  destructive: "#DC2626",
 } as const;

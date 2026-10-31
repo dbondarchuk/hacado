@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { forwardRef, type MouseEvent, type ReactNode } from "react";
 import { useGiftCardPurchase } from "../gift-card-purchase/use-gift-card-purchase";
 import { defaultPurchaseAmount, normalizeAmountPresets } from "./presets";

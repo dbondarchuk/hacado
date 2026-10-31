@@ -3,7 +3,7 @@ import type {
   CustomerPackageIssuedPayload,
   EventEnvelope,
   EventSource,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import { createHash } from "node:crypto";
 import type { FormResponseCreatedPayload } from "../forms/models/events";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";
@@ -119,8 +119,8 @@ export function mapGa4Event(
 
       const { appointment } = envelope.payload as AppointmentCreatedPayload;
       const value = appointment.totalPrice ?? 0;
-      const itemName = appointment.option?.name ?? "Appointment";
-      const itemId = appointment.option?._id ?? appointment._id;
+      const itemName = appointment.service?.name ?? "Appointment";
+      const itemId = appointment.service?._id ?? appointment._id;
       const clientIdSeed = `${envelope.organizationId}:${appointment.customerId ?? appointment._id}`;
 
       return withBrowserClient(
@@ -155,8 +155,8 @@ export function mapGa4Event(
 
       const { entry } =
         envelope.payload as WaitlistEntryCreatedEvent["payload"];
-      const itemName = entry.option?.name ?? "Waitlist";
-      const itemId = entry.option?._id ?? entry._id;
+      const itemName = entry.service?.name ?? "Waitlist";
+      const itemId = entry.service?._id ?? entry._id;
       const clientIdSeed = `${envelope.organizationId}:${entry.customerId ?? entry._id}`;
 
       return withBrowserClient(

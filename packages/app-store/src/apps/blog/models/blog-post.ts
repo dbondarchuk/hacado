@@ -1,11 +1,10 @@
+import { WithDatabaseId, WithOrganizationId } from "@hacado/types/database";
 import {
   Prettify,
-  WithDatabaseId,
-  WithOrganizationId,
   zNonEmptyString,
   zObjectId,
   zUniqueArray,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { BlogAdminAllKeys } from "../translations/types";
 
@@ -77,6 +76,8 @@ export const getBlogPostSchemaWithUniqueCheck = (
   message: string = "app_blog_admin.validation.post.slug.unique" satisfies BlogAdminAllKeys,
 ) => {
   return blogPostSchema.superRefine(async (args, ctx) => {
+    if (!args.slug) return;
+
     const isUnique = await uniqueSlugCheckFn(args.slug);
     if (!isUnique) {
       ctx.addIssue({

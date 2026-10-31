@@ -138,3 +138,12 @@ export const SMS_CREDITS_EXHAUSTED_EVENT_TYPE =
 /** One-time SMS top-up credits added (Polar one-time `meter_credit` product). */
 export const SMS_TOPUP_PURCHASED_EVENT_TYPE =
   "billing.smsTopupPurchased" as const;
+
+export const SMS_VERIFICATION_CREATED_EVENT_TYPE =
+  "smsVerification.created" as const;
+export const SMS_VERIFICATION_PENDING_EVENT_TYPE =
+  "smsVerification.pending" as const;
+export const SMS_VERIFICATION_FAILED_EVENT_TYPE =
+  "smsVerification.failed" as const;
+export const SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE =
+  "smsVerification.succeeded" as const;

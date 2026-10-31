@@ -4,13 +4,13 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "waitlist-slot-opened-email",
     name: "Waitlist slot opened email",
-    subject: "A time opened for {{waitlistEntry.option.name}}",
+    subject: "A time opened for {{waitlistEntry.service.name}}",
     content: [
       {
         type: "title",
@@ -22,7 +22,7 @@ export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
 
 A time matching your waitlist request is available{{#isMorning}} in the morning{{/isMorning}}{{#isAfternoon}} in the afternoon{{/isAfternoon}}{{#isEvening}} in the evening{{/isEvening}}:
 
-Service: {{waitlistEntry.option.name}}
+Service: {{waitlistEntry.service.name}}
 Specialist: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}
 When: {{slotDateTime.full}}{{#hasOtherTimes}} (and other times too){{/hasOtherTimes}}
 

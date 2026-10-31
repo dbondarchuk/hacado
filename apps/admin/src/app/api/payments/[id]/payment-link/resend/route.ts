@@ -1,9 +1,11 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
-import { resendPaymentLinkSchema } from "@hacado/api-sdk";
+import { ensureCustomerSmsConsent } from "@/lib/customer-sms-consent";
+import { resendPaymentLinkSchema } from "@hacado/api-sdk/admin/schemas/payments";
 import { getLoggerFactory } from "@hacado/logger";
-import { IPaymentLinkProvider, PaymentLinkPayment } from "@hacado/types";
-import { hasPermission } from "@hacado/utils";
+import { IPaymentLinkProvider } from "@hacado/types/apps";
+import { PaymentLinkPayment } from "@hacado/types/booking";
+import { hasPermission } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
@@ -117,6 +119,25 @@ export async function POST(
       },
       { status: 400 },
     );
+  }
+
+  if (data.channel === "sms") {
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const consent = await ensureCustomerSmsConsent({
+      getCustomer: (id) => servicesContainer.customersService.getCustomer(id),
+      smsConsentService: servicesContainer.smsConsentService,
+      customerId: payment.customerId,
+      to: data.to,
+      attest: data.smsConsent === true,
+      ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+    });
+
+    if (!consent.ok) {
+      return NextResponse.json(
+        { success: false, error: consent.error, code: consent.code },
+        { status: consent.status },
+      );
+    }
   }
 
   await service.sendPaymentLink(app, payment, {

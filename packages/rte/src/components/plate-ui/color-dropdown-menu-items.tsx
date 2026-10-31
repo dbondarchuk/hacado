@@ -4,17 +4,17 @@ import React from "react";
 
 import type { DropdownMenuItemProps } from "@radix-ui/react-dropdown-menu";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Check } from "lucide-react";
 
+import { buttonVariants } from "@hacado/ui/button";
+import { DropdownMenuItem } from "@hacado/ui/dropdown-menu";
 import {
-  buttonVariants,
-  DropdownMenuItem,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip";
 
 export type TColor = {
   isBrightColor: boolean;

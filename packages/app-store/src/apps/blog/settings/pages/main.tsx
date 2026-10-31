@@ -1,8 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AutoSkeleton, Form } from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
+import { Form } from "@hacado/ui/form";
 import { ZodType } from "zod";
 import { useConnectedAppSetup } from "../../../../hooks/use-connected-app-setup";
 import { BlogApp } from "../../app";

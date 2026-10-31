@@ -11,8 +11,20 @@
   },
   "exports": {
     ".": "./src/index.tsx",
+    "./blocks": "./src/documents/blocks.ts",
+    "./builder": "./src/builder/index.tsx",
+    "./dnd": "./src/builder/dnd.ts",
+    "./editor": "./src/documents/editor/index.ts",
+    "./helpers": "./src/documents/helpers/index.ts",
+    "./inputs": "./src/builder/inputs.ts",
+    "./overlay": "./src/builder/overlay/context.tsx",
+    "./portal": "./src/builder/template-panel/portal-context.tsx",
+    "./reader": "./src/reader.tsx",
+    "./slot-styles": "./src/builder/inspector-drawer/slot-styles-panel.tsx",
     "./static": "./src/documents/reader/static-render.tsx",
-    "./reader": "./src/reader.tsx"
+    "./toolbars": "./src/builder/toolbars/index.ts",
+    "./types": "./src/documents/types.ts",
+    "./utils": "./src/documents/utils.ts"
   },
   "devDependencies": {
     "@types/node": "^20",

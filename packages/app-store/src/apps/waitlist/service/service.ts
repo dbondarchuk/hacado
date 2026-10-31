@@ -2,35 +2,39 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
-  Appointment,
-  BOOKING_TRACKING_STEP_EVENT_TYPE,
-  BookingTrackingEventData,
+  CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
-  CUSTOMER_SESSION_COOKIE,
   DashboardNotification,
   DemoArguments,
-  effectiveAddonDuration,
-  EventEnvelope,
+  ICommandSearchProvider,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
   IDemoArgumentsProvider,
   IEventSubscriber,
-  isAddonAvailableForMember,
-  readCookieValue,
-  SessionUser,
-  TemplateTemplatesList,
-  type EventSource,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import {
-  dispatchAppointmentEventPayload,
-  gateMemberIds,
-  hasPermission,
-} from "@hacado/utils";
+  Appointment,
+  BOOKING_TRACKING_STEP_EVENT_TYPE,
+  BookingTrackingEventData,
+  effectiveAddonDuration,
+  isAddonAvailableForMember,
+} from "@hacado/types/booking";
+import {
+  CUSTOMER_SESSION_COOKIE,
+  readCookieValue,
+} from "@hacado/types/customer-auth";
+import type { EventSource } from "@hacado/types/events";
+import { EventEnvelope } from "@hacado/types/events";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { SessionUser } from "@hacado/types/users";
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
+import { hasPermission } from "@hacado/utils/permissions";
 import {
   CreateWaitlistEntryAction,
   CreateWaitlistEntryActionType,
@@ -40,6 +44,7 @@ import {
   GetWaitlistEntriesActionType,
   GetWaitlistEntryAction,
   GetWaitlistEntryActionType,
+  GetWaitlistSmsTextActionType,
   RequestAction,
   requestActionSchema,
   SetConfigurationAction,
@@ -52,6 +57,12 @@ import {
   waitlistRequestSchema,
 } from "../models";
 
+import {
+  CUSTOMER_WAITLIST_TEXT_MESSAGE_SCOPE,
+  CustomerWaitlistTextOffer,
+  emptyCustomerWaitlistTextOffer,
+  ICustomerWaitlistTextMessage,
+} from "../customer-waitlist-text";
 import { demoWaitlistEntry } from "../demo-arguments";
 import { WaitlistTemplates } from "../templates";
 import {
@@ -71,7 +82,8 @@ export class WaitlistConnectedApp
     IEventSubscriber,
     IDashboardNotifierApp,
     IDemoArgumentsProvider,
-    ICommunicationTemplatesProvider
+    ICommunicationTemplatesProvider,
+    ICommandSearchProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -149,7 +161,65 @@ export class WaitlistConnectedApp
           data,
           memberId,
         );
+      case GetWaitlistSmsTextActionType:
+        return this.getCustomerWaitlistTextOffer();
     }
+  }
+
+  public async getCustomerWaitlistTextOffer(): Promise<CustomerWaitlistTextOffer> {
+    const logger = this.loggerFactory("getCustomerWaitlistTextOffer");
+    const offer = emptyCustomerWaitlistTextOffer();
+    if (
+      !(await this.props.services.textMessageConfigurationService.isEnabled())
+    ) {
+      logger.debug(
+        "Text message configuration is not enabled, returning empty offer",
+      );
+      return offer;
+    }
+
+    try {
+      const apps =
+        await this.props.services.connectedAppsService.getAppsByScope(
+          CUSTOMER_WAITLIST_TEXT_MESSAGE_SCOPE,
+        );
+
+      for (const connected of apps) {
+        if (connected.status !== "connected") continue;
+
+        try {
+          const { service, app } =
+            await this.props.services.connectedAppsService.getAppService<ICustomerWaitlistTextMessage>(
+              connected._id,
+            );
+
+          const part = await service.getCustomerWaitlistTextOffer(app);
+          offer.notifications ||= part.notifications;
+          offer.openSlot ||= part.openSlot;
+          offer.other ||= part.other;
+
+          logger.debug(
+            { appId: connected._id, offer },
+            "Waitlist text offer loaded successfully",
+          );
+        } catch (error: any) {
+          logger.error(
+            {
+              appId: connected._id,
+              error: error?.message || error?.toString(),
+            },
+            "Failed to read waitlist text offer",
+          );
+        }
+      }
+    } catch (error: any) {
+      logger.error(
+        { error: error?.message || error?.toString() },
+        "Failed to load waitlist text apps",
+      );
+    }
+
+    return offer;
   }
 
   public async install(appData: ConnectedAppData): Promise<void> {
@@ -236,6 +306,10 @@ export class WaitlistConnectedApp
 
     if (request.method.toUpperCase() === "GET" && action === "waitlist-offer") {
       return this.getWaitlistOfferPrefill(appData, request);
+    }
+
+    if (request.method.toUpperCase() === "GET" && action === "sms-text") {
+      return Response.json(await this.getCustomerWaitlistTextOffer());
     }
 
     return Response.json(
@@ -360,6 +434,40 @@ export class WaitlistConnectedApp
     return WaitlistTemplates;
   }
 
+  public async searchCommand(
+    appData: ConnectedAppData,
+    input: CommandSearchInput,
+  ) {
+    if (!hasPermission(input.user, "appointment", "read")) return [];
+    if (input.type && input.type !== "waitlist") return [];
+
+    const repository = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+    const entries = await repository.getWaitlistEntries({
+      search: input.query,
+      limit: input.limit,
+      offset: 0,
+    });
+
+    if (entries.items.length === 0) return [];
+
+    return [
+      {
+        id: `${appData._id}:waitlist`,
+        labelKey: "app_waitlist_admin.app.pages.main.title",
+        listHref: `/dashboard/waitlist?search=${encodeURIComponent(input.query)}`,
+        items: entries.items.map((entry) => ({
+          id: entry._id,
+          title: entry.name,
+          subtitle: waitlistSubtitle(entry.service?.name, entry.email),
+          href: `/dashboard/waitlist/appointment/new?id=${entry._id}`,
+        })),
+      },
+    ];
+  }
+
   protected getRepositoryService(appId: string, organizationId: string) {
     return new WaitlistRepositoryService(
       appId,
@@ -403,7 +511,7 @@ export class WaitlistConnectedApp
       return Response.json({ error: "not_found" }, { status: 404 });
     }
 
-    const duration = entry.duration ?? entry.option?.duration;
+    const duration = entry.duration ?? entry.service?.duration;
     if (!duration) {
       return Response.json({ error: "not_found" }, { status: 404 });
     }
@@ -450,7 +558,7 @@ export class WaitlistConnectedApp
 
   private toCustomerWaitlistItem(entry: {
     _id: string;
-    option?: { name?: string };
+    service?: { name?: string };
     member?: { name?: string };
     asSoonAsPossible: boolean;
     dates?: { date: string; time: string[] }[];
@@ -459,7 +567,7 @@ export class WaitlistConnectedApp
   }) {
     return {
       _id: entry._id,
-      optionName: entry.option?.name ?? "",
+      optionName: entry.service?.name ?? "",
       memberName: entry.member?.name ?? "",
       asSoonAsPossible: entry.asSoonAsPossible,
       dates: entry.dates,
@@ -575,6 +683,16 @@ export class WaitlistConnectedApp
       return Response.json({ success: false, error }, { status: 400 });
     }
 
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    if (typeof data.smsConsent === "boolean") {
+      await this.props.services.smsConsentService.recordCustomerSmsConsent({
+        phone: data.phone,
+        consented: data.smsConsent,
+        source: "web_form",
+        ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+      });
+    }
+
     logger.debug({ data }, "Creating waitlist entry");
 
     const options =
@@ -616,7 +734,7 @@ export class WaitlistConnectedApp
               customerId: result.customer._id,
               customerEmail: result.customer.email,
               customerName: result.customer.name,
-              optionId: data.optionId,
+              serviceId: data.optionId,
               duration: data.duration,
             },
           };
@@ -666,7 +784,7 @@ export class WaitlistConnectedApp
       appData.organizationId,
     );
 
-    const option = await this.props.services.servicesService.getOption(
+    const option = await this.props.services.catalogService.getService(
       data.entry.optionId,
     );
     if (!option) {
@@ -680,7 +798,7 @@ export class WaitlistConnectedApp
     }
 
     const addons = data.entry.addonsIds?.length
-      ? await this.props.services.servicesService.getAddonsById(
+      ? await this.props.services.catalogService.getAddonsById(
           data.entry.addonsIds,
         )
       : undefined;
@@ -719,7 +837,7 @@ export class WaitlistConnectedApp
       );
     }
 
-    const { customerId, ...waitlistRequestData } = data.entry;
+    const { customerId, smsConsent, ...waitlistRequestData } = data.entry;
 
     const customer =
       await this.props.services.customersService.getCustomer(customerId);
@@ -732,6 +850,14 @@ export class WaitlistConnectedApp
         400,
         "Customer not found",
       );
+    }
+
+    if (smsConsent === true && customer.phone) {
+      await this.props.services.smsConsentService.recordCustomerSmsConsent({
+        phone: customer.phone,
+        consented: true,
+        source: "owner_attested",
+      });
     }
 
     const duration = data.entry.duration
@@ -974,4 +1100,13 @@ export class WaitlistConnectedApp
       throw error;
     }
   }
+}
+
+function waitlistSubtitle(...parts: Array<string | null | undefined>) {
+  const value = parts
+    .map((part) => part?.trim())
+    .filter((part): part is string => Boolean(part))
+    .join(" · ");
+
+  return value || undefined;
 }

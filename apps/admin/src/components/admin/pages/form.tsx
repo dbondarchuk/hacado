@@ -1,6 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import {
   AppsBlocksEditors,
   AppsBlocksTemplates,
@@ -9,42 +11,38 @@ import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
 import { Language, useI18n } from "@hacado/i18n/client";
 import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
 import { PageReader } from "@hacado/page-builder/reader";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { SocialConfiguration } from "@hacado/types/configuration/social";
 import {
-  BrandConfiguration,
-  GeneralConfiguration,
   getPageSchemaWithUniqueCheck,
   PageFooter,
   PageHeader,
   PageUpdateModel,
-  SocialConfiguration,
-} from "@hacado/types";
+} from "@hacado/types/pages";
+import { useDemoArguments } from "@hacado/ui-admin/hooks";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { cn } from "@hacado/ui/cn";
 import {
-  Breadcrumbs,
-  cn,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupAddonClasses,
-  InputGroupInput,
-  InputGroupInputClasses,
-  Link,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton, useDemoArguments } from "@hacado/ui-admin";
-import { formatArguments, generateSlugPreview } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { toastPromise } from "@hacado/ui/sonner";
+import { formatArguments } from "@hacado/utils/format-arguments";
+import { generateSlugPreview } from "@hacado/utils/page";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Globe, Settings as SettingsIcon } from "lucide-react";
+import { Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
 import { NavigationGuardDialog, useIsDirty } from "../navigation-guard/dialog";
+import { PageIdentityBar } from "./page-identity-bar";
 import { PageSettingsPanel } from "./page-settings-panel";
 
 // Helper function to generate slug from title
@@ -71,7 +69,7 @@ export const PageForm: React.FC<{
   const t = useI18n("admin");
 
   const cachedUniqueSlugCheck = useDebounceCacheFn(
-    adminApi.pages.checkUniqueSlug,
+    pagesApi.checkUniqueSlug,
     300,
   );
 
@@ -191,14 +189,14 @@ export const PageForm: React.FC<{
         }
 
         if (!initialData?._id) {
-          const { _id } = await adminApi.pages.createPage(data);
+          const { _id } = await pagesApi.createPage(data);
           onFormSubmit();
 
           setTimeout(() => {
             router.push(`/dashboard/pages/${_id}`);
           }, 100);
         } else {
-          await adminApi.pages.updatePage(initialData._id, data);
+          await pagesApi.updatePage(initialData._id, data);
           onFormSubmit();
 
           setTimeout(() => {
@@ -284,7 +282,7 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     const fetchHeader = async () => {
       if (!headerId) return;
-      const data = await adminApi.pageHeaders.getPageHeader(headerId);
+      const data = await pageHeadersApi.getPageHeader(headerId);
       setHeader(data);
     };
 
@@ -299,7 +297,7 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     const fetchFooter = async () => {
       if (!footerId) return;
-      const data = await adminApi.pageFooters.getPageFooter(footerId);
+      const data = await pageFootersApi.getPageFooter(footerId);
       setFooter(data);
     };
 
@@ -344,90 +342,20 @@ export const PageForm: React.FC<{
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <div className="flex flex-1 flex-col gap-4">
-        <div className="flex flex-col gap-4 justify-between">
+      <div className="flex flex-1 flex-col gap-3">
+        <div className="flex flex-col">
           <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex flex-col-reverse md:flex-row md:items-start justify-between gap-4">
-            {/* <Heading title={t("pages.edit")} description={`/${slug}`} /> */}
-            <div className="flex flex-col gap-2 w-full">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        className="md:text-2xl lg:text-2xl font-bold tracking-tight border-0 w-full"
-                        autoFocus
-                        h={"lg"}
-                        disabled={loading}
-                        placeholder={t("pages.form.titlePlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="slug"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupAddon
-                          className={cn(
-                            InputGroupAddonClasses({
-                              variant: "prefix",
-                              h: "sm",
-                            }),
-                            "border-0 pt-2.5",
-                          )}
-                        >
-                          <span className="text-base text-muted-foreground">
-                            /
-                          </span>
-                        </InputGroupAddon>
-                        <InputGroupInput>
-                          <Input
-                            className={cn(
-                              "text-base text-muted-foreground",
-                              InputGroupInputClasses({ variant: "prefix" }),
-                              "pl-0.5 border-0",
-                            )}
-                            h="sm"
-                            disabled={
-                              loading || (!isNewPage && slug === "home")
-                            }
-                            placeholder={t("pages.form.pageSlugPlaceholder")}
-                            onChange={(e) => {
-                              field.onChange(e);
-                              setSlugManuallyChanged(true);
-                            }}
-                            value={field.value}
-                          />
-                        </InputGroupInput>
-                      </InputGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {initialData?._id && initialData.slug && (
-              <Link
-                button
-                href={`${websiteUrl}/${initialData.slug}?preview=true`}
-                variant="default"
-                target="_blank"
-              >
-                <Globe /> {t("pages.viewPage")}
-              </Link>
-            )}
-          </div>
-          {/* <Separator /> */}
+          <PageIdentityBar
+            loading={loading}
+            websiteUrl={websiteUrl}
+            isNewPage={isNewPage}
+            onSlugManualChange={() => setSlugManuallyChanged(true)}
+            viewHref={
+              initialData?._id && initialData.slug
+                ? `${websiteUrl}/${initialData.slug}?preview=true`
+                : undefined
+            }
+          />
         </div>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -457,7 +385,7 @@ export const PageForm: React.FC<{
               )}
             />
           </div>
-          <SaveButton form={form} ignoreDirty />
+          <SaveButton form={form} />
         </form>
       </div>
     </Form>

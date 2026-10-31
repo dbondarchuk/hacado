@@ -1,4 +1,4 @@
-import { AppointmentStatus } from "@hacado/types";
+import { AppointmentStatus } from "@hacado/types/booking";
 
 export const APPOINTMENT_STATUS_STYLES: Record<AppointmentStatus, string> = {
   confirmed: "bg-primary/15 text-primary",

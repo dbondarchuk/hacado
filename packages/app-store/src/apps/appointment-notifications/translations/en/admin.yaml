@@ -24,16 +24,25 @@ form:
   name:
     label: Name
     placeholder: Appointment notification name
-    tooltip: A descriptive name for this appointment notification
+    description: A descriptive name for this appointment notification
     validation:
       unique: Appointment notification name must be unique
   type:
     label: Type
+    description: Choose when this notification is sent, before the appointment starts or after it ends.
     searchLabel: Select type
   appointmentCount:
+    label: Specific number of appointments
+    description: Only send this notification when the customer has a specific number of appointments.
+    examples:
+      equalTo: "When this is the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} appointment"
+      lessThan: "Before the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} appointment"
+      lessThanOrEqualTo: "Up to the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} appointment"
+      greaterThan: "For the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} and next appointments"
+      greaterThanOrEqualTo: "For the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} and next appointments"
     type:
       label: Appointment count type
-      tooltip: Determines if customer needs to have a specific number of appointments
+      description: Determines if customer needs to have a specific number of appointments
       placeholder: Select appointment count type
       types:
         none: All appointments
@@ -44,42 +53,55 @@ form:
         greaterThanOrEqualTo: Greater than or equal to
     count:
       label: Appointment count
-      tooltip: Send appointment notification after this many customer appointments
+      description: Send appointment notification after this many customer appointments
       placeholder: Appointment count
   weeksBefore:
     label: Weeks
-    tooltip: How many weeks before the appointment to send the reminder
+    description: How many weeks before the appointment to send the reminder
   daysBefore:
     label: Days
-    tooltip: How many days before the appointment to send the reminder
+    description: How many days before the appointment to send the reminder
   hoursBefore:
     label: Hours
-    tooltip: How many hours before the appointment to send the reminder
+    description: How many hours before the appointment to send the reminder
   minutesBefore:
     label: Minutes
-    tooltip: How many minutes before the appointment to send the reminder
+    description: How many minutes before the appointment to send the reminder
   weeksAfter:
     label: Weeks
-    tooltip: How many weeks after the appointment to send the appointment notification
+    description: How many weeks after the appointment to send the appointment notification
   daysAfter:
     label: Days
-    tooltip: How many days after the appointment to send the appointment notification
+    description: How many days after the appointment to send the appointment notification
   hoursAfter:
     label: Hours
-    tooltip: How many hours after the appointment to send the appointment notification
+    description: How many hours after the appointment to send the appointment notification
   minutesAfter:
     label: Minutes
-    tooltip: How many minutes after the appointment to send the appointment notification
+    description: How many minutes after the appointment to send the appointment notification
   time:
     label: Time
-    tooltip: At what hour to send the appointment notification
+    description: At what time of the day to send the appointment notification
+  schedule:
+    label: When to send
+    startsNow: "If the appointment starts now ({now}), this sends on {when}."
+    endsNow: "If the appointment ends now ({now}), this sends on {when}."
+  delivery:
+    label: How to send
   channel:
-    label: Channel type
-    tooltip: Determines how to send the appointment notification
-    searchLabel: Select channel type
-  template:
-    label: Template
-    tooltip: Appointment notification body, that your customers will see.
+    required: At least one channel is required. Turn on email, text message, or both.
+  email:
+    label: Email
+    description: Send this notification to the customer by email.
+    templateLabel: Email template
+    templateDescription: Required. This is the email the customer receives.
+  textMessage:
+    label: Text message
+    description: Send this notification by text message at the time you set.
+    verify: To send custom text message follow-ups, verify your business details. That enables custom templates.
+    verifyAction: Verify your business details
+    smsDisabled: Text messages need text messaging turned on. While it is off, this option stays unavailable.
+    smsDisabledAction: Turn on text messaging
   save: Save
   update: Update
   cancel: Cancel
@@ -155,6 +177,8 @@ validation:
       minute:
         min: Minute should be between 0 and 59
         max: Minute should be between 0 and 59
+    channel:
+      required: At least one channel is required. Turn on email, text message, or both.
     templateId:
       required: Template is required
     atTimeBefore:

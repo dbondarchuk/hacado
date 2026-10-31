@@ -1,12 +1,12 @@
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Input } from "@hacado/ui/input";
 import {
-  Button,
-  cn,
-  Input,
   InputGroup,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
 import { Rows3 } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

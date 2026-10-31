@@ -1,8 +1,9 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { CommunicationChannel } from "@hacado/types";
-import { Heading, Skeleton } from "@hacado/ui";
+import { CommunicationChannel } from "@hacado/types/communication";
+import { Heading } from "@hacado/ui/heading";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { TemplateFormPage } from "../../form-page";

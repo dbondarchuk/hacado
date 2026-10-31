@@ -2,10 +2,12 @@
 
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment } from "@hacado/types";
-import { Skeleton, useDebounceCacheFn, useTimeZone } from "@hacado/ui";
+import { Appointment } from "@hacado/types/booking";
+import { useTimeZone } from "@hacado/ui/context";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { DateTime } from "luxon";
 import { CustomerName } from "./customer-name";
 import {
@@ -27,7 +29,7 @@ const AppointmentShortLabel: React.FC<{
 
   return (
     <div className="flex min-w-0 flex-col gap-0.5 overflow-hidden text-nowrap">
-      <span className="truncate font-medium">{appointment.option.name}</span>
+      <span className="truncate font-medium">{appointment.service.name}</span>
       <span className="truncate text-xs text-muted-foreground">
         {appointment.customer?.name ? (
           <CustomerName customer={appointment.customer} />
@@ -68,7 +70,7 @@ export const AppointmentsDataTableAsyncFilterBox: React.FC<
   const fetchAppointments = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.appointments.getAppointments({
+      const result = await appointmentsApi.getAppointments({
         page,
         limit,
         search,
@@ -85,7 +87,7 @@ export const AppointmentsDataTableAsyncFilterBox: React.FC<
               timeZone={timeZone}
             />
           ),
-          shortLabel: appointment.option.name,
+          shortLabel: appointment.service.name,
           value: appointment._id,
         })) satisfies AsyncFilterBoxOption[],
         hasMore: page * limit < result.total,

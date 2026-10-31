@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
 import type { WaitlistOfferPrefill } from "../models/waitlist-offer";
 
 export async function fetchWaitlistOffer(
@@ -8,7 +8,7 @@ export async function fetchWaitlistOffer(
   token: string,
 ): Promise<WaitlistOfferPrefill | null> {
   try {
-    return await clientApi.apps.callAppApi<WaitlistOfferPrefill>({
+    return await appsApi.callAppApi<WaitlistOfferPrefill>({
       appId: waitlistAppId,
       path: `waitlist-offer?w=${encodeURIComponent(token)}`,
     });

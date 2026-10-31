@@ -1,4 +1,4 @@
-import type { PublicPageRendererProps } from "@hacado/types";
+import type { PublicPageRendererProps } from "@hacado/types/apps";
 import type { ReactNode } from "react";
 import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 import { MyCabinetPublicPage } from "./apps/my-cabinet/public-page";

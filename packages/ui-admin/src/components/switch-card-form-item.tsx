@@ -1,0 +1,101 @@
+"use client";
+
+import { cn } from "@hacado/ui/cn";
+import {
+  FormControl,
+  FormDescription,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { Switch } from "@hacado/ui/switch";
+import React from "react";
+
+export type SwitchCardFormItemProps = {
+  label: React.ReactNode;
+  description?: React.ReactNode;
+  checked?: boolean | null;
+  onCheckedChange: (checked: boolean) => void;
+  disabled?: boolean;
+  loading?: boolean;
+  className?: string;
+  /** Keep the switch at the top when extra fields appear after it is turned on. */
+  alwaysItemsStart?: boolean;
+  children?: React.ReactNode;
+  noCard?: boolean | "borderTop";
+  required?: boolean;
+};
+
+export const SwitchCardFormItem: React.FC<SwitchCardFormItemProps> = ({
+  label,
+  description,
+  checked,
+  onCheckedChange,
+  disabled,
+  loading,
+  className,
+  children,
+  noCard,
+  required,
+}) => {
+  const extra = React.Children.toArray(children);
+
+  return (
+    <FormItem
+      className={cn(
+        "flex flex-col gap-2",
+        !noCard
+          ? "border p-4 rounded-lg"
+          : noCard === "borderTop"
+            ? "border-t py-4"
+            : undefined,
+        className,
+      )}
+    >
+      <div
+        className={cn(
+          "flex min-w-0 w-full flex-row justify-between gap-4",
+          // extra.length > 0 || alwaysItemsStart ? "items-start" : "items-center",
+          "items-center",
+        )}
+      >
+        <div className="flex min-w-0 w-full h-full flex-1 flex-col gap-2 justify-center">
+          <div className="flex flex-col gap-0.5">
+            {typeof label === "string" ? (
+              <FormLabel>
+                {label}{" "}
+                {required ? <span className="text-destructive">*</span> : null}
+              </FormLabel>
+            ) : (
+              label
+            )}
+            {description ? (
+              <FormDescription>{description}</FormDescription>
+            ) : null}
+            <FormMessage />
+          </div>
+        </div>
+        <FormControl>
+          {loading ? (
+            <Skeleton className="h-6 w-11 shrink-0" />
+          ) : (
+            <Switch
+              checked={!!checked}
+              disabled={disabled}
+              onCheckedChange={onCheckedChange}
+            />
+          )}
+        </FormControl>
+      </div>
+      {extra.length > 0 ? (
+        <>
+          <div className="flex-1" />
+          <div className="flex min-w-0 w-full flex-col gap-2 [&>*]:min-w-0 [&>*]:max-w-full">
+            {children}
+          </div>
+        </>
+      ) : null}
+    </FormItem>
+  );
+};

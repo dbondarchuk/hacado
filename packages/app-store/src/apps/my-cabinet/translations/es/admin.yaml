@@ -15,9 +15,9 @@ statusText:
 form:
   connect: Conectar <app></app>
   update: Actualización <app></app>
-  publicPageDisabled:
-    label: Deshabilitar la página pública en /my-cabinet
-    description: Cuando está habilitada, la aplicación no reclama /mi-gabinete. En su lugar, utilice una página CMS con el bloque Mi gabinete. El encabezado y pie de página a continuación se aplican solo cuando la página pública está activa.
+  publicPageEnabled:
+    label: Habilitar la página pública en /my-cabinet
+    description: Cuando está habilitada, la aplicación reclama /my-cabinet. Desactívela para usar una página CMS con el bloque Mi gabinete.
   headerId:
     label: Encabezado de página
     description: Encabezado opcional que se muestra en la página pública Mi gabinete en /my-cabinet

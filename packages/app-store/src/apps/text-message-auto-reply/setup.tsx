@@ -1,26 +1,34 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Spinner,
-} from "@hacado/ui";
+import { AppSetupProps } from "@hacado/types/apps";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit/templates";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-  TemplateSelector,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import {
+  renderBuiltInSms,
+  SmsExample,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "@hacado/ui-admin/sms-example";
+import { Button } from "@hacado/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
+import { Switch } from "@hacado/ui/switch";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { TextMessageAutoReplyApp } from "./app";
+import { getAutoReplySms } from "./messages";
 import {
   TextMessageAutoReplyConfiguration,
   textMessageAutoReplyConfigurationSchema,
@@ -33,12 +41,10 @@ import {
 
 export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
   onSuccess,
-
   onError,
-
   appId,
 }) => {
-  const { appStatus, form, isLoading, isValid, onSubmit } =
+  const { appStatus, form, isLoading, isDataLoading, isValid, onSubmit } =
     useConnectedAppSetup<TextMessageAutoReplyConfiguration>({
       appId,
       appName: TextMessageAutoReplyApp.name,
@@ -51,36 +57,85 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
     TextMessageAutoReplyAdminNamespace,
     TextMessageAutoReplyAdminKeys
   >(textMessageAutoReplyAdminNamespace);
+  const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
+  const messageArgs = previewArgs
+    ? {
+        ...previewArgs,
+        reply: {
+          from: "+15555550123",
+          message: "Can I come earlier?",
+        },
+      }
+    : undefined;
+
+  React.useEffect(() => {
+    if (!allowCustom) return;
+    if (!previewArgs) return;
+    if (appId && isDataLoading) return;
+
+    const current = form.getValues("replyText");
+    if (typeof current === "string" && current.length > 0) return;
+
+    form.setValue(
+      "replyText",
+      getAutoReplySms(smsPreviewLanguage(previewArgs)),
+      {
+        shouldDirty: false,
+        shouldValidate: true,
+      },
+    );
+  }, [allowCustom, appId, form, isDataLoading, previewArgs]);
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="flex flex-col items-center gap-2">
-            <FormField
-              control={form.control}
-              name="autoReplyTemplateId"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.autoReplyTemplate.label")}
-                    <InfoTooltip>
-                      {t("form.autoReplyTemplate.tooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <TemplateSelector
-                      type="text-message"
-                      disabled={isLoading}
-                      value={field.value}
-                      onItemSelect={(value) => field.onChange(value)}
-                      allowClear
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex w-full flex-col gap-4 rounded-lg border p-4">
+              <FormField
+                control={form.control}
+                name="enabled"
+                render={({ field }) => {
+                  return (
+                    <FormItem className="flex flex-row items-start justify-between gap-4">
+                      <div className="space-y-2">
+                        <FormLabel>{t("form.autoReply.label")}</FormLabel>
+                        <FormDescription>
+                          {t("form.autoReply.description")}
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          checked={field.value === true}
+                          disabled={isLoading}
+                          onCheckedChange={(value) => field.onChange(value)}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
+              />
+              {form.watch("enabled") === true ? (
+                allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name="replyText"
+                    render={({ field }) => (
+                      <TextMessageBuilder args={messageArgs} field={field} />
+                    )}
+                  />
+                ) : (
+                  <SmsExample
+                    text={renderBuiltInSms(
+                      getAutoReplySms(smsPreviewLanguage(previewArgs)),
+                      messageArgs,
+                      sharedPool,
+                    )}
+                  />
+                )
+              ) : null}
+            </div>
             <Button
               disabled={isLoading || !isValid}
               type="submit"

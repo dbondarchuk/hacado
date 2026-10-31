@@ -28,9 +28,12 @@ form:
   emailTemplateId:
     label: Modèle d'e-mail
     description: Modèle utilisé lors de l'envoi du lien de paiement par email
+  smsEnabled:
+    label: Envoyer un message texte
+    description: "Envoyez au client un lien pour payer. Un message intégré est utilisé, sauf si vous choisissez un modèle personnalisé."
   smsTemplateId:
-    label: Modèle de SMS
-    description: Modèle utilisé lors de l'envoi du lien de paiement par SMS
+    label: Modèle de message personnalisé
+    description: "Facultatif. Lorsqu'un modèle est sélectionné, le message de paiement l'utilise à la place du message intégré."
   linkExpiryDays:
     label: Expiration du lien (jours)
     description: Facultatif. Les liens expirent après ce nombre de jours s'ils sont définis.

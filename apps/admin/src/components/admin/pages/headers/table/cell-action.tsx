@@ -1,18 +1,18 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
-import { PageHeaderListModel } from "@hacado/types";
+import { PageHeaderListModel } from "@hacado/types/pages";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -33,15 +33,12 @@ export const CellAction: React.FC<CellActionProps> = ({ pageHeader }) => {
     try {
       setLoading(true);
 
-      await toastPromise(
-        adminApi.pageHeaders.deletePageHeader(pageHeader._id),
-        {
-          success: t("pages.headers.toasts.pageHeaderDeleted", {
-            name: pageHeader.name,
-          }),
-          error: t("pages.headers.table.delete.error"),
-        },
-      );
+      await toastPromise(pageHeadersApi.deletePageHeader(pageHeader._id), {
+        success: t("pages.headers.toasts.pageHeaderDeleted", {
+          name: pageHeader.name,
+        }),
+        error: t("pages.headers.table.delete.error"),
+      });
 
       setOpen(false);
       router.refresh();

@@ -3,7 +3,8 @@
 import { cn, withRef } from "@udecode/cn";
 import { useReadOnly } from "@udecode/plate/react";
 
-import { Calendar, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
+import { Calendar } from "@hacado/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { PlateElement } from "./plate-element";
 
 export const DateElement = withRef<typeof PlateElement>(

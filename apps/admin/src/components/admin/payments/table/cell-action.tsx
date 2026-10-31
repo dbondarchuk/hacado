@@ -1,20 +1,11 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n } from "@hacado/i18n/client";
-import { InStorePaymentUpdateModel, PaymentSummary } from "@hacado/types";
 import {
-  AlertModal,
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+  InStorePaymentUpdateModel,
+  PaymentSummary,
+} from "@hacado/types/booking";
 import {
   AddUpdatePaymentDialog,
   canRefundPayment,
@@ -22,8 +13,20 @@ import {
   PaymentLinkQrCodeDialog,
   PaymentRefundDialog,
   ResendPaymentLinkDialog,
-} from "@hacado/ui-admin-kit";
-import { canManageSyncedPayments } from "@hacado/utils";
+} from "@hacado/ui-admin-kit/payments";
+import { useAuth } from "@hacado/ui-admin/context";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
+import { canManageSyncedPayments } from "@hacado/utils/permissions";
 import {
   Calendar,
   Copy,
@@ -91,7 +94,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
   const onConfirmDelete = async () => {
     try {
       setLoading(true);
-      await toastPromise(adminApi.payments.deleteInstore(payment._id), {
+      await toastPromise(paymentsApi.deleteInstore(payment._id), {
         success: t("payment.card.deleteSuccess"),
         error: t("common.toasts.error"),
       });
@@ -109,9 +112,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
       setLoading(true);
       await toastPromise(
         (async () => {
-          const { url } = await adminApi.payments.getPaymentLinkUrl(
-            payment._id,
-          );
+          const { url } = await paymentsApi.getPaymentLinkUrl(payment._id);
           await navigator.clipboard.writeText(url);
         })(),
         {
@@ -129,7 +130,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
   const onCancelLink = async () => {
     try {
       setLoading(true);
-      await toastPromise(adminApi.payments.cancelPaymentLink(payment._id), {
+      await toastPromise(paymentsApi.cancelPaymentLink(payment._id), {
         success: t("common.toasts.saved"),
         error: t("common.toasts.error"),
       });

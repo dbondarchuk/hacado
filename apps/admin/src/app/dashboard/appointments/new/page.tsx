@@ -2,13 +2,15 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppointmentChoice, resolveBookingTips } from "@hacado/types";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { AppointmentChoice } from "@hacado/types/booking";
+import { resolveBookingTips } from "@hacado/types/configuration/booking";
 import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
-} from "@hacado/ui-admin-kit";
-import { canReassignAppointment } from "@hacado/utils";
+} from "@hacado/ui-admin-kit/appointments";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import { canReassignAppointment } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { searchParamsCache } from "./search-params";
 
@@ -50,9 +52,9 @@ export default async function NewAppointmentPage(props: Props) {
   ];
 
   const [fields, addons, options, bookingConfig] = await Promise.all([
-    servicesContainer.servicesService.getFields({}),
-    servicesContainer.servicesService.getAddons({}),
-    servicesContainer.servicesService.getOptions({}),
+    servicesContainer.catalogService.getFields({}),
+    servicesContainer.catalogService.getAddons({}),
+    servicesContainer.catalogService.getServices({}),
     servicesContainer.configurationService.getConfiguration("booking"),
   ]);
 
@@ -78,7 +80,7 @@ export default async function NewAppointmentPage(props: Props) {
 
   let from: AppointmentScheduleFormFrom | undefined = appointment
     ? {
-        optionId: appointment.option._id,
+        optionId: appointment.service._id,
         addonsIds: appointment.addons?.map((addon) => addon._id),
         customerId: appointment.customer._id,
         fields: appointment.fields,
@@ -103,8 +105,8 @@ export default async function NewAppointmentPage(props: Props) {
       await servicesContainer.packagesService.getCustomerPackage(
         from.customerPackageId,
       );
-    if (soldPackage?.items[0]?.optionId) {
-      from = { ...from, optionId: soldPackage.items[0].optionId };
+    if (soldPackage?.items[0]?.serviceId) {
+      from = { ...from, optionId: soldPackage.items[0].serviceId };
     }
   }
 
@@ -129,6 +131,9 @@ export default async function NewAppointmentPage(props: Props) {
     "New appointment page loaded",
   );
 
+  const smsText =
+    await servicesContainer.bookingService.getCustomerAppointmentTextOffer();
+
   return (
     <PageContainer scrollable>
       <div className="flex flex-1 flex-col gap-4 w-full">
@@ -147,6 +152,7 @@ export default async function NewAppointmentPage(props: Props) {
           customer={customer}
           currentMemberId={currentMemberId}
           canAssignMember={canAssignMember}
+          smsText={smsText}
         />
       </div>
     </PageContainer>

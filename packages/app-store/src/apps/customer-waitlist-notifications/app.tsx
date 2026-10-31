@@ -1,9 +1,9 @@
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import {
-  App,
-  BillingPlanTier,
   MEMBER_PROFILE_UPDATED_EVENT_TYPE,
   SCHEDULE_CHANGED_EVENT_TYPE,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import { Bell } from "lucide-react";
 import { WAITLIST_ENTRY_CREATED_EVENT_TYPE } from "../waitlist/models/events";
 import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./const";
@@ -30,6 +30,7 @@ export const CustomerWaitlistNotificationsApp: App<
     "scheduled",
     "communication-templates-provider",
     "demo-arguments-provider",
+    "customer-waitlist-text-message",
   ],
   type: "complex",
   target: "company",

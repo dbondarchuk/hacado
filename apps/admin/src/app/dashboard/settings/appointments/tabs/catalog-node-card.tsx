@@ -4,21 +4,24 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
-import { BookingCatalogNode, BookingConfiguration } from "@hacado/types";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
+  BookingCatalogNode,
+  BookingConfiguration,
+} from "@hacado/types/configuration/booking";
+import { PackageSelector } from "@hacado/ui-admin/package-selector";
+import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-} from "@hacado/ui";
-import { OptionSelector, PackageSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
 import { GripVertical, Trash } from "lucide-react";
 import React from "react";
 import { FieldPath, useFieldArray, UseFormReturn } from "react-hook-form";
@@ -27,6 +30,37 @@ const newId = () =>
   typeof crypto !== "undefined" && crypto.randomUUID
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random()}`;
+
+const CatalogNodeHeader: React.FC<{
+  node: BookingCatalogNode;
+  selectedName?: string;
+}> = ({ node, selectedName }) => {
+  const t = useI18n("admin");
+  const name =
+    node.type === "group" ? node.name.trim() : (selectedName?.trim() ?? "");
+
+  if (node.type === "group") {
+    if (!name) {
+      return t("settings.appointments.form.options.group");
+    }
+
+    return t("settings.appointments.form.options.groupWithName", { name });
+  }
+
+  if (node.type === "package") {
+    if (!name) {
+      return t("settings.appointments.form.options.package");
+    }
+
+    return t("settings.appointments.form.options.packageWithName", { name });
+  }
+
+  if (!name) {
+    return t("settings.appointments.form.options.service");
+  }
+
+  return t("settings.appointments.form.options.serviceWithName", { name });
+};
 
 const GroupChildrenList: React.FC<{
   name: FieldPath<BookingConfiguration>;
@@ -54,7 +88,7 @@ const GroupChildrenList: React.FC<{
           size="sm"
           disabled={disabled}
           onClick={() =>
-            append({ type: "option", id: newId(), optionId: "" } as never)
+            append({ type: "service", id: newId(), serviceId: "" } as never)
           }
         >
           {t("settings.appointments.form.options.addService")}
@@ -76,7 +110,7 @@ const GroupChildrenList: React.FC<{
           {t("settings.appointments.form.options.emptyGroup")}
         </p>
       ) : (
-        <div className="flex flex-col gap-2 pl-4 border-l">
+        <div className="flex min-w-0 flex-col gap-2 border-l pl-4">
           {fields.map((field, index) => {
             const child =
               children[index] ?? (field as unknown as BookingCatalogNode);
@@ -119,6 +153,14 @@ export const CatalogNodeCard: React.FC<{
   onRemove,
 }) => {
   const t = useI18n("admin");
+  const [selectedName, setSelectedName] = React.useState<string | undefined>();
+  const rememberSelectedName = React.useCallback(
+    (item: { name: string } | undefined) => {
+      setSelectedName(item?.name);
+    },
+    [],
+  );
+
   const {
     setNodeRef,
     attributes,
@@ -138,55 +180,53 @@ export const CatalogNodeCard: React.FC<{
     `${name}.${suffix}` as FieldPath<BookingConfiguration>;
 
   return (
-    <Card ref={setNodeRef} style={style}>
-      <CardHeader className="flex flex-row items-center gap-2 py-3">
+    <Card ref={setNodeRef} style={style} className="min-w-0 max-w-full">
+      <CardHeader className="flex min-w-0 flex-row items-center gap-2 py-3">
         <button
           type="button"
           {...attributes}
           {...listeners}
           disabled={disabled}
           className={cn(
-            "cursor-grab",
+            "shrink-0 cursor-grab",
             attributes["aria-pressed"] && "cursor-grabbing",
           )}
         >
           <GripVertical className="h-4 w-4 text-muted-foreground" />
         </button>
-        <div className="flex-1 text-sm font-medium">
-          {node.type === "group"
-            ? t("settings.appointments.form.options.addGroup")
-            : node.type === "package"
-              ? t("settings.appointments.form.options.package")
-              : t("settings.appointments.form.options.addService")}
+        <div className="min-w-0 flex-1 truncate text-sm font-medium">
+          <CatalogNodeHeader node={node} selectedName={selectedName} />
         </div>
         <Button
           type="button"
           variant="ghost-destructive"
           size="icon"
+          className="shrink-0"
           disabled={disabled}
           onClick={onRemove}
         >
           <Trash className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        {node.type === "option" ? (
+      <CardContent className="flex min-w-0 flex-col gap-3">
+        {node.type === "service" ? (
           <FormField
             control={form.control}
-            name={fieldName("optionId")}
+            name={fieldName("serviceId")}
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("settings.appointments.form.options.addService")}
-                </FormLabel>
+              <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
+                <FormLabelWithRequiredIndicator required>
+                  {t("settings.appointments.form.options.service")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
-                  <OptionSelector
+                  <ServiceSelector
                     disabled={disabled}
                     value={field.value as string}
                     excludeIds={usedOptionIds.filter(
                       (id) => id !== field.value,
                     )}
                     onItemSelect={field.onChange}
+                    onValueChange={rememberSelectedName}
                   />
                 </FormControl>
                 <FormMessage />
@@ -199,10 +239,10 @@ export const CatalogNodeCard: React.FC<{
             control={form.control}
             name={fieldName("packageId")}
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>
+              <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
+                <FormLabelWithRequiredIndicator required>
                   {t("settings.appointments.form.options.package")}
-                </FormLabel>
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <PackageSelector
                     disabled={disabled}
@@ -211,6 +251,7 @@ export const CatalogNodeCard: React.FC<{
                       (id) => id !== field.value,
                     )}
                     onItemSelect={field.onChange}
+                    onValueChange={rememberSelectedName}
                   />
                 </FormControl>
                 <FormMessage />
@@ -224,10 +265,10 @@ export const CatalogNodeCard: React.FC<{
               control={form.control}
               name={fieldName("name")}
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
+                <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
+                  <FormLabelWithRequiredIndicator required>
                     {t("settings.appointments.form.options.groupName")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={disabled}
@@ -249,7 +290,7 @@ export const CatalogNodeCard: React.FC<{
               control={form.control}
               name={fieldName("description")}
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
                   <FormLabel>
                     {t("settings.appointments.form.options.groupDescription")}
                   </FormLabel>

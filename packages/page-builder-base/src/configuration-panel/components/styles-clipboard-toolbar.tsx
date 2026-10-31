@@ -1,13 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  toast,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@hacado/ui/tooltip";
 import { ClipboardCopy, ClipboardPaste } from "lucide-react";
 import { useCallback } from "react";
 import { StyleValue } from "../../style/css-renderer";

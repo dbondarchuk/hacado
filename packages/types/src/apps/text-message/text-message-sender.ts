@@ -20,6 +20,9 @@ export type TextMessageResponse = {
   error?: string;
   textId?: string;
   data?: any;
+  skipped?: boolean;
+  retryable?: boolean;
+  errorCode?: string;
 };
 
 export interface ITextMessageSenderApp {

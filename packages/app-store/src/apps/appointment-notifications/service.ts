@@ -1,20 +1,22 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  AppJobRequest,
-  Appointment,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
-  EventEnvelope,
+  CustomerAppointmentTextOffer,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
+  ICustomerAppointmentTextMessage,
   IEventSubscriber,
   IScheduled,
-  TemplateTemplatesList,
-} from "@hacado/types";
-import { dispatchAppointmentEventPayload } from "@hacado/utils";
+} from "@hacado/types/apps";
+import { Appointment } from "@hacado/types/booking";
+import { EventEnvelope } from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
 import { AppointmentNotificationsJobProcessor } from "./job-processor";
 import {
   AppointmentNotification,
@@ -35,11 +37,23 @@ export default class AppointmentNotificationsConnectedApp
     IConnectedApp,
     IScheduled,
     IEventSubscriber,
-    ICommunicationTemplatesProvider
+    ICommunicationTemplatesProvider,
+    ICustomerAppointmentTextMessage
 {
   protected readonly loggerFactory: LoggerFactory;
   protected readonly repository: AppointmentNotificationsRepository;
   protected readonly jobProcessor: AppointmentNotificationsJobProcessor;
+
+  public async getCustomerAppointmentTextOffer(
+    appData: ConnectedAppData,
+  ): Promise<CustomerAppointmentTextOffer> {
+    const text = await this.repository.getTextMessageOffer(appData._id);
+    return {
+      notifications: false,
+      reminders: text.reminders,
+      other: text.other,
+    };
+  }
 
   public constructor(protected readonly props: IConnectedAppProps) {
     this.repository = new AppointmentNotificationsRepository(props);

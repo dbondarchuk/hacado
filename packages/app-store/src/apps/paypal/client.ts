@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { formatAmountString } from "@hacado/utils";
+import { formatAmountString } from "@hacado/utils/currency";
 import { v4 as uuidv4 } from "uuid";
 import * as z from "zod";
 import { OrdersCapture, PaypalOrder } from "./types";

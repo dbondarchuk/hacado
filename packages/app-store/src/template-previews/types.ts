@@ -1,4 +1,4 @@
-import type { TEditorBlock } from "@hacado/builder";
+import type { TEditorBlock } from "@hacado/builder/editor";
 import type { I18nFn, Language } from "@hacado/i18n";
 
 export const TEMPLATE_PREVIEW_BASE = "/pages/templates";

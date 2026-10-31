@@ -1,4 +1,4 @@
-import { templateSafeWithError } from "@hacado/utils";
+import { templateSafeWithError } from "@hacado/utils/string";
 import { EMAIL_BRAND } from "../brand";
 import {
   buildEmailContentBlocks,
@@ -55,8 +55,8 @@ export const renderUserEmailTemplate = async (
               linkHref: appUrl,
               x: 50,
               y: 50,
-              width: 200,
-              height: 50,
+              width: 220,
+              height: 56,
             },
             style: {
               padding: {
@@ -105,7 +105,7 @@ export const renderUserEmailTemplate = async (
                     {
                       text: `© ${new Date().getFullYear()}`,
                       fontSize: "11px",
-                      color: "#999999",
+                      color: EMAIL_BRAND.muted,
                     },
                     {
                       text: " ",
@@ -114,7 +114,7 @@ export const renderUserEmailTemplate = async (
                       children: [
                         {
                           fontSize: "11px",
-                          color: "#999999",
+                          color: EMAIL_BRAND.muted,
                           text: "Hacado",
                         },
                       ],

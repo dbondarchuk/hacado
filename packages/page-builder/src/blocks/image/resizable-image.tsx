@@ -1,14 +1,13 @@
 "use client";
 
-import {
-  BaseBlockProps,
-  useEditorArgs,
-  usePortalContext,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
-import { cn, useDebounce } from "@hacado/ui";
-import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
-import { template } from "@hacado/utils";
+import { useEditorArgs } from "@hacado/builder/editor";
+import { usePortalContext } from "@hacado/builder/portal";
+import { BaseBlockProps } from "@hacado/builder/types";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
+import { useDebounce } from "@hacado/ui/hooks";
+import { mergeRefs } from "@hacado/ui/utils";
+import { template } from "@hacado/utils/string";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { ImageProps } from "./schema";
 import { styles } from "./styles";

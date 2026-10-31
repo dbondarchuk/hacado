@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@hacado/types";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { packageCancelledEmailTemplate as packageCancelledEmailTemplateEn } from "./en/cancelled";
 import { packageExhaustedEmailTemplate as packageExhaustedEmailTemplateEn } from "./en/exhausted";
 import { packageExpiredEmailTemplate as packageExpiredEmailTemplateEn } from "./en/expired";

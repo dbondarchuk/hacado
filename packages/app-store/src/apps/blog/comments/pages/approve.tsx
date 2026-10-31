@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Skeleton, toastPromise } from "@hacado/ui";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toastPromise } from "@hacado/ui/sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { approveBlogComment } from "../../actions";

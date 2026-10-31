@@ -1,16 +1,17 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  cn,
-  Spinner,
-} from "@hacado/ui";
-import { durationToTime, formatAmountString } from "@hacado/utils";
+} from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Spinner } from "@hacado/ui/spinner";
+import { formatAmountString } from "@hacado/utils/currency";
+import { durationToTime } from "@hacado/utils/time";
 import { Calendar, DollarSign, Timer } from "lucide-react";
 import { DateTime as Luxon } from "luxon";
 import React from "react";

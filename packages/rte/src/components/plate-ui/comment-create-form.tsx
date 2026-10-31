@@ -1,6 +1,8 @@
 "use client";
 
-import { buttonVariants, cn, inputVariants } from "@hacado/ui";
+import { buttonVariants } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { inputVariants } from "@hacado/ui/input";
 import {
   CommentNewSubmitButton,
   CommentNewTextarea,

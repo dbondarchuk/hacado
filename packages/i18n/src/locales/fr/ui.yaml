@@ -31,9 +31,9 @@ templateSelector:
   placeholder: Sélectionnez un modèle
   requestFailed: La demande de récupération de modèles a échoué
   loadingTemplates: Chargement des modèles...
-optionSelector:
-  placeholder: Sélectionnez une option
-  requestFailed: La demande de récupération des options a échoué
+serviceSelector:
+  placeholder: Sélectionnez un service
+  requestFailed: La demande de récupération des services a échoué
 packageSelector:
   placeholder: Sélectionnez le forfait
   requestFailed: La demande de récupération de packages a échoué
@@ -85,6 +85,13 @@ saveButton:
   defaultText: Sauvegarder
   fixErrorsTitle: Veuillez corriger les erreurs suivantes
   fixErrorsDescription: "Veuillez corriger les erreurs suivantes avant d'enregistrer :"
+  saving: Économie...
+  saved: Enregistré
+  failed: Échec de l'enregistrement
+  retry: Réessayer
+  discard: Jeter
+  unsaved: Non enregistré
+  fixErrors: Veuillez corriger les erreurs avant d'enregistrer
 toast:
   close: Fermer
 form:
@@ -146,10 +153,15 @@ sidebar:
   toggleSidebar: Basculer la barre latérale
 durationInput:
   hr: heure
+  hrShort: h
   min: min
+  minShort: m
   sec: seconde
+  secShort: s
   weeks: semaines
+  weeksShort: sem
   days: jours
+  daysShort: j
 monthsInput:
   years: années
   months: mois

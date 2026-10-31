@@ -1,4 +1,5 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import * as z from "zod";
 
 export const countryOptions = [

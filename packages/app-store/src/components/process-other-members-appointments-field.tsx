@@ -6,8 +6,8 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  Switch,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Switch } from "@hacado/ui/switch";
 import type { Control, FieldPath, FieldValues } from "react-hook-form";
 
 type ProcessOtherMembersAppointmentsFieldProps<T extends FieldValues> = {

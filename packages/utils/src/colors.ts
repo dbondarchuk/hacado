@@ -1,4 +1,4 @@
-import { StylingConfiguration } from "@hacado/types";
+import { StylingConfiguration } from "@hacado/types/configuration/styling";
 import Color from "color";
 
 export const getColorsCss = (

@@ -1,17 +1,15 @@
 "use client";
 
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import {
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ToolbarButton,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
-import { destructAndReplace, resolveProperty } from "@hacado/utils";
+} from "@hacado/ui/tooltip-responsive";
+import { destructAndReplace, resolveProperty } from "@hacado/utils/object";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { ConfigurationProps } from "../../documents/types";

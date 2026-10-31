@@ -1,4 +1,4 @@
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Header } from "@tanstack/react-table";
 import { GripVertical } from "lucide-react";
 

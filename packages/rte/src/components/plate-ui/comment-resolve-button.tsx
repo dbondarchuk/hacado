@@ -1,6 +1,7 @@
 "use client";
 
-import { buttonVariants, cn } from "@hacado/ui";
+import { buttonVariants } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
   CommentResolveButton as CommentResolveButtonPrimitive,
   useComment,

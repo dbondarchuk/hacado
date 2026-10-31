@@ -1,5 +1,6 @@
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
-import { Combobox } from "@hacado/ui";
+import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+import { Combobox } from "@hacado/ui/combobox";
 import { LucideIcon } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";
@@ -27,45 +28,38 @@ export const createGridLineStyle = <TName extends string>({
   label: BaseAllKeys;
   cssProperty: string;
   icon: LucideIcon;
-}) =>
-  ({
-    name,
-    label,
-    category: "layout" as const,
-    schema: GridLineSchema,
-    icon: ({ className }: { className?: string }) => (
-      <Icon className={className} />
-    ),
-    defaultValue: "auto" as const,
-    renderToCSS: (value: GridLineValue | null | undefined) => {
-      if (value === null || typeof value === "undefined") return null;
-      return `${cssProperty}: ${value};`;
-    },
-    component: ({
-      value,
-      onChange,
-    }: {
-      value: GridLineValue;
-      onChange: (value: GridLineValue) => void;
-    }) => {
-      const t = useI18n("builder");
+}): StyleDefinition<typeof GridLineSchema, TName> => ({
+  name,
+  label,
+  category: "layout",
+  schema: GridLineSchema,
+  icon: ({ className }: { className?: string }) => (
+    <Icon className={className} />
+  ),
+  defaultValue: "auto",
+  renderToCSS: (value) => {
+    if (value === null || typeof value === "undefined") return null;
+    return `${cssProperty}: ${value};`;
+  },
+  component: ({ value, onChange }) => {
+    const t = useI18n("builder");
 
-      return (
-        <Combobox
-          values={gridLineOptions.map((line) => ({
-            value: String(line),
-            label:
-              line === "auto"
-                ? t("pageBuilder.styles.keywords.auto")
-                : String(line),
-          }))}
-          value={String(value ?? "auto")}
-          onItemSelect={(val) =>
-            onChange(val === "auto" ? "auto" : (Number(val) as GridLineValue))
-          }
-          className="w-full"
-          size="sm"
-        />
-      );
-    },
-  }) as const satisfies StyleDefinition<typeof GridLineSchema>;
+    return (
+      <Combobox
+        values={gridLineOptions.map((line) => ({
+          value: String(line),
+          label:
+            line === "auto"
+              ? t("pageBuilder.styles.keywords.auto")
+              : String(line),
+        }))}
+        value={String(value ?? "auto")}
+        onItemSelect={(val) =>
+          onChange(val === "auto" ? "auto" : (Number(val) as GridLineValue))
+        }
+        className="w-full"
+        size="sm"
+      />
+    );
+  },
+});

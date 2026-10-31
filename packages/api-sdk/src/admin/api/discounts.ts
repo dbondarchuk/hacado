@@ -1,9 +1,6 @@
-import {
-  Discount,
-  DiscountUpdateModel,
-  okStatus,
-  WithTotal,
-} from "@hacado/types";
+import { Discount, DiscountUpdateModel } from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
   checkDiscountNameAndCodeParamsSerializer,
   DiscountsSearchParams,

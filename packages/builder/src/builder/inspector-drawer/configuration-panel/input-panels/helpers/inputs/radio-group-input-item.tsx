@@ -1,4 +1,4 @@
-import { RadioButtonGroupItem } from "@hacado/ui";
+import { RadioButtonGroupItem } from "@hacado/ui/radio-button-group";
 import React from "react";
 
 export type RadioGroupInputItemProps = {

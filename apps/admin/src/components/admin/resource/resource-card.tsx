@@ -7,7 +7,7 @@ import {
   Resource,
   resourceSchema,
   resourceSourceTypeLabels,
-} from "@hacado/types";
+} from "@hacado/types/configuration/resources";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,22 +18,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
-  Combobox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  Input,
-  useTheme,
-} from "@hacado/ui";
-import { stripObject } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { useTheme } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { stripObject } from "@hacado/utils/strip-object";
 import { Editor } from "@monaco-editor/react";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
@@ -199,7 +198,9 @@ export const ResourceCard = ({
           name={`${name}.source`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("resource.card.sourceType")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("resource.card.sourceType")}
+              </FormLabelWithRequiredIndicator>
 
               <FormControl>
                 <Combobox
@@ -225,7 +226,9 @@ export const ResourceCard = ({
               name={`${name}.url`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("resource.card.url")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("resource.card.url")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={disabled}
@@ -246,7 +249,9 @@ export const ResourceCard = ({
               name={`${name}.value`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("resource.card.value")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("resource.card.value")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Editor
                       height="20vh"

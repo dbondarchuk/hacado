@@ -30,9 +30,12 @@ form:
   emailTemplateId:
     label: Email template
     description: Template used when sending the payment link by email
+  smsEnabled:
+    label: Send text message
+    description: Text the customer a link to pay. A built-in message is used unless you select a custom template.
   smsTemplateId:
-    label: SMS template
-    description: Template used when sending the payment link by SMS
+    label: Custom text template
+    description: Optional. When a template is selected, the payment text uses it instead of the built-in message.
   linkExpiryDays:
     label: Link expiry (days)
     description: Optional. Links expire after this many days if set.

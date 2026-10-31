@@ -1,4 +1,5 @@
-import { AllKeys, TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import React from "react";
 import { cn } from "../../utils";
 import { useFormField } from "../form";

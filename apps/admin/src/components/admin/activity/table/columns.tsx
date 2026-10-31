@@ -1,13 +1,15 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import type { ActivityListItem } from "@hacado/types";
-import { Badge, Link, useTimeZone } from "@hacado/ui";
+import type { ActivityListItem } from "@hacado/types/activity";
 import {
-  ResolvedI18nText,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
+import { ResolvedI18nText } from "@hacado/ui-admin/hooks";
+import { Badge } from "@hacado/ui/badge";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import React from "react";

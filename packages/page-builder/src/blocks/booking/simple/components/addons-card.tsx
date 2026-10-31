@@ -4,18 +4,18 @@ import {
   effectiveAddonDuration,
   effectiveAddonPrice,
   isAddonAvailableForMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Checkbox,
-  Markdown,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/card";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
+import { durationToTime } from "@hacado/utils/time";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";

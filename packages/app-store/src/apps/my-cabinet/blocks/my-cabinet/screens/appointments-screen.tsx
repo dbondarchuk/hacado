@@ -5,25 +5,24 @@ import type {
   Appointment,
   AppointmentStatus,
   CustomerPackage,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Badge,
-  Button,
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Combobox,
-  IComboboxItem,
-  Skeleton,
-  toast,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/collapsible";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
+import { durationToTime } from "@hacado/utils/time";
 import { getTimeZones } from "@vvo/tzdb";
 import {
   Check,
@@ -144,7 +143,7 @@ const AppointmentItem = ({
   const [open, setOpen] = useState(false);
 
   const serviceName =
-    item.option?.name ?? t("block.appointments.appointmentFallback");
+    item.service?.name ?? t("block.appointments.appointmentFallback");
   const dt = DateTime.fromJSDate(item.dateTime).setZone(timeZone);
   const dateLabel = dt.setLocale(locale).toFormat("EEE, MMM d, yyyy");
   const timeLabel = dt.toLocaleString(DateTime.TIME_SIMPLE, { locale });
@@ -438,7 +437,9 @@ export const AppointmentsScreen = ({
         setPastCount(summaryRes.pastCount ?? 0);
         setUpcoming(upcomingRes.items ?? []);
         setPast(pastRes.items ?? []);
-        setPackages(packagesRes.items ?? []);
+        setPackages(
+          (packagesRes.items ?? []).filter((pkg) => pkg.status !== "pending"),
+        );
         setPastPage(1);
         setHasPastNextPage(!!pastRes.hasNextPage);
       } catch (error) {

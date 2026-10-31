@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import { Marketing404Content } from "./marketing-404-content";
 
 export const dynamic = "force-dynamic";

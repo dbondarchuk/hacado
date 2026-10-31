@@ -32,7 +32,7 @@ Teléfono: {{ fields.phone }}
 Archivo: [{{filename}}]({{ websiteUrl }}/assets/{{filename}})
 {{/files}}
 
-Opción seleccionada: {{ option.name }}
+Servicio seleccionado: {{service.name}}
 
 Complementos seleccionados:
 
@@ -50,7 +50,7 @@ Duración: {{#duration.hours}}{{.}} h {{/duration.hours}}{{#duration.minutes}}{{
 {{#discount}}
 Subtotal: {{subTotalAmountFormatted}}
 
-Descuento: -{{discountAmountFormatted}} {{code}} ([{{name}}]({{ adminUrl }}/dashboard/services/discounts/{{id}}))
+Descuento: -{{discountAmountFormatted}} {{code}} ([{{name}}]({{ adminUrl }}/dashboard/catalog/discounts/{{id}}))
 
 Total: {{totalPriceFormatted}}
 {{/discount}}
@@ -79,52 +79,52 @@ Monto total restante por pagar: {{totalAmountLeftToPayFormatted}}
 
 export const EsEmailTemplates: EmailTemplates = {
   confirmed: {
-    title: "Se confirmó la cita para {{option.name}}.",
+    title: "Se confirmó la cita para {{service.name}}.",
     text: getText("La cita fue confirmada por usted."),
   },
   declined: {
-    title: "Se rechazó la cita para {{option.name}}.",
+    title: "Se rechazó la cita para {{service.name}}.",
     text: getText("Usted rechazó la cita."),
   },
   cancelledByCustomer: {
-    title: "La cita para {{option.name}} fue cancelada.",
+    title: "La cita para {{service.name}} fue cancelada.",
     text: getText("La cita fue cancelada por el cliente."),
   },
   canceled: {
-    title: "La cita para {{option.name}} fue cancelada.",
+    title: "La cita para {{service.name}} fue cancelada.",
     text: getText("La cita fue cancelada por el cliente."),
   },
   noShow: {
-    title: "La cita para {{option.name}} se marcó como no presentada.",
+    title: "La cita para {{service.name}} se marcó como no presentada.",
     text: getText("La cita fue marcada como una ausencia."),
   },
   rescheduledByCustomer: {
-    title: "Se reprogramó la cita para {{option.name}}.",
+    title: "Se reprogramó la cita para {{service.name}}.",
     text: getText(
-      "La cita para {{option.name}} antes de {{fields.name}} fue reprogramada por el cliente{{#oldDateTime}} de {{oldDateTime.full}}{{/oldDateTime}} a {{dateTime.full}}, duración {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
+      "La cita para {{service.name}} antes de {{fields.name}} fue reprogramada por el cliente{{#oldDateTime}} de {{oldDateTime.full}}{{/oldDateTime}} a {{dateTime.full}}, duración {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
     ),
   },
   rescheduled: {
     title: "La cita fue reprogramada para {{dateTime.full}}",
     text: getText(
-      "La cita para {{option.name}} por {{fields.name}} fue reprogramada{{#oldDateTime}} de {{oldDateTime.full}}{{/oldDateTime}} a {{dateTime.full}}, duración {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
+      "La cita para {{service.name}} por {{fields.name}} fue reprogramada{{#oldDateTime}} de {{oldDateTime.full}}{{/oldDateTime}} a {{dateTime.full}}, duración {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
     ),
   },
   "auto-confirmed": {
     title:
-      "Se solicitó y confirmó automáticamente una cita para {{option.name}}",
+      "Se solicitó y confirmó automáticamente una cita para {{service.name}}",
     text: getText(
       "Se solicitó una nueva cita en el sitio web y se confirmó automáticamente.{{#packageUsage.isPackageAppointment}} Reservada con el paquete {{packageUsage.name}} ({{packageUsage.credits}} créditos).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   pending: {
-    title: "Se solicitó cita para {{option.name}}",
+    title: "Se solicitó cita para {{service.name}}",
     text: getText(
-      "Se solicitó una nueva cita en el sitio web para {{option.name}}.{{#packageUsage.isPackageAppointment}} Reservado con paquete {{packageUsage.name}} ({{packageUsage.credits}} créditos).{{/packageUsage.isPackageAppointment}}",
+      "Se solicitó una nueva cita en el sitio web para {{service.name}}.{{#packageUsage.isPackageAppointment}} Reservado con paquete {{packageUsage.name}} ({{packageUsage.credits}} créditos).{{/packageUsage.isPackageAppointment}}",
     ),
   },
-  subject: "{{fields.name}} para {{option.name}} el {{dateTime.full}}",
-  eventTitle: "{{fields.name}} para {{option.name}}",
+  subject: "{{fields.name}} para {{service.name}} el {{dateTime.full}}",
+  eventTitle: "{{fields.name}} para {{service.name}}",
   buttonTexts: {
     viewAppointment: "Ver cita",
     decline: "Rechazar",

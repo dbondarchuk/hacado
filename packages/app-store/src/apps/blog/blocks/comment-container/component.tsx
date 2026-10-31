@@ -1,10 +1,10 @@
-import { ReaderBlock } from "@hacado/builder";
+import { ReaderBlock } from "@hacado/builder/reader";
 import { I18nText } from "@hacado/i18n/components";
 import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { BlogCommentPublic } from "../../models";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { BlogCommentContainerReaderProps, styles } from "./schema";

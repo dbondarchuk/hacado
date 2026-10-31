@@ -4,7 +4,7 @@ import {
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
 import { DeleteSelectedPageFootersButton } from "./delete-selected";
 import { usePageFootersTableFilters } from "./use-table-filters";
 

@@ -1,5 +1,7 @@
-import { generateId, TemplatesConfiguration } from "@hacado/builder";
-import type { BaseAllKeys } from "@hacado/i18n";
+import { generateId } from "@hacado/builder/helpers";
+import { TemplatesConfiguration } from "@hacado/builder/types";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { CalendarCheck } from "lucide-react";
 import { BookingPropsDefaults } from "../blocks/booking/modern/schema";
 import { bodyText, titleHeading } from "./fluid-helpers";

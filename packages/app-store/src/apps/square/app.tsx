@@ -1,8 +1,6 @@
-import {
-  App,
-  BillingPlanTier,
-  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-} from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 import { SQUARE_APP_NAME } from "./const";
 import { SquareLogo } from "./logo";
 import { SquareAdminKeys, SquareAdminNamespace } from "./translations/types";

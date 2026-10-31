@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
+import { ServicesContainer } from "@hacado/services/container";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -1,11 +1,27 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
-  ComboboxAsync,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import {
+  CustomTextTemplateSelect,
+  renderBuiltInSms,
+  SmsMessagePreview,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "@hacado/ui-admin/sms-example";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { Button } from "@hacado/ui/button";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -13,29 +29,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  IComboboxItem,
-  Input,
-  Link,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Skeleton,
-  Spinner,
-  Switch,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  TemplateSelector,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Switch } from "@hacado/ui/switch";
 import { Plus, Trash2 } from "lucide-react";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { PaymentLinksApp } from "./app";
+import { getPaymentLinkSms } from "./messages";
 import {
   PaymentLinksSettings,
   paymentLinksSettingsSchema,
@@ -97,6 +110,13 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
 
   const tipsEnabled = form.watch("tipsEnabled");
   const tipPresets = form.watch("tipPresets") ?? [];
+  const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
+  const paymentSmsExample = renderBuiltInSms(
+    getPaymentLinkSms(smsPreviewLanguage(previewArgs)),
+    previewArgs,
+    sharedPool,
+  );
 
   React.useEffect(() => {
     if (connectedAppId) {
@@ -104,7 +124,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
     }
 
     let cancelled = false;
-    void adminApi.configuration
+    void configurationApi
       .getConfiguration("defaultApps")
       .then((apps) => {
         if (!cancelled) {
@@ -133,7 +153,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
       // Install only — `install()` seeds templates + header/footer. Do not call
       // processRequest here or empty form values would overwrite seeded ids.
       const appId = await toastPromise(
-        adminApi.apps.addNewApp(PaymentLinksApp.name),
+        appsApi.addNewApp(PaymentLinksApp.name),
         {
           success: {
             message: tApps("common.connectedAppSetup.success.title"),
@@ -157,7 +177,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   const fetchHeaders = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.pageHeaders.getPageHeaders({
+      const result = await pageHeadersApi.getPageHeaders({
         page,
         limit,
         search: search || undefined,
@@ -184,7 +204,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   const fetchFooters = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.pageFooters.getPageFooters({
+      const result = await pageFootersApi.getPageFooters({
         page,
         limit,
         search: search || undefined,
@@ -261,9 +281,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.verification.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.verification.description")}
-                  </FormDescription>
                   <FormControl>
                     <Select
                       value={field.value ?? "none"}
@@ -285,6 +302,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       </SelectContent>
                     </Select>
                   </FormControl>
+                  <FormDescription>
+                    {t("form.verification.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -295,9 +315,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.emailTemplateId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.emailTemplateId.description")}
-                  </FormDescription>
                   <FormControl>
                     {isDataLoading ? (
                       <Skeleton className="w-full h-10" />
@@ -311,35 +328,61 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       />
                     )}
                   </FormControl>
+                  <FormDescription>
+                    {t("form.emailTemplateId.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="smsTemplateId"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.smsTemplateId.description")}
-                  </FormDescription>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="text-message"
+              name="smsEnabled"
+              render={({ field }) => {
+                const templateId = form.watch("smsTemplateId");
+                return (
+                  <FormItem className="flex w-full flex-row items-start justify-between gap-4 rounded-lg border p-4">
+                    <div className="space-y-2">
+                      <FormLabel>{t("form.smsEnabled.label")}</FormLabel>
+                      <FormDescription>
+                        {t("form.smsEnabled.description")}
+                      </FormDescription>
+                      {field.value === true ? (
+                        <>
+                          {allowCustom ? (
+                            <FormField
+                              control={form.control}
+                              name="smsTemplateId"
+                              render={({ field: templateField }) => (
+                                <CustomTextTemplateSelect
+                                  loading={isDataLoading}
+                                  disabled={isLoading}
+                                  value={templateField.value}
+                                  onChange={templateField.onChange}
+                                />
+                              )}
+                            />
+                          ) : null}
+                          <SmsMessagePreview
+                            templateId={templateId}
+                            allowCustom={allowCustom}
+                            args={previewArgs}
+                            fallback={paymentSmsExample}
+                          />
+                        </>
+                      ) : null}
+                      <FormMessage />
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value === true}
                         disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                        allowClear
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+                    </FormControl>
+                  </FormItem>
+                );
+              }}
             />
             <FormField
               control={form.control}
@@ -347,9 +390,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.linkExpiryDays.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.linkExpiryDays.description")}
-                  </FormDescription>
                   <FormControl>
                     <Input
                       type="number"
@@ -365,6 +405,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       onBlur={field.onBlur}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.linkExpiryDays.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -517,9 +560,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.headerId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.headerId.description")}
-                  </FormDescription>
                   <FormControl>
                     {isDataLoading ? (
                       <Skeleton className="w-full h-10" />
@@ -535,6 +575,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       />
                     )}
                   </FormControl>
+                  <FormDescription>
+                    {t("form.headerId.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -545,9 +588,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.footerId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.footerId.description")}
-                  </FormDescription>
                   <FormControl>
                     {isDataLoading ? (
                       <Skeleton className="w-full h-10" />
@@ -563,6 +603,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       />
                     )}
                   </FormControl>
+                  <FormDescription>
+                    {t("form.footerId.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

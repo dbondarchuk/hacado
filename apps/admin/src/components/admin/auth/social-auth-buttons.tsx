@@ -4,7 +4,10 @@ import { authClient } from "@/app/auth-client";
 import { AUTH_ERROR_PATH } from "@/lib/auth/auth-error";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
-import { Badge, Button, cn, Spinner } from "@hacado/ui";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Spinner } from "@hacado/ui/spinner";
 import { type ComponentType, useState } from "react";
 import { GoogleIcon, MicrosoftIcon, ZoomIcon } from "./logo";
 

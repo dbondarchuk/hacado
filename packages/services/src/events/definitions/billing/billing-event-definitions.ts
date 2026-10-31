@@ -1,19 +1,24 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getI18nAsync } from "@hacado/i18n/server";
+import type { ActivityRecord } from "@hacado/types/activity";
+import type {
+  EventDefinition,
+  EventEnvelope,
+  SmsCreditsThresholdPayload,
+  SmsTopupPurchasedPayload,
+} from "@hacado/types/events";
 import {
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
   SMS_TOPUP_PURCHASED_EVENT_TYPE,
-  type ActivityRecord,
-  type EmailNotificationRequest,
-  type EventDefinition,
-  type EventEnvelope,
-  type IServicesContainer,
-  type SmsCreditsThresholdPayload,
-  type SmsTopupPurchasedPayload,
-} from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+} from "@hacado/types/events";
+import type {
+  EmailNotificationRequest,
+  IServicesContainer,
+} from "@hacado/types/services";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 

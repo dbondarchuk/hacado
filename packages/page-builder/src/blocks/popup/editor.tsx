@@ -1,14 +1,15 @@
 "use client";
 
 import {
-  BlockFilterRule,
   EditorBlock,
   useBlockChildrenBlockIds,
-  useBlockEditor,
   useCurrentBlock,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
-import { cn, DialogFooter, DialogHeader } from "@hacado/ui";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockFilterRule } from "@hacado/builder/types";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
+import { DialogFooter, DialogHeader } from "@hacado/ui/dialog";
 import { X } from "lucide-react";
 import { PopupProps } from "./schema";
 import { styles } from "./styles";

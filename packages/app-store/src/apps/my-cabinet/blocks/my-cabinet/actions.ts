@@ -1,9 +1,12 @@
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 
 import type {
   ModifyAppointmentRequest,
   ModifyAppointmentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 
 import type {
   AppointmentListResponse,
@@ -35,13 +38,19 @@ async function cabinetCall<T>(fn: () => Promise<T>): Promise<T> {
 }
 
 export const checkSessionAction = async (): Promise<CheckSessionResponse> => {
-  const data = await clientApi.customerAuth.checkSession();
+  const data = await customerAuthApi.checkSession();
 
-  return { valid: true, name: data.name, email: data.email, phone: data.phone };
+  return {
+    valid: true,
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    smsConsent: data.smsConsent === true,
+  };
 };
 
 export const getAuthOptionsAction = async () => {
-  return clientApi.customerAuth.getAuthOptions();
+  return customerAuthApi.getAuthOptions();
 };
 
 export const requestOtpAction = async (payload: {
@@ -49,7 +58,7 @@ export const requestOtpAction = async (payload: {
 
   phone?: string;
 }) => {
-  return clientApi.customerAuth.requestOtp(payload);
+  return customerAuthApi.requestOtp(payload);
 };
 
 export const verifyOtpAction = async (payload: {
@@ -59,18 +68,18 @@ export const verifyOtpAction = async (payload: {
 
   otp: string;
 }) => {
-  return clientApi.customerAuth.verifyOtp(payload);
+  return customerAuthApi.verifyOtp(payload);
 };
 
 export const logoutAction = async () => {
-  await clientApi.customerAuth.logout();
+  await customerAuthApi.logout();
 };
 
 export const getAppointmentsAction = async (
   appId: string,
 ): Promise<GetAppointmentsResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<GetAppointmentsResponse>({
+    appsApi.callAppApi<GetAppointmentsResponse>({
       appId,
 
       path: "cabinet/appointments",
@@ -83,7 +92,7 @@ export const getAppointmentsSummaryAction = async (
   appId: string,
 ): Promise<AppointmentSummaryResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<AppointmentSummaryResponse>({
+    appsApi.callAppApi<AppointmentSummaryResponse>({
       appId,
 
       path: "cabinet/appointments/summary",
@@ -96,7 +105,7 @@ export const getUpcomingAppointmentsAction = async (
   appId: string,
 ): Promise<AppointmentListResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<AppointmentListResponse>({
+    appsApi.callAppApi<AppointmentListResponse>({
       appId,
 
       path: "cabinet/appointments/upcoming",
@@ -113,7 +122,7 @@ export const getPastAppointmentsAction = async (
   limit = 10,
 ): Promise<AppointmentListResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<AppointmentListResponse>({
+    appsApi.callAppApi<AppointmentListResponse>({
       appId,
 
       path: `cabinet/appointments/past?page=${page}&limit=${limit}`,
@@ -126,7 +135,7 @@ export const getCustomerMeAction = async (
   appId: string,
 ): Promise<CustomerMeResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<CustomerMeResponse>({
+    appsApi.callAppApi<CustomerMeResponse>({
       appId,
 
       path: "cabinet/me",
@@ -141,7 +150,7 @@ export const getAppointmentByIdAction = async (
   appointmentId: string,
 ): Promise<AppointmentResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<AppointmentResponse>({
+    appsApi.callAppApi<AppointmentResponse>({
       appId,
 
       path: `cabinet/appointments/${appointmentId}`,
@@ -155,7 +164,7 @@ export const getModifyInformationAction = async (args: {
 
   appointmentId: string;
 }): Promise<ModifyInformation> => {
-  return clientApi.booking.getModifyAppointmentInformation({
+  return bookingApi.getModifyAppointmentInformation({
     lookup: "appointmentId",
 
     type: args.type,
@@ -165,14 +174,14 @@ export const getModifyInformationAction = async (args: {
 };
 
 export const getMyPackagesAction = async () => {
-  return cabinetCall(() => clientApi.customerAuth.getMyPackages());
+  return cabinetCall(() => customerAuthApi.getMyPackages());
 };
 
 export const getCustomerWaitlistEntriesAction = async (
   waitlistAppId: string,
 ): Promise<CustomerWaitlistEntriesResponse> =>
   cabinetCall(() =>
-    clientApi.apps.callAppApi<CustomerWaitlistEntriesResponse>({
+    appsApi.callAppApi<CustomerWaitlistEntriesResponse>({
       appId: waitlistAppId,
       path: "customer-waitlist-entries",
       method: "GET",
@@ -184,7 +193,7 @@ export const dismissCustomerWaitlistEntryAction = async (
   payload: { id?: string; all?: boolean },
 ): Promise<void> => {
   await cabinetCall(() =>
-    clientApi.apps.callAppApi({
+    appsApi.callAppApi({
       appId: waitlistAppId,
       path: "dismiss-customer-waitlist-entry",
       method: "POST",
@@ -198,5 +207,5 @@ export const submitModifyAction = async (
 
   payload: ModifyAppointmentRequest,
 ): Promise<void> => {
-  await clientApi.booking.modifyAppointment(appointmentId, payload);
+  await bookingApi.modifyAppointment(appointmentId, payload);
 };

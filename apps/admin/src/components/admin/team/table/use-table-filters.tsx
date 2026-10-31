@@ -1,6 +1,6 @@
 "use client";
 
-import { teamsSearchParams } from "@hacado/api-sdk";
+import { teamsSearchParams } from "@hacado/api-sdk/admin/search-params/teams";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

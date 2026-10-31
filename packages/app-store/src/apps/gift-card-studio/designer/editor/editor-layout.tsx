@@ -1,16 +1,13 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@hacado/ui";
+} from "@hacado/ui/resizable";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@hacado/ui/sheet";
 import { useEffect, useLayoutEffect, useState } from "react";
 import {
   GiftCardStudioAdminKeys,

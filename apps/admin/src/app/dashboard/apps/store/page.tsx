@@ -2,7 +2,7 @@ import { AppStore } from "@/components/admin/apps/store/app-store";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Breadcrumbs } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Metadata } from "next";
 
 type Params = PageProps<"/dashboard/apps/store">;

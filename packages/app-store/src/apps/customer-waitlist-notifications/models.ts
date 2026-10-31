@@ -1,4 +1,5 @@
-import { asOptionalField, zObjectId } from "@hacado/types";
+import { asOptionalField, zObjectId } from "@hacado/types/utils";
+import { isSmsEnabled } from "@hacado/utils/sms";
 import * as z from "zod";
 
 export const SLOT_OPENED_COOLDOWN_MINUTES_MIN = 15;
@@ -6,29 +7,66 @@ export const SLOT_OPENED_COOLDOWN_MINUTES_MAX = 43_200;
 export const SLOT_OPENED_EXCLUSIVE_ACCESS_MINUTES_MIN = 0;
 export const SLOT_OPENED_EXCLUSIVE_ACCESS_MINUTES_MAX = 60;
 
+export function isWaitlistEmailEnabled(
+  enabled: boolean | undefined,
+  templateId?: string,
+) {
+  if (enabled === false) return false;
+
+  return Boolean(templateId);
+}
+
 export const customerWaitlistNotificationsConfigurationSchema = z
   .object({
+    customerNewEntryEmailEnabled: z.boolean().optional(),
     customerNewEntryTemplateId: asOptionalField(zObjectId()),
     notifyOnSlotOpened: z.boolean().optional(),
+    slotOpenedEmailEnabled: z.boolean().optional(),
     slotOpenedEmailTemplateId: asOptionalField(zObjectId()),
     slotOpenedSmsTemplateId: asOptionalField(zObjectId()),
+    slotOpenedSmsEnabled: z.boolean().optional(),
     leaveWaitlistSmsTemplateId: asOptionalField(zObjectId()),
+    leaveWaitlistSmsEnabled: z.boolean().optional(),
     bookingPageId: asOptionalField(zObjectId()),
     cooldownMinutes: z.coerce.number<number>().int().optional(),
     exclusiveAccessMinutes: z.coerce.number<number>().int().optional(),
     smsRemoveKeyword: asOptionalField(z.string().trim().min(1).max(64)),
   })
   .superRefine((data, ctx) => {
+    if (
+      data.customerNewEntryEmailEnabled === true &&
+      !data.customerNewEntryTemplateId
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["customerNewEntryTemplateId"],
+        message:
+          "app_customer-waitlist-notifications_admin.setup.form.customerNewEntryTemplateId.required",
+      });
+    }
+
     if (!data.notifyOnSlotOpened) {
       return;
     }
 
-    if (!data.slotOpenedEmailTemplateId && !data.slotOpenedSmsTemplateId) {
+    const smsSlotEnabled = isSmsEnabled(data.slotOpenedSmsEnabled);
+    const emailSlotEnabled = data.slotOpenedEmailEnabled === true;
+
+    if (!emailSlotEnabled && !smsSlotEnabled) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["slotOpenedEmailEnabled"],
+        message:
+          "app_customer-waitlist-notifications_admin.setup.form.slotOpenedChannel.required",
+      });
+    }
+
+    if (emailSlotEnabled && !data.slotOpenedEmailTemplateId) {
       ctx.addIssue({
         code: "custom",
         path: ["slotOpenedEmailTemplateId"],
         message:
-          "app_customer-waitlist-notifications_admin.setup.form.slotOpenedChannel.required",
+          "app_customer-waitlist-notifications_admin.setup.form.slotOpenedEmailTemplateId.required",
       });
     }
 
@@ -67,7 +105,7 @@ export const customerWaitlistNotificationsConfigurationSchema = z
       });
     }
 
-    if (data.slotOpenedSmsTemplateId) {
+    if (smsSlotEnabled) {
       if (!data.smsRemoveKeyword) {
         ctx.addIssue({
           code: "custom",
@@ -76,12 +114,12 @@ export const customerWaitlistNotificationsConfigurationSchema = z
             "app_customer-waitlist-notifications_admin.setup.form.smsRemoveKeyword.required",
         });
       }
-      if (!data.leaveWaitlistSmsTemplateId) {
+      if (!isSmsEnabled(data.leaveWaitlistSmsEnabled)) {
         ctx.addIssue({
           code: "custom",
-          path: ["leaveWaitlistSmsTemplateId"],
+          path: ["leaveWaitlistSmsEnabled"],
           message:
-            "app_customer-waitlist-notifications_admin.setup.form.leaveWaitlistSmsTemplateId.required",
+            "app_customer-waitlist-notifications_admin.setup.form.leaveWaitlistSms.required",
         });
       }
     }

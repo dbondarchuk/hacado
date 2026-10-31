@@ -46,4 +46,4 @@ async function toastPromise<T>(
   return await promise;
 }
 
-export { SonnerToaster, toastPromise };
+export { SonnerToaster, toast, toastPromise };

@@ -1,21 +1,16 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  ButtonGroup,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { Settings2 } from "lucide-react";
+} from "@hacado/ui-admin/data-table";
+import { ButtonGroup } from "@hacado/ui/button-group";
+
 import React from "react";
 import {
   BlogAdminKeys,
@@ -84,28 +79,14 @@ export const CommentsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
 
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
         <DataTableSearch
           searchKey="search"
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
         />
-        <Popover>
-          <PopoverTrigger
-            tooltip={tAdmin("common.labels.filters")}
-            asChild
-            className="md:hidden"
-          >
-            <Button variant="outline">
-              <Settings2 size={16} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {additionalFilters}
-          </PopoverContent>
-        </Popover>
-        <div className="hidden md:flex flex-row gap-4">{additionalFilters}</div>
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}

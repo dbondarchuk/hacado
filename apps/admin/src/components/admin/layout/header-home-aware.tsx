@@ -1,6 +1,7 @@
 "use client";
 
-import { Separator, useConfig } from "@hacado/ui";
+import { useConfig } from "@hacado/ui/context";
+import { Separator } from "@hacado/ui/separator";
 import { usePathname } from "next/navigation";
 
 /** On dashboard home, show the business name; elsewhere render breadcrumbs. */

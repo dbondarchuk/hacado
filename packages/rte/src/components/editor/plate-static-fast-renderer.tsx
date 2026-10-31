@@ -12,14 +12,10 @@ import type { Descendant, TText } from "@udecode/slate";
 import { ChevronRight, FileUp, RadicalIcon } from "lucide-react";
 import React from "react";
 
-import {
-  Button,
-  cn,
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  ImageZoom,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Dialog, DialogContent, DialogTrigger } from "@hacado/ui/dialog";
+import { ImageZoom } from "@hacado/ui/image-zoom";
 import { BaseParagraphPlugin, type Value } from "@udecode/plate";
 import {
   BaseBoldPlugin,

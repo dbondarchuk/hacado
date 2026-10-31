@@ -1,11 +1,7 @@
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  cn,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@hacado/ui/tooltip";
 import { GripVertical } from "lucide-react";
 import { memo, Ref, RefCallback } from "react";
 

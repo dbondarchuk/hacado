@@ -1,16 +1,19 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Appointment, isAppointmentCoveredByPackage } from "@hacado/types";
+import {
+  Appointment,
+  isAppointmentCoveredByPackage,
+} from "@hacado/types/booking";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  cn,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { durationToTime } from "@hacado/utils/time";
 import { DollarSign, Timer } from "lucide-react";
 import { forwardRef } from "react";
 
@@ -32,10 +35,10 @@ export const ConfirmationCard = forwardRef<
       onClick={onClick}
       ref={ref}
     >
-      {appointment?.option && appointment.fields ? (
+      {appointment?.service && appointment.fields ? (
         <>
           <CardHeader className="text-center">
-            <CardTitle>{appointment.option.name}</CardTitle>
+            <CardTitle>{appointment.service.name}</CardTitle>
             <CardDescription className="flex flex-row gap-2 justify-center place-items-center">
               {appointment.totalDuration && (
                 <div className="flex flex-row items-center">
@@ -70,7 +73,7 @@ export const ConfirmationCard = forwardRef<
               <div className="flex flex-row gap-2 justify-around flex-wrap">
                 {i18n("booking.confirmation.successMessage", {
                   name: appointment.fields.name,
-                  service: appointment.option.name,
+                  service: appointment.service.name,
                 })}
               </div>
             </div>

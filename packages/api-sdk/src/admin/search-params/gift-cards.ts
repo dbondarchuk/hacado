@@ -10,7 +10,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { giftCardStatus } from "@hacado/types";
+import { giftCardStatus } from "@hacado/types/booking";
 import { baseSearchParams } from "./base";
 
 export const giftCardsSearchParams = {

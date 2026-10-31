@@ -1,13 +1,13 @@
 "use client";
 
-import { ButtonGroup } from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   DataTableResetFilter,
   DataTableSearch,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { hasPermission } from "@hacado/utils";
+} from "@hacado/ui-admin/data-table";
+import { ButtonGroup } from "@hacado/ui/button-group";
+import { hasPermission } from "@hacado/utils/permissions";
 import { DeleteSelectedCustomersButton } from "./delete-selected";
 import { MergeSelectedCustomersButton } from "./merge-selected";
 import { useCustomersTableFilters } from "./use-table-filters";

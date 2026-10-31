@@ -1,13 +1,8 @@
 import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { durationToTime } from "@hacado/utils/time";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { formatDateRange, groupWaitlistDates } from "../../../../models/utils";

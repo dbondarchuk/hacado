@@ -1,9 +1,9 @@
 import {
   CommunicationLog,
   CommunicationLogContentPayload,
-  okStatus,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/communication";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
   CommunicationLogsSearchParams,
   serializeCommunicationLogsSearchParams,

@@ -1,30 +1,31 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps, ConnectedAppStatusWithText } from "@hacado/types";
+import { AppSetupProps, ConnectedAppStatusWithText } from "@hacado/types/apps";
 import {
-  Button,
-  cn,
-  Input,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useClipboard } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Label,
-  Spinner,
-  toast,
-  toastPromise,
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useClipboard,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/tooltip-responsive";
 import { CopyIcon, Dices } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -73,7 +74,7 @@ export const CarddavAppSetup: React.FC<AppSetupProps> = ({
       setIsLoading(true);
 
       try {
-        const { data } = (await adminApi.apps.processRequest(existingAppId, {
+        const { data } = (await appsApi.processRequest(existingAppId, {
           type: "get-configuration",
         })) as CarddavRequestGetConfigurationActionResponse;
         setConfiguration(data as CarddavConfiguration);
@@ -99,7 +100,7 @@ export const CarddavAppSetup: React.FC<AppSetupProps> = ({
       if (!appId || !configuration) return;
       setIsPasswordRegenerating(true);
 
-      const { password } = (await adminApi.apps.processRequest(appId, {
+      const { password } = (await appsApi.processRequest(appId, {
         type: "reset-password",
       })) as CarddavRequestResetPasswordActionResponse;
 
@@ -129,16 +130,12 @@ export const CarddavAppSetup: React.FC<AppSetupProps> = ({
         appId: string;
         status: ConnectedAppStatusWithText;
       }>(async (resolve, reject) => {
-        const _appId =
-          appId || (await adminApi.apps.addNewApp(CarddavApp.name));
+        const _appId = appId || (await appsApi.addNewApp(CarddavApp.name));
         setAppId(_appId);
 
-        const { data, ...status } = (await adminApi.apps.processRequest(
-          _appId,
-          {
-            type: "install",
-          } satisfies CarddavRequest,
-        )) as CarddavRequestInstallActionResponse;
+        const { data, ...status } = (await appsApi.processRequest(_appId, {
+          type: "install",
+        } satisfies CarddavRequest)) as CarddavRequestInstallActionResponse;
 
         setAppStatus(status);
 

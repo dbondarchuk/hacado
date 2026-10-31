@@ -2,14 +2,9 @@
 
 import { useCanUseFeature } from "@/lib/billing/use-subscription-plan-access";
 import { useI18n } from "@hacado/i18n/client";
-import { appointmentStatuses } from "@hacado/types";
-import {
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { appointmentStatuses } from "@hacado/types/booking";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -19,10 +14,11 @@ import {
   DiscountsDataTableAsyncFilterBox,
   MembersDataTableAsyncFilterBox,
   PackagesDataTableAsyncFilterBox,
-  useAuth,
-} from "@hacado/ui-admin";
-import { canFilterByMember } from "@hacado/utils";
-import { Settings2, X } from "lucide-react";
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { canFilterByMember } from "@hacado/utils/permissions";
+import { X } from "lucide-react";
 import React from "react";
 import { useAppointmentsTableFilters } from "./use-table-filters";
 
@@ -135,30 +131,14 @@ export const AppointmentsTableAction: React.FC<{
         </div>
       ) : null}
       <div className="flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row">
-        <div className="flex flex-1 md:flex-wrap items-center gap-4">
+        <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
           <DataTableSearch
             searchKey="name"
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             setPage={setPage}
           />
-          <Popover>
-            <PopoverTrigger
-              tooltip={t("common.labels.filters")}
-              asChild
-              className="md:hidden"
-            >
-              <Button variant="outline">
-                <Settings2 size={16} />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="flex flex-col gap-2">
-              {additionalFilters}
-            </PopoverContent>
-          </Popover>
-          <div className="hidden md:flex flex-row gap-4">
-            {additionalFilters}
-          </div>
+          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
           <DataTableResetFilter
             isFilterActive={isAnyFilterActive}
             onReset={resetFilters}

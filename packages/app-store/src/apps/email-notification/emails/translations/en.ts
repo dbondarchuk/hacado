@@ -33,7 +33,7 @@ Phone: {{ fields.phone }}
 File: [{{filename}}]({{ websiteUrl }}/assets/{{filename}})
 {{/files}}
 
-Option selected: {{ option.name }}
+Service selected: {{service.name}}
 
 Addons selected:
 
@@ -51,7 +51,7 @@ Duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{
 {{#discount}}
 Subtotal: {{subTotalAmountFormatted}}
 
-Discount: -{{discountAmountFormatted}} {{code}} ([{{name}}]({{ adminUrl }}/dashboard/services/discounts/{{id}}))
+Discount: -{{discountAmountFormatted}} {{code}} ([{{name}}]({{ adminUrl }}/dashboard/catalog/discounts/{{id}}))
 
 Total: {{totalPriceFormatted}}
 {{/discount}}
@@ -81,51 +81,51 @@ Total amount left to pay: {{totalAmountLeftToPayFormatted}}
 
 export const EnEmailTemplates: EmailTemplates = {
   confirmed: {
-    title: "Appointment for {{option.name}} was confirmed.",
+    title: "Appointment for {{service.name}} was confirmed.",
     text: getText("The appointment was confirmed by you."),
   },
   declined: {
-    title: "Appointment for {{option.name}} was declined.",
+    title: "Appointment for {{service.name}} was declined.",
     text: getText("The appointment was declined by you."),
   },
   cancelledByCustomer: {
-    title: "Appointment for {{option.name}} was cancelled.",
+    title: "Appointment for {{service.name}} was cancelled.",
     text: getText("The appointment was cancelled by the customer."),
   },
   canceled: {
-    title: "Appointment for {{option.name}} was cancelled.",
+    title: "Appointment for {{service.name}} was cancelled.",
     text: getText("The appointment was cancelled by the customer."),
   },
   noShow: {
-    title: "Appointment for {{option.name}} was marked as a no-show.",
+    title: "Appointment for {{service.name}} was marked as a no-show.",
     text: getText("The appointment was marked as a no-show."),
   },
   rescheduledByCustomer: {
-    title: "Appointment for {{option.name}} was rescheduled.",
+    title: "Appointment for {{service.name}} was rescheduled.",
     text: getText(
-      "The appointment for {{option.name}} by {{fields.name}} was rescheduled by the customer{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
+      "The appointment for {{service.name}} by {{fields.name}} was rescheduled by the customer{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
     ),
   },
   rescheduled: {
     title: "Appointment was rescheduled for {{dateTime.full}}",
     text: getText(
-      "The appointment for {{option.name}} by {{fields.name}} was rescheduled{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
+      "The appointment for {{service.name}} by {{fields.name}} was rescheduled{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
     ),
   },
   "auto-confirmed": {
-    title: "Appointment for {{option.name}} was requested and auto-confirmed",
+    title: "Appointment for {{service.name}} was requested and auto-confirmed",
     text: getText(
       "A new appointment was requested on the website and was auto-confirmed.{{#packageUsage.isPackageAppointment}} Booked with package {{packageUsage.name}} ({{packageUsage.credits}} credits).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   pending: {
-    title: "Appointment for {{option.name}} was requested",
+    title: "Appointment for {{service.name}} was requested",
     text: getText(
-      "A new appointment was requested on the website for {{option.name}}.{{#packageUsage.isPackageAppointment}} Booked with package {{packageUsage.name}} ({{packageUsage.credits}} credits).{{/packageUsage.isPackageAppointment}}",
+      "A new appointment was requested on the website for {{service.name}}.{{#packageUsage.isPackageAppointment}} Booked with package {{packageUsage.name}} ({{packageUsage.credits}} credits).{{/packageUsage.isPackageAppointment}}",
     ),
   },
-  subject: "{{fields.name}} for {{option.name}} on {{dateTime.full}}",
-  eventTitle: "{{fields.name}} for {{option.name}}",
+  subject: "{{fields.name}} for {{service.name}} on {{dateTime.full}}",
+  eventTitle: "{{fields.name}} for {{service.name}}",
   buttonTexts: {
     viewAppointment: "View Appointment",
     decline: "Decline",

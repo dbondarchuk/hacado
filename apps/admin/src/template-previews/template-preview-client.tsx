@@ -11,7 +11,7 @@ import {
   getTemplatePreviewBlockRegistry,
   resolveTemplatePreviewBlocks,
 } from "@/template-previews/registry";
-import { generateId } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
 import { useI18n } from "@hacado/i18n/client";
 import { ReplaceOriginalColors } from "@hacado/page-builder-base/reader";
 import { PageReader, Styling } from "@hacado/page-builder/reader";

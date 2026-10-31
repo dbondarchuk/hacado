@@ -9,6 +9,9 @@
   },
   "exclude": [
     "node_modules",
+    "dist",
+    "build",
+    ".next",
     "**/node_modules",
     "**/dist",
     "**/build",

@@ -1,38 +1,46 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
+import { Time } from "@hacado/types/booking";
 import {
   allowPromoCodeType,
   BookingConfiguration,
   customTimeSlotSchema,
-  Time,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
 import {
-  BooleanSelect,
-  Button,
-  Combobox,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
+  RadioButtonGroup,
+  RadioButtonGroupItem,
+} from "@hacado/ui/radio-button-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SimpleTimePicker,
-  TagInput,
-  use12HourFormat,
-} from "@hacado/ui";
-import { AppSelector } from "@hacado/ui-admin";
-import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
+} from "@hacado/ui/select";
+import { TagInput } from "@hacado/ui/tag-input";
+import { SimpleTimePicker } from "@hacado/ui/time-picker";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils/time";
 import React from "react";
 import { TabProps } from "./types";
 
@@ -94,105 +102,297 @@ export const MainTab: React.FC<TabProps> = ({
   const slotStart = form.watch("slotStart");
 
   return (
-    <div className="gap-2 flex flex-col md:grid md:grid-cols-2 md:gap-4 w-full">
+    <div className="flex flex-col gap-2 md:gap-4 w-full">
+      <div className="flex flex-col gap-4 rounded-lg border p-4">
+        <p className="text-sm font-medium">
+          {t("settings.appointments.form.main.scheduleProviderLabel")}
+        </p>
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-2 pt-4 border-t">
+          <FormField
+            control={form.control}
+            name="scheduleAppId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.appointments.form.main.scheduleProviderApp")}
+                </FormLabel>
+                <FormControl>
+                  <AppSelector
+                    scope="schedule"
+                    allowClear
+                    disabled={disabled}
+                    value={field.value}
+                    onItemSelect={(value) => field.onChange(value)}
+                  />
+                </FormControl>
+                <FormDescription>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.scheduleProviderAppTooltip"
+                  />
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="availabilityProviderAppId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.appointments.form.main.availabilityProviderApp")}
+                </FormLabel>
+                <FormControl>
+                  <AppSelector
+                    scope="availability-provider"
+                    allowClear
+                    disabled={disabled}
+                    value={field.value}
+                    onItemSelect={(value) => field.onChange(value)}
+                  />
+                </FormControl>
+                <FormDescription>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.availabilityProviderAppTooltip"
+                  />
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 rounded-lg border p-4">
+        <p className="text-sm font-medium">
+          {t("settings.appointments.form.main.scheduleSettingsLabel")}
+        </p>
+
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-2 pt-4 border-t">
+          <FormField
+            control={form.control}
+            name="maxWeeksInFuture"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.appointments.form.main.maxWeeksInFuture")}
+                </FormLabel>
+                <FormControl>
+                  <InputGroup>
+                    <InputGroupInput>
+                      <Input
+                        disabled={disabled}
+                        placeholder="4"
+                        type="number"
+                        className={InputGroupInputClasses()}
+                        {...field}
+                      />
+                    </InputGroupInput>
+                    <InputGroupAddon className={InputGroupAddonClasses()}>
+                      {t("settings.appointments.form.main.weeks")}
+                    </InputGroupAddon>
+                  </InputGroup>
+                </FormControl>
+                <FormDescription>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.maxWeeksInFutureTooltip"
+                  />
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="minHoursBeforeBooking"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.appointments.form.main.minHoursBeforeBooking")}
+                </FormLabel>
+                <FormControl>
+                  <InputGroup>
+                    <InputGroupInput>
+                      <Input
+                        disabled={disabled}
+                        placeholder="24"
+                        type="number"
+                        className={InputGroupInputClasses()}
+                        {...field}
+                      />
+                    </InputGroupInput>
+                    <InputGroupAddon className={InputGroupAddonClasses()}>
+                      {t("settings.appointments.form.main.hours")}
+                    </InputGroupAddon>
+                  </InputGroup>
+                </FormControl>
+                <FormDescription>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.minHoursBeforeBookingTooltip"
+                  />
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="breakDuration"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.appointments.form.main.minBreakTime")}
+                </FormLabel>
+                <FormControl>
+                  <InputGroup>
+                    <InputGroupInput>
+                      <Input
+                        disabled={disabled}
+                        placeholder="0"
+                        type="number"
+                        className={InputGroupInputClasses()}
+                        {...field}
+                      />
+                    </InputGroupInput>
+                    <InputGroupAddon className={InputGroupAddonClasses()}>
+                      {t("settings.appointments.form.main.minutes")}
+                    </InputGroupAddon>
+                  </InputGroup>
+                </FormControl>
+                <FormDescription>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.minBreakTimeTooltip"
+                  />
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="slotStart"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.appointments.form.main.allowedSlotStartTimes")}
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    value={
+                      typeof field.value === "number"
+                        ? `${field.value}`
+                        : field.value
+                    }
+                    onValueChange={(value) => {
+                      const val = parseInt(value);
+                      field.onChange(isNaN(val) ? value : val);
+                      field.onBlur();
+                    }}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue
+                        placeholder={t(
+                          "settings.appointments.form.main.selectStep",
+                        )}
+                      />
+                    </SelectTrigger>
+                    <SelectContent side="bottom">
+                      {Object.entries(stepLabels).map(([step, label]) => (
+                        <SelectItem key={step} value={step}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormDescription>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.allowedSlotStartTimesTooltip"
+                  />
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {slotStart === "custom" && (
+            <FormField
+              control={form.control}
+              name="customSlotTimes"
+              render={({ field }) => (
+                <FormItem className="col-span-2">
+                  <FormLabelWithRequiredIndicator
+                    required={slotStart === "custom"}
+                  >
+                    {t("settings.appointments.form.main.customTimeSlots")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <TagInput
+                      {...field}
+                      readOnly
+                      placeholder={t(
+                        "settings.appointments.form.main.customTimeSlotsPlaceholder",
+                      )}
+                      value={field.value}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        field.onBlur();
+                      }}
+                      tagValidator={customTimeSlotSchema}
+                      tagDisplayTransform={(time) =>
+                        formatTimeLocale(parseTime(time), locale)
+                      }
+                      addItemTemplate={TimePickerTag}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    {t(
+                      "settings.appointments.form.main.customTimeSlotsTooltip",
+                    )}
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+        </div>
+      </div>
+
       <FormField
         control={form.control}
-        name="scheduleAppId"
+        name="autoConfirm"
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.scheduleProviderApp")}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.scheduleProviderAppTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <AppSelector
-                scope="schedule"
-                allowClear
-                disabled={disabled}
-                value={field.value}
-                onItemSelect={(value) => field.onChange(value)}
+          <SwitchCardFormItem
+            label={t("settings.appointments.form.main.autoConfirmAppointments")}
+            description={
+              <I18nRichText
+                namespace="admin"
+                text="settings.appointments.form.main.autoConfirmTooltip"
               />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="availabilityProviderAppId"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.availabilityProviderApp")}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.availabilityProviderAppTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <AppSelector
-                scope="availability-provider"
-                allowClear
-                disabled={disabled}
-                value={field.value}
-                onItemSelect={(value) => field.onChange(value)}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+            }
+            checked={field.value}
+            onCheckedChange={field.onChange}
+            className="w-full"
+          />
         )}
       />
       <FormField
         control={form.control}
         name="requireCustomerOtp"
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.requireCustomerOtp")}{" "}
-              <InfoTooltip>
-                {t("settings.appointments.form.main.requireCustomerOtpTooltip")}
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <BooleanSelect
-                value={!!field.value}
-                onValueChange={field.onChange}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="autoConfirm"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.autoConfirmAppointments")}{" "}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.autoConfirmTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <BooleanSelect
-                value={field.value}
-                onValueChange={field.onChange}
-                className="w-full"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <SwitchCardFormItem
+            label={t("settings.appointments.form.main.requireCustomerOtp")}
+            description={t(
+              "settings.appointments.form.main.requireCustomerOtpTooltip",
+            )}
+            checked={field.value}
+            onCheckedChange={field.onChange}
+            className="w-full"
+          />
         )}
       />
       {showTeamSettings ? (
@@ -200,25 +400,17 @@ export const MainTab: React.FC<TabProps> = ({
           control={form.control}
           name="allowStaffCalendarSources"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                {t("settings.appointments.form.main.allowStaffCalendarSources")}{" "}
-                <InfoTooltip>
-                  <I18nRichText
-                    namespace="admin"
-                    text="settings.appointments.form.main.allowStaffCalendarSourcesTooltip"
-                  />
-                </InfoTooltip>
-              </FormLabel>
-              <FormControl>
-                <BooleanSelect
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <SwitchCardFormItem
+              label={t(
+                "settings.appointments.form.main.allowStaffCalendarSources",
+              )}
+              description={t(
+                "settings.appointments.form.main.allowStaffCalendarSourcesTooltip",
+              )}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              className="w-full"
+            />
           )}
         />
       ) : null}
@@ -226,213 +418,35 @@ export const MainTab: React.FC<TabProps> = ({
         control={form.control}
         name="allowPromoCode"
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.showPromoCodeField")}{" "}
-              <InfoTooltip>
-                {t("settings.appointments.form.main.showPromoCodeTooltip")}
-              </InfoTooltip>
-            </FormLabel>
+          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full">
+            <FormLabelWithRequiredIndicator required>
+              {t("settings.appointments.form.main.showPromoCodeField")}
+            </FormLabelWithRequiredIndicator>
             <FormControl>
-              <Combobox
+              <RadioButtonGroup
                 value={field.value}
-                onItemSelect={field.onChange}
-                className="w-full"
-                values={allowPromoCodeType.map((type) => ({
-                  value: type,
-                  label: t(`common.labels.allowPromoCodeType.${type}`),
-                }))}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="maxWeeksInFuture"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.maxWeeksInFuture")}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.maxWeeksInFutureTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <InputGroup>
-                <InputGroupInput>
-                  <Input
-                    disabled={disabled}
-                    placeholder="4"
-                    type="number"
-                    className={InputGroupInputClasses()}
-                    {...field}
-                  />
-                </InputGroupInput>
-                <InputGroupAddon className={InputGroupAddonClasses()}>
-                  {t("settings.appointments.form.main.weeks")}
-                </InputGroupAddon>
-              </InputGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="minHoursBeforeBooking"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.minHoursBeforeBooking")}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.minHoursBeforeBookingTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <InputGroup>
-                <InputGroupInput>
-                  <Input
-                    disabled={disabled}
-                    placeholder="24"
-                    type="number"
-                    className={InputGroupInputClasses()}
-                    {...field}
-                  />
-                </InputGroupInput>
-                <InputGroupAddon className={InputGroupAddonClasses()}>
-                  {t("settings.appointments.form.main.hours")}
-                </InputGroupAddon>
-              </InputGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="breakDuration"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.minBreakTime")}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.minBreakTimeTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <InputGroup>
-                <InputGroupInput>
-                  <Input
-                    disabled={disabled}
-                    placeholder="0"
-                    type="number"
-                    className={InputGroupInputClasses()}
-                    {...field}
-                  />
-                </InputGroupInput>
-                <InputGroupAddon className={InputGroupAddonClasses()}>
-                  {t("settings.appointments.form.main.minutes")}
-                </InputGroupAddon>
-              </InputGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="slotStart"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t("settings.appointments.form.main.allowedSlotStartTimes")}
-              <InfoTooltip>
-                <I18nRichText
-                  namespace="admin"
-                  text="settings.appointments.form.main.allowedSlotStartTimesTooltip"
-                />
-              </InfoTooltip>
-            </FormLabel>
-            <FormControl>
-              <Select
-                value={
-                  typeof field.value === "number"
-                    ? `${field.value}`
-                    : field.value
-                }
-                onValueChange={(value) => {
-                  const val = parseInt(value);
-                  field.onChange(isNaN(val) ? value : val);
-                  field.onBlur();
-                }}
+                onValueChange={field.onChange}
+                className="md:w-full"
+                joined="md"
               >
-                <SelectTrigger className="w-full">
-                  <SelectValue
-                    placeholder={t(
-                      "settings.appointments.form.main.selectStep",
-                    )}
-                  />
-                </SelectTrigger>
-                <SelectContent side="bottom">
-                  {Object.entries(stepLabels).map(([step, label]) => (
-                    <SelectItem key={step} value={step}>
-                      {label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                {allowPromoCodeType.map((type) => (
+                  <RadioButtonGroupItem
+                    key={type}
+                    value={type}
+                    className="w-full"
+                  >
+                    {t(`common.labels.allowPromoCodeType.${type}`)}
+                  </RadioButtonGroupItem>
+                ))}
+              </RadioButtonGroup>
             </FormControl>
+            <FormDescription>
+              {t("settings.appointments.form.main.showPromoCodeTooltip")}
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
       />
-      {slotStart === "custom" && (
-        <FormField
-          control={form.control}
-          name="customSlotTimes"
-          render={({ field }) => (
-            <FormItem className="col-span-2">
-              <FormLabel>
-                {t("settings.appointments.form.main.customTimeSlots")}
-                <InfoTooltip>
-                  {t("settings.appointments.form.main.customTimeSlotsTooltip")}
-                </InfoTooltip>
-              </FormLabel>
-              <FormControl>
-                <TagInput
-                  {...field}
-                  readOnly
-                  placeholder={t(
-                    "settings.appointments.form.main.customTimeSlotsPlaceholder",
-                  )}
-                  value={field.value}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    field.onBlur();
-                  }}
-                  tagValidator={customTimeSlotSchema}
-                  tagDisplayTransform={(time) =>
-                    formatTimeLocale(parseTime(time), locale)
-                  }
-                  addItemTemplate={TimePickerTag}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      )}
     </div>
   );
 };

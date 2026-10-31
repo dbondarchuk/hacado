@@ -11,8 +11,10 @@ form:
   preferLaterStartsEarlierEndsTooltip: Dará mayor preferencia a las franjas horarias, lo que permitirá comenzar más tarde y finalizar el turno más temprano.
   allowSmartSlotStarts: Permitir horarios de inicio de tragamonedas inteligentes
   allowSmartSlotStartsTooltip: Si no se encontraron horarios de inicio de franjas horarias permitidas, se intentará encontrar franjas horarias no convencionales.
+  maximizeForService: Maximizar las citas de un servicio específico
+  maximizeForServiceTooltip: Cuando está habilitado, se priorizan los tramos horarios que permiten el mayor número de citas del servicio seleccionado.
   preferredService: Servicio preferido
-  preferredServiceTooltip: Si se selecciona, priorizará los tramos horarios que producirán el máximo número de citas del servicio seleccionado.
+  preferredServiceRequired: Se requiere el servicio
   add: Agregar <app></app>
   update: Actualización <app></app>
 statusText:

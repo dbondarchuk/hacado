@@ -1,4 +1,4 @@
-import { sortSchema } from "@hacado/types";
+import { sortSchema } from "@hacado/types/database";
 import { parseAsInteger, parseAsJson, parseAsString } from "nuqs/server";
 
 export const baseSearchParams = {

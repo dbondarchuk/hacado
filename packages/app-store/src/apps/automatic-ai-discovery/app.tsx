@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./const";
 import { AutomaticAiDiscoveryLogo } from "./logo";
 import {

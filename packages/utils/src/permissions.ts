@@ -1,12 +1,12 @@
-import {
-  teamRolePermissions,
-  type RequiredPermission,
-  type SessionUser,
-  type TeamPermissionAction,
-  type TeamPermissionResource,
-  type TeamRolePermissions,
-  type UserRole,
-} from "@hacado/types";
+import type {
+  RequiredPermission,
+  SessionUser,
+  TeamPermissionAction,
+  TeamPermissionResource,
+  TeamRolePermissions,
+  UserRole,
+} from "@hacado/types/users";
+import { teamRolePermissions } from "@hacado/types/users";
 
 function isUserRole(role: string | undefined | null): role is UserRole {
   return !!role && role in teamRolePermissions;
@@ -63,14 +63,14 @@ export function isRoleStrictlyHigher(
 
 /**
  * Whether the actor may edit another member's profile (`team:update` and
- * strictly higher role). Own profile is always edited via /users/me/profile.
+ * strictly higher role).
  */
 export function canUpdateTeamMemberProfile(
   actor: SessionUser | null | undefined,
   target: { memberId: string; role: UserRole } | null | undefined,
 ): boolean {
   if (!actor || !target) return false;
-  if (actor.memberId === target.memberId) return false;
+  if (actor.memberId === target.memberId) return true;
   if (!hasPermission(actor, "team", "update")) return false;
   return isRoleStrictlyHigher(actor.role, target.role);
 }
@@ -126,6 +126,7 @@ export function canManageCalendarSources(
   if (hasPermission(user, "schedule", "manageCalendarSources")) {
     return true;
   }
+
   return user?.role === "staff" && !!options?.allowStaffCalendarSources;
 }
 
@@ -219,11 +220,14 @@ export function resolveCalendarMemberId(
     ) {
       return requestedMemberId;
     }
+
     return user?.memberId || undefined;
   }
+
   if (!canSeeAllCalendarMembers(user)) {
     return user?.memberId || undefined;
   }
+
   return undefined;
 }
 

@@ -1,5 +1,5 @@
-import { adminApi } from "@hacado/api-sdk";
-import { WithTotal } from "@hacado/types";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { WithTotal } from "@hacado/types/database";
 import {
   ApproveBlogCommentActionType,
   ApproveSelectedBlogCommentsActionType,
@@ -36,17 +36,17 @@ const loggerFactory = (action: string) => ({
 
 export async function getBlogPosts(
   appId: string,
-  query: Parameters<typeof adminApi.apps.processRequest>[1] extends {
+  query: Parameters<typeof appsApi.processRequest>[1] extends {
     type: typeof GetBlogPostsActionType;
   }
-    ? Parameters<typeof adminApi.apps.processRequest>[1]["query"]
+    ? Parameters<typeof appsApi.processRequest>[1]["query"]
     : never,
 ) {
   const logger = loggerFactory("getBlogPosts");
   logger.debug({ appId, query }, "Getting blog posts");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetBlogPostsActionType,
       query,
     })) as WithTotal<BlogPost>;
@@ -70,7 +70,7 @@ export async function getBlogPost(appId: string, id?: string, slug?: string) {
   logger.debug({ appId, id, slug }, "Getting blog post");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetBlogPostActionType,
       id,
       slug,
@@ -92,7 +92,7 @@ export async function createBlogPost(appId: string, post: BlogPostUpdateModel) {
   logger.debug({ appId, post }, "Creating blog post");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: CreateBlogPostActionType,
       post,
     })) as BlogPost;
@@ -117,7 +117,7 @@ export async function updateBlogPost(
   logger.debug({ appId, id, post }, "Updating blog post");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: UpdateBlogPostActionType,
       id,
       post,
@@ -139,7 +139,7 @@ export async function deleteBlogPost(appId: string, id: string) {
   logger.debug({ appId, id }, "Deleting blog post");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DeleteBlogPostActionType,
       id,
     });
@@ -160,7 +160,7 @@ export async function deleteSelectedBlogPosts(appId: string, ids: string[]) {
   logger.debug({ appId, ids }, "Deleting blog posts");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DeleteSelectedBlogPostsActionType,
       ids,
     });
@@ -184,7 +184,7 @@ export async function getBlogComments(
   logger.debug({ appId, query }, "Getting blog comments");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetBlogCommentsActionType,
       query,
     })) as WithTotal<BlogCommentListItem>;
@@ -204,7 +204,7 @@ export async function getBlogComments(
 }
 
 export async function approveBlogComment(appId: string, id: string) {
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: ApproveBlogCommentActionType,
     id,
   })) as BlogComment;
@@ -212,7 +212,7 @@ export async function approveBlogComment(appId: string, id: string) {
 }
 
 export async function rejectBlogComment(appId: string, id: string) {
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: RejectBlogCommentActionType,
     id,
   })) as BlogComment;
@@ -220,14 +220,14 @@ export async function rejectBlogComment(appId: string, id: string) {
 }
 
 export async function deleteBlogComment(appId: string, id: string) {
-  return (await adminApi.apps.processRequest(appId, {
+  return (await appsApi.processRequest(appId, {
     type: DeleteBlogCommentActionType,
     id,
   })) as BlogComment;
 }
 
 export async function deleteSelectedBlogComments(appId: string, ids: string[]) {
-  return adminApi.apps.processRequest(appId, {
+  return appsApi.processRequest(appId, {
     type: DeleteSelectedBlogCommentsActionType,
     ids,
   });
@@ -237,14 +237,14 @@ export async function approveSelectedBlogComments(
   appId: string,
   ids: string[],
 ) {
-  return adminApi.apps.processRequest(appId, {
+  return appsApi.processRequest(appId, {
     type: ApproveSelectedBlogCommentsActionType,
     ids,
   });
 }
 
 export async function rejectSelectedBlogComments(appId: string, ids: string[]) {
-  return adminApi.apps.processRequest(appId, {
+  return appsApi.processRequest(appId, {
     type: RejectSelectedBlogCommentsActionType,
     ids,
   });
@@ -259,7 +259,7 @@ export async function checkBlogPostSlugUnique(
   logger.debug({ appId, slug, id }, "Checking blog post slug uniqueness");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: CheckBlogPostSlugUniqueActionType,
       slug,
       id,

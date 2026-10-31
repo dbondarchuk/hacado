@@ -8,14 +8,10 @@ import {
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@hacado/ui/input-otp";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { useEffect, useState } from "react";
 
 /** Survives React Strict Mode remounts so auto-send only fires once per email. */

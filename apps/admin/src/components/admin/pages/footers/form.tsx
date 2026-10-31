@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import {
   AppsBlocksEditors,
   AppsBlocksTemplates,
@@ -11,21 +11,21 @@ import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
 import {
   getPageFooterSchemaWithUniqueNameCheck,
   PageFooterUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/pages";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import {
-  Breadcrumbs,
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Heading,
-  Input,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Heading } from "@hacado/ui/heading";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
@@ -79,7 +79,7 @@ export const PageFooterForm: React.FC<{
   }, [apps]);
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.pageFooters.checkUniquePageFooterName,
+    pageFootersApi.checkUniquePageFooterName,
     300,
   );
 
@@ -139,7 +139,7 @@ export const PageFooterForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.pageFooters.createPageFooter(data);
+          const { _id } = await pageFootersApi.createPageFooter(data);
 
           onFormSubmit();
 
@@ -147,7 +147,7 @@ export const PageFooterForm: React.FC<{
             router.push(`/dashboard/pages/footers/${_id}`);
           }, 100);
         } else {
-          await adminApi.pageFooters.updatePageFooter(initialData._id, data);
+          await pageFootersApi.updatePageFooter(initialData._id, data);
           onFormSubmit();
 
           setTimeout(() => {
@@ -192,7 +192,9 @@ export const PageFooterForm: React.FC<{
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("pages.footers.form.name")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("pages.footers.form.name")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     id="name"
@@ -225,7 +227,7 @@ export const PageFooterForm: React.FC<{
             )}
           />
         </div>
-        <SaveButton form={form} disabled={loading} ignoreDirty />
+        <SaveButton form={form} disabled={loading} />
       </form>
     </Form>
   );

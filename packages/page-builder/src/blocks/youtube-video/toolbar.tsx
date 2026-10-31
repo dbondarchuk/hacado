@@ -1,4 +1,4 @@
-import { ShortcutsToolbar } from "@hacado/page-builder-base";
+import { ShortcutsToolbar } from "@hacado/page-builder-base/toolbars";
 import { YouTubeVideoProps } from "./schema";
 import { youtubeVideoShortcuts } from "./shortcuts";
 

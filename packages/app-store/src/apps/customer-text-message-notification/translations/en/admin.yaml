@@ -9,16 +9,16 @@ newDescription: Create new customer text message notification
 editDescription: Update customer text message notification
 form:
   template:
-    label: "{type} text message template"
-    tooltip: Body of the text message, that your customers will see when {whenText}
-    tooltipEmpty: Leave empty to not send text message when {whenText}
-whenText:
-  pending: they book new appointment
-  confirmed: the appointment was confirmed
-  declined: the appointment was declined
-  canceled: the customer canceled the appointment
-  noShow: you marked the appointment as a no-show
-  rescheduled: the appointment was rescheduled
+    label: Custom text template
+    tooltip: Optional. When a template is selected, customer texts use it instead of the built-in message.
+  message:
+    description:
+      pending: Sent when a booking is created and still needs confirmation. The text names the business, service, and time, and includes a manage link when one exists.
+      confirmed: Sent when a booking is confirmed immediately, or when you later confirm a pending appointment. The text names the business, service, and time.
+      declined: Sent when you decline the appointment. The text names the business, service, and time.
+      canceled: Sent when the appointment is canceled. The text names the business, service, and time.
+      noShow: Sent when you mark the appointment as a no-show. The text names the business, service, and time.
+      rescheduled: Sent when the appointment time changes, unless that change is set not to notify the customer. The text includes the new time.
 statusText:
   text_message_app_not_configured: Text message sender default app is not configured
   successfully_set_up: Successfully set up

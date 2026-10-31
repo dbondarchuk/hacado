@@ -1,5 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Input, Label } from "@hacado/ui";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
 import { Type } from "lucide-react";
 import * as z from "zod";
 import { ColorExtendedInput } from "../../../style-inputs/base/color-exteneded-input";

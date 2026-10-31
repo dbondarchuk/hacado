@@ -2,7 +2,8 @@
 
 import type { UseEmojiPickerType } from "@udecode/plate-emoji/react";
 
-import { Button, cn } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 
 import { emojiSearchIcons } from "./emoji-icons";
 

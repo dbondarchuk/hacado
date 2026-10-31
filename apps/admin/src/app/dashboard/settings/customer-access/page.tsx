@@ -1,7 +1,9 @@
 import { getServicesContainer } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { normalizeCustomerAuthConfiguration } from "@hacado/types/configuration/customer-auth";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { CustomerAccessSettingsForm } from "./form";
 
@@ -13,14 +15,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const t = await getI18nAsync("admin");
   const servicesContainer = await getServicesContainer();
-  const customerAuth =
-    await servicesContainer.configurationService.getConfiguration(
-      "customerAuth",
-    );
+  const [customerAuth, smsEnabled, messagingAccess] = await Promise.all([
+    servicesContainer.configurationService.getConfiguration("customerAuth"),
+    servicesContainer.textMessageConfigurationService.isEnabled(),
+    servicesContainer.textMessageConfigurationService.getSmsMessagingAccess(),
+  ]);
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.settings"), link: "/dashboard" },
+    { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.customerAccess"),
       link: "/dashboard/settings/customer-access",
@@ -35,7 +38,14 @@ export default async function Page() {
           title={t("settings.customerAccess.title")}
           description={t("settings.customerAccess.description")}
         />
-        <CustomerAccessSettingsForm values={customerAuth} />
+        <CustomerAccessSettingsForm
+          values={normalizeCustomerAuthConfiguration(customerAuth)}
+          smsEnabled={smsEnabled}
+          allowTextTemplates={messagingAccess.allowCustomTemplates}
+          sharedPool={
+            messagingAccess.platformBusiness && !messagingAccess.customVerified
+          }
+        />
       </div>
     </PageContainer>
   );

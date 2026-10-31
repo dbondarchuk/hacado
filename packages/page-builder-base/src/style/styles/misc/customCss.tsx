@@ -1,4 +1,4 @@
-import { Textarea } from "@hacado/ui";
+import { Textarea } from "@hacado/ui/textarea";
 import { Code } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

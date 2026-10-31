@@ -12,13 +12,13 @@ import { BlockSelectionPlugin } from "@udecode/plate-selection/react";
 import { usePluginOption, useReadOnly, withHOC } from "@udecode/plate/react";
 import { GripHorizontal } from "lucide-react";
 
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip";
 import { PlateElement } from "./plate-element";
 
 export const ColumnElement = withHOC(

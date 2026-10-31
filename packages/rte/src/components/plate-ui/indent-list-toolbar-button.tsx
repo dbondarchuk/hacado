@@ -14,11 +14,13 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  useOpenState,
+} from "@hacado/ui/dropdown-menu";
+import {
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
-  useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/toolbar";
 
 export function NumberedIndentListToolbarButton() {
   const editor = useEditorRef();

@@ -2,8 +2,8 @@ import { getServicesContainer } from "@/app/utils";
 import {
   pageHeadersSearchParams,
   pageHeadersSearchParamsCache,
-} from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+} from "@hacado/api-sdk/admin/search-params/pages";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 
 export const PageHeadersTable: React.FC = async () => {

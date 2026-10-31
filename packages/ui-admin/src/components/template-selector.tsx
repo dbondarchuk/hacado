@@ -1,12 +1,14 @@
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
-import { CommunicationChannel, TemplateListModel } from "@hacado/types";
-import { cn, Combobox, IComboboxItem } from "@hacado/ui";
+import { CommunicationChannel } from "@hacado/types/communication";
+import { TemplateListModel } from "@hacado/types/templates";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import React from "react";
 import { toast } from "sonner";
 
 const getTemplates = async (type: CommunicationChannel) => {
-  const { items } = await adminApi.templates.getTemplates({
+  const { items } = await templatesApi.getTemplates({
     type: [type],
     limit: 10000000,
   });
@@ -39,64 +41,71 @@ type NonClearableTemplateSelectorProps = {
 export type TemplateSelectorProps = BaseTemplateSelectorProps &
   (ClearableTemplateSelectorProps | NonClearableTemplateSelectorProps);
 
-export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
-  type,
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  allowClear,
-}) => {
-  const t = useI18n("ui");
-  const [templates, setTemplates] = React.useState<TemplateListModel[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+export const TemplateSelector = React.forwardRef<
+  HTMLButtonElement,
+  TemplateSelectorProps
+>(
+  (
+    { type, disabled, className, value, onItemSelect, allowClear, ...rest },
+    ref,
+  ) => {
+    const t = useI18n("ui");
+    const [templates, setTemplates] = React.useState<TemplateListModel[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    const fn = async () => {
-      try {
-        setIsLoading(true);
-        const templates = await getTemplates(type);
-        setTemplates(templates);
-      } catch (error) {
-        console.error(error);
-        toast.error(t("templateSelector.requestFailed"));
-        setTemplates([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fn();
-  }, [type]);
-
-  const templateValues = (templates: TemplateListModel[]): IComboboxItem[] =>
-    (templates || []).map((template) => {
-      return {
-        value: template._id,
-        shortLabel: template.name,
-        label: template.name,
+    React.useEffect(() => {
+      const fn = async () => {
+        try {
+          setIsLoading(true);
+          const templates = await getTemplates(type);
+          setTemplates(templates);
+        } catch (error) {
+          console.error(error);
+          toast.error(t("templateSelector.requestFailed"));
+          setTemplates([]);
+        } finally {
+          setIsLoading(false);
+        }
       };
-    });
 
-  return (
-    // @ts-ignore Allow clear passthrough
-    <Combobox
-      allowClear={allowClear}
-      disabled={disabled || isLoading}
-      className={cn("flex font-normal text-xs", className)}
-      values={templateValues(templates)}
-      searchLabel={
-        isLoading
-          ? t("templateSelector.loadingTemplates")
-          : t("templateSelector.placeholder")
-      }
-      value={value}
-      customSearch={(search) =>
-        templateValues(
-          templates.filter((template) => checkTemplateSearch(template, search)),
-        )
-      }
-      onItemSelect={onItemSelect}
-    />
-  );
-};
+      fn();
+    }, [type]);
+
+    const templateValues = (templates: TemplateListModel[]): IComboboxItem[] =>
+      (templates || []).map((template) => {
+        return {
+          value: template._id,
+          shortLabel: template.name,
+          label: template.name,
+        };
+      });
+
+    return (
+      // @ts-ignore Allow clear passthrough
+      <Combobox
+        {...rest}
+        ref={ref}
+        allowClear={allowClear}
+        disabled={disabled || isLoading}
+        className={cn("flex font-normal text-xs", className)}
+        values={templateValues(templates)}
+        searchLabel={
+          isLoading
+            ? t("templateSelector.loadingTemplates")
+            : t("templateSelector.placeholder")
+        }
+        value={value}
+        customSearch={(search) =>
+          templateValues(
+            templates.filter((template) =>
+              checkTemplateSearch(template, search),
+            ),
+          )
+        }
+        onItemSelect={onItemSelect}
+      />
+    );
+  },
+);
+
+TemplateSelector.displayName = "TemplateSelector";

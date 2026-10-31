@@ -2,7 +2,7 @@ import type { SlateRenderElementProps } from "@udecode/plate";
 import type { TIndentElement } from "@udecode/plate-indent";
 import type { CSSProperties } from "react";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 
 export const FireMarker = (
   props: Omit<SlateRenderElementProps, "children">,

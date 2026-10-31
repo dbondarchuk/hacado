@@ -4,15 +4,15 @@ import { Ref, useRef } from "react";
 import sanitizeHtml from "sanitize-html";
 
 import {
-  useBlockEditor,
   useCurrentBlock,
   useDispatchAction,
   useEditorArgs,
-  usePortalContext,
   useSetSelectedBlockId,
-} from "@hacado/builder";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin";
-import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { mergeRefs } from "@hacado/ui/utils";
 import { HeadingProps } from "./schema";
 import { getStyles } from "./styles";
 

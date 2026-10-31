@@ -2,7 +2,8 @@
 
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { useI18n } from "@hacado/i18n/client";
-import { Progress, Stepper, type StepperStep } from "@hacado/ui";
+import { Progress } from "@hacado/ui/progress";
+import { Stepper, type StepperStep } from "@hacado/ui/stepper";
 import {
   Building2,
   CalendarPlus,

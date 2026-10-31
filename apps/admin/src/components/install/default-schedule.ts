@@ -1,8 +1,8 @@
-import {
-  scheduleConfigurationSchema,
-  type Schedule,
-  type ScheduleConfiguration,
-} from "@hacado/types";
+import type {
+  Schedule,
+  ScheduleConfiguration,
+} from "@hacado/types/configuration/schedule";
+import { scheduleConfigurationSchema } from "@hacado/types/configuration/schedule";
 
 /** Mon–Fri 09:00–17:00, weekends closed (Luxon weekdays: 1 = Monday … 7 = Sunday). */
 export function getDefaultInstallSchedule(): Schedule {

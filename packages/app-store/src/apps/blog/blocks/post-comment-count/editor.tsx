@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  useBlockEditor,
-  useCurrentBlock,
-  useEditorArgs,
-} from "@hacado/builder";
+import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { BlogPostCommentCountEditorWrapper } from "./editor-wrapper";
 import { BlogPostCommentCountProps } from "./schema";
 

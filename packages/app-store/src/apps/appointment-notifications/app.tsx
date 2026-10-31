@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { BellRing } from "lucide-react";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./const";
 import {
@@ -13,7 +13,12 @@ export const AppointmentNotificationsApp: App<
   name: APPOINTMENT_NOTIFICATIONS_APP_NAME,
   displayName: "app_appointment-notifications_admin.app.displayName",
   subscribeTo: ["appointment.*"],
-  scope: ["scheduled", "event-subscriber", "communication-templates-provider"],
+  scope: [
+    "scheduled",
+    "event-subscriber",
+    "communication-templates-provider",
+    "customer-appointment-text-message",
+  ],
   type: "complex",
   target: "company",
   category: ["apps.categories.notifications"],
@@ -23,5 +28,5 @@ export const AppointmentNotificationsApp: App<
   description: {
     text: "app_appointment-notifications_admin.app.description",
   },
-  settingsHref: "communications/scheduled-notifications",
+  settingsHref: "communications/appointment-notifications",
 };

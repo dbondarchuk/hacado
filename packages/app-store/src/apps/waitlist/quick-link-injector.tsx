@@ -1,4 +1,4 @@
-import { DashboardQuickLinkInjectorApp } from "@hacado/types";
+import { DashboardQuickLinkInjectorApp } from "@hacado/types/apps";
 import { CalendarClock } from "lucide-react";
 import {
   WaitlistAdminKeys,

@@ -1,23 +1,23 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Input,
-  Spinner,
-} from "@hacado/ui";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabelWithRequiredIndicator,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { IcsApp } from "./app";
@@ -53,16 +53,16 @@ export const IcsAppSetup: React.FC<AppSetupProps> = ({
               name="link"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.link.label")}{" "}
-                    <InfoTooltip>{t("form.link.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.link.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       placeholder={t("form.link.placeholder")}
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.link.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

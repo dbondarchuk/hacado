@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Combobox } from "@hacado/ui";
+import { Combobox } from "@hacado/ui/combobox";
 import { Square } from "lucide-react";
 import * as z from "zod";
 import { AllOrSidesInput } from "../../../style-inputs/all-or-sides-input";

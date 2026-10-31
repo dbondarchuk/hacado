@@ -6,7 +6,7 @@ import {
   PackageAdjustRequest,
   packageAdjustRequestSchema,
   PackageError,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

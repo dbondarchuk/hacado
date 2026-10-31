@@ -25,6 +25,23 @@ export const communicationParticipantTypeSchema = [
 export type CommunicationParticipantType =
   (typeof communicationParticipantTypeSchema)[number];
 
+export const communicationLogStatuses = [
+  "preparing",
+  "sending",
+  "sent",
+  "received",
+  "failed",
+] as const;
+
+export type CommunicationLogStatus = (typeof communicationLogStatuses)[number];
+
+export type CommunicationLogReason =
+  | string
+  | {
+      key: AllKeys;
+      args?: Record<string, string>;
+    };
+
 /** Full message body loaded from S3 (or legacy inline DB fields). */
 export type CommunicationLogContentPayload = {
   text: string;
@@ -59,6 +76,13 @@ export type CommunicationLogEntity = Prettify<
       preview?: string;
       /** True when S3 JSON includes a `data` object to show in admin. */
       hasPayloadData?: boolean;
+      status: CommunicationLogStatus;
+      reason?: CommunicationLogReason;
+      retryable?: boolean;
+      retriesDone?: number;
+      retriesLeft?: number;
+      /** Provider id used to match a later delivery webhook. */
+      providerMessageId?: string;
       /** Legacy inline storage; omitted once payload is in S3. */
       text?: string;
       html?: string;
@@ -77,6 +101,7 @@ export type CommunicationLogCreateInput = Pick<
   text: string;
   html?: string;
   data?: unknown;
+  status: CommunicationLogStatus;
 } & (
     | {
         participantType: Extract<CommunicationParticipantType, "customer">;
@@ -88,6 +113,18 @@ export type CommunicationLogCreateInput = Pick<
         memberId: string;
       }
   );
+
+export type CommunicationLogUpdate = {
+  status?: CommunicationLogStatus;
+  reason?: CommunicationLogReason | null;
+  retryable?: boolean;
+  retriesDone?: number;
+  retriesLeft?: number;
+  providerMessageId?: string;
+  text?: string;
+  html?: string;
+  data?: unknown;
+};
 
 /** API / UI list row: no full body fields, only preview metadata. */
 export type CommunicationLog = Omit<

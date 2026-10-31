@@ -1,20 +1,18 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import type { OrganizationBillingSubscriptionDetails } from "@hacado/types";
-import { BillingPlanTier } from "@hacado/types";
+import type { OrganizationBillingSubscriptionDetails } from "@hacado/types/billing";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Form } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import {
-  Form,
-  IComboboxItem,
   ResponsiveTabsList,
   Tabs,
   TabsContent,
   TabsTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/tabs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getTimeZones } from "@vvo/tzdb";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Resolver, useForm } from "react-hook-form";
@@ -28,11 +26,6 @@ import { GeneralTab } from "./tabs/general";
 import { SocialTab } from "./tabs/social";
 import { StylingTab } from "./tabs/styling";
 
-const timeZoneValues: IComboboxItem[] = getTimeZones().map((zone) => ({
-  label: `GMT${zone.currentTimeFormat}`,
-  shortLabel: `${zone.alternativeName}`,
-  value: zone.name,
-}));
 export const SiteSettingsForm: React.FC<{
   values: SiteSettingsFormValues;
   initialBrandLanguage: string;
@@ -128,7 +121,6 @@ export const SiteSettingsForm: React.FC<{
               <GeneralTab
                 form={form}
                 loading={loading}
-                timeZoneValues={timeZoneValues}
                 billingSubscriptionDetails={billingSubscriptionDetails}
               />
             </div>

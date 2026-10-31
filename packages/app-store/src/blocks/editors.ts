@@ -2,7 +2,7 @@ import {
   BaseZodDictionary,
   EditorDocumentBlocksDictionary,
   TemplateDefinition,
-} from "@hacado/builder";
+} from "@hacado/builder/types";
 import { BlogBlocks } from "../apps/blog/blocks/schema";
 import { BlogTemplates } from "../apps/blog/blocks/templates";
 import { BLOG_APP_NAME } from "../apps/blog/const";

@@ -1,6 +1,6 @@
 "use client";
 
-import { communicationLogsSearchParams } from "@hacado/api-sdk";
+import { communicationLogsSearchParams } from "@hacado/api-sdk/admin/search-params/communication-logs";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 
@@ -24,6 +24,13 @@ export function useCommunicationLogsTableFilters() {
     communicationLogsSearchParams.channel
       .withOptions({ shallow: false })
       .withDefault(communicationLogsSearchParams.channel.defaultValue),
+  );
+
+  const [statusFilter, setStatusFilter] = useQueryState(
+    "status",
+    communicationLogsSearchParams.status
+      .withOptions({ shallow: false })
+      .withDefault(communicationLogsSearchParams.status.defaultValue),
   );
 
   const [participantTypeFilter, setParticipantTypeFilter] = useQueryState(
@@ -62,6 +69,7 @@ export function useCommunicationLogsTableFilters() {
     setSearchQuery(null);
     setDirectionFilter(null);
     setChannelFilter(null);
+    setStatusFilter(null);
     setParticipantTypeFilter(null);
     setStartValue(null);
     setEndValue(null);
@@ -73,6 +81,7 @@ export function useCommunicationLogsTableFilters() {
     setSearchQuery,
     setDirectionFilter,
     setChannelFilter,
+    setStatusFilter,
     setParticipantTypeFilter,
     setPage,
     setStartValue,
@@ -87,6 +96,7 @@ export function useCommunicationLogsTableFilters() {
       directionFilter !==
         communicationLogsSearchParams.direction.defaultValue ||
       channelFilter !== communicationLogsSearchParams.channel.defaultValue ||
+      statusFilter !== communicationLogsSearchParams.status.defaultValue ||
       participantTypeFilter !==
         communicationLogsSearchParams.participantType.defaultValue ||
       !!start ||
@@ -97,6 +107,7 @@ export function useCommunicationLogsTableFilters() {
     searchQuery,
     directionFilter,
     channelFilter,
+    statusFilter,
     participantTypeFilter,
     start,
     end,
@@ -114,6 +125,8 @@ export function useCommunicationLogsTableFilters() {
     setDirectionFilter,
     channelFilter,
     setChannelFilter,
+    statusFilter,
+    setStatusFilter,
     participantTypeFilter,
     setParticipantTypeFilter,
     start,

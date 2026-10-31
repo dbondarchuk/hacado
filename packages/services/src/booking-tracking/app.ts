@@ -1,14 +1,16 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  BOOKING_TRACKING_STEP_EVENT_TYPE,
-  BookingTrackingEventData,
   ConnectedAppData,
-  EventEnvelope,
   IEventSubscriber,
   IScheduled,
-  IServicesContainer,
-  JobRequest,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import {
+  BOOKING_TRACKING_STEP_EVENT_TYPE,
+  BookingTrackingEventData,
+} from "@hacado/types/booking";
+import { EventEnvelope } from "@hacado/types/events";
+import { JobRequest } from "@hacado/types/jobs";
+import { IServicesContainer } from "@hacado/types/services";
 import { Redis } from "ioredis";
 import { DateTime } from "luxon";
 import { getRedisClient } from "../bullmq";

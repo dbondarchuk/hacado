@@ -2,22 +2,25 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
+  CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   DashboardNotification,
-  EventSource,
+  ICommandSearchProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
   IPageSeoArgumentsProvider,
   ISitemapItemsProvider,
-  Page,
   PageSeoArguments,
-  SessionUser,
   SitemapUrlEntry,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { EventSource } from "@hacado/types/events";
+import { Page } from "@hacado/types/pages";
+import { SessionUser } from "@hacado/types/users";
+import { hasPermission } from "@hacado/utils/permissions";
 import {
   BLOG_COMMENT_CREATED_EVENT_TYPE,
   BLOG_COMMENT_DELETED_EVENT_TYPE,
@@ -84,7 +87,8 @@ export class BlogConnectedApp
     IConnectedApp,
     ISitemapItemsProvider,
     IDashboardNotifierApp,
-    IPageSeoArgumentsProvider
+    IPageSeoArgumentsProvider,
+    ICommandSearchProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -381,6 +385,78 @@ export class BlogConnectedApp
       this.props.getDbConnection,
       this.props.services,
     );
+  }
+
+  public async searchCommand(
+    appData: ConnectedAppData,
+    input: CommandSearchInput,
+  ) {
+    if (!hasPermission(input.user, "page", "update")) return [];
+
+    const type = input.type;
+    if (
+      type &&
+      type !== "blog" &&
+      type !== "blog-posts" &&
+      type !== "blog-comments"
+    ) {
+      return [];
+    }
+
+    const wantPosts = type !== "blog-comments";
+    const wantComments = type !== "blog-posts";
+    const repository = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+    const [posts, comments] = await Promise.all([
+      wantPosts
+        ? repository.getBlogPosts({
+            search: input.query,
+            limit: input.limit,
+            offset: 0,
+          })
+        : Promise.resolve({ items: [] }),
+      wantComments
+        ? repository.getBlogComments({
+            search: input.query,
+            limit: input.limit,
+            offset: 0,
+          })
+        : Promise.resolve({ items: [] }),
+    ]);
+
+    const groups = [];
+
+    if (posts.items.length > 0) {
+      groups.push({
+        id: `${appData._id}:blog-posts`,
+        labelKey: "app_blog_admin.app.pages.main.title",
+        listHref: `/dashboard/blog?search=${encodeURIComponent(input.query)}`,
+        items: posts.items.map((post) => ({
+          id: post._id,
+          title: post.title,
+          subtitle: post.slug,
+          href: `/dashboard/blog/edit?id=${post._id}`,
+        })),
+      });
+    }
+
+    if (comments.items.length > 0) {
+      groups.push({
+        id: `${appData._id}:blog-comments`,
+        labelKey: "app_blog_admin.app.pages.comments.title",
+        listHref: `/dashboard/blog/comments?search=${encodeURIComponent(input.query)}`,
+        items: comments.items.map((comment) => ({
+          id: comment._id,
+          title: clip(comment.body) || comment.authorName,
+          subtitle: comment.authorName,
+          href: `/dashboard/blog/comments?postId=${comment.postId}`,
+        })),
+      });
+    }
+
+    return groups;
   }
 
   private adminEventSource(memberId?: string): EventSource {
@@ -967,4 +1043,14 @@ export class BlogConnectedApp
   ): Promise<PageSeoArguments | undefined> {
     return provideBlogPageSeoArguments(this.props, page, params, appData);
   }
+}
+
+function clip(value: string | undefined, max = 80) {
+  if (!value) return undefined;
+
+  const trimmed = value.replace(/\s+/g, " ").trim();
+  if (!trimmed) return undefined;
+  if (trimmed.length <= max) return trimmed;
+
+  return `${trimmed.slice(0, max - 1)}…`;
 }

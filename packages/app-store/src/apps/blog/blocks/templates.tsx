@@ -1,12 +1,12 @@
+import { TEditorBlock } from "@hacado/builder/editor";
 import {
   generateId as generateBlockId,
   generateId,
   generateId as generateLinkId,
-  TEditorBlock,
-  TemplatesConfiguration,
-} from "@hacado/builder";
+} from "@hacado/builder/helpers";
+import { TemplatesConfiguration } from "@hacado/builder/types";
 import { AllKeys, I18nFn } from "@hacado/i18n";
-import { TEXT_SIZE_PRESETS } from "@hacado/page-builder-base";
+import { TEXT_SIZE_PRESETS } from "@hacado/page-builder-base/shortcuts";
 import { COLORS } from "@hacado/page-builder-base/style";
 import {
   ArrowLeftRight,

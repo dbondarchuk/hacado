@@ -1,9 +1,13 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
-import { AppointmentStatus, okStatus } from "@hacado/types";
-import { Button, ButtonProps, cn, Spinner, toastPromise } from "@hacado/ui";
+import { AppointmentStatus } from "@hacado/types/booking";
+import { okStatus } from "@hacado/types/general";
+import { Button, ButtonProps } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { useRouter } from "next/navigation";
 import React from "react";
 import {
@@ -30,7 +34,7 @@ export const changeStatus = async (
       if (result instanceof Promise) await result;
     }
 
-    const res = await adminApi.appointments.changeStatus(
+    const res = await appointmentsApi.changeStatus(
       _id,
       status,
       doNotNotifyCustomer,

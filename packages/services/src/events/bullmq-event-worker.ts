@@ -1,5 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type { EventEnvelope, IServicesContainer } from "@hacado/types";
+import type { EventEnvelope } from "@hacado/types/events";
+import type { IServicesContainer } from "@hacado/types/services";
 import { Job } from "bullmq";
 import { BaseBullMQClient } from "../bullmq/base-bullmq-client";
 import { reviveJobData } from "../bullmq/jobs/utils";

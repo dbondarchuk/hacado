@@ -1,12 +1,13 @@
 import { Language } from "@hacado/i18n";
+import type { PostalAddress } from "@hacado/types/utils";
 import {
   Country,
   Currency,
   postalAddressForTemplates,
-  type PostalAddress,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { DateTime } from "luxon";
 import { formatAmountWithCurrency } from "./currency";
+import { formatSmsDate } from "./sms-date";
 
 // Types for the formatted date/time properties
 type DateTimeFormatted = {
@@ -17,6 +18,8 @@ type DateTimeFormatted = {
   time: string;
   timeWithSeconds: string;
   relative: string;
+  sms: string;
+  isTomorrow: boolean;
   iso: string;
   timestamp: number;
   day: {
@@ -145,6 +148,7 @@ function processObject(
         const dateTime = isDate(value)
           ? DateTime.fromJSDate(value).setZone(timeZone)
           : (value as DateTime).setZone(timeZone);
+        const smsDate = formatSmsDate(dateTime, locale);
 
         // Replace the original value with formatted object containing original
         result[key] = {
@@ -170,6 +174,8 @@ function processObject(
             .setLocale(locale)
             .toLocaleString(DateTime.TIME_WITH_SECONDS),
           relative: dateTime.setLocale(locale).toRelative(),
+          sms: smsDate.sms,
+          isTomorrow: smsDate.isTomorrow,
           iso: dateTime.toISO(),
           timestamp: dateTime.toMillis(),
           day: {

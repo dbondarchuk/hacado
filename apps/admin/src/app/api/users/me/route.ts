@@ -1,8 +1,8 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
-import { userUpdateSchema } from "@hacado/api-sdk";
+import { userUpdateSchema } from "@hacado/api-sdk/admin/schemas/user";
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
-import { canManageCalendarSources } from "@hacado/utils";
+import type { SessionUser } from "@hacado/types/users";
+import { canManageCalendarSources } from "@hacado/utils/permissions";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

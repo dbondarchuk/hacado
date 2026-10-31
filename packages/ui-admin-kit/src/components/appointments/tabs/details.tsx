@@ -1,7 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import {
   Appointment,
   AppointmentStatus,
@@ -9,28 +10,27 @@ import {
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
   isSettledPayment,
-  timeZones,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
+import { useAuth } from "@hacado/ui-admin/context";
+import { CustomerName, MemberName } from "@hacado/ui-admin/data-table";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Badge,
-  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  Link,
-  Textarea,
-  toastPromise,
-  use12HourFormat,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { CustomerName, MemberName, useAuth } from "@hacado/ui-admin";
-import { canUpdateAppointment, durationToTime } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Link } from "@hacado/ui/link";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Textarea } from "@hacado/ui/textarea";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
+import { durationToTime } from "@hacado/utils/time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
 import { DateTime } from "luxon";
@@ -136,7 +136,7 @@ export const AppointmentDetails = ({
     try {
       setLoading(true);
       await toastPromise(
-        adminApi.appointments.updateNote(appointment._id, data.note),
+        appointmentsApi.updateNote(appointment._id, data.note),
         {
           success: t("appointments.view.noteUpdated"),
           error: t("appointments.view.requestError"),
@@ -185,12 +185,12 @@ export const AppointmentDetails = ({
                   href={`/dashboard/appointments/${appointment._id}`}
                   variant="underline"
                 >
-                  {appointment.option.name}
+                  {appointment.service.name}
                 </Link>
               </p>
               {isAppointmentCoveredByPackage(appointment) ? (
                 <p className="text-xs text-muted-foreground">
-                  {t("services.packages.appointment.used", {
+                  {t("catalog.packages.appointment.used", {
                     name: appointment.packageUsage!.name,
                   })}
                 </p>
@@ -243,7 +243,7 @@ export const AppointmentDetails = ({
         {isAppointmentCoveredByPackage(appointment) ? (
           <div className="px-5 py-4 border-b border-border">
             <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
-              {t("services.packages.appointment.label")}
+              {t("catalog.packages.appointment.label")}
             </p>
             <div className="flex justify-between items-start gap-3">
               <div className="min-w-0">
@@ -251,7 +251,7 @@ export const AppointmentDetails = ({
                   {appointment.packageUsage!.name}
                 </p>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  {t("services.packages.appointment.creditsUsed", {
+                  {t("catalog.packages.appointment.creditsUsed", {
                     credits: appointment.packageUsage!.credits,
                   })}
                 </p>
@@ -261,7 +261,7 @@ export const AppointmentDetails = ({
                 variant="underline"
                 className="text-sm shrink-0"
               >
-                {t("services.packages.appointment.view")}
+                {t("catalog.packages.appointment.view")}
               </Link>
             </div>
           </div>
@@ -396,23 +396,23 @@ export const AppointmentDetails = ({
           <div className="flex justify-between items-start">
             <div>
               <Link
-                href={`/dashboard/options/${appointment.option._id}`}
+                href={`/dashboard/catalog/services/${appointment.service._id}`}
                 variant="underline"
                 className="truncate text-ellipsis text-sm"
               >
-                {appointment.option.name}
+                {appointment.service.name}
               </Link>
               <p className="text-sm text-muted-foreground mt-0.5">
                 {t(
                   "common.timeDuration",
-                  durationToTime(appointment.option.duration),
+                  durationToTime(appointment.service.duration),
                 )}
               </p>
             </div>
-            {!!appointment.option.price &&
+            {!!appointment.service.price &&
               !isAppointmentCoveredByPackage(appointment) && (
                 <span className="text-base font-medium text-foreground shrink-0 ml-3">
-                  {currencyFormat(appointment.option.price)}
+                  {currencyFormat(appointment.service.price)}
                 </span>
               )}
           </div>
@@ -468,7 +468,7 @@ export const AppointmentDetails = ({
                 <div className="flex justify-between items-center">
                   <span>{t("appointments.view.discount.name")}</span>
                   <Link
-                    href={`/dashboard/services/discounts/${appointment.discount.id}`}
+                    href={`/dashboard/catalog/discounts/${appointment.discount.id}`}
                     variant="underline"
                     className="truncate text-ellipsis text-sm text-right"
                   >

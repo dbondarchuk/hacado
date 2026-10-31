@@ -1,7 +1,7 @@
 import { auth } from "@/app/auth";
 import { AppsTranslations } from "@hacado/app-store/translations";
 import { getConfig } from "@hacado/i18n/request";
-import { ServicesContainer } from "@hacado/services";
+import { ServicesContainer } from "@hacado/services/container";
 import { headers } from "next/headers";
 
 const config = getConfig(

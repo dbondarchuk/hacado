@@ -1,18 +1,20 @@
 "use client";
 
-import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
+import { languages, useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Combobox,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -66,7 +68,9 @@ export function CompleteProfileProfileStep({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("auth.signUp.name")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("auth.signUp.name")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Input
                   placeholder={t("auth.signUp.namePlaceholder")}

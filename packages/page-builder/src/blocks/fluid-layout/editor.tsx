@@ -1,14 +1,11 @@
 "use client";
 
 import { useDroppable } from "@dnd-kit/react";
+import { useFluidDropCollisionPriority } from "@hacado/builder/dnd";
 import {
-  BlockFilterRule,
   EditorBlock,
-  getMoveBlockOutTarget,
-  matchesRule,
   useBlockChildrenBlockIds,
   useBlockDepth,
-  useBlockEditor,
   useBlockParentData,
   useBlocks,
   useBlocksDefinitions,
@@ -16,23 +13,26 @@ import {
   useDispatchAction,
   useDocument,
   useDragIntoNestedModifier,
-  useFluidDropCollisionPriority,
   useHasActiveDragBlock,
   useIsSelectedBlock,
-  usePortalContext,
   useSelectedBlockId,
   useSelectedScreenSize,
   useSetAllowedRule,
   useSetSelectedBlockId,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { getMoveBlockOutTarget } from "@hacado/builder/helpers";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
+import { BlockFilterRule } from "@hacado/builder/types";
+import { matchesRule } from "@hacado/builder/utils";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BackgroundVideoLayer,
   BlockStyle,
   hasBackgroundVideo,
   useClassName,
-} from "@hacado/page-builder-base";
-import { cn } from "@hacado/ui";
+} from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
 import type { MouseEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {

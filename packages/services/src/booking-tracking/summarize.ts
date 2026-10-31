@@ -1,7 +1,7 @@
 import {
   BookingProgressAnalyticsDaily,
   BookingProgressAnalyticsMetrics,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime } from "luxon";
 import { mergeCountMaps, sumRecordValues } from "./metrics-delta";
 

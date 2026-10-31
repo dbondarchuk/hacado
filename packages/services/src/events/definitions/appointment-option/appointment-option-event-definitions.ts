@@ -1,13 +1,16 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  AppointmentOptionCreatedPayload,
+  AppointmentOptionDeletedPayload,
+  AppointmentOptionUpdatedPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   APPOINTMENT_OPTION_CREATED_EVENT_TYPE,
   APPOINTMENT_OPTION_DELETED_EVENT_TYPE,
   APPOINTMENT_OPTION_UPDATED_EVENT_TYPE,
-  type AppointmentOptionCreatedPayload,
-  type AppointmentOptionDeletedPayload,
-  type AppointmentOptionUpdatedPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

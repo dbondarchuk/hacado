@@ -12,7 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
 import { ToolbarButton } from "./toolbar";
 
 export function ModeDropdownMenu(props: DropdownMenuProps) {

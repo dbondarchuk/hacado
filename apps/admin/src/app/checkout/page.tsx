@@ -12,7 +12,7 @@ import { userRequiresProfileCompletion } from "@/lib/auth/requires-profile-compl
 import { ensureBillingOrganizationForUser } from "@/lib/billing/ensure-billing-org";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { getPolarClient } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
 import type { Product } from "@polar-sh/sdk/models/components/product";
 import type { ProductPriceFixed } from "@polar-sh/sdk/models/components/productpricefixed";
 import { Metadata } from "next";

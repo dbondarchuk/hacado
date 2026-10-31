@@ -1,19 +1,26 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
+import { inPersonPaymentMethod } from "@hacado/types/booking";
+import { CustomerListModel } from "@hacado/types/customers";
 import {
-  CustomerListModel,
-  inPersonPaymentMethod,
   zEmail,
   zMinMaxLengthString,
   zObjectId,
   zOptionalOrMinMaxLengthString,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
-  Button,
-  Checkbox,
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "@hacado/ui-admin-kit/sms-consent-attest";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
+import { useCurrencySymbol } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -21,30 +28,35 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  Textarea,
-  toastPromise,
-  useCurrencySymbol,
-  useDebounce,
-} from "@hacado/ui";
-import { CustomerSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Textarea } from "@hacado/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -64,6 +76,12 @@ import {
   giftCardStudioAdminNamespace,
 } from "../../translations/types";
 import { DesignSelector } from "./design-selector";
+
+const noDestinations: string[] = [];
+
+const uniqueNonEmpty = (values: (string | null | undefined)[]) => [
+  ...new Set(values.filter((value): value is string => !!value)),
+];
 
 const manualPurchaseSchema = z
   .object({
@@ -172,9 +190,12 @@ export const ManualPurchaseDialog: React.FC<{
   const tRoot = useI18n();
   const currencySymbol = useCurrencySymbol();
   const [loading, setLoading] = useState(false);
+  const [smsConsent, setSmsConsent] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
   const [paymentLinkApps, setPaymentLinkApps] = useState<PaymentLinkApp[]>([]);
+  const [emailDestinations, setEmailDestinations] = useState<string[]>([]);
+  const [phoneDestinations, setPhoneDestinations] = useState<string[]>([]);
 
   const [settings, setSettings] = useState<GiftCardStudioSettings | null>(null);
   const fetchSettings = useCallback(async () => {
@@ -191,7 +212,7 @@ export const ManualPurchaseDialog: React.FC<{
       return;
     }
     void fetchSettings();
-    void adminApi.payments
+    void paymentsApi
       .listPaymentLinkApps()
       .then((result) => setPaymentLinkApps(result.items))
       .catch(() => setPaymentLinkApps([]));
@@ -256,28 +277,64 @@ export const ManualPurchaseDialog: React.FC<{
   const sendToAnotherRecipient = form.watch("sendToAnotherRecipient");
   const paymentType = form.watch("paymentType");
   const channel = form.watch("channel");
+  const customerId = form.watch("customerId");
+  const smsTo = form.watch("to");
+  const sendingSms = paymentType === "payment-link" && channel === "sms";
+  const smsConsentStatus = useCustomerPhoneSmsConsent(
+    sendingSms ? customerId : undefined,
+    sendingSms ? smsTo : undefined,
+  );
+  const smsBlocked =
+    sendingSms &&
+    !(
+      smsConsentStatus === "consented" ||
+      (smsConsentStatus === "missing" && smsConsent)
+    );
   const [customer, setCustomer] = useState<CustomerListModel | undefined>(
     undefined,
   );
 
-  const emailDestinations = useMemo(
-    () => [
-      ...new Set([customer?.email].filter((value): value is string => !!value)),
-    ],
-    [customer?.email],
-  );
-  const phoneDestinations = useMemo(
-    () => [
-      ...new Set([customer?.phone].filter((value): value is string => !!value)),
-    ],
-    [customer?.phone],
-  );
   const destinations =
     channel === "email"
       ? emailDestinations
       : channel === "sms"
         ? phoneDestinations
-        : [];
+        : noDestinations;
+
+  useEffect(() => {
+    if (!open || !customerId) {
+      setEmailDestinations([]);
+      setPhoneDestinations([]);
+      return;
+    }
+
+    let cancelled = false;
+    customersApi
+      .getCustomer(customerId)
+      .then((customer) => {
+        if (cancelled) {
+          return;
+        }
+
+        setEmailDestinations(
+          uniqueNonEmpty([customer.email, ...(customer.knownEmails ?? [])]),
+        );
+        setPhoneDestinations(
+          uniqueNonEmpty([customer.phone, ...(customer.knownPhones ?? [])]),
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        if (!cancelled) {
+          setEmailDestinations([]);
+          setPhoneDestinations([]);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, customerId]);
 
   useEffect(() => {
     if (paymentLinkApps.length === 1) {
@@ -289,6 +346,26 @@ export const ManualPurchaseDialog: React.FC<{
     if (paymentType !== "payment-link") {
       return;
     }
+
+    if (channel === "email" && emailDestinations.length === 0) {
+      form.setValue("channel", "copy");
+      form.setValue("to", undefined);
+      return;
+    }
+
+    if (channel === "sms" && phoneDestinations.length === 0) {
+      form.setValue("channel", "copy");
+      form.setValue("to", undefined);
+      return;
+    }
+
+    if (channel === "copy") {
+      if (form.getValues("to")) {
+        form.setValue("to", undefined);
+      }
+      return;
+    }
+
     if (destinations.length === 1) {
       form.setValue("to", destinations[0], { shouldValidate: true });
     } else if (
@@ -297,7 +374,18 @@ export const ManualPurchaseDialog: React.FC<{
     ) {
       form.setValue("to", destinations[0], { shouldValidate: true });
     }
-  }, [paymentType, channel, destinations, form]);
+  }, [
+    paymentType,
+    channel,
+    destinations,
+    emailDestinations.length,
+    phoneDestinations.length,
+    form,
+  ]);
+
+  useEffect(() => {
+    setSmsConsent(false);
+  }, [smsTo]);
 
   const previewPayload: GetPreviewPayload | null = useMemo(() => {
     if (!designId || !amountPurchased) {
@@ -373,6 +461,7 @@ export const ManualPurchaseDialog: React.FC<{
           paymentLinkAppId: values.paymentLinkAppId,
           channel: values.channel,
           to: values.to,
+          smsConsent: values.channel === "sms" && smsConsent ? true : undefined,
           sendCustomerEmail: values.sendCustomerEmail,
           sendRecipientEmail: sendToAnotherRecipient
             ? values.sendRecipientEmail
@@ -398,6 +487,7 @@ export const ManualPurchaseDialog: React.FC<{
     if (!next) {
       form.reset();
       setPreviewUrl(null);
+      setSmsConsent(false);
     }
     onOpenChange(next);
   };
@@ -424,7 +514,9 @@ export const ManualPurchaseDialog: React.FC<{
                 name="designId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("purchases.manualForm.design")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("purchases.manualForm.design")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DesignSelector
                         appId={appId}
@@ -443,7 +535,9 @@ export const ManualPurchaseDialog: React.FC<{
                 name="amountPurchased"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("purchases.manualForm.amount")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("purchases.manualForm.amount")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <InputGroup>
                         <InputGroupAddon
@@ -480,7 +574,9 @@ export const ManualPurchaseDialog: React.FC<{
                 name="customerId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("purchases.manualForm.customer")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("purchases.manualForm.customer")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <CustomerSelector
                         value={field.value}
@@ -552,11 +648,11 @@ export const ManualPurchaseDialog: React.FC<{
                       name="paymentLinkAppId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {tAdmin(
                               "payment.addUpdatePayment.form.paymentLinkAppId.label",
                             )}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <Select
                               value={field.value}
@@ -646,9 +742,9 @@ export const ManualPurchaseDialog: React.FC<{
                       name="to"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {tAdmin("payment.addUpdatePayment.form.to.label")}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             {destinations.length > 1 ? (
                               <Select
@@ -671,7 +767,11 @@ export const ManualPurchaseDialog: React.FC<{
                                 </SelectContent>
                               </Select>
                             ) : (
-                              <Input {...field} disabled={loading} />
+                              <Input
+                                value={destinations[0] ?? ""}
+                                disabled
+                                readOnly
+                              />
                             )}
                           </FormControl>
                           <FormMessage />
@@ -679,6 +779,19 @@ export const ManualPurchaseDialog: React.FC<{
                       )}
                     />
                   )}
+                  {sendingSms ? (
+                    <div className="sm:col-span-2">
+                      <SmsConsentAttest
+                        id="gift-card-purchase-sms-consent"
+                        phone={smsTo}
+                        status={smsConsentStatus}
+                        checked={smsConsent}
+                        disabled={loading}
+                        onCheckedChange={setSmsConsent}
+                        required
+                      />
+                    </div>
+                  ) : null}
                 </>
               )}
             </div>
@@ -687,66 +800,64 @@ export const ManualPurchaseDialog: React.FC<{
               control={form.control}
               name="sendToAnotherRecipient"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center gap-2">
-                  <FormControl>
-                    <Checkbox
-                      checked={!!field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={loading}
-                    />
-                  </FormControl>
-                  <FormLabel className="!mt-0">
-                    {t("purchases.manualForm.sendToAnotherRecipient")}
-                  </FormLabel>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("purchases.manualForm.sendToAnotherRecipient")}
+                  checked={!!field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={loading}
+                >
+                  {sendToAnotherRecipient && (
+                    <div className="grid gap-6 sm:grid-cols-[1fr,280px]">
+                      <FormField
+                        control={form.control}
+                        name="toName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t("purchases.manualForm.toName")}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                disabled={loading}
+                                onBlur={() => {
+                                  field.onBlur();
+                                  form.trigger("sendToAnotherRecipient");
+                                }}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="toEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t("purchases.manualForm.toEmail")}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                {...field}
+                                disabled={loading}
+                                onBlur={() => {
+                                  field.onBlur();
+                                  form.trigger("sendToAnotherRecipient");
+                                }}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  )}
+                </SwitchCardFormItem>
               )}
             />
-            {sendToAnotherRecipient && (
-              <div className="grid gap-6 sm:grid-cols-[1fr,280px]">
-                <FormField
-                  control={form.control}
-                  name="toName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("purchases.manualForm.toName")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={loading}
-                          onBlur={() => {
-                            field.onBlur();
-                            form.trigger("sendToAnotherRecipient");
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="toEmail"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("purchases.manualForm.toEmail")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          {...field}
-                          disabled={loading}
-                          onBlur={() => {
-                            field.onBlur();
-                            form.trigger("sendToAnotherRecipient");
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            )}
             <FormField
               control={form.control}
               name="message"
@@ -760,48 +871,34 @@ export const ManualPurchaseDialog: React.FC<{
                 </FormItem>
               )}
             />
-            <div className="grid gap-6 sm:grid-cols-[1fr,280px]">
-              <FormField
-                control={form.control}
-                name="sendCustomerEmail"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center gap-2">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={loading}
-                      />
-                    </FormControl>
-                    <FormLabel className="!mt-0">
-                      {t("purchases.manualForm.sendCustomerEmail")}
-                    </FormLabel>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {sendToAnotherRecipient && (
-                <FormField
-                  control={form.control}
-                  name="sendRecipientEmail"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center gap-2">
-                      <FormControl>
-                        <Checkbox
+            <FormField
+              control={form.control}
+              name="sendCustomerEmail"
+              render={({ field }) => (
+                <SwitchCardFormItem
+                  label={t("purchases.manualForm.sendCustomerEmail")}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={loading}
+                >
+                  {sendToAnotherRecipient && (
+                    <FormField
+                      control={form.control}
+                      name="sendRecipientEmail"
+                      render={({ field }) => (
+                        <SwitchCardFormItem
+                          label={t("purchases.manualForm.sendRecipientEmail")}
                           checked={field.value}
                           onCheckedChange={field.onChange}
                           disabled={loading}
+                          noCard="borderTop"
                         />
-                      </FormControl>
-                      <FormLabel className="!mt-0">
-                        {t("purchases.manualForm.sendRecipientEmail")}
-                      </FormLabel>
-                      <FormMessage />
-                    </FormItem>
+                      )}
+                    />
                   )}
-                />
+                </SwitchCardFormItem>
               )}
-            </div>
+            />
 
             <div className="flex flex-col gap-2 border-t border-border pt-6 w-full">
               <h3 className="text-sm font-medium text-foreground">
@@ -833,7 +930,7 @@ export const ManualPurchaseDialog: React.FC<{
               <Button
                 type="submit"
                 form="manual-purchase-form"
-                disabled={loading}
+                disabled={loading || smsBlocked}
               >
                 {loading ? <Spinner className="w-4 h-4" /> : null}
                 {t("purchases.table.actions.create")}

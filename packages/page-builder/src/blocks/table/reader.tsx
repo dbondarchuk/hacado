@@ -5,7 +5,7 @@ import {
 } from "@hacado/page-builder-base/reader";
 import { EmbeddedSlotData } from "@hacado/page-builder-base/slots";
 import { AllStylesSchemas, StyleValue } from "@hacado/page-builder-base/style";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import type { ReactNode } from "react";
 import {
   splitTableCellSlotStyles,

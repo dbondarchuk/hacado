@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Toggle } from "@hacado/ui";
+import { Toggle } from "@hacado/ui/toggle";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutOption, ShortcutWithToggle } from "../types";
 

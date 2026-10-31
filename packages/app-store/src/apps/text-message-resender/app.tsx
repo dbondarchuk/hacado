@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { MessageCircleReply } from "lucide-react";
 import { TEXT_MESSAGE_RESENDER_APP_NAME } from "./const";
 import {

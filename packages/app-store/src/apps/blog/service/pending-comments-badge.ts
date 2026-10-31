@@ -1,4 +1,7 @@
-import { DashboardNotificationBadge, IConnectedAppProps } from "@hacado/types";
+import {
+  DashboardNotificationBadge,
+  IConnectedAppProps,
+} from "@hacado/types/apps";
 import { BLOG_PENDING_COMMENTS_BADGE_KEY } from "../const";
 import { BlogRepositoryService } from "./repository-service";
 

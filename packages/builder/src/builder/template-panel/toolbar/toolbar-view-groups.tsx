@@ -1,23 +1,24 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Dialog,
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-  ToolbarButton,
-  ToolbarGroup,
+} from "@hacado/ui/dialog";
+import { useTheme } from "@hacado/ui/hooks";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { ToolbarButton, ToolbarGroup } from "@hacado/ui/toolbar";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useTheme,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import JsonView from "@uiw/react-json-view";
 import { darkTheme } from "@uiw/react-json-view/dark";
 import { lightTheme } from "@uiw/react-json-view/light";

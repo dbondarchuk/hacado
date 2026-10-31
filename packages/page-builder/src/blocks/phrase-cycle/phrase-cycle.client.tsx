@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { forwardRef, useId, useMemo } from "react";
 import { phraseCycleTimeline } from "./motion";
 import { PhraseMotion } from "./schema";

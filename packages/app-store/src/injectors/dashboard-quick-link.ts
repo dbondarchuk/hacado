@@ -1,4 +1,4 @@
-import { DashboardQuickLinkInjectorApp } from "@hacado/types";
+import { DashboardQuickLinkInjectorApp } from "@hacado/types/apps";
 import { BLOG_APP_NAME } from "../apps/blog/const";
 import { BlogQuickLinkInjector } from "../apps/blog/quick-link-injector";
 import { FORMS_APP_NAME } from "../apps/forms/const";

@@ -1,8 +1,8 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
-import { PopupProvider } from "@hacado/page-builder-base";
-import { Dialog, DialogContent } from "@hacado/ui";
+import { usePortalContext } from "@hacado/builder/portal";
+import { PopupProvider } from "@hacado/page-builder-base/reader";
+import { Dialog, DialogContent } from "@hacado/ui/dialog";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useCookies } from "react-cookie";

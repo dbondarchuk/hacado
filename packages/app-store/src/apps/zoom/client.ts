@@ -3,7 +3,7 @@ import {
   ConnectedAppError,
   ConnectedAppUpdateModel,
   ConnectedOauthAppTokens,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import { ZoomAdminAllKeys } from "./translations/types";
 

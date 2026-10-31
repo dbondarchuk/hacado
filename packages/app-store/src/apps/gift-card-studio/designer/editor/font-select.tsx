@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Combobox, Label } from "@hacado/ui";
+import { Combobox } from "@hacado/ui/combobox";
+import { Label } from "@hacado/ui/label";
 import {
   GiftCardStudioAdminKeys,
   GiftCardStudioAdminNamespace,

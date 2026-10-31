@@ -1,13 +1,14 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { getDefaultBookingConfiguration } from "@/components/install/default-booking";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
 import {
   bookingConfigurationSchema,
-  flattenCatalogOptionIds,
-  zObjectId,
-} from "@hacado/types";
+  flattenCatalogServiceIds,
+} from "@hacado/types/configuration/booking";
+import { zObjectId } from "@hacado/types/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
@@ -75,7 +76,7 @@ export async function GET(request: NextRequest) {
 
 const addBookingAvailableOptionRequestSchema = z.object({
   optionId: zObjectId(
-    "validation.configuration.booking.catalog.optionId.required" satisfies BaseAllKeys,
+    "validation.configuration.booking.catalog.serviceId.required" satisfies BaseAllKeys,
   ),
 });
 
@@ -105,7 +106,7 @@ export async function POST(request: NextRequest) {
   );
 
   const { optionId } = parsedBody.data;
-  const option = await servicesContainer.servicesService.getOption(optionId);
+  const option = await servicesContainer.catalogService.getService(optionId);
   if (!option) {
     logger.warn({ optionId }, "Option not found");
     return NextResponse.json(
@@ -126,7 +127,7 @@ export async function POST(request: NextRequest) {
       : getDefaultBookingConfiguration();
 
   const catalog = booking.catalog ?? [];
-  const alreadyPresent = flattenCatalogOptionIds(catalog).includes(optionId);
+  const alreadyPresent = flattenCatalogServiceIds(catalog).includes(optionId);
   if (alreadyPresent) {
     logger.debug({ optionId }, "Option already present in booking catalog");
     return NextResponse.json({ success: true, alreadyPresent: true });
@@ -136,7 +137,7 @@ export async function POST(request: NextRequest) {
 
   const nextCatalog = [
     ...catalog,
-    { type: "option" as const, id: optionId, optionId },
+    { type: "service" as const, id: optionId, serviceId: optionId },
   ];
   const updatedBooking = bookingConfigurationSchema.parse({
     ...booking,

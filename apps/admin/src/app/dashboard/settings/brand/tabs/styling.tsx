@@ -8,7 +8,9 @@ import {
   colorsLabels,
   fontsNames,
   fontsOptions,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
+import { ColorPickerInput } from "@hacado/ui-admin/color-picker-input";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,23 +21,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  cn,
-  Combobox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  InfoTooltip,
-} from "@hacado/ui";
-import { ColorPickerInput, NonSortable } from "@hacado/ui-admin";
-import { getWebfontPreviewFilename } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { getWebfontPreviewFilename } from "@hacado/utils/fonts";
 import { Trash } from "lucide-react";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
@@ -328,9 +328,9 @@ export const StylingTab: React.FC<{
                       name={`styling.colors.${index}.type` as any}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t("appearance.styling.form.type")}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <Combobox
                               disabled={loading}
@@ -346,6 +346,10 @@ export const StylingTab: React.FC<{
                               onItemSelect={field.onChange}
                             />
                           </FormControl>
+                          <FormDescription>
+                            {t("appearance.styling.form.typeDescription")}
+                          </FormDescription>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -354,12 +358,9 @@ export const StylingTab: React.FC<{
                       name={`styling.colors.${index}.value` as any}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {t("appearance.styling.form.color")}{" "}
-                            <InfoTooltip>
-                              {t("appearance.styling.form.colorTooltip")}
-                            </InfoTooltip>
-                          </FormLabel>
+                          <FormLabelWithRequiredIndicator required>
+                            {t("appearance.styling.form.color")}
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <ColorPickerInput
                               disabled={loading}
@@ -367,6 +368,9 @@ export const StylingTab: React.FC<{
                               {...field}
                             />
                           </FormControl>
+                          <FormDescription>
+                            {t("appearance.styling.form.colorTooltip")}
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

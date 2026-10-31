@@ -1,24 +1,25 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps, ConnectedApp } from "@hacado/types";
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Input,
-  Spinner,
-} from "@hacado/ui";
+import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormLabelWithRequiredIndicator,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { ResendApp } from "./app";
@@ -94,7 +95,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
   });
 
   const getStatus = async (appId: string) => {
-    const status = await adminApi.apps.getAppStatus(appId);
+    const status = await appsApi.getAppStatus(appId);
     setApp(() => status);
 
     if (isAuthorizing(status)) {
@@ -123,7 +124,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
     if (!existingAppId) {
       return;
     }
-    void adminApi.apps.getAppStatus(existingAppId).then(setApp);
+    void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 
   React.useEffect(() => {
@@ -141,16 +142,16 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
       let appId: string;
       if (app?._id || existingAppId) {
         appId = (app?._id || existingAppId)!;
-        await adminApi.apps.setAppStatus(appId, {
+        await appsApi.setAppStatus(appId, {
           status: "pending",
           statusText:
             "app_resend_admin.form.pendingAuthorization" satisfies ResendAdminAllKeys,
         });
       } else {
-        appId = await adminApi.apps.addNewApp(ResendApp.name);
+        appId = await appsApi.addNewApp(ResendApp.name);
       }
 
-      const loginUrl = await adminApi.apps.getAppLoginUrl(appId);
+      const loginUrl = await appsApi.getAppLoginUrl(appId);
       getStatus(appId);
       window.open(loginUrl, "_blank", "popup=true");
     } catch (e: unknown) {
@@ -195,10 +196,9 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                 name="fromEmail"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("form.fromEmail.label")}
-                      <InfoTooltip>{t("form.fromEmail.tooltip")}</InfoTooltip>
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Input
                         placeholder={t("form.fromEmail.placeholder")}
@@ -206,6 +206,9 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                         value={field.value ?? ""}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.fromEmail.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -215,10 +218,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                 name="fromName"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>
-                      {t("form.fromName.label")}
-                      <InfoTooltip>{t("form.fromName.tooltip")}</InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("form.fromName.label")}</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={t("form.fromName.placeholder")}
@@ -226,6 +226,9 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                         value={field.value ?? ""}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.fromName.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

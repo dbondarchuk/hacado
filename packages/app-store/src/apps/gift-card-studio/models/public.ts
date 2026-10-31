@@ -1,10 +1,10 @@
+import { IdName } from "@hacado/types/services";
 import {
-  IdName,
   zEmail,
   zNonEmptyString,
   zObjectId,
   zPhone,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { z } from "zod";
 import { GiftCardStudioPublicAllKeys } from "../translations/types";
 
