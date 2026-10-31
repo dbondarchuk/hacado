@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { ServiceLimitUpgradeHint } from "@/components/admin/services/service-limit-upgrade-hint";
+import { ServiceLimitUpgradeHint } from "@/components/admin/catalog/service-limit-upgrade-hint";
 import {
   getInstallServiceOptionSnapshot,
   replaceServices,
@@ -26,35 +26,35 @@ import type { InstallServiceDraftItem } from "@/components/install/types";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { useI18n, type Language } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
+import { canCreateMoreServices } from "@hacado/types/billing";
+import type { Currency } from "@hacado/types/utils";
+import { CurrencySymbolMap } from "@hacado/types/utils";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  canCreateMoreServices,
-  CurrencySymbolMap,
-  type Currency,
-} from "@hacado/types";
-import {
-  Badge,
-  Button,
-  cn,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DurationInput,
-  Input,
+} from "@hacado/ui/dialog";
+import { DurationInput } from "@hacado/ui/duration-input";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInputClasses,
-  Label,
-  Markdown,
-  RadioGroup,
-  RadioGroupItem,
-  Spinner,
-  toast,
-} from "@hacado/ui";
-import { durationToTime, formatAmountWithCurrency } from "@hacado/utils";
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import { Markdown } from "@hacado/ui/markdown";
+import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { durationToTime } from "@hacado/utils/time";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 

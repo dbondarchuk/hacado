@@ -17,23 +17,25 @@ import {
 } from "@/components/install/constants";
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
-import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
-import { zEmail, zPhone } from "@hacado/types";
+import { languages, useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+import { zEmail, zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Combobox,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Link,
-  PhoneInput,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState, type ReactNode } from "react";
@@ -220,6 +222,7 @@ export const UserSignupForm = ({
     defaultValues: { phone: "" },
     mode: "onChange",
   });
+  const passwordValue = credentialsForm.watch("password");
 
   const onProfileContinue = async (data: ProfileValues) => {
     setProfile(data);
@@ -355,7 +358,9 @@ export const UserSignupForm = ({
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("auth.signUp.phone")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("auth.signUp.phone")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <PhoneInput
                     label={t("auth.signUp.phone")}
@@ -401,7 +406,9 @@ export const UserSignupForm = ({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("auth.signUp.email")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("auth.signUp.email")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="email"
@@ -420,7 +427,9 @@ export const UserSignupForm = ({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("auth.signUp.password")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("auth.signUp.password")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -439,7 +448,11 @@ export const UserSignupForm = ({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("auth.signUp.confirmPassword")}</FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={passwordValue.length > 0}
+                  >
+                    {t("auth.signUp.confirmPassword")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -504,7 +517,9 @@ export const UserSignupForm = ({
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("auth.signUp.name")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("auth.signUp.name")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     placeholder={t("auth.signUp.namePlaceholder")}

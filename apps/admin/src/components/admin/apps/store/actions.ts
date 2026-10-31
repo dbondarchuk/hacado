@@ -5,29 +5,30 @@ import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
+import { ConnectedAppStatusWithText } from "@hacado/types/apps";
 import {
-  BookingConfiguration,
   BookingProviderScope,
   bookingProviderScopes,
   CalendarSourceScope,
   calendarSourceScopes,
-  ConnectedAppStatusWithText,
   DefaultAppsConfiguration,
   DefaultAppScope,
   defaultAppScopes,
   DefaultAppToInstallScope,
   MeetingUrlProviderScope,
   meetingUrlProviderScopes,
-} from "@hacado/types";
+} from "@hacado/types/configuration/apps";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import type { SessionUser } from "@hacado/types/users";
 import {
   canInstallApp,
   canInstallCompanyApps,
   filterConnectedAppsForInstallQuota,
   filterInstallDefaultScopesForUser,
-} from "@hacado/utils";
+} from "@hacado/utils/app-access";
 
 const logger = getLoggerFactory("AppStoreActions");
 

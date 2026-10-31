@@ -5,10 +5,11 @@ import {
   PreviewChrome,
   type PreviewHeaderVariant,
 } from "@/components/install/preview-chrome";
-import { generateId, type TEditorBlock } from "@hacado/builder";
+import { type TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import type { Language } from "@hacado/i18n";
 import { PageReader, Styling } from "@hacado/page-builder/reader";
-import type { StylingConfiguration } from "@hacado/types";
+import type { StylingConfiguration } from "@hacado/types/configuration/styling";
 import { useEffect, useMemo } from "react";
 
 type Props = {

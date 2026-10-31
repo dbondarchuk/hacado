@@ -33,7 +33,7 @@ common:
     formEmail: Correo electrónico
     formPhone: Teléfono
     formPromoCode: código promocional
-    formSelectOption: Seleccionar opción
+    formSelectOption: Seleccionar servicio
     searchCountryCode: Buscar país...
     searchTimezone: Buscar para cambiar la zona horaria
   aria:
@@ -95,6 +95,17 @@ booking:
     title: Tus detalles
     description: Por favor proporcione su información de contacto
     namePlaceholder: Su nombre
+    emailNotice: Le enviaremos la confirmación de la reserva y los recordatorios a esta dirección.
+    smsConsent:
+      label:
+        notifications: Envíame notificaciones sobre mi cita.
+        reminders: Envíame recordatorios sobre mi cita.
+        both: Envíame notificaciones y recordatorios sobre mi cita.
+      disclosure: Los mensajes son de Hacado en nombre de {businessName}. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar. <terms>Términos</terms> y <privacy>Privacidad</privacy>.
+      already:
+        notifications: "✓ Las notificaciones por SMS se enviarán a este número. (Responda STOP en cualquier momento para cancelar)"
+        reminders: "✓ Los recordatorios por SMS se enviarán a este número. (Responda STOP en cualquier momento para cancelar)"
+        both: "✓ Los recordatorios y notificaciones por SMS se enviarán a este número. (Responda STOP en cualquier momento para cancelar)"
   review:
     title: Revise su reserva
     description: Por favor confirme que todos los detalles sean correctos.

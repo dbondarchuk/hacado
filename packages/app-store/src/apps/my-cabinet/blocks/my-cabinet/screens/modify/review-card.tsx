@@ -1,20 +1,17 @@
+import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
+import { ModifyAppointmentInformation } from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  TranslationKeys,
-  useFormatter,
-  useI18n,
-  useLocale,
-} from "@hacado/i18n/client";
-import { ModifyAppointmentInformation, timeZones } from "@hacado/types";
-import {
-  Button,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Input,
-  Spinner,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
+import { durationToTime } from "@hacado/utils/time";
 import { AlertTriangle, Gift, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useMemo, useState } from "react";

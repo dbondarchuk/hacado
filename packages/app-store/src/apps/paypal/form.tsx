@@ -2,11 +2,15 @@
 "use client";
 
 import GooglePayButton from "@google-pay/button-react";
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
-import { PaymentAppFormProps } from "@hacado/types";
-import { Button, Spinner, toast, useConfig, useCurrency } from "@hacado/ui";
-import { formatAmountString } from "@hacado/utils";
+import { PaymentAppFormProps } from "@hacado/types/apps";
+import { Button } from "@hacado/ui/button";
+import { useConfig, useCurrency } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { formatAmountString } from "@hacado/utils/currency";
 import {
   PayPalButtons,
   PayPalCardFieldsProvider,
@@ -134,7 +138,7 @@ const ApplePaySection: React.FC<{
     session.onpaymentauthorized = async (event) => {
       let sheetCompleted = false;
       try {
-        const orderData = await clientApi.apps.callAppApi<{
+        const orderData = await appsApi.callAppApi<{
           id: string;
           debug_id?: string;
           details?: { issue: string; description: string }[];
@@ -165,7 +169,7 @@ const ApplePaySection: React.FC<{
         session.completePayment(ApplePaySession.STATUS_SUCCESS);
         sheetCompleted = true;
 
-        const captureData = await clientApi.apps.callAppApi<PaypalOrder>({
+        const captureData = await appsApi.callAppApi<PaypalOrder>({
           appId: intent.appId,
           path: "orders/capture",
           method: "POST",
@@ -254,7 +258,7 @@ const GooglePaySection: React.FC<{
       paymentData: google.payments.api.PaymentData,
     ): Promise<google.payments.api.PaymentAuthorizationResult> => {
       try {
-        const orderData = await clientApi.apps.callAppApi<{
+        const orderData = await appsApi.callAppApi<{
           id: string;
           debug_id?: string;
           details?: { issue: string; description: string }[];
@@ -283,7 +287,7 @@ const GooglePaySection: React.FC<{
           throw new Error(`Unexpected payment status: ${status}`);
         }
 
-        const captureData = await clientApi.apps.callAppApi<PaypalOrder>({
+        const captureData = await appsApi.callAppApi<PaypalOrder>({
           appId: intent.appId,
           path: "orders/capture",
           method: "POST",
@@ -422,12 +426,12 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
   );
 
   const handleSuccess = React.useCallback(() => {
-    clientApi.booking.trackPaymentSucceeded(intent.amount);
+    bookingApi.trackPaymentSucceeded(intent.amount);
     onSubmit();
   }, [intent.amount, onSubmit]);
 
   const handleFailed = React.useCallback(() => {
-    clientApi.booking.trackPaymentFailed(intent.amount);
+    bookingApi.trackPaymentFailed(intent.amount);
   }, [intent.amount]);
 
   const [isPaying, setIsPaying] = React.useState(false);
@@ -471,7 +475,7 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
 
   const createOrder = async () => {
     try {
-      const orderData = await clientApi.apps.callAppApi<{
+      const orderData = await appsApi.callAppApi<{
         id: string;
         debug_id?: string;
         details?: {
@@ -510,7 +514,7 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
     >[0],
   ) => {
     try {
-      const orderData = await clientApi.apps.callAppApi<PaypalOrder>({
+      const orderData = await appsApi.callAppApi<PaypalOrder>({
         appId: intent.appId,
         path: "orders/capture",
         method: "POST",

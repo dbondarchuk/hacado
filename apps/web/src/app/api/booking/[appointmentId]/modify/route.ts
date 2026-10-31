@@ -11,8 +11,8 @@ import {
   ModifyAppointmentRequest,
   modifyAppointmentRequestSchema,
   OnlinePayment,
-} from "@hacado/types";
-import { formatAmount } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { formatAmount } from "@hacado/utils/currency";
 import { NextRequest, NextResponse } from "next/server";
 
 const processRescheduleRequest = async (

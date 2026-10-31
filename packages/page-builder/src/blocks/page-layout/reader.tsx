@@ -1,11 +1,11 @@
-import { ReaderBlock, ReaderProps } from "@hacado/builder";
+import { ReaderBlock, ReaderProps } from "@hacado/builder/reader";
 import {
   getFontFamily,
   ReaderProvider,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
 import { COLORS, getColorStyle } from "@hacado/page-builder-base/style";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { PageLayoutReaderProps } from "./schema";
 
 export const PageLayoutReader = ({

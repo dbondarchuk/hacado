@@ -1,9 +1,8 @@
-import {
-  generateId,
-  TEditorBlock,
-  TemplatesConfiguration,
-} from "@hacado/builder";
-import type { BaseAllKeys } from "@hacado/i18n";
+import { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
+import { TemplatesConfiguration } from "@hacado/builder/types";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { COLORS } from "@hacado/page-builder-base/style";
 import {
   LayoutTemplate,

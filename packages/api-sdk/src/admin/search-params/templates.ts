@@ -8,7 +8,7 @@ import {
   parseAsStringLiteral,
 } from "nuqs/server";
 
-import { communicationChannels } from "@hacado/types";
+import { communicationChannels } from "@hacado/types/communication";
 import { baseSearchParams } from "./base";
 
 export const templateSearchParams = {

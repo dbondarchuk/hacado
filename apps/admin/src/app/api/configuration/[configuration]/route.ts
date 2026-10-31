@@ -1,14 +1,14 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import { getLoggerFactory } from "@hacado/logger";
-import { getPolarClient } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
 import {
-  BookingConfiguration,
   ConfigurationKey,
   configurationSchemaMap,
-  type GeneralConfiguration,
-  okStatus,
-} from "@hacado/types";
+} from "@hacado/types/configuration";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import type { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -5,7 +5,7 @@ import {
 } from "@/lib/auth/app-access";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { canUninstallConnectedApp } from "@hacado/utils";
+import { canUninstallConnectedApp } from "@hacado/utils/app-access";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

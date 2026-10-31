@@ -91,12 +91,19 @@ export const pageSchema = z.object({
 });
 
 export const getPageSchemaWithUniqueCheck = (
-  uniqueSlugCheckFn: (slug: string, id?: string) => Promise<boolean>,
+  uniqueSlugCheckFn: (slug: string) => Promise<boolean>,
   message: string,
 ) => {
   return z.object({
     ...pageSchema.shape,
-    slug: pageSchema.shape.slug.refine(uniqueSlugCheckFn, { message }),
+    slug: pageSchema.shape.slug.refine(
+      async (slug) => {
+        if (!slug) return true;
+
+        return await uniqueSlugCheckFn(slug);
+      },
+      { message },
+    ),
   });
 };
 

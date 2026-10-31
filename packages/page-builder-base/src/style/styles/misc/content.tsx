@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Input } from "@hacado/ui";
+import { Input } from "@hacado/ui/input";
 import { Quote } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

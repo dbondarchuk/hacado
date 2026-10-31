@@ -1,16 +1,19 @@
-import type { EventEnvelope, EventSource, UserRole } from "@hacado/types";
+import type { Appointment, AppointmentStatus } from "@hacado/types/booking";
+import type {
+  AppointmentCreatedPayload,
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  EventEnvelope,
+  EventSource,
+} from "@hacado/types/events";
 import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  type Appointment,
-  type AppointmentCreatedPayload,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatus,
-  type AppointmentStatusChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import type { UserRole } from "@hacado/types/users";
 import { roleCanProcessOtherMembersAppointments } from "./permissions";
 
 /**

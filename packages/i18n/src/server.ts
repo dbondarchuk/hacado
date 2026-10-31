@@ -1,7 +1,7 @@
 import { getLocale as getLocaleNext, getTranslations } from "next-intl/server";
-import { I18nFn, I18nNamespaces, Language } from "./types";
+import { I18nFn, I18nNamespaces, Language } from "./types-core";
 
-export * from "./types";
+export * from "./types-core";
 export * from "./utils";
 
 type LanguageOptions = { locale: Language };

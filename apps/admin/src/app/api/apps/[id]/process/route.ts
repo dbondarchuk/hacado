@@ -1,8 +1,8 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
 import { getLoggerFactory } from "@hacado/logger";
-import { ConnectedAppRequestError } from "@hacado/types";
-import { parseJSON } from "@hacado/utils";
+import { ConnectedAppRequestError } from "@hacado/types/apps";
+import { parseJSON } from "@hacado/utils/fetch-with-json";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

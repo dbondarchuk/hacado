@@ -1,5 +1,7 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Button, cn, Input } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Input } from "@hacado/ui/input";
 import { Plus, Search, X } from "lucide-react";
 import {
   BaseStyleDictionary,

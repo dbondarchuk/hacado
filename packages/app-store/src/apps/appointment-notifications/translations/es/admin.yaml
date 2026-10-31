@@ -24,16 +24,25 @@ form:
   name:
     label: Nombre
     placeholder: Nombre de notificación de cita
-    tooltip: Un nombre descriptivo para esta notificación de cita.
+    description: Un nombre descriptivo para esta notificación de cita.
     validation:
       unique: El nombre de la notificación de cita debe ser único
   type:
     label: Tipo
+    description: Elige cuándo se envía esta notificación, antes de que empiece la cita o después de que termine.
     searchLabel: Seleccionar tipo
   appointmentCount:
+    label: Número específico de citas
+    description: Envía esta notificación solo cuando el cliente tiene un número específico de citas.
+    examples:
+      equalTo: "Cuando esta es la {count, selectordinal, other {#ª}} cita del cliente"
+      lessThan: "Antes de la {count, selectordinal, other {#ª}} cita del cliente"
+      lessThanOrEqualTo: "Hasta la {count, selectordinal, other {#ª}} cita del cliente"
+      greaterThan: "Para la {count, selectordinal, other {#ª}} cita del cliente y las siguientes"
+      greaterThanOrEqualTo: "Para la {count, selectordinal, other {#ª}} cita del cliente y las siguientes"
     type:
       label: Tipo de recuento de citas
-      tooltip: Determina si el cliente necesita tener un número específico de citas.
+      description: Determina si el cliente necesita tener un número específico de citas.
       placeholder: Seleccione el tipo de recuento de citas
       types:
         none: Todas las citas
@@ -44,42 +53,55 @@ form:
         greaterThanOrEqualTo: Mayor o igual a
     count:
       label: Recuento de citas
-      tooltip: Enviar notificación de cita después de tantas citas con clientes
+      description: Enviar notificación de cita después de tantas citas con clientes
       placeholder: Recuento de citas
   weeksBefore:
     label: Semanas
-    tooltip: Cuantas semanas antes de la cita enviar el recordatorio
+    description: Cuantas semanas antes de la cita enviar el recordatorio
   daysBefore:
     label: Días
-    tooltip: Cuantos días antes de la cita enviar el recordatorio
+    description: Cuantos días antes de la cita enviar el recordatorio
   hoursBefore:
     label: Horas
-    tooltip: Cuantas horas antes de la cita enviar el recordatorio
+    description: Cuantas horas antes de la cita enviar el recordatorio
   minutesBefore:
     label: Minutos
-    tooltip: Cuantos minutos antes de la cita enviar el recordatorio
+    description: Cuantos minutos antes de la cita enviar el recordatorio
   weeksAfter:
     label: Semanas
-    tooltip: Cuántas semanas después de la cita enviar la notificación de la cita
+    description: Cuántas semanas después de la cita enviar la notificación de la cita
   daysAfter:
     label: Días
-    tooltip: Cuantos días después de la cita para enviar la notificación de la cita
+    description: Cuantos días después de la cita para enviar la notificación de la cita
   hoursAfter:
     label: Horas
-    tooltip: Cuantas horas después de la cita enviar la notificación de la cita
+    description: Cuantas horas después de la cita enviar la notificación de la cita
   minutesAfter:
     label: Minutos
-    tooltip: Cuantos minutos después de la cita para enviar la notificación de la cita
+    description: Cuantos minutos después de la cita para enviar la notificación de la cita
   time:
     label: Tiempo
-    tooltip: ¿A qué hora enviar la notificación de la cita?
+    description: ¿A qué hora del día enviar la notificación de la cita?
+  schedule:
+    label: Cuándo enviar
+    startsNow: "Si la cita empieza ahora ({now}), esto se envía el {when}."
+    endsNow: "Si la cita termina ahora ({now}), esto se envía el {when}."
+  delivery:
+    label: Cómo enviar
   channel:
-    label: tipo de canal
-    tooltip: Determina cómo enviar la notificación de la cita.
-    searchLabel: Seleccionar tipo de canal
-  template:
-    label: Plantilla
-    tooltip: Cuerpo de notificación de citas, que verán tus clientes.
+    required: Se requiere al menos un canal. Activa el correo, el mensaje de texto o ambos.
+  email:
+    label: Correo electrónico
+    description: Envía esta notificación al cliente por correo electrónico.
+    templateLabel: Plantilla de correo
+    templateDescription: Obligatorio. Este es el correo que recibe el cliente.
+  textMessage:
+    label: Mensaje de texto
+    description: Envía esta notificación por mensaje de texto a la hora que indiques.
+    verify: Para enviar seguimientos de texto personalizados, verifica los datos de tu negocio. Eso habilita las plantillas personalizadas.
+    verifyAction: Verificar los datos del negocio
+    smsDisabled: Los mensajes de texto necesitan que la mensajería de texto esté activada. Mientras esté desactivada, esta opción no está disponible.
+    smsDisabledAction: Activar mensajería de texto
   save: Ahorrar
   update: Actualizar
   cancel: Cancelar
@@ -155,6 +177,8 @@ validation:
       minute:
         min: El minuto debe estar entre 0 y 59.
         max: El minuto debe estar entre 0 y 59.
+    channel:
+      required: Se requiere al menos un canal. Activa el correo, el mensaje de texto o ambos.
     templateId:
       required: Se requiere plantilla
     atTimeBefore:
@@ -170,4 +194,3 @@ validation:
     appointmentCount:
       min: El número mínimo de citas es 1.
       type: Se requiere el tipo de recuento de citas
-

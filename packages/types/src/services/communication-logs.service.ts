@@ -4,17 +4,21 @@ import {
   CommunicationLog,
   CommunicationLogContentPayload,
   CommunicationLogCreateInput,
+  CommunicationLogStatus,
+  CommunicationLogUpdate,
   CommunicationParticipantType,
 } from "../communication";
 import { Query, WithTotal } from "../database";
 import { DateRange } from "../general";
 
 export interface ICommunicationLogsService {
-  log(log: CommunicationLogCreateInput): Promise<void>;
+  create(log: CommunicationLogCreateInput): Promise<string>;
+  update(logId: string, patch: CommunicationLogUpdate): Promise<void>;
   getCommunicationLogs(
     query: Query & {
       direction?: CommunicationDirection[];
       channel?: CommunicationChannel[];
+      status?: CommunicationLogStatus[];
       participantType?: CommunicationParticipantType[];
       range?: DateRange;
       customerId?: string | string[];

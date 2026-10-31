@@ -2,7 +2,7 @@ import {
   AppointmentRescheduleConfiguration,
   AppointmentWithDepositCancellationConfiguration,
   AppointmentWithoutDepositCancellationConfiguration,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import { DateTime } from "luxon";
 
 /**

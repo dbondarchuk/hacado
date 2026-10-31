@@ -8,7 +8,7 @@ import {
 } from "@udecode/plate-emoji/react";
 import { Smile } from "lucide-react";
 
-import { ToolbarButton } from "@hacado/ui";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { emojiCategoryIcons, emojiSearchIcons } from "./emoji-icons";
 import { EmojiPicker } from "./emoji-picker";
 import { EmojiToolbarDropdown } from "./emoji-toolbar-dropdown";

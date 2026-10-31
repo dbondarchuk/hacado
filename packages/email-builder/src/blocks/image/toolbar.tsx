@@ -1,4 +1,5 @@
-import { ConfigurationProps, ToolbarColorMenu } from "@hacado/builder";
+import { ToolbarColorMenu } from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { PaintBucket } from "lucide-react";
 import { ContentAlignmentDropdownMenu } from "../../toolbars/content-alignment";

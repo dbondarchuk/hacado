@@ -1,10 +1,10 @@
-import type { BaseZodDictionary } from "@hacado/builder";
 import {
   isEmbeddedSlot,
   ReaderBlock,
   TReaderProps,
   type TReaderBlock,
-} from "@hacado/builder";
+} from "@hacado/builder/reader";
+import type { BaseZodDictionary } from "@hacado/builder/types";
 import { BlockStyle } from "../helpers/styling";
 import type { StyleValue } from "../style/css-renderer";
 import type { BaseStyleDictionary } from "../style/types";

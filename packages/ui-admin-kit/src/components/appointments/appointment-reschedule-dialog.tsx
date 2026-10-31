@@ -1,8 +1,9 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { useI18n } from "@hacado/i18n/client";
-import { Appointment, CalendarEvent } from "@hacado/types";
+import { Appointment, CalendarEvent } from "@hacado/types/booking";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,9 +13,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Checkbox,
-  DateTimePicker,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -23,19 +25,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DurationInput,
+} from "@hacado/ui/dialog";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Spinner,
-  toastPromise,
-  use12HourFormat,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { DateTimePicker } from "@hacado/ui/time-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { DateTime } from "luxon";
@@ -114,7 +117,7 @@ export const AppointmentRescheduleDialog: React.FC<
       setLoading(true);
 
       await toastPromise(
-        adminApi.appointments.reschedule(
+        appointmentsApi.reschedule(
           appointment._id,
           data.dateTime,
           data.duration,
@@ -195,7 +198,7 @@ export const AppointmentRescheduleDialog: React.FC<
                 {t("appointments.rescheduleDialog.title")}
               </DialogTitle>
               <DialogDescription>
-                {appointment.option.name}{" "}
+                {appointment.service.name}{" "}
                 {t("appointments.rescheduleDialog.by")}{" "}
                 {appointment.fields.name}
               </DialogDescription>
@@ -209,9 +212,9 @@ export const AppointmentRescheduleDialog: React.FC<
                       name="dateTime"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t("appointments.rescheduleDialog.dateTime")}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <DateTimePicker
                               use12HourFormat={uses12HourFormat}
@@ -233,9 +236,9 @@ export const AppointmentRescheduleDialog: React.FC<
                       name="duration"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t("appointments.rescheduleDialog.duration")}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <DurationInput disabled={loading} {...field} />
                           </FormControl>
@@ -247,53 +250,31 @@ export const AppointmentRescheduleDialog: React.FC<
                       control={form.control}
                       name="doNotNotifyCustomer"
                       render={({ field }) => (
-                        <FormItem>
-                          <div className="flex flex-row items-center gap-2">
-                            <Checkbox
-                              id="do-not-notify-customer"
-                              disabled={loading}
-                              checked={!!field.value}
-                              onCheckedChange={(e) => field.onChange(!!e)}
-                            />
-                            <FormLabel
-                              htmlFor="do-not-notify-customer"
-                              className="cursor-pointer"
-                            >
-                              {t(
-                                "appointments.rescheduleDialog.doNotNotifyCustomer",
-                              )}
-                            </FormLabel>
-                          </div>
-                          <FormDescription>
-                            {t(
-                              "appointments.rescheduleDialog.doNotNotifyCustomerDescription",
-                            )}
-                          </FormDescription>
-                        </FormItem>
+                        <SwitchCardFormItem
+                          label={t(
+                            "appointments.rescheduleDialog.doNotNotifyCustomer",
+                          )}
+                          description={t(
+                            "appointments.rescheduleDialog.doNotNotifyCustomerDescription",
+                          )}
+                          checked={field.value ?? false}
+                          onCheckedChange={field.onChange}
+                          disabled={loading}
+                        />
                       )}
                     />
                     {isOverlaping && (
-                      <FormItem>
-                        <div className="flex flex-row items-center gap-2">
-                          <Checkbox
-                            id="confirm-overlap"
-                            disabled={loading}
-                            checked={confirmOverlap}
-                            onCheckedChange={(e) => setConfirmOverlap(!!e)}
-                          />
-                          <FormLabel
-                            htmlFor="confirm-overlap"
-                            className="cursor-pointer"
-                          >
-                            {t("appointments.rescheduleDialog.confirmOverlap")}
-                          </FormLabel>
-                        </div>
-                        <FormDescription>
-                          {t(
-                            "appointments.rescheduleDialog.confirmOverlapDescription",
-                          )}
-                        </FormDescription>
-                      </FormItem>
+                      <SwitchCardFormItem
+                        label={t(
+                          "appointments.rescheduleDialog.confirmOverlap",
+                        )}
+                        description={t(
+                          "appointments.rescheduleDialog.confirmOverlapDescription",
+                        )}
+                        checked={confirmOverlap}
+                        onCheckedChange={setConfirmOverlap}
+                        disabled={loading}
+                      />
                     )}
                   </div>
                   <div className="flex flex-col gap-2">

@@ -1,4 +1,4 @@
-import { OrganizationMember } from "@hacado/types";
+import { OrganizationMember } from "@hacado/types/users";
 import { UserUpdate } from "../schemas/user";
 import { fetchAdminApi } from "./utils";
 

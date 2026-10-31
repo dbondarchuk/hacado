@@ -29,6 +29,8 @@ const DEFAULT_PROVIDER = "google";
 const RETRY_WAIT_MS = 5_000;
 const MAX_RETRIES = 8;
 const MAX_CHUNK = 900;
+const GOOGLE_CLIENTS = ["gtx", "dict-chrome-ex", "te", "webapp", "t"];
+let googleClientIndex = 0;
 
 const args = process.argv.slice(2);
 const { target, language, provider } = parseArgs(args);
@@ -461,9 +463,6 @@ async function translateText(text, options) {
   saveCache(options.cachePath, options.cache);
   return translated;
 }
-
-const GOOGLE_CLIENTS = ["dict-chrome-ex", "te", "webapp", "t", "gtx"];
-let googleClientIndex = 0;
 
 function currentGoogleClient() {
   return GOOGLE_CLIENTS[googleClientIndex % GOOGLE_CLIENTS.length];

@@ -1,9 +1,9 @@
-import { ServicesContainer } from "@hacado/services";
+import { ServicesContainer } from "@hacado/services/container";
+import type { SubscriptionStatusChangedPayload } from "@hacado/types/events";
 import {
   SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
   systemEventSource,
-  type SubscriptionStatusChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 export async function emitSubscriptionStatusChangedEvent(
   organizationId: string,

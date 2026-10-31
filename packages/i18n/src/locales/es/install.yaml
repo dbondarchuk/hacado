@@ -323,6 +323,37 @@ wizard:
         bookNowLabel: Reserva ahora
         cancelOrRescheduleLabel: Cancelar o reprogramar
         policiesLabel: Políticas
+        privacyLabel: Privacidad
+        termsLabel: Términos
+      legalFallbackName: Nuestro negocio
+      privacy:
+        title: Política de privacidad
+        updated: "Última actualización: {date}"
+        intro: "{businessName} (\"nosotros\") respeta su privacidad y se compromete a proteger su información personal. Esta Política de privacidad describe cómo recopilamos, usamos y protegemos su información cuando reserva servicios o interactúa con nosotros en línea a través de nuestro sitio web, proporcionado por nuestro socio de programación, Hacado."
+        collectTitle: Información que recopilamos
+        collectBody: Cuando reserva una cita, se une a una lista de espera o se comunica con nosotros, podemos recopilar datos personales, incluido su nombre, correo electrónico y número de teléfono móvil.
+        useTitle: Cómo usamos su información
+        useBody: Usamos su información personal solo para completar solicitudes de citas, gestionar reservas, ofrecer atención al cliente y enviar avisos transaccionales (como confirmaciones, cambios de horario y recordatorios).
+        smsTitle: Términos móviles y privacidad de SMS
+        smsConsent: "Consentimiento y datos de alta por SMS: No compartiremos información móvil con terceros ni afiliados para marketing o promociones. Las categorías anteriores excluyen los datos de alta y el consentimiento del originador de los mensajes de texto; esta información no se compartirá con terceros en ninguna circunstancia."
+        smsUse: "Uso de mensajes de texto: Los números móviles recopilados para mensajes de texto se usan exclusivamente para enviar actualizaciones del servicio, recordatorios de citas y avisos de la cuenta relacionados con sus reservas."
+        contactTitle: Contacto
+        contactBody: Si tiene preguntas sobre esta Política de privacidad o sus datos personales, contáctenos directamente o escriba a nuestro proveedor de plataforma en support@hacado.com.
+      terms:
+        title: Términos del servicio
+        updated: "Última actualización: {date}"
+        intro: Bienvenido a {businessName}. Al reservar una cita o usar nuestra página de programación en línea con tecnología de Hacado, acepta estos términos y condiciones.
+        bookingsTitle: Reservas y cancelaciones
+        bookingsBody: Al enviar una reserva, acepta proporcionar información de contacto exacta. Las cancelaciones o cambios deben enviarse según nuestras políticas de programación publicadas.
+        smsTitle: Términos del programa de SMS
+        smsConsent: Al ingresar su número de teléfono móvil en el formulario de reserva y aceptar recibir avisos, consiente recibir mensajes de texto transaccionales automatizados (como confirmaciones, recordatorios y actualizaciones) de {businessName} a través de nuestro socio de infraestructura de reservas, Hacado.
+        smsFrequency: "Frecuencia de los mensajes: La frecuencia varía según su actividad de citas y reservas."
+        smsRates: "Tarifas de mensajes y datos: Pueden aplicarse tarifas estándar de mensajes y datos según su operador y plan."
+        smsStop: "Cómo darse de baja: Puede cancelar los avisos por SMS en cualquier momento respondiendo STOP a cualquier mensaje. Después de enviar STOP, recibirá un solo mensaje de confirmación."
+        smsHelp: "Ayuda: Para asistencia con los avisos por mensaje de texto, responda HELP a cualquier mensaje o escriba a support@hacado.com."
+        smsCarriers: "Operadores: Los operadores móviles no son responsables de los mensajes retrasados o no entregados."
+        platformTitle: Infraestructura de la plataforma
+        platformBody: La reserva en línea, la programación y el envío de avisos automáticos los facilita Hacado. Los términos y políticas de la infraestructura de Hacado están en https://hacado.com/terms.
       home:
         title: Reserva tu próxima visita
         description: Elige un servicio y reserva tu tiempo en minutos.

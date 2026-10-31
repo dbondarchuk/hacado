@@ -1,15 +1,18 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
 import {
-  Appointment,
-  AppointmentStatus,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
+  CustomerAppointmentTextOffer,
   IConnectedApp,
   IConnectedAppProps,
+  ICustomerAppointmentTextMessage,
   IEventSubscriber,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Appointment, AppointmentStatus } from "@hacado/types/booking";
+import { EventEnvelope } from "@hacado/types/events";
+import { getCustomerTextMessageBodies } from "./messages";
 import {
   CustomerTextMessageNotificationConfiguration,
   customerTextMessageNotificationConfigurationSchema,
@@ -20,17 +23,20 @@ import {
   CustomerTextMessageNotificationAdminNamespace,
 } from "./translations/types";
 
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getPhoneField } from "@hacado/utils/phone";
 import {
-  dispatchAppointmentEventPayload,
-  getAdminUrl,
-  getArguments,
-  getPhoneField,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+  appendSharedPoolSuffix,
+  isPlatformSmsCountry,
+  isSmsEnabled,
+  smsCustomerName,
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 
 export default class CustomerTextMessageNotificationConnectedApp
-  implements IConnectedApp, IEventSubscriber
+  implements IConnectedApp, IEventSubscriber, ICustomerAppointmentTextMessage
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -39,6 +45,20 @@ export default class CustomerTextMessageNotificationConnectedApp
       "CustomerTextMessageNotificationConnectedApp",
       props.organizationId,
     );
+  }
+
+  public async getCustomerAppointmentTextOffer(
+    appData: ConnectedAppData,
+  ): Promise<CustomerAppointmentTextOffer> {
+    const parsed = customerTextMessageNotificationConfigurationSchema.safeParse(
+      appData.data ?? {},
+    );
+    const templates = parsed.success ? parsed.data.templates : {};
+    const notifications = Object.values(templates).some((item) =>
+      isSmsEnabled(item?.enabled),
+    );
+
+    return { notifications, reminders: false, other: false };
   }
 
   public async onEvent(
@@ -352,29 +372,12 @@ export default class CustomerTextMessageNotificationConnectedApp
 
     try {
       const data = appData.data as CustomerTextMessageNotificationConfiguration;
-      const templateId = data.templates[status]?.templateId;
-
-      if (!templateId) {
+      const templateConfig = data.templates[status];
+      if (!isSmsEnabled(templateConfig?.enabled)) {
         logger.warn(
           { appId: appData._id, appointmentId: appointment._id, status },
-          "No template ID configured for status, skipping text message notification",
+          "Text message disabled for status, skipping",
         );
-        return;
-      }
-
-      logger.debug(
-        { appId: appData._id, appointmentId: appointment._id, templateId },
-        "Getting text message template",
-      );
-
-      const template =
-        await this.props.services.templatesService.getTemplate(templateId);
-      if (!template) {
-        logger.error(
-          { appId: appData._id, appointmentId: appointment._id, templateId },
-          "Text message template not found",
-        );
-        console.error(`Can't find template with id ${templateId}`);
         return;
       }
 
@@ -397,7 +400,7 @@ export default class CustomerTextMessageNotificationConnectedApp
       );
 
       const phoneFields = (
-        await this.props.services.servicesService.getFields({
+        await this.props.services.catalogService.getFields({
           type: ["phone"],
         })
       ).items;
@@ -441,6 +444,11 @@ export default class CustomerTextMessageNotificationConnectedApp
 
       const adminUrl = getAdminUrl();
       const websiteUrl = getWebsiteUrl(organization);
+      const manageLink = isPlatformSmsCountry(phone)
+        ? await this.props.services.pagesService.findManageAppointmentUrl(
+            websiteUrl,
+          )
+        : undefined;
 
       const args = getArguments({
         appointment,
@@ -450,6 +458,10 @@ export default class CustomerTextMessageNotificationConnectedApp
         locale: config.brand.language,
         adminUrl,
         websiteUrl,
+        additionalProperties: {
+          manageLink,
+          customerName: smsCustomerName(appointment.fields?.name),
+        },
       });
 
       logger.debug(
@@ -457,11 +469,47 @@ export default class CustomerTextMessageNotificationConnectedApp
         "Generated template arguments",
       );
 
-      const templatedBody = templateSafeWithError(
-        template.value as string,
-        args,
-        true,
-      );
+      let templatedBody: string;
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
+
+      if (isPlatformSmsCountry(phone)) {
+        const bodyTemplate = getCustomerTextMessageBodies(
+          config.brand.language,
+        )[status];
+
+        const builtIn = template(bodyTemplate, args, true);
+        const templateId = templateConfig?.templateId;
+        const stored =
+          allowCustom && templateId
+            ? await this.props.services.templatesService.getTemplate(templateId)
+            : null;
+
+        templatedBody =
+          stored?.type === "text-message"
+            ? templateSafeWithError(stored.value as string, args, true)
+            : allowCustom
+              ? builtIn
+              : appendSharedPoolSuffix(builtIn);
+      } else {
+        const templateId = templateConfig?.templateId;
+        const stored = templateId
+          ? await this.props.services.templatesService.getTemplate(templateId)
+          : null;
+        if (!stored || stored.type !== "text-message") {
+          logger.warn(
+            { appId: appData._id, appointmentId: appointment._id, templateId },
+            "Stored SMS template unavailable for unsupported country",
+          );
+          return;
+        }
+        templatedBody = templateSafeWithError(
+          stored.value as string,
+          args,
+          true,
+        );
+      }
 
       logger.debug(
         {
@@ -487,6 +535,10 @@ export default class CustomerTextMessageNotificationConnectedApp
         appointmentId: appointment._id,
         participantType: "customer",
         memberId: appointment.memberId,
+        ...(appointmentSkipsSmsConsent(appointment.createdAt)
+          ? { dontRequireConsent: true }
+          : {}),
+        idempotencyKey: `sms_${appointment.organizationId}_${appointment._id}_${status}`,
         handledBy:
           `app_customer-text-message-notification_admin.handlers.${initiator}` satisfies CustomerTextMessageNotificationAdminAllKeys,
       });

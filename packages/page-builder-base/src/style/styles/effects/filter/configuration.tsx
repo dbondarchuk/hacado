@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Combobox } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
 import { Plus, Sparkles, Trash2 } from "lucide-react";
 import { useCallback, useState } from "react";
 import * as z from "zod";

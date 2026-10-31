@@ -1,16 +1,21 @@
 import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
-  catalogNodesAtPath,
   effectiveStaffDuration,
   effectiveStaffPrice,
-  filterCatalogNodes,
   minEffectiveDuration,
   minEffectivePrice,
   summarizePackageItems,
-} from "@hacado/types";
-import { cn, Markdown, Skeleton, useCurrencyFormat } from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/types/booking";
+import {
+  catalogNodesAtPath,
+  filterCatalogNodes,
+} from "@hacado/types/configuration/booking";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, Minus, Plus } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";
@@ -65,7 +70,7 @@ export const AppointmentOptionCard: React.FC = () => {
     () =>
       filterCatalogNodes(catalog, {
         excludePackages,
-        optionIds: visibleOptions.map((option) => option._id),
+        serviceIds: visibleOptions.map((option) => option._id),
         packageIds: excludePackages
           ? undefined
           : packages?.map((pkg) => pkg._id),
@@ -328,7 +333,7 @@ export const AppointmentOptionCard: React.FC = () => {
                     )}
                     onClick={() => {
                       const option = appointmentOptions.find(
-                        (item) => item._id === pkg.items[0]?.optionId,
+                        (item) => item._id === pkg.items[0]?.serviceId,
                       );
                       if (!option) return;
                       setFlow("booking");
@@ -366,7 +371,7 @@ export const AppointmentOptionCard: React.FC = () => {
                         <ul className="space-y-0.5 text-xs text-muted-foreground package-card-included-list">
                           {included.map((item) => (
                             <li
-                              key={item.optionId}
+                              key={item.serviceId}
                               className="flex items-center justify-between gap-2 package-card-included-item"
                             >
                               <span className="package-card-included-item-name">
@@ -393,7 +398,7 @@ export const AppointmentOptionCard: React.FC = () => {
                 );
               }
               const option = visibleOptions.find(
-                (item) => item._id === node.optionId,
+                (item) => item._id === node.serviceId,
               );
               if (!option) return null;
               return renderServiceOption(option, {

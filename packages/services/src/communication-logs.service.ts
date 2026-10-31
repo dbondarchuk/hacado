@@ -1,3 +1,4 @@
+import { IAssetsStorage } from "@hacado/types/apps";
 import {
   CommunicationChannel,
   CommunicationDirection,
@@ -5,14 +6,18 @@ import {
   CommunicationLogContentPayload,
   CommunicationLogCreateInput,
   CommunicationLogEntity,
+  CommunicationLogReason,
+  CommunicationLogStatus,
+  communicationLogStatuses,
+  CommunicationLogUpdate,
   CommunicationParticipantType,
-  DateRange,
-  IAssetsStorage,
-  ICommunicationLogsService,
-  Query,
-  WithTotal,
-} from "@hacado/types";
-import { buildSearchQuery, escapeRegex, stream2buffer } from "@hacado/utils";
+} from "@hacado/types/communication";
+import { Query, WithTotal } from "@hacado/types/database";
+import { DateRange } from "@hacado/types/general";
+import { ICommunicationLogsService } from "@hacado/types/services";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { stream2buffer } from "@hacado/utils/stream";
+import { escapeRegex } from "@hacado/utils/string";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { Readable } from "stream";
 import {
@@ -57,7 +62,7 @@ export class CommunicationLogsService
     super("CommunicationLogsService", organizationId);
   }
 
-  public async log(log: CommunicationLogCreateInput) {
+  public async create(log: CommunicationLogCreateInput): Promise<string> {
     const {
       channel,
       direction,
@@ -70,6 +75,7 @@ export class CommunicationLogsService
       data,
       subject,
       handledBy,
+      status,
     } = log;
     const memberId = log.memberId;
     const logArgs = {
@@ -82,8 +88,9 @@ export class CommunicationLogsService
       memberId,
     };
 
-    const logger = this.loggerFactory("log");
-    logger.debug({ logArgs }, "Logging new communication");
+    const logger = this.loggerFactory("create");
+    logger.debug({ logArgs, status }, "Logging new communication");
+
     const db = await getDbConnection();
     const collection =
       db.collection<CommunicationLogEntity>(LOG_COLLECTION_NAME);
@@ -115,12 +122,93 @@ export class CommunicationLogsService
       customerId,
       preview: communicationLogTextPreview(text),
       hasPayloadData: communicationLogHasPayloadData(data),
+      status,
       organizationId: this.organizationId,
       dateTime: new Date(),
       _id,
     });
 
     logger.debug({ logArgs, _id }, "Successfully logged new communication");
+    return _id;
+  }
+
+  public async update(logId: string, patch: CommunicationLogUpdate) {
+    const logger = this.loggerFactory("update");
+    const set: Partial<CommunicationLogEntity> = {};
+    const unset: Record<string, ""> = {};
+
+    if (patch.status) {
+      set.status = patch.status;
+    }
+
+    if (patch.reason === null) {
+      unset.reason = "";
+    } else if (patch.reason !== undefined) {
+      set.reason = patch.reason;
+    }
+
+    if (patch.retryable !== undefined) {
+      set.retryable = patch.retryable;
+    }
+
+    if (patch.retriesDone !== undefined) {
+      set.retriesDone = patch.retriesDone;
+    }
+
+    if (patch.retriesLeft !== undefined) {
+      set.retriesLeft = patch.retriesLeft;
+    }
+
+    if (patch.providerMessageId) {
+      set.providerMessageId = patch.providerMessageId;
+    }
+
+    const replacesBody =
+      patch.text !== undefined ||
+      patch.html !== undefined ||
+      patch.data !== undefined;
+
+    if (replacesBody) {
+      const current = await this.getCommunicationLogContent(logId);
+      const text = patch.text ?? current?.text ?? "";
+      const html = patch.html !== undefined ? patch.html : current?.html;
+      const data = patch.data !== undefined ? patch.data : current?.data;
+      const payload: CommunicationLogContentPayload = {
+        text,
+        ...(html !== undefined ? { html } : {}),
+        ...(data !== undefined ? { data } : {}),
+      };
+
+      const json = JSON.stringify(payload);
+      const body = Buffer.from(json, "utf8");
+      await this.assetsStorage.saveFile(
+        communicationLogPayloadFilename(logId),
+        Readable.from(body),
+        body.length,
+      );
+
+      set.preview = communicationLogTextPreview(text);
+      set.hasPayloadData = communicationLogHasPayloadData(data);
+    }
+
+    if (Object.keys(set).length === 0 && Object.keys(unset).length === 0) {
+      return;
+    }
+
+    const db = await getDbConnection();
+    const result = await db
+      .collection<CommunicationLogEntity>(LOG_COLLECTION_NAME)
+      .updateOne(
+        { _id: logId, organizationId: this.organizationId },
+        {
+          ...(Object.keys(set).length ? { $set: set } : {}),
+          ...(Object.keys(unset).length ? { $unset: unset } : {}),
+        },
+      );
+
+    if (result.matchedCount === 0) {
+      logger.warn({ logId }, "Communication log not found for update");
+    }
   }
 
   public async getCommunicationLogContent(
@@ -136,6 +224,7 @@ export class CommunicationLogsService
       _id: logId,
       organizationId: this.organizationId,
     };
+
     if (options?.memberId) {
       filter.memberId = {
         $in: Array.isArray(options.memberId)
@@ -199,6 +288,7 @@ export class CommunicationLogsService
     query: Query & {
       direction?: CommunicationDirection[];
       channel?: CommunicationChannel[];
+      status?: CommunicationLogStatus[];
       participantType?: CommunicationParticipantType[];
       range?: DateRange;
       customerId?: string | string[];
@@ -247,6 +337,16 @@ export class CommunicationLogsService
       };
     }
 
+    if (
+      query.status &&
+      query.status.length > 0 &&
+      query.status.length < communicationLogStatuses.length
+    ) {
+      filter.status = {
+        $in: query.status,
+      };
+    }
+
     if (query.participantType && query.participantType.length) {
       filter.participantType = {
         $in: query.participantType,
@@ -277,7 +377,7 @@ export class CommunicationLogsService
         "participant",
         "preview",
         "text",
-        "appointment.option.name",
+        "appointment.service.name",
         "customer.name",
         "subject",
       );
@@ -446,6 +546,7 @@ export class CommunicationLogsService
       ...meta,
       preview,
       hasPayloadData,
+      status: doc.status,
       appointment,
       customer,
     };
@@ -547,4 +648,29 @@ export class CommunicationLogsService
       "Successfully deleted payload files",
     );
   }
+}
+
+export async function markCommunicationLogDeliveryFailed(input: {
+  providerMessageId: string;
+  reason: CommunicationLogReason;
+}): Promise<void> {
+  if (!input.providerMessageId) {
+    return;
+  }
+
+  const db = await getDbConnection();
+  await db.collection<CommunicationLogEntity>(LOG_COLLECTION_NAME).updateMany(
+    {
+      providerMessageId: input.providerMessageId,
+      direction: "outbound",
+    },
+    {
+      $set: {
+        status: "failed",
+        reason: input.reason,
+        retryable: false,
+        retriesLeft: 0,
+      },
+    },
+  );
 }

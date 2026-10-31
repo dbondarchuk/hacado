@@ -1,10 +1,10 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerPackageListModel } from "@hacado/types";
+import { CustomerPackageListModel } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,11 +13,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
@@ -81,14 +81,14 @@ export const AdjustPackageCreditsDialog: React.FC<
     setLoading(true);
     try {
       await toastPromise(
-        adminApi.packages.adjustCustomerPackage(pkg._id, {
+        packagesApi.adjustCustomerPackage(pkg._id, {
           itemId,
           delta,
           reason: reason.trim() || undefined,
         }),
         {
-          success: t("services.packages.form.toasts.changesSaved"),
-          error: t("services.packages.form.toasts.requestError"),
+          success: t("catalog.packages.form.toasts.changesSaved"),
+          error: t("catalog.packages.form.toasts.requestError"),
         },
       );
       setOpen(false);
@@ -103,15 +103,15 @@ export const AdjustPackageCreditsDialog: React.FC<
       <DialogTrigger asChild>
         {children ?? (
           <Button type="button" size="sm" variant="outline">
-            {t("services.packages.adjust.title")}
+            {t("catalog.packages.adjust.title")}
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{t("services.packages.adjust.title")}</DialogTitle>
+          <DialogTitle>{t("catalog.packages.adjust.title")}</DialogTitle>
           <DialogDescription>
-            {t("services.packages.adjust.description", {
+            {t("catalog.packages.adjust.description", {
               name: pkg.name,
               total: pkg.totalCredits,
             })}
@@ -119,7 +119,7 @@ export const AdjustPackageCreditsDialog: React.FC<
         </DialogHeader>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <Label>{t("services.packages.adjust.usedLabel")}</Label>
+            <Label>{t("catalog.packages.adjust.usedLabel")}</Label>
             <div className="flex items-center justify-center gap-2">
               <Button
                 type="button"
@@ -127,7 +127,7 @@ export const AdjustPackageCreditsDialog: React.FC<
                 variant="outline"
                 disabled={loading || used <= minUsed}
                 onClick={() => setUsedClamped(used - 1)}
-                aria-label={t("services.packages.adjust.decrease")}
+                aria-label={t("catalog.packages.adjust.decrease")}
               >
                 <Minus className="size-4" />
               </Button>
@@ -155,12 +155,12 @@ export const AdjustPackageCreditsDialog: React.FC<
                 variant="outline"
                 disabled={loading || used >= maxUsed}
                 onClick={() => setUsedClamped(used + 1)}
-                aria-label={t("services.packages.adjust.increase")}
+                aria-label={t("catalog.packages.adjust.increase")}
               >
                 <Plus className="size-4" />
               </Button>
               <span className="text-sm text-muted-foreground">
-                {t("services.packages.adjust.ofTotal", {
+                {t("catalog.packages.adjust.ofTotal", {
                   total: pkg.totalCredits,
                 })}
               </span>
@@ -168,14 +168,14 @@ export const AdjustPackageCreditsDialog: React.FC<
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor={`adjust-reason-${pkg._id}`}>
-              {t("services.packages.adjust.reason")}
+              {t("catalog.packages.adjust.reason")}
             </Label>
             <Input
               id={`adjust-reason-${pkg._id}`}
               value={reason}
               disabled={loading}
               onChange={(e) => setReason(e.target.value)}
-              placeholder={t("services.packages.adjust.reasonPlaceholder")}
+              placeholder={t("catalog.packages.adjust.reasonPlaceholder")}
             />
           </div>
         </div>
@@ -191,7 +191,7 @@ export const AdjustPackageCreditsDialog: React.FC<
             onClick={onSaveUsed}
           >
             {loading ? <Spinner className="size-4" /> : null}
-            {t("services.packages.adjust.save")}
+            {t("catalog.packages.adjust.save")}
           </Button>
         </DialogFooter>
       </DialogContent>

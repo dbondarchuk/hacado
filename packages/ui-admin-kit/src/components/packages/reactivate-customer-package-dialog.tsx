@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerPackageListModel } from "@hacado/types";
+import { CustomerPackageListModel } from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,10 +13,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -41,12 +41,12 @@ export const ReactivateCustomerPackageDialog: React.FC<
     setLoading(true);
     try {
       await toastPromise(
-        adminApi.packages.adjustCustomerPackage(pkg._id, {
+        packagesApi.adjustCustomerPackage(pkg._id, {
           reactivate: true,
         }),
         {
-          success: t("services.packages.customer.reactivate.success"),
-          error: t("services.packages.form.toasts.requestError"),
+          success: t("catalog.packages.customer.reactivate.success"),
+          error: t("catalog.packages.form.toasts.requestError"),
         },
       );
       setOpen(false);
@@ -61,17 +61,17 @@ export const ReactivateCustomerPackageDialog: React.FC<
       <AlertDialogTrigger asChild>
         {children ?? (
           <Button type="button" size="sm" variant="outline">
-            {t("services.packages.customer.reactivate.button")}
+            {t("catalog.packages.customer.reactivate.button")}
           </Button>
         )}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {t("services.packages.customer.reactivate.confirmTitle")}
+            {t("catalog.packages.customer.reactivate.confirmTitle")}
           </AlertDialogTitle>
           <AlertDialogDescription>
-            {t("services.packages.customer.reactivate.confirmDescription", {
+            {t("catalog.packages.customer.reactivate.confirmDescription", {
               name: pkg.name,
             })}
           </AlertDialogDescription>
@@ -87,7 +87,7 @@ export const ReactivateCustomerPackageDialog: React.FC<
               onClick={onReactivatePackage}
             >
               {loading ? <Spinner className="size-4" /> : null}
-              {t("services.packages.customer.reactivate.button")}
+              {t("catalog.packages.customer.reactivate.button")}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>

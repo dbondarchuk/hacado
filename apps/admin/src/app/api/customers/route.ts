@@ -1,8 +1,8 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { customersSearchParamsLoader } from "@hacado/api-sdk";
+import { customersSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/customers";
 import { getLoggerFactory } from "@hacado/logger";
-import { customerSchema } from "@hacado/types";
+import { customerSchema } from "@hacado/types/customers";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -88,6 +88,7 @@ export async function POST(request: NextRequest) {
       data,
       actor,
     );
+
     return NextResponse.json(result, { status: 201 });
   } catch (error: any) {
     return NextResponse.json(

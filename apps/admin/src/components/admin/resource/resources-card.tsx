@@ -1,4 +1,4 @@
-import { Sortable } from "@hacado/ui-admin";
+import { Sortable } from "@hacado/ui-admin/sortable";
 import { useMemo } from "react";
 import {
   ArrayPath,

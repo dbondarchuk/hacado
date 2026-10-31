@@ -1,6 +1,7 @@
-import { ConfigurationProps, ToolbarDropdownMenu } from "@hacado/builder";
+import { ToolbarDropdownMenu } from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { ShortcutsToolbar } from "@hacado/page-builder-base";
+import { ShortcutsToolbar } from "@hacado/page-builder-base/toolbars";
 import {
   Heading1,
   Heading2,

@@ -1,4 +1,5 @@
-import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import { cn } from "../../utils";
 import { FormLabel } from "../form";
 
@@ -16,7 +17,7 @@ export const FormFieldLabel: React.FC<{
       htmlFor={props.htmlFor}
     >
       {hasKey ? i18n(props.label as TranslationKeys) : props.label}
-      {props.required && <span className="ml-1">*</span>}
+      {props.required && <span className="text-destructive ml-1">*</span>}
     </FormLabel>
   );
 };

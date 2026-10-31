@@ -3,12 +3,12 @@
 import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
+import { ServicesContainer } from "@hacado/services/container";
+import type { Schedule } from "@hacado/types/configuration/schedule";
 import {
   scheduleConfigurationSchema,
   shiftsSchema,
-  type Schedule,
-} from "@hacado/types";
+} from "@hacado/types/configuration/schedule";
 import { headers } from "next/headers";
 
 export async function getInstallScheduleSnapshot(): Promise<Schedule | null> {

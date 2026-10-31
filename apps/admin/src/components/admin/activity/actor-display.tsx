@@ -1,9 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import type { ActivityActorDisplay } from "@hacado/types";
-import { cn, Link } from "@hacado/ui";
-import { CustomerName } from "@hacado/ui-admin";
+import type { ActivityActorDisplay } from "@hacado/types/activity";
+import { CustomerName } from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
+import { Link } from "@hacado/ui/link";
 import React from "react";
 
 export const ActivityActorDisplayView: React.FC<{

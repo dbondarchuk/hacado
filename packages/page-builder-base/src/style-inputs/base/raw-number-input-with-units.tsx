@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { UNITLESS_UNIT, Unit, UnitOrUnitless, units } from "../../style/zod";
 import { RawNumberInput } from "./raw-number-input";
 

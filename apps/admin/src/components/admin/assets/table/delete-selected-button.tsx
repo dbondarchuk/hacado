@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
-import { Asset } from "@hacado/types";
+import { Asset } from "@hacado/types/assets";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,10 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -34,7 +34,7 @@ export const DeleteSelectedAssetsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.assets.deleteAssets(selected.map((asset) => asset._id)),
+        assetsApi.deleteAssets(selected.map((asset) => asset._id)),
         {
           success: t("assets.table.delete.success"),
           error: t("assets.table.delete.error"),

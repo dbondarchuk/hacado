@@ -1,9 +1,9 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { userUpdateSchema } from "@hacado/api-sdk";
+import { userUpdateSchema } from "@hacado/api-sdk/admin/schemas/user";
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
-import { canUpdateTeamMemberProfile } from "@hacado/utils";
+import type { SessionUser } from "@hacado/types/users";
+import { canUpdateTeamMemberProfile } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +21,10 @@ async function loadTargetAndAuthorize(memberId: string, user: SessionUser) {
         { status: 404 },
       ),
     };
+  }
+
+  if (user.memberId === member._id) {
+    return { ok: true as const, member, services };
   }
 
   if (

@@ -8,8 +8,8 @@ import {
   LayoutScriptProviderContext,
   PageScriptProviderContext,
   ScriptContribution,
-} from "@hacado/types";
-import { template } from "@hacado/utils";
+} from "@hacado/types/apps";
+import { template } from "@hacado/utils/string";
 import {
   buildPageJsonLd,
   jsonLdScriptContent,

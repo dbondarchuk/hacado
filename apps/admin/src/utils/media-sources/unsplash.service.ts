@@ -1,5 +1,8 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type { UnsplashPhoto, UnsplashSearchResult } from "@hacado/types";
+import type {
+  UnsplashPhoto,
+  UnsplashSearchResult,
+} from "@hacado/types/unsplash";
 import type { Redis } from "ioredis";
 
 const UNSPLASH_API_BASE = "https://api.unsplash.com";

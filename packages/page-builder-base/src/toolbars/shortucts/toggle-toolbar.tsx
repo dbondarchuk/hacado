@@ -1,5 +1,5 @@
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { ToolbarButton } from "@hacado/ui";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { Shortcut } from "../../shortcuts";
 import {
   applyShortcutOption,

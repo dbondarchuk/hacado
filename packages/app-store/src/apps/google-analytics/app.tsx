@@ -1,9 +1,9 @@
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import {
-  App,
   APPOINTMENT_CREATED_EVENT_TYPE,
-  BillingPlanTier,
   CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";
 import { GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE } from "../gift-card-studio/models/events";
 import { WAITLIST_ENTRY_CREATED_EVENT_TYPE } from "../waitlist/models/events";

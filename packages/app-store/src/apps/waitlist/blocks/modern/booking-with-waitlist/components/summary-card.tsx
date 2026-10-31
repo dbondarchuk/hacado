@@ -1,13 +1,13 @@
 import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
-import { effectiveAddonPrice } from "@hacado/types";
+import { effectiveAddonPrice } from "@hacado/types/booking";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { durationToTime } from "@hacado/utils/time";
 import { ChevronDown } from "lucide-react";
 import { DateTime } from "luxon";
 import type { ReactNode } from "react";
@@ -251,7 +251,7 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "bg-card border rounded-lg p-4 summary-card summary-container min-w-0 overflow-hidden",
+        "border rounded-lg p-4 summary-card summary-container min-w-0 overflow-hidden",
         className,
       )}
     >

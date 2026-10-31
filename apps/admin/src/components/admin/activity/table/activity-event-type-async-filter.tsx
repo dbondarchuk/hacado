@@ -1,12 +1,13 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { activitiesApi } from "@hacado/api-sdk/admin/activities";
 import { useI18n } from "@hacado/i18n/client";
-import { Skeleton, useDebounceCacheFn } from "@hacado/ui";
 import {
   AsyncFilterBoxOption,
   DataTableAsyncFilterBox,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 
 export const ActivityEventTypeAsyncFilterBox: React.FC<{
@@ -20,7 +21,7 @@ export const ActivityEventTypeAsyncFilterBox: React.FC<{
   const fetchItems = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.activities.getActivityEventTypes({
+      const result = await activitiesApi.getActivityEventTypes({
         page,
         limit,
         search,

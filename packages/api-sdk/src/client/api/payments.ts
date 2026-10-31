@@ -1,7 +1,7 @@
 import {
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { fetchClientApi } from "./utils";
 
 export const createPaymentIntent = async (

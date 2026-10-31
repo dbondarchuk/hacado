@@ -1,4 +1,4 @@
-import type { AppEventConfig, EventDefinition } from "@hacado/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
 import { buildNewBlogCommentEmailNotifications } from "./emails/new-comment-email";
 import { blogConfigurationSchema } from "./models";
 import {

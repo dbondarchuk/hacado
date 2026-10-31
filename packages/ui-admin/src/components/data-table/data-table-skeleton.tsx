@@ -1,14 +1,13 @@
+import { ScrollArea, ScrollBar } from "@hacado/ui/scroll-area";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
-  ScrollArea,
-  ScrollBar,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@hacado/ui";
+} from "@hacado/ui/table";
 
 export function DataTableSkeleton({
   columnCount = 1,

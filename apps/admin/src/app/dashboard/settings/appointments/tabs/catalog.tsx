@@ -5,19 +5,19 @@ import {
   BookingCatalogNode,
   BookingConfiguration,
   catalogNodeIds,
-  flattenCatalogOptionIds,
   flattenCatalogPackageIds,
+  flattenCatalogServiceIds,
   moveCatalogNode,
   normalizeCatalogNodes,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@hacado/ui";
-import { Sortable } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
 import { FolderPlus, PackagePlus, Plus, Sparkles } from "lucide-react";
 import React from "react";
 import { FieldPath, useFieldArray } from "react-hook-form";
@@ -48,7 +48,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
   };
 
   const ids = catalogNodeIds(catalog);
-  const usedOptionIds = flattenCatalogOptionIds(catalog);
+  const usedOptionIds = flattenCatalogServiceIds(catalog);
   const usedPackageIds = flattenCatalogPackageIds(catalog);
   const sort = (activeId: string, overId: string) => {
     const next = moveCatalogNode(catalog, activeId, overId);
@@ -59,43 +59,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
   const catalogState = form.getFieldState("catalog");
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex justify-end">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button type="button" variant="outline" disabled={disabled}>
-              <Plus className="h-4 w-4" />
-              {t("common.buttons.addNew")}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem
-              onClick={() =>
-                addNode({ type: "group", id: newId(), name: "", children: [] })
-              }
-            >
-              <FolderPlus className="h-4 w-4" />
-              {t("settings.appointments.form.options.addGroup")}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                addNode({ type: "option", id: newId(), optionId: "" })
-              }
-            >
-              <Sparkles className="h-4 w-4" />
-              {t("settings.appointments.form.options.addService")}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                addNode({ type: "package", id: newId(), packageId: "" })
-              }
-            >
-              <PackagePlus className="h-4 w-4" />
-              {t("settings.appointments.form.options.addPackage")}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+    <div className="flex min-w-0 flex-col gap-4">
       <Sortable
         title={t("settings.appointments.form.options.title")}
         ids={ids}
@@ -104,8 +68,54 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
           isInvalid: catalogState.invalid,
           message: catalogState.error?.message,
         }}
+        addButton={
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                disabled={disabled}
+                aria-label={t("common.buttons.addNew")}
+              >
+                <Plus />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() =>
+                  addNode({
+                    type: "group",
+                    id: newId(),
+                    name: "",
+                    children: [],
+                  })
+                }
+              >
+                <FolderPlus className="h-4 w-4" />
+                {t("settings.appointments.form.options.addGroup")}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  addNode({ type: "service", id: newId(), serviceId: "" })
+                }
+              >
+                <Sparkles className="h-4 w-4" />
+                {t("settings.appointments.form.options.addService")}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  addNode({ type: "package", id: newId(), packageId: "" })
+                }
+              >
+                <PackagePlus className="h-4 w-4" />
+                {t("settings.appointments.form.options.addPackage")}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        }
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex w-full min-w-0 flex-col gap-3">
           {fields.map((field, index) => {
             const node =
               catalog[index] ?? (field as unknown as BookingCatalogNode);

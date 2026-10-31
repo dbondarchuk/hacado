@@ -1,7 +1,7 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
-import { canFilterByMember, canManageTeam } from "@hacado/utils";
+import type { SessionUser } from "@hacado/types/users";
+import { canFilterByMember, canManageTeam } from "@hacado/utils/permissions";
 import { NextResponse } from "next/server";
 
 export async function requireTeamManager(logName: string, method: string) {

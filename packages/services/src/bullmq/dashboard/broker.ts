@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type { DashboardNotification } from "@hacado/types";
+import type { DashboardNotification } from "@hacado/types/apps";
 import { Redis } from "ioredis";
 import { getRedisClient } from "../redis-client";
 

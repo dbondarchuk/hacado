@@ -1,8 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -10,10 +10,8 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { Plus } from "lucide-react";
 import React, { Fragment, useState } from "react";
 import {

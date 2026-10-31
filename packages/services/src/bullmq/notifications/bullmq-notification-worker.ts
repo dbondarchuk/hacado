@@ -1,19 +1,17 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { Email, TextMessage } from "@hacado/types/apps";
 import {
-  Email,
   EmailNotificationRequest,
   IServicesContainer,
-  TextMessage,
   TextMessageNotificationRequest,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { Job } from "bullmq";
 import { createDefaultEmailService } from "../../email/factory";
 import {
   NotificationService,
   SystemNotificationService,
 } from "../../notifications.service";
-import { getTextBeltConfiguration } from "../../text-message";
-import { TextBeltService } from "../../text-message/textbelt/service";
+import { createDefaultTextMessageSender } from "../../text-message";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { NotificationJobData } from "./bullmq-notification-service";
 import { BullMQNotificationConfig } from "./types";
@@ -109,6 +107,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     }
 
     const notificationService = this.getNotificationService(organizationId);
+    await this.markSending(organizationId, emailData.communicationLogId, job);
 
     try {
       logger.info(
@@ -127,7 +126,13 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         "Processing email notification job",
       );
 
-      await notificationService.sendEmail(emailData);
+      await notificationService.sendEmail({
+        ...emailData,
+        deliveryAttempt: {
+          made: job.attemptsMade,
+          max: job.opts.attempts ?? 1,
+        },
+      });
 
       logger.info(
         { jobId: job.id },
@@ -143,7 +148,15 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         },
         "Email notification job failed",
       );
-      throw error; // Re-throw to trigger retry mechanism
+
+      await this.markAttemptFailed(
+        organizationId,
+        emailData.communicationLogId,
+        job,
+        error,
+      );
+
+      throw error;
     }
   }
 
@@ -160,7 +173,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     const email = jobData.data as Email;
     const notificationService = new SystemNotificationService(
       createDefaultEmailService(this.getServices("").assetsStorage),
-      new TextBeltService(getTextBeltConfiguration()),
+      createDefaultTextMessageSender(),
     );
 
     try {
@@ -212,6 +225,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       throw new Error("organizationId is required in job data");
     }
     const notificationService = this.getNotificationService(organizationId);
+    await this.markSending(organizationId, textData.communicationLogId, job);
 
     try {
       logger.info(
@@ -228,7 +242,13 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         "Processing text message notification job",
       );
 
-      await notificationService.sendTextMessage(textData);
+      await notificationService.sendTextMessage({
+        ...textData,
+        deliveryAttempt: {
+          made: job.attemptsMade,
+          max: job.opts.attempts ?? 1,
+        },
+      });
 
       logger.info(
         { jobId: job.id },
@@ -244,7 +264,15 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         },
         "Text message notification job failed",
       );
-      throw error; // Re-throw to trigger retry mechanism
+
+      await this.markAttemptFailed(
+        organizationId,
+        textData.communicationLogId,
+        job,
+        error,
+      );
+
+      throw error;
     }
   }
 
@@ -261,7 +289,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     const textMessage = jobData.data as TextMessage;
     const notificationService = new SystemNotificationService(
       createDefaultEmailService(this.getServices("").assetsStorage),
-      new TextBeltService(getTextBeltConfiguration()),
+      createDefaultTextMessageSender(),
     );
 
     try {
@@ -272,7 +300,6 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
           maxAttempts: job.opts.attempts,
           phone: textMessage.phone,
           sender: textMessage.sender,
-          message: textMessage.message,
         },
         "Processing system text message notification job",
       );
@@ -453,14 +480,72 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     }
   }
 
+  private attemptCounts(job: Job, failed: boolean, retryableError: boolean) {
+    const max = job.opts.attempts ?? 1;
+    const retriesDone = failed ? job.attemptsMade + 1 : job.attemptsMade;
+    const retriesLeft = Math.max(
+      0,
+      max - (failed ? retriesDone : job.attemptsMade + 1),
+    );
+
+    return {
+      retriesDone,
+      retriesLeft,
+      retryable: failed && retryableError && retriesLeft > 0,
+    };
+  }
+
+  private async markSending(
+    organizationId: string,
+    logId: string | undefined,
+    job: Job,
+  ) {
+    if (!logId) {
+      return;
+    }
+
+    const counts = this.attemptCounts(job, false, false);
+    await this.getServices(organizationId).communicationLogsService.update(
+      logId,
+      {
+        status: "sending",
+        reason: null,
+        retryable: false,
+        retriesDone: counts.retriesDone,
+        retriesLeft: counts.retriesLeft,
+      },
+    );
+  }
+
+  private async markAttemptFailed(
+    organizationId: string,
+    logId: string | undefined,
+    job: Job,
+    error: unknown,
+    retryableError = true,
+  ) {
+    if (!logId) {
+      return;
+    }
+
+    const counts = this.attemptCounts(job, true, retryableError);
+    const reason = error instanceof Error ? error.message : "Send failed";
+    await this.getServices(organizationId).communicationLogsService.update(
+      logId,
+      {
+        status: "failed",
+        reason,
+        retryable: counts.retryable,
+        retriesDone: counts.retriesDone,
+        retriesLeft: counts.retriesLeft,
+      },
+    );
+  }
+
   private getNotificationService(organizationId: string): NotificationService {
     const services = this.getServices(organizationId);
     const defaultEmailService = createDefaultEmailService(
       services.assetsStorage,
-    );
-
-    const defaultTextMessageSender = new TextBeltService(
-      getTextBeltConfiguration(),
     );
 
     return new NotificationService(
@@ -469,11 +554,12 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       services.connectedAppsService,
       services.communicationLogsService,
       defaultEmailService,
-      defaultTextMessageSender,
       services.billingService,
       services.eventService,
       services.organizationService,
       services.shortLinksService,
+      services.redisClient,
+      services.textMessageConfigurationService,
     );
   }
 }

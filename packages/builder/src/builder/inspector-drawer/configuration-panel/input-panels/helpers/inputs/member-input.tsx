@@ -1,8 +1,12 @@
 import React from "react";
 
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { MemberSelector, MemberSelectorProps } from "@hacado/ui-admin";
-import { ResetButton } from "./reset-button";
+import {
+  MemberSelector,
+  MemberSelectorProps,
+} from "@hacado/ui-admin/member-selector";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 
 type Props = Omit<
   MemberSelectorProps,
@@ -64,7 +68,7 @@ export const MemberInput: React.FC<Props> = ({
             }}
           />
         )}
-        {nullable && (
+        {/* {nullable && (
           <ResetButton
             onClick={() => {
               setValue(null);
@@ -72,7 +76,7 @@ export const MemberInput: React.FC<Props> = ({
             }}
             size="sm"
           />
-        )}
+        )} */}
       </div>
       {helperText && <FormDescription>{helperText}</FormDescription>}
     </div>

@@ -1,14 +1,11 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import {
-  Button,
-  cn,
-  Spinner,
-  Stepper,
-  useCurrencyFormat,
-  useIsMobile,
-  usePrevious,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { useIsMobile, usePrevious } from "@hacado/ui/hooks";
+import { Spinner } from "@hacado/ui/spinner";
+import { Stepper } from "@hacado/ui/stepper";
+import { durationToTime } from "@hacado/utils/time";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
@@ -205,7 +202,7 @@ export const BookingWithWaitlistLayout = ({
         {!isBookingConfirmed &&
           !areAppointmentOptionsLoading &&
           !showBookingRestriction && (
-            <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+            <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 border rounded-lg p-4 mt-6 summary-container">
               {!!selectedAppointmentOption && (
                 <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full">
                   {!!basePrice && (
@@ -284,7 +281,7 @@ export const BookingWithWaitlistLayout = ({
                     onClick={() => {
                       if (!ctx.isEditor) {
                         trackWaitlistBookingUiStep(currentStep, {
-                          optionId: selectedAppointmentOption?._id,
+                          serviceId: selectedAppointmentOption?._id,
                           memberId: ctx.selectedMemberId ?? undefined,
                           duration,
                         });

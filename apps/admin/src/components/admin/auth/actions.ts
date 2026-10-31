@@ -1,7 +1,7 @@
 "use server";
 
 import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
-import { StaticOrganizationService } from "@hacado/services";
+import { StaticOrganizationService } from "@hacado/services/organization";
 
 export async function checkOrganizationSlug(
   slug: string,

@@ -1,15 +1,14 @@
 import React, { ReactNode } from "react";
 
+import { cn } from "@hacado/ui/cn";
+import { Input, InputProps } from "@hacado/ui/input";
 import {
-  cn,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  InputProps,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
 import { ResetButton } from "../reset-button";
 
 export type RawDoubleNumberInputProps = {

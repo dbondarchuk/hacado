@@ -1,12 +1,10 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  DateRange,
-  IConnectedAppProps,
-  Query,
-  WithTotal,
-  type EventSource,
-} from "@hacado/types";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { IConnectedAppProps } from "@hacado/types/apps";
+import { Query, WithTotal } from "@hacado/types/database";
+import type { EventSource } from "@hacado/types/events";
+import { DateRange } from "@hacado/types/general";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
   WaitlistEntry,
@@ -243,7 +241,7 @@ export class WaitlistRepositoryService {
 
     if (query.optionId) {
       $and.push({
-        "option._id": {
+        "service._id": {
           $in: Array.isArray(query.optionId)
             ? query.optionId
             : [query.optionId],
@@ -280,7 +278,7 @@ export class WaitlistRepositoryService {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       const queries = buildSearchQuery<WaitlistEntry>(
         { $regex },
-        "option.name",
+        "service.name",
         "addons.name",
         "addons.description",
         "name",
@@ -619,10 +617,10 @@ export class WaitlistRepositoryService {
       },
       {
         $lookup: {
-          from: "options",
+          from: "services",
           localField: "optionId",
           foreignField: "_id",
-          as: "option",
+          as: "service",
           pipeline: [
             {
               $project: {
@@ -658,8 +656,8 @@ export class WaitlistRepositoryService {
           customer: {
             $first: "$customer",
           },
-          option: {
-            $first: "$option",
+          service: {
+            $first: "$service",
           },
           member: {
             $first: "$member",

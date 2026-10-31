@@ -2,13 +2,14 @@
 
 import { authClient } from "@/app/auth-client";
 import { AvailableApps } from "@hacado/app-store";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+import { ComplexApp } from "@hacado/types/apps";
 import {
-  ComplexApp,
   DefaultAppToInstallScope,
   defaultAppToInstallScopes,
-  type SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/configuration/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -17,13 +18,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Checkbox,
-  Label,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
-import { filterInstallDefaultScopesForUser } from "@hacado/utils";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { filterInstallDefaultScopesForUser } from "@hacado/utils/app-access";
 import React from "react";
 import {
   installComplexApp,

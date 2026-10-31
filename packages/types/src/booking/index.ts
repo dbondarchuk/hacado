@@ -1,7 +1,6 @@
 export * from "./appointment";
 export * from "./appointment-event";
 export * from "./appointment-history";
-export * from "./appointment-option";
 export * from "./appointment-package";
 export * from "./availability";
 export * from "./booking-locks";
@@ -14,6 +13,7 @@ export * from "./fields";
 export * from "./gift-card";
 export * from "./payment";
 export * from "./period";
+export * from "./service";
 export * from "./staff-assignment";
 export * from "./synced-payment";
 export * from "./time-slot";

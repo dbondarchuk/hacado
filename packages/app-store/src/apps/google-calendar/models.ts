@@ -1,8 +1,5 @@
-import {
-  ConnectedOauthAppTokens,
-  zNonEmptyString,
-  zTaggedUnion,
-} from "@hacado/types";
+import { ConnectedOauthAppTokens } from "@hacado/types/apps";
+import { zNonEmptyString, zTaggedUnion } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const googleCalendarConfigurationSchema = z.object({

@@ -1,14 +1,12 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentPackage } from "@hacado/types";
-import {
-  cn,
-  ComboboxAsync,
-  IComboboxItem,
-  Skeleton,
-  useCurrencyFormat,
-} from "@hacado/ui";
+import { AppointmentPackage } from "@hacado/types/booking";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Package } from "lucide-react";
 import React from "react";
 
@@ -35,72 +33,83 @@ export type PackageSelectorProps = {
   allowClear?: boolean;
 };
 
-export const PackageSelector: React.FC<PackageSelectorProps> = ({
-  disabled,
-  className,
-  excludeIds,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("ui");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, AppointmentPackage>
-  >({});
-
-  const getPackages = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const result = await adminApi.packages.getPackages({
-        page,
-        limit,
-        search,
-        status: ["active"],
-        priorityId: value ? [value] : undefined,
-      });
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...result.items.reduce(
-          (map, cur) => ({ ...map, [cur._id]: cur }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: result.items
-          .filter((pkg) => !excludeIds?.find((id) => id === pkg._id))
-          .map((pkg) => ({
-            label: <PackageLabel pkg={pkg} />,
-            shortLabel: (
-              <span className="shrink overflow-hidden text-nowrap min-w-0">
-                {pkg.name}
-              </span>
-            ),
-            value: pkg._id,
-          })) satisfies IComboboxItem[],
-        hasMore: page * limit < result.total,
-      };
+export const PackageSelector = React.forwardRef<
+  HTMLButtonElement,
+  PackageSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      excludeIds,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, excludeIds],
-  );
+    ref,
+  ) => {
+    const t = useI18n("ui");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, AppointmentPackage>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache, onValueChange]);
+    const getPackages = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const result = await packagesApi.getPackages({
+          page,
+          limit,
+          search,
+          status: ["active"],
+          priorityId: value ? [value] : undefined,
+        });
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full", className)}
-      placeholder={t("packageSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getPackages}
-      loader={<Skeleton className="w-full h-10" />}
-    />
-  );
-};
+        setItemsCache((prev) => ({
+          ...prev,
+          ...result.items.reduce(
+            (map, cur) => ({ ...map, [cur._id]: cur }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: result.items
+            .filter((pkg) => !excludeIds?.find((id) => id === pkg._id))
+            .map((pkg) => ({
+              label: <PackageLabel pkg={pkg} />,
+              shortLabel: (
+                <span className="block min-w-0 truncate">{pkg.name}</span>
+              ),
+              value: pkg._id,
+            })) satisfies IComboboxItem[],
+          hasMore: page * limit < result.total,
+        };
+      },
+      [value, excludeIds],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache, onValueChange]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn("flex font-normal text-base max-w-full", className)}
+        placeholder={t("packageSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getPackages}
+        loader={<Skeleton className="w-full h-10" />}
+      />
+    );
+  },
+);
+
+PackageSelector.displayName = "PackageSelector";

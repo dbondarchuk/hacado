@@ -1,12 +1,12 @@
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
-import { getPolarClient } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
 import {
   OrganizationSubscriptionStatus,
   parseOrganizationSubscriptionStatus,
-  type Organization,
-} from "@hacado/types";
+} from "@hacado/types/billing";
+import type { Organization } from "@hacado/types/organizations";
 
 const ALLOWED_STATUSES = new Set<OrganizationSubscriptionStatus>([
   OrganizationSubscriptionStatus.Active,

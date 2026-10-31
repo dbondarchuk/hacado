@@ -31,9 +31,9 @@ templateSelector:
   placeholder: Seleccionar plantilla
   requestFailed: La solicitud para recuperar plantillas ha fallado
   loadingTemplates: Cargando plantillas...
-optionSelector:
-  placeholder: Seleccionar opción
-  requestFailed: La solicitud para recuperar opciones ha fallado
+serviceSelector:
+  placeholder: Seleccionar servicio
+  requestFailed: La solicitud para recuperar servicios ha fallado
 packageSelector:
   placeholder: Seleccionar paquete
   requestFailed: La solicitud para recuperar paquetes ha fallado
@@ -85,6 +85,13 @@ saveButton:
   defaultText: Ahorrar
   fixErrorsTitle: Por favor corrija los siguientes errores
   fixErrorsDescription: "Corrija los siguientes errores antes de guardar:"
+  saving: Ahorro...
+  saved: Guardado
+  failed: No se pudo guardar
+  retry: Rever
+  discard: Desechar
+  unsaved: No guardado
+  fixErrors: Por favor corrija los errores antes de guardar.
 toast:
   close: Cerca
 form:
@@ -146,10 +153,15 @@ sidebar:
   toggleSidebar: Alternar barra lateral
 durationInput:
   hr: hora
+  hrShort: h
   min: mín.
+  minShort: metro
   sec: segundo
+  secShort: s
   weeks: semanas
+  weeksShort: sem
   days: días
+  daysShort: d
 monthsInput:
   years: años
   months: meses

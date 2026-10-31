@@ -1,9 +1,12 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { SelectInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
-import { Checkbox, deepMemo, Label } from "@hacado/ui";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback, useMemo } from "react";
 import {
   showStickyBannerType,

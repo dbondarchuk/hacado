@@ -1,4 +1,4 @@
-import { zNonEmptyString } from "@hacado/types";
+import { zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 import type { StripeAdminAllKeys } from "./translations/types";
 

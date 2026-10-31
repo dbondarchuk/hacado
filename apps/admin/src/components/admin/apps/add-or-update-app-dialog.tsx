@@ -4,13 +4,12 @@ import { authClient } from "@/app/auth-client";
 import { AvailableApps } from "@hacado/app-store";
 import { AppSetups } from "@hacado/app-store/setup";
 import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
-  AppSetupProps,
-  ConnectedApp,
   DefaultAppToInstallScope,
   defaultAppToInstallScopes,
-  type SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/configuration/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -19,8 +18,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Checkbox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -28,12 +29,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
-  Spinner,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import { filterInstallDefaultScopesForUser } from "@hacado/utils";
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { filterInstallDefaultScopesForUser } from "@hacado/utils/app-access";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { setDefaultAppByScope } from "./store/actions";
@@ -44,6 +44,8 @@ export type AddOrUpdateAppButtonProps = {
   /** When true, a new connection only refreshes the page (install wizard); default sends users to /dashboard/apps. */
   refreshOnClose?: boolean;
   dontAskToSetDefault?: boolean;
+  initialOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 } & (
   | {
       app: ConnectedApp;
@@ -58,6 +60,8 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
   installBlocked = false,
   refreshOnClose = false,
   dontAskToSetDefault = false,
+  initialOpen = false,
+  onOpenChange,
   ...props
 }) => {
   const router = useRouter();
@@ -74,7 +78,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
     appType = props.appType;
   }
 
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState(initialOpen);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [pendingDefaultPrompt, setPendingDefaultPrompt] = React.useState<{
     appId: string;
@@ -99,11 +103,13 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
 
   const openDialog = () => {
     setIsOpen(true);
+    onOpenChange?.(true);
   };
 
   const closeDialog = useCallback(
     (redirect?: boolean) => {
       setIsOpen(false);
+      onOpenChange?.(false);
       setIsLoading(false);
       if (app) {
         router.refresh();
@@ -116,7 +122,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
         }, 300);
       }
     },
-    [app, refreshOnClose, router],
+    [app, onOpenChange, refreshOnClose, router],
   );
 
   const setupProps: AppSetupProps = useMemo(

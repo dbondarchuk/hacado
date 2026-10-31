@@ -2,13 +2,13 @@
 
 import {
   ColorInput,
-  ConfigurationProps,
   FontFamilyInput,
   PaddingInput,
   SliderInput,
   TextDimensionInput,
   TextInput,
-} from "@hacado/builder";
+} from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { SquareRoundCorner } from "lucide-react";
 import { FONT_FAMILIES } from "../../style-inputs/helpers/font-family";

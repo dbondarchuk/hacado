@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { BellRing } from "lucide-react";
 import { EditAppointmentNotificationPage } from "./edit-page";
 import { NewAppointmentNotificationPage } from "./new-page";

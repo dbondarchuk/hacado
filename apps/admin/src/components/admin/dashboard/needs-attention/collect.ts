@@ -1,25 +1,27 @@
-import { getServicesContainer } from "@/app/utils";
+import { getOrganizationId, getServicesContainer } from "@/app/utils";
 import {
   getAccessibleConnectedApps,
   getOwnerMemberIds,
 } from "@/lib/auth/app-access";
-import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
+import { SmsRegistrationStore } from "@hacado/services/text-message";
 import type {
   ConnectedApp,
   INeedsAttentionApp,
   NeedsAttentionItem,
   NeedsAttentionLevel,
-  OrganizationMember,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { normalizeCustomerAuthConfiguration } from "@hacado/types/configuration/customer-auth";
+import type { OrganizationMember, SessionUser } from "@hacado/types/users";
+import { canAccessConnectedApp } from "@hacado/utils/app-access";
 import {
-  canAccessConnectedApp,
   canFilterByMember,
   canUpdateAppointments,
-} from "@hacado/utils";
+  hasPermission,
+} from "@hacado/utils/permissions";
 import {
   listNeedsAttentionDismissals,
   pruneNeedsAttentionDismissals,
@@ -120,6 +122,67 @@ async function collectCoreItems(
         },
         order: 20,
         compositeKey: compositeKey("core", "inactive-members", fingerprint),
+        appId: "core",
+      });
+    }
+  }
+
+  if (hasPermission(user, "settings", "update")) {
+    const organizationId = await getOrganizationId();
+    const [registration, storedCustomerAuth, smsEnabled] = await Promise.all([
+      new SmsRegistrationStore().get(organizationId),
+      services.configurationService.getConfiguration("customerAuth"),
+      services.textMessageConfigurationService.isEnabled(),
+    ]);
+
+    const customerAuth = normalizeCustomerAuthConfiguration(storedCustomerAuth);
+
+    if (registration?.status === "rejected") {
+      const fingerprint = registration.rejectionReason || "rejected";
+      items.push({
+        id: "sms-verification",
+        fingerprint,
+        level: "error",
+        title: {
+          key: "admin.dashboard.needsAttention.smsVerification.title",
+        },
+        description: {
+          key: "admin.dashboard.needsAttention.smsVerification.description",
+        },
+        action: {
+          type: "link",
+          href: "/dashboard/settings/text-messaging/verification",
+          label: {
+            key: "admin.dashboard.needsAttention.smsVerification.action",
+          },
+        },
+        order: 15,
+        compositeKey: compositeKey("core", "sms-verification", fingerprint),
+        appId: "core",
+      });
+    }
+
+    if (customerAuth?.phoneEnabled === true && !smsEnabled) {
+      const fingerprint = "phone";
+      items.push({
+        id: "customer-otp-phone",
+        fingerprint,
+        level: "warning",
+        title: {
+          key: "admin.dashboard.needsAttention.customerOtpPhone.title",
+        },
+        description: {
+          key: "admin.dashboard.needsAttention.customerOtpPhone.description",
+        },
+        action: {
+          type: "link",
+          href: "/dashboard/settings/customer-access",
+          label: {
+            key: "admin.dashboard.needsAttention.customerOtpPhone.action",
+          },
+        },
+        order: 16,
+        compositeKey: compositeKey("core", "customer-otp-phone", fingerprint),
         appId: "core",
       });
     }

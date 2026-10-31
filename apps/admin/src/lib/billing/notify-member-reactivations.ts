@@ -1,6 +1,6 @@
 import { sendEmail } from "@/utils/email/send-email";
-import { ServicesContainer } from "@hacado/services";
-import type { ReconcileSlotsResult } from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import type { ReconcileSlotsResult } from "@hacado/types/services";
 
 export async function notifyOwnerOfMemberReactivations(
   organizationId: string,

@@ -1,25 +1,25 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
 import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Spinner,
-} from "@hacado/ui";
-import {
-  AppSelector,
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-  useAuth,
-} from "@hacado/ui-admin";
-import { canProcessOtherMembersAppointments } from "@hacado/utils";
+} from "@hacado/ui-admin/connected-app-properties";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Button } from "@hacado/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabelWithRequiredIndicator,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
+import { canProcessOtherMembersAppointments } from "@hacado/utils/permissions";
 import React from "react";
 import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
@@ -64,12 +64,9 @@ export const CalendarWriterAppSetup: React.FC<AppSetupProps> = ({
               name="appId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("form.calendarStorage.label")}
-                    <InfoTooltip>
-                      {t("form.calendarStorage.tooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <AppSelector
                       disabled={isLoading}
@@ -82,6 +79,9 @@ export const CalendarWriterAppSetup: React.FC<AppSetupProps> = ({
                       }}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.calendarStorage.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

@@ -1,8 +1,15 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
-  Button,
-  Checkbox,
+  CustomerName,
+  MemberName,
+  tableSortHeader,
+  tableSortNoopFunction,
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -10,15 +17,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Link,
-  useTimeZone,
-} from "@hacado/ui";
-import {
-  CustomerName,
-  MemberName,
-  tableSortHeader,
-  tableSortNoopFunction,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { CalendarPlus } from "lucide-react";
 import { DateTime } from "luxon";
@@ -60,13 +60,13 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
   {
     cell: ({ row }) => (
       <Link
-        href={`/dashboard/services/options/${row.original.optionId}`}
+        href={`/dashboard/catalog/services/${row.original.optionId}`}
         variant="underline"
       >
-        {row.original.option?.name}
+        {row.original.service?.name}
       </Link>
     ),
-    id: "option.name",
+    id: "service.name",
     header: tableSortHeader<WaitlistAdminNamespace, WaitlistAdminKeys>(
       "table.columns.option",
       "string",

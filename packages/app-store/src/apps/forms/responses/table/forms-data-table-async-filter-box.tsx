@@ -5,7 +5,7 @@ import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,
   DataTableAsyncFilterBox,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
 import { Lock } from "lucide-react";
 import React from "react";
 import { getForms } from "../../actions";

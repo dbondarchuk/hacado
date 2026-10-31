@@ -1,14 +1,14 @@
 "use client";
 
 import { footerDefaultPage } from "@/components/install/defaults/footer";
-import type { TEditorBlock } from "@hacado/builder";
+import type { TEditorBlock } from "@hacado/builder/editor";
 import type { Language } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { PageReader } from "@hacado/page-builder/reader";
 import { rewriteCatalogUrlsInTree } from "@hacado/page-builder/templates";
-import type { Country, Currency } from "@hacado/types";
-import { cn } from "@hacado/ui";
-import { formatArguments } from "@hacado/utils";
+import type { Country, Currency } from "@hacado/types/utils";
+import { cn } from "@hacado/ui/cn";
+import { formatArguments } from "@hacado/utils/format-arguments";
 import { useEffect, useMemo, useState } from "react";
 
 export type PreviewHeaderVariant = "solid" | "transparent";
@@ -125,6 +125,8 @@ export function PreviewChrome({
           "wizard.finish.pageDefaults.footer.cancelOrRescheduleLabel",
         ),
         policiesLabel: t("wizard.finish.pageDefaults.footer.policiesLabel"),
+        privacyLabel: t("wizard.finish.pageDefaults.footer.privacyLabel"),
+        termsLabel: t("wizard.finish.pageDefaults.footer.termsLabel"),
       },
       false,
       false,

@@ -15,6 +15,7 @@ import {
   CommandItem,
   CommandList,
 } from "./command";
+import { invalidControlClass, isInvalidProp } from "./invalid-field";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 export type IComboboxItem = {
@@ -204,9 +205,10 @@ export const ComboboxTrigger = React.forwardRef<
   }
 >(({ onClear, allowClear, open, className, children, size, ...props }, ref) => {
   const t = useI18n("ui");
+  const invalid = isInvalidProp(props);
 
   return (
-    <div className={cn("flex-grow inline-flex flex-row", className)}>
+    <div className={cn("flex w-full min-w-0 flex-row", className)}>
       <Button
         variant="outline"
         role="combobox"
@@ -215,11 +217,14 @@ export const ComboboxTrigger = React.forwardRef<
         {...props}
         ref={ref}
         className={cn(
-          "justify-between flex-grow min-w-0 flex-shrink max-md:text-base",
-          allowClear ? "rounded-r-none" : "",
+          "w-full min-w-0 flex-shrink justify-between overflow-hidden ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 max-md:text-base",
+          invalidControlClass,
+          open && "ring-2 ring-offset-2",
+          open && (invalid ? "ring-destructive" : "ring-ring"),
+          allowClear && "rounded-r-none",
         )}
       >
-        {children}
+        <span className="min-w-0 truncate">{children}</span>
         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
       {allowClear && (
@@ -228,7 +233,10 @@ export const ComboboxTrigger = React.forwardRef<
           onClick={onClear}
           type="button"
           size={size}
-          className="border-l-0 rounded-l-none"
+          className={cn(
+            "rounded-l-none border-l-0",
+            invalid && "border-destructive",
+          )}
           aria-label={t("common.clear")}
           disabled={props.disabled}
         >
@@ -254,100 +262,113 @@ const defaultSearch = (values: IComboboxItem[], search: string) => {
   });
 };
 
-export const Combobox: React.FC<ComboboxProps> = (props) => {
-  const t = useI18n("ui");
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState<string | undefined>(props.value);
-  React.useEffect(() => {
-    setValue(props.value);
-  }, [props.value, setValue]);
+export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
+  (props, ref) => {
+    const t = useI18n("ui");
 
-  const [search, setSearch] = React.useState("");
+    let {
+      listClassName,
+      customSearch,
+      placeholder,
+      searchLabel,
+      onItemSelect,
+      className,
+      values: propsValues,
+      value: valueProp,
+      useCategories,
+      noResultsLabel,
+      allowClear,
+      ...rest
+    } = props;
 
-  let {
-    listClassName,
-    customSearch,
-    placeholder,
-    searchLabel,
-    onItemSelect,
-    className,
-    ...rest
-  } = props;
-  searchLabel = searchLabel || t("common.search");
-  let buttonLabel: React.ReactNode = placeholder || t("common.search");
-  if (value) {
-    const selected = props.values.find((val) => val.value === value);
-    buttonLabel = selected?.shortLabel || selected?.label || buttonLabel;
-  }
+    const [open, setOpen] = React.useState(false);
+    const [value, setValue] = React.useState<string | undefined>(valueProp);
+    React.useEffect(() => {
+      setValue(valueProp);
+    }, [valueProp]);
 
-  const onSelect = React.useCallback(
-    (value: string | undefined) => {
-      setValue(value);
-      setOpen(false);
-      onItemSelect?.(value as string);
-    },
-    [props],
-  );
+    const [search, setSearch] = React.useState("");
 
-  const onOpenChange = (isOpen: boolean) => {
-    setOpen(isOpen);
-    setSearch("");
-  };
+    searchLabel = searchLabel || t("common.search");
+    let buttonLabel: React.ReactNode = placeholder || t("common.search");
+    if (value) {
+      const selected = propsValues.find((val) => val.value === value);
+      buttonLabel = selected?.shortLabel || selected?.label || buttonLabel;
+    }
 
-  const propsValues = props.values;
-  const values = React.useMemo(
-    () =>
-      customSearch ? customSearch(search) : defaultSearch(propsValues, search),
-    [customSearch, search, propsValues],
-  );
+    const onSelect = React.useCallback(
+      (value: string | undefined) => {
+        setValue(value);
+        setOpen(false);
+        onItemSelect?.(value as string);
+      },
+      [props],
+    );
 
-  const listId = React.useId();
+    const onOpenChange = (isOpen: boolean) => {
+      setOpen(isOpen);
+      setSearch("");
+    };
 
-  const listRef = React.createRef<HTMLDivElement>();
+    const values = React.useMemo(
+      () =>
+        customSearch
+          ? customSearch(search)
+          : defaultSearch(propsValues, search),
+      [customSearch, search, propsValues],
+    );
 
-  return (
-    <Popover open={open} onOpenChange={onOpenChange} modal>
-      <PopoverTrigger asChild>
-        <ComboboxTrigger
-          allowClear={"allowClear" in props && props.allowClear}
-          onClear={() => onSelect(undefined)}
-          open={open}
-          className={className}
-          {...rest}
-        >
-          {buttonLabel}
-        </ComboboxTrigger>
-      </PopoverTrigger>
-      <PopoverContent
-        className={"min-w-max p-0 w-[var(--radix-popper-anchor-width)]"}
-      >
-        <Command shouldFilter={false}>
-          <CommandInput
-            placeholder={searchLabel}
-            value={search}
-            onValueChange={setSearch}
-            className="text-base"
-          />
-          {(!values || values.length) == 0 && (
-            <div className="py-6 text-center text-sm">
-              {props.noResultsLabel || t("common.noResults")}
-            </div>
-          )}
-          <CommandList
-            className={cn("max-h-60", listClassName)}
-            id={listId}
-            ref={listRef}
+    const listId = React.useId();
+
+    const listRef = React.createRef<HTMLDivElement>();
+
+    return (
+      <Popover open={open} onOpenChange={onOpenChange} modal>
+        <PopoverTrigger asChild>
+          <ComboboxTrigger
+            {...rest}
+            ref={ref}
+            allowClear={allowClear}
+            onClear={() => onSelect(undefined)}
+            open={open}
+            className={className}
           >
-            <Items
-              values={values}
-              selected={value}
-              select={onSelect}
-              listRef={listRef}
-              useCategories={props.useCategories}
+            {buttonLabel}
+          </ComboboxTrigger>
+        </PopoverTrigger>
+        <PopoverContent
+          className={"min-w-max p-0 w-[var(--radix-popper-anchor-width)]"}
+        >
+          <Command shouldFilter={false}>
+            <CommandInput
+              placeholder={searchLabel}
+              value={search}
+              onValueChange={setSearch}
+              className="text-base"
             />
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
-};
+            {(!values || values.length) == 0 && (
+              <div className="py-6 text-center text-sm">
+                {noResultsLabel || t("common.noResults")}
+              </div>
+            )}
+            <CommandList
+              className={cn("max-h-60", listClassName)}
+              id={listId}
+              ref={listRef}
+            >
+              <Items
+                values={values}
+                selected={value}
+                select={onSelect}
+                listRef={listRef}
+                useCategories={useCategories}
+              />
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    );
+  },
+);
+
+Combobox.displayName = "Combobox";

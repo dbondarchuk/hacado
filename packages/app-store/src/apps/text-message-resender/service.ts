@@ -8,14 +8,11 @@ import {
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
-} from "@hacado/types";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  subscriptionAllowsMultipleUsers,
-  template,
-} from "@hacado/utils";
+} from "@hacado/types/apps";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { subscriptionAllowsMultipleUsers } from "@hacado/utils/permissions";
+import { template } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { getTextMessageResenderMessages } from "./messages";
 import {
   TextMessageResenderConfiguration,
@@ -219,9 +216,15 @@ export default class TextMessageResenderConnectedApp
           "Processing reply from user - resending to customer",
         );
 
+        const businessName = config.general.name?.trim();
+        const body = businessName
+          ? `${businessName}: ${reply.message}`
+          : reply.message;
+
         this.props.services.notificationService.sendTextMessage({
           phone: textMessageReply.data.data,
-          body: reply.message,
+          body,
+          dontRequireConsent: true,
           webhookData: {
             ...reply.data,
             data: undefined,

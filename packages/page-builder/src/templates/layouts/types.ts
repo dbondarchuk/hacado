@@ -1,9 +1,10 @@
+import type { TEditorBlock } from "@hacado/builder/editor";
 import type {
   LayoutTemplateContext,
   LayoutTemplateService,
-  TEditorBlock,
-} from "@hacado/builder";
-import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+} from "@hacado/builder/types";
+import type { I18nFn } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import type { PackTheme } from "./theme";
 
 export type { PackTheme } from "./theme";

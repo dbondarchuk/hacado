@@ -1,5 +1,6 @@
-import { EditorDocumentBlocksDictionary } from "@hacado/builder";
-import { AllKeys, BuilderKeys } from "@hacado/i18n";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
+import { AllKeys } from "@hacado/i18n";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { CalendarClock, CalendarFold } from "lucide-react";
 import {
   WaitlistAdminKeys,

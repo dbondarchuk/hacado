@@ -1,25 +1,27 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { ConnectedAppStatusMessage } from "@hacado/ui-admin/connected-app-properties";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Skeleton,
-} from "@hacado/ui";
-import {
-  ConnectedAppStatusMessage,
-  SaveButton,
-  TemplateSelector,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Skeleton } from "@hacado/ui/skeleton";
+import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { CustomerEmailNotificationApp } from "./app";
 import {
+  CustomerEmailNotificationChannelKey,
   CustomerEmailNotificationConfiguration,
+  customerEmailNotificationChannelKeys,
   customerEmailNotificationConfigurationSchema,
 } from "./models";
 import {
@@ -28,10 +30,31 @@ import {
   customerEmailNotificationAdminNamespace,
 } from "./translations/types";
 
+const channelCards: {
+  key: CustomerEmailNotificationChannelKey | "event";
+  enabledName:
+    | `templates.${CustomerEmailNotificationChannelKey}.enabled`
+    | "event.enabled";
+  templateName:
+    | `templates.${CustomerEmailNotificationChannelKey}.templateId`
+    | "event.templateId";
+}[] = [
+  ...customerEmailNotificationChannelKeys.map((key) => ({
+    key,
+    enabledName: `templates.${key}.enabled` as const,
+    templateName: `templates.${key}.templateId` as const,
+  })),
+  {
+    key: "event",
+    enabledName: "event.enabled",
+    templateName: "event.templateId",
+  },
+];
+
 export const CustomerEmailNotificationAppSetup: React.FC<{ appId: string }> = ({
   appId,
 }) => {
-  const { appStatus, form, isLoading, isDataLoading, isValid, onSubmit } =
+  const { appStatus, form, isLoading, isDataLoading, onSubmit } =
     useConnectedAppSetup<CustomerEmailNotificationConfiguration>({
       appId,
       appName: CustomerEmailNotificationApp.name,
@@ -43,257 +66,102 @@ export const CustomerEmailNotificationAppSetup: React.FC<{ appId: string }> = ({
     CustomerEmailNotificationAdminKeys
   >(customerEmailNotificationAdminNamespace);
 
+  React.useEffect(() => {
+    if (isDataLoading) {
+      return;
+    }
+
+    const values = form.getValues();
+    for (const key of customerEmailNotificationChannelKeys) {
+      const channel = values.templates?.[key];
+      if (!channel || typeof channel.enabled !== "boolean") {
+        form.setValue(
+          `templates.${key}.enabled`,
+          Boolean(channel?.templateId),
+          { shouldDirty: false, shouldValidate: false },
+        );
+      }
+    }
+
+    if (typeof values.event?.enabled !== "boolean") {
+      form.setValue("event.enabled", Boolean(values.event?.templateId), {
+        shouldDirty: false,
+        shouldValidate: false,
+      });
+    }
+  }, [form, isDataLoading]);
+
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-            <FormField
-              control={form.control}
-              name={`templates.pending.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.pending.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.pending.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                      />
+          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-4">
+            {channelCards.map((card) => (
+              <FormField
+                key={card.key}
+                control={form.control}
+                name={card.enabledName}
+                render={({ field }) => (
+                  <SwitchCardFormItem
+                    alwaysItemsStart
+                    label={t(
+                      card.key === "event"
+                        ? "form.calendarEventTemplate.enabled.label"
+                        : `form.${card.key}.enabled.label`,
                     )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.confirmed.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.confirmed.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.confirmed.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                      />
+                    description={t(
+                      card.key === "event"
+                        ? "form.calendarEventTemplate.enabled.description"
+                        : `form.${card.key}.enabled.description`,
                     )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.pendingPackage.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.pendingPackage.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.pendingPackage.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                        allowClear
+                    checked={field.value === true}
+                    disabled={isLoading}
+                    loading={isDataLoading}
+                    onCheckedChange={field.onChange}
+                  >
+                    {field.value === true ? (
+                      <FormField
+                        control={form.control}
+                        name={card.templateName}
+                        render={({ field: templateField }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t(
+                                card.key === "event"
+                                  ? "form.calendarEventTemplate.templateId.label"
+                                  : `form.${card.key}.templateId.label`,
+                              )}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              {isDataLoading ? (
+                                <Skeleton className="w-full h-10" />
+                              ) : (
+                                <TemplateSelector
+                                  type="email"
+                                  disabled={isLoading}
+                                  value={templateField.value}
+                                  onItemSelect={(value) =>
+                                    templateField.onChange(value)
+                                  }
+                                />
+                              )}
+                            </FormControl>
+                            <FormDescription>
+                              {t(
+                                card.key === "event"
+                                  ? "form.calendarEventTemplate.templateId.description"
+                                  : `form.${card.key}.templateId.description`,
+                              )}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.confirmedPackage.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.confirmedPackage.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.confirmedPackage.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                        allowClear
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.declined.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.declined.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.declined.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.canceled.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.canceled.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.canceled.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.noShow.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.noShow.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.noShow.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                        allowClear
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`templates.rescheduled.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.rescheduled.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.rescheduled.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`event.templateId`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("form.calendarEventTemplate.templateId.label")}
-                    <InfoTooltip>
-                      {t("form.calendarEventTemplate.templateId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="email"
-                        disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    ) : null}
+                  </SwitchCardFormItem>
+                )}
+              />
+            ))}
             <SaveButton
               form={form}
               disabled={isLoading}

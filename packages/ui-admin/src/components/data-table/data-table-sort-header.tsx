@@ -1,5 +1,5 @@
 import { I18nKey, I18nNamespaces, useI18n } from "@hacado/i18n/client";
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { HeaderContext, Row, SortDirection } from "@tanstack/react-table";
 import {
   ArrowDown10,

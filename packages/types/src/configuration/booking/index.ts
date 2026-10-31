@@ -45,11 +45,11 @@ export const allowPromoCodeType = [
 
 export type AllowPromoCodeType = (typeof allowPromoCodeType)[number];
 
-export const bookingCatalogOptionSchema = z.object({
-  type: z.literal("option"),
+export const bookingCatalogServiceSchema = z.object({
+  type: z.literal("service"),
   id: z.string().min(1),
-  optionId: zObjectId(
-    "validation.configuration.booking.catalog.optionId.required",
+  serviceId: zObjectId(
+    "validation.configuration.booking.catalog.serviceId.required",
   ),
 });
 
@@ -61,7 +61,7 @@ export const bookingCatalogPackageSchema = z.object({
   ),
 });
 
-export type BookingCatalogOption = z.infer<typeof bookingCatalogOptionSchema>;
+export type BookingCatalogService = z.infer<typeof bookingCatalogServiceSchema>;
 export type BookingCatalogPackage = z.infer<typeof bookingCatalogPackageSchema>;
 export type BookingCatalogGroup = {
   type: "group";
@@ -72,7 +72,7 @@ export type BookingCatalogGroup = {
 };
 export type BookingCatalogNode =
   | BookingCatalogGroup
-  | BookingCatalogOption
+  | BookingCatalogService
   | BookingCatalogPackage;
 
 /** Ensures group nodes always have a `children` array (Mongo/legacy docs may omit it). */
@@ -123,7 +123,7 @@ export const bookingCatalogNodeSchema: z.ZodType<BookingCatalogNode> = z.lazy(
           z.array(bookingCatalogNodeSchema),
         ),
       }),
-      bookingCatalogOptionSchema,
+      bookingCatalogServiceSchema,
       bookingCatalogPackageSchema,
     ]),
 );
@@ -132,19 +132,19 @@ export function catalogFromFlatOptions(
   options: { id: string }[] | undefined,
 ): BookingCatalogNode[] {
   return (options ?? []).map((option) => ({
-    type: "option" as const,
+    type: "service" as const,
     id: option.id,
-    optionId: option.id,
+    serviceId: option.id,
   }));
 }
 
-export function flattenCatalogOptionIds(
+export function flattenCatalogServiceIds(
   nodes: BookingCatalogNode[] | undefined,
 ): string[] {
   const ids: string[] = [];
   const walk = (list: BookingCatalogNode[]) => {
     for (const node of list) {
-      if (node.type === "option" && node.optionId) ids.push(node.optionId);
+      if (node.type === "service" && node.serviceId) ids.push(node.serviceId);
       if (node.type === "group") walk(node.children ?? []);
     }
   };
@@ -181,17 +181,17 @@ export function catalogNodesAtPath(
   return { nodes, group };
 }
 
-/** Group ids to drill into so `optionId` is visible (empty if the option is at the root). */
-export function catalogPathForOption(
+/** Group ids to drill into so `serviceId` is visible (empty if the service is at the root). */
+export function catalogPathForService(
   catalog: BookingCatalogNode[] | undefined,
-  optionId: string,
+  serviceId: string,
 ): string[] | undefined {
   const walk = (
     nodes: BookingCatalogNode[],
     path: string[],
   ): string[] | undefined => {
     for (const node of nodes) {
-      if (node.type === "option" && node.optionId === optionId) {
+      if (node.type === "service" && node.serviceId === serviceId) {
         return path;
       }
       if (node.type === "group") {
@@ -208,12 +208,12 @@ export function filterCatalogNodes(
   nodes: BookingCatalogNode[] | undefined,
   options?: {
     excludePackages?: boolean;
-    optionIds?: Iterable<string>;
+    serviceIds?: Iterable<string>;
     packageIds?: Iterable<string>;
   },
 ): BookingCatalogNode[] {
-  const optionIdSet = options?.optionIds
-    ? new Set(options.optionIds)
+  const serviceIdSet = options?.serviceIds
+    ? new Set(options.serviceIds)
     : undefined;
   const packageIdSet = options?.packageIds
     ? new Set(options.packageIds)
@@ -230,7 +230,7 @@ export function filterCatalogNodes(
         if (packageIdSet && !packageIdSet.has(node.packageId)) return [];
         return [node];
       }
-      if (optionIdSet && !optionIdSet.has(node.optionId)) return [];
+      if (serviceIdSet && !serviceIdSet.has(node.serviceId)) return [];
       return [node];
     });
   return walk(nodes ?? []);
@@ -370,17 +370,17 @@ export const bookingConfigurationSchema =
 
     const walk = (nodes: BookingCatalogNode[], path: (string | number)[]) => {
       nodes.forEach((node, index) => {
-        if (node.type === "option" && node.optionId) {
-          if (seenOptionIds.has(node.optionId)) {
+        if (node.type === "service" && node.serviceId) {
+          if (seenOptionIds.has(node.serviceId)) {
             hasDuplicateLeaf = true;
             ctx.addIssue({
-              path: [...path, index, "optionId"],
+              path: [...path, index, "serviceId"],
               code: z.ZodIssueCode.custom,
               message:
-                "validation.configuration.booking.catalog.optionId.unique",
+                "validation.configuration.booking.catalog.serviceId.unique",
             });
           } else {
-            seenOptionIds.add(node.optionId);
+            seenOptionIds.add(node.serviceId);
           }
         }
         if (node.type === "package" && node.packageId) {

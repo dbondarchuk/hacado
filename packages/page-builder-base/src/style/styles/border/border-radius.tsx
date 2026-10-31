@@ -1,4 +1,4 @@
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SquareRoundCorner } from "lucide-react";
 import { AllOrSidesInput } from "../../../style-inputs/all-or-sides-input";
 import { RawNumberInputWithUnit } from "../../../style-inputs/base/raw-number-input-with-units";

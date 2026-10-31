@@ -1,12 +1,14 @@
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentFields, getFields } from "@hacado/types";
+import { AppointmentFields, getFields } from "@hacado/types/booking";
+import { Form } from "@hacado/ui/form";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
 import {
-  fieldSchemaMapper,
-  fieldsComponentMap,
-  Form,
-  usePrevious,
-} from "@hacado/ui";
-import { deepEqual } from "@hacado/utils";
+  AppointmentSmsConsent,
+  appointmentSmsConsentKind,
+  useSmsConsentState,
+} from "@hacado/ui/sms-consent-choice";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -22,6 +24,7 @@ export const FormCard: React.FC = () => {
     formFields,
     setDiscount,
     setIsFormValid,
+    smsText,
   } = useScheduleContext();
 
   const fields = getFields(formFields);
@@ -40,6 +43,10 @@ export const FormCard: React.FC = () => {
     [fields],
   );
 
+  const [smsConsent, setSmsConsent] = useSmsConsentState(
+    propsFields.smsConsent,
+  );
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "all",
@@ -48,17 +55,18 @@ export const FormCard: React.FC = () => {
   });
 
   const values = form.watch();
-  const previousValues = usePrevious(values, values);
   useEffect(() => {
-    if (!deepEqual(values, previousValues)) {
-      setFields({
-        ...(values as AppointmentFields),
-        name: propsFields.name,
-        email: propsFields.email,
-        phone: propsFields.phone,
-      });
+    const next = {
+      ...(values as AppointmentFields),
+      name: propsFields.name,
+      email: propsFields.email,
+      phone: propsFields.phone,
+      smsConsent: appointmentSmsConsentKind(smsText) ? smsConsent : undefined,
+    };
+    if (!deepEqual(next, propsFields)) {
+      setFields(next);
     }
-  }, [values]);
+  }, [values, smsConsent, propsFields, smsText]);
 
   const isFormValid = form.formState.isValid;
   React.useEffect(() => {
@@ -98,6 +106,21 @@ export const FormCard: React.FC = () => {
                   field.name === "name" ||
                     field.name === "email" ||
                     field.name === "phone",
+                )}
+                {field.name === "phone" && (
+                  <AppointmentSmsConsent
+                    id="cabinet-booking-sms-consent"
+                    offer={smsText}
+                    phone={propsFields.phone}
+                    profilePhone={propsFields.phone}
+                    profileConsent={propsFields.smsConsent === true}
+                    checked={smsConsent}
+                    onCheckedChange={setSmsConsent}
+                    lookup={async (phone) => {
+                      const result = await bookingApi.getSmsConsent(phone);
+                      return result.consented === true;
+                    }}
+                  />
                 )}
               </React.Fragment>
             ))}

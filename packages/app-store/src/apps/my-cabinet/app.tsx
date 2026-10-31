@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { UserRound } from "lucide-react";
 import { MY_CABINET_APP_NAME } from "./const";
 import {

@@ -1,10 +1,10 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import {
   ALL_STYLES,
   COLORS,
   getStylesSchema,
 } from "@hacado/page-builder-base/style";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const styles = ALL_STYLES;

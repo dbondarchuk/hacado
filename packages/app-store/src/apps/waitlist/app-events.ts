@@ -1,4 +1,4 @@
-import { type AppEventConfig, type EventDefinition } from "@hacado/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
 import { buildNewWaitlistEntryEmailNotifications } from "./emails/new-entry-email";
 import type { WaitlistConfiguration } from "./models";
 import {
@@ -26,7 +26,7 @@ export const WAITLIST_APP_EVENTS: AppEventConfig = {
           key: "app_waitlist_admin.activity.newEntry.description" satisfies WaitlistAdminAllKeys,
           args: {
             customerName: envelope.payload.entry.customer.name,
-            serviceName: envelope.payload.entry.option.name,
+            serviceName: envelope.payload.entry.service.name,
           },
         },
         source: envelope.source,

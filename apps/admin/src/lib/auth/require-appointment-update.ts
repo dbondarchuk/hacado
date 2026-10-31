@@ -1,7 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import type { AppLogger } from "@hacado/logger";
-import { canUpdateAppointment } from "@hacado/utils";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import { NextResponse } from "next/server";
 
 /**

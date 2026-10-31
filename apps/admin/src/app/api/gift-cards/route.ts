@@ -1,9 +1,9 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
-import { giftCardsSearchParamsLoader } from "@hacado/api-sdk";
+import { giftCardsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/gift-cards";
 import { getLoggerFactory } from "@hacado/logger";
-import { giftCardSchema } from "@hacado/types";
+import { giftCardSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

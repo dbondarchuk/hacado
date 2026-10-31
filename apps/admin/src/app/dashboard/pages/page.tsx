@@ -7,11 +7,12 @@ import { sessionCanCreateMorePages } from "@/lib/billing/subscription-plan-acces
 import {
   pagesSearchParamsCache,
   pagesSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/pages";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Breadcrumbs, Heading } from "@hacado/ui";
-import { DataTableSkeleton } from "@hacado/ui-admin";
+import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

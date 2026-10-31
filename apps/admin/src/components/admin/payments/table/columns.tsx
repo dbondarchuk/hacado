@@ -1,21 +1,22 @@
 "use client";
 
-import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { PaymentSummary } from "@hacado/types";
-import {
-  Badge,
-  Button,
-  Link,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
+import { PaymentSummary } from "@hacado/types/booking";
 import {
   getPaymentDescription,
   getPaymentMethod,
   getPaymentStatusColor,
   PaymentDetailsDialog,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/payments";
+import {
+  tableSortHeader,
+  tableSortNoopFunction,
+} from "@hacado/ui-admin/data-table";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
@@ -99,7 +100,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
           <span className="flex items-center gap-1">
             <span>{t("admin.payment.methods.giftCard")}</span>
             <Link
-              href={`/dashboard/services/gift-cards/${payment.giftCardId}`}
+              href={`/dashboard/catalog/gift-cards/${payment.giftCardId}`}
               variant="underline"
             >
               {payment.giftCardCode}

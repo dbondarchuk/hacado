@@ -100,6 +100,17 @@ export type BaseMenuItem = z.infer<typeof baseMenuItemSchema>;
 
 /** Appearance-only overrides (scrolled or mobile). */
 export const menuItemAppearanceOverrideSchema = z.object({
+  /** When true, `label` replaces the item label for this appearance. */
+  useDifferentLabel: z.coerce.boolean<boolean>().optional(),
+  label: z
+    .union([
+      z
+        .string()
+        .max(256, "validation.configuration.styling.menuItem.label.max"),
+      z.array(z.any()),
+    ])
+    .optional()
+    .nullable(),
   className: z.string().optional().nullable(),
   doNotCombineClassName: z.coerce.boolean<boolean>().optional(),
   textColor: zThemeColor.optional().nullable(),

@@ -1,15 +1,15 @@
 import {
-  Customer,
   GiftCardStatus,
   PaymentMethod,
   PaymentStatus,
-  Prettify,
+} from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
+import {
   WithAppId,
   WithDatabaseId,
   WithOrganizationId,
-  zEmail,
-  zObjectId,
-} from "@hacado/types";
+} from "@hacado/types/database";
+import { Prettify, zEmail, zObjectId } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const PURCHASED_GIFT_CARDS_COLLECTION_NAME =

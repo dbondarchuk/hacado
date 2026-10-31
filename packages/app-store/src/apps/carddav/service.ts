@@ -3,12 +3,12 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppStatusWithText,
-  Customer,
   IConnectedApp,
   IConnectedAppProps,
-} from "@hacado/types";
-import { getAppsExternalUrl } from "@hacado/utils";
+} from "@hacado/types/apps";
+import { Customer } from "@hacado/types/customers";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAppsExternalUrl } from "@hacado/utils/website";
 import crypto from "crypto";
 import {
   CarddavConfiguration,

@@ -4,7 +4,7 @@ import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   appointmentReschedulePolicyActionType,
   modificationPaymentCalculationType,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,32 +15,37 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  BooleanSelect,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
-  DurationInput,
+} from "@hacado/ui/alert-dialog";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencySymbol } from "@hacado/ui/context";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  useCurrencySymbol,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { Trash } from "lucide-react";
 import React, { useEffect } from "react";
 import { UseFormReturn, useFormState } from "react-hook-form";
@@ -70,16 +75,11 @@ export const ReschedulePolicyCardContent: React.FC<
           name={`${path}.minutesToAppointment` as any}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t(
                   "cancellationsAndReschedules.reschedulePolicy.minutesToAppointment.label",
                 )}
-                <InfoTooltip>
-                  {t(
-                    "cancellationsAndReschedules.reschedulePolicy.minutesToAppointment.tooltip",
-                  )}
-                </InfoTooltip>
-              </FormLabel>
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <DurationInput
                   type="weeks-days-hours-minutes"
@@ -87,6 +87,11 @@ export const ReschedulePolicyCardContent: React.FC<
                   disabled={disabled}
                 />
               </FormControl>
+              <FormDescription>
+                {t(
+                  "cancellationsAndReschedules.reschedulePolicy.minutesToAppointment.tooltip",
+                )}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -97,14 +102,9 @@ export const ReschedulePolicyCardContent: React.FC<
         name={`${path}.action`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>
+            <FormLabelWithRequiredIndicator required>
               {t("cancellationsAndReschedules.reschedulePolicy.action.label")}
-              <InfoTooltip>
-                {t(
-                  "cancellationsAndReschedules.reschedulePolicy.action.tooltip",
-                )}
-              </InfoTooltip>
-            </FormLabel>
+            </FormLabelWithRequiredIndicator>
             <FormControl>
               <Select
                 value={field.value}
@@ -145,6 +145,9 @@ export const ReschedulePolicyCardContent: React.FC<
                 </SelectContent>
               </Select>
             </FormControl>
+            <FormDescription>
+              {t("cancellationsAndReschedules.reschedulePolicy.action.tooltip")}
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -156,16 +159,11 @@ export const ReschedulePolicyCardContent: React.FC<
             name={`${path}.paymentType`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
+                <FormLabelWithRequiredIndicator required>
                   {t(
                     "cancellationsAndReschedules.reschedulePolicy.paymentType.label",
                   )}
-                  <InfoTooltip>
-                    {t(
-                      "cancellationsAndReschedules.reschedulePolicy.paymentType.tooltip",
-                    )}
-                  </InfoTooltip>
-                </FormLabel>
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Select
                     value={field.value}
@@ -203,6 +201,11 @@ export const ReschedulePolicyCardContent: React.FC<
                     </SelectContent>
                   </Select>
                 </FormControl>
+                <FormDescription>
+                  {t(
+                    "cancellationsAndReschedules.reschedulePolicy.paymentType.tooltip",
+                  )}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -213,16 +216,11 @@ export const ReschedulePolicyCardContent: React.FC<
               name={`${path}.paymentAmount`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t(
                       "cancellationsAndReschedules.reschedulePolicy.paymentAmount.label",
                     )}
-                    <InfoTooltip>
-                      {t(
-                        "cancellationsAndReschedules.reschedulePolicy.paymentAmount.tooltip",
-                      )}
-                    </InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <InputGroup>
                       <InputGroupAddon
@@ -247,6 +245,11 @@ export const ReschedulePolicyCardContent: React.FC<
                       </InputGroupInput>
                     </InputGroup>
                   </FormControl>
+                  <FormDescription>
+                    {t(
+                      "cancellationsAndReschedules.reschedulePolicy.paymentAmount.tooltip",
+                    )}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -262,11 +265,6 @@ export const ReschedulePolicyCardContent: React.FC<
                       {t(
                         "cancellationsAndReschedules.reschedulePolicy.calculateFromOriginalPrice.label",
                       )}
-                      <InfoTooltip>
-                        {t(
-                          "cancellationsAndReschedules.reschedulePolicy.calculateFromOriginalPrice.tooltip",
-                        )}
-                      </InfoTooltip>
                     </FormLabel>
                     <FormControl>
                       <BooleanSelect
@@ -277,6 +275,11 @@ export const ReschedulePolicyCardContent: React.FC<
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t(
+                        "cancellationsAndReschedules.reschedulePolicy.calculateFromOriginalPrice.tooltip",
+                      )}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -286,16 +289,11 @@ export const ReschedulePolicyCardContent: React.FC<
                 name={`${path}.paymentPercentage`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t(
                         "cancellationsAndReschedules.reschedulePolicy.paymentPercentage.label",
                       )}
-                      <InfoTooltip>
-                        {t(
-                          "cancellationsAndReschedules.reschedulePolicy.paymentPercentage.tooltip",
-                        )}
-                      </InfoTooltip>
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <InputGroup>
                         <InputGroupInput>
@@ -321,6 +319,11 @@ export const ReschedulePolicyCardContent: React.FC<
                         </InputGroupAddon>
                       </InputGroup>
                     </FormControl>
+                    <FormDescription>
+                      {t(
+                        "cancellationsAndReschedules.reschedulePolicy.paymentPercentage.tooltip",
+                      )}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

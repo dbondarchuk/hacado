@@ -3,7 +3,9 @@
 import type { PublicInvitation } from "@/app/accept-invitation/actions";
 import { authClient } from "@/app/auth-client";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Link, toast } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Link } from "@hacado/ui/link";
+import { toast } from "@hacado/ui/sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

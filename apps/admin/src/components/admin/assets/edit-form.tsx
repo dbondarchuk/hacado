@@ -1,8 +1,10 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
-import { AssetEntity } from "@hacado/types";
+import { AssetEntity } from "@hacado/types/assets";
+import { AssetPreview } from "@hacado/ui-admin/asset-preview";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   Form,
   FormControl,
@@ -10,11 +12,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-  Textarea,
-  toastPromise,
-} from "@hacado/ui";
-import { AssetPreview, SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Textarea } from "@hacado/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -44,7 +45,7 @@ export const AssetEditForm: React.FC<{ asset: AssetEntity }> = ({ asset }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.assets.updateAsset(asset._id, data), {
+      await toastPromise(assetsApi.updateAsset(asset._id, data), {
         success: t("assets.toasts.changesSaved"),
         error: t("common.toasts.error"),
       });

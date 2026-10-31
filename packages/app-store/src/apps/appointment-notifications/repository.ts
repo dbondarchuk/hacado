@@ -1,10 +1,8 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  ConnectedAppError,
-  IConnectedAppProps,
-  WithTotal,
-} from "@hacado/types";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { ConnectedAppError, IConnectedAppProps } from "@hacado/types/apps";
+import { WithTotal } from "@hacado/types/database";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { DateTime } from "luxon";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
@@ -102,10 +100,28 @@ export class AppointmentNotificationsRepository {
         appId,
       };
 
-      if (query.channel) {
-        filter.channel = {
-          $in: query.channel,
-        };
+      if (query.channel?.length) {
+        const channelClauses = query.channel.map((channel) =>
+          channel === "email"
+            ? {
+                $or: [
+                  { emailEnabled: true },
+                  { emailEnabled: { $exists: false }, channel: "email" },
+                ],
+              }
+            : {
+                $or: [
+                  { textEnabled: true },
+                  {
+                    textEnabled: { $exists: false },
+                    channel: "text-message",
+                    enabled: true,
+                  },
+                ],
+              },
+        );
+
+        filter.$and = [...(filter.$and ?? []), { $or: channelClauses }];
       }
 
       if (query.type) {
@@ -198,7 +214,8 @@ export class AppointmentNotificationsRepository {
       {
         appId,
         appointmentNotificationName: appointmentNotification.name,
-        channel: appointmentNotification.channel,
+        emailEnabled: appointmentNotification.emailEnabled,
+        textEnabled: appointmentNotification.textEnabled,
         type: appointmentNotification.type,
         appointmentCount: appointmentNotification.appointmentCount,
       },
@@ -304,6 +321,13 @@ export class AppointmentNotificationsRepository {
         },
         {
           $set: updateObj,
+          $unset: {
+            channel: "",
+            templateId: "",
+            enabled: "",
+            smsKind: "",
+            followUpText: "",
+          },
         },
       );
 
@@ -422,6 +446,52 @@ export class AppointmentNotificationsRepository {
         "Error checking unique name",
       );
       throw error;
+    }
+  }
+
+  public async getTextMessageOffer(appId: string): Promise<{
+    reminders: boolean;
+    other: boolean;
+  }> {
+    const logger = this.loggerFactory("getTextMessageOffer");
+
+    try {
+      const db = await this.props.getDbConnection();
+      const docs = await db
+        .collection<AppointmentNotification>(
+          APPOINTMENT_NOTIFICATIONS_COLLECTION_NAME,
+        )
+        .find({
+          appId,
+          organizationId: this.props.organizationId,
+          $or: [
+            { textEnabled: true },
+            {
+              textEnabled: { $exists: false },
+              channel: "text-message",
+              enabled: true,
+            },
+          ],
+        })
+        .toArray();
+
+      let reminders = false;
+      let other = false;
+      for (const doc of docs) {
+        if (doc.type === "timeAfter" || doc.type === "atTimeAfter") {
+          other = true;
+        } else {
+          reminders = true;
+        }
+      }
+
+      return { reminders, other };
+    } catch (error: any) {
+      logger.error(
+        { appId, error: error?.message || error?.toString() },
+        "Error reading text message offer",
+      );
+      return { reminders: false, other: false };
     }
   }
 

@@ -1,17 +1,20 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  EventDefinition,
+  MemberCreatedPayload,
+  MemberDeactivatedPayload,
+  MemberProfileUpdatedPayload,
+  MemberReactivatedPayload,
+  MemberRoleChangedPayload,
+} from "@hacado/types/events";
 import {
   MEMBER_CREATED_EVENT_TYPE,
   MEMBER_DEACTIVATED_EVENT_TYPE,
   MEMBER_PROFILE_UPDATED_EVENT_TYPE,
   MEMBER_REACTIVATED_EVENT_TYPE,
   MEMBER_ROLE_CHANGED_EVENT_TYPE,
-  type EventDefinition,
-  type MemberCreatedPayload,
-  type MemberDeactivatedPayload,
-  type MemberProfileUpdatedPayload,
-  type MemberReactivatedPayload,
-  type MemberRoleChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

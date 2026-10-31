@@ -1,7 +1,8 @@
 import { canInstallApp } from "@hacado/app-store";
-import { ServicesContainer } from "@hacado/services";
-import { canUseFeature, isFreeTier } from "@hacado/services/billing";
-import { BillingPlanTier, type SubscriptionFeature } from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import type { SubscriptionFeature } from "@hacado/types/billing";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { headers } from "next/headers";
 import { cache } from "react";
 
@@ -29,7 +30,7 @@ export const getWebsiteUrl = cache(async () => {
     : `https://${organizationSlug}.${process.env.PUBLIC_DOMAIN}`;
 });
 
-export { canInstallApp, canUseFeature, isFreeTier };
+export { canInstallApp };
 
 export const getPlanTier = cache(async (): Promise<BillingPlanTier | null> => {
   const headersList = await headers();

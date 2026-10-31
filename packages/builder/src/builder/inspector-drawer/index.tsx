@@ -6,14 +6,13 @@ import {
 } from "../../documents/editor/context";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Sidebar, SidebarContent } from "@hacado/ui/sidebar";
 import {
   ResponsiveTabsList,
-  Sidebar,
-  SidebarContent,
   Tabs,
   TabsContent,
   TabsTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tabs";
 import { Paintbrush, SquareDashedMousePointer } from "lucide-react";
 import React, { memo, useEffect, useMemo } from "react";
 import {

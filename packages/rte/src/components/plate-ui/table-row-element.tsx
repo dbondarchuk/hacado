@@ -16,7 +16,7 @@ import {
 } from "@udecode/plate/react";
 import { GripVertical } from "lucide-react";
 
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 
 export const TableRowElement = withRef<typeof PlateElement>(
   ({ children, className, ...props }, ref) => {

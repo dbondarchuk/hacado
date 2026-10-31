@@ -1,4 +1,7 @@
-<svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t"><title>Hacado</title>
+<svg fill="#20201d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img"
+  aria-labelledby="t">
+  <title>Hacado</title>
   <title id="t">Hacado</title>
-  <path fill="#000000" d="M 80 28 L 176 28 A 52 52 0 0 1 228 80 L 228 150 A 78 78 0 0 0 150 228 L 80 228 A 52 52 0 0 1 28 176 L 28 80 A 52 52 0 0 1 80 28 Z"/>
+  <path fill="#20201d"
+    d="M 80 28 L 176 28 A 52 52 0 0 1 228 80 L 228 150 A 78 78 0 0 0 150 228 L 80 228 A 52 52 0 0 1 28 176 L 28 80 A 52 52 0 0 1 80 28 Z" />
 </svg>

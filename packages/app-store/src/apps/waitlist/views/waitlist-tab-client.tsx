@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader } from "@hacado/ui";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
 import React from "react";
 import { WaitlistAdminKeys } from "../translations/types";
 import { WaitlistCard } from "./components/waitlist-card";

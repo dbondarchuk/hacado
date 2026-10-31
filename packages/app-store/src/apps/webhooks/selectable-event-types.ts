@@ -1,5 +1,5 @@
-import type { IConnectedAppProps } from "@hacado/types";
-import { ALL_CORE_EVENT_TYPES } from "@hacado/types";
+import type { IConnectedAppProps } from "@hacado/types/apps";
+import { ALL_CORE_EVENT_TYPES } from "@hacado/types/events";
 
 import { APP_EVENT_CONFIGS } from "../../app-events/registry";
 

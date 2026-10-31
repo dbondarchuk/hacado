@@ -1,4 +1,4 @@
-import type { EventEnvelope } from "@hacado/types";
+import type { EventEnvelope } from "@hacado/types/events";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";
@@ -74,7 +74,7 @@ describe("mapGa4Event", () => {
           _id: "appt-1",
           customerId: "cust-1",
           totalPrice: 50,
-          option: { _id: "opt-1", name: "Haircut" },
+          service: { _id: "opt-1", name: "Haircut" },
         },
         confirmed: true,
       }),
@@ -106,7 +106,7 @@ describe("mapGa4Event", () => {
           _id: "appt-2",
           customerId: "cust-1",
           totalPrice: 0,
-          option: { _id: "opt-1", name: "Consult" },
+          service: { _id: "opt-1", name: "Consult" },
         },
         confirmed: true,
       }),
@@ -127,7 +127,7 @@ describe("mapGa4Event", () => {
             _id: "appt-4",
             customerId: "cust-1",
             totalPrice: 10,
-            option: { _id: "opt-1", name: "Haircut" },
+            service: { _id: "opt-1", name: "Haircut" },
           },
           confirmed: true,
         },
@@ -148,7 +148,7 @@ describe("mapGa4Event", () => {
           entry: {
             _id: "wl-2",
             customerId: "cust-1",
-            option: { _id: "opt-1", name: "Massage" },
+            service: { _id: "opt-1", name: "Massage" },
           },
         },
         { actor: "customer" },
@@ -182,7 +182,7 @@ describe("mapGa4Event", () => {
             _id: "appt-3",
             customerId: "cust-1",
             totalPrice: 10,
-            option: { _id: "opt-1", name: "Haircut" },
+            service: { _id: "opt-1", name: "Haircut" },
           },
           confirmed: true,
         },
@@ -200,7 +200,7 @@ describe("mapGa4Event", () => {
         entry: {
           _id: "wl-1",
           customerId: "cust-1",
-          option: { _id: "opt-1", name: "Massage" },
+          service: { _id: "opt-1", name: "Massage" },
         },
       }),
       "USD",

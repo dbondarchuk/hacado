@@ -2,14 +2,17 @@ import {
   Configuration,
   ConfigurationKey,
   ConfigurationOption,
-  IConfigurationService,
-  IEventService,
+} from "@hacado/types/configuration";
+import type {
+  EventSource,
+  ScheduleChangedPayload,
+  SettingsUpdatedPayload,
+} from "@hacado/types/events";
+import {
   SCHEDULE_CHANGED_EVENT_TYPE,
   SETTINGS_UPDATED_EVENT_TYPE,
-  type EventSource,
-  type ScheduleChangedPayload,
-  type SettingsUpdatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { IConfigurationService, IEventService } from "@hacado/types/services";
 import { CONFIGURATION_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";

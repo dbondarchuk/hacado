@@ -1,4 +1,7 @@
-import { BookingProgressMetricsDelta, BookingStep } from "@hacado/types";
+import {
+  BookingProgressMetricsDelta,
+  BookingStep,
+} from "@hacado/types/booking";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { emptyMetrics } from "./metrics-delta";

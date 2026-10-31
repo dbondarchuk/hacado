@@ -1,7 +1,10 @@
-import { adminApi } from "@hacado/api-sdk";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
-import { PageHeaderListModel } from "@hacado/types";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
+import { PageHeaderListModel } from "@hacado/types/pages";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 
 const HeaderShortLabel: React.FC<{
@@ -58,67 +61,80 @@ export type HeaderSelectorProps =
   | NonClearableHeaderSelectorProps
   | ClearableHeaderSelectorProps;
 
-export const HeaderSelector: React.FC<HeaderSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("admin");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, PageHeaderListModel>
-  >({});
-
-  const getHeaders = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const res = await adminApi.pageHeaders.getPageHeaders({
-        page,
-        limit,
-        search,
-        priorityId: value ? [value] : undefined,
-      });
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...res.items.reduce(
-          (map, cur) => ({
-            ...map,
-            [cur._id]: cur,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: res.items.map((header) => ({
-          label: <HeaderShortLabel header={header} />,
-          shortLabel: <HeaderShortLabel header={header} row />,
-          value: header._id,
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < res.total,
-      };
+export const HeaderSelector = React.forwardRef<
+  HTMLButtonElement,
+  HeaderSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, setItemsCache],
-  );
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, PageHeaderListModel>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache, onValueChange]);
+    const getHeaders = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const res = await pageHeadersApi.getPageHeaders({
+          page,
+          limit,
+          search,
+          priorityId: value ? [value] : undefined,
+        });
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-lg max-w-full", className)}
-      placeholder={t("pages.form.header")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getHeaders}
-      loader={<HeaderLoader />}
-    />
-  );
-};
+        setItemsCache((prev) => ({
+          ...prev,
+          ...res.items.reduce(
+            (map, cur) => ({
+              ...map,
+              [cur._id]: cur,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: res.items.map((header) => ({
+            label: <HeaderShortLabel header={header} />,
+            shortLabel: <HeaderShortLabel header={header} row />,
+            value: header._id,
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < res.total,
+        };
+      },
+      [value, setItemsCache],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache, onValueChange]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn("flex font-normal text-lg max-w-full", className)}
+        placeholder={t("pages.form.header")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getHeaders}
+        loader={<HeaderLoader />}
+      />
+    );
+  },
+);
+
+HeaderSelector.displayName = "HeaderSelector";

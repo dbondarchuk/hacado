@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AutoSkeleton } from "@hacado/ui";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getDesignById } from "../../actions";

@@ -1,11 +1,15 @@
 import React from "react";
 
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { OptionSelector, OptionSelectorProps } from "@hacado/ui-admin";
-import { ResetButton } from "./reset-button";
+import {
+  ServiceSelector,
+  ServiceSelectorProps,
+} from "@hacado/ui-admin/service-selector";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 
 type Props = Omit<
-  OptionSelectorProps,
+  ServiceSelectorProps,
   "value" | "onChange" | "onBlur" | "onItemSelect" | "allowClear"
 > & {
   label: string;
@@ -42,7 +46,7 @@ export const ServiceInput: React.FC<Props> = ({
       <Label>{label}</Label>
       <div className="flex w-full">
         {nullable ? (
-          <OptionSelector
+          <ServiceSelector
             className={cn("w-full", className)}
             value={value ?? undefined}
             allowClear
@@ -53,7 +57,7 @@ export const ServiceInput: React.FC<Props> = ({
             }}
           />
         ) : (
-          <OptionSelector
+          <ServiceSelector
             className={cn("w-full", className)}
             value={value ?? undefined}
             {...rest}
@@ -64,7 +68,7 @@ export const ServiceInput: React.FC<Props> = ({
             }}
           />
         )}
-        {nullable && (
+        {/* {nullable && (
           <ResetButton
             onClick={() => {
               setValue(null);
@@ -72,7 +76,7 @@ export const ServiceInput: React.FC<Props> = ({
             }}
             size="sm"
           />
-        )}
+        )} */}
       </div>
       {helperText && <FormDescription>{helperText}</FormDescription>}
     </div>

@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./const";
 import { AutomaticStructuredDataLogo } from "./logo";
 import {

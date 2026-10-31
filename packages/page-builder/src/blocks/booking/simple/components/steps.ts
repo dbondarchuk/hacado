@@ -1,4 +1,5 @@
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { AddonsCard } from "./addons-card";
 import { CalendarCard } from "./calendar-card";
 import { ConfirmationCard } from "./confirmation-card";
@@ -23,8 +24,9 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
         ctx.customerPackageId) &&
       !ctx.otpVerified
     ) {
-      const sessionMatches =
-        await clientApi.customerAuth.sessionMatchesBookingFields(ctx.fields);
+      const sessionMatches = await customerAuthApi.sessionMatchesBookingFields(
+        ctx.fields,
+      );
       if (!sessionMatches) {
         ctx.setOtpDialogOpen(true);
         return;
@@ -36,7 +38,7 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
     if (!payment || payment.intent?.status === "paid") {
       ctx.onSubmit(payment?.intent?._id);
     } else {
-      clientApi.booking.trackPaymentReached(payment.intent?.amount);
+      bookingApi.trackPaymentReached(payment.intent?.amount);
       ctx.setStep("payment");
     }
   } catch (e) {

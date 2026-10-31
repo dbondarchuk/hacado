@@ -1,4 +1,4 @@
-import { Page } from "@hacado/types";
+import { Page } from "@hacado/types/pages";
 import { cache } from "react";
 
 export type PageDataStore = {

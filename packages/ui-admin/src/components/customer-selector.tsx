@@ -1,14 +1,15 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerListModel,
   getCustomerSchemaWithUniqueCheck,
-} from "@hacado/types";
+} from "@hacado/types/customers";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
 import {
-  Button,
-  cn,
-  ComboboxAsync,
   Dialog,
   DialogClose,
   DialogContent,
@@ -17,20 +18,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  IComboboxItem,
-  Input,
-  PhoneInput,
-  Skeleton,
-  Spinner,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle } from "lucide-react";
 import React from "react";
@@ -104,7 +106,7 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
   const t = useI18n("admin");
 
   const customerUniqueCheck = useDebounceCacheFn(
-    adminApi.customers.checkCustomerUniqueEmailAndPhone,
+    customersApi.checkCustomerUniqueEmailAndPhone,
     300,
   );
 
@@ -135,7 +137,7 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
     setLoading(true);
     try {
       const fn = async () => {
-        const customer = await adminApi.customers.createCustomer(data);
+        const customer = await customersApi.createCustomer(data);
         onCreated(customer._id);
       };
       await toastPromise(fn(), {
@@ -243,68 +245,84 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
   );
 };
 
-export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("admin");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, CustomerListModel>
-  >({});
-
-  const getCustomers = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const result = await adminApi.customers.getCustomers({
-        page,
-        limit,
-        search,
-        priorityId: value ? [value] : undefined,
-      });
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...result.items.reduce(
-          (map, cur) => ({
-            ...map,
-            [cur._id]: cur,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: result.items.map((customer) => ({
-          label: <CustomerShortLabel customer={customer} />,
-          shortLabel: <CustomerShortLabel customer={customer} row />,
-          value: customer._id,
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < result.total,
-      };
+export const CustomerSelector = React.forwardRef<
+  HTMLButtonElement,
+  CustomerSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, setItemsCache, t],
-  );
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, CustomerListModel>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache]);
+    const getCustomers = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const result = await customersApi.getCustomers({
+          page,
+          limit,
+          search,
+          priorityId: value ? [value] : undefined,
+        });
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full min-w-0", className)}
-      placeholder={t("customerSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getCustomers}
-      loader={<CustomerLoader />}
-      addNewItem={AddNewCustomerItem}
-    />
-  );
-};
+        setItemsCache((prev) => ({
+          ...prev,
+          ...result.items.reduce(
+            (map, cur) => ({
+              ...map,
+              [cur._id]: cur,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: result.items.map((customer) => ({
+            label: <CustomerShortLabel customer={customer} />,
+            shortLabel: <CustomerShortLabel customer={customer} row />,
+            value: customer._id,
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < result.total,
+        };
+      },
+      [value, setItemsCache, t],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn(
+          "flex font-normal text-base max-w-full min-w-0",
+          className,
+        )}
+        placeholder={t("customerSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getCustomers}
+        loader={<CustomerLoader />}
+        addNewItem={AddNewCustomerItem}
+      />
+    );
+  },
+);
+
+CustomerSelector.displayName = "CustomerSelector";

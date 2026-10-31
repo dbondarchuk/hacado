@@ -2,10 +2,10 @@ import { plateValueToPlainTextDescription } from "@hacado/rte";
 import type {
   ConnectedAppData,
   IConnectedAppProps,
-  Page,
   PageSeoArguments,
-} from "@hacado/types";
-import { getWebsiteUrl } from "@hacado/utils";
+} from "@hacado/types/apps";
+import type { Page } from "@hacado/types/pages";
+import { getWebsiteUrl } from "@hacado/utils/website";
 import { BlogPost } from "../models/blog-post";
 import { pageUsesBlogApp } from "./blog-sitemap";
 import { BlogRepositoryService } from "./repository-service";

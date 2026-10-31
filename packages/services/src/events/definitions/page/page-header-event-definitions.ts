@@ -1,13 +1,16 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  EventDefinition,
+  PageHeaderCreatedPayload,
+  PageHeaderDeletedPayload,
+  PageHeaderUpdatedPayload,
+} from "@hacado/types/events";
 import {
   PAGE_HEADER_CREATED_EVENT_TYPE,
   PAGE_HEADER_DELETED_EVENT_TYPE,
   PAGE_HEADER_UPDATED_EVENT_TYPE,
-  type EventDefinition,
-  type PageHeaderCreatedPayload,
-  type PageHeaderDeletedPayload,
-  type PageHeaderUpdatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

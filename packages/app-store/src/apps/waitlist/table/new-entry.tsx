@@ -1,7 +1,17 @@
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentAddon, AppointmentOption } from "@hacado/types";
+import { AppointmentAddon, AppointmentOption } from "@hacado/types/booking";
+import { CustomerListModel } from "@hacado/types/customers";
 import {
-  Button,
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "@hacado/ui-admin-kit/sms-consent-attest";
+import { AddonSelector } from "@hacado/ui-admin/addon-selector";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { Button } from "@hacado/ui/button";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -10,33 +20,30 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DurationInput,
+} from "@hacado/ui/dialog";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  ScrollArea,
-  Spinner,
-  Textarea,
-  ToggleGroup,
-  ToggleGroupItem,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  AddonSelector,
-  CustomerSelector,
-  OptionSelector,
-  useReload,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { waitlistSmsConsentKind } from "@hacado/ui/sms-consent-choice";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Textarea } from "@hacado/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createWaitlistEntry } from "../actions";
+import { createWaitlistEntry, getWaitlistSmsText } from "../actions";
 import { WaitlistDatePicker } from "../components/waitlist-date-picker";
+import { CustomerWaitlistTextOffer } from "../customer-waitlist-text";
 import {
   CreateWaitlistEntryRequest,
   createWaitlistEntryRequestSchema,
@@ -56,11 +63,17 @@ export const NewEntryDialog = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { reload } = useReload();
+  const [customer, setCustomer] = useState<CustomerListModel>();
+  const [attest, setAttest] = useState(false);
+  const [smsText, setSmsText] = useState<CustomerWaitlistTextOffer | null>(
+    null,
+  );
 
+  const { reload } = useReload();
   const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
     waitlistAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
 
   const form = useForm<CreateWaitlistEntryRequest>({
@@ -103,6 +116,55 @@ export const NewEntryDialog = ({
     }
   }, [calculatedDuration, optionId, form]);
 
+  useEffect(() => {
+    if (!isOpen || !customerIdLock) return;
+
+    let cancelled = false;
+    customersApi
+      .getCustomer(customerIdLock)
+      .then((loaded) => {
+        if (cancelled) return;
+        setCustomer({
+          _id: loaded._id,
+          avatar: loaded.avatar,
+          name: loaded.name,
+          phone: loaded.phone,
+          email: loaded.email,
+          isDeleted: loaded.isDeleted,
+          appointmentsCount: 0,
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setCustomer(undefined);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, customerIdLock]);
+
+  const consentStatus = useCustomerPhoneSmsConsent(
+    isOpen && waitlistSmsConsentKind(smsText) ? customer?._id : undefined,
+    customer?.phone,
+  );
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let cancelled = false;
+    getWaitlistSmsText(appId)
+      .then((value) => {
+        if (!cancelled) setSmsText(value);
+      })
+      .catch(() => {
+        if (!cancelled) setSmsText(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, appId]);
+
   const onSubmit = async (data: CreateWaitlistEntryRequest) => {
     setIsLoading(true);
 
@@ -111,12 +173,15 @@ export const NewEntryDialog = ({
         ...data,
         duration:
           data.duration && data.duration >= 1 ? data.duration : undefined,
+        ...(attest && consentStatus === "missing" ? { smsConsent: true } : {}),
       };
       await toastPromise(createWaitlistEntry(appId, payload), {
         success: t("newEntry.toasts.success"),
         error: t("newEntry.toasts.error"),
       });
       form.reset();
+      setAttest(false);
+      setCustomer(undefined);
       reload();
       setIsOpen(false);
     } catch (error: any) {
@@ -159,6 +224,10 @@ export const NewEntryDialog = ({
                         <CustomerSelector
                           disabled={!!customerIdLock || isLoading}
                           value={field.value}
+                          onValueChange={(value) => {
+                            setCustomer(value);
+                            if (value?.smsConsent) setAttest(false);
+                          }}
                           onItemSelect={(val) => {
                             field.onChange(val);
                             field.onBlur();
@@ -169,6 +238,16 @@ export const NewEntryDialog = ({
                     </FormItem>
                   )}
                 />
+                {waitlistSmsConsentKind(smsText) ? (
+                  <SmsConsentAttest
+                    id="waitlist-sms-consent"
+                    phone={customer?.phone}
+                    status={consentStatus}
+                    checked={attest}
+                    disabled={isLoading}
+                    onCheckedChange={setAttest}
+                  />
+                ) : null}
                 <FormField
                   control={form.control}
                   name="optionId"
@@ -176,7 +255,7 @@ export const NewEntryDialog = ({
                     <FormItem>
                       <FormLabel>{t("newEntry.form.optionId.label")}</FormLabel>
                       <FormControl>
-                        <OptionSelector
+                        <ServiceSelector
                           value={field.value}
                           disabled={isLoading}
                           onItemSelect={(val) => {

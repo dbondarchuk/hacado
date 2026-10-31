@@ -2,9 +2,9 @@ import { getServicesContainer, getUser } from "@/app/utils";
 import {
   appointmentsSearchParams,
   appointmentsSearchParamsCache,
-} from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
-import { gateMemberIds } from "@hacado/utils";
+} from "@hacado/api-sdk/admin/search-params/appointments";
+import { DataTable } from "@hacado/ui-admin/data-table";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
 import { columns } from "./columns";
 
 export const AppointmentsTable: React.FC<{ customerId?: string }> = async ({

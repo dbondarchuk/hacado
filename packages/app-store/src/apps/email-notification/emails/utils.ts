@@ -3,8 +3,9 @@ import {
   renderUserEmailTemplate,
 } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
-import { Appointment, isClosedAppointmentStatus } from "@hacado/types";
-import { AppointmentStatusToICalMethodMap, template } from "@hacado/utils";
+import { Appointment, isClosedAppointmentStatus } from "@hacado/types/booking";
+import { AppointmentStatusToICalMethodMap } from "@hacado/utils/email";
+import { template } from "@hacado/utils/string";
 import { UserEmailTemplates } from ".";
 
 export const getEmailTemplate = async (

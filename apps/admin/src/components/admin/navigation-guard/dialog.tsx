@@ -1,13 +1,13 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
 import { useNavigationGuard } from "next-navigation-guard";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { UseFormReturn, useFormState } from "react-hook-form";

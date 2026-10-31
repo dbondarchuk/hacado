@@ -1,7 +1,7 @@
 import { getServicesContainer, getUser } from "@/app/utils";
-import { scheduleSearchParamsLoader } from "@hacado/api-sdk";
+import { scheduleSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/schedule";
 import { getLoggerFactory } from "@hacado/logger";
-import { resolveCalendarMemberId } from "@hacado/utils";
+import { resolveCalendarMemberId } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

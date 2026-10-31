@@ -2,7 +2,7 @@ import {
   BillingPlanTier,
   getMinimumPlanTierForApp,
   meetsMinimumPlanTier,
-} from "@hacado/types";
+} from "@hacado/types/billing";
 import { AvailableApps } from "./apps";
 
 export function getAppMinimumPlanTier(appSlug: string): BillingPlanTier {

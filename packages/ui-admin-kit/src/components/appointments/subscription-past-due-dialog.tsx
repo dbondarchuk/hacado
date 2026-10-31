@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { billingApi } from "@hacado/api-sdk/admin/billing";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AlertDialog,
@@ -10,11 +11,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Link,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Link } from "@hacado/ui/link";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 
 export function isSubscriptionPastDueError(error: unknown): boolean {
@@ -31,7 +32,7 @@ export const SubscriptionPastDueDialog: React.FC<{
   const openBillingPortal = async () => {
     setOpeningPortal(true);
     try {
-      const url = await adminApi.billing.getBillingPortalUrl();
+      const url = await billingApi.getBillingPortalUrl();
       window.location.assign(url);
     } catch {
       toast.error(t("settings.general.billing.portalError"));

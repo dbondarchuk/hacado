@@ -9,11 +9,13 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+} from "@hacado/ui/card";
+import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@hacado/ui";
+} from "@hacado/ui/chart";
 
 export const description = "An interactive bar chart";
 

@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { AlertCircle } from "lucide-react";
 
 export const BookingRestrictionBanner = ({

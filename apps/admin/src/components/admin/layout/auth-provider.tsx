@@ -1,6 +1,6 @@
 import { authClient } from "@/app/auth-client";
-import type { SessionUser } from "@hacado/types";
-import { AuthContext } from "@hacado/ui-admin";
+import type { SessionUser } from "@hacado/types/users";
+import { AuthContext } from "@hacado/ui-admin/context";
 import { useMemo } from "react";
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({

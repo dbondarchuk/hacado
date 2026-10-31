@@ -1,9 +1,7 @@
 import type { LoggerFactory } from "@hacado/logger";
 import { getLoggerFactory } from "@hacado/logger";
-import type {
-  DashboardNotification,
-  IDashboardNotificationsService,
-} from "@hacado/types";
+import type { DashboardNotification } from "@hacado/types/apps";
+import type { IDashboardNotificationsService } from "@hacado/types/services";
 import type { Redis } from "ioredis";
 
 export class RedisDashboardNotificationPublisher

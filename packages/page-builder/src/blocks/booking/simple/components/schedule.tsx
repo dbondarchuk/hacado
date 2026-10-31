@@ -1,7 +1,12 @@
 "use client";
 
-import { clientApi, handleBookingSubmitError } from "@hacado/api-sdk";
+import { availabilityApi } from "@hacado/api-sdk/client/availability";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { handleBookingSubmitError } from "@hacado/api-sdk/client/booking-submit-error";
+import { giftCardsApi } from "@hacado/api-sdk/client/gift-cards";
+import { paymentsApi } from "@hacado/api-sdk/client/payments";
 import { useI18n } from "@hacado/i18n/client";
+import type { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -14,7 +19,7 @@ import type {
   DateTime,
   FieldSchema,
   PublicStaffMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   ApplyDiscountResponse,
   AvailabilityByMember,
@@ -24,8 +29,10 @@ import {
   getActiveStaffForAssignments,
   isAddonAvailableForMember,
   isBookingLimitRestriction,
-} from "@hacado/types";
-import { Spinner, toast, useTimeZone } from "@hacado/ui";
+} from "@hacado/types/booking";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -41,6 +48,7 @@ export type ScheduleProps = {
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   bookingRestriction?: BookingRestriction;
   className?: string;
   id?: string;
@@ -69,6 +77,7 @@ export const Schedule: React.FC<
   successPage,
   fieldsSchema,
   showPromoCode,
+  smsText,
   bookingRestriction,
   className,
   id,
@@ -368,7 +377,7 @@ export const Schedule: React.FC<
           return;
         }
 
-        const data = await clientApi.availability.getAvailability({
+        const data = await availabilityApi.getAvailability({
           memberIds: requests.map((r) => r.memberId),
           durations: requests.map((r) => r.duration),
         });
@@ -385,7 +394,7 @@ export const Schedule: React.FC<
         return;
       }
 
-      const data = await clientApi.availability.getAvailability({
+      const data = await availabilityApi.getAvailability({
         memberIds: [resolvedMemberId],
         durations: [totalDuration],
       });
@@ -417,8 +426,7 @@ export const Schedule: React.FC<
       setIsLoading(true);
 
       try {
-        const data =
-          await clientApi.booking.checkDuplicateAppointments(request);
+        const data = await bookingApi.checkDuplicateAppointments(request);
         return data;
       } catch (e) {
         console.error(e);
@@ -452,7 +460,7 @@ export const Schedule: React.FC<
         .toJSDate(),
       timeZone: dateTime.timeZone,
       duration: duration,
-      optionId: appointmentOption._id,
+      serviceId: appointmentOption._id,
       memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,
@@ -461,7 +469,11 @@ export const Schedule: React.FC<
       giftCards: giftCards?.map((giftCard) => giftCard.code),
       purchasePackageId,
       customerPackageId,
+      ...(typeof fields.smsConsent === "boolean"
+        ? { smsConsent: fields.smsConsent }
+        : {}),
       fields: Object.entries(fields)
+        .filter(([key]) => key !== "smsConsent")
         .filter(([_, value]) => !((value as any) instanceof File))
         .reduce(
           (obj, cur) => ({
@@ -493,7 +505,7 @@ export const Schedule: React.FC<
     }
 
     try {
-      const data = await clientApi.giftCards.applyGiftCards({
+      const data = await giftCardsApi.applyGiftCards({
         codes,
         amount,
       });
@@ -528,8 +540,8 @@ export const Schedule: React.FC<
     try {
       setIsLoading(true);
       const data = await (intentId
-        ? clientApi.payments.updatePaymentIntent(intentId, body)
-        : clientApi.payments.createPaymentIntent(body));
+        ? paymentsApi.updatePaymentIntent(intentId, body)
+        : paymentsApi.createPaymentIntent(body));
 
       return data;
     } catch (e) {
@@ -569,10 +581,7 @@ export const Schedule: React.FC<
         ),
       );
 
-      const { id } = await clientApi.booking.createAppointment(
-        eventBody,
-        files,
-      );
+      const { id } = await bookingApi.createAppointment(eventBody, files);
 
       if (successPage) {
         const expireDate = LuxonDateTime.now().plus({ minutes: 1 });
@@ -651,6 +660,7 @@ export const Schedule: React.FC<
           dateTime,
           goBack,
           showPromoCode,
+          smsText,
           formFields,
           timeZone,
           availabilityByMember,
@@ -700,13 +710,14 @@ export const Schedule: React.FC<
               name: result.name || fields.name,
               email: result.email || fields.email,
               phone: result.phone || fields.phone,
+              smsConsent: result.smsConsent === true,
             });
             const payment = await fetchPaymentInformation();
             setPaymentInformation(payment);
             if (!payment || payment.intent?.status === "paid") {
               onSubmit(payment?.intent?._id);
             } else {
-              clientApi.booking.trackPaymentReached(payment.intent?.amount);
+              bookingApi.trackPaymentReached(payment.intent?.amount);
               setStep("payment");
             }
           }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { AutoSkeleton } from "@hacado/ui";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
 
 export function DashboardKpiSkeleton({ count }: { count: number }) {
   return (

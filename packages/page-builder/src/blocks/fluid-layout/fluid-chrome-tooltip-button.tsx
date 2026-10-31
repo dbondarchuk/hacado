@@ -1,11 +1,11 @@
 "use client";
 
+import { cn } from "@hacado/ui/cn";
 import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  cn,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { forwardRef, type ComponentProps, type ReactNode } from "react";
 
 type FluidChromeTooltipButtonProps = ComponentProps<"button"> & {

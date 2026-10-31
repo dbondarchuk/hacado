@@ -1,5 +1,5 @@
-import { adminApi } from "@hacado/api-sdk";
-import { WithTotal } from "@hacado/types";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { WithTotal } from "@hacado/types/database";
 import {
   AppointmentNotification,
   AppointmentNotificationsAppData,
@@ -30,7 +30,7 @@ export const deleteAppointmentNotification = async (
     "Deleting appointment notification",
   );
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: "delete-appointment-notifications",
       ids: [appointmentNotificationId],
     } as RequestAction);
@@ -62,7 +62,7 @@ export const deleteSelectedAppointmentNotifications = async (
     "Deleting selected appointment notifications",
   );
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: "delete-appointment-notifications",
       ids: ids,
     } as RequestAction);
@@ -95,7 +95,7 @@ export const getAppointmentNotifications = async (
     "Getting appointment notifications",
   );
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: "get-appointment-notifications",
       query,
     } as RequestAction)) as WithTotal<AppointmentNotification>;
@@ -121,7 +121,7 @@ export const getAppointmentNotification = async (appId: string, id: string) => {
   const actionLogger = logger("getAppointmentNotification");
   actionLogger.debug({ appId, id }, "Getting appointment notification");
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: "get-appointment-notification",
       id,
     } as RequestAction)) as AppointmentNotification;
@@ -147,7 +147,7 @@ export const getAppointmentNotificationsAppData = async (appId: string) => {
   const actionLogger = logger("getAppointmentNotificationsAppData");
   actionLogger.debug({ appId }, "Getting app data");
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: "get-app-data",
     } as RequestAction)) as AppointmentNotificationsAppData;
     actionLogger.debug({ appId, hasData: !!result }, "App data retrieved");
@@ -171,7 +171,7 @@ export const setAppointmentNotificationsAppData = async (
     "Setting appointment notifications app data",
   );
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: "set-app-data",
       data,
     } as RequestAction);
@@ -198,7 +198,7 @@ export const checkUniqueName = async (
   const actionLogger = logger("checkUniqueName");
   actionLogger.debug({ appId, name, id }, "Checking unique name");
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: "check-unique-name",
       name,
       id,
@@ -232,7 +232,7 @@ export const create = async (
     "Creating appointment notification",
   );
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: "create-appointment-notification",
       appointmentNotification,
     } as RequestAction);
@@ -265,7 +265,7 @@ export const update = async (
     "Updating appointment notification",
   );
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: "update-appointment-notification",
       update,
       id,

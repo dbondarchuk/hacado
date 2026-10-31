@@ -1,4 +1,4 @@
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { type VariantProps, cva } from "class-variance-authority";
 import { type LucideProps, Loader2Icon } from "lucide-react";
 

@@ -1,22 +1,22 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BookingConfiguration,
   bookingConfigurationSchema,
   normalizeCatalogNodes,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { cn } from "@hacado/ui/cn";
+import { Form } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import {
-  cn,
-  Form,
   ResponsiveTabsList,
   Tabs,
   TabsContent,
   TabsTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/tabs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
@@ -62,7 +62,7 @@ export const AppointmentsSettingsForm: React.FC<{
             payments: { requireDeposit: false, tipsMode: "off" },
           };
       await toastPromise(
-        adminApi.configuration.setConfiguration("booking", payload),
+        configurationApi.setConfiguration("booking", payload),
         {
           success: t("settings.appointments.form.toasts.changesSaved"),
           error: t("settings.appointments.form.toasts.requestError"),
@@ -125,7 +125,7 @@ export const AppointmentsSettingsForm: React.FC<{
                 form.getFieldState("catalog").invalid ? "text-destructive" : "",
               )}
             >
-              {t("settings.appointments.form.tabs.options")}
+              {t("settings.appointments.form.tabs.catalog")}
             </TabsTrigger>
             <TabsTrigger
               value="payments"

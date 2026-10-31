@@ -1,6 +1,6 @@
 import { CatalogSiteClient } from "@/template-previews/catalog-site-client";
 import { getTemplatePreviewDelayMs } from "@/template-previews/preview-config";
-import type { LayoutTemplateService } from "@hacado/builder";
+import type { LayoutTemplateService } from "@hacado/builder/types";
 import { getI18nAsync } from "@hacado/i18n/server";
 import {
   catalogPackBasePath,

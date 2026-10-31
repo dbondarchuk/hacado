@@ -6,7 +6,7 @@ import {
   sessionCanUseFeature,
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { BillingPlanTier, FREE_TIER_LIMITS } from "@hacado/types";
+import { BillingPlanTier, FREE_TIER_LIMITS } from "@hacado/types/billing";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

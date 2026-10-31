@@ -1,5 +1,5 @@
-import { ConfigurationProps } from "@hacado/builder";
-import { ShortcutsToolbar } from "@hacado/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder/types";
+import { ShortcutsToolbar } from "@hacado/page-builder-base/toolbars";
 import { BlogPostNavigationButtonProps } from "./schema";
 import { blogPostNavigationButtonShortcuts } from "./shortcuts";
 

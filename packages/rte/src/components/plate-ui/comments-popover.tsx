@@ -1,6 +1,7 @@
 "use client";
 
-import { cn, popoverVariants } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { popoverVariants } from "@hacado/ui/popover";
 import {
   CommentProvider,
   CommentsPositioner,

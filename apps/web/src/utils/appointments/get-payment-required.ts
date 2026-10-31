@@ -4,10 +4,10 @@ import {
   AppointmentEvent,
   AppointmentOption,
   AppointmentRequest,
-  Customer,
-  IServicesContainer,
-} from "@hacado/types";
-import { formatAmount } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
+import { IServicesContainer } from "@hacado/types/services";
+import { formatAmount } from "@hacado/utils/currency";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
 import { getAppointmentEventFromRequest } from "./get-event";
@@ -49,7 +49,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
 
   logger.debug(
     {
-      optionId: appointmentRequest.optionId,
+      optionId: appointmentRequest.serviceId,
       dateTime: appointmentRequest.dateTime,
       addonsCount: appointmentRequest.addonsIds?.length || 0,
       ignoreFieldValidation,
@@ -68,7 +68,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
   if ("error" in eventOrError) {
     logger.warn(
       {
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
         errorCode: eventOrError.error.code,
         errorMessage: eventOrError.error.message,
       },

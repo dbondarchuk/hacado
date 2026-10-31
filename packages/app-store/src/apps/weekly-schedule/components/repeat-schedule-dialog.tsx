@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { WeekIdentifier } from "@hacado/types";
+import { WeekIdentifier } from "@hacado/types/general";
+import { WeekSelector } from "@hacado/ui-admin/week-selector";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,8 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Checkbox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -21,25 +24,28 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
-import { WeekSelector } from "@hacado/ui-admin";
-import { getWeekIdentifier } from "@hacado/utils";
+} from "@hacado/ui/input-group";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { getWeekIdentifier } from "@hacado/utils/time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Repeat2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -171,7 +177,9 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
                 name="interval"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("dialogs.repeat.repeatEvery")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("dialogs.repeat.repeatEvery")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <InputGroup>
                         <InputGroupInput>
@@ -197,12 +205,9 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
                 name="maxWeek"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("dialogs.repeat.repeatUntil")}{" "}
-                      <InfoTooltip>
-                        {t("dialogs.repeat.repeatUntilTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("dialogs.repeat.repeatUntil")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <WeekSelector
                         minWeek={todayWeek}
@@ -213,6 +218,9 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("dialogs.repeat.repeatUntilTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

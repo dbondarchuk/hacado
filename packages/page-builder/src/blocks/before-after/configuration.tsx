@@ -1,12 +1,12 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { SelectInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  RawNumberInputWithUnit,
-  StylesConfigurationPanel,
-} from "@hacado/page-builder-base";
-import { Checkbox, Label } from "@hacado/ui";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
+import { RawNumberInputWithUnit } from "@hacado/page-builder-base/style-inputs";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
 import { Percent } from "lucide-react";
 import { useCallback } from "react";
 import { BeforeAfterProps } from "./schema";

@@ -1,4 +1,4 @@
-import { colorShortcut, Shortcut } from "@hacado/page-builder-base";
+import { colorShortcut, Shortcut } from "@hacado/page-builder-base/shortcuts";
 import { MoveDiagonal2, Paintbrush2 } from "lucide-react";
 import { IconStylesSchema } from "./styles";
 

@@ -12,6 +12,105 @@ import { Button } from "./button";
 
 import Autoplay from "embla-carousel-autoplay";
 
+const TWEEN_FACTOR_BASE = 0.52;
+
+function applyScaleTween(
+  emblaApi: NonNullable<CarouselApi>,
+  tweenNodes: HTMLElement[],
+  tweenFactor: number,
+  eventName?: string,
+) {
+  const engine = emblaApi.internalEngine();
+  const scrollProgress = emblaApi.scrollProgress();
+  const slidesInView = emblaApi.slidesInView();
+  const isScrollEvent = eventName === "scroll";
+
+  emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+    let diffToTarget = scrollSnap - scrollProgress;
+    const slidesInSnap = engine.slideRegistry[snapIndex];
+    if (!slidesInSnap) {
+      return;
+    }
+
+    slidesInSnap.forEach((slideIndex) => {
+      if (isScrollEvent && !slidesInView.includes(slideIndex)) {
+        return;
+      }
+
+      if (engine.options.loop) {
+        engine.slideLooper.loopPoints.forEach((loopItem) => {
+          const target = loopItem.target();
+          if (slideIndex === loopItem.index && target !== 0) {
+            const sign = Math.sign(target);
+            if (sign === -1) {
+              diffToTarget = scrollSnap - (1 + scrollProgress);
+            }
+
+            if (sign === 1) {
+              diffToTarget = scrollSnap + (1 - scrollProgress);
+            }
+          }
+        });
+      }
+
+      const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor);
+      const scale = Math.min(Math.max(tweenValue, 0), 1);
+      const tweenNode = tweenNodes[slideIndex];
+      if (!tweenNode) {
+        return;
+      }
+
+      tweenNode.style.transform = `scale(${scale})`;
+    });
+  });
+}
+
+function readTweenNodes(emblaApi: NonNullable<CarouselApi>) {
+  return emblaApi.slideNodes().map((slideNode) => {
+    return slideNode.querySelector(".carousel-tween") as HTMLElement;
+  });
+}
+
+function settleEngine(emblaApi: NonNullable<CarouselApi>, startIndex: number) {
+  let count = emblaApi.scrollSnapList().length;
+  if (count < 1) {
+    emblaApi.reInit();
+    count = emblaApi.scrollSnapList().length;
+  }
+
+  if (count < 1) {
+    return;
+  }
+
+  const safeIndex = Math.min(Math.max(startIndex, 0), count - 1);
+  emblaApi.reInit({ startIndex: safeIndex });
+  const engine = emblaApi.internalEngine();
+  // The scroll body records its first animated step as a delta from 0.
+  // A zero-duration update stores the real start so the first move doesn't teleport.
+  engine.scrollBody.useDuration(0);
+  engine.animation.update();
+  engine.animation.render(1);
+  engine.animation.update();
+  engine.scrollBody.useBaseDuration();
+  forceCarouselPosition(emblaApi);
+}
+
+function forceCarouselPosition(emblaApi: NonNullable<CarouselApi>) {
+  const engine = emblaApi.internalEngine();
+  const location = engine.location.get();
+  engine.translate.to(location + 1);
+  engine.translate.to(location);
+  if (!engine.options.loop) {
+    return;
+  }
+
+  engine.slideLooper.loopPoints.forEach((loopItem) => {
+    loopItem.slideLocation.set(-1);
+  });
+
+  engine.slideLooper.loop();
+}
+
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
@@ -23,6 +122,7 @@ type CarouselProps = {
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
   autoPlay?: number;
+  scale?: boolean;
 };
 
 type CarouselContextProps = {
@@ -59,6 +159,7 @@ const Carousel = React.forwardRef<
       className,
       children,
       autoPlay,
+      scale = false,
       ...props
     },
     ref,
@@ -67,6 +168,7 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        ...(opts?.loop ? { containScroll: false as const } : {}),
       },
       [
         ...(plugins || []),
@@ -130,9 +232,117 @@ const Carousel = React.forwardRef<
       api.on("select", onSelect);
 
       return () => {
-        api?.off("select", onSelect);
+        api.off("select", onSelect);
       };
     }, [api, onSelect]);
+
+    React.useEffect(() => {
+      if (!api) {
+        return;
+      }
+
+      const markSlides = () => {
+        const inView = new Set(api.slidesInView());
+        const selected = api.selectedScrollSnap();
+        api.slideNodes().forEach((node, index) => {
+          node.classList.toggle("is-in-view", inView.has(index));
+          node.classList.toggle("is-selected", index === selected);
+        });
+      };
+
+      markSlides();
+      api.on("slidesInView", markSlides);
+      api.on("select", markSlides);
+      api.on("reInit", markSlides);
+      api.on("scroll", markSlides);
+
+      return () => {
+        api.off("slidesInView", markSlides);
+        api.off("select", markSlides);
+        api.off("reInit", markSlides);
+        api.off("scroll", markSlides);
+      };
+    }, [api]);
+
+    React.useEffect(() => {
+      if (!api || !scale) {
+        return;
+      }
+
+      let tweenFactor = 0;
+      let tweenNodes: HTMLElement[] = [];
+      const setTweenNodes = () => {
+        tweenNodes = readTweenNodes(api);
+      };
+
+      const setTweenFactor = () => {
+        tweenFactor = TWEEN_FACTOR_BASE * api.scrollSnapList().length;
+      };
+
+      const onTween = (
+        emblaApi: NonNullable<CarouselApi>,
+        eventName?: string,
+      ) => {
+        applyScaleTween(emblaApi, tweenNodes, tweenFactor, eventName);
+      };
+
+      setTweenNodes();
+      setTweenFactor();
+      onTween(api);
+
+      api.on("reInit", setTweenNodes);
+      api.on("reInit", setTweenFactor);
+      api.on("reInit", onTween);
+      api.on("scroll", onTween);
+      api.on("slideFocus", onTween);
+
+      return () => {
+        api.off("reInit", setTweenNodes);
+        api.off("reInit", setTweenFactor);
+        api.off("reInit", onTween);
+        api.off("scroll", onTween);
+        api.off("slideFocus", onTween);
+      };
+    }, [api, scale]);
+
+    const needsSettle = scale || !!opts?.loop;
+    const [settled, setSettled] = React.useState(!needsSettle);
+    const settledApi = React.useRef<CarouselApi>(null);
+
+    React.useLayoutEffect(() => {
+      if (!needsSettle || !api || settledApi.current === api) {
+        return;
+      }
+
+      settleEngine(api, opts?.startIndex ?? 0);
+      if (scale) {
+        applyScaleTween(
+          api,
+          readTweenNodes(api),
+          TWEEN_FACTOR_BASE * api.scrollSnapList().length,
+        );
+      }
+
+      settledApi.current = api;
+      setSettled(true);
+    }, [api, needsSettle, opts?.startIndex, scale]);
+
+    React.useLayoutEffect(() => {
+      if (!api || !needsSettle || !settled) {
+        return;
+      }
+
+      forceCarouselPosition(api);
+      if (!scale) {
+        return;
+      }
+
+      applyScaleTween(
+        api,
+        readTweenNodes(api),
+        TWEEN_FACTOR_BASE * api.scrollSnapList().length,
+      );
+    }, [api, needsSettle, scale, settled]);
 
     return (
       <CarouselContext.Provider
@@ -146,6 +356,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          scale,
         }}
       >
         <div
@@ -155,6 +366,11 @@ const Carousel = React.forwardRef<
           role="region"
           aria-roledescription="carousel"
           {...props}
+          style={
+            needsSettle && !settled
+              ? { ...props.style, visibility: "hidden" }
+              : props.style
+          }
         >
           {children}
         </div>
@@ -171,7 +387,10 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div
+      ref={carouselRef}
+      className="overflow-hidden carousel-content-container"
+    >
       <div
         ref={ref}
         className={cn(
@@ -189,8 +408,8 @@ CarouselContent.displayName = "CarouselContent";
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel();
+>(({ className, children, ...props }, ref) => {
+  const { orientation, scale } = useCarousel();
 
   return (
     <div
@@ -203,7 +422,13 @@ const CarouselItem = React.forwardRef<
         className,
       )}
       {...props}
-    />
+    >
+      {scale ? (
+        <div className="carousel-tween w-full">{children}</div>
+      ) : (
+        children
+      )}
+    </div>
   );
 });
 CarouselItem.displayName = "CarouselItem";

@@ -1,6 +1,6 @@
 "use client";
 
-import { pagesSearchParams } from "@hacado/api-sdk";
+import { pagesSearchParams } from "@hacado/api-sdk/admin/search-params/pages";
 import { useI18n } from "@hacado/i18n/client";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";

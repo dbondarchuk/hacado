@@ -1,4 +1,16 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  EventDefinition,
+  SyncedPaymentAmountsUpdatedPayload,
+  SyncedPaymentAssignedPayload,
+  SyncedPaymentConfirmedPayload,
+  SyncedPaymentIgnoredPayload,
+  SyncedPaymentIngestedPayload,
+  SyncedPaymentRejectedPayload,
+  SyncedPaymentUnassignedPayload,
+  SyncedPaymentUnrecordedPayload,
+} from "@hacado/types/events";
 import {
   SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
   SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
@@ -8,16 +20,7 @@ import {
   SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
   SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
   SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
-  type EventDefinition,
-  type SyncedPaymentAmountsUpdatedPayload,
-  type SyncedPaymentAssignedPayload,
-  type SyncedPaymentConfirmedPayload,
-  type SyncedPaymentIgnoredPayload,
-  type SyncedPaymentIngestedPayload,
-  type SyncedPaymentRejectedPayload,
-  type SyncedPaymentUnassignedPayload,
-  type SyncedPaymentUnrecordedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { AvailableApps } from "@hacado/app-store";
 import { dashboardUrls } from "../links";

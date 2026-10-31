@@ -108,7 +108,7 @@ export const optionTipsModes = [
 export type OptionTipsMode = (typeof optionTipsModes)[number];
 
 export const optionTipsModeSchema = z.enum(optionTipsModes, {
-  error: "validation.appointments.option.tipsMode.required",
+  error: "validation.services.tipsMode.required",
 });
 
 export function resolveBookingTips(

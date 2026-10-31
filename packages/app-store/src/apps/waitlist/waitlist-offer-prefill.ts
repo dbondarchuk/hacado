@@ -1,4 +1,8 @@
-import type { DateTime, HourNumbers, MinuteNumbers } from "@hacado/types";
+import type {
+  DateTime,
+  HourNumbers,
+  MinuteNumbers,
+} from "@hacado/types/booking";
 import { DateTime as LuxonDateTime } from "luxon";
 
 /** Client `fetchWithJson` revives ISO strings to `Date`; the offer API may return either. */

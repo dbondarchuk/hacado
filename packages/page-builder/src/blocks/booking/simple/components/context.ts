@@ -1,3 +1,4 @@
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   ActiveStaffOption,
   ApplyDiscountResponse,
@@ -15,7 +16,7 @@ import {
   Fields,
   PublicStaffMember,
   WithLabelFieldData,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 
@@ -101,6 +102,7 @@ export type ScheduleContextProps = {
   ) => void;
 
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   discount?: ApplyDiscountResponse;
   setDiscount: (promoCode?: ApplyDiscountResponse) => void;
 

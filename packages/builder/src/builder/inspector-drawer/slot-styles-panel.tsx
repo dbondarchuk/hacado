@@ -1,6 +1,6 @@
 "use client";
 
-import { resolve } from "@hacado/utils";
+import { resolve } from "@hacado/utils/object";
 import { useCallback } from "react";
 import {
   useBlock,

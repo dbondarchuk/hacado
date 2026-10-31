@@ -1,7 +1,8 @@
-import { adminApi } from "@hacado/api-sdk";
+import { fieldsApi } from "@hacado/api-sdk/admin/fields";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
-import { ServiceField } from "@hacado/types";
-import { cn, Combobox, IComboboxItem } from "@hacado/ui";
+import { ServiceField } from "@hacado/types/booking";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import React from "react";
 
 const FieldLabel: React.FC<{ field: ServiceField; t: I18nFn<"admin"> }> = ({
@@ -19,7 +20,7 @@ const FieldLabel: React.FC<{ field: ServiceField; t: I18nFn<"admin"> }> = ({
 };
 
 const getFields = async () => {
-  const response = await adminApi.serviceFields.getServiceFields({
+  const response = await fieldsApi.getFields({
     limit: 10000,
   });
 
@@ -49,13 +50,10 @@ export type FieldSelectorProps = {
   onItemSelect?: (value: string) => void;
 };
 
-export const FieldSelector: React.FC<FieldSelectorProps> = ({
-  disabled,
-  className,
-  excludeIds,
-  value,
-  onItemSelect,
-}) => {
+export const FieldSelector = React.forwardRef<
+  HTMLButtonElement,
+  FieldSelectorProps
+>(({ disabled, className, excludeIds, value, onItemSelect, ...rest }, ref) => {
   const t = useI18n("admin");
   const [fields, setFields] = React.useState<ServiceField[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -88,6 +86,8 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
   return (
     // @ts-ignore Allow clear passthrough
     <Combobox
+      {...rest}
+      ref={ref}
       disabled={disabled || isLoading}
       className={cn("flex font-normal text-base", className)}
       values={FieldValues(fields)}
@@ -103,4 +103,6 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
       onItemSelect={onItemSelect}
     />
   );
-};
+});
+
+FieldSelector.displayName = "FieldSelector";

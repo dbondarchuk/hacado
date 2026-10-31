@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, useCurrencyFormat } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import {
   CalendarDays,
   Clock3,

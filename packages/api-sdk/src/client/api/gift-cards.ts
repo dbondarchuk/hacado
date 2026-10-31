@@ -1,4 +1,7 @@
-import { ApplyGiftCardsRequest, ApplyGiftCardsResponse } from "@hacado/types";
+import {
+  ApplyGiftCardsRequest,
+  ApplyGiftCardsResponse,
+} from "@hacado/types/booking";
 import { fetchClientApi } from "./utils";
 
 export const applyGiftCards = async (request: ApplyGiftCardsRequest) => {

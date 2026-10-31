@@ -1,11 +1,11 @@
 import { getActor, getServicesContainer, getUser } from "@/app/utils";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
-import { appointmentsSearchParamsLoader } from "@hacado/api-sdk";
+import { appointmentsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/appointments";
 import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentLimitReachedError } from "@hacado/types/billing";
 import {
   AppointmentEvent,
   appointmentEventSchema,
-  AppointmentLimitReachedError,
   effectiveAddonDuration,
   effectiveAddonPrice,
   effectiveStaffDuration,
@@ -13,8 +13,8 @@ import {
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
   PackageError,
-} from "@hacado/types";
-import { gateMemberIds } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -155,16 +155,26 @@ export async function POST(request: NextRequest) {
   }
 
   const confirmed = formData.get("confirmed") === "true";
+  if (formData.get("smsConsent") === "true" && data.fields.phone) {
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    await servicesContainer.smsConsentService.recordCustomerSmsConsent({
+      phone: data.fields.phone,
+      consented: true,
+      source: "owner_attested",
+      ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+    });
+  }
 
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");
-  const option = await servicesContainer.servicesService.getOption(
-    data.optionId,
+  const option = await servicesContainer.catalogService.getService(
+    data.serviceId,
   );
+
   if (!option) {
-    logger.warn({ optionId: data.optionId }, "Option not found");
+    logger.warn({ serviceId: data.serviceId }, "Service not found");
     return NextResponse.json(
-      { success: false, error: "Option not found", code: "option_not_found" },
+      { success: false, error: "Service not found", code: "option_not_found" },
       { status: 400 },
     );
   }
@@ -178,7 +188,7 @@ export async function POST(request: NextRequest) {
   }
 
   const addons = data.addonsIds?.length
-    ? await servicesContainer.servicesService.getAddonsById(data.addonsIds)
+    ? await servicesContainer.catalogService.getAddonsById(data.addonsIds)
     : undefined;
 
   const unassignedIssues = getUnassignedMemberIssues({
@@ -210,13 +220,13 @@ export async function POST(request: NextRequest) {
   }
 
   const discount = data.discount
-    ? await servicesContainer.servicesService.getDiscountByCode(
+    ? await servicesContainer.catalogService.getDiscountByCode(
         data.discount.code,
       )
     : undefined;
 
   const selectedFields =
-    await servicesContainer.servicesService.getFieldsByNames(
+    await servicesContainer.catalogService.getFieldsByNames(
       Object.keys(data.fields),
     );
   const fieldsLabels = selectedFields.reduce(
@@ -263,6 +273,7 @@ export async function POST(request: NextRequest) {
   const {
     acknowledgeUnassignedMember: _acknowledgeUnassignedMember,
     customerPackageId,
+    serviceId: _serviceId,
     ...eventData
   } = data;
 
@@ -276,7 +287,7 @@ export async function POST(request: NextRequest) {
       ),
     fieldsLabels,
     timeZone,
-    option: {
+    service: {
       _id: option._id,
       name: option.name,
       price: optionPrice,

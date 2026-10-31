@@ -4849,6 +4849,41 @@ pageBuilder:
       features: Características
       conversion: Conversión
       media: Medios de comunicación
+    catalogValue:
+      displayName: Valor del catálogo
+      source: Tipo
+      sources:
+        service: Servicio
+        addon: Complemento
+        member: Miembro del equipo
+        package: Paquete
+      item: Elemento
+      property: Propiedad
+      properties:
+        name: Nombre
+        description: Descripción
+        price: Precio
+        duration: Duración
+        jobTitle: Título
+        bio: Biografía
+        email: Correo electrónico
+        phone: Teléfono
+      stripFormatting: Quitar el formato incluido
+      stripFormattingDescription: Quitar negrita, cursiva y demás markdown y mostrar texto sin formato.
+      alwaysShowCents: Mostrar siempre los centavos
+      showCurrency: Mostrar moneda
+      durationFormat: Formato de duración
+      durationFormats:
+        duration: Duración
+        hours: Horas
+        minutes: Minutos
+        hoursMinutes: Horas y minutos
+      durationStyle: Longitud de la duración
+      durationStyles:
+        long: Larga
+        medium: Media
+        short: Corta
+      empty: Seleccionar un elemento
     heading:
       displayName: Título
       content: Contenido
@@ -5145,6 +5180,10 @@ pageBuilder:
         vertical: Vertical
       navigation: Navegación
       loop: Bucle
+      scale: Escala
+      align: Alineación de las diapositivas
+      alignStart: Inicio
+      alignCenter: Centro
       autoPlay: reproducción automática
       autoPlaySpeed: Velocidad de reproducción automática
       autoPlaySeconds: s

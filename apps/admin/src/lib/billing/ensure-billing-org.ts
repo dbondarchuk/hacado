@@ -1,13 +1,13 @@
 import { auth } from "@/app/auth";
 import { takePendingMemberProfile } from "@/lib/auth/pending-member-profile";
 import type { Language } from "@hacado/i18n";
-import { getPolarClient } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
 import {
   MEMBERS_COLLECTION_NAME,
   ORGANIZATIONS_COLLECTION_NAME,
 } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import type { OrganizationMember, User } from "@hacado/types";
+import type { OrganizationMember, User } from "@hacado/types/users";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
 

@@ -1,7 +1,7 @@
 import type { SlateElementProps } from "@udecode/plate";
 import type { TCodeBlockElement } from "@udecode/plate-code-block";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SlateElement } from "@udecode/plate";
 
 import "./code-block-element.css";

@@ -1,5 +1,10 @@
-import { BaseAllKeys, BuilderKeys, useI18n } from "@hacado/i18n/client";
-import { Button, cn, Input, ScrollArea, useDebounce } from "@hacado/ui";
+import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys, BuilderKeys } from "@hacado/i18n/keys";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { AlertTriangle, Search, X } from "lucide-react";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {

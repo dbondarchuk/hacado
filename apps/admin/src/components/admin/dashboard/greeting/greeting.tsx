@@ -1,7 +1,8 @@
 import { getSession } from "@/app/utils";
-import type { AdminKeys } from "@hacado/i18n";
+import type { AdminKeys } from "@hacado/i18n/keys";
+
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Link } from "@hacado/ui";
+import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";
 

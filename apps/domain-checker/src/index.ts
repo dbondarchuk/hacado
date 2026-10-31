@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { resolveOrganizationByHostname } from "@hacado/services";
+import { resolveOrganizationByHostname } from "@hacado/services/organization-hostname-cache";
 import dotenv from "dotenv";
 import http from "http";
 import { URL } from "url";

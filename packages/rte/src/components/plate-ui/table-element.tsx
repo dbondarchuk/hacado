@@ -43,12 +43,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuPortal,
   DropdownMenuTrigger,
-  Popover,
-  PopoverContent,
-  Toolbar,
-  ToolbarButton,
-  ToolbarGroup,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { Popover, PopoverContent } from "@hacado/ui/popover";
+import { Toolbar, ToolbarButton, ToolbarGroup } from "@hacado/ui/toolbar";
 import { PlateElement } from "./plate-element";
 import {
   BorderAll,

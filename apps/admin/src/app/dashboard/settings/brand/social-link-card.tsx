@@ -6,7 +6,7 @@ import {
   SocialLink,
   SocialLinkType,
   socialTypeLabels,
-} from "@hacado/types";
+} from "@hacado/types/configuration/social";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,20 +17,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
-  Combobox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox } from "@hacado/ui/combobox";
+import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
@@ -185,7 +185,9 @@ export function SocialLinkCard<
           name={`${name}.type` as FieldPath<TFieldValues>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("settings.social.form.card.type")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("settings.social.form.card.type")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Combobox
                   disabled={disabled}
@@ -196,6 +198,10 @@ export function SocialLinkCard<
                   onItemSelect={field.onChange}
                 />
               </FormControl>
+              <FormDescription>
+                {t("settings.social.form.card.typeDescription")}
+              </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -204,12 +210,9 @@ export function SocialLinkCard<
           name={`${name}.url` as FieldPath<TFieldValues>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t("settings.social.form.card.url")}
-                <InfoTooltip>
-                  {t("settings.social.form.card.urlTooltip")}
-                </InfoTooltip>
-              </FormLabel>
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Input
                   disabled={disabled}
@@ -218,6 +221,9 @@ export function SocialLinkCard<
                   value={field.value as string}
                 />
               </FormControl>
+              <FormDescription>
+                {t("settings.social.form.card.urlTooltip")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

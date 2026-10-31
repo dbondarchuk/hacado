@@ -2,9 +2,9 @@ import {
   Configuration,
   ConfigurationKey,
   ConfigurationOption,
-  IEventService,
-  type EventSource,
-} from "@hacado/types";
+} from "@hacado/types/configuration";
+import type { EventSource } from "@hacado/types/events";
+import { IEventService } from "@hacado/types/services";
 import type { Redis } from "ioredis";
 import { cache } from "react";
 import { ConfigurationService } from "./configuration.service";

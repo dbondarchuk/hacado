@@ -1,18 +1,18 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
-import { TemplateListModel } from "@hacado/types";
+import { TemplateListModel } from "@hacado/types/templates";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,7 @@ export const CellAction: React.FC<CellActionProps> = ({ template }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.templates.deleteTemplate(template._id), {
+      await toastPromise(templatesApi.deleteTemplate(template._id), {
         success: t("templates.table.cellAction.templateDeleted", {
           name: template.name,
         }),

@@ -4,8 +4,9 @@ import {
 } from "@hacado/email-builder/static";
 import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
-import type { EmailNotificationRequest } from "@hacado/types";
-import { durationToTime, getAdminUrl } from "@hacado/utils";
+import type { EmailNotificationRequest } from "@hacado/types/services";
+import { durationToTime } from "@hacado/utils/time";
+import { getAdminUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import type { WaitlistEntry, WaitlistTime } from "../models";
 import { WaitlistAdminAllKeys } from "../translations/types";
@@ -82,7 +83,7 @@ export const buildNewWaitlistEntryEmailNotifications = async (
       customerName: entry.customer?.name?.trim() || entry.name || "-",
       customerEmail: entry.email?.trim() || "-",
       customerPhone: entry.phone?.trim() || "-",
-      serviceName: entry.option?.name || "-",
+      serviceName: entry.service?.name || "-",
       memberName: entry.member?.name?.trim() || "-",
       addons:
         entry.addons?.map((addon) => addon.name).join(", ") ||

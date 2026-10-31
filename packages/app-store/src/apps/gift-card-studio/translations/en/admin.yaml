@@ -348,7 +348,7 @@ purchases:
       error: Failed to create gift card purchase
 settings:
   notifyOwnerOnPurchase:
-    label: Email on new purchase
+    label: Notify organization admins on new purchase
     description: Send organization admins an email when a customer purchases a gift card on your website
   emailTemplateToPurchaser: Email template (gift card to purchaser)
   emailTemplateToRecipient: Email template (gift card to recipient)

@@ -4,89 +4,107 @@ import { getDbClient, getDbConnection } from "./database";
 
 import { AvailableAppServices } from "@hacado/app-store/services";
 
+import type { ICalendarBusyTimeProvider } from "@hacado/types/apps";
+import {
+  CUSTOMER_APPOINTMENT_TEXT_MESSAGE_SCOPE,
+  CustomerAppointmentTextOffer,
+  emptyCustomerAppointmentTextOffer,
+  IAvailabilityProvider,
+  ICustomerAppointmentTextMessage,
+  IMeetingUrlProvider,
+} from "@hacado/types/apps";
+import type { Asset } from "@hacado/types/assets";
+import {
+  AppointmentLimitReachedError,
+  BillingPlanTier,
+  FREE_TIER_LIMITS,
+} from "@hacado/types/billing";
+import type {
+  AppointmentEvent,
+  AppointmentStatus,
+  Availability,
+  CalendarEvent,
+  GetAppointmentsQuery,
+  GetAppointmentsQueryWithReferenceDate,
+  Period,
+} from "@hacado/types/booking";
 import {
   ApplyGiftCardsSuccessResponse,
   Appointment,
+  AppointmentChoice,
+  AppointmentEntity,
+  AppointmentHistoryEntry,
+  AppointmentOnlineMeetingInformation,
+  AppointmentTimeNotAvaialbleError,
+  AppointmentWithReferenceDateDistance,
+  BookingRestriction,
+  BookingRestrictionCode,
+  closedAppointmentStatusMongoFilter,
+  FieldSchema,
+  getActiveStaffForAssignments,
+  GetAppointmentOptionsResponse,
+  isClosedAppointmentStatus,
+  openAppointmentStatusMongoFilter,
+  Payment,
+  PaymentHistory,
+  PublicStaffMember,
+  TimeSlot,
+} from "@hacado/types/booking";
+import type { BookingConfiguration } from "@hacado/types/configuration/booking";
+import {
+  BookingCatalogNode,
+  flattenCatalogPackageIds,
+  flattenCatalogServiceIds,
+  resolveBookingTips,
+} from "@hacado/types/configuration/booking";
+import type { GeneralConfiguration } from "@hacado/types/configuration/general";
+import type { DaySchedule } from "@hacado/types/configuration/schedule";
+import { Customer } from "@hacado/types/customers";
+import type { Query, WithTotal } from "@hacado/types/database";
+import type {
+  AppointmentCreatedPayload,
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  DiscountAppliedPayload,
+  EventSource,
+} from "@hacado/types/events";
+import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  AppointmentChoice,
-  AppointmentEntity,
-  AppointmentHistoryEntry,
-  AppointmentLimitReachedError,
-  AppointmentOnlineMeetingInformation,
-  AppointmentTimeNotAvaialbleError,
-  AppointmentWithReferenceDateDistance,
-  BillingPlanTier,
-  BookingCatalogNode,
-  BookingRestriction,
-  BookingRestrictionCode,
-  closedAppointmentStatusMongoFilter,
-  Customer,
   DISCOUNT_APPLIED_EVENT_TYPE,
-  FieldSchema,
-  flattenCatalogOptionIds,
-  flattenCatalogPackageIds,
-  FREE_TIER_LIMITS,
-  getActiveStaffForAssignments,
-  GetAppointmentOptionsResponse,
-  IAvailabilityProvider,
+} from "@hacado/types/events";
+import type {
+  IAssetsService,
+  IBookingService,
+  IConfigurationService,
+  IConnectedAppsService,
+  ICustomersService,
+  IScheduleService,
+} from "@hacado/types/services";
+import {
   IBillingService,
+  ICatalogService,
   IEventService,
-  IMeetingUrlProvider,
   IOrganizationService,
   IPackagesService,
   IPaymentsService,
-  isClosedAppointmentStatus,
-  IServicesService,
   ITeamService,
-  openAppointmentStatusMongoFilter,
-  OrganizationMember,
-  Payment,
-  PaymentHistory,
-  PublicStaffMember,
-  resolveBookingTips,
-  TimeSlot,
-  type AppointmentCreatedPayload,
-  type AppointmentEvent,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatus,
-  type AppointmentStatusChangedPayload,
-  type Asset,
-  type Availability,
-  type BookingConfiguration,
-  type CalendarEvent,
-  type DaySchedule,
-  type DiscountAppliedPayload,
-  type EventSource,
-  type GeneralConfiguration,
-  type GetAppointmentsQuery,
-  type GetAppointmentsQueryWithReferenceDate,
-  type IAssetsService,
-  type IBookingService,
-  type ICalendarBusyTimeProvider,
-  type IConfigurationService,
-  type IConnectedAppsService,
-  type ICustomersService,
-  type IScheduleService,
-  type Period,
-  type Query,
-  type WithTotal,
-} from "@hacado/types";
-import {
-  buildSearchQuery,
-  canUseMemberCalendarSources,
-  escapeRegex,
-  fileNameToMimeType,
-  getAdminUrl,
-  getAppointmentBucket,
-  getAvailableTimeSlotsInCalendar,
-  getIcsEventUid,
-  omit,
-  parseTime,
-} from "@hacado/utils";
+  ITextMessageConfigurationService,
+} from "@hacado/types/services";
+import { OrganizationMember } from "@hacado/types/users";
+import { fileNameToMimeType } from "@hacado/utils/assets";
+import { getAppointmentBucket } from "@hacado/utils/file";
+import { getIcsEventUid } from "@hacado/utils/ics-uid";
+import { omit } from "@hacado/utils/object";
+import { canUseMemberCalendarSources } from "@hacado/utils/permissions";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
+import { parseTime } from "@hacado/utils/time";
+import { getAvailableTimeSlotsInCalendar } from "@hacado/utils/time-slot";
+import { getAdminUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import { v4 } from "uuid";
@@ -130,13 +148,14 @@ export class BookingService extends BaseService implements IBookingService {
     private readonly assetsService: IAssetsService,
     private readonly customersService: ICustomersService,
     private readonly scheduleService: IScheduleService,
-    private readonly servicesService: IServicesService,
+    private readonly catalogService: ICatalogService,
     private readonly paymentsService: IPaymentsService,
     private readonly eventService: IEventService,
     private readonly organizationService: IOrganizationService,
     private readonly billingService: IBillingService,
     private readonly teamService: ITeamService,
     private readonly packagesService: IPackagesService,
+    private readonly textMessageConfigurationService: ITextMessageConfigurationService,
   ) {
     super("bookingService", organizationId);
   }
@@ -312,8 +331,8 @@ export class BookingService extends BaseService implements IBookingService {
           customerName: event.fields.name,
           customerEmail: event.fields.email,
           customerPhone: event.fields.phone,
-          optionName: event.option.name,
-          optionIsOnline: event.option.isOnline,
+          optionName: event.service.name,
+          optionIsOnline: event.service.isOnline,
           data: event.data,
         },
         confirmed: propsConfirmed,
@@ -377,7 +396,7 @@ export class BookingService extends BaseService implements IBookingService {
             filename: `${getAppointmentBucket(appointmentId)}/${fieldId}-${file.name}`,
             mimeType: fileType,
             appointmentId,
-            description: `${event.fields.name} - ${event.option.name} - ${fieldId}`,
+            description: `${event.fields.name} - ${event.service.name} - ${fieldId}`,
           },
           file,
           enrichedEventSource,
@@ -387,7 +406,7 @@ export class BookingService extends BaseService implements IBookingService {
       }
     }
 
-    const option = await this.servicesService.getOption(event.option._id);
+    const option = await this.catalogService.getService(event.service._id);
 
     let autoConfirmSetting = option?.isAutoConfirm;
     if (customerPackageId || purchasePackageId) {
@@ -552,8 +571,8 @@ export class BookingService extends BaseService implements IBookingService {
           customerName: event.fields.name,
           customerEmail: event.fields.email,
           customerPhone: event.fields.phone,
-          optionName: event.option.name,
-          optionIsOnline: event.option.isOnline,
+          optionName: event.service.name,
+          optionIsOnline: event.service.isOnline,
         },
         confirmed: propsConfirmed,
         fileCount: files ? Object.keys(files).length : 0,
@@ -594,7 +613,7 @@ export class BookingService extends BaseService implements IBookingService {
             filename: `${getAppointmentBucket(appointmentId)}/${fieldId}-${file.name}`,
             mimeType: fileType,
             appointmentId,
-            description: `${event.fields.name} - ${event.option.name} - ${fieldId}`,
+            description: `${event.fields.name} - ${event.service.name} - ${fieldId}`,
           },
           file,
           eventSource,
@@ -918,7 +937,7 @@ export class BookingService extends BaseService implements IBookingService {
     }
 
     if (query.optionId) {
-      filter["option._id"] = {
+      filter["service._id"] = {
         $in: Array.isArray(query.optionId) ? query.optionId : [query.optionId],
       };
     }
@@ -947,7 +966,7 @@ export class BookingService extends BaseService implements IBookingService {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       const queries = buildSearchQuery<Appointment>(
         { $regex },
-        "option.name",
+        "service.name",
         "note",
         "addons.name",
         "addons.description",
@@ -1391,7 +1410,7 @@ export class BookingService extends BaseService implements IBookingService {
             filename: `${getAppointmentBucket(appointmentId)}/${id}-${file.name}`,
             mimeType: fileType,
             appointmentId,
-            description: `${event.fields.name} - ${event.option.name}`,
+            description: `${event.fields.name} - ${event.service.name}`,
           },
           file,
           source,
@@ -1688,9 +1707,9 @@ export class BookingService extends BaseService implements IBookingService {
 
     const [fields, addons, options, publicPackages, hasActiveCustomerPackages] =
       await Promise.all([
-        this.servicesService.getFields({}),
-        this.servicesService.getAddons({}),
-        this.servicesService.getOptions({}),
+        this.catalogService.getFields({}),
+        this.catalogService.getAddons({}),
+        this.catalogService.getServices({}),
         this.packagesService.getPublicPackages(),
         this.packagesService.hasActiveCustomerPackages(),
       ]);
@@ -1703,11 +1722,11 @@ export class BookingService extends BaseService implements IBookingService {
       {} as Record<string, FieldSchema>,
     );
 
-    const catalogOptionIds = flattenCatalogOptionIds(config.catalog);
+    const catalogOptionIds = flattenCatalogServiceIds(config.catalog);
     const catalogPackageIds = new Set(flattenCatalogPackageIds(config.catalog));
     const packageItemOptionIds = publicPackages
       .filter((pkg) => catalogPackageIds.has(pkg._id))
-      .flatMap((pkg) => pkg.items.map((item) => item.optionId));
+      .flatMap((pkg) => pkg.items.map((item) => item.serviceId));
 
     let customerPackageOptionIds: string[] = [];
     if (opts?.customerId) {
@@ -1723,7 +1742,7 @@ export class BookingService extends BaseService implements IBookingService {
           customerPackages.flatMap((pkg) =>
             pkg.items
               .filter((item) => (pkg.remainingByItem[item._id] ?? 0) > 0)
-              .map((item) => item.optionId),
+              .map((item) => item.serviceId),
           ),
         ),
       ];
@@ -1803,7 +1822,7 @@ export class BookingService extends BaseService implements IBookingService {
     let showPromoCode = false;
     if (config.allowPromoCode === "always") showPromoCode = true;
     else if (config.allowPromoCode === "allow-if-has-active") {
-      const hasActiveDiscounts = await this.servicesService.hasActiveDiscounts(
+      const hasActiveDiscounts = await this.catalogService.hasActiveDiscounts(
         new Date(),
       );
       if (hasActiveDiscounts) showPromoCode = true;
@@ -1821,8 +1840,8 @@ export class BookingService extends BaseService implements IBookingService {
             const children = filterCatalog(node.children);
             return children.length ? { ...node, children } : null;
           }
-          if (node.type === "option") {
-            return bookableOptionIds.has(node.optionId) ? node : null;
+          if (node.type === "service") {
+            return bookableOptionIds.has(node.serviceId) ? node : null;
           }
           return publicPackageIds.has(node.packageId) ? node : null;
         })
@@ -1836,13 +1855,58 @@ export class BookingService extends BaseService implements IBookingService {
       members,
       catalog: filterCatalog(catalogSource),
       packages: publicPackages.filter((pkg) =>
-        pkg.items.some((item) => bookableOptionIds.has(item.optionId)),
+        pkg.items.some((item) => bookableOptionIds.has(item.serviceId)),
       ),
       requireCustomerOtp: !!config.requireCustomerOtp,
       hasActiveCustomerPackages,
+      smsText: await this.getCustomerAppointmentTextOffer(),
     };
 
     return response;
+  }
+
+  public async getCustomerAppointmentTextOffer(): Promise<CustomerAppointmentTextOffer> {
+    const logger = this.loggerFactory("getCustomerAppointmentTextOffer");
+    const offer = emptyCustomerAppointmentTextOffer();
+    if (!(await this.textMessageConfigurationService.isEnabled())) {
+      return offer;
+    }
+
+    try {
+      const apps = await this.appsService.getAppsByScope(
+        CUSTOMER_APPOINTMENT_TEXT_MESSAGE_SCOPE,
+      );
+
+      for (const connected of apps) {
+        if (connected.status !== "connected") continue;
+
+        try {
+          const { service, app } =
+            await this.appsService.getAppService<ICustomerAppointmentTextMessage>(
+              connected._id,
+            );
+          const part = await service.getCustomerAppointmentTextOffer(app);
+          offer.notifications ||= part.notifications;
+          offer.reminders ||= part.reminders;
+          offer.other ||= part.other;
+        } catch (error: any) {
+          logger.error(
+            {
+              appId: connected._id,
+              error: error?.message || error?.toString(),
+            },
+            "Failed to read appointment text offer",
+          );
+        }
+      }
+    } catch (error: any) {
+      logger.error(
+        { error: error?.message || error?.toString() },
+        "Failed to load appointment text apps",
+      );
+    }
+
+    return offer;
   }
 
   private async getAvailableTimes(
@@ -2317,14 +2381,14 @@ export class BookingService extends BaseService implements IBookingService {
       }
 
       if (redeemPackageId) {
-        const option = await this.servicesService.getOption(event.option._id);
+        const option = await this.catalogService.getService(event.service._id);
         const optionStaffMemberIds = (option?.staff ?? []).map(
           (assignment) => assignment.memberId,
         );
         dbEvent.packageUsage = await this.packagesService.redeem({
           customerPackageId: redeemPackageId,
           appointmentId: id,
-          optionId: event.option._id,
+          serviceId: event.service._id,
           memberId,
           appointmentDate: event.dateTime,
           optionStaffMemberIds,
@@ -2494,7 +2558,7 @@ export class BookingService extends BaseService implements IBookingService {
               code: dbEvent.discount.code,
               dateTime: new Date(),
               appointmentId: id,
-              appointmentOptionId: dbEvent.option?._id,
+              appointmentOptionId: dbEvent.service?._id,
               appointmentAddonIds: dbEvent.addons?.map((addon) => addon._id),
               appointmentTotalPrice: dbEvent.totalPrice ?? 0,
               appointmentDateTime: dbEvent.dateTime,
@@ -2570,8 +2634,8 @@ export class BookingService extends BaseService implements IBookingService {
           appointmentId: id,
           type: "updated",
           data: {
-            oldOption: oldEvent.option,
-            newOption: event.option,
+            oldOption: oldEvent.service,
+            newOption: event.service,
             oldFields: oldEvent.fields,
             newFields: event.fields,
             oldAddons: oldEvent.addons,

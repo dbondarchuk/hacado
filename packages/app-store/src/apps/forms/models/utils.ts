@@ -1,5 +1,9 @@
-import { zErrorMessageWithParams, zPhone, zUniqueArray } from "@hacado/types";
-import { validateFileType } from "@hacado/utils";
+import {
+  zErrorMessageWithParams,
+  zPhone,
+  zUniqueArray,
+} from "@hacado/types/utils";
+import { validateFileType } from "@hacado/utils/file";
 import * as z from "zod";
 import { FormsPublicAllKeys } from "../translations/types";
 import type { FormsFieldsSchema } from "./fields";

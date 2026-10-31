@@ -11,11 +11,18 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./configuration-panel": "./src/configuration-panel/index.ts",
+    "./context": "./src/context/index.ts",
+    "./header": "./src/header/index.tsx",
+    "./helpers": "./src/helpers/index.ts",
+    "./plain-text": "./src/plain-text/index.ts",
+    "./reader": "./src/reader.ts",
+    "./shortcuts": "./src/shortcuts/index.tsx",
+    "./slot-panel": "./src/slots/configuration-panel.tsx",
+    "./slots": "./src/slots-base.ts",
     "./style": "./src/style/index.ts",
     "./style-inputs": "./src/style-inputs/index.ts",
-    "./reader": "./src/reader.ts",
-    "./slots": "./src/slots-base.ts",
-    "./plain-text": "./src/plain-text/index.ts"
+    "./toolbars": "./src/toolbars/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20",

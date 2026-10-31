@@ -1,9 +1,10 @@
-import { BaseAllKeys } from "@hacado/i18n";
-import {
-  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-  type EventDefinition,
-  type OrganizationDomainChangedPayload,
-} from "@hacado/types";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  EventDefinition,
+  OrganizationDomainChangedPayload,
+} from "@hacado/types/events";
+import { ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 import { dashboardUrls } from "../links";
 
 export const ORGANIZATION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {

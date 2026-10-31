@@ -1,22 +1,15 @@
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLocale } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
-import {
-  AppJobRequest,
-  CollectPayment,
+  CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppUninstallResult,
   DashboardNotification,
   DemoArguments,
-  EventEnvelope,
-  EventSource,
-  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
-  GiftCardStatusChangedPayload,
+  ICommandSearchProvider,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -26,15 +19,28 @@ import {
   IPaymentLinkProvider,
   IPaymentProcessor,
   IScheduled,
-  memberEventSource,
+} from "@hacado/types/apps";
+import {
+  CollectPayment,
   PaymentIntentUpdateModel,
   PaymentLinkPayment,
   PaymentUpdateModel,
-  SessionUser,
+} from "@hacado/types/booking";
+import {
+  EventEnvelope,
+  EventSource,
+  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
+  GiftCardStatusChangedPayload,
+  memberEventSource,
   systemEventSource,
-  TemplateTemplatesList,
-} from "@hacado/types";
-import { formatAmountWithCurrency } from "@hacado/utils";
+} from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { SessionUser } from "@hacado/types/users";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { hasPermission } from "@hacado/utils/permissions";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
@@ -119,7 +125,8 @@ export class GiftCardStudioConnectedApp
     IDemoArgumentsProvider,
     ICommunicationTemplatesProvider,
     IDashboardNotifierApp,
-    IEventSubscriber
+    IEventSubscriber,
+    ICommandSearchProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -621,6 +628,87 @@ export class GiftCardStudioConnectedApp
     );
   }
 
+  public async searchCommand(
+    appData: ConnectedAppData,
+    input: CommandSearchInput,
+  ) {
+    const type = input.type;
+    if (
+      type &&
+      type !== "gift-card-studio" &&
+      type !== "gift-card-designs" &&
+      type !== "gift-card-purchases"
+    ) {
+      return [];
+    }
+
+    const canUpdate = hasPermission(input.user, "giftCard", "update");
+    const canRead = hasPermission(input.user, "giftCard", "read");
+    const wantDesigns = canUpdate && type !== "gift-card-purchases";
+    const wantPurchases = canRead && type !== "gift-card-designs";
+    if (!wantDesigns && !wantPurchases) return [];
+
+    const repository = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+    const [designs, purchases] = await Promise.all([
+      wantDesigns
+        ? repository.getDesigns({
+            search: input.query,
+            limit: input.limit,
+            offset: 0,
+            isArchived: [false],
+          })
+        : Promise.resolve({ items: [] }),
+      wantPurchases
+        ? repository.getPurchasedGiftCards({
+            search: input.query,
+            limit: input.limit,
+            offset: 0,
+          })
+        : Promise.resolve({ items: [] }),
+    ]);
+
+    const groups = [];
+
+    if (designs.items.length > 0) {
+      groups.push({
+        id: `${appData._id}:gift-card-designs`,
+        labelKey: "app_gift-card-studio_admin.app.pages.main.title",
+        listHref: `/dashboard/gift-card-studio?search=${encodeURIComponent(input.query)}`,
+        items: designs.items.map((design) => ({
+          id: design._id,
+          title: design.name,
+          href: `/dashboard/gift-card-studio/edit?id=${design._id}`,
+        })),
+      });
+    }
+
+    if (purchases.items.length > 0) {
+      groups.push({
+        id: `${appData._id}:gift-card-purchases`,
+        labelKey: "app_gift-card-studio_admin.app.pages.purchases.title",
+        listHref: `/dashboard/gift-card-studio/purchases?search=${encodeURIComponent(input.query)}`,
+        items: purchases.items.map((purchase) => ({
+          id: purchase._id,
+          title:
+            purchase.giftCardCode || purchase.toName || purchase.customer?.name,
+          subtitle: [purchase.designName, purchase.customer?.name]
+            .filter(Boolean)
+            .join(" · "),
+          href: `/dashboard/gift-card-studio/purchases?search=${encodeURIComponent(purchase.giftCardCode || input.query)}`,
+          image: personImage(
+            purchase.customer?.name,
+            purchase.customer?.avatar,
+          ),
+        })),
+      });
+    }
+
+    return groups;
+  }
+
   private getRepositoryService(appId: string, organizationId: string) {
     return new GiftCardStudioRepositoryService(
       appId,
@@ -926,6 +1014,61 @@ export class GiftCardStudioConnectedApp
     return ok;
   }
 
+  private async assertPurchaseSmsConsent(purchase: {
+    customerId: string;
+    to?: string;
+    smsConsent?: boolean;
+  }) {
+    const customer = await this.props.services.customersService.getCustomer(
+      purchase.customerId,
+    );
+
+    if (!customer) {
+      throw new ConnectedAppRequestError(
+        "customer_not_found",
+        {},
+        404,
+        "Customer not found",
+      );
+    }
+
+    const allowed = [customer.phone, ...(customer.knownPhones ?? [])]
+      .map((phone) => normalizeToE164(phone ?? ""))
+      .filter((phone): phone is string => Boolean(phone));
+
+    const phone = purchase.to ? normalizeToE164(purchase.to) : null;
+    if (!phone || !allowed.includes(phone)) {
+      throw new ConnectedAppRequestError(
+        "phone_not_found",
+        {},
+        400,
+        "Phone does not belong to this customer",
+      );
+    }
+
+    if (purchase.smsConsent) {
+      await this.props.services.smsConsentService.recordCustomerSmsConsent({
+        phone,
+        consented: true,
+        source: "owner_attested",
+      });
+    }
+
+    const hasConsent =
+      await this.props.services.smsConsentService.hasActiveCustomerSmsConsent(
+        phone,
+      );
+
+    if (!hasConsent) {
+      throw new ConnectedAppRequestError(
+        "sms_consent_required",
+        {},
+        400,
+        "SMS consent is required",
+      );
+    }
+  }
+
   private async processCreatePurchasedGiftCard(
     appData: ConnectedAppData,
     { purchase }: CreatePurchasedGiftCardAction,
@@ -972,6 +1115,10 @@ export class GiftCardStudioConnectedApp
           400,
           "Payment link app is required",
         );
+      }
+
+      if (purchase.channel === "sms" && purchase.to) {
+        await this.assertPurchaseSmsConsent(purchase);
       }
 
       const paymentLinkApps =
@@ -2037,6 +2184,21 @@ export class GiftCardStudioConnectedApp
     const base64 = Buffer.from(svg, "utf-8").toString("base64");
     return `data:image/svg+xml;base64,${base64}`;
   }
+}
+
+function personImage(name?: string | null, src?: string | null) {
+  const label = name?.trim();
+  if (!label && !src) return undefined;
+
+  const fallback =
+    label
+      ?.split(" ")
+      .map((part) => part[0]?.toUpperCase())
+      .filter(Boolean)
+      .slice(0, 2)
+      .join("") || "?";
+
+  return { src: src || undefined, fallback };
 }
 
 function escapeXml(s: string): string {

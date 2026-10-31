@@ -1,9 +1,9 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
-import { Payment, PaymentSummary } from "@hacado/types";
+import { Payment, PaymentSummary } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,13 +12,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-  Skeleton,
-  toast,
-} from "@hacado/ui";
-import { AddUpdatePaymentDialog, PaymentCard } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dialog";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import { BanknoteArrowUp } from "lucide-react";
 import { useState } from "react";
+import { AddUpdatePaymentDialog } from "./add-update-payment-dialog";
+import { PaymentCard } from "./payment-card";
 
 export const GiftCardPaymentsDialog: React.FC<{
   giftCardId: string;
@@ -33,7 +34,7 @@ export const GiftCardPaymentsDialog: React.FC<{
   const getPayments = async () => {
     setIsLoading(true);
     try {
-      const payments = await adminApi.giftCards.getGiftCardPayments(giftCardId);
+      const payments = await giftCardsApi.getGiftCardPayments(giftCardId);
       setPayments(payments);
     } catch (error: any) {
       console.error(error);
@@ -56,10 +57,10 @@ export const GiftCardPaymentsDialog: React.FC<{
       <DialogContent className="sm:max-w-[80%] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
-            {t("services.giftCards.table.payments.title")}
+            {t("catalog.giftCards.table.payments.title")}
           </DialogTitle>
           <DialogDescription>
-            {t("services.giftCards.table.payments.description")}
+            {t("catalog.giftCards.table.payments.description")}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="max-h-[calc(80vh-100px)] @container/payments-dialog-scroll-area">
@@ -71,7 +72,7 @@ export const GiftCardPaymentsDialog: React.FC<{
           >
             <Button variant="primary" className="w-full">
               <BanknoteArrowUp />
-              {t("services.giftCards.table.payments.addPayment")}
+              {t("catalog.giftCards.table.payments.addPayment")}
             </Button>
           </AddUpdatePaymentDialog>
           {payments.length > 0 || isLoading ? (
@@ -91,7 +92,7 @@ export const GiftCardPaymentsDialog: React.FC<{
           ) : (
             <div className="flex flex-col gap-2 bg-card p-4 rounded border py-2 mt-2">
               <div className="font-semibold flex flex-row gap-1 items-center">
-                {t("services.giftCards.table.payments.noPayments")}
+                {t("catalog.giftCards.table.payments.noPayments")}
               </div>
             </div>
           )}

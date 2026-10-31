@@ -1,4 +1,4 @@
-import { ConnectedAppStatus } from "@hacado/types";
+import { ConnectedAppStatus } from "@hacado/types/apps";
 
 export const appStatusTextClasses: Record<ConnectedAppStatus, string> = {
   connected: "text-green-500",

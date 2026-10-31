@@ -5,7 +5,8 @@ import {
   ORGANIZATIONS_COLLECTION_NAME,
 } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import type { Organization, OrganizationMember } from "@hacado/types";
+import type { Organization } from "@hacado/types/organizations";
+import type { OrganizationMember } from "@hacado/types/users";
 
 async function collectOrganizationUserIds(
   organizationId: string,

@@ -13,13 +13,9 @@ import {
 } from "@udecode/plate/react";
 import { type LucideProps, Trash2Icon } from "lucide-react";
 
-import {
-  Button,
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-  Separator,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Popover, PopoverAnchor, PopoverContent } from "@hacado/ui/popover";
+import { Separator } from "@hacado/ui/separator";
 import { PlateElement } from "./plate-element";
 
 export const ColumnGroupElement = withRef<typeof PlateElement>(

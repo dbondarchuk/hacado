@@ -4,13 +4,9 @@ import { useState } from "react";
 
 import type { TElement } from "@udecode/plate";
 
-import {
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ToolbarButton,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { toUnitLess } from "@udecode/plate-font";
 import { FontSizePlugin } from "@udecode/plate-font/react";
 import { HEADING_KEYS } from "@udecode/plate-heading";

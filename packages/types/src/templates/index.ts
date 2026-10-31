@@ -28,6 +28,8 @@ export const templateSchema = z
         value: z.any(),
       }),
       z.object({
+        // Platform US/CA sends ignore this stored body. Keep the documents so a
+        // later non-US/Canada editor can read them again.
         type: z.enum(communicationChannels).extract(["text-message"], {
           message: "validation.template.type.invalid",
         }),
@@ -51,6 +53,8 @@ export const getTemplateSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return templateSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

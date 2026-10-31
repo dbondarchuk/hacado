@@ -1,9 +1,9 @@
 import {
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
-} from "@hacado/builder";
+} from "@hacado/builder/toolbars";
 import { useI18n } from "@hacado/i18n/client";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import { Bold } from "lucide-react";
 import { FontWeight } from "../style-inputs/helpers/zod";
 

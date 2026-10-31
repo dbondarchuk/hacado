@@ -1,4 +1,5 @@
-import { TReaderBlock, generateId as generateBlockId } from "@hacado/builder";
+import { generateId as generateBlockId } from "@hacado/builder/helpers";
+import { TReaderBlock } from "@hacado/builder/reader";
 import {
   buildEmailContentBlocks,
   type EmailContentBlock,

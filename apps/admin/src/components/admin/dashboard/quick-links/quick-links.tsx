@@ -6,7 +6,8 @@ import {
 import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { DashboardQuickLinkInjectorApps } from "@hacado/app-store/injectors/dashboard-quick-link";
 import { withCatalogTarget } from "@hacado/app-store/utils";
-import { filterConnectedAppsForUser, hasPermission } from "@hacado/utils";
+import { filterConnectedAppsForUser } from "@hacado/utils/app-access";
+import { hasPermission } from "@hacado/utils/permissions";
 import { CORE_QUICK_LINKS } from "./defs";
 import { DashboardQuickLinksScroll } from "./scroll";
 import type { QuickLinkRenderItem } from "./types";

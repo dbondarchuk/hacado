@@ -4,8 +4,8 @@ import { PageFooterForm } from "@/components/admin/pages/footers/form";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { Styling } from "@hacado/page-builder/reader";
-import { PageFooterUpdateModel } from "@hacado/types";
-import { formatArguments } from "@hacado/utils";
+import { PageFooterUpdateModel } from "@hacado/types/pages";
+import { formatArguments } from "@hacado/utils/format-arguments";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

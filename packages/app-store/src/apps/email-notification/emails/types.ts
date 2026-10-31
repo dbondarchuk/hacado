@@ -1,4 +1,4 @@
-import { AppointmentStatusToICalMethodMap } from "@hacado/utils";
+import { AppointmentStatusToICalMethodMap } from "@hacado/utils/email";
 
 export type EmailTemplate = {
   title: string;

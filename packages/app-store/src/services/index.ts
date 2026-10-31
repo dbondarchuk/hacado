@@ -1,4 +1,4 @@
-import { IConnectedApp, IConnectedAppProps } from "@hacado/types";
+import { IConnectedApp, IConnectedAppProps } from "@hacado/types/apps";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "../apps/appointment-notifications/const";
 import ScheduledNotificationsConnectedApp from "../apps/appointment-notifications/service";
 import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "../apps/automatic-ai-discovery/const";

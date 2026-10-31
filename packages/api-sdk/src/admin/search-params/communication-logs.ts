@@ -13,8 +13,9 @@ import {
 import {
   communicationChannels,
   communicationDirectionSchema,
+  communicationLogStatuses,
   communicationParticipantTypeSchema,
-} from "@hacado/types";
+} from "@hacado/types/communication";
 import { baseSearchParams } from "./base";
 
 export const communicationLogsSearchParams = {
@@ -30,6 +31,9 @@ export const communicationLogsSearchParams = {
   channel: parseAsArrayOf(
     parseAsStringLiteral(communicationChannels),
   ).withDefault([...communicationChannels]),
+  status: parseAsArrayOf(
+    parseAsStringLiteral(communicationLogStatuses),
+  ).withDefault([...communicationLogStatuses]),
   customer: parseAsArrayOf(parseAsString),
   member: parseAsArrayOf(parseAsString),
   appointmentId: parseAsString,

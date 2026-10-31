@@ -1,30 +1,26 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
+import { PublicPageClientProps } from "@hacado/types/apps";
+import { CollectPayment } from "@hacado/types/booking";
+import { zEmail, zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useCurrencySymbol } from "@hacado/ui/context";
+import { CustomerOtpForm } from "@hacado/ui/customer-otp-form";
+import { Input } from "@hacado/ui/input";
 import {
-  CollectPayment,
-  PublicPageClientProps,
-  zEmail,
-  zPhone,
-} from "@hacado/types";
-import {
-  Button,
-  CustomerOtpForm,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  PhoneInput,
-  Spinner,
-  ToggleGroup,
-  ToggleGroupItem,
-  useCurrencyFormat,
-  useCurrencySymbol,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { Spinner } from "@hacado/ui/spinner";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 import { Mail, Phone } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -150,7 +146,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await clientApi.apps.callAppApi<LoadResponse>({
+      const data = await appsApi.callAppApi<LoadResponse>({
         appId,
         path: `public/${encodeURIComponent(publicId)}`,
         method: "GET",
@@ -223,7 +219,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       setErrorMessage(null);
 
       try {
-        const data = await clientApi.apps.callAppApi<
+        const data = await appsApi.callAppApi<
           CollectPayment & { success?: boolean; code?: string }
         >({
           appId,
@@ -264,7 +260,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await clientApi.apps.callAppApi<{
+      const data = await appsApi.callAppApi<{
         success: boolean;
         code?: string;
       }>({
@@ -303,7 +299,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await clientApi.apps.callAppApi<{
+      const data = await appsApi.callAppApi<{
         success: boolean;
       }>({
         appId,
@@ -510,14 +506,14 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       <div className="mx-auto flex w-full max-w-md flex-col gap-4 px-4 py-10">
         <h1 className="text-2xl font-semibold">{t("status.pending.title")}</h1>
         <CustomerOtpForm
-          getAuthOptions={() => clientApi.customerAuth.getAuthOptions()}
+          getAuthOptions={() => customerAuthApi.getAuthOptions()}
           requestOtp={({ channel, email, phone }) =>
-            clientApi.customerAuth.requestOtp(
+            customerAuthApi.requestOtp(
               channel === "phone" ? { phone } : { email },
             )
           }
           verifyOtp={({ channel, email, phone, otp }) =>
-            clientApi.customerAuth.verifyOtp(
+            customerAuthApi.verifyOtp(
               channel === "phone" ? { phone, otp } : { email, otp },
             )
           }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@hacado/ui";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createSerializer, parseAsJson } from "nuqs/server";
 import { useEffect } from "react";
@@ -31,7 +31,7 @@ export const WaitlistNewAppointmentPage: React.FC<{ appId: string }> = ({
       }
 
       const value = {
-        optionId: entry.option._id,
+        optionId: entry.service._id,
         addonsIds: entry.addons?.map((addon) => addon._id),
         customerId: entry.customer._id,
         memberId: entry.memberId,

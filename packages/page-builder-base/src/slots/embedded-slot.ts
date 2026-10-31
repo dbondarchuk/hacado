@@ -1,10 +1,10 @@
-import type { TEditorBlock } from "@hacado/builder";
+import type { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import {
   EmbeddedSlotData,
-  generateId,
   isEditorBlockLike,
   isEmbeddedSlot,
-} from "@hacado/builder";
+} from "@hacado/builder/reader";
 import type { ZodType } from "zod";
 import * as z from "zod";
 

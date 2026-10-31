@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
 import { GiftCardPurchaseBlockReaderWrapper } from "./gift-card-purchase";
 import { GiftCardPurchaseShowcaseBlockReaderWrapper } from "./gift-card-purchase-showcase";
 import type { GiftCardStudioBlocksSchema } from "./schema";

@@ -88,6 +88,19 @@ common:
     leave: Покинути
   pricePerHour: "{price}/год"
 platformEvents:
+  smsVerification:
+    created:
+      title: Власні повідомлення надіслано
+      description: Перевірку надіслано на розгляд.
+    pending:
+      title: Власні повідомлення на розгляді
+      description: Перевірка очікує.
+    failed:
+      title: Власні повідомлення не схвалено
+      description: "{reason}"
+    succeeded:
+      title: Власні повідомлення перевірено
+      description: Тексти йдуть з {phoneNumber}.
   customer:
     created:
       title: Новий клієнт
@@ -218,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# додаток} few {# додатки} other {# додатків}}"
   appointmentOption:
     created:
-      title: Опцію послуги створено
+      title: Послугу створено
       description: "{ім'я}"
     updated:
-      title: Опцію послуги оновлено
+      title: Послугу оновлено
       description: "{ім'я}"
     deleted:
-      title: Опції послуг видалено
-      description: "{count, plural, =1 {# опція} few {# опції} other {# опцій}}"
+      title: Послуги видалено
+      description: "{count, plural, =1 {# послуга} few {# послуги} other {# послуг}}"
   discount:
     created:
       title: Знижку створено
@@ -383,6 +396,30 @@ billing:
       title: SMS-докупку завершено
       message: Додано {credits, plural, one {кредит} few {# кредити} many {# кредитів} other {# кредиту}}. Використовуються після включеного обсягу підписки.
       action: Відкрити білінг
+commandPalette:
+  placeholder: Пошук
+  typeHint: "Шукайте один тип з префіксом, наприклад customer: або blog:."
+  empty: Нічого не знайдено
+  loading: Пошук…
+  viewAll: Показати всі {label}
+  groups:
+    actions: Швидкі дії
+    apps: Додатки
+    installedApps: Встановлені додатки
+  actions:
+    newAppointment: Новий запис
+    newCustomer: Новий клієнт
+    newPage: Нова сторінка
+    newHeader: Новий хедер
+    newFooter: Новий футер
+    newTemplate: Новий шаблон листа
+    newOption: Нова послуга
+    newAddon: Новий додаток
+    newField: Нове поле
+    newDiscount: Нова знижка
+    newGiftCard: Нова подарункова картка
+    newPackage: Новий пакет
+    newAsset: Новий файл
 navigation:
   overview: Огляд
   dashboard: Панель керування
@@ -393,12 +430,14 @@ navigation:
   paymentsInbox: Вхідні платежі
   financialOverview: Огляд
   customerAccess: Доступ клієнтів
+  textMessaging: Текстові повідомлення
   schedule: Розклад
   defaultSchedule: Розклад за замовчуванням
+  catalog: Каталог
   services: Послуги
   fields: Поля
   addons: Додатки
-  options: Опції
+  options: Послуги
   discounts: Знижки
   giftCards: Подарункові картки
   packages: Пакети
@@ -415,6 +454,17 @@ navigation:
   header: Заголовок
   footer: Підвал
   settings: Налаштування
+  descriptions:
+    templates: Шаблони електронної пошти та текстів для повідомлень клієнтам.
+    store: Перегляньте застосунки, які можна встановити.
+    defaultApps: Оберіть застосунки за замовчуванням для платежів, пошти та текстів.
+    fields: Запитання, які збираються під час запису на послугу.
+    addons: Додаткові послуги, які клієнт може додати до запису.
+    services: Послуги, на які можна записатися, з тривалістю та ціною.
+    discounts: Промокоди та знижки.
+    giftCards: Подарункові картки, які клієнти можуть купити та використати.
+    packages: Передплачені пакети візитів.
+    soldPackages: Пакети, які придбали клієнти.
   general: Загальні
   brand: Бренд
   social: Соціальні мережі
@@ -680,7 +730,7 @@ paymentsList:
     appointmentId: ID запису
     appointmentDateTime: Дата запису
     appointmentStatus: Статус запису
-    optionName: Назва опції
+    optionName: Назва послуги
     addons: Додатки
     appointmentTotal: Сума запису
     feesTotal: Сума комісій
@@ -843,7 +893,7 @@ appointments:
     columns:
       status: Статус
       statusAriaLabel: "Статус: {status}"
-      option: Опція
+      option: Послуга
       customer: Клієнт
       member: Співробітник
       dateTime: Дата та час
@@ -853,9 +903,9 @@ appointments:
       package: Пакет
       packageRestored: відновлено
       price: Ціна
-      optionName: Назва опції
-      optionPrice: Ціна опції
-      optionDuration: Тривалість опції
+      optionName: Назва послуги
+      optionPrice: Ціна послуги
+      optionDuration: Тривалість послуги
       selectedAddons: Вибрані додатки
       note: Примітка
       customerName: Ім'я
@@ -930,7 +980,10 @@ appointments:
     refundError: Один або більше запитів на повернення не вдалися.
     giftCardCode: Код подарункової картки
     paymentDescription: Опис
+    refundPayment: Повернути цей платіж
+    refundPaymentDescription: Повернути частину або всю суму цього платежу.
     refundFees: Повертати комісії
+    refundFeesDescription: Включити комісії за обробку в суму повернення.
   rescheduleDialog:
     title: Перенести запис
     by: від
@@ -1012,8 +1065,8 @@ appointments:
     yes: Так
     no: Ні
     service: Послуга
-    selectedOption: Вибрана опція
-    option: Опція
+    selectedOption: Вибрана послуга
+    option: Послуга
     description: Опис
     selectedAddons: Вибрані додатки
     meetingInformation:
@@ -1078,23 +1131,13 @@ appointments:
     confirmOverlapDescription: Я розумію, що планування цього запису створить накладення в моєму розкладі
     unassignedMember:
       title: Член команди не призначений
-      description:
-        Вибраний член команди не призначений до частини цього запису. Буде
-        використано базову ціну та тривалість опції/додатків, доки ви їх не
-        зміните.
+      description: Вибраний член команди не призначений до частини цього запису. Буде використано базову ціну та тривалість опції/додатків, доки ви їх не зміните.
       optionNotAssigned: "Не призначений до опції: {option}"
       addonsNotAssigned: "Не призначений до додатку(ів): {addons}"
-      priceDurationHint:
-        Будь ласка, перевірте, що загальна ціна та тривалість правильні перед
-        плануванням.
+      priceDurationHint: Будь ласка, перевірте, що загальна ціна та тривалість правильні перед плануванням.
       ackLabel: Я підтверджую, що цей член команди не призначений
-      ackDescription:
-        Обов'язково, якщо вибраний член команди не призначений до опції або
-        одного чи кількох вибраних додатків. Будь ласка, перевірте ціну та
-        тривалість перед плануванням.
-      ackRequired:
-        Підтвердіть, що вибраний член команди не призначений до опції або
-        додатку(ів).
+      ackDescription: Обов'язково, якщо вибраний член команди не призначений до опції або одного чи кількох вибраних додатків. Будь ласка, перевірте ціну та тривалість перед плануванням.
+      ackRequired: Підтвердіть, що вибраний член команди не призначений до опції або додатку(ів).
       cancel: Закрити
       confirm: Зрозуміло
     scheduleAppointment: Створити запис
@@ -1256,6 +1299,8 @@ communicationLogs:
     columns:
       direction: Напрямок
       channel: Канал
+      status: Статус
+      reason: Причина
       participantType: Учасник
       participant: Учасник
       handler: Обробник
@@ -1297,6 +1342,14 @@ customers:
   addPayment: Додати платіж
   files: Файли
   communications: Комунікації
+  smsConsent:
+    title: Текстові повідомлення
+    inactive: Цей клієнт не погодився отримувати текстові повідомлення.
+    noPhone: Додайте номер телефону, щоб керувати згодою на SMS.
+    revoke: Відкликати згоду
+    attested: Згоду записано
+    revoked: Згоду відкликано
+    error: Не вдалося оновити згоду на SMS
   deletedCustomer: Видалений клієнт
   form:
     customerPhoto: Фото клієнта
@@ -1323,7 +1376,7 @@ customers:
     selectOption: Вибрати опцію
     always: Завжди
     never: Ніколи
-    inherit: Те саме, що вибрана опція або загальна конфігурація
+    inherit: Те саме, що вибрана послуга або загальна конфігурація
     knownNames: Відомі імена
     knownNamesTooltip: Альтернативні імена надаються клієнтами під час запиту на запис
     knownEmails: Відомі email
@@ -1336,6 +1389,19 @@ customers:
     remove: Видалити
     changePhoto: Змінити фото
     customerPhotoAlt: Фото клієнта
+    photo: Фото
+    onlineBooking: Онлайн-запис
+    onlineBookingDescription: Якщо вимкнено, цей клієнт не може записуватися самостійно. Записи можете додавати лише ви.
+    deposit: Передоплата
+    depositDescription: Оберіть, чи має цей клієнт сплачувати передоплату під час запису.
+    customDeposit: Власна вимога завдатку
+    customDepositTooltip: Використати правило завдатку для цього клієнта замість послуги або загальної конфігурації.
+    notesPrivate: Нотатки бачите лише ви та ваша команда.
+    alsoKnownAs: Також відомий як
+    alsoKnownAsDescription: Інші дані, якими може користуватися цей клієнт. Ми використовуємо їх, щоб зіставляти нові запити на запис із цим профілем.
+    names: Імена
+    emails: Електронні адреси
+    phones: Телефони
   table:
     columns:
       name: Ім'я
@@ -1403,6 +1469,13 @@ pages:
     pageSlug: Адреса сторінки
     pageSlugTooltip: Відносний URL сторінки. Наприклад, сторінка з адресою 'my-new-page' буде доступна за повноюадресою 'yourdomain.com/my-new-page'
     pageSlugPlaceholder: Адреса сторінки
+    pageName: Назва сторінки
+    pageNamePlaceholder: напр. Політики
+    url: URL
+    editUrl: Редагувати URL
+    slugGeneratedPlaceholder: stvoreno-z-nazvy
+    slugAutoHint: Заповнюється, коли ви вводите назву. Ви можете змінити його.
+    slugChangeWarning: Зміна URL може зламати посилання, якими ви вже поділилися.
     published: Опубліковано?
     publishedTooltip: Чи видима сторінка для ваших відвідувачів
     publishDate: Дата публікації
@@ -1419,10 +1492,7 @@ pages:
     descriptionTooltip: Також використовується компонентом списку сторінок (тобто списком блогу) для показу попереднього перегляду
     featuredImage: Головне зображення
     featuredImagePlaceholder: Виберіть головне зображення
-    featuredImageTooltip:
-      Використовується як зображення Open Graph, коли сторінку
-      поширюють у соцмережах. Має пріоритет над зображеннями з додатків
-      (наприклад, зображенням допису блогу).
+    featuredImageTooltip: Використовується як зображення Open Graph, коли сторінку поширюють у соцмережах. Має пріоритет над зображеннями з додатків (наприклад, зображенням допису блогу).
     doNotCombineDescription: Не об'єднувати опис
     doNotCombineDescriptionTooltip: Чи повинен опис сторінки об'єднуватися з описом веб-сайту для SEO
     keywords: Ключові слова
@@ -1593,9 +1663,9 @@ pages:
           sticky: Закріплений
           fixed: Фіксований
         descriptions:
-          static: "<b>Статичний:</b> Прокручується разом із вмістом сторінки"
-          sticky: "<b>Закріплений:</b> Залишається зверху під час прокрутки, але займає місце в макеті"
-          fixed: "<b>Фіксований:</b> Накладається поверх вмісту і залишається закріпленим у вікні"
+          static: <b>Статичний:</b> Прокручується разом із вмістом сторінки
+          sticky: <b>Закріплений:</b> Залишається зверху під час прокрутки, але займає місце в макеті
+          fixed: <b>Фіксований:</b> Накладається поверх вмісту і залишається закріпленим у вікні
       backgroundColor:
         label: Фон
         tooltip: Колір фону заголовка
@@ -1604,6 +1674,8 @@ pages:
         tooltip: Колір назви логотипу та меню
       defaultColumn: За замовчуванням
       onScrollColumn: При прокрутці
+      mobileColumn: Мобільний
+      mobileOnScrollColumn: Мобільний при прокрутці
       onScrollSection: Вигляд при прокрутці
       onScrollSectionDescription: Необов'язкові перевизначення після прокрутки сторінки
       mobileSection: Вигляд на мобільному
@@ -1666,6 +1738,7 @@ services:
   fieldSelectCard:
     moveField: Перемістити поле {type}
     field: Поле
+    fieldDescription: Виберіть спеціальне поле, яке збирається під час бронювання.
     required: Обов'язкове
     requiredTooltip: Позначає поле як обов'язкове
     deleteConfirmTitle: Ви абсолютно впевнені?
@@ -1685,726 +1758,6 @@ services:
   memberSelector:
     loading: Завантаження учасників...
     selectMember: Вибрати учасника
-  options:
-    title: Послуги
-    description: Керувати послугами, які ви надаєте
-    addNew: Додати нову
-    addFromTemplate: Додати з шаблону
-    addFromTemplateDialog:
-      title: Додати нову опцію з шаблону
-      description: Оберіть професію та шаблон, щоб заповнити нову опцію.
-      pickServiceLabel: Виберіть шаблон послуги, щоб заповнити нову опцію.
-    createFromTemplate: Створити
-    upgradeRequired: Безкоштовний тариф включає одну послугу. Перейдіть на Solo, щоб додати більше.
-    upgradeLink: Оновити в налаштуваннях бренду
-    new: Нова
-    newTitle: Нова опція послуги
-    newDescription: Додати нову послугу, яку ви надаєте
-    editDescription: Редагувати опцію
-    form:
-      name: Назва
-      namePlaceholder: Назва опції
-      description: Короткий опис
-      descriptionTooltip: Короткий текст, який буде видимий під час бронювання
-      duration: Тривалість
-      price: Ціна
-      durationType:
-        label: Тип тривалості
-        tooltip: Тип тривалості опції
-        fixed: Фіксована
-        flexible: Гнучка
-        placeholder: Вибрати тип тривалості
-      durationMin:
-        label: Мінімальна тривалість
-        tooltip: Мінімальна тривалість опції
-        placeholder: Вибрати мінімальну тривалість
-      durationMax:
-        label: Максимальна тривалість
-        tooltip: Максимальна тривалість опції
-        placeholder: Вибрати максимальну тривалість
-      pricePerHour:
-        label: Ціна за годину
-        tooltip: Ціна за годину опції
-        placeholder: Вибрати ціну за годину
-        suffix: /год
-      durationStep:
-        label: Крок тривалості
-        tooltip: Крок тривалості опції
-        placeholder: Вибрати крок тривалості
-        steps:
-          "1": 1 хвилина
-          "5": 5 хвилин
-          "10": 10 хвилин
-          "15": 15 хвилин
-          "20": 20 хвилин
-          "30": 30 хвилин
-          "60": 1 година
-          "120": 2 години
-          "180": 3 години
-          "360": 6 годин
-      isAutoConfirm:
-        label: Автоматично підтверджувати
-        tooltip: Чи повинна ця опція автоматично підтверджуватися
-        always: Завжди
-        never: Ніколи
-        inherit: Так само, як у загальній конфігурації
-      onlineSettings:
-        title: Налаштування віртуального запису
-        isOnline:
-          label: Тип запису
-          tooltip: Вказує, чи проводиться ця запис через відео чи аудіо дзвінок, телефонний дзвінок тощо
-          labels:
-            "false": В особистому контакті
-            "true": Віртуальний
-        meetingUrlProviderAppId:
-          label: Додаток постачальника URL зустрічі
-          tooltip: Додаток, який буде використовуватися для надання URL зустрічі
-      paymentSettings:
-        title: Налаштування платежів
-        paymentType:
-          label: Тип розрахунку депозиту
-          tooltip: Виберіть, чи повинна ця опція вимагати завдаток у відсотках чи сумі
-          labels:
-            amount: Сума
-            percentage: Відсоток
-          placeholder: Вибрати тип розрахунку депозиту
-        depositAmount:
-          label: Сума завдатку
-          tooltip: Сума завдатку у відсотках<br></br>Якщо встановлено 100, повна ціна має бути сплачена наперед<br></br>Може бути перевизначено для кожного клієнта
-        depositPercentage:
-          label: Відсоток завдатку
-          tooltip: Відсоток завдатку<br></br>Якщо встановлено 100, повна ціна має бути сплачена наперед<br></br>Може бути перевизначено для кожного клієнта
-        tipsMode:
-          label: Чайові під час бронювання
-          tooltip: Перевизначити налаштування чайових організації для цієї послуги
-          values:
-            inherit: Так само, як у загальній конфігурації
-            off: Вимкнено
-            on: Увімкнено
-            full-payment-only: Лише для повної оплати
-        tipPresets:
-          label: Пресети чайових
-          description: До 4 відсоткових варіантів для клієнтів. Перетягніть, щоб змінити порядок.
-          percentage: "%"
-          add: Додати пресет
-          move: Перемістити пресет
-          remove: Видалити
-        requireDeposit:
-          label: Вимагати завдаток
-          tooltip: Чи повинна ця опція вимагати завдаток<br></br>Потребує налаштованого платіжного додатку
-          always: Завжди, якщо не вимагається для клієнта
-          never: Ніколи, якщо не вимагається для клієнта
-          inherit: Так само, як у загальній конфігурації, або для клієнта
-      cancellationPolicy:
-        title: Скасування
-        type:
-          label: Тип політики скасування
-          tooltip: Тип політики скасування
-          inherit: Так само, як у загальній конфігурації
-          custom: Власна політика
-          placeholder: Вибрати тип політики скасування
-        enabled:
-          label: Увімкнено
-          tooltip: Чи дозволяти скасування для опції
-          labels:
-            disabled: Вимкнено
-            enabled: Увімкнено
-        withDeposit:
-          title: Для записів з завдатком
-          description: Налаштувати політику скасування для опції, коли завдаток вимагається
-          enabled: Увімкнено
-          enabledTooltip: Чи дозволяти скасування для опції, коли завдаток вимагається
-        withoutDeposit:
-          title: Для записів без завдатку
-          description: Налаштувати політику скасування для опції, коли завдаток не вимагається
-          enabled: Увімкнено
-          enabledTooltip: Чи дозволяти скасування для опції, коли завдаток не вимагається
-      reschedulePolicy:
-        title: Перенесення
-        type:
-          label: Тип політики перенесення
-          tooltip: Тип політики перенесення
-          inherit: Так само, як у загальній конфігурації
-          custom: Власна політика
-          placeholder: Вибрати тип політики перенесення
-        enabled:
-          label: Увімкнено
-          tooltip: Чи дозволяти перенесення для опції
-          labels:
-            disabled: Вимкнено
-            enabled: Увімкнено
-        default:
-          title: Політика за замовчуванням
-          tooltip: Налаштувати політику за замовчуванням, яка буде застосована, якщо інша політика не застосовна
-      selectOption: Вибрати опцію
-      fields: Поля
-      addons: Додатки
-      staff:
-        title: Робітники
-        hint: Послуги без учасників недоступні для бронювання.
-        add: Додати нового робітника
-        memberSelectCard:
-          moveMember: Переїзд військовослужбовця
-          member: Член
-          meetingUrlProviderWarning: У цього учасника на профілі не налаштовано постачальника URL зустрічі, тому для записів не буде створено URL зустрічі.
-          deleteConfirmTitle: Ви абсолютно впевнені?
-          deleteConfirmDescription: Ви впевнені, що хочете видалити цього учасника з цієї служби?
-          cancel: Скасувати
-          delete: Видалити
-          overrides:
-            price: Перевизначення ціни
-            duration: Перевизначення тривалості
-      tabs:
-        general: Загальне
-        payments: Платежі
-        virtual: Віртуальне
-        duplicates: Дублікати
-        fields: Поля
-        addons: Додатки
-        staff: Робітники
-      duplicateAppointmentCheck:
-        title: Дублюючі записи на ту саму послугу
-        enabled: Перевіряти наявність дублюючого запису
-        enabledTooltip: Запитувати у клієнтів підтвердження, або не дозволяти запис, якщо в них уже є майбутній запис на цю саму послугу поблизу вибраної дати/часу
-        doNotAllowScheduling:
-          label: Дія
-          tooltip: Що робити, якщо клієнт вже має майбутній запис на цю саму послугу поблизу вибраної дати/часу
-          labels:
-            "false": Запитати підтвердження
-            "true": Не дозволяти запис
-        days: Діапазон днів
-        daysSuffix: дн.
-        daysTooltip: Кількість днів до або після вибраної дати/часу для перевірки наявності запису
-        message: Повідомлення для підтвердження
-        messageTooltip: "Текст, який відображатиметься клієнту.<br></br>Можливі змінні:<br></br>- <i>'{{days}}'</i>: діапазон днів<br></br>- <i>'{{name}}'</i>: ім’я клієнта<br></br>- <i>'{{service}}'</i>: назва послуги<br></br>- <i>'{{date}}'</i>: дата вже наявного запису"
-        messageExamples:
-          label: Приклади <chevron></chevron>
-          friendly: Привіт, '{{name}}'! Ви вже маєте запис на '{{service}}' '{{date}}' у межах '{{days}}' днів. Бажаєте створити ще один такий самий запис?
-          neutral: У вас уже заплановано '{{service}}' на '{{date}}' (у межах '{{days}}' днів). Ви хочете зробити ще один запис на цю ж послугу?
-          formal: Вітаємо, '{{name}}'! У нашій системі є ваш запис на '{{service}}' '{{date}}'. Ви впевнені, що хочете створити ще один запис на цю саму послугу у межах '{{days}}' днів?
-      validation:
-        nameUnique: Назва опції повинна бути унікальною
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-      addToAvailabilityDialog:
-        title: Додати цю опцію до доступних для запису?
-        description: Зробити <em>{name}</em> доступною для записів зараз?
-        manageHint: Ви завжди можете керувати доступними опціями в <link>Налаштування -> Записи</link>
-        actions:
-          skip: Не зараз
-          add: Додати до доступних опцій
-        toasts:
-          added: Доступність опції оновлено.
-          requestError: Виникла проблема з вашим запитом.
-    table:
-      columns:
-        name: Назва
-        updatedAt: Оновлено
-        cellAction:
-          optionDeleted: Опцію "{name}" було видалено.
-          deleteError: Виникла проблема з вашим запитом.
-          actions: Дії
-          update: Оновити
-          delete: Видалити
-          clone: Клонувати
-    deleteSelected:
-      success: Вибрані опції були видалені
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибрану опцію} few {вибрані # опції} many {вибраних # опцій} other {вибраних # опцій}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Цю дію неможливо скасувати.
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
-  fields:
-    title: Поля
-    description: Керувати власними полями
-    addNew: Додати нове
-    new: Нове
-    newTitle: Нове поле
-    newDescription: Додати нове власне поле
-    editDescription: Редагувати власне поле
-    form:
-      name: Назва
-      namePlaceholder: Назва поля
-      nameTooltip: Унікальний ID поля. Може містити тільки літери, цифри та підкреслення
-      label: Мітка
-      labelPlaceholder: Мітка поля
-      labelTooltip: Мітка, яка буде показана користувачу
-      type: Тип
-      typePlaceholder: Вибрати тип поля
-      typeTooltip: Тип поля
-      description: Опис
-      descriptionPlaceholder: Опис поля
-      descriptionTooltip: Короткий опис для поля
-      required: Обов'язкове
-      requiredTooltip: Позначає поле як обов'язкове
-      options: Опції
-      addOption: Додати опцію
-      fileTypes: Типи файлів
-      fileTypesTooltip: Дозволені типи файлів для завантаження
-      validation:
-        nameUnique: Назва поля повинна бути унікальною
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-      optionsTitle: Опції
-      maxSizeMbLabel: Макс. розмір файлу (МБ)
-      maxSizeMbTooltip: Максимальний дозволений розмір файлу в мегабайтах.
-      maxSizeMbPlaceholder: "5"
-      acceptedFilesLabel: Прийнятні файли
-      acceptedFilesTooltip: Список прийнятних файлів та типів файлів. Дивіться MDN для деталей.
-      acceptedFilesPlaceholder: Натисніть кнопку плюс, щоб додати новий тип файлу
-    table:
-      columns:
-        name: Назва
-        type: Тип
-        label: Мітка
-        updatedAt: Оновлено
-        addons: Додатки
-        options: Опції
-        addonsInDialog: "{label} в додатках"
-        optionsInDialog: "{label} в опціях"
-      cellAction:
-        fieldDeleted: Поле опції "{label}" було видалено.
-        deleteError: Виникла проблема з вашим запитом.
-        actions: Дії
-        update: Оновити
-        delete: Видалити
-        clone: Клонувати
-    deleteSelected:
-      success: Вибрані поля були видалені
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибране поле} few {вибрані # поля} many {вибраних # поля} other {вибраних # поля}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані поля та видалить їх з усіх опцій та додатків, які їх використовують
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
-    selectFieldOptionCard:
-      moveOption: Перемістити опцію
-      option: Опція
-      deleteConfirmTitle: Ви абсолютно впевнені?
-      deleteConfirmDescription: Ви впевнені, що хочете видалити цю опцію?
-  discounts:
-    title: Знижки
-    description: Керувати знижками
-    addNew: Додати нову
-    new: Нова
-    newTitle: Нова знижка
-    newDescription: Додати нову знижку
-    editDescription: Редагувати знижку
-    form:
-      name: Назва
-      namePlaceholder: Назва знижки
-      nameTooltip: Унікальна назва знижки
-      description: Опис
-      descriptionPlaceholder: Опис знижки
-      descriptionTooltip: Короткий опис для знижки
-      type: Тип
-      typePlaceholder: Вибрати тип знижки
-      typeTooltip: Тип знижки
-      value: Значення
-      valuePlaceholder: Значення знижки
-      valueTooltip: Сума або відсоток знижки
-      enabled: Увімкнено
-      enabledTooltip: Чи активна ця знижка
-      status: Статус
-      active: Активна
-      disabled: Вимкнено
-      codes: Коди
-      codesPlaceholder: Коди знижок
-      codesTooltip: Коди, які можна використовувати для застосування цієї знижки
-      addCode: Додати код
-      removeCode: Видалити код
-      startDate: Дата початку
-      startDatePlaceholder: Коли знижка стає активною
-      startDateTooltip: Дата, коли знижка починає діяти
-      endDate: Дата закінчення
-      endDatePlaceholder: Коли знижка закінчується
-      endDateTooltip: Дата, коли знижка перестає діяти
-      appointmentStartDate: Найраніша дата запису для знижки
-      appointmentStartDateTooltip: Найраніша дата запису (включно), для якої можна застосувати цю знижку. Записи, заплановані до цієї дати, не будуть мати право на знижку.
-      appointmentEndDate: Найпізніша дата запису для знижки
-      appointmentEndDateTooltip: Найпізніша дата запису (включно), для якої можна застосувати цю знижку. Записи, заплановані після цієї дати, не будуть мати право на знижку.
-      maxUsage: Максимальна кількість використань
-      maxUsageTooltip: Загальна кількість разів, яку можна використати цю знижку серед усіх клієнтів. Після досягнення цього ліміту знижка більше не буде доступна.
-      maxUsagePerCustomer: Максимальна кількість використань на клієнта
-      maxUsagePerCustomerTooltip: Максимальна кількість разів, яку окремий клієнт може використати цю знижку. Подальші спроби використання знижки цим клієнтом будуть відхилені після досягнення цього ліміту.
-      limitTo: Обмежити до
-      limitToTooltip: Обмежити знижку до конкретних опцій, додатків та пакетів
-      addLimit: Додати обмеження
-      removeLimit: Видалити обмеження
-      anyOption: Будь-яка опція
-      anyAddon: Будь-який додаток
-      anyPackage: Будь-який пакет
-      anyOptionOrAddon: Будь-яка опція або додаток
-      addNew: Додати нове
-      optionsLabel: "Будь-яка з наступних опцій:"
-      addonsLabel: "Будь-який з наступних пакетів додатків:"
-      packagesLabel: "Будь-який з наступних пакетів:"
-      withLabel: З
-      orLabel: Або
-      removeLimitTitle: Ви абсолютно впевнені?
-      removeLimitDescription: Ви впевнені, що хочете видалити це обмеження?
-      limitToDescription: Ви можете обмежити цю знижку до конкретних опцій, додатків та пакетів
-      cancel: Скасувати
-      delete: Видалити
-      validation:
-        nameUnique: Назва знижки повинна бути унікальною
-        codeUnique: Код знижки повинен бути унікальним
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-    table:
-      columns:
-        name: Назва
-        codes: Коди
-        type: Тип
-        value: Значення
-        enabled: Статус
-        startDate: Від
-        endDate: До
-        usedCount: Загальне використання
-        updatedAt: Оновлено
-      cellAction:
-        discountDeleted: Знижку {name} було видалено.
-        deleteError: Виникла проблема з вашим запитом.
-        actions: Дії
-        update: Оновити
-        delete: Видалити
-        clone: Клонувати
-    deleteSelected:
-      success: Вибрані знижки були видалені
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибрану знижку} few {вибрані # знижки} many {вибраних # знижок} other {вибраних # знижок}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані знижки.
-      confirmDescription2: Це не вплине на існуючі записи, які використовують ці знижки
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
-  packages:
-    title: Пакети
-    description: Передплачені пакети записів
-    addNew: Додати новий
-    new: Новий
-    newTitle: Новий пакет
-    newDescription: Додати передплачений пакет записів
-    editDescription: Редагувати пакет
-    sell: Продати пакет
-    sellTitle: Продати пакет
-    sellDescription: Видати цей пакет клієнту та записати оплату в салоні
-    sellForm:
-      package: Пакет
-      customer: Клієнт
-      price: Ціна
-      paymentMethod: Спосіб оплати
-    sold:
-      title: Продані пакети
-      description: Пакети, видані клієнтам
-      statusBadges:
-        active: Активний
-        exhausted: Вичерпаний
-        expired: Прострочений
-        cancelled: Скасований
-      table:
-        columns:
-          name: Пакет
-          customer: Клієнт
-          price: Ціна
-          remaining: Залишок
-          used: Використано
-          status: Статус
-          purchasedAt: Куплено
-          expiresAt: Дійсний до
-        cellAction:
-          viewCustomer: Переглянути клієнта
-          viewAppointments: Переглянути записи
-          scheduleAppointment: Запланувати запис
-        filters:
-          package: Пакет
-    table:
-      columns:
-        name: Назва
-        price: Ціна
-        credits: Кредити
-        soldCount: Продано
-        status: Статус
-        isPublic: Публічний
-        updatedAt: Оновлено
-      statusBadges:
-        active: Активний
-        inactive: Неактивний
-      cellAction:
-        packageDeleted: Пакет {name} було видалено.
-        deleteError: Виникла проблема з вашим запитом.
-        hasPurchases: Цей пакет має покупки і не може бути видалений.
-        actions: Дії
-        update: Оновити
-        delete: Видалити
-        sell: Продати
-        setActive: Активувати
-        setInactive: Деактивувати
-    deleteSelected:
-      success: Вибрані пакети були видалені
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибраний пакет} few {вибрані # пакети} other {вибраних # пакетів}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Буде видалено вибрані пакети без покупок.
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
-    form:
-      name:
-        label: Назва
-        placeholder: 10 масажів
-        tooltip: Назва, яку бачать співробітники та клієнти
-      description:
-        label: Короткий опис
-        tooltip: Короткий текст, який буде видно під час запису
-      price:
-        label: Ціна
-        placeholder: "200"
-        tooltip: Передоплата за пакет
-      credits:
-        label: Сеанси
-        suffix: сеанси
-        tooltip: Скільки візитів входить до пакета
-      option:
-        label: Послуга
-        tooltip: Послуга, яку можна записати за цим пакетом
-      validityMonths:
-        label: Термін дії
-        tooltip: Як довго кредити дійсні після покупки. Залиште 0 років і 0 місяців, щоб пакет не закінчувався.
-      maxPurchasesPerCustomer:
-        label: Максимум покупок на клієнта
-        suffix: покупки
-        tooltip: Залиште порожнім, щоб не обмежувати, скільки разів клієнт може купити цей пакет
-      isAutoConfirm:
-        label: Автопідтвердження записів
-        tooltip: Коли візит бронюється з цим пакетом, це налаштування має пріоритет над автопідтвердженням послуги
-        always: Завжди
-        never: Ніколи
-        inherit: Успадкувати з налаштувань бронювання
-      eligibleStaff:
-        title: Доступний персонал
-        hint: За замовчуванням будь-який спеціаліст послуги може проводити візити, оплачені цим пакетом. Додайте спеціалістів, лише якщо хочете обмежити, хто може проводити візити.
-        add: Додати спеціаліста
-        tooltip: Обмежте, хто з персоналу може проводити візити, оплачені цим пакетом
-        member: Спеціаліст
-        deleteConfirmTitle: Ви абсолютно впевнені?
-        deleteConfirmDescription: Ви впевнені, що хочете прибрати цього спеціаліста?
-        cancel: Скасувати
-        delete: Видалити
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        created: Пакет створено.
-        sold: Пакет продано.
-        requestError: Виникла проблема з вашим запитом.
-    customer:
-      title: Пакети
-      remaining: "{remaining} з {total} залишилось"
-      used: "{used} з {total} використано"
-      expires: Дійсний до {date}
-      noPackages: Немає пакетів
-      scheduleAppointment: Запланувати запис
-      viewAppointments: Переглянути записи
-      cancel:
-        button: Скасувати пакет
-        confirmTitle: Скасувати цей пакет?
-        confirmDescription: Це скасує {name}. Залишок кредитів збережеться і може бути відновлений реактивацією.
-        success: Пакет скасовано.
-      reactivate:
-        button: Реактивувати пакет
-        confirmTitle: Реактивувати цей пакет?
-        confirmDescription: Це реактивує {name}. Залишок кредитів залишиться без змін.
-        success: Пакет реактивовано.
-    appointment:
-      used: "Пакет: {name}"
-      label: Пакет
-      view: Переглянути пакет
-      creditsUsed: "{credits, plural, =1 {# кредит використано} few {# кредити використано} many {# кредитів використано} other {# кредиту використано}}"
-    adjust:
-      title: Змінити використані кредити
-      description: Вкажіть, скільки кредитів з {name} використано (0–{total}).
-      usedLabel: Використані кредити
-      reason: Причина
-      reasonPlaceholder: Необовʼязкова примітка
-      save: Зберегти
-      decrease: Зменшити використані кредити
-      increase: Збільшити використані кредити
-      ofTotal: з {total}
-    notifications:
-      issued:
-        title: Пакет видано
-        message: "{name} видано клієнту"
-        action: Переглянути клієнта
-    emails:
-      purchasedOwner:
-        subject: "Нова покупка пакета - {packageName}"
-        preview: "{customerName} придбав(ла) {packageName}"
-        title: Нова покупка пакета
-        body: "{customerName} придбав(ла) {packageName} за {price}."
-        button: Переглянути пакети клієнта
-        handledBy: Пакети (покупка клієнта)
-  giftCards:
-    title: Подарункові картки
-    description: Керувати подарунковими картками
-    addNew: Додати нову
-    new: Нова
-    newTitle: Нова подарункова картка
-    newDescription: Додати нову подарункову картку
-    editDescription: Редагувати подарункову картку
-    table:
-      payments:
-        title: Платежі
-        description: Платежі, здійснені цією подарунковою карткою
-        noPayments: Платежі не знайдено
-        addPayment: Додати платіж
-      columns:
-        code: Код
-        amount: Сума
-        amountLeft: Залишок
-        expiresAt: Дійсна до
-        status: Статус
-        createdAt: Створено
-        updatedAt: Оновлено
-        payments: Платежі
-        paymentMethod: Спосіб оплати
-        customer: Клієнт
-      cellAction:
-        giftCardDeleted: Подарункову картку {code} видалено.
-        giftCardSetActive: Подарункову картку {code} позначено як активну.
-        giftCardSetInactive: Подарункову картку {code} позначено як неактивну.
-        actions: Дії
-        update: Оновити
-        delete: Видалити
-        deleteFromSource: Можна видаляти тільки з {appName}
-        setActive: Активувати
-        setInactive: Деактивувати
-      statusBadges:
-        active: Активна
-        inactive: Неактивна
-        expired: Закінчився
-        noAmountLeft: Залишок закінчився
-    setStatusSelected:
-      setActive: Активувати
-      setInactive: Деактивувати
-      buttonActive: Активувати {count, plural, =1 {подарункову картку} few {# подарункові картки} many {# подарункових карток} other {# подарункових карток}}
-      buttonInactive: Деактивувати {count, plural, =1 {подарункову картку} few {# подарункові картки} many {# подарункових карток} other {# подарункових карток}}
-      confirmTitleActive: Активувати вибрані подарункові картки?
-      confirmTitleInactive: Деактивувати вибрані подарункові картки?
-      confirmDescription: Це змінить статус вибраних подарункових карток.
-      successActive: Вибрані подарункові картки активовано.
-      successInactive: Вибрані подарункові картки деактивовано.
-      error: Виникла проблема з вашим запитом.
-      cancel: Скасувати
-    deleteSelected:
-      success: Вибрані подарункові картки видалено
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибрану подарункову картку} few {вибрані # подарункові картки} many {вибраних # подарункових карток} other {вибраних # подарункових карток}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані подарункові картки.
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
-    form:
-      code:
-        label: Код
-        placeholder: ХХХ-ХХХ-ХХХ
-        tooltip: Унікальний код для подарункової картки
-        generateTooltip: Згенерувати новий код для подарункової картки
-        copied: Код скопійовано в буфер обміну
-        copyToClipboardTooltip: Скопіювати код в буфер обміну
-      amount:
-        label: Сума
-        placeholder: "50"
-        tooltip: Сума подарункової картки
-      expiresAt:
-        label: Дійсна до
-        tooltip: Дата закінчення терміну дії подарункової картки
-      paymentMethod:
-        label: Спосіб оплати
-        tooltip: Спосіб оплати при покупці подарункової картки
-      status:
-        label: Статус
-        tooltip: Статус подарункової картки
-        options:
-          active: Активна
-          inactive: Неактивна
-      customerId:
-        label: Клієнт
-        tooltip: Клієнт, який придбав подарункову картку
-      toasts:
-        created: Подарункову картку успішно створено
-        changesSaved: Ваші зміни збережено.
-        requestError: Виникла проблема з вашим запитом.
-  addons:
-    title: Додатки
-    description: Керувати додатками
-    addNew: Додати новий
-    new: Новий
-    newTitle: Новий додаток
-    newDescription: Додати новий додаток
-    editDescription: Редагувати додаток
-    form:
-      name: Назва
-      namePlaceholder: Назва додатку
-      nameTooltip: Унікальна назва додатку
-      description: Короткий опис
-      descriptionTooltip: Короткий текст, який буде видимий під час бронювання
-      duration: Тривалість
-      durationTooltip: Тривалість додатку
-      price: Ціна
-      pricePlaceholder: "20"
-      priceTooltip: Ціна додатку
-      fields: Поля
-      fieldsTooltip: Поля, необхідні для цього додатку
-      staffOverrides:
-        title: Перевизначення для членів
-        hint: За замовчуванням будь-який член команди, який може виконувати
-          батьківську послугу, може пропонувати цей додаток за базовою ціною та
-          тривалістю. Додайте члена лише щоб задати іншу ціну чи тривалість, або
-          щоб позначити, що він не може пропонувати цей додаток.
-        add: Додати перевизначення
-        memberOverrideCard:
-          member: Член команди
-          unavailable: Не може пропонувати цей додаток
-          unavailableHint:
-            Якщо увімкнено, цей член команди не зможе пропонувати цей додаток
-            під час бронювання.
-          deleteConfirmTitle: Ви абсолютно впевнені?
-          deleteConfirmDescription:
-            Ви впевнені, що хочете видалити це перевизначення для члена
-            команди?
-          cancel: Скасувати
-          delete: Видалити
-          overrides:
-            price: Перевизначення ціни
-            duration: Перевизначення тривалості
-      validation:
-        nameUnique: Назва додатку повинна бути унікальною
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-    table:
-      columns:
-        name: Назва
-        updatedAt: Оновлено
-        options: Опції
-        optionsInDialog: "{name} в опціях"
-      cellAction:
-        addonDeleted: Додаток "{name}" було видалено.
-        deleteError: Виникла проблема з вашим запитом.
-        actions: Дії
-        update: Оновити
-        delete: Видалити
-        clone: Клонувати
-    deleteSelected:
-      success: Вибрані додатки були видалені
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибраний додаток} few {вибрані # додатки} many {вибраних # додатків} other {вибраних # додатків}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані додатки та видалить їх з усіх опцій, які їх використовують
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
 templates:
   page:
     title: Шаблони комунікацій
@@ -2486,6 +1839,7 @@ appearance:
       cancel: Скасувати
       delete: Видалити
       type: Тип
+      typeDescription: Який колір теми замінює це перевизначення.
       selectColorOverrideType: Вибрати тип перевизначення кольору
       color: Колір
       colorTooltip: Колір в CSS форматі (HEX, rgb, rgba, hsl)
@@ -2594,6 +1948,7 @@ apps:
     textMessageSender:
       label: Відправник текстових повідомлень
       placeholder: Використовувати відправник текстових повідомлень за замовчуванням
+      tooltip: Застосунок, який надсилає текстові повідомлення клієнтам. Необов'язково.
     textMessageResponder:
       label: Відповідач текстових повідомлень
       tooltip: Якщо не обробляється відправником, буде використовуватися як додаток за замовчуванням для відповіді на текстові повідомлення (наприклад, автовідповідь). Опціонально.
@@ -2643,7 +1998,762 @@ apps:
         Якщо все уже виглядає коректно, цей лист можна ігнорувати.
       button: Відкрити застосунки
       handledBy: "Не вдалося підключити застосунок: {appDisplayName}"
+catalog:
+  hub:
+    description: Послуги, додатки, пакети та інші позиції, які клієнти можуть забронювати або купити.
+  services:
+    title: Послуги
+    description: Керувати послугами, які ви надаєте
+    addNew: Додати нову
+    addFromTemplate: Додати з шаблону
+    addFromTemplateDialog:
+      title: Додати нову опцію з шаблону
+      description: Оберіть професію та шаблон, щоб заповнити нову опцію.
+      pickServiceLabel: Виберіть шаблон послуги, щоб заповнити нову опцію.
+    createFromTemplate: Створити
+    upgradeRequired: Безкоштовний тариф включає одну послугу. Перейдіть на Solo, щоб додати більше.
+    upgradeLink: Оновити в налаштуваннях бренду
+    new: Нова
+    newTitle: Нова послуга
+    newDescription: Додати нову послугу, яку ви надаєте
+    editDescription: Редагувати послугу
+    form:
+      details: Деталі
+      durationAndPrice: Тривалість і ціна
+      customAutoConfirm: Власне автомпідтвердження
+      customAutoConfirmTooltip: Використати правило автомпідтвердження для цієї послуги замість загальної конфігурації.
+      virtualAppointment: Віртуальний запис
+      virtualAppointmentTooltip: Проводити цей запис через відео, аудіо або телефон замість особистої зустрічі.
+      name: Назва
+      namePlaceholder: Назва послуги
+      description: Короткий опис
+      descriptionTooltip: Короткий текст, який буде видимий під час бронювання
+      duration: Тривалість
+      price: Ціна
+      durationType:
+        label: Тип тривалості
+        tooltip: Тип тривалості опції
+        fixed: Фіксована
+        flexible: Гнучка
+        placeholder: Вибрати тип тривалості
+      durationMin:
+        label: Мінімальна тривалість
+        tooltip: Мінімальна тривалість опції
+        placeholder: Вибрати мінімальну тривалість
+      durationMax:
+        label: Максимальна тривалість
+        tooltip: Максимальна тривалість опції
+        placeholder: Вибрати максимальну тривалість
+      pricePerHour:
+        label: Ціна за годину
+        tooltip: Ціна за годину опції
+        placeholder: Вибрати ціну за годину
+        suffix: /год
+      durationStep:
+        label: Крок тривалості
+        tooltip: Крок тривалості опції
+        placeholder: Вибрати крок тривалості
+        steps:
+          "1": 1 хвилина
+          "5": 5 хвилин
+          "10": 10 хвилин
+          "15": 15 хвилин
+          "20": 20 хвилин
+          "30": 30 хвилин
+          "60": 1 година
+          "120": 2 години
+          "180": 3 години
+          "360": 6 годин
+      isAutoConfirm:
+        label: Автоматично підтверджувати
+        tooltip: Чи повинна ця опція автоматично підтверджуватися
+        always: Завжди
+        never: Ніколи
+        inherit: Так само, як у загальній конфігурації
+      onlineSettings:
+        title: Налаштування віртуального запису
+        isOnline:
+          label: Тип запису
+          tooltip: Вказує, чи проводиться ця запис через відео чи аудіо дзвінок, телефонний дзвінок тощо
+          labels:
+            "false": В особистому контакті
+            "true": Віртуальний
+        meetingUrlProviderAppId:
+          label: Додаток постачальника URL зустрічі
+          tooltip: Додаток, який буде використовуватися для надання URL зустрічі
+      paymentSettings:
+        title: Налаштування платежів
+        customDeposit:
+          label: Власна вимога завдатку
+          tooltip: Використати правило завдатку для цієї послуги замість загальної конфігурації.
+        customTips:
+          label: Власні налаштування чайових
+          tooltip: Використати налаштування чайових цієї послуги замість загальної конфігурації.
+        paymentType:
+          label: Тип розрахунку депозиту
+          tooltip: Виберіть, чи повинна ця опція вимагати завдаток у відсотках чи сумі
+          labels:
+            amount: Сума
+            percentage: Відсоток
+          placeholder: Вибрати тип розрахунку депозиту
+        depositAmount:
+          label: Сума завдатку
+          tooltip: Сума завдатку у відсотках<br></br>Якщо встановлено 100, повна ціна має бути сплачена наперед<br></br>Може бути перевизначено для кожного клієнта
+        depositPercentage:
+          label: Відсоток завдатку
+          tooltip: Відсоток завдатку<br></br>Якщо встановлено 100, повна ціна має бути сплачена наперед<br></br>Може бути перевизначено для кожного клієнта
+        tipsMode:
+          label: Чайові під час бронювання
+          tooltip: Перевизначити налаштування чайових організації для цієї послуги
+          values:
+            inherit: Так само, як у загальній конфігурації
+            off: Вимкнено
+            on: Увімкнено
+            full-payment-only: Лише для повної оплати
+        tipPresets:
+          label: Пресети чайових
+          description: До 4 відсоткових варіантів для клієнтів. Перетягніть, щоб змінити порядок.
+          percentage: "%"
+          add: Додати пресет
+          move: Перемістити пресет
+          remove: Видалити
+        requireDeposit:
+          label: Вимагати завдаток
+          tooltip: Чи повинна ця опція вимагати завдаток<br></br>Потребує налаштованого платіжного додатку
+          always: Завжди, якщо не вимагається для клієнта
+          never: Ніколи, якщо не вимагається для клієнта
+          inherit: Так само, як у загальній конфігурації, або для клієнта
+      cancellationPolicy:
+        title: Скасування
+        type:
+          label: Тип політики скасування
+          tooltip: Тип політики скасування
+          inherit: Так само, як у загальній конфігурації
+          custom: Власна політика
+          placeholder: Вибрати тип політики скасування
+        enabled:
+          label: Увімкнено
+          tooltip: Чи дозволяти скасування для опції
+          labels:
+            disabled: Вимкнено
+            enabled: Увімкнено
+        withDeposit:
+          title: Для записів з завдатком
+          description: Налаштувати політику скасування для опції, коли завдаток вимагається
+          enabled: Увімкнено
+          enabledTooltip: Чи дозволяти скасування для опції, коли завдаток вимагається
+        withoutDeposit:
+          title: Для записів без завдатку
+          description: Налаштувати політику скасування для опції, коли завдаток не вимагається
+          enabled: Увімкнено
+          enabledTooltip: Чи дозволяти скасування для опції, коли завдаток не вимагається
+        customPolicy:
+          label: Власна політика
+          tooltip: Чи має ця послуга власну політику скасування, відмінну від загальної?
+      reschedulePolicy:
+        title: Перенесення
+        type:
+          label: Тип політики перенесення
+          tooltip: Тип політики перенесення
+          inherit: Так само, як у загальній конфігурації
+          custom: Власна політика
+          placeholder: Вибрати тип політики перенесення
+        customPolicy:
+          label: Власна політика
+          tooltip: Чи має ця послуга власну політику перенесення, відмінну від загальної?
+        enabled:
+          label: Увімкнено
+          tooltip: Чи дозволяти перенесення для опції
+          labels:
+            disabled: Вимкнено
+            enabled: Увімкнено
+        default:
+          title: Політика за замовчуванням
+          tooltip: Налаштувати політику за замовчуванням, яка буде застосована, якщо інша політика не застосовна
+      selectOption: Вибрати опцію
+      fields: Поля
+      addons: Додатки
+      staff:
+        title: Робітники
+        hint: Послуги без учасників недоступні для бронювання.
+        add: Додати нового робітника
+        memberSelectCard:
+          moveMember: Переїзд військовослужбовця
+          member: Член
+          meetingUrlProviderWarning: У цього учасника на профілі не налаштовано постачальника URL зустрічі, тому для записів не буде створено URL зустрічі.
+          deleteConfirmTitle: Ви абсолютно впевнені?
+          deleteConfirmDescription: Ви впевнені, що хочете видалити цього учасника з цієї служби?
+          cancel: Скасувати
+          delete: Видалити
+          overrides:
+            price: Перевизначення ціни
+            duration: Перевизначення тривалості
+      tabs:
+        general: Загальне
+        payments: Платежі
+        virtual: Віртуальне
+        duplicates: Дублікати
+        fields: Поля
+        addons: Додатки
+        staff: Робітники
+      duplicateAppointmentCheck:
+        title: Дублюючі записи на ту саму послугу
+        enabled: Перевіряти наявність дублюючого запису
+        enabledTooltip: Запитувати у клієнтів підтвердження, або не дозволяти запис, якщо в них уже є майбутній запис на цю саму послугу поблизу вибраної дати/часу
+        doNotAllowScheduling:
+          label: Дія
+          tooltip: Що робити, якщо клієнт вже має майбутній запис на цю саму послугу поблизу вибраної дати/часу
+          labels:
+            "false": Запитати підтвердження
+            "true": Не дозволяти запис
+        days: Діапазон днів
+        daysSuffix: дн.
+        daysTooltip: Кількість днів до або після вибраної дати/часу для перевірки наявності запису
+        message: Повідомлення для підтвердження
+        messageTooltip: "Текст, який відображатиметься клієнту.<br></br>Можливі змінні:<br></br>- <i>'{{days}}'</i>: діапазон днів<br></br>- <i>'{{name}}'</i>: ім’я клієнта<br></br>- <i>'{{service}}'</i>: назва послуги<br></br>- <i>'{{date}}'</i>: дата вже наявного запису"
+        messageExamples:
+          label: Приклади <chevron></chevron>
+          friendly: Привіт, '{{name}}'! Ви вже маєте запис на '{{service}}' '{{date}}' у межах '{{days}}' днів. Бажаєте створити ще один такий самий запис?
+          neutral: У вас уже заплановано '{{service}}' на '{{date}}' (у межах '{{days}}' днів). Ви хочете зробити ще один запис на цю ж послугу?
+          formal: Вітаємо, '{{name}}'! У нашій системі є ваш запис на '{{service}}' '{{date}}'. Ви впевнені, що хочете створити ще один запис на цю саму послугу у межах '{{days}}' днів?
+      validation:
+        nameUnique: Назва опції повинна бути унікальною
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        requestError: Виникла проблема з вашим запитом.
+      addToAvailabilityDialog:
+        title: Додати цю опцію до доступних для запису?
+        description: Зробити <em>{name}</em> доступною для записів зараз?
+        manageHint: Ви завжди можете керувати доступними опціями в <link>Налаштування -> Записи</link>
+        actions:
+          skip: Не зараз
+          add: Додати до доступних опцій
+        toasts:
+          added: Доступність опції оновлено.
+          requestError: Виникла проблема з вашим запитом.
+    table:
+      columns:
+        name: Назва
+        updatedAt: Оновлено
+        cellAction:
+          optionDeleted: Опцію "{name}" було видалено.
+          deleteError: Виникла проблема з вашим запитом.
+          actions: Дії
+          update: Оновити
+          delete: Видалити
+          clone: Клонувати
+    deleteSelected:
+      success: Вибрані опції були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибрану опцію} few {вибрані # опції} many {вибраних # опцій} other {вибраних # опцій}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Цю дію неможливо скасувати.
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+  fields:
+    title: Поля
+    description: Керувати власними полями
+    addNew: Додати нове
+    new: Нове
+    newTitle: Нове поле
+    newDescription: Додати нове власне поле
+    editDescription: Редагувати власне поле
+    form:
+      details: Деталі
+      fileSettings: Налаштування файлів
+      name: Назва
+      namePlaceholder: Назва поля
+      nameTooltip: Унікальний ID поля. Може містити тільки літери, цифри та підкреслення
+      label: Мітка
+      labelPlaceholder: Мітка поля
+      labelTooltip: Мітка, яка буде показана користувачу
+      type: Тип
+      typePlaceholder: Вибрати тип поля
+      typeTooltip: Тип поля
+      description: Опис
+      descriptionPlaceholder: Опис поля
+      descriptionTooltip: Короткий опис для поля
+      required: Обов'язкове
+      requiredTooltip: Позначає поле як обов'язкове
+      options: Опції
+      addOption: Додати опцію
+      fileTypes: Типи файлів
+      fileTypesTooltip: Дозволені типи файлів для завантаження
+      validation:
+        nameUnique: Назва поля повинна бути унікальною
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        requestError: Виникла проблема з вашим запитом.
+      optionsTitle: Опції
+      maxSizeMbLabel: Макс. розмір файлу (МБ)
+      maxSizeMbTooltip: Максимальний дозволений розмір файлу в мегабайтах.
+      maxSizeMbPlaceholder: "5"
+      acceptedFilesLabel: Прийнятні файли
+      acceptedFilesTooltip: Список прийнятних файлів та типів файлів. Дивіться MDN для деталей.
+      acceptedFilesPlaceholder: Натисніть кнопку плюс, щоб додати новий тип файлу
+    table:
+      columns:
+        name: Назва
+        type: Тип
+        label: Мітка
+        updatedAt: Оновлено
+        addons: Додатки
+        options: Послуги
+        addonsInDialog: "{label} в додатках"
+        optionsInDialog: "{label} у послугах"
+      cellAction:
+        fieldDeleted: Поле опції "{label}" було видалено.
+        deleteError: Виникла проблема з вашим запитом.
+        actions: Дії
+        update: Оновити
+        delete: Видалити
+        clone: Клонувати
+    deleteSelected:
+      success: Вибрані поля були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибране поле} few {вибрані # поля} many {вибраних # поля} other {вибраних # поля}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані поля та видалить їх з усіх опцій та додатків, які їх використовують
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+    selectFieldOptionCard:
+      moveOption: Перемістити опцію
+      option: Опція
+      deleteConfirmTitle: Ви абсолютно впевнені?
+      deleteConfirmDescription: Ви впевнені, що хочете видалити цю опцію?
+  discounts:
+    title: Знижки
+    description: Керувати знижками
+    addNew: Додати нову
+    new: Нова
+    newTitle: Нова знижка
+    newDescription: Додати нову знижку
+    editDescription: Редагувати знижку
+    form:
+      name: Назва
+      namePlaceholder: Назва знижки
+      nameTooltip: Унікальна назва знижки
+      description: Опис
+      descriptionPlaceholder: Опис знижки
+      descriptionTooltip: Короткий опис для знижки
+      type: Тип
+      typePlaceholder: Вибрати тип знижки
+      typeTooltip: Тип знижки
+      value: Значення
+      valuePlaceholder: Значення знижки
+      valueTooltip: Сума або відсоток знижки
+      enabled: Увімкнено
+      enabledTooltip: Чи активна ця знижка
+      status: Статус
+      active: Активна
+      disabled: Вимкнено
+      details: Деталі
+      dates: Дати
+      maximumUses: Максимальна кількість використань
+      codes: Коди
+      codesPlaceholder: Коди знижок
+      codesTooltip: Коди, які можна використовувати для застосування цієї знижки
+      addCode: Додати код
+      removeCode: Видалити код
+      startDate: Дата початку
+      startDatePlaceholder: Коли знижка стає активною
+      startDateTooltip: Дата, коли знижка починає діяти
+      endDate: Дата закінчення
+      endDatePlaceholder: Коли знижка закінчується
+      endDateTooltip: Дата, коли знижка перестає діяти
+      appointmentStartDate: Найраніша дата запису для знижки
+      appointmentStartDateTooltip: Найраніша дата запису (включно), для якої можна застосувати цю знижку. Записи, заплановані до цієї дати, не будуть мати право на знижку.
+      appointmentEndDate: Найпізніша дата запису для знижки
+      appointmentEndDateTooltip: Найпізніша дата запису (включно), для якої можна застосувати цю знижку. Записи, заплановані після цієї дати, не будуть мати право на знижку.
+      maxUsage: Максимальна кількість використань
+      maxUsageTooltip: Загальна кількість разів, яку можна використати цю знижку серед усіх клієнтів. Після досягнення цього ліміту знижка більше не буде доступна.
+      maxUsagePerCustomer: Максимальна кількість використань на клієнта
+      maxUsagePerCustomerTooltip: Максимальна кількість разів, яку окремий клієнт може використати цю знижку. Подальші спроби використання знижки цим клієнтом будуть відхилені після досягнення цього ліміту.
+      limitTo: Обмежити до
+      limitToTooltip: Обмежити знижку до конкретних опцій, додатків та пакетів
+      addLimit: Додати обмеження
+      removeLimit: Видалити обмеження
+      anyOption: Будь-яка опція
+      anyAddon: Будь-який додаток
+      anyPackage: Будь-який пакет
+      anyOptionOrAddon: Будь-яка опція або додаток
+      addNew: Додати нове
+      optionsLabel: "Будь-яка з наступних опцій:"
+      addonsLabel: "Будь-який з наступних пакетів додатків:"
+      packagesLabel: "Будь-який з наступних пакетів:"
+      withLabel: З
+      orLabel: Або
+      removeLimitTitle: Ви абсолютно впевнені?
+      removeLimitDescription: Ви впевнені, що хочете видалити це обмеження?
+      limitToDescription: Ви можете обмежити цю знижку до конкретних опцій, додатків та пакетів
+      cancel: Скасувати
+      delete: Видалити
+      validation:
+        nameUnique: Назва знижки повинна бути унікальною
+        codeUnique: Код знижки повинен бути унікальним
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        requestError: Виникла проблема з вашим запитом.
+    table:
+      columns:
+        name: Назва
+        codes: Коди
+        type: Тип
+        value: Значення
+        enabled: Статус
+        startDate: Від
+        endDate: До
+        usedCount: Загальне використання
+        updatedAt: Оновлено
+      cellAction:
+        discountDeleted: Знижку {name} було видалено.
+        deleteError: Виникла проблема з вашим запитом.
+        actions: Дії
+        update: Оновити
+        delete: Видалити
+        clone: Клонувати
+    deleteSelected:
+      success: Вибрані знижки були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибрану знижку} few {вибрані # знижки} many {вибраних # знижок} other {вибраних # знижок}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані знижки.
+      confirmDescription2: Це не вплине на існуючі записи, які використовують ці знижки
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+  packages:
+    title: Пакети
+    description: Передплачені пакети записів
+    addNew: Додати новий
+    new: Новий
+    newTitle: Новий пакет
+    newDescription: Додати передплачений пакет записів
+    editDescription: Редагувати пакет
+    sell: Продати пакет
+    sellTitle: Продати пакет
+    sellDescription: Видати цей пакет клієнту та прийняти оплату
+    sellForm:
+      package: Пакет
+      customer: Клієнт
+      price: Ціна
+      paymentMethod: Спосіб оплати
+    sold:
+      title: Продані пакети
+      description: Пакети, видані клієнтам
+      statusBadges:
+        pending: Очікує оплати
+        active: Активний
+        exhausted: Вичерпаний
+        expired: Прострочений
+        cancelled: Скасований
+      table:
+        columns:
+          name: Пакет
+          customer: Клієнт
+          price: Ціна
+          remaining: Залишок
+          used: Використано
+          status: Статус
+          purchasedAt: Куплено
+          expiresAt: Дійсний до
+        cellAction:
+          viewCustomer: Переглянути клієнта
+          viewAppointments: Переглянути записи
+          scheduleAppointment: Запланувати запис
+        filters:
+          package: Пакет
+    table:
+      columns:
+        name: Назва
+        price: Ціна
+        credits: Кредити
+        soldCount: Продано
+        status: Статус
+        isPublic: Публічний
+        updatedAt: Оновлено
+      statusBadges:
+        active: Активний
+        inactive: Неактивний
+      cellAction:
+        packageDeleted: Пакет {name} було видалено.
+        deleteError: Виникла проблема з вашим запитом.
+        hasPurchases: Цей пакет має покупки і не може бути видалений.
+        actions: Дії
+        update: Оновити
+        delete: Видалити
+        sell: Продати
+        setActive: Активувати
+        setInactive: Деактивувати
+    deleteSelected:
+      success: Вибрані пакети були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибраний пакет} few {вибрані # пакети} other {вибраних # пакетів}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Буде видалено вибрані пакети без покупок.
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+    form:
+      details: Деталі
+      service: Послуга
+      priceAndLimits: Ціна та обмеження
+      name:
+        label: Назва
+        placeholder: 10 масажів
+        tooltip: Назва, яку бачать співробітники та клієнти
+      description:
+        label: Короткий опис
+        tooltip: Короткий текст, який буде видно під час запису
+      price:
+        label: Ціна
+        placeholder: "200"
+        tooltip: Передоплата за пакет
+      credits:
+        label: Сеанси
+        suffix: сеанси
+        tooltip: Скільки візитів входить до пакета
+      option:
+        label: Послуга
+        tooltip: Послуга, яку можна записати за цим пакетом
+      validityMonths:
+        label: Термін дії
+        tooltip: Як довго кредити дійсні після покупки. Залиште 0 років і 0 місяців, щоб пакет не закінчувався.
+      maxPurchasesPerCustomer:
+        label: Максимум покупок на клієнта
+        suffix: покупки
+        tooltip: Залиште порожнім, щоб не обмежувати, скільки разів клієнт може купити цей пакет
+      isAutoConfirm:
+        label: Автопідтвердження записів
+        tooltip: Коли візит бронюється з цим пакетом, це налаштування має пріоритет над автопідтвердженням послуги
+        always: Завжди
+        never: Ніколи
+        inherit: Успадкувати з налаштувань бронювання
+      eligibleStaff:
+        title: Доступний персонал
+        hint: За замовчуванням будь-який спеціаліст послуги може проводити візити, оплачені цим пакетом. Додайте спеціалістів, лише якщо хочете обмежити, хто може проводити візити.
+        add: Додати спеціаліста
+        tooltip: Обмежте, хто з персоналу може проводити візити, оплачені цим пакетом
+        member: Спеціаліст
+        deleteConfirmTitle: Ви абсолютно впевнені?
+        deleteConfirmDescription: Ви впевнені, що хочете прибрати цього спеціаліста?
+        cancel: Скасувати
+        delete: Видалити
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        created: Пакет створено.
+        sold: Пакет продано.
+        requestError: Виникла проблема з вашим запитом.
+    customer:
+      title: Пакети
+      remaining: "{remaining} з {total} залишилось"
+      used: "{used} з {total} використано"
+      expires: Дійсний до {date}
+      noPackages: Немає пакетів
+      scheduleAppointment: Запланувати запис
+      viewAppointments: Переглянути записи
+      cancel:
+        button: Скасувати пакет
+        confirmTitle: Скасувати цей пакет?
+        confirmDescription: Це скасує {name}. Залишок кредитів збережеться і може бути відновлений реактивацією.
+        success: Пакет скасовано.
+      reactivate:
+        button: Реактивувати пакет
+        confirmTitle: Реактивувати цей пакет?
+        confirmDescription: Це реактивує {name}. Залишок кредитів залишиться без змін.
+        success: Пакет реактивовано.
+    appointment:
+      used: "Пакет: {name}"
+      label: Пакет
+      view: Переглянути пакет
+      creditsUsed: "{credits, plural, =1 {# кредит використано} few {# кредити використано} many {# кредитів використано} other {# кредиту використано}}"
+    adjust:
+      title: Змінити використані кредити
+      description: Вкажіть, скільки кредитів з {name} використано (0–{total}).
+      usedLabel: Використані кредити
+      reason: Причина
+      reasonPlaceholder: Необовʼязкова примітка
+      save: Зберегти
+      decrease: Зменшити використані кредити
+      increase: Збільшити використані кредити
+      ofTotal: з {total}
+    notifications:
+      issued:
+        title: Пакет видано
+        message: "{name} видано клієнту"
+        action: Переглянути клієнта
+    emails:
+      purchasedOwner:
+        subject: Нова покупка пакета - {packageName}
+        preview: "{customerName} придбав(ла) {packageName}"
+        title: Нова покупка пакета
+        body: "{customerName} придбав(ла) {packageName} за {price}."
+        button: Переглянути пакети клієнта
+        handledBy: Пакети (покупка клієнта)
+  giftCards:
+    title: Подарункові картки
+    description: Керувати подарунковими картками
+    addNew: Додати нову
+    new: Нова
+    newTitle: Нова подарункова картка
+    newDescription: Додати нову подарункову картку
+    editDescription: Редагувати подарункову картку
+    table:
+      payments:
+        title: Платежі
+        description: Платежі, здійснені цією подарунковою карткою
+        noPayments: Платежі не знайдено
+        addPayment: Додати платіж
+      columns:
+        code: Код
+        amount: Сума
+        amountLeft: Залишок
+        expiresAt: Дійсна до
+        status: Статус
+        createdAt: Створено
+        updatedAt: Оновлено
+        payments: Платежі
+        paymentMethod: Спосіб оплати
+        customer: Клієнт
+      cellAction:
+        giftCardDeleted: Подарункову картку {code} видалено.
+        giftCardSetActive: Подарункову картку {code} позначено як активну.
+        giftCardSetInactive: Подарункову картку {code} позначено як неактивну.
+        actions: Дії
+        update: Оновити
+        delete: Видалити
+        deleteFromSource: Можна видаляти тільки з {appName}
+        setActive: Активувати
+        setInactive: Деактивувати
+      statusBadges:
+        active: Активна
+        inactive: Неактивна
+        expired: Закінчився
+        noAmountLeft: Залишок закінчився
+    setStatusSelected:
+      setActive: Активувати
+      setInactive: Деактивувати
+      buttonActive: Активувати {count, plural, =1 {подарункову картку} few {# подарункові картки} many {# подарункових карток} other {# подарункових карток}}
+      buttonInactive: Деактивувати {count, plural, =1 {подарункову картку} few {# подарункові картки} many {# подарункових карток} other {# подарункових карток}}
+      confirmTitleActive: Активувати вибрані подарункові картки?
+      confirmTitleInactive: Деактивувати вибрані подарункові картки?
+      confirmDescription: Це змінить статус вибраних подарункових карток.
+      successActive: Вибрані подарункові картки активовано.
+      successInactive: Вибрані подарункові картки деактивовано.
+      error: Виникла проблема з вашим запитом.
+      cancel: Скасувати
+    deleteSelected:
+      success: Вибрані подарункові картки видалено
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибрану подарункову картку} few {вибрані # подарункові картки} many {вибраних # подарункових карток} other {вибраних # подарункових карток}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані подарункові картки.
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+    form:
+      giftCard: Подарункова картка
+      amountAndExpiry: Сума та термін дії
+      customerAndPayment: Клієнт і оплата
+      code:
+        label: Код
+        placeholder: ХХХ-ХХХ-ХХХ
+        tooltip: Унікальний код для подарункової картки
+        generateTooltip: Згенерувати новий код для подарункової картки
+        copied: Код скопійовано в буфер обміну
+        copyToClipboardTooltip: Скопіювати код в буфер обміну
+      amount:
+        label: Сума
+        placeholder: "50"
+        tooltip: Сума подарункової картки
+      expiresAt:
+        label: Дійсна до
+        tooltip: Дата закінчення терміну дії подарункової картки
+      paymentMethod:
+        label: Спосіб оплати
+        tooltip: Спосіб оплати при покупці подарункової картки
+      status:
+        label: Статус
+        tooltip: Статус подарункової картки
+        options:
+          active: Активна
+          inactive: Неактивна
+      customerId:
+        label: Клієнт
+        tooltip: Клієнт, який придбав подарункову картку
+      paymentLinkAppId:
+        description: Застосунок для надсилання посилання на оплату цієї подарункової картки.
+      channel:
+        description: Як посилання на оплату надсилається клієнту.
+      toasts:
+        created: Подарункову картку успішно створено
+        changesSaved: Ваші зміни збережено.
+        requestError: Виникла проблема з вашим запитом.
+        smsConsentRequired: Перед надсиланням посилання на оплату потрібна згода на текстові повідомлення.
+  addons:
+    title: Додатки
+    description: Керувати додатками
+    addNew: Додати новий
+    new: Новий
+    newTitle: Новий додаток
+    newDescription: Додати новий додаток
+    editDescription: Редагувати додаток
+    form:
+      details: Деталі
+      durationAndPrice: Тривалість і ціна
+      name: Назва
+      namePlaceholder: Назва додатку
+      nameTooltip: Унікальна назва додатку
+      description: Короткий опис
+      descriptionTooltip: Короткий текст, який буде видимий під час бронювання
+      duration: Тривалість
+      durationTooltip: Тривалість додатку
+      price: Ціна
+      pricePlaceholder: "20"
+      priceTooltip: Ціна додатку
+      fields: Поля
+      fieldsTooltip: Поля, необхідні для цього додатку
+      staffOverrides:
+        title: Перевизначення для членів
+        hint: За замовчуванням будь-який член команди, який може виконувати батьківську послугу, може пропонувати цей додаток за базовою ціною та тривалістю. Додайте члена лише щоб задати іншу ціну чи тривалість, або щоб позначити, що він не може пропонувати цей додаток.
+        add: Додати перевизначення
+        memberOverrideCard:
+          member: Член команди
+          unavailable: Не може пропонувати цей додаток
+          unavailableHint: Якщо увімкнено, цей член команди не зможе пропонувати цей додаток під час бронювання.
+          deleteConfirmTitle: Ви абсолютно впевнені?
+          deleteConfirmDescription: Ви впевнені, що хочете видалити це перевизначення для члена команди?
+          cancel: Скасувати
+          delete: Видалити
+          overrides:
+            price: Перевизначення ціни
+            duration: Перевизначення тривалості
+      validation:
+        nameUnique: Назва додатку повинна бути унікальною
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        requestError: Виникла проблема з вашим запитом.
+    table:
+      columns:
+        name: Назва
+        updatedAt: Оновлено
+        options: Послуги
+        optionsInDialog: "{name} у послугах"
+      cellAction:
+        addonDeleted: Додаток "{name}" було видалено.
+        deleteError: Виникла проблема з вашим запитом.
+        actions: Дії
+        update: Оновити
+        delete: Видалити
+        clone: Клонувати
+    deleteSelected:
+      success: Вибрані додатки були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибраний додаток} few {вибрані # додатки} many {вибраних # додатків} other {вибраних # додатків}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані додатки та видалить їх з усіх опцій, які їх використовують
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
 settings:
+  hub:
+    description: Відкрийте розділ налаштувань вашого бізнесу.
   general:
     title: Загальні налаштування
     description: Назва бізнесу, контакти, адреса та регіональні параметри організації.
@@ -2727,6 +2837,7 @@ settings:
     form:
       name: Назва бізнесу
       namePlaceholder: Назва вашого бізнесу
+      nameDescription: Публічна назва вашого бізнесу.
       industry: Галузь
       industryPlaceholder: Виберіть галузь
       industryTooltip: Використовується для пошукових лістингів та оптимізації для пошукових систем.
@@ -2737,9 +2848,9 @@ settings:
       addressTooltip: Фізична адреса офісу для сайту та пошукових лістингів
       addressPlaceholder: Фізична адреса офісу
       streetAddress: Вулиця та будинок
-      streetAddressPlaceholder: "Напр., вул. Хрещатик, 1"
+      streetAddressPlaceholder: Напр., вул. Хрещатик, 1
       addressLine2: Другий рядок адреси
-      addressLine2Placeholder: "Напр., офіс 205Е"
+      addressLine2Placeholder: Напр., офіс 205Е
       addressSearch: Знайти адресу
       addressLocality: Місто
       addressLocalityPlaceholder: Місто
@@ -2755,6 +2866,7 @@ settings:
       currencyPlaceholder: Вибрати валюту
       currencyLabelFormat: "{валюта} ({код}, {символ})"
       timeZone: Часовий пояс
+      timeZoneDescription: Часовий пояс бізнесу для розкладу та сторінки бронювання.
       selectTimeZone: Вибрати часовий пояс
       useClientTimezone: Використовувати часовий пояс клієнта
       useClientTimezoneTooltip: Виберіть цю опцію, якщо хочете використовувати часовий пояс клієнта для сторінок бронювання та зміни запису.<br></br>За замовчуванням буде використовуватися часовий пояс бізнесу.
@@ -2839,7 +2951,7 @@ settings:
     form:
       tabs:
         main: Основні
-        options: Опції
+        catalog: Послуги та пакети
         payments: Платежі
         cancellations: Скасування
         reschedules: Перенесення
@@ -2853,6 +2965,8 @@ settings:
         requireCustomerOtp: Вимагати підтвердження клієнта
         requireCustomerOtpTooltip: Якщо увімкнено, клієнти мають підтвердити email або телефон одноразовим кодом перед оплатою чи підтвердженням запису. Використання передплаченого пакета завжди потребує підтвердженої сесії.
         autoConfirmTooltip: Виберіть цю опцію, якщо хочете автоматично підтверджувати всі записи, створені клієнтами.<br></br>За замовчуванням вам потрібно буде вручну підтверджувати кожен запис.
+        scheduleSettingsLabel: Налаштування розкладу
+        scheduleProviderLabel: Постачальники розкладу
         allowStaffCalendarSources: Дозволити персоналу керувати джерелами календаря
         allowStaffCalendarSourcesTooltip: Якщо увімкнено, учасники з роллю «персонал» можуть підключати особисті джерела календаря у профілі, і ці календарі використовуються під час перевірки доступності. Якщо вимкнено, персонал не може керувати джерелами календаря, а їхні особисті календарі ігноруються при перевірці зайнятості.
         showPromoCodeField: Показати поле промокоду
@@ -2887,10 +3001,15 @@ settings:
         addGroup: Додати групу
         addService: Додати послугу
         addPackage: Додати пакет
+        group: Група
+        groupWithName: "Група: {name}"
+        service: Послуга
+        serviceWithName: "Послуга: {name}"
         groupName: Назва групи
         groupDescription: Короткий опис
         emptyGroup: Ця група порожня
         package: Пакет
+        packageWithName: "Пакет: {name}"
       payments:
         enableDeposits: Увімкнути завдатки
         enableDepositsTooltip: Увімкнути можливість просити завдаток для бронювання запису. Платіжний додаток за замовчуванням повинен бути налаштований.
@@ -2899,8 +3018,7 @@ settings:
         paymentsApp: Платіжний додаток
         paymentsAppTooltip: Який платіжний процесор використовувати для платежів
         requireDeposit: Вимагати завдаток
-        requireDepositTooltip1: Якщо увімкнено, кожен клієнт буде зобов'язаний внести завдаток для бронювання запису
-        requireDepositTooltip2: Може бути перевизначено для кожного клієнта
+        requireDepositTooltip: Якщо увімкнено, кожен клієнт буде зобов'язаний внести завдаток для бронювання запису<br></br>Може бути перевизначено для кожного клієнта або послуги
         require: Вимагати
         doNotRequire: Не вимагати
         appointments: записів
@@ -2932,7 +3050,9 @@ settings:
             title: Для записів з завдатком
           withoutDeposit:
             title: Для записів без завдатку
-          enabledTooltip: Увімкнути можливість клієнтам скасовувати запис самостійно
+          enabled:
+            label: Дозволено
+            tooltip: Налаштуйте, чи можуть клієнти самостійно скасовувати запис
           doNotAllowIfRescheduled:
             label: Дозволяти, якщо перенесено
             tooltip: Налаштувати, чи можна скасувати запис, якщо він був перенесений
@@ -2941,7 +3061,9 @@ settings:
               "false": Дозволяти
         reschedules:
           title: Перенесення
-          enabledTooltip: Увімкнути можливість клієнтам переносити запис самостійно
+          enabled:
+            label: Дозволено
+            tooltip: Налаштуйте, чи можуть клієнти самостійно переносити запис
           minutesToAppointment:
             label: Мінімальний час до запису
             tooltip: Налаштувати мінімальний час до запису для дозволу перенесення
@@ -2949,7 +3071,7 @@ settings:
             label: Максимальна кількість перенесень
             tooltip: Налаштувати, скільки разів клієнт може переносити запис
         enabled:
-          label: Увімкнено
+          label: Дозволено
           selectPlaceholder: Вибрати опцію
           labels:
             disabled: Вимкнено
@@ -2973,18 +3095,18 @@ settings:
           policy: правило
       cards:
         optionSelect:
-          roleDescription: Опція
-          moveOption: Перемістити опцію
-          option: Опція
+          roleDescription: Послуга
+          moveOption: Перемістити послугу
+          option: Послуга
           deleteConfirmTitle: Ви абсолютно впевнені?
-          deleteConfirmDescription: Ви впевнені, що хочете видалити цю опцію зі списку доступних опцій?
+          deleteConfirmDescription: Ви впевнені, що хочете видалити цю послугу зі списку доступних послуг?
           cancel: Скасувати
           delete: Видалити
-        optionSelector:
+        serviceSelector:
           time: "{hours}год {minutes}хв"
           requestFailed: Запит не вдався.
-          loadingOptions: Завантаження опцій...
-          selectOption: Вибрати опцію
+          loadingOptions: Завантаження послуг...
+          selectOption: Вибрати послугу
         cancellationPolicy:
           action:
             label: Дія
@@ -3079,26 +3201,138 @@ settings:
         cancel: Скасувати
         delete: Видалити
         type: Тип
+        typeDescription: Соціальна мережа цього профілю.
         selectType: Вибрати тип соціального посилання
         url: Url
         urlTooltip: Повне посилання на ваш профіль
       toasts:
         changesSaved: Ваші зміни були збережені.
         requestError: Виникла проблема з вашим запитом.
+  textMessaging:
+    title: Текстові повідомлення
+    description: Увімкніть тексти для клієнтів у формах запису та списку очікування.
+    countryOnly: Власні повідомлення доступні для бізнесів зі Сполучених Штатів і Канади.
+    verification:
+      title: Власні текстові повідомлення
+      description: Перевірте бізнес, щоб тексти клієнтам ішли з окремого номера.
+      prompt: Хочете увімкнути власні текстові повідомлення?
+      action: Перевірте дані бізнесу зараз
+      verifiedPrompt: Ви ввімкнули власні шаблони текстових повідомлень.
+      verifiedAction: Переглянути дані
+      failedPrompt: Перевірку власних текстових повідомлень не пройдено.
+      failedAction: Переглянути дані
+      pendingPrompt: Перевірка власних текстових повідомлень на розгляді.
+      pendingAction: Переглянути дані
+      disabled: Увімкніть текстові повідомлення, перш ніж перевіряти окремий номер.
+    customTemplate:
+      label: Власний шаблон повідомлення
+      tooltip: Необов'язково. Якщо шаблон вибрано, повідомлення клієнту використовують його замість стандартного тексту.
+      renderFailed: Не вдалося відобразити цей шаблон. Перевірте <link>ваш шаблон</link>.
+    notifications:
+      failed:
+        title: Власні повідомлення не схвалено
+        message: "{reason}"
+        action: Переглянути дані
+      succeeded:
+        title: Власні повідомлення перевірено
+        message: Тексти тепер ідуть з вашого окремого номера.
+        action: Переглянути дані
+    emails:
+      failed:
+        subject: Власні повідомлення не схвалено
+        preview: Оновіть дані та надішліть перевірку ще раз.
+        title: Власні повідомлення не схвалено
+        body: "{reason} Оновіть форму та надішліть перевірку ще раз."
+        button: Переглянути дані
+        handledBy: Перевірка текстових повідомлень
+      succeeded:
+        subject: Власні повідомлення перевірено
+        preview: Тексти тепер ідуть з вашого окремого номера.
+        title: Власні повідомлення перевірено
+        body: Тексти тепер ідуть з вашого окремого номера та власних шаблонів.
+        button: Переглянути дані
+        handledBy: Перевірка текстових повідомлень
+    status:
+      pending: Перевірка триває. Тексти й далі йдуть зі спільного номера, доки її не схвалять.
+      verified: Власні повідомлення перевірено. Тексти йдуть з вашого номера.
+      verifiedWithNumber: Власні повідомлення перевірено. Тексти йдуть з {number}.
+      rejected: Перевірку не схвалено.
+      preparing: Номер готується. Власні повідомлення можна надіслати, коли він буде готовий.
+    form:
+      smsEnabled: Увімкнути текстові повідомлення
+      smsEnabledDescription: Клієнти можуть погодитися на тексти у формах запису та списку очікування.
+      save: Зберегти
+      enabled: Увімкнути власні повідомлення
+      enabledDescription: Після перевірки тексти клієнтам ідуть з окремого номера і ваших власних шаблонів.
+      disableTitle: Вимкнути власні повідомлення?
+      disableDescription: Вимкнення запускає перевірку знову. Вам дадуть номер, який може бути іншим, і відповіді на старий номер до вас не надійдуть.
+      disableConfirm: Вимкнути
+      disableCancel: Залишити увімкненим
+      unlock: Розблокувати
+      submit: Надіслати
+      entityType:
+        label: Тип бізнесу
+        PRIVATE_PROFIT: Приватна компанія
+        PUBLIC_PROFIT: Публічна компанія
+        SOLE_PROPRIETOR: Фізична особа-підприємець
+        NON_PROFIT: Благодійна організація
+      legalName:
+        label: Юридична назва
+      doingBusinessAs:
+        label: Торгова назва
+        hint: Додайте, якщо назва для запису відрізняється від юридичної.
+      registrationNumber:
+        label: EIN або номер бізнесу
+        hint: EIN США або канадський номер бізнесу.
+        soleHint: Фізична особа-підприємець може залишити це поле порожнім.
+      website:
+        label: Вебсайт
+      legalPages:
+        note: Ці сторінки посилаються з форм запису та списку очікування. Додайте їх у підвал сайту для юридичної відповідності. Під час налаштування вже створено сторінки з потрібним текстом про SMS. Ви можете їх змінити, а потім вибрати тут.
+      privacyPage:
+        label: Політика конфіденційності
+        hint: На сторінці має бути сказано, що дані згоди на мобільні повідомлення не передаються третім сторонам або афілійованим особам для маркетингу, і що номери використовуються лише для текстів про записи.
+      termsPage:
+        label: Умови
+        hint: На сторінці має бути частота повідомлень, що може стягуватися плата за повідомлення та дані, що можна відповісти STOP для відмови і HELP для допомоги, і що оператори не відповідають за затримані або недоставлено повідомлення.
+      streetAddress:
+        label: Адреса
+      addressLine2:
+        label: Адреса, рядок 2
+      city:
+        label: Місто
+      state:
+        label: Штат або провінція
+      postalCode:
+        label: Поштовий індекс
+      contactFirstName:
+        label: Ім'я контакта
+      contactLastName:
+        label: Прізвище контакта
+      contactEmail:
+        label: Електронна пошта контакта
+      contactPhone:
+        label: Телефон контакта
+    toasts:
+      saved: Ваші зміни збережено.
+      submitted: Запит на перевірку надіслано. Розгляд може тривати до 7 робочих днів.
+      preparing: Номер готується. Ми зберегли ваші дані.
+      error: Виникла проблема з вашим запитом.
   customerAccess:
     title: Доступ клієнтів
-    description: Шаблони OTP та канали підтвердження для клієнтських сценаріїв
+    description: Оберіть, як клієнти отримують код для входу.
     form:
-      otpEmailTemplateId:
-        label: Шаблон email для OTP
-      otpChannels:
-        label: Канал підтвердження OTP
-        options:
-          email: Лише email
-          phone: Лише телефон
-          email_or_phone: Email або телефон
-      otpTextTemplateId:
-        label: Шаблон SMS для OTP
+      email:
+        label: Електронна пошта
+        description: Надіслати одноразовий код на електронну пошту клієнта.
+        templateLabel: Шаблон листа
+        templateDescription: Обов'язковий. Це лист, який клієнт отримує зі своїм кодом.
+      phone:
+        label: Текстове повідомлення
+        description: Надіслати одноразовий код на номер телефону клієнта. Текстові повідомлення мають бути увімкнені.
+        builtIn: Клієнти отримують стандартний текст зі своїм кодом.
+      smsDisabled: Коди телефоном потребують текстових повідомлень. Поки їх вимкнено, ця опція недоступна, і вхід використовує електронну пошту.
+      smsDisabledAction: Увімкнути текстові повідомлення
       toasts:
         changesSaved: Ваші зміни були збережені.
         requestError: Виникла проблема з вашим запитом.
@@ -3200,6 +3434,14 @@ dashboard:
       title: У неактивних співробітників є майбутні записи
       description: "{count, plural, =1 {# запис потрібно перепризначити.} few {# записи потрібно перепризначити.} other {# записів потрібно перепризначити.}}"
       action: Переглянути записи
+    smsVerification:
+      title: Текстові повідомлення не схвалено
+      description: Оновіть дані бізнесу і надішліть перевірку ще раз.
+      action: Переглянути
+    customerOtpPhone:
+      title: Перевірка телефоном потребує текстових повідомлень
+      description: Вхід клієнтів налаштовано на коди телефоном, але текстові повідомлення вимкнено. Коди надсилаються електронною поштою.
+      action: Відкрити налаштування OTP
     failedApp:
       title: "{appName} потребує уваги"
       description: "{appName} працює некоректно і, можливо, потребує повторного підключення."
@@ -3229,6 +3471,27 @@ dashboard:
     calendar: Календар
     pendingAppointments: Очікуючі записи
 communications:
+  status:
+    preparing: Підготовка
+    sending: Надсилання
+    sent: Надіслано
+    received: Отримано
+    failed: Не вдалося
+    failedWithRetries: "Не вдалося: {done}/{max} повторів"
+    failedFinal: Не вдалося.
+  reason:
+    optedOut: Клієнт відмовився від повідомлень
+    noConsent: Клієнт не погодився на текстові повідомлення
+    smsDisabled: Текстові повідомлення вимкнено
+    invalidPhone: Недійсний номер телефону
+    creditsExhausted: Текстові кредити вичерпано
+    platformLimit: "{limit, select, rate {Забагато текстів за цю хвилину.} daily {Досягнуто денний ліміт текстів.} other {Досягнуто ліміт текстів.}}"
+    numberNotReady: Номер для текстів не готовий
+    linkOnly: Повідомлення містило лише посилання
+    deliveryFailed: "Не вдалося доставити: {detail}"
+  retries: "Використано спроб: {done}, залишилось: {left}"
+  retryable: Можна повторити
+  notRetryable: Повторюватися не буде
   viewMore: Показати більше
   payloadLoadError: Не вдалося завантажити повний текст повідомлення.
   logContent: Вміст повідомлення
@@ -3238,7 +3501,7 @@ communications:
   sendNew: Надіслати нове
   requestError: Виникла проблема з вашим запитом.
   sendNewMessage: Надіслати нове повідомлення
-  sendNewMessageDescription: Надіслати новий email або текстове повідомлення клієнту
+  sendNewMessageDescription: Надіслати новий email клієнту
   closeDialogWarning: Ви втратите весь вміст, якщо закриєте діалог
   contentNotValid: Вміст недійсний
   messageSent: Ваше повідомлення було успішно надіслано.
@@ -3336,9 +3599,7 @@ auth:
     backToSignUp: Повернутися до реєстрації
     backToProfile: Повернутися до профілю
     codes:
-      accountAlreadyLinked:
-        Цей соціальний обліковий запис уже підключено до іншого користувача.
-        Увійдіть через той обліковий запис або спочатку від'єднайте його там.
+      accountAlreadyLinked: Цей соціальний обліковий запис уже підключено до іншого користувача. Увійдіть через той обліковий запис або спочатку від'єднайте його там.
       unableToLink: Не вдалося підключити цей соціальний обліковий запис. Спробуйте знову.
       emailMismatch: Email соціального облікового запису не збігається з email вашого облікового запису
       emailNotVerified: Будь ласка, підтвердіть email перед продовженням
@@ -3449,9 +3710,7 @@ auth:
         phoneOtp: Підтвердження телефону
     regionBlocked:
       title: Реєстрація недоступна у вашому регіоні
-      description:
-        Публічна реєстрація доступна лише в Північній Америці та Європі. Якщо вас
-        запросили до команди, скористайтеся посиланням із запрошення.
+      description: Публічна реєстрація доступна лише в Північній Америці та Європі. Якщо вас запросили до команди, скористайтеся посиланням із запрошення.
       toast: Реєстрація недоступна у вашому регіоні
     toasts:
       success: Ми надіслали вам код підтвердження. Будь ласка, перевірте електронну пошту та введіть код для підтвердження облікового запису.
@@ -3532,12 +3791,15 @@ menuItem:
     label: Текст
     labelPlaceholder: Текст
     icon: Іконка
+    iconDescription: Піктограма цього пункту меню
     variant: Варіант
+    variantDescription: Візуальний стиль цього посилання або кнопки
     selectVariant: Вибрати варіант посилання
     size: Розмір
     selectSize: Вибрати розмір
     selectButtonVariant: Вибрати варіант кнопки
     textFont: Шрифт тексту
+    textFontDescription: Шрифт підпису цього пункту меню
     selectTextFont: Вибрати шрифт тексту
     textSize: Розмір тексту
     selectTextSize: Вибрати розмір тексту
@@ -3546,6 +3808,7 @@ menuItem:
     prefixIcon: Префікс іконка
     suffixIcon: Суфікс іконка
     additionalClasses: Додаткові класи
+    additionalClassesDescription: Додаткові CSS-класи для цього пункту меню
     additionalClassesPlaceholder: жирний шрифт
     doNotCombineClassName: Не поєднувати з типовими
     doNotCombineClassNameDescription: Якщо увімкнено, застосовуються лише ваші додаткові класи (типові класи пропускаються)
@@ -3553,6 +3816,7 @@ menuItem:
     textColorDescription: Перевизначити колір тексту пункту меню
     showOnMobileHeader: Показувати в мобільному заголовку
     showOnMobileHeaderDescription: Залишити цей пункт видимим у заголовку на мобільному (поруч із кнопкою меню). Можна увімкнути лише для одного пункту; він також залишається в меню-шухляді.
+    useDifferentLabel: Використати інший напис
   card:
     moveMenuItem: Перемістити пункт меню
     itemType: Тип елемента
@@ -3683,10 +3947,7 @@ payment:
     refundSuccessDescription: Оплату було успішно повернено
     refundError: Повернення оплати не вдалося
     refundErrorDescription: Повернення оплати не вдалося. Дивіться деталі в консолі браузера
-    paymentAppRequired:
-      Налаштуйте платіжний застосунок за замовчуванням у розділі
-      Додатки → Додатки за замовчуванням, перш ніж створювати
-      посилання на оплату.
+    paymentAppRequired: Налаштуйте платіжний застосунок за замовчуванням у розділі Додатки → Додатки за замовчуванням, перш ніж створювати посилання на оплату.
   descriptions:
     fullPayment: Повна оплата
     deposit: Депозит
@@ -3714,6 +3975,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: Відповідь на текстове повідомлення - повідомити користувача
+text-message-reply:
+  handledBy: Відповідь на текстове повідомлення
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Коли до запису залишилось принаймні {duration}
@@ -3727,7 +3990,9 @@ cancellationsAndReschedules:
       title: Для записів з завдатком
     withoutDeposit:
       title: Для записів без завдатку
-    enabledTooltip: Увімкнути можливість клієнтам скасовувати запис самостійно
+    enabled:
+      label: Дозволено
+      tooltip: Налаштуйте, чи можуть клієнти самостійно скасовувати запис
     doNotAllowIfRescheduled:
       label: Дозволяти, якщо перенесено
       tooltip: Налаштувати, чи можна скасувати запис, якщо він був перенесений
@@ -3787,7 +4052,9 @@ cancellationsAndReschedules:
     delete: Видалити
   reschedulePolicy:
     title: Перенесення
-    enabledTooltip: Увімкнути можливість клієнтам переносити запис самостійно
+    enabled:
+      label: Дозволено
+      tooltip: Налаштуйте, чи можуть клієнти самостійно переносити запис
     default:
       title: Правило за замовчуванням
       tooltip: Налаштувати правило за замовчуванням, яка буде застосована, якщо інша правило не застосовна
@@ -4059,7 +4326,12 @@ users:
       max: Посада має містити не більше 80 символів
     bio:
       max: Біографія має містити не більше 1024 символів
+smsConsent:
+  attest: Я підтверджую, що клієнт погодився отримувати текстові повідомлення
+  already: Цей клієнт уже погодився отримувати текстові повідомлення.
+  optedOut: Цей номер відписався. Клієнт має надіслати START, щоб знову отримувати нагадування.
 memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
+

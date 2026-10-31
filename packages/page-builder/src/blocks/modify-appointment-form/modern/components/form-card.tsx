@@ -1,5 +1,6 @@
 "use client";
 
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import React, { useMemo } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,25 +8,23 @@ import { DateTime, DateTime as LuxonDateTime } from "luxon";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  Combobox,
-  DateTimePicker,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  IComboboxItem,
-  SimpleTimePicker,
-  use12HourFormat,
-  usePrevious,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { use12HourFormat, usePrevious } from "@hacado/ui/hooks";
+import { DateTimePicker, SimpleTimePicker } from "@hacado/ui/time-picker";
 
-import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { HourNumbers, MinuteNumbers } from "@hacado/types";
-import { deepEqual, formatTime, parseTime } from "@hacado/utils";
+import { HourNumbers, MinuteNumbers } from "@hacado/types/booking";
+import { deepEqual } from "@hacado/utils/deep-equal";
+import { formatTime, parseTime } from "@hacado/utils/time";
 import { getTimeZones } from "@vvo/tzdb";
 import { useModifyAppointmentFormContext } from "./context";
 

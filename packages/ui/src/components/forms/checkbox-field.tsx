@@ -1,6 +1,6 @@
 import { FormControl, FormField } from "../form";
 
-import { WithLabelFieldData } from "@hacado/types";
+import { WithLabelFieldData } from "@hacado/types/booking";
 import { FieldValues } from "react-hook-form";
 import { Checkbox } from "../checkbox";
 import { FormFieldDescription } from "./form-field-description";

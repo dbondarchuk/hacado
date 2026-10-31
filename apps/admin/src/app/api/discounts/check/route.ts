@@ -1,7 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
-import { checkDiscountNameAndCodeParamsLoader } from "@hacado/api-sdk";
+import { checkDiscountNameAndCodeParamsLoader } from "@hacado/api-sdk/admin/search-params/discounts";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
   // }
 
   const result =
-    await servicesContainer.servicesService.checkDiscountUniqueNameAndCode(
+    await servicesContainer.catalogService.checkDiscountUniqueNameAndCode(
       params.name ?? undefined,
       params.codes ?? undefined,
       params.id ?? undefined,

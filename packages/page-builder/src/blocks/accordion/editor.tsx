@@ -1,14 +1,14 @@
 "use client";
 
+import { EditorChildren } from "@hacado/builder/blocks";
 import {
-  BlockFilterRule,
-  EditorChildren,
   useBlockChildrenBlockIds,
-  useBlockEditor,
   useCurrentBlock,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
-import { cn } from "@hacado/ui";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockFilterRule } from "@hacado/builder/types";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
 import { useMemo } from "react";
 import { AccordionProvider } from "./context";
 import { getInitialOpenItemIds, type AccordionOpenChild } from "./open-state";

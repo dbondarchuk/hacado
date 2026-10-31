@@ -1,25 +1,27 @@
 "use client";
 
 import { TeamSeatsCapacityHint } from "@/components/admin/team/team-seats-capacity-hint";
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Input,
-  Label,
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -49,7 +51,7 @@ export function InviteMemberButton({
       setLoading(true);
       await toastPromise(
         (async () => {
-          const result = await adminApi.teams.inviteMember({ email, role });
+          const result = await teamsApi.inviteMember({ email, role });
           if (!result.ok) {
             throw new Error(result.code);
           }

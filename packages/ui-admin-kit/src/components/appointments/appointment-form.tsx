@@ -1,17 +1,15 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { fallbackLanguage, useI18n } from "@hacado/i18n/client";
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   Appointment,
   AppointmentAddon,
   AppointmentChoice,
   AppointmentEventRequest,
   AppointmentFields,
-  asOptinalNumberField,
   CalendarEvent,
-  Customer,
-  CustomerListModel,
   CustomerPackage,
   Discount,
   effectiveAddonDuration,
@@ -22,11 +20,21 @@ import {
   getFields,
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
-  OrganizationMember,
-  Prettify,
   WithLabelFieldData,
+} from "@hacado/types/booking";
+import { Customer, CustomerListModel } from "@hacado/types/customers";
+import { OrganizationMember } from "@hacado/types/users";
+import {
+  asOptinalNumberField,
+  Prettify,
   zNonEmptyString,
-} from "@hacado/types";
+} from "@hacado/types/utils";
+import { CustomerPackageSelector } from "@hacado/ui-admin/customer-package-selector";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
+import { PromoCodeSelector } from "@hacado/ui-admin/promo-code-selector";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,50 +43,56 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Checkbox,
-  cn,
-  Combobox,
-  DateTimePicker,
-  DurationInput,
-  fieldSchemaMapper,
-  fieldsComponentMap,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
+import { Combobox } from "@hacado/ui/combobox";
+import {
+  useCurrencyFormat,
+  useCurrencySymbol,
+  useTimeZone,
+} from "@hacado/ui/context";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  MultiSelect,
-  Spinner,
-  Textarea,
-  toastPromise,
-  use12HourFormat,
-  useCurrencyFormat,
-  useCurrencySymbol,
-  useTimeZone,
-} from "@hacado/ui";
-import {
-  CustomerPackageSelector,
-  CustomerSelector,
-  MemberSelector,
-  PromoCodeSelector,
-} from "@hacado/ui-admin";
-import { durationToTime, formatAmount, getDiscountAmount } from "@hacado/utils";
+} from "@hacado/ui/input-group";
+import { MultiSelect } from "@hacado/ui/multi-select";
+import { appointmentSmsConsentKind } from "@hacado/ui/sms-consent-choice";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Textarea } from "@hacado/ui/textarea";
+import { DateTimePicker } from "@hacado/ui/time-picker";
+import { formatAmount, getDiscountAmount } from "@hacado/utils/currency";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { durationToTime } from "@hacado/utils/time";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarClock, Clock, DollarSign, X } from "lucide-react";
+import { Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "../sms-consent-attest";
 import { AppointmentCalendar } from "./appointment-calendar";
 import {
   isSubscriptionPastDueError,
@@ -114,6 +128,7 @@ export type AppointmentScheduleFormProps = Prettify<
     customer?: Customer | null;
     currentMemberId: string;
     canAssignMember: boolean;
+    smsText?: CustomerAppointmentTextOffer | null;
   } & (
     | ({
         from: AppointmentScheduleFormFrom;
@@ -177,8 +192,10 @@ export const AppointmentScheduleForm: React.FC<
   customer: propsCustomer,
   canAssignMember,
   currentMemberId,
+  smsText,
 }) => {
   const t = useI18n("admin");
+  const [smsConsent, setSmsConsent] = React.useState(false);
   const timeZone = useTimeZone();
   const currencyFormat = useCurrencyFormat();
   const currencySymbol = useCurrencySymbol();
@@ -266,7 +283,7 @@ export const AppointmentScheduleForm: React.FC<
         result.error.issues.forEach((err) => {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            path: [`fields.${err.path}`],
+            path: ["fields", ...err.path],
             message: err.message,
           });
         });
@@ -432,8 +449,6 @@ export const AppointmentScheduleForm: React.FC<
     });
   }, [dateTime, duration, calendarEvents]);
 
-  const { isValid } = useFormState(form);
-
   const onSubmit = async (data: FormValues) => {
     try {
       const option = options.find((opt) => opt._id === data.option);
@@ -488,7 +503,7 @@ export const AppointmentScheduleForm: React.FC<
 
       const appointmentEvent: AppointmentEventRequest = {
         dateTime: data.dateTime,
-        optionId: eventOption._id,
+        serviceId: eventOption._id,
         fields,
         totalDuration: data.totalDuration,
         totalPrice: data.customerPackageId ? 0 : data.totalPrice,
@@ -507,7 +522,7 @@ export const AppointmentScheduleForm: React.FC<
       let appointmentId = id;
       if (isEdit) {
         await toastPromise(
-          adminApi.appointments.updateAppointment(
+          appointmentsApi.updateAppointment(
             id,
             appointmentEvent,
             files,
@@ -521,10 +536,11 @@ export const AppointmentScheduleForm: React.FC<
         );
       } else {
         const result = await toastPromise(
-          adminApi.appointments.createAppointment(
+          appointmentsApi.createAppointment(
             appointmentEvent,
             files,
             data.confirmed,
+            smsConsent,
           ),
           {
             success: t("appointments.form.scheduledSuccess"),
@@ -577,7 +593,7 @@ export const AppointmentScheduleForm: React.FC<
       totalDuration: duration,
       totalPrice: price,
       fields: { name, email, phone },
-      option: {
+      service: {
         ...selectedOption,
         fields: undefined,
         addons: undefined,
@@ -752,7 +768,7 @@ export const AppointmentScheduleForm: React.FC<
   React.useEffect(() => {
     if (!customerPackageId || !customerPackage) return;
     if (
-      !customerPackage.items.some((item) => item.optionId === selectedOptionId)
+      !customerPackage.items.some((item) => item.serviceId === selectedOptionId)
     ) {
       form.setValue("customerPackageId", null);
       setCustomerPackage(undefined);
@@ -768,16 +784,26 @@ export const AppointmentScheduleForm: React.FC<
     });
   }, [customerId, setDisabledFields]);
 
+  const smsPhone = String(form.watch("fields.phone") ?? customer?.phone ?? "");
+  const smsConsentStatus = useCustomerPhoneSmsConsent(
+    !isEdit ? customer?._id : undefined,
+    !isEdit ? smsPhone : undefined,
+  );
+
   const onCustomerChange = (c?: CustomerListModel) => {
     setCustomer(c);
     if (!packageLocked) {
       form.setValue("customerPackageId", null);
       setCustomerPackage(undefined);
     }
-    if (!!c) {
+    if (c?.smsConsent) {
+      setSmsConsent(false);
+    }
+    if (c) {
       form.setValue("fields.name", c.name);
       form.setValue("fields.email", c.email);
       form.setValue("fields.phone", c.phone);
+      void form.trigger(["fields.name", "fields.email", "fields.phone"]);
     }
   };
 
@@ -790,7 +816,7 @@ export const AppointmentScheduleForm: React.FC<
         onOpenChange={setIsPastDueDialogOpen}
       />
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex w-full flex-col gap-4 pb-24">
           <div className="flex flex-col md:grid md:grid-cols-2 gap-2">
             <div className="w-full space-y-4 relative px-1 pb-2 content-start">
               <FormField
@@ -798,9 +824,9 @@ export const AppointmentScheduleForm: React.FC<
                 name="option"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("appointments.form.appointmentType")}
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Combobox
                         disabled={loading || packageLocked}
@@ -854,7 +880,9 @@ export const AppointmentScheduleForm: React.FC<
                 name="dateTime"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appointments.form.dateTime")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("appointments.form.dateTime")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DateTimePicker
                         use12HourFormat={uses12HourFormat}
@@ -953,7 +981,7 @@ export const AppointmentScheduleForm: React.FC<
                         <CustomerPackageSelector
                           value={field.value ?? undefined}
                           customerId={customerId || undefined}
-                          optionId={selectedOptionId || undefined}
+                          serviceId={selectedOptionId || undefined}
                           memberId={selectedMemberId || undefined}
                           dateTime={dateTime}
                           disabled={loading || packageLocked}
@@ -986,6 +1014,24 @@ export const AppointmentScheduleForm: React.FC<
                     form.control,
                     loading || disabledFields.has(field.name),
                   )}
+                  {field.name === "phone" &&
+                  !isEdit &&
+                  appointmentSmsConsentKind(smsText) ? (
+                    <SmsConsentAttest
+                      id="smsConsent"
+                      phone={smsPhone}
+                      status={
+                        customer?._id
+                          ? smsConsentStatus
+                          : normalizeToE164(smsPhone)
+                            ? "missing"
+                            : undefined
+                      }
+                      checked={smsConsent}
+                      disabled={loading}
+                      onCheckedChange={setSmsConsent}
+                    />
+                  ) : null}
                 </React.Fragment>
               ))}
               <FormField
@@ -1017,7 +1063,9 @@ export const AppointmentScheduleForm: React.FC<
                 name="totalDuration"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appointments.form.duration")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("appointments.form.duration")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DurationInput disabled={loading} {...field} />
                     </FormControl>
@@ -1095,26 +1143,15 @@ export const AppointmentScheduleForm: React.FC<
                   control={form.control}
                   name="confirmed"
                   render={({ field }) => (
-                    <FormItem>
-                      <div className="flex flex-row items-center gap-2">
-                        <Checkbox
-                          id="confirmed"
-                          disabled={loading}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormLabel
-                          htmlFor="confirmed"
-                          className="cursor-pointer"
-                        >
-                          {t("appointments.form.confirmAppointment")}
-                        </FormLabel>
-                      </div>
-                      <FormDescription>
-                        {t("appointments.form.confirmAppointmentDescription")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                    <SwitchCardFormItem
+                      label={t("appointments.form.confirmAppointment")}
+                      description={t(
+                        "appointments.form.confirmAppointmentDescription",
+                      )}
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={loading}
+                    />
                   )}
                 />
               )}
@@ -1123,49 +1160,27 @@ export const AppointmentScheduleForm: React.FC<
                   control={form.control}
                   name="doNotNotifyCustomer"
                   render={({ field }) => (
-                    <FormItem>
-                      <div className="flex flex-row items-center gap-2">
-                        <Checkbox
-                          id="doNotNotifyCustomer"
-                          disabled={loading}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormLabel
-                          htmlFor="doNotNotifyCustomer"
-                          className="cursor-pointer"
-                        >
-                          {t("appointments.form.doNotNotifyCustomer")}
-                        </FormLabel>
-                      </div>
-                      <FormDescription>
-                        {t("appointments.form.doNotNotifyCustomerDescription")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                    <SwitchCardFormItem
+                      label={t("appointments.form.doNotNotifyCustomer")}
+                      description={t(
+                        "appointments.form.doNotNotifyCustomerDescription",
+                      )}
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={loading}
+                    />
                   )}
                 />
               )}
               {isOverlaping && (
-                <FormItem>
-                  <div className="flex flex-row items-center gap-2">
-                    <Checkbox
-                      id="confirm-overlap"
-                      disabled={loading}
-                      checked={confirmOverlap}
-                      onCheckedChange={(e) => setConfirmOverlap(!!e)}
-                    />
-                    <FormLabel
-                      htmlFor="confirm-overlap"
-                      className="cursor-pointer"
-                    >
-                      {t("appointments.form.confirmOverlap")}
-                    </FormLabel>
-                  </div>
-                  <FormDescription>
-                    {t("appointments.form.confirmOverlapDescription")}
-                  </FormDescription>
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("appointments.form.confirmOverlap")}
+                  description={t("appointments.form.confirmOverlapDescription")}
+                  checked={confirmOverlap}
+                  onCheckedChange={setConfirmOverlap}
+                  disabled={loading}
+                  required
+                />
               )}
               {unassignedIssues.needsAcknowledgement && (
                 <FormField
@@ -1208,28 +1223,21 @@ export const AppointmentScheduleForm: React.FC<
             </div>
           </div>
         </div>
-        <Button
+        <SaveButton
+          form={form}
+          ignoreDirty
+          isLoading={loading}
           disabled={
-            loading ||
-            !isValid ||
             (isOverlaping && !confirmOverlap) ||
             (unassignedIssues.needsAcknowledgement &&
               !acknowledgeUnassignedMember)
           }
-          className="ml-auto self-end fixed bottom-4 right-4 inline-flex gap-1 items-center z-50"
-          type="submit"
-        >
-          {loading ? (
-            <Spinner className="w-4 h-4" />
-          ) : (
-            <CalendarClock className="w-4 h-4" />
-          )}{" "}
-          {t(
+          text={t(
             isEdit
               ? "appointments.form.updateAppointment"
               : "appointments.form.scheduleAppointment",
           )}
-        </Button>
+        />
       </form>
       <AlertDialog
         open={unassignedDialogOpen}

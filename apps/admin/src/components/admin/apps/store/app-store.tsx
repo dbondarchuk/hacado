@@ -3,23 +3,22 @@ import { authClient } from "@/app/auth-client";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { ConnectedAppNameAndLogo } from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent } from "@hacado/ui/card";
 import {
-  Button,
-  Card,
-  CardContent,
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  Heading,
-  Input,
-  Link,
-  Markdown,
-} from "@hacado/ui";
-import { ConnectedAppNameAndLogo } from "@hacado/ui-admin";
-import { canInstallApp } from "@hacado/utils";
+} from "@hacado/ui/carousel";
+import { Heading } from "@hacado/ui/heading";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import { Markdown } from "@hacado/ui/markdown";
+import { canInstallApp } from "@hacado/utils/app-access";
 import React from "react";
 
 export type AppStoreProps = {};

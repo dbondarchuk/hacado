@@ -1,6 +1,6 @@
 import { getSession } from "@/app/utils";
 import { redirectIfFeatureUnavailable } from "@/lib/billing/subscription-feature-guard";
-import { canAccessFinancialsSection } from "@hacado/utils";
+import { canAccessFinancialsSection } from "@hacado/utils/permissions";
 import { forbidden } from "next/navigation";
 
 export default async function FinancialsLayout({

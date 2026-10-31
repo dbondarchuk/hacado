@@ -2,7 +2,8 @@
 
 import type { SlateRenderElementProps } from "@udecode/plate";
 
-import { Checkbox, cn } from "@hacado/ui";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
 import {
   useIndentTodoListElement,
   useIndentTodoListElementState,

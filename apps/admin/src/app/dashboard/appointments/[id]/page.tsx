@@ -1,7 +1,7 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Skeleton } from "@hacado/ui";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { AppointmentViewWrapper } from "./appointment-view-wrapper";
@@ -14,7 +14,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { id } = await props.params;
   const appointment = await getAppointment(id);
   return {
-    title: appointment?.option.name,
+    title: appointment?.service.name,
     description: t("appointments.detail.by", {
       name: appointment?.fields.name,
     }),

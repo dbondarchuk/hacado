@@ -1,10 +1,11 @@
-import { InstallKeys } from "@hacado/i18n";
+import type { InstallKeys } from "@hacado/i18n/keys";
+
 import {
   getPolarBillingPlansFromEnv,
   PolarBillingPlanDef,
   resolvePlanTierFromProductId,
 } from "@hacado/services/billing";
-import { BillingPlanTier } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types/billing";
 
 export type PolarBillingPlanSlug = BillingPlanTier;
 export type { PolarBillingPlanDef };

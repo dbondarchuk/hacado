@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { OUTLOOK_APP_NAME } from "./const";
 import { OutlookLogo } from "./logo";
 import { OutlookAdminKeys, OutlookAdminNamespace } from "./translations/types";

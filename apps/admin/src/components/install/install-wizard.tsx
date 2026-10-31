@@ -33,8 +33,9 @@ import type {
   WizardStep,
 } from "@/components/install/types";
 import { WEBSITE_PACK_IDS } from "@hacado/page-builder/templates";
-import type { ConnectedApp, Schedule } from "@hacado/types";
-import { Spinner } from "@hacado/ui";
+import type { ConnectedApp } from "@hacado/types/apps";
+import type { Schedule } from "@hacado/types/configuration/schedule";
+import { Spinner } from "@hacado/ui/spinner";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function isRememberedWebsitePack(value: string | null): value is string {

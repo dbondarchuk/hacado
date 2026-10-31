@@ -2,24 +2,24 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   bookingCatalogNodeSchema,
-  catalogPathForOption,
+  catalogPathForService,
   filterCatalogNodes,
-  flattenCatalogOptionIds,
   flattenCatalogPackageIds,
+  flattenCatalogServiceIds,
   moveCatalogNode,
   normalizeCatalogNodes,
   type BookingCatalogNode,
 } from "./index";
 
 const tree = (): BookingCatalogNode[] => [
-  { type: "option", id: "svc-a", optionId: "aaa" },
+  { type: "service", id: "svc-a", serviceId: "aaa" },
   {
     type: "group",
     id: "group-1",
     name: "Massage",
     children: [{ type: "package", id: "pkg-1", packageId: "ppp" }],
   },
-  { type: "option", id: "svc-b", optionId: "bbb" },
+  { type: "service", id: "svc-b", serviceId: "bbb" },
 ];
 
 describe("moveCatalogNode", () => {
@@ -48,9 +48,9 @@ describe("moveCatalogNode", () => {
   });
 });
 
-describe("catalogPathForOption", () => {
+describe("catalogPathForService", () => {
   it("returns empty path for a root service", () => {
-    assert.deepEqual(catalogPathForOption(tree(), "aaa"), []);
+    assert.deepEqual(catalogPathForService(tree(), "aaa"), []);
   });
 
   it("returns group ids to a nested service", () => {
@@ -59,41 +59,41 @@ describe("catalogPathForOption", () => {
         type: "group",
         id: "group-1",
         name: "Massage",
-        children: [{ type: "option", id: "svc-b", optionId: "bbb" }],
+        children: [{ type: "service", id: "svc-b", serviceId: "bbb" }],
       },
     ];
-    assert.deepEqual(catalogPathForOption(catalog, "bbb"), ["group-1"]);
+    assert.deepEqual(catalogPathForService(catalog, "bbb"), ["group-1"]);
   });
 
   it("returns undefined when the service is missing", () => {
-    assert.equal(catalogPathForOption(tree(), "missing"), undefined);
+    assert.equal(catalogPathForService(tree(), "missing"), undefined);
   });
 });
 
 describe("catalog leaf ids", () => {
   it("collects services and packages across root and groups", () => {
     const catalog: BookingCatalogNode[] = [
-      { type: "option", id: "svc-a", optionId: "aaa" },
+      { type: "service", id: "svc-a", serviceId: "aaa" },
       {
         type: "group",
         id: "group-1",
         name: "Massage",
         children: [
           { type: "package", id: "pkg-1", packageId: "ppp" },
-          { type: "option", id: "svc-b", optionId: "bbb" },
+          { type: "service", id: "svc-b", serviceId: "bbb" },
         ],
       },
     ];
-    assert.deepEqual(flattenCatalogOptionIds(catalog), ["aaa", "bbb"]);
+    assert.deepEqual(flattenCatalogServiceIds(catalog), ["aaa", "bbb"]);
     assert.deepEqual(flattenCatalogPackageIds(catalog), ["ppp"]);
   });
 
   it("skips empty ids", () => {
     const catalog: BookingCatalogNode[] = [
-      { type: "option", id: "svc-a", optionId: "" },
+      { type: "service", id: "svc-a", serviceId: "" },
       { type: "package", id: "pkg-1", packageId: "" },
     ];
-    assert.deepEqual(flattenCatalogOptionIds(catalog), []);
+    assert.deepEqual(flattenCatalogServiceIds(catalog), []);
     assert.deepEqual(flattenCatalogPackageIds(catalog), []);
   });
 });
@@ -159,15 +159,15 @@ describe("filterCatalogNodes", () => {
 
   it("drops groups whose services are filtered out", () => {
     const catalog: BookingCatalogNode[] = [
-      { type: "option", id: "svc-a", optionId: "aaa" },
+      { type: "service", id: "svc-a", serviceId: "aaa" },
       {
         type: "group",
         id: "group-1",
         name: "Massage",
-        children: [{ type: "option", id: "svc-b", optionId: "bbb" }],
+        children: [{ type: "service", id: "svc-b", serviceId: "bbb" }],
       },
     ];
-    const next = filterCatalogNodes(catalog, { optionIds: ["aaa"] });
+    const next = filterCatalogNodes(catalog, { serviceIds: ["aaa"] });
     assert.deepEqual(
       next.map((node) => node.id),
       ["svc-a"],
@@ -182,7 +182,7 @@ describe("filterCatalogNodes", () => {
         name: "Massage",
         children: [
           { type: "package", id: "pkg-1", packageId: "ppp" },
-          { type: "option", id: "svc-b", optionId: "bbb" },
+          { type: "service", id: "svc-b", serviceId: "bbb" },
         ],
       },
     ];

@@ -1,5 +1,5 @@
 import { authClient } from "@/app/auth-client";
-import { BillingPlanTier, SubscriptionFeature } from "@hacado/types";
+import { BillingPlanTier, SubscriptionFeature } from "@hacado/types/billing";
 import { sessionCanUseFeature } from "./subscription-plan-access";
 
 export const useCanUseFeature = (feature: SubscriptionFeature) => {

@@ -1,30 +1,33 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
-  Checkbox,
-  DurationInput,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { PaypalApp } from "./app";
@@ -73,7 +76,9 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               name="clientId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.clientId.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.clientId.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       placeholder={t("form.clientId.placeholder")}
@@ -91,7 +96,9 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               name="secretKey"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.secretKey.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.secretKey.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       placeholder={t("form.secretKey.placeholder")}
@@ -109,7 +116,9 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               name="buttonStyle.color"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.buttonStyle.color.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.buttonStyle.color.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Select
                       value={field.value}
@@ -141,7 +150,9 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               name="buttonStyle.shape"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.buttonStyle.shape.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.buttonStyle.shape.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Select
                       value={field.value}
@@ -173,7 +184,9 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               name="buttonStyle.layout"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.buttonStyle.layout.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.buttonStyle.layout.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Select
                       value={field.value}
@@ -205,7 +218,9 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               name="buttonStyle.label"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.buttonStyle.label.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.buttonStyle.label.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Select
                       value={field.value}
@@ -237,134 +252,93 @@ export const PaypalAppSetup: React.FC<AppSetupProps> = ({
               control={form.control}
               name="enableGooglePay"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <div className="flex items-center gap-2">
-                    <FormControl>
-                      <Checkbox
-                        id="enableGooglePay"
-                        checked={field.value ?? false}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormLabel
-                      className="cursor-pointer"
-                      htmlFor="enableGooglePay"
-                    >
-                      {t("form.googlePay.label")}
-                    </FormLabel>
-                  </div>
-                  <FormDescription>
-                    {t.rich("form.googlePay.description", {
-                      link: (chunks: React.ReactNode) => (
-                        <a
-                          href="https://developer.paypal.com/docs/checkout/apm/google-pay/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline font-medium"
-                        >
-                          {chunks}
-                        </a>
-                      ),
-                    })}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.googlePay.label")}
+                  description={t.rich("form.googlePay.description", {
+                    link: (chunks: React.ReactNode) => (
+                      <a
+                        href="https://developer.paypal.com/docs/checkout/apm/google-pay/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline font-medium"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                  })}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                />
               )}
             />
             <FormField
               control={form.control}
               name="enableApplePay"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <div className="flex items-center gap-2">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value ?? false}
-                        onCheckedChange={field.onChange}
-                        id="enableApplePay"
-                      />
-                    </FormControl>
-                    <FormLabel
-                      className="cursor-pointer"
-                      htmlFor="enableApplePay"
-                    >
-                      {t("form.applePay.label")}
-                    </FormLabel>
-                  </div>
-                  <FormDescription>
-                    {t.rich("form.applePay.description", {
-                      link: (chunks: React.ReactNode) => (
-                        <a
-                          href="https://developer.paypal.com/docs/checkout/apm/apple-pay/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline font-medium"
-                        >
-                          {chunks}
-                        </a>
-                      ),
-                    })}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.applePay.label")}
+                  description={t.rich("form.applePay.description", {
+                    link: (chunks: React.ReactNode) => (
+                      <a
+                        href="https://developer.paypal.com/docs/checkout/apm/apple-pay/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline font-medium"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                  })}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                />
               )}
             />
             <FormField
               control={form.control}
               name="enableInStoreSync"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <div className="flex items-center gap-2">
-                    <FormControl>
-                      <Checkbox
-                        id="enableInStoreSync"
-                        checked={field.value ?? false}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormLabel
-                      className="cursor-pointer"
-                      htmlFor="enableInStoreSync"
-                    >
-                      {t("form.inStoreSync.label")}
-                    </FormLabel>
-                  </div>
-                  <FormDescription>
-                    {t("form.inStoreSync.description")}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.inStoreSync.label")}
+                  description={t("form.inStoreSync.description")}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={isLoading}
+                >
+                  {!!isInStoreSyncEnabled && (
+                    <FormField
+                      control={form.control}
+                      name="matchWindowMinutes"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>{t("form.matchWindow.label")}</FormLabel>
+                          <FormControl>
+                            <DurationInput
+                              type="hours-minutes"
+                              value={field.value ?? 0}
+                              disabled={isLoading}
+                              placeholderHours="2"
+                              placeholderMinutes="0"
+                              onBlur={field.onBlur}
+                              onChange={(val) => {
+                                field.onChange(val ?? 0);
+                                field.onBlur();
+                              }}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            {t("form.matchWindow.description")}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                </SwitchCardFormItem>
               )}
             />
-            {isInStoreSyncEnabled && (
-              <FormField
-                control={form.control}
-                name="matchWindowMinutes"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>{t("form.matchWindow.label")}</FormLabel>
-                    <FormControl>
-                      <DurationInput
-                        type="hours-minutes"
-                        value={field.value ?? 0}
-                        disabled={isLoading}
-                        placeholderHours="2"
-                        placeholderMinutes="0"
-                        onBlur={field.onBlur}
-                        onChange={(val) => {
-                          field.onChange(val ?? 0);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("form.matchWindow.description")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
             <Button
               disabled={isLoading || !isValid}
               type="submit"

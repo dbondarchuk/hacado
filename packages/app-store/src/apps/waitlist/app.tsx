@@ -1,8 +1,6 @@
-import {
-  App,
-  APPOINTMENT_CREATED_EVENT_TYPE,
-  BillingPlanTier,
-} from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { APPOINTMENT_CREATED_EVENT_TYPE } from "@hacado/types/events";
 import { CalendarClock } from "lucide-react";
 import { WAITLIST_APP_NAME } from "./const";
 import { WaitlistAdminKeys } from "./translations/types";
@@ -19,6 +17,7 @@ export const WaitlistApp: App<"app_waitlist_admin", WaitlistAdminKeys> = {
     "event-subscriber",
     "dashboard-notifier",
     "quick-link-provider",
+    "command-search-provider",
     "customer-tab",
     "demo-arguments-provider",
     "communication-templates-provider",

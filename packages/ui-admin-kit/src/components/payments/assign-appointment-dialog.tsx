@@ -1,47 +1,44 @@
 "use client";
 
-import { adminApi, appointmentsSearchParams } from "@hacado/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
+import { appointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import {
   Appointment,
   AppointmentStatus,
   appointmentStatuses,
   AppointmentWithReferenceDateDistance,
-  DateRange,
-  Sort,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { Sort } from "@hacado/types/database";
+import { DateRange } from "@hacado/types/general";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { CustomerName, DataTableFilterBox } from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { CalendarDateRangePicker } from "@hacado/ui/date-range-picker";
 import {
-  Button,
-  CalendarDateRangePicker,
-  cn,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Input,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  RadioGroup,
-  RadioGroupItem,
-  ScrollArea,
-  Spinner,
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Spinner } from "@hacado/ui/spinner";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import {
-  CustomerName,
-  CustomerSelector,
-  DataTableFilterBox,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/table";
 import { ArrowDown, ArrowUp, ChevronsUpDown, Settings2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -193,11 +190,11 @@ export const AssignAppointmentDialog = ({
       };
 
       const result = referenceDate
-        ? await adminApi.appointments.getAppointments({
+        ? await appointmentsApi.getAppointments({
             ...request,
             referenceDate,
           })
-        : await adminApi.appointments.getAppointments(request);
+        : await appointmentsApi.getAppointments(request);
 
       if (current === requestId.current) {
         setItems(result.items);
@@ -397,7 +394,7 @@ export const AssignAppointmentDialog = ({
                   <TableHead className="w-10" />
                   <TableHead>
                     {renderSortHead(
-                      "option.name",
+                      "service.name",
                       "syncedPayments.assignDialog.columns.option",
                     )}
                   </TableHead>
@@ -471,10 +468,10 @@ export const AssignAppointmentDialog = ({
                           <RadioGroupItem
                             value={appointment._id}
                             disabled={isCurrent}
-                            aria-label={appointment.option.name}
+                            aria-label={appointment.service.name}
                           />
                         </TableCell>
-                        <TableCell>{appointment.option.name}</TableCell>
+                        <TableCell>{appointment.service.name}</TableCell>
                         <TableCell>
                           {appointment.customer?.name ? (
                             <CustomerName customer={appointment.customer} />

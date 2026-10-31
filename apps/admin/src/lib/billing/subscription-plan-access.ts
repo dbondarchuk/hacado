@@ -5,18 +5,17 @@ import {
 } from "@hacado/app-store";
 import {
   BRAND_SETTINGS_UPGRADE_URL,
-  canUseFeature,
-  isFreeTier,
   resolvePlanTierFromProductId,
 } from "@hacado/services/billing";
+import type { SubscriptionFeature } from "@hacado/types/billing";
 import {
   BillingPlanTier,
   canCreateMorePages,
   canCreateMoreServices,
   DEFAULT_MINIMUM_PLAN_TIER,
   meetsMinimumPlanTier,
-  type SubscriptionFeature,
-} from "@hacado/types";
+} from "@hacado/types/billing";
+import { canUseFeature } from "@hacado/utils/subscription";
 
 export {
   BRAND_SETTINGS_UPGRADE_URL,
@@ -24,9 +23,7 @@ export {
   canCreateMoreServices,
   canInstallApp,
   canProcessApp,
-  canUseFeature,
   getAppMinimumPlanTier,
-  isFreeTier,
   resolvePlanTierFromProductId,
 };
 

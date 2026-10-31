@@ -1,15 +1,15 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { calendarApi } from "@hacado/api-sdk/admin/calendar";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Appointment,
   CalendarEvent,
-  DaySchedule,
   isClosedAppointmentStatus,
-} from "@hacado/types";
-import { useTimeZone } from "@hacado/ui";
-import { getColorForName } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
+import { useTimeZone } from "@hacado/ui/context";
+import { getColorForName } from "@hacado/utils/colors";
 import {
   CheckCircle,
   DollarSign,
@@ -79,7 +79,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
       setLoading(true);
       setEvents([]);
 
-      const result = await adminApi.calendar.getCalendar({
+      const result = await calendarApi.getCalendar({
         start: DateTime.fromJSDate(start)
           .setZone(timeZone)
           .startOf("day")
@@ -116,7 +116,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
           start: start.toJSDate(),
           end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
           id: app._id,
-          title: app.option.name,
+          title: app.service.name,
           customerName: app.fields.name,
           member: app.member
             ? {
@@ -196,7 +196,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
             <dt className="flex self-center items-center gap-1">
               <Presentation size={16} /> {t("calendar.appointment")}:
             </dt>
-            <dd className="col-span-2">{found.option.name}</dd>
+            <dd className="col-span-2">{found.service.name}</dd>
           </div>
           {customerName && (
             <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">

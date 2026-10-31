@@ -1,10 +1,10 @@
 "use client";
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import {
   applyBookingLocks,
   GetAppointmentOptionsResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../components/fixtures";
 import {
@@ -64,7 +64,7 @@ export const BookingWithWaitlist: React.FC<
   );
 
   const loadOptions = React.useCallback(async () => {
-    const data = await clientApi.booking.getBookingOptions();
+    const data = await bookingApi.getBookingOptions();
     setResponse(data);
   }, []);
 
@@ -114,6 +114,7 @@ export const BookingWithWaitlist: React.FC<
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}
+      smsText={response?.smsText}
       isEditor={isEditor}
       waitlistAppId={appId}
       isOnlyWaitlist={isOnlyWaitlist ?? false}

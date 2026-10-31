@@ -1,4 +1,4 @@
-import { DaySchedule } from "@hacado/types";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import {
   ScheduleSearchParams,
   serializeScheduleSearchParams,

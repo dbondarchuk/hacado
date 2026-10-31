@@ -10,13 +10,13 @@ common:
   selectRow: Seleccionar fila
   labels:
     languages:
-      en: English
-      en-CA: English (Canada)
-      fr: Français
-      fr-CA: Français (Canada)
+      en: Inglés
+      en-CA: Inglés (Canadá)
+      fr: francés
+      fr-CA: Francés (Canadá)
       es: Español
       es-MX: Español (México)
-      uk: Українська
+      uk: Ucrania
     channel:
       text-message: mensaje de texto
       email: Correo electrónico
@@ -79,7 +79,7 @@ common:
     more: Más
     save: Ahorrar
   optional: Opcional
-  timeDuration: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  timeDuration: pH<9 o pH>4
   custom: Costumbre
   navigationGuard:
     title: ¿Estás seguro de que quieres abandonar esta página?
@@ -88,6 +88,19 @@ common:
     leave: Dejar
   pricePerHour: "{price}/h"
 platformEvents:
+  smsVerification:
+    created:
+      title: Mensajes personalizados enviados
+      description: La verificación se envió a revisión.
+    pending:
+      title: Mensajes personalizados en revisión
+      description: La verificación está pendiente.
+    failed:
+      title: Los mensajes personalizados no fueron aprobados
+      description: 7.0 pH
+    succeeded:
+      title: Mensajes personalizados verificados
+      description: Los textos usan {phoneNumber}.
   customer:
     created:
       title: Nuevo cliente
@@ -218,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# add-on} other {# add-ons}}"
   appointmentOption:
     created:
-      title: Opción de servicio creada
+      title: Servicio creado
       description: "{name}"
     updated:
-      title: Opción de servicio actualizada
+      title: Servicio actualizado
       description: "{name}"
     deleted:
-      title: Opciones de servicio eliminadas
-      description: "{count, plural, =1 {# option} other {# options}}"
+      title: Servicios eliminados
+      description: "{count, plural, =1 {# servicio} other {# servicios}}"
   discount:
     created:
       title: Descuento creado
@@ -383,6 +396,30 @@ billing:
       title: Recarga por SMS completa
       message: Se agregó {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Se utilizan después de su grupo de suscripción incluido.
       action: Abrir configuración de facturación
+commandPalette:
+  placeholder: Buscar
+  typeHint: "Busca un solo tipo con un prefijo, como customer: o blog:."
+  empty: Sin resultados
+  loading: Buscando…
+  viewAll: Ver todo {label}
+  groups:
+    actions: Acciones rápidas
+    apps: Aplicaciones
+    installedApps: Apps instaladas
+  actions:
+    newAppointment: Nueva cita
+    newCustomer: Nuevo cliente
+    newPage: Nueva página
+    newHeader: Nuevo encabezado
+    newFooter: Nuevo pie de página
+    newTemplate: Nueva plantilla de correo
+    newOption: Nuevo servicio
+    newAddon: Nuevo complemento
+    newField: Nuevo campo
+    newDiscount: Nuevo descuento
+    newGiftCard: Nueva tarjeta de regalo
+    newPackage: Nuevo paquete
+    newAsset: Nuevo archivo
 navigation:
   overview: Descripción general
   dashboard: Panel
@@ -393,12 +430,14 @@ navigation:
   paymentsInbox: Bandeja de entrada de pagos
   financialOverview: Descripción general
   customerAccess: Acceso de clientes
+  textMessaging: Mensajes de texto
   schedule: Cronograma
   defaultSchedule: Horario predeterminado
+  catalog: Catálogo
   services: Servicios
   fields: Campos
   addons: Complementos
-  options: Opciones
+  options: Servicios
   discounts: Descuentos
   giftCards: Tarjetas de regalo
   packages: Paquetes
@@ -415,6 +454,17 @@ navigation:
   header: Encabezamiento
   footer: Pie de página
   settings: Ajustes
+  descriptions:
+    templates: Plantillas de correo y texto para los mensajes a clientes.
+    store: Explore las aplicaciones que puede instalar.
+    defaultApps: Elija las aplicaciones predeterminadas para pagos, correo y mensajes de texto.
+    fields: Preguntas que se recogen al reservar un servicio.
+    addons: Extras opcionales que los clientes pueden añadir a una reserva.
+    services: Servicios que se pueden reservar, con duración y precio.
+    discounts: Códigos promocionales y reducciones de precio.
+    giftCards: Tarjetas de regalo que los clientes pueden comprar y canjear.
+    packages: Paquetes de visitas prepagados.
+    soldPackages: Paquetes que los clientes han comprado.
   general: General
   brand: Marca
   social: Social
@@ -680,7 +730,7 @@ paymentsList:
     appointmentId: ID de cita
     appointmentDateTime: fecha de cita
     appointmentStatus: Estado de la cita
-    optionName: Nombre de la opción
+    optionName: Nombre del servicio
     addons: Complementos
     appointmentTotal: Total de citas
     feesTotal: Tarifas totales
@@ -843,7 +893,7 @@ appointments:
     columns:
       status: Estado
       statusAriaLabel: "Estado: {status}"
-      option: Opción
+      option: Servicio
       customer: Cliente
       member: Miembro del equipo
       dateTime: Fecha y hora
@@ -853,9 +903,9 @@ appointments:
       package: Paquete
       packageRestored: restaurado
       price: Precio
-      optionName: Nombre de la opción
-      optionPrice: Precio de la opción
-      optionDuration: Duración de la opción
+      optionName: Nombre del servicio
+      optionPrice: Precio del servicio
+      optionDuration: Duración del servicio
       selectedAddons: Complementos seleccionados
       note: Nota
       customerName: Nombre
@@ -930,7 +980,10 @@ appointments:
     refundError: Una o más solicitudes de reembolso han fallado.
     giftCardCode: Código de tarjeta de regalo
     paymentDescription: Descripción
+    refundPayment: Reembolsar este pago
+    refundPaymentDescription: Reembolsa una parte o la totalidad de este pago.
     refundFees: Tarifas de reembolso
+    refundFeesDescription: Incluir las comisiones de procesamiento en el reembolso.
   rescheduleDialog:
     title: Reprogramar la cita
     by: por
@@ -1012,8 +1065,8 @@ appointments:
     yes: Sí
     no: No
     service: Servicio
-    selectedOption: Opción seleccionada
-    option: Opción
+    selectedOption: Servicio seleccionado
+    option: Servicio
     description: Descripción
     selectedAddons: Complementos seleccionados
     meetingInformation:
@@ -1246,6 +1299,8 @@ communicationLogs:
     columns:
       direction: Dirección
       channel: Canal
+      status: Estado
+      reason: Motivo
       participantType: Partícipe
       participant: Partícipe
       handler: Entrenador de animales
@@ -1287,6 +1342,14 @@ customers:
   addPayment: Agregar pago
   files: Archivos
   communications: Comunicaciones
+  smsConsent:
+    title: Mensajes de texto
+    inactive: Este cliente no ha aceptado recibir mensajes de texto.
+    noPhone: Agregue un número de teléfono para gestionar el consentimiento de SMS.
+    revoke: Revocar el consentimiento
+    attested: Consentimiento registrado
+    revoked: Consentimiento revocado
+    error: No se pudo actualizar el consentimiento de SMS
   deletedCustomer: Cliente eliminado
   form:
     customerPhoto: Foto del cliente
@@ -1313,7 +1376,7 @@ customers:
     selectOption: Seleccionar opción
     always: Siempre
     never: Nunca
-    inherit: Igual que la opción seleccionada o configuración general
+    inherit: Igual que el servicio seleccionado o la configuración general
     knownNames: Nombres conocidos
     knownNamesTooltip: Nombres alternativos proporcionados por los clientes durante la solicitud de cita
     knownEmails: Correos electrónicos conocidos
@@ -1326,6 +1389,19 @@ customers:
     remove: Eliminar
     changePhoto: Cambiar foto
     customerPhotoAlt: Foto del cliente
+    photo: Foto
+    onlineBooking: Reserva en línea
+    onlineBookingDescription: Si está desactivado, este cliente no puede reservar por su cuenta. Solo usted puede agregar citas.
+    deposit: Depósito
+    depositDescription: Elija si este cliente debe pagar un depósito al reservar.
+    customDeposit: Requisito de depósito personalizado
+    customDepositTooltip: Usa una regla de depósito para este cliente en lugar del servicio o la configuración general.
+    notesPrivate: Solo usted y su equipo pueden ver las notas.
+    alsoKnownAs: También conocido como
+    alsoKnownAsDescription: Otros datos que este cliente puede usar. Los usamos para asociar nuevas solicitudes de reserva con este perfil.
+    names: Nombres
+    emails: Correos
+    phones: Teléfonos
   uploadFiles:
     title: Subir archivos
     description: Cargue archivos para su cliente
@@ -1393,6 +1469,13 @@ pages:
     pageSlug: Babosa de página
     pageSlugTooltip: URL relativa a la página. Por ejemplo, la página con el slug 'mi-nueva-página' estará disponible en 'tudominio.com/mi-nueva-página'
     pageSlugPlaceholder: Babosa de página
+    pageName: Nombre de la página
+    pageNamePlaceholder: p. ej. Políticas
+    url: URL
+    editUrl: Editar URL
+    slugGeneratedPlaceholder: creado-a-partir-del-nombre
+    slugAutoHint: Se completa al escribir el nombre. Puedes cambiarlo.
+    slugChangeWarning: Cambiar la URL puede romper los enlaces que ya has compartido.
     published: ¿Publicado?
     publishedTooltip: ¿La página es visible para sus visitantes?
     publishDate: Fecha de publicación
@@ -1570,6 +1653,8 @@ pages:
         tooltip: Color para el nombre del logotipo y el texto del menú.
       defaultColumn: Por defecto
       onScrollColumn: En desplazamiento
+      mobileColumn: Móvil
+      mobileOnScrollColumn: Móvil al desplazarse
       onScrollSection: En apariencia de desplazamiento
       onScrollSectionDescription: Anulaciones opcionales aplicadas después de desplazarse por la página
       mobileSection: Apariencia móvil
@@ -1653,6 +1738,7 @@ services:
   fieldSelectCard:
     moveField: Mover el campo {type}
     field: Campo
+    fieldDescription: Seleccione el campo personalizado que se recoge durante la reserva.
     required: Requerido
     requiredTooltip: Marca el campo como requerido
     deleteConfirmTitle: ¿Estás absolutamente seguro?
@@ -1672,7 +1758,252 @@ services:
   memberSelector:
     loading: Cargando miembros...
     selectMember: Seleccionar miembro
-  options:
+templates:
+  page:
+    title: Plantillas de comunicación
+  formPage:
+    typeTemplates: "{type} plantillas"
+    new: Nuevo
+  newPage:
+    title: Nueva plantilla {type}
+  editPage:
+    title: Actualizar plantilla
+    clone: Clon
+  addNew:
+    emptyTemplate: Plantilla vacía
+    add: Agregar
+    addNewTemplate: Agregar nueva plantilla
+    type: Tipo
+    selectTemplateType: Seleccionar tipo de plantilla
+    template: Plantilla
+    close: Cerca
+  form:
+    subject: Asunto del correo electrónico
+    subjectTooltip: Asunto del correo electrónico que se utilizará para enviar el mensaje.
+    subjectPlaceholder: Sujeto
+    name: Nombre de la plantilla
+    nameTooltip: Nombre de plantilla único
+    namePlaceholder: Nombre de la plantilla
+    validation:
+      templateNotValid: La plantilla no es válida
+    toasts:
+      changesSaved: Tus cambios fueron guardados.
+      requestError: Hubo un problema con tu solicitud.
+  textMessageBuilder:
+    content: Contenido del mensaje de texto
+    viewContext: Ver contexto
+    contextValues: Valores de contexto
+    copied: Copiado
+    copyPath: Copiar ruta
+    close: Cerca
+    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    preview: Avance
+  table:
+    filters:
+      type: Tipo
+      filters: Filtros
+    columns:
+      type: Tipo
+      name: Nombre
+      updatedAt: Actualizado en
+    cellAction:
+      templateDeleted: Se eliminó la plantilla "{name}".
+      deleteError: Hubo un problema con tu solicitud.
+      actions: Comportamiento
+      update: Actualizar
+      delete: Borrar
+      clone: Clon
+    deleteSelected:
+      success: Se han eliminado las plantillas seleccionadas.
+      error: Hubo un problema con tu solicitud.
+      button: Eliminar seleccionado {count, plural, =1 {template} other {# templates}}
+      confirmTitle: ¿Estás absolutamente seguro?
+      confirmDescription: Esta acción no se puede deshacer. Esto eliminará las plantillas seleccionadas y puede interrumpir las notificaciones que las usan.
+      cancel: Cancelar
+      deleteSelected: Eliminar seleccionado
+appearance:
+  styling:
+    title: Estilo
+    description: Ajustar el estilo general
+    form:
+      primaryFont: fuente principal
+      secondaryFont: fuente secundaria
+      tertiaryFont: fuente terciaria
+      selectFont: Seleccionar fuente
+      colorOverrides: Anulaciones de color
+      invalidField: Campo no válido
+      duplicateType: Tipo duplicado
+      remove: Eliminar
+      deleteConfirmTitle: ¿Estás absolutamente seguro?
+      deleteConfirmDescription: ¿Está seguro de que desea eliminar esta anulación de color?
+      cancel: Cancelar
+      delete: Borrar
+      type: Tipo
+      typeDescription: Qué color del tema reemplaza esta anulación.
+      selectColorOverrideType: Seleccionar tipo de anulación de color
+      color: Color
+      colorTooltip: Color en formato CSS (HEX, rgb, rgba, hsl)
+      additionalCss: CSS adicional
+      toasts:
+        changesSaved: Tus cambios fueron guardados.
+        requestError: Hubo un problema con tu solicitud.
+      fonts:
+        seeOnGoogleFonts: Ver en Google Fuentes
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Variantes: {variants}"
+          regular: Regular
+          italic: Itálico
+          bold: Atrevido
+          medium: Medio
+          semibold: Semi-negrita
+          extrabold: Extra-negrita
+          100italic: 100 cursiva
+          200italic: 200 cursiva
+          300italic: 300 cursiva
+          400italic: 400 cursiva
+          500italic: 500 cursiva
+          600italic: 600 cursiva
+          700italic: 700 cursiva
+          800italic: 800 cursiva
+          900italic: 900 cursiva
+        subsets:
+          label: "Subconjuntos: {subsets}"
+          latin: latín
+          latin-ext: latín extendido
+          vietnamese: vietnamita
+          cyrillic: cirílico
+          cyrillic-ext: cirílico extendido
+          greek: Griego
+          greek-ext: griego extendido
+          hebrew: hebreo
+          math: Matemáticas
+          symbols: Símbolos
+        category:
+          label: "Categoría: {category}"
+          sans-serif: Sans-serif
+          serif: Serifa
+          monospace: monoespacio
+          display: Mostrar
+          handwriting: Escritura
+          script: Guion
+          fantasy: Fantasía
+    colors:
+      default: Por defecto
+      custom: Color personalizado
+      background: Fondo
+      foreground: Texto
+      card: Tarjeta
+      card-foreground: Texto de la tarjeta
+      popover: popover
+      popover-foreground: Texto emergente
+      primary: Primario
+      primary-foreground: Texto primario
+      secondary: Secundario
+      secondary-foreground: Texto secundario
+      muted: Apagado
+      muted-foreground: Texto silenciado
+      accent: Acento
+      accent-foreground: Texto acentuado
+      destructive: Destructivo
+      destructive-foreground: Texto destructivo
+      border: Borde
+  footer:
+    title: Pie de página
+    description: Ajustar enlaces en el pie de página
+    form:
+      useCustomFooter: Usar pie de página personalizado
+      footerContent: Contenido del pie de página
+      preview: Avance
+      contactUsLabel: Contáctenos etiqueta
+      contactUsLabelTooltip: El valor predeterminado es 'Contáctenos'
+      contactUsPlaceholder: Contáctenos
+      links: Campo de golf
+      toasts:
+        changesSaved: Tus cambios fueron guardados.
+        requestError: Hubo un problema con tu solicitud.
+apps:
+  heading: Aplicaciones conectadas
+  description: Administra tus aplicaciones conectadas
+  defaultApps: Aplicaciones predeterminadas
+  appStore: Tienda de aplicaciones
+  searchPlaceholder: Buscar aplicaciones instaladas
+  noResults: No se encontraron aplicaciones para tu búsqueda
+  noConnectedApps: No tienes ninguna aplicación conectada
+  defaultAppsForm:
+    payment:
+      label: Procesador de pagos
+      placeholder: Deshabilitar pagos
+    emailSender:
+      label: Remitente de correo electrónico
+      placeholder: Usar remitente de correo electrónico predeterminado
+    textMessageSender:
+      label: Remitente de mensajes de texto
+      placeholder: Usar remitente de mensajes de texto predeterminado
+      tooltip: La aplicación que envía mensajes de texto a los clientes. Opcional.
+    textMessageResponder:
+      label: Respondedor de mensajes de texto
+      tooltip: Si el remitente no lo maneja, se usará como aplicación predeterminada para responder mensajes de texto (es decir, respuesta automática). Opcional.
+    assetsStorage: Almacenamiento de activos
+    toasts:
+      changesSaved: Tus cambios fueron guardados.
+      requestError: Hubo un problema con tu solicitud.
+  defaultAppsDescription: Seleccionar aplicaciones predeterminadas
+  migrateAssetsDialog:
+    migrateAssets: Migrar activos
+    title: Migrar activos existentes
+    description: Migre sus activos existentes desde su almacenamiento anterior
+    sourceApp: Aplicación de almacenamiento de activos de origen
+    done: "Hecho: {count}"
+    success: "Éxito: {count}"
+    error: "Error: {count}"
+    total: "Total: {count}"
+    migrate: Emigrar
+    toasts:
+      requestError: Tu solicitud ha fallado
+  events:
+    installed:
+      title: Aplicación instalada
+      description: Se instaló {appDisplayName}.
+    connected:
+      title: Aplicación conectada
+      description: "{appDisplayName} conectado."
+    uninstalled:
+      title: Aplicación desinstalada
+      description: "{appDisplayName} fue desinstalado."
+    failed:
+      title: La aplicación falló
+      description: "{appDisplayName} no pudo conectarse."
+  notifications:
+    failed:
+      title: La conexión de la aplicación falló
+      message: "{appDisplayName} no pudo conectarse. Verifique la configuración de la aplicación."
+      action: Abrir aplicaciones
+  emails:
+    failed:
+      subject: "{appDisplayName} - conexión fallida"
+      preview: "{appDisplayName} no pudo permanecer conectado"
+      title: No pudimos mantener tu aplicación conectada
+      body: |-
+        Hola {userName},
+
+        **{appDisplayName}** informó un problema de conexión o no finalizó la configuración correctamente. Abra **Aplicaciones** en su panel de control para revisar las credenciales y la configuración, luego intente conectarse nuevamente.
+
+        Si todo parece correcto, puedes ignorar este correo electrónico.
+      button: Abrir aplicaciones
+      handledBy: "Error de conexión de la aplicación: {appDisplayName}"
+catalog:
+  hub:
+    description: Servicios, extras, paquetes y otros artículos que los clientes pueden reservar o comprar.
+  services:
     title: Servicios
     description: Gestionar los servicios que proporcionas
     addNew: Agregar nuevo
@@ -1685,12 +2016,18 @@ services:
     upgradeRequired: El plan gratuito incluye un servicio. Actualice a Solo para agregar más.
     upgradeLink: Actualizar en la configuración de marca
     new: Nuevo
-    newTitle: Nueva opción de servicio
+    newTitle: Nuevo servicio
     newDescription: Agregar nuevo servicio que brindas
-    editDescription: Opción de edición
+    editDescription: Editar servicio
     form:
+      details: Detalles
+      durationAndPrice: Duración y precio
+      customAutoConfirm: Confirmación automática personalizada
+      customAutoConfirmTooltip: Usa una regla de confirmación automática para este servicio en lugar de la configuración general.
+      virtualAppointment: Cita virtual
+      virtualAppointmentTooltip: Realiza esta cita por video, audio o teléfono en lugar de en persona.
       name: Nombre
-      namePlaceholder: Nombre de la opción
+      namePlaceholder: Nombre del servicio
       description: Breve descripción
       descriptionTooltip: Texto breve que será visible durante la reserva.
       duration: Duración
@@ -1748,6 +2085,12 @@ services:
           tooltip: Aplicación que se utilizará para proporcionar la URL de la reunión
       paymentSettings:
         title: Configuraciones de pago
+        customDeposit:
+          label: Requisito de depósito personalizado
+          tooltip: Usa una regla de depósito para este servicio en lugar de la configuración general.
+        customTips:
+          label: Configuración de propinas personalizada
+          tooltip: Usa la configuración de propinas de este servicio en lugar de la configuración general.
         requireDeposit:
           label: Requerir deposito
           tooltip: Si esta opción requiere depósito<br></br>Requiere aplicación de pagos configurada
@@ -1806,6 +2149,9 @@ services:
           description: Configurar la política de cancelación para la opción cuando no se requiere depósito
           enabled: Activado
           enabledTooltip: Si se permite la opción de cancelación cuando no se requiere depósito
+        customPolicy:
+          label: Política personalizada
+          tooltip: ¿Este servicio tiene una política de cancelación personalizada distinta de la política general?
       reschedulePolicy:
         title: Reprogramaciones
         type:
@@ -1814,6 +2160,9 @@ services:
           inherit: Igual que la configuración general
           custom: Política personalizada
           placeholder: Seleccione el tipo de política de reprogramación
+        customPolicy:
+          label: Política personalizada
+          tooltip: ¿Este servicio tiene una política de reprogramación personalizada distinta de la política general?
         enabled:
           label: Activado
           tooltip: Si se permite la reprogramación de la opción
@@ -1912,6 +2261,8 @@ services:
     newDescription: Agregar nuevo campo personalizado
     editDescription: Editar campo personalizado
     form:
+      details: Detalles
+      fileSettings: Configuración de archivos
       name: Nombre
       namePlaceholder: Nombre del campo
       nameTooltip: ID único del campo. Solo puede contener letras, dígitos y guiones bajos.
@@ -1949,9 +2300,9 @@ services:
         label: Etiqueta
         updatedAt: Actualizado en
         addons: Complementos
-        options: Opciones
+        options: Servicios
         addonsInDialog: "{label} en complementos"
-        optionsInDialog: "{label} en opciones"
+        optionsInDialog: "{label} en servicios"
       cellAction:
         fieldDeleted: Se eliminó el campo de opción "{label}".
         deleteError: Hubo un problema con tu solicitud.
@@ -1998,6 +2349,9 @@ services:
       status: Estado
       active: Activo
       disabled: Desactivado
+      details: Detalles
+      dates: Fechas
+      maximumUses: Usos máximos
       codes: Códigos
       codesPlaceholder: Códigos de descuento
       codesTooltip: Códigos que se pueden utilizar para aplicar este descuento.
@@ -2079,7 +2433,7 @@ services:
     editDescription: Editar paquete
     sell: Vender paquete
     sellTitle: Vender paquete
-    sellDescription: Emitir este paquete a un cliente y registrar un pago en la tienda
+    sellDescription: Emitir este paquete a un cliente y cobrar el pago
     sellForm:
       package: Paquete
       customer: Cliente
@@ -2089,6 +2443,7 @@ services:
       title: Paquetes vendidos
       description: Paquetes emitidos a clientes.
       statusBadges:
+        pending: Pago pendiente
         active: Activo
         exhausted: Exhausto
         expired: Venció
@@ -2140,6 +2495,9 @@ services:
       cancel: Cancelar
       deleteSelected: Eliminar seleccionado
     form:
+      details: Detalles
+      service: Servicio
+      priceAndLimits: Precio y límites
       name:
         label: Nombre
         placeholder: 10x masaje
@@ -2293,6 +2651,9 @@ services:
       cancel: Cancelar
       deleteSelected: Eliminar seleccionado
     form:
+      giftCard: Tarjeta regalo
+      amountAndExpiry: Importe y caducidad
+      customerAndPayment: Cliente y pago
       code:
         label: Código
         placeholder: XXX-XXX-XXX
@@ -2319,10 +2680,15 @@ services:
       customerId:
         label: Cliente
         tooltip: Cliente que compró la tarjeta regalo
+      paymentLinkAppId:
+        description: Aplicación usada para enviar el enlace de pago de esta tarjeta de regalo.
+      channel:
+        description: Cómo se envía el enlace de pago al cliente.
       toasts:
         created: Tarjeta regalo creada exitosamente
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
+        smsConsentRequired: Se requiere el consentimiento para mensajes de texto antes de enviar el enlace de pago.
   addons:
     title: Complementos
     description: Administrar complementos
@@ -2332,6 +2698,8 @@ services:
     newDescription: Agregar nuevo complemento
     editDescription: Editar complemento
     form:
+      details: Detalles
+      durationAndPrice: Duración y precio
       name: Nombre
       namePlaceholder: Nombre del complemento
       nameTooltip: Nombre de complemento único
@@ -2368,8 +2736,8 @@ services:
       columns:
         name: Nombre
         updatedAt: Actualizado en
-        options: Opciones
-        optionsInDialog: "{name} en opciones"
+        options: Servicios
+        optionsInDialog: "{name} en servicios"
       cellAction:
         addonDeleted: Se eliminó el complemento "{name}".
         deleteError: Hubo un problema con tu solicitud.
@@ -2385,247 +2753,9 @@ services:
       confirmDescription: Esta acción no se puede deshacer. Esto eliminará los complementos seleccionados y los eliminará de todas las opciones que los utilicen.
       cancel: Cancelar
       deleteSelected: Eliminar seleccionado
-templates:
-  page:
-    title: Plantillas de comunicación
-  formPage:
-    typeTemplates: "{type} plantillas"
-    new: Nuevo
-  newPage:
-    title: Nueva plantilla {type}
-  editPage:
-    title: Actualizar plantilla
-    clone: Clon
-  addNew:
-    emptyTemplate: Plantilla vacía
-    add: Agregar
-    addNewTemplate: Agregar nueva plantilla
-    type: Tipo
-    selectTemplateType: Seleccionar tipo de plantilla
-    template: Plantilla
-    close: Cerca
-  form:
-    subject: Asunto del correo electrónico
-    subjectTooltip: Asunto del correo electrónico que se utilizará para enviar el mensaje.
-    subjectPlaceholder: Sujeto
-    name: Nombre de la plantilla
-    nameTooltip: Nombre de plantilla único
-    namePlaceholder: Nombre de la plantilla
-    validation:
-      templateNotValid: La plantilla no es válida
-    toasts:
-      changesSaved: Tus cambios fueron guardados.
-      requestError: Hubo un problema con tu solicitud.
-  textMessageBuilder:
-    content: Contenido del mensaje de texto
-    viewContext: Ver contexto
-    contextValues: Valores de contexto
-    copied: Copiado
-    copyPath: Copiar ruta
-    close: Cerca
-    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
-    preview: Avance
-  table:
-    filters:
-      type: Tipo
-      filters: Filtros
-    columns:
-      type: Tipo
-      name: Nombre
-      updatedAt: Actualizado en
-    cellAction:
-      templateDeleted: Se eliminó la plantilla "{name}".
-      deleteError: Hubo un problema con tu solicitud.
-      actions: Comportamiento
-      update: Actualizar
-      delete: Borrar
-      clone: Clon
-    deleteSelected:
-      success: Se han eliminado las plantillas seleccionadas.
-      error: Hubo un problema con tu solicitud.
-      button: Eliminar seleccionado {count, plural, =1 {template} other {# templates}}
-      confirmTitle: ¿Estás absolutamente seguro?
-      confirmDescription: Esta acción no se puede deshacer. Esto eliminará las plantillas seleccionadas y puede interrumpir las notificaciones que las usan.
-      cancel: Cancelar
-      deleteSelected: Eliminar seleccionado
-appearance:
-  styling:
-    title: Estilo
-    description: Ajustar el estilo general
-    form:
-      primaryFont: fuente principal
-      secondaryFont: fuente secundaria
-      tertiaryFont: fuente terciaria
-      selectFont: Seleccionar fuente
-      colorOverrides: Anulaciones de color
-      invalidField: Campo no válido
-      duplicateType: Tipo duplicado
-      remove: Eliminar
-      deleteConfirmTitle: ¿Estás absolutamente seguro?
-      deleteConfirmDescription: ¿Está seguro de que desea eliminar esta anulación de color?
-      cancel: Cancelar
-      delete: Borrar
-      type: Tipo
-      selectColorOverrideType: Seleccionar tipo de anulación de color
-      color: Color
-      colorTooltip: Color en formato CSS (HEX, rgb, rgba, hsl)
-      additionalCss: CSS adicional
-      toasts:
-        changesSaved: Tus cambios fueron guardados.
-        requestError: Hubo un problema con tu solicitud.
-      fonts:
-        seeOnGoogleFonts: Ver en Google Fuentes
-        variants:
-          "100": "100"
-          "200": "200"
-          "300": "300"
-          "400": "400"
-          "500": "500"
-          "600": "600"
-          "700": "700"
-          "800": "800"
-          "900": "900"
-          label: "Variantes: {variants}"
-          regular: Regular
-          italic: Itálico
-          bold: Atrevido
-          medium: Medio
-          semibold: Semi-negrita
-          extrabold: Extra-negrita
-          100italic: 100 cursiva
-          200italic: 200 cursiva
-          300italic: 300 cursiva
-          400italic: 400 cursiva
-          500italic: 500 cursiva
-          600italic: 600 cursiva
-          700italic: 700 cursiva
-          800italic: 800 cursiva
-          900italic: 900 cursiva
-        subsets:
-          label: "Subconjuntos: {subsets}"
-          latin: latín
-          latin-ext: latín extendido
-          vietnamese: vietnamita
-          cyrillic: cirílico
-          cyrillic-ext: cirílico extendido
-          greek: Griego
-          greek-ext: griego extendido
-          hebrew: hebreo
-          math: Matemáticas
-          symbols: Símbolos
-        category:
-          label: "Categoría: {category}"
-          sans-serif: Sans-serif
-          serif: Serifa
-          monospace: monoespacio
-          display: Mostrar
-          handwriting: Escritura
-          script: Guion
-          fantasy: Fantasía
-    colors:
-      default: Por defecto
-      custom: Color personalizado
-      background: Fondo
-      foreground: Texto
-      card: Tarjeta
-      card-foreground: Texto de la tarjeta
-      popover: popover
-      popover-foreground: Texto emergente
-      primary: Primario
-      primary-foreground: Texto primario
-      secondary: Secundario
-      secondary-foreground: Texto secundario
-      muted: Apagado
-      muted-foreground: Texto silenciado
-      accent: Acento
-      accent-foreground: Texto acentuado
-      destructive: Destructivo
-      destructive-foreground: Texto destructivo
-      border: Borde
-  footer:
-    title: Pie de página
-    description: Ajustar enlaces en el pie de página
-    form:
-      useCustomFooter: Usar pie de página personalizado
-      footerContent: Contenido del pie de página
-      preview: Avance
-      contactUsLabel: Contáctenos etiqueta
-      contactUsLabelTooltip: El valor predeterminado es 'Contáctenos'
-      contactUsPlaceholder: Contáctenos
-      links: Campo de golf
-      toasts:
-        changesSaved: Tus cambios fueron guardados.
-        requestError: Hubo un problema con tu solicitud.
-apps:
-  heading: Aplicaciones conectadas
-  description: Administra tus aplicaciones conectadas
-  defaultApps: Aplicaciones predeterminadas
-  appStore: Tienda de aplicaciones
-  searchPlaceholder: Buscar aplicaciones instaladas
-  noResults: No se encontraron aplicaciones para tu búsqueda
-  noConnectedApps: No tienes ninguna aplicación conectada
-  defaultAppsForm:
-    payment:
-      label: Procesador de pagos
-      placeholder: Deshabilitar pagos
-    emailSender:
-      label: Remitente de correo electrónico
-      placeholder: Usar remitente de correo electrónico predeterminado
-    textMessageSender:
-      label: Remitente de mensajes de texto
-      placeholder: Usar remitente de mensajes de texto predeterminado
-    textMessageResponder:
-      label: Respondedor de mensajes de texto
-      tooltip: Si el remitente no lo maneja, se usará como aplicación predeterminada para responder mensajes de texto (es decir, respuesta automática). Opcional.
-    assetsStorage: Almacenamiento de activos
-    toasts:
-      changesSaved: Tus cambios fueron guardados.
-      requestError: Hubo un problema con tu solicitud.
-  defaultAppsDescription: Seleccionar aplicaciones predeterminadas
-  migrateAssetsDialog:
-    migrateAssets: Migrar activos
-    title: Migrar activos existentes
-    description: Migre sus activos existentes desde su almacenamiento anterior
-    sourceApp: Aplicación de almacenamiento de activos de origen
-    done: "Hecho: {count}"
-    success: "Éxito: {count}"
-    error: "Error: {count}"
-    total: "Total: {count}"
-    migrate: Emigrar
-    toasts:
-      requestError: Tu solicitud ha fallado
-  events:
-    installed:
-      title: Aplicación instalada
-      description: Se instaló {appDisplayName}.
-    connected:
-      title: Aplicación conectada
-      description: "{appDisplayName} conectado."
-    uninstalled:
-      title: Aplicación desinstalada
-      description: "{appDisplayName} fue desinstalado."
-    failed:
-      title: La aplicación falló
-      description: "{appDisplayName} no pudo conectarse."
-  notifications:
-    failed:
-      title: La conexión de la aplicación falló
-      message: "{appDisplayName} no pudo conectarse. Verifique la configuración de la aplicación."
-      action: Abrir aplicaciones
-  emails:
-    failed:
-      subject: "{appDisplayName} - conexión fallida"
-      preview: "{appDisplayName} no pudo permanecer conectado"
-      title: No pudimos mantener tu aplicación conectada
-      body: |-
-        Hola {userName},
-
-        **{appDisplayName}** informó un problema de conexión o no finalizó la configuración correctamente. Abra **Aplicaciones** en su panel de control para revisar las credenciales y la configuración, luego intente conectarse nuevamente.
-
-        Si todo parece correcto, puedes ignorar este correo electrónico.
-      button: Abrir aplicaciones
-      handledBy: "Error de conexión de la aplicación: {appDisplayName}"
 settings:
+  hub:
+    description: Abra un área de ajustes de su negocio.
   general:
     title: Configuraciones generales
     description: Nombre comercial, detalles de contacto, ubicación y valores predeterminados regionales de su organización.
@@ -2709,6 +2839,7 @@ settings:
     form:
       name: Nombre comercial
       namePlaceholder: El nombre de tu negocio
+      nameDescription: El nombre público de su negocio.
       industry: Industria
       industryPlaceholder: Seleccionar industria
       industryTooltip: Se utiliza para listados de búsqueda y optimización de motores de búsqueda.
@@ -2737,6 +2868,7 @@ settings:
       currencyPlaceholder: Seleccionar moneda
       currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Huso horario
+      timeZoneDescription: La zona horaria del negocio usada para la programación y la página de reservas.
       selectTimeZone: Seleccionar zona horaria
       useClientTimezone: Usar la zona horaria del cliente
       useClientTimezoneTooltip: Seleccione esta opción si desea utilizar de forma predeterminada la zona horaria del cliente para reservar/modificar la página de cita.<br></br>De forma predeterminada, la zona horaria será la zona horaria del negocio.
@@ -2821,7 +2953,7 @@ settings:
     form:
       tabs:
         main: Principal
-        options: Opciones
+        catalog: Servicios y paquetes
         payments: Pagos
         cancellations: Cancelaciones
         reschedules: Reprogramaciones
@@ -2835,6 +2967,8 @@ settings:
         requireCustomerOtp: Requerir verificación del cliente
         requireCustomerOtpTooltip: Cuando está habilitado, los clientes deben verificar su correo electrónico o teléfono con un código de un solo uso antes de pagar o confirmar una reserva. El uso de un paquete prepago siempre requiere una sesión verificada.
         autoConfirmTooltip: Seleccione esta opción si desea confirmar automáticamente todas las citas creadas por los clientes.<br></br>De forma predeterminada, deberá confirmar manualmente cada cita.
+        scheduleSettingsLabel: Configuración del horario
+        scheduleProviderLabel: Proveedores de horario
         allowStaffCalendarSources: Permitir que el personal administre las fuentes del calendario
         allowStaffCalendarSourcesTooltip: Cuando está habilitado, los miembros del personal pueden conectar fuentes de calendario personal en su perfil y esos calendarios se utilizan al verificar la disponibilidad. Cuando está deshabilitado, el personal no puede administrar las fuentes del calendario y las horas punta ignoran sus calendarios personales.
         showPromoCodeField: Mostrar campo de código de promoción
@@ -2865,14 +2999,19 @@ settings:
           twenty: Cada hora a las XX:00, XX:20, XX:40
           thirty: Cada hora a las XX:00, XX:30
       options:
-        title: Catalogar
+        title: Catálogo
         addGroup: Agregar grupo
         addService: Agregar servicio
         addPackage: Agregar paquete
+        group: Grupo
+        groupWithName: "Grupo: {name}"
+        service: Servicio
+        serviceWithName: "Servicio: {name}"
         groupName: Nombre del grupo
         groupDescription: Breve descripción
         emptyGroup: Este grupo está vacío.
         package: Paquete
+        packageWithName: "Paquete: {name}"
       payments:
         enableDeposits: Habilitar depósitos
         enableDepositsTooltip: Permite la posibilidad de solicitar un depósito para reservar una cita. La aplicación de pago predeterminada debe configurarse en la sección de aplicaciones predeterminadas.
@@ -2882,8 +3021,7 @@ settings:
         appointments: equipo
         paymentsAppTooltip: Qué procesador de pagos usar para los pagos
         requireDeposit: Requerir deposito
-        requireDepositTooltip1: Si está habilitado, cada cliente deberá pagar un depósito para reservar una cita.
-        requireDepositTooltip2: Se puede anular por cada cliente
+        requireDepositTooltip: Si está habilitado, cada cliente deberá pagar un depósito para reservar una cita.<br></br>Se puede anular por cada cliente o servicio
         require: Requerir
         doNotRequire: no requiere
         depositAmount: Monto del depósito
@@ -2914,7 +3052,9 @@ settings:
             title: Para citas con depósito
           withoutDeposit:
             title: Para citas sin depósito
-          enabledTooltip: Permite a los clientes cancelar una cita por su cuenta.
+          enabled:
+            label: Permitido
+            tooltip: Configura si los clientes pueden cancelar una cita por su cuenta
           doNotAllowIfRescheduled:
             label: Permitir si se reprograma
             tooltip: Configurar si un cliente puede cancelar una cita si ha sido reprogramada
@@ -2923,7 +3063,9 @@ settings:
               "false": Permitir
         reschedules:
           title: Reprogramaciones
-          enabledTooltip: Permite a los clientes reprogramar una cita por su cuenta
+          enabled:
+            label: Permitido
+            tooltip: Configura si los clientes pueden reprogramar una cita por su cuenta
           minutesToAppointment:
             label: Tiempo mínimo para la cita
             tooltip: Configurar el tiempo mínimo para la cita para permitir la reprogramación
@@ -2931,7 +3073,7 @@ settings:
             label: Número máximo de reprogramaciones
             tooltip: Configurar cuantas veces un cliente puede reprogramar una cita
         enabled:
-          label: Activado
+          label: Permitido
           selectPlaceholder: Seleccionar opción
           labels:
             disabled: Desactivado
@@ -2955,18 +3097,18 @@ settings:
           policy: Regla
       cards:
         optionSelect:
-          roleDescription: Opción
-          moveOption: Opción de mover
-          option: Opción
+          roleDescription: Servicio
+          moveOption: Mover servicio
+          option: Servicio
           deleteConfirmTitle: ¿Estás absolutamente seguro?
-          deleteConfirmDescription: ¿Está seguro de que desea eliminar esta opción de la lista de opciones disponibles?
+          deleteConfirmDescription: ¿Está seguro de que desea eliminar este servicio de la lista de servicios disponibles?
           cancel: Cancelar
           delete: Borrar
-        optionSelector:
+        serviceSelector:
           time: "{hours}hr {minutes}min"
           requestFailed: La solicitud falló.
-          loadingOptions: Cargando opciones...
-          selectOption: Seleccionar opción
+          loadingOptions: Cargando servicios...
+          selectOption: Seleccionar servicio
         cancellationPolicy:
           action:
             label: Acción
@@ -3061,26 +3203,138 @@ settings:
         cancel: Cancelar
         delete: Borrar
         type: Tipo
+        typeDescription: La red social a la que pertenece este perfil.
         selectType: Seleccione el tipo de enlace social
         url: URL
         urlTooltip: Enlace completo a tu perfil.
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
+  textMessaging:
+    title: Mensajes de texto
+    description: Active los textos para clientes en los formularios de reserva y lista de espera.
+    countryOnly: Los mensajes personalizados están disponibles para negocios de Estados Unidos y Canadá.
+    verification:
+      title: Mensajes personalizados
+      description: Verifique su negocio para que los textos de clientes usen un número dedicado.
+      prompt: ¿Quiere activar los mensajes personalizados?
+      action: Verifique los datos de su negocio ahora
+      verifiedPrompt: Ha activado las plantillas de mensajes personalizados.
+      verifiedAction: Ver sus datos
+      failedPrompt: La verificación de mensajes personalizados falló.
+      failedAction: Ver sus datos
+      pendingPrompt: La verificación de mensajes personalizados está en revisión.
+      pendingAction: Ver sus datos
+      disabled: Active los mensajes de texto antes de verificar un número dedicado.
+    customTemplate:
+      label: Plantilla de texto personalizada
+      tooltip: Opcional. Si selecciona una plantilla, los mensajes al cliente la usan en lugar del mensaje integrado.
+      renderFailed: No se pudo representar esta plantilla. Revise <link>su plantilla</link>.
+    notifications:
+      failed:
+        title: Los mensajes personalizados no fueron aprobados
+        message: "{reason}"
+        action: Ver datos
+      succeeded:
+        title: Los mensajes personalizados están verificados
+        message: Los textos ahora usan su número dedicado.
+        action: Ver datos
+    emails:
+      failed:
+        subject: Los mensajes personalizados no fueron aprobados
+        preview: Actualice los datos y envíe la verificación de nuevo.
+        title: Los mensajes personalizados no fueron aprobados
+        body: "{reason} Actualice el formulario y envíe la verificación de nuevo."
+        button: Ver datos
+        handledBy: Verificación de mensajes de texto
+      succeeded:
+        subject: Los mensajes personalizados están verificados
+        preview: Los textos ahora usan su número dedicado.
+        title: Los mensajes personalizados están verificados
+        body: Los textos ahora usan su número dedicado y las plantillas personalizadas.
+        button: Ver datos
+        handledBy: Verificación de mensajes de texto
+    status:
+      pending: La revisión está en curso. Los textos siguen usando el número compartido hasta que se apruebe.
+      verified: Los mensajes personalizados están verificados. Los textos usan su número.
+      verifiedWithNumber: Los mensajes personalizados están verificados. Los textos usan {number}.
+      rejected: La verificación no fue aprobada.
+      preparing: Se está preparando un número. Los mensajes personalizados se pueden enviar cuando esté listo.
+    form:
+      smsEnabled: Activar mensajes de texto
+      smsEnabledDescription: Los clientes pueden aceptar textos en sus formularios de reserva y lista de espera.
+      save: Guardar
+      enabled: Activar mensajes personalizados
+      enabledDescription: Después de la verificación, los textos de clientes usan un número dedicado y sus propias plantillas.
+      disableTitle: ¿Desactivar los mensajes personalizados?
+      disableDescription: Desactivarlo inicia el proceso de verificación otra vez. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
+      disableConfirm: Desactivar
+      disableCancel: Mantener activo
+      unlock: Desbloquear
+      submit: Enviar
+      entityType:
+        label: Tipo de negocio
+        PRIVATE_PROFIT: Empresa privada
+        PUBLIC_PROFIT: Empresa pública
+        SOLE_PROPRIETOR: Propietario único
+        NON_PROFIT: Organización benéfica
+      legalName:
+        label: Nombre legal
+      doingBusinessAs:
+        label: Nombre comercial
+        hint: Agréguelo cuando el nombre de reserva sea distinto del nombre legal.
+      registrationNumber:
+        label: EIN o número de negocio
+        hint: Un EIN de EE. UU. o un número de negocio de Canadá.
+        soleHint: Un propietario único puede dejar esto en blanco.
+      website:
+        label: Sitio web
+      legalPages:
+        note: Estas páginas se enlazan desde los formularios de reserva y lista de espera. Añádalas al pie de su sitio web para el cumplimiento legal. La configuración ya agregó páginas con el texto de SMS requerido. Puede editarlas y luego seleccionarlas aquí.
+      privacyPage:
+        label: Política de privacidad
+        hint: La página debe decir que los datos de alta móvil no se comparten con terceros ni afiliados para marketing, y que los números se usan solo para textos de reservas.
+      termsPage:
+        label: Términos
+        hint: La página debe incluir la frecuencia de los mensajes, que pueden aplicarse tarifas de mensajes y datos, que se puede responder STOP para cancelar y HELP para ayuda, y que los operadores no son responsables de los mensajes retrasados o no entregados.
+      streetAddress:
+        label: Dirección
+      addressLine2:
+        label: Dirección línea 2
+      city:
+        label: Ciudad
+      state:
+        label: Estado o provincia
+      postalCode:
+        label: Código postal
+      contactFirstName:
+        label: Nombre del contacto
+      contactLastName:
+        label: Apellido del contacto
+      contactEmail:
+        label: Correo del contacto
+      contactPhone:
+        label: Teléfono del contacto
+    toasts:
+      saved: Sus cambios fueron guardados.
+      submitted: La solicitud de verificación fue enviada. La revisión puede tardar hasta 7 días hábiles.
+      preparing: Se está preparando un número. Guardamos sus datos.
+      error: Hubo un problema con su solicitud.
   customerAccess:
     title: Acceso de clientes
-    description: Plantillas OTP y canales de verificación para flujos de cara al cliente
+    description: Elija cómo reciben los clientes su código de acceso.
     form:
-      otpEmailTemplateId:
-        label: Plantilla de correo electrónico OTP
-      otpChannels:
-        label: Canal de verificación OTP
-        options:
-          email: Solo correo electrónico
-          phone: Sólo teléfono
-          email_or_phone: Correo electrónico o teléfono
-      otpTextTemplateId:
-        label: Plantilla de mensaje de texto OTP
+      email:
+        label: Correo electrónico
+        description: Envía un código de un solo uso a la dirección de correo del cliente.
+        templateLabel: Plantilla de correo
+        templateDescription: Obligatoria. Este es el correo que recibe el cliente con su código.
+      phone:
+        label: Mensaje de texto
+        description: Envía un código de un solo uso al teléfono del cliente. Los mensajes de texto deben estar activados.
+        builtIn: Los clientes reciben un texto integrado con su código.
+      smsDisabled: Los códigos por teléfono necesitan mensajes de texto. Mientras estén desactivados, esta opción no está disponible y el acceso usa el correo.
+      smsDisabledAction: Activar mensajes de texto
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
@@ -3182,6 +3436,14 @@ dashboard:
       title: Los miembros inactivos del equipo tienen próximas citas
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Ver citas
+    smsVerification:
+      title: Los mensajes de texto no fueron aprobados
+      description: Actualice los datos del negocio y envíe la verificación de nuevo.
+      action: Revisar
+    customerOtpPhone:
+      title: La verificación por teléfono necesita mensajes de texto
+      description: El acceso de clientes está configurado para códigos por teléfono, pero los mensajes de texto están desactivados. Los códigos se envían por correo.
+      action: Abrir ajustes de OTP
     failedApp:
       title: "{appName} necesita atención"
       description: "{appName} no funciona correctamente y es posible que sea necesario volver a conectarlo."
@@ -3211,6 +3473,27 @@ dashboard:
     calendar: Calendario
     pendingAppointments: Citas Pendientes
 communications:
+  status:
+    preparing: Preparando
+    sending: Enviando
+    sent: Enviado
+    received: Recibido
+    failed: Fallido
+    failedWithRetries: "Fallido: {done}/{max} reintentos"
+    failedFinal: Fallido.
+  reason:
+    optedOut: El cliente rechazó los mensajes
+    noConsent: El cliente no aceptó los textos
+    smsDisabled: Los mensajes de texto están desactivados
+    invalidPhone: Número de teléfono no válido
+    creditsExhausted: Se agotaron los créditos de texto
+    platformLimit: "{limit, select, rate {Demasiados textos este minuto.} daily {Se alcanzó el límite diario de textos.} other {Se alcanzó el límite de textos.}}"
+    numberNotReady: El número de texto no está listo
+    linkOnly: El mensaje solo tenía un enlace
+    deliveryFailed: "Error de entrega: {detail}"
+  retries: "{done} reintentos usados, {left} restantes"
+  retryable: Se puede reintentar
+  notRetryable: No se reintentará
   viewMore: Ver más
   payloadLoadError: No se pudo cargar el mensaje completo.
   logContent: Contenido del mensaje
@@ -3220,7 +3503,7 @@ communications:
   sendNew: Enviar nuevo
   requestError: Hubo un problema con tu solicitud.
   sendNewMessage: Enviar nuevo mensaje
-  sendNewMessageDescription: Enviar un nuevo correo electrónico o mensaje de texto al cliente
+  sendNewMessageDescription: Enviar un nuevo correo electrónico al cliente
   closeDialogWarning: Perderás todo el contenido si cierras el diálogo.
   contentNotValid: El contenido no es válido.
   messageSent: Su mensaje fue enviado exitosamente.
@@ -3510,12 +3793,15 @@ menuItem:
     label: Etiqueta
     labelPlaceholder: Etiqueta
     icon: Icono
+    iconDescription: Icono mostrado para este elemento del menú
     variant: Variante
+    variantDescription: Estilo visual de este enlace o botón
     selectVariant: Seleccionar variante de enlace
     size: Tamaño
     selectSize: Selecciona talla
     selectButtonVariant: Seleccionar variante de botón
     textFont: Fuente de texto
+    textFontDescription: Fuente usada para la etiqueta de este elemento del menú
     selectTextFont: Seleccionar fuente de texto
     textSize: Tamaño del texto
     selectTextSize: Seleccionar tamaño de texto
@@ -3524,6 +3810,7 @@ menuItem:
     prefixIcon: Icono de prefijo
     suffixIcon: Icono de sufijo
     additionalClasses: Clases adicionales
+    additionalClassesDescription: Clases CSS adicionales aplicadas a este elemento del menú
     additionalClassesPlaceholder: negrita
     doNotCombineClassName: No combinar con valores predeterminados
     doNotCombineClassNameDescription: Cuando está habilitado, solo se aplican sus clases adicionales (se omiten las clases predeterminadas)
@@ -3531,6 +3818,7 @@ menuItem:
     textColorDescription: Anular el color del texto del elemento del menú
     showOnMobileHeader: Mostrar en el encabezado del móvil
     showOnMobileHeaderDescription: Mantenga este elemento visible en el encabezado del dispositivo móvil (al lado del botón de menú). Sólo un elemento puede utilizar esto; Todavía aparece en el cajón.
+    useDifferentLabel: Usar una etiqueta diferente
   card:
     moveMenuItem: Mover elemento del menú
     itemType: tipo de artículo
@@ -3689,6 +3977,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: "Respuesta de mensaje de texto: notificar al usuario"
+text-message-reply:
+  handledBy: Respuesta de mensaje de texto
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Cuando faltan al menos {duration} antes de la cita
@@ -3702,7 +3992,9 @@ cancellationsAndReschedules:
       title: Para citas con depósito
     withoutDeposit:
       title: Para citas sin depósito
-    enabledTooltip: Permite a los clientes cancelar una cita por su cuenta.
+    enabled:
+      label: Permitido
+      tooltip: Configura si los clientes pueden cancelar una cita por su cuenta
     doNotAllowIfRescheduled:
       label: Permitir si se reprograma
       tooltip: Configurar si un cliente puede cancelar una cita si ha sido reprogramada
@@ -3762,7 +4054,9 @@ cancellationsAndReschedules:
     delete: Borrar
   reschedulePolicy:
     title: Reprogramaciones
-    enabledTooltip: Permite a los clientes reprogramar una cita por su cuenta
+    enabled:
+      label: Permitido
+      tooltip: Configura si los clientes pueden reprogramar una cita por su cuenta
     default:
       title: Regla predeterminada
       tooltip: Configurar la regla predeterminada que se aplicará si no se aplica ninguna otra regla
@@ -4038,4 +4332,8 @@ users:
       max: El título no debe tener más de 80 caracteres.
     bio:
       max: La biografía no debe tener más de 1024 caracteres.
+smsConsent:
+  attest: Certifico que el cliente aceptó recibir mensajes de texto
+  already: Este cliente ya aceptó recibir mensajes de texto.
+  optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
 

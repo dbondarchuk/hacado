@@ -1,10 +1,10 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n } from "@hacado/i18n/client";
-import { Payment } from "@hacado/types";
-import { Button } from "@hacado/ui";
-import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
+import { Payment } from "@hacado/types/booking";
+import { PaymentDetailsDialog } from "@hacado/ui-admin-kit/payments";
+import { Button } from "@hacado/ui/button";
 import { useState } from "react";
 import { PurchasedGiftCardListModel } from "../../models";
 
@@ -25,7 +25,7 @@ export function PaymentMethodCell({
 
     try {
       setLoading(true);
-      const result = await adminApi.payments.getPayment(purchase.paymentId);
+      const result = await paymentsApi.getPayment(purchase.paymentId);
       setPayment(result);
       setOpen(true);
     } catch (error) {

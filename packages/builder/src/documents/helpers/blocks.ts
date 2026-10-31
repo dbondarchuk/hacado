@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { resolve } from "@hacado/utils";
+import { resolve } from "@hacado/utils/object";
 import { TEditorBlock, TEditorConfiguration } from "../editor/core";
 import { isSlotLikeObject } from "../embedded-slot";
 import { BuilderSchema } from "../types";

@@ -2,9 +2,9 @@ import { getServicesContainer } from "@/utils/utils";
 import type {
   ConnectedAppData,
   IScriptProvider,
-  Page,
   ScriptContribution,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { Page } from "@hacado/types/pages";
 
 async function invokeScriptProvider(
   callback: (

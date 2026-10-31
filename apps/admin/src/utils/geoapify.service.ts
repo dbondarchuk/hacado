@@ -1,10 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  countryOptions,
-  type AddressSuggestion,
-  type Country,
-  type WithTotal,
-} from "@hacado/types";
+import type { WithTotal } from "@hacado/types/database";
+import type { AddressSuggestion, Country } from "@hacado/types/utils";
+import { countryOptions } from "@hacado/types/utils";
 
 const GEOAPIFY_AUTOCOMPLETE_URL =
   "https://api.geoapify.com/v1/geocode/autocomplete";

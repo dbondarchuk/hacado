@@ -1,12 +1,12 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  IJobService,
   Job,
   JobRequest,
   OrganizationJobRequest,
   RepeatableJobOptions,
   ScheduleRepeatableJobRequest,
-} from "@hacado/types";
+} from "@hacado/types/jobs";
+import { IJobService } from "@hacado/types/services";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQJobConfig } from "./types";
 import { serializeJobData } from "./utils";

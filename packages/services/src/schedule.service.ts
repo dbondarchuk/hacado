@@ -1,12 +1,12 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { IScheduleProvider } from "@hacado/types/apps";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import {
-  DaySchedule,
   IConfigurationService,
   IConnectedAppsService,
-  IScheduleProvider,
   IScheduleService,
-} from "@hacado/types";
-import { eachOfInterval } from "@hacado/utils";
+} from "@hacado/types/services";
+import { eachOfInterval } from "@hacado/utils/time";
 
 /**
  * Resolves open hours from the org default schedule, optionally overridden

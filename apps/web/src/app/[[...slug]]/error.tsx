@@ -1,11 +1,11 @@
 "use client";
 
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
 import { ChevronsUpDown } from "lucide-react";
 import React from "react";
 

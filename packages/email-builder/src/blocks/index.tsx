@@ -1,8 +1,6 @@
-import {
-  EditorDocumentBlocksDictionary,
-  generateId,
-  TEditorBlock,
-} from "@hacado/builder";
+import { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import {
   CircleUserRound,
   Code,

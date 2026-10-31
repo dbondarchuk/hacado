@@ -15,9 +15,9 @@ statusText:
 form:
   connect: Connectez <app></app>
   update: Mettre à jour <app></app>
-  publicPageDisabled:
-    label: Désactiver la page publique sur /my-cabinet
-    description: Lorsqu'elle est activée, l'application ne revendique pas /my-cabinet. Utilisez plutôt une page CMS avec le bloc Mon Cabinet. L'en-tête et le pied de page ci-dessous s'appliquent uniquement lorsque la page publique est active.
+  publicPageEnabled:
+    label: Activer la page publique sur /my-cabinet
+    description: Lorsqu'elle est activée, l'application revendique /my-cabinet. Désactivez-la pour utiliser une page CMS avec le bloc Mon Cabinet.
   headerId:
     label: En-tête de page
     description: En-tête facultatif affiché sur la page publique Mon Cabinet à l'adresse /my-cabinet

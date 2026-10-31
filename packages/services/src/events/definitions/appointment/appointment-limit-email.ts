@@ -1,14 +1,14 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getI18nAsync } from "@hacado/i18n/server";
-import {
-  BillingPlanTier,
-  FREE_TIER_LIMITS,
-  type EmailNotificationRequest,
-  type EventEnvelope,
-  type IServicesContainer,
-} from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+import { BillingPlanTier, FREE_TIER_LIMITS } from "@hacado/types/billing";
+import type { EventEnvelope } from "@hacado/types/events";
+import type {
+  EmailNotificationRequest,
+  IServicesContainer,
+} from "@hacado/types/services";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { getOpenAppointmentsCreatedInBillingCycleCount } from "../../../billing/free-tier-appointment-usage";
 import { resolvePlanTierFromOrganization } from "../../../billing/subscription-entitlements";

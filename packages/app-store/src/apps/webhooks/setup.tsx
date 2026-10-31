@@ -1,29 +1,32 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
-import {
-  Badge,
-  Button,
-  Combobox,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Input,
-  Spinner,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
-} from "@hacado/ui";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormLabelWithRequiredIndicator,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
+import {
+  TooltipResponsive,
+  TooltipResponsiveContent,
+  TooltipResponsiveTrigger,
+} from "@hacado/ui/tooltip-responsive";
 import { X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import * as z from "zod";
@@ -59,7 +62,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
     let cancelled = false;
     (async () => {
       try {
-        const res = await adminApi.apps.processStaticRequest<{
+        const res = await appsApi.processStaticRequest<{
           eventTypes: string[];
         }>("webhooks", { type: LIST_SELECTABLE_EVENT_TYPES_REQUEST_TYPE });
         if (
@@ -118,13 +121,13 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
             name="url"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  {t("form.url.label")}{" "}
-                  <InfoTooltip>{t("form.url.tooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("form.url.label")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input placeholder={t("form.url.placeholder")} {...field} />
                 </FormControl>
+                <FormDescription>{t("form.url.tooltip")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -134,10 +137,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
             name="secret"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  {t("form.secret.label")}{" "}
-                  <InfoTooltip>{t("form.secret.tooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.secret.label")}</FormLabel>
                 <FormControl>
                   <div className="space-y-2">
                     <Input
@@ -161,6 +161,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
                     )}
                   </div>
                 </FormControl>
+                <FormDescription>{t("form.secret.tooltip")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -170,10 +171,9 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
             name="eventTypes"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  {t("form.eventTypes.label")}{" "}
-                  <InfoTooltip>{t("form.eventTypes.tooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("form.eventTypes.label")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <div className="flex flex-col gap-4">
                     <Combobox
@@ -235,6 +235,9 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
                     </div>
                   </div>
                 </FormControl>
+                <FormDescription>
+                  {t("form.eventTypes.tooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

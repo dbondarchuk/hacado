@@ -2,11 +2,12 @@
 
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { servicesApi } from "@hacado/api-sdk/admin/services";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentOption } from "@hacado/types";
-import { Skeleton, useDebounceCacheFn } from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import { AppointmentOption } from "@hacado/types/booking";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { durationToTime } from "@hacado/utils/time";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,
@@ -55,7 +56,7 @@ export const OptionsDataTableAsyncFilterBox: React.FC<
   const getOptions = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.serviceOptions.getServiceOptions({
+      const result = await servicesApi.getServices({
         page,
         limit,
         search,

@@ -1,8 +1,8 @@
 import * as z from "zod";
 import { menuItemsWithSubMenuSchema } from "../configuration/styling/menu-item";
 import {
-  zThemeColor,
-  zThemeColorWithTransparent,
+  zThemeColorWithCurrentColor,
+  zThemeColorWithTransparentAndCurrentColor,
 } from "../configuration/styling/styling";
 import { WithDatabaseId, WithOrganizationId } from "../database";
 import { asOptionalField, Prettify, zAssetName } from "../utils";
@@ -10,7 +10,12 @@ import { asOptionalField, Prettify, zAssetName } from "../utils";
 export const pageHeaderPositionType = ["static", "sticky", "fixed"] as const;
 export type PageHeaderPosition = (typeof pageHeaderPositionType)[number];
 
-export const pageHeaderLogoSize = ["small", "medium", "large"] as const;
+export const pageHeaderLogoSize = [
+  "small",
+  "medium",
+  "large",
+  "x-large",
+] as const;
 export type PageHeaderLogoSize = (typeof pageHeaderLogoSize)[number];
 
 export const pageHeaderLogoNameFontSize = [
@@ -33,10 +38,11 @@ export type PageHeaderLogoNameFontWeight =
   (typeof pageHeaderLogoNameFontWeight)[number];
 
 /** System color, transparent, or custom HSL `"H S% L%"`. */
-export const zPageHeaderBackgroundColor = zThemeColorWithTransparent;
+export const zPageHeaderBackgroundColor =
+  zThemeColorWithTransparentAndCurrentColor;
 
 /** System color or custom HSL `"H S% L%"` (no transparent). */
-export const zPageHeaderTextColor = zThemeColor;
+export const zPageHeaderTextColor = zThemeColorWithCurrentColor;
 
 const zHeaderLogo = asOptionalField(zAssetName).nullable();
 
@@ -61,6 +67,11 @@ export type PageHeaderScrolledStyle = z.infer<
   typeof pageHeaderScrolledStyleSchema
 >;
 
+const pageHeaderMobileStyleSchema = z.object({
+  ...pageHeaderScrolledStyleSchema.shape,
+  scrolled: pageHeaderScrolledStyleSchema.optional(),
+});
+
 export const pageHeaderSchema = z.object({
   name: z
     .string("validation.page.headers.name.required")
@@ -83,6 +94,8 @@ export const pageHeaderSchema = z.object({
   /** When true, header content spans the full viewport width instead of the page container. */
   fullWidth: z.coerce.boolean<boolean>().optional(),
   scrolled: pageHeaderScrolledStyleSchema.optional(),
+  /** Mobile rest style, plus `scrolled` for the mobile on-scroll style. */
+  mobile: pageHeaderMobileStyleSchema.optional(),
 });
 
 export const getPageHeaderSchemaWithUniqueNameCheck = (
@@ -91,7 +104,14 @@ export const getPageHeaderSchemaWithUniqueNameCheck = (
 ) => {
   return z.object({
     ...pageHeaderSchema.shape,
-    name: pageHeaderSchema.shape.name.refine(uniqueNameCheckFn, { message }),
+    name: pageHeaderSchema.shape.name.refine(
+      async (name) => {
+        if (!name) return true;
+
+        return uniqueNameCheckFn(name);
+      },
+      { message },
+    ),
   });
 };
 

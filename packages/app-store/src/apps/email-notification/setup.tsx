@@ -1,25 +1,26 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps, zEmail } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
+import { zEmail } from "@hacado/types/utils";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
-  Spinner,
-  TagInput,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  useAuth,
-} from "@hacado/ui-admin";
-import { canProcessOtherMembersAppointments } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
+import { TagInput } from "@hacado/ui/tag-input";
+import { canProcessOtherMembersAppointments } from "@hacado/utils/permissions";
 import React from "react";
 import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
@@ -65,10 +66,7 @@ export const EmailNotificationAppSetup: React.FC<AppSetupProps> = ({
               name="email"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.email.label")}
-                    <InfoTooltip>{t("form.email.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.email.label")}</FormLabel>
                   <FormControl>
                     <TagInput
                       {...field}
@@ -82,6 +80,7 @@ export const EmailNotificationAppSetup: React.FC<AppSetupProps> = ({
                       tagValidator={zEmail}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.email.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

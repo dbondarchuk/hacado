@@ -1,11 +1,8 @@
 "use client";
 
-import {
-  useBlockEditor,
-  useCurrentBlock,
-  useEditorArgs,
-} from "@hacado/builder";
-import { templateSafeWithError } from "@hacado/utils";
+import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { templateSafeWithError } from "@hacado/utils/string";
 import { Avatar } from "./avatar";
 import { AvatarProps } from "./schema";
 

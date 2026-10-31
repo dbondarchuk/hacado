@@ -11,8 +11,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-  ToolbarButton,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { DEFAULT_COLORS, DEFAULT_CUSTOM_COLORS } from "./color-constants";
 import { ColorPicker } from "./color-picker";
 

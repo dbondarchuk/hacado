@@ -3,9 +3,10 @@ import { useQueryStates } from "nuqs";
 import React from "react";
 import { searchParams } from "./search-params";
 
-import { WithTotal } from "@hacado/types";
-import { toast, useDebounce } from "@hacado/ui";
-import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
+import { WithTotal } from "@hacado/types/database";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { useDebounce } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
 import { getAppointmentNotifications } from "../actions";
 import { AppointmentNotification } from "../models";
 import {

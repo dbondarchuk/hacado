@@ -1,5 +1,6 @@
-import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import { DateTime as Luxon } from "luxon";
 import { useModifyAppointmentFormContext } from "./context";
 

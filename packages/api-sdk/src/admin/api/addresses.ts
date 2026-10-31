@@ -1,4 +1,5 @@
-import type { AddressSuggestion, WithTotal } from "@hacado/types";
+import type { WithTotal } from "@hacado/types/database";
+import type { AddressSuggestion } from "@hacado/types/utils";
 import {
   AddressesSearchParams,
   addressesSearchParamsSerializer,

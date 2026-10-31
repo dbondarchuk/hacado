@@ -1,4 +1,4 @@
-import { colors, colorsLabels } from "@hacado/types";
+import { colors, colorsLabels } from "@hacado/types/configuration/styling";
 import { ValueLabel } from "./types";
 
 export const COLOR_NAMES = colors;

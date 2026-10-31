@@ -1,5 +1,6 @@
-import type { TEditorBlock } from "@hacado/builder";
-import { BaseReaderBlockProps, coerceArray, generateId } from "@hacado/builder";
+import type { TEditorBlock } from "@hacado/builder/editor";
+import { coerceArray, generateId } from "@hacado/builder/helpers";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import type { I18nFn } from "@hacado/i18n";
 import {
   createEmptySlot,
@@ -7,7 +8,7 @@ import {
   migrateContainerSlot,
   type EmbeddedSlotData,
 } from "@hacado/page-builder-base/slots";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { equalColWidthPercents } from "./grid-utils";
 import { zStyles } from "./styles";

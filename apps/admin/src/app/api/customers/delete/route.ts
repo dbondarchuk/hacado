@@ -1,8 +1,8 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { bulkDeleteSchema } from "@hacado/api-sdk";
+import { bulkDeleteSchema } from "@hacado/api-sdk/admin/schemas/bulk-delete";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

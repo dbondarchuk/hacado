@@ -1,23 +1,31 @@
 "use client";
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   AppointmentChoice,
   AppointmentFields,
   AppointmentPackage,
-  BookingCatalogNode,
   BookingRestriction,
-  catalogNodesAtPath,
-  catalogPathForOption,
   creditsPerRedemptionForItem,
   CustomerPackage,
   FieldSchema,
-  filterCatalogNodes,
   getActiveStaffAcrossAssignments,
   isBookingLimitRestriction,
   PublicStaffMember,
-} from "@hacado/types";
-import { Button, cn, Markdown, Skeleton } from "@hacado/ui";
+} from "@hacado/types/booking";
+import {
+  BookingCatalogNode,
+  catalogNodesAtPath,
+  catalogPathForService,
+  filterCatalogNodes,
+} from "@hacado/types/configuration/booking";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Markdown } from "@hacado/ui/markdown";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import { BookingOtpDialog } from "../../../../components/booking-otp-dialog";
@@ -40,6 +48,7 @@ export type AppointmentsProps = {
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   bookingRestriction?: BookingRestriction;
   catalog?: BookingCatalogNode[];
   packages?: AppointmentPackage[];
@@ -66,6 +75,7 @@ export const Appointments: React.FC<
   successPage,
   fieldsSchema,
   showPromoCode,
+  smsText,
   bookingRestriction,
   catalog,
   packages,
@@ -157,7 +167,7 @@ export const Appointments: React.FC<
     () =>
       filterCatalogNodes(catalog, {
         excludePackages: isOnlyWaitlist,
-        optionIds: availableOptions.map((choice) => choice._id),
+        serviceIds: availableOptions.map((choice) => choice._id),
         packageIds: isOnlyWaitlist
           ? undefined
           : packages?.map((pkg) => pkg._id),
@@ -169,7 +179,7 @@ export const Appointments: React.FC<
   React.useEffect(() => {
     const optionId = waitlistOffer?.optionId ?? fromQuery;
     if (!optionId || appliedOfferCatalogPath.current === optionId) return;
-    const path = catalogPathForOption(displayCatalog, optionId);
+    const path = catalogPathForService(displayCatalog, optionId);
     if (path === undefined) return;
     setCatalogPath(path);
     appliedOfferCatalogPath.current = optionId;
@@ -183,7 +193,7 @@ export const Appointments: React.FC<
     setCustomerPackageId(undefined);
     setOption(null);
     try {
-      const session = await clientApi.customerAuth.checkSession();
+      const session = await customerAuthApi.checkSession();
       if (session?.success) {
         setOtpVerified(true);
         setPackageOtpOpen(false);
@@ -191,6 +201,7 @@ export const Appointments: React.FC<
           name: session.name || "",
           email: session.email || "",
           phone: session.phone || "",
+          smsConsent: session.smsConsent === true,
         });
         await refreshBookingOptions?.();
         return;
@@ -211,12 +222,14 @@ export const Appointments: React.FC<
     let cancelled = false;
     setPackagesLoading(true);
     setPackagesError(false);
-    clientApi.customerAuth
+    customerAuthApi
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
         setMyPackages(
-          (response.items ?? []).filter((pkg) => pkg.remainingCredits > 0),
+          (response.items ?? []).filter(
+            (pkg) => pkg.status !== "pending" && pkg.remainingCredits > 0,
+          ),
         );
       })
       .catch((error) => {
@@ -241,10 +254,10 @@ export const Appointments: React.FC<
       const needed = creditsPerRedemptionForItem(item);
       return (
         remaining >= needed &&
-        options.some((choice) => choice._id === item.optionId)
+        options.some((choice) => choice._id === item.serviceId)
       );
     });
-    const optionId = redeemableItem?.optionId;
+    const optionId = redeemableItem?.serviceId;
     if (!optionId) {
       setPackagesError(true);
       return;
@@ -255,7 +268,9 @@ export const Appointments: React.FC<
     setOption(optionId);
 
     if (!isEditor) {
-      clientApi.booking.trackAdvanceFromUiStep("option", { optionId });
+      bookingApi.trackAdvanceFromUiStep("option", {
+        serviceId: optionId,
+      });
     }
   };
 
@@ -301,6 +316,7 @@ export const Appointments: React.FC<
         }
         fieldsSchema={fieldsSchema}
         showPromoCode={showPromoCode}
+        smsText={smsText}
         bookingRestriction={bookingRestriction}
         id={id}
         waitlistAppId={appId}
@@ -404,7 +420,7 @@ export const Appointments: React.FC<
             setSpecialistFirstAny(false);
             setSpecialistFirstMemberId(memberId);
             if (!isEditor) {
-              clientApi.booking.trackAdvanceFromUiStep("specialist", {
+              bookingApi.trackAdvanceFromUiStep("specialist", {
                 memberId,
               });
             }
@@ -413,7 +429,7 @@ export const Appointments: React.FC<
             setSpecialistFirstAny(true);
             setSpecialistFirstMemberId(null);
             if (!isEditor) {
-              clientApi.booking.trackAdvanceFromUiStep("specialist", {});
+              bookingApi.trackAdvanceFromUiStep("specialist", {});
             }
           }}
         />
@@ -445,6 +461,7 @@ export const Appointments: React.FC<
             name: result.name || "",
             email: result.email || "",
             phone: result.phone || "",
+            smsConsent: result.smsConsent === true,
           });
           await refreshBookingOptions?.();
         }}
@@ -510,8 +527,8 @@ export const Appointments: React.FC<
               setPackageBookingFlow(false);
               setOption(optionId);
               if (!isEditor) {
-                clientApi.booking.trackAdvanceFromUiStep("option", {
-                  optionId,
+                bookingApi.trackAdvanceFromUiStep("option", {
+                  serviceId: optionId,
                 });
               }
             }}
@@ -519,10 +536,10 @@ export const Appointments: React.FC<
               setPurchasePackageId(pkg._id);
               setCustomerPackageId(undefined);
               setPackageBookingFlow(false);
-              setOption(pkg.items[0]?.optionId ?? null);
+              setOption(pkg.items[0]?.serviceId ?? null);
               if (!isEditor) {
-                clientApi.booking.trackAdvanceFromUiStep("option", {
-                  optionId: pkg.items[0]?.optionId,
+                bookingApi.trackAdvanceFromUiStep("option", {
+                  serviceId: pkg.items[0]?.serviceId,
                 });
               }
             }}
@@ -557,8 +574,8 @@ export const Appointments: React.FC<
               setPackageBookingFlow(false);
               setOption(optionId);
               if (!isEditor) {
-                clientApi.booking.trackAdvanceFromUiStep("option", {
-                  optionId,
+                bookingApi.trackAdvanceFromUiStep("option", {
+                  serviceId: optionId,
                 });
               }
             }}

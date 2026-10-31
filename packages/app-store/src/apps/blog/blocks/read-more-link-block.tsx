@@ -1,8 +1,8 @@
+import { TEditorBlock } from "@hacado/builder/editor";
 import {
   generateId,
   generateId as generateLinkId,
-  TEditorBlock,
-} from "@hacado/builder";
+} from "@hacado/builder/helpers";
 import { COLORS } from "@hacado/page-builder-base/style";
 
 const InlineContainerPropsDefaults = {

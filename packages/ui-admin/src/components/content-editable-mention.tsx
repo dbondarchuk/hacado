@@ -1,15 +1,15 @@
 // @ts-nocheck
 "use client";
 
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   Command,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  mergeRefs,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
+import { mergeRefs } from "@hacado/ui/utils";
 import React, {
   CSSProperties,
   JSX,

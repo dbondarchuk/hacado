@@ -3,7 +3,7 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { BookingWithWaitlist } from "../booking-with-waitlist/components/booking";
 import { WaitlistReaderProps } from "./schema";
 import { styles } from "./styles";

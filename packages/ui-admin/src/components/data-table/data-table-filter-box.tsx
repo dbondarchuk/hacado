@@ -1,10 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Badge,
-  Button,
-  cn,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -12,11 +12,9 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Separator,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { Separator } from "@hacado/ui/separator";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { CheckIcon } from "lucide-react";
 import { Options } from "nuqs";
@@ -67,7 +65,7 @@ export function DataTableFilterBox<T extends boolean | string>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="border-dashed">
+        <Button variant="outline" className="border-dashed w-full">
           <PlusCircledIcon className="mr-2 size-3.5" />
           {title}
           {selectedValuesSet.size > 0 && (

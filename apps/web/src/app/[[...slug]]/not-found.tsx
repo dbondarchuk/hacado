@@ -10,8 +10,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Link,
-} from "@hacado/ui";
+} from "@hacado/ui/card";
+import { Link } from "@hacado/ui/link";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

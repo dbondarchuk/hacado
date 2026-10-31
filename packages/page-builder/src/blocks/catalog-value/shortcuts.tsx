@@ -1,0 +1,17 @@
+import {
+  backgroundColorShortcut,
+  colorShortcut,
+  fontFamilyShortcut,
+  fontSizeShortcut,
+  Shortcut,
+  textAlignmentShortcut,
+} from "@hacado/page-builder-base/shortcuts";
+import { AllStylesSchemas } from "@hacado/page-builder-base/style";
+
+export const catalogValueShortcuts: Shortcut<AllStylesSchemas>[] = [
+  fontSizeShortcut as Shortcut<AllStylesSchemas>,
+  textAlignmentShortcut as Shortcut<AllStylesSchemas>,
+  backgroundColorShortcut,
+  fontFamilyShortcut as Shortcut<AllStylesSchemas>,
+  colorShortcut,
+];

@@ -1,12 +1,16 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps, ConnectedApp } from "@hacado/types";
+import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
-  Button,
-  Checkbox,
-  DurationInput,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -14,12 +18,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { SquareApp } from "./app";
@@ -65,7 +65,7 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
   const isInStoreSyncEnabled = form.watch("enableInStoreSync");
 
   const getStatus = async (appId: string) => {
-    const status = await adminApi.apps.getAppStatus(appId);
+    const status = await appsApi.getAppStatus(appId);
     setApp(() => status);
 
     if (status.status === "pending") {
@@ -90,7 +90,7 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
       return;
     }
 
-    void adminApi.apps.getAppStatus(existingAppId).then(setApp);
+    void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 
   React.useEffect(() => {
@@ -108,16 +108,16 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
       let appId: string;
       if (app?._id || existingAppId) {
         appId = (app?._id || existingAppId)!;
-        await adminApi.apps.setAppStatus(appId, {
+        await appsApi.setAppStatus(appId, {
           status: "pending",
           statusText:
             "app_square_admin.form.pendingAuthorization" satisfies SquareAdminAllKeys,
         });
       } else {
-        appId = await adminApi.apps.addNewApp(SquareApp.name);
+        appId = await appsApi.addNewApp(SquareApp.name);
       }
 
-      const loginUrl = await adminApi.apps.getAppLoginUrl(appId);
+      const loginUrl = await appsApi.getAppLoginUrl(appId);
 
       getStatus(appId);
       window.open(loginUrl, "_blank", "popup=true");
@@ -164,58 +164,45 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
                 control={form.control}
                 name="enableInStoreSync"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <div className="flex items-center gap-2">
-                      <FormControl>
-                        <Checkbox
-                          id="squareEnableInStoreSync"
-                          checked={field.value ?? false}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormLabel
-                        className="cursor-pointer"
-                        htmlFor="squareEnableInStoreSync"
-                      >
-                        {t("form.inStoreSync.label")}
-                      </FormLabel>
-                    </div>
-                    <FormDescription>
-                      {t("form.inStoreSync.description")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
+                  <SwitchCardFormItem
+                    label={t("form.inStoreSync.label")}
+                    description={t("form.inStoreSync.description")}
+                    checked={field.value ?? false}
+                    onCheckedChange={field.onChange}
+                    disabled={isSavingSync}
+                  >
+                    {isInStoreSyncEnabled && (
+                      <FormField
+                        control={form.control}
+                        name="matchWindowMinutes"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>{t("form.matchWindow.label")}</FormLabel>
+                            <FormControl>
+                              <DurationInput
+                                type="hours-minutes"
+                                value={field.value ?? 0}
+                                disabled={isSavingSync}
+                                placeholderHours="2"
+                                placeholderMinutes="0"
+                                onBlur={field.onBlur}
+                                onChange={(val) => {
+                                  field.onChange(val ?? 0);
+                                  field.onBlur();
+                                }}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.matchWindow.description")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </SwitchCardFormItem>
                 )}
               />
-              {isInStoreSyncEnabled && (
-                <FormField
-                  control={form.control}
-                  name="matchWindowMinutes"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>{t("form.matchWindow.label")}</FormLabel>
-                      <FormControl>
-                        <DurationInput
-                          type="hours-minutes"
-                          value={field.value ?? 0}
-                          disabled={isSavingSync}
-                          placeholderHours="2"
-                          placeholderMinutes="0"
-                          onBlur={field.onBlur}
-                          onChange={(val) => {
-                            field.onChange(val ?? 0);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t("form.matchWindow.description")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
               <Button
                 disabled={isSavingSync || !isValid}
                 type="submit"

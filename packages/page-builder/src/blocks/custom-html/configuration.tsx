@@ -1,9 +1,11 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
-import { deepMemo, Label, Textarea } from "@hacado/ui";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
+import { Label } from "@hacado/ui/label";
+import { Textarea } from "@hacado/ui/textarea";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback } from "react";
 import { HtmlMonacoEditorDialog } from "./html-monaco-editor-dialog";
 import { CustomHTMLProps } from "./schema";

@@ -49,7 +49,7 @@ export const selectFieldDataSchema = z.object({
     ),
     (item) => item.option,
     "fields.option.unique",
-  ),
+  ).min(1, "validation.fields.options.min"),
 });
 
 export const fileFieldAcceptItemSchema = zNonEmptyString(
@@ -106,6 +106,8 @@ export const getFieldSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return fieldSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

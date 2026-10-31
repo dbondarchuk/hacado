@@ -1,13 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { CollectPayment, IdName } from "@hacado/types";
-import {
-  toast,
-  useCurrencyFormat,
-  useCurrencySymbol,
-  useDebounce,
-} from "@hacado/ui";
+import { CollectPayment } from "@hacado/types/booking";
+import { IdName } from "@hacado/types/services";
+import { useCurrencyFormat, useCurrencySymbol } from "@hacado/ui/context";
+import { useDebounce } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreditCard, Gift } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";

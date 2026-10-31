@@ -16,7 +16,14 @@ export const getPageFooterSchemaWithUniqueNameCheck = (
 ) => {
   return z.object({
     ...pageFooterSchema.shape,
-    name: pageFooterSchema.shape.name.refine(uniqueNameCheckFn, { message }),
+    name: pageFooterSchema.shape.name.refine(
+      async (name) => {
+        if (!name) return true;
+
+        return uniqueNameCheckFn(name);
+      },
+      { message },
+    ),
   });
 };
 

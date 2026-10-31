@@ -1,5 +1,5 @@
 "use client";
-import { ReplaceOriginalColors } from "@hacado/page-builder-base";
+import { ReplaceOriginalColors } from "@hacado/page-builder-base/helpers";
 import {
   Carousel,
   CarouselApi,
@@ -7,10 +7,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  Dialog,
-  DialogContent,
-  ImageZoom,
-} from "@hacado/ui";
+} from "@hacado/ui/carousel";
+import { Dialog, DialogContent } from "@hacado/ui/dialog";
+import { ImageZoom } from "@hacado/ui/image-zoom";
 import { useContext, useEffect, useState } from "react";
 import { LightboxInternalContext } from "./context";
 import { LightboxProps } from "./schema";

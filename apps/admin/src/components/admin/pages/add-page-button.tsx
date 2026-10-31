@@ -2,13 +2,13 @@
 
 import { PageLimitUpgradeHint } from "@/components/admin/pages/page-limit-upgrade-hint";
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { Link } from "@hacado/ui/link";
 import {
-  Button,
-  Link,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { Lock, Plus } from "lucide-react";
 
 export function AddPageButton({ canAddMore }: { canAddMore: boolean }) {

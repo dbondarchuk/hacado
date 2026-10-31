@@ -1,18 +1,22 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getI18nAsync } from "@hacado/i18n/server";
-import {
-  type CustomerPackageIssuedPayload,
-  type EmailNotificationRequest,
-  type EventEnvelope,
-  type IServicesContainer,
-} from "@hacado/types";
-import { formatAmountWithCurrency, getAdminUrl } from "@hacado/utils";
+import type {
+  CustomerPackageIssuedPayload,
+  EventEnvelope,
+} from "@hacado/types/events";
+import type {
+  EmailNotificationRequest,
+  IServicesContainer,
+} from "@hacado/types/services";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 
 const EMAIL_KEY_PREFIX =
-  "admin.services.packages.emails.purchasedOwner" as const;
+  "admin.catalog.packages.emails.purchasedOwner" as const;
 
 export async function buildCustomerPackagePurchasedOwnerEmails(
   envelope: EventEnvelope,

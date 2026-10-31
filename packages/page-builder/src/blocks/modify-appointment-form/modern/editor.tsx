@@ -1,12 +1,13 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@hacado/page-builder-base";
-import { cn } from "@hacado/ui";
+} from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
 import { ModifyAppointmentForm } from "./components/modify-appointment-form";
 import { ModifyAppointmentFormProps } from "./schema";
 import { styles } from "./styles";

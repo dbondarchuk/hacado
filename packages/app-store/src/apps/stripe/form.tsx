@@ -1,9 +1,12 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
-import { PaymentAppFormProps } from "@hacado/types";
-import { Button, Spinner, toast } from "@hacado/ui";
+import { PaymentAppFormProps } from "@hacado/types/apps";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import {
   Elements,
   PaymentElement,
@@ -62,12 +65,12 @@ function StripePayButton({
       redirect: "if_required",
     });
     if (error) {
-      clientApi.booking.trackPaymentFailed(intentAmount);
+      bookingApi.trackPaymentFailed(intentAmount);
       setIsPaying(false);
       return;
     }
     try {
-      const data = await clientApi.apps.callAppApi<{
+      const data = await appsApi.callAppApi<{
         success?: boolean;
         error?: string;
       }>({
@@ -79,11 +82,11 @@ function StripePayButton({
       if (!data?.success) {
         throw new Error(data?.error ?? "payment_failed");
       }
-      clientApi.booking.trackPaymentSucceeded(intentAmount);
+      bookingApi.trackPaymentSucceeded(intentAmount);
       onSuccess();
     } catch (e) {
       console.error(e);
-      clientApi.booking.trackPaymentFailed(intentAmount);
+      bookingApi.trackPaymentFailed(intentAmount);
       setIsPaying(false);
       return;
     }
@@ -132,7 +135,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
     let cancelled = false;
     (async () => {
       try {
-        const res = await clientApi.apps.callAppApi<{
+        const res = await appsApi.callAppApi<{
           clientSecret?: string;
           error?: string;
         }>({
@@ -171,7 +174,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
     const redirectStatus = p.get("redirect_status");
     if (redirectStatus === "failed") {
       returnFrom3dsRef.current = true;
-      clientApi.booking.trackPaymentFailed(intent.amount);
+      bookingApi.trackPaymentFailed(intent.amount);
       return;
     }
     if (redirectStatus !== "succeeded") {
@@ -183,7 +186,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
     returnFrom3dsRef.current = true;
     void (async () => {
       try {
-        const data = await clientApi.apps.callAppApi<{
+        const data = await appsApi.callAppApi<{
           success?: boolean;
         }>({
           appId: intent.appId,
@@ -192,18 +195,18 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
           body: { paymentIntentId: intent._id },
         });
         if (data?.success) {
-          clientApi.booking.trackPaymentSucceeded(intent.amount);
+          bookingApi.trackPaymentSucceeded(intent.amount);
           onSubmit();
           const url = new URL(window.location.href);
           url.search = "";
           window.history.replaceState({}, "", url.toString());
         } else {
-          clientApi.booking.trackPaymentFailed(intent.amount);
+          bookingApi.trackPaymentFailed(intent.amount);
           returnFrom3dsRef.current = false;
         }
       } catch (e) {
         console.error(e);
-        clientApi.booking.trackPaymentFailed(intent.amount);
+        bookingApi.trackPaymentFailed(intent.amount);
         returnFrom3dsRef.current = false;
       }
     })();

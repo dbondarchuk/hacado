@@ -1,4 +1,4 @@
-import { resolve } from "@hacado/utils";
+import { resolve } from "@hacado/utils/object";
 import { Fragment, ReactNode } from "react";
 import reactStringReplace from "react-string-replace";
 

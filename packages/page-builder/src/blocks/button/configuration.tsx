@@ -1,14 +1,12 @@
 "use client";
 
-import {
-  ConfigurationProps,
-  PageInput,
-  SelectInput,
-  TextInput,
-} from "@hacado/builder";
+import { PageInput, SelectInput, TextInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
-import { Combobox, deepMemo, Label } from "@hacado/ui";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
+import { Combobox } from "@hacado/ui/combobox";
+import { Label } from "@hacado/ui/label";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback } from "react";
 import {
   ButtonDefaultAction,

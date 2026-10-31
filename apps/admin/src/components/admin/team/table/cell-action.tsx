@@ -1,27 +1,29 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
-import type { UserRole } from "@hacado/types";
+import type { UserRole } from "@hacado/types/users";
+import { useAuth } from "@hacado/ui-admin/context";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+} from "@hacado/ui/dialog";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
-import { canUpdateTeamMemberProfile } from "@hacado/utils";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
+import { canUpdateTeamMemberProfile } from "@hacado/utils/permissions";
 import { MoreHorizontal, Pencil, UserCog, UserMinus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -62,7 +64,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
       setLoading(true);
       await toastPromise(
         (async () => {
-          const result = await adminApi.teams.updateMemberRole({
+          const result = await teamsApi.updateMemberRole({
             memberId: member._id,
             role,
           });
@@ -85,9 +87,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
   const onRequestDeactivate = async () => {
     try {
       setLoading(true);
-      const check = await adminApi.teams.getMemberUpcomingAppointments(
-        member._id,
-      );
+      const check = await teamsApi.getMemberUpcomingAppointments(member._id);
       if (check.ok && check.upcoming.length) {
         setUpcomingCount(check.upcoming.length);
         setForceOpen(true);
@@ -95,7 +95,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
       }
       await toastPromise(
         (async () => {
-          const result = await adminApi.teams.deactivateMember({
+          const result = await teamsApi.deactivateMember({
             memberId: member._id,
           });
           if (!result.ok) throw new Error(result.code);
@@ -119,7 +119,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
       setLoading(true);
       await toastPromise(
         (async () => {
-          const result = await adminApi.teams.deactivateMember({
+          const result = await teamsApi.deactivateMember({
             memberId: member._id,
             force: true,
           });

@@ -1,8 +1,9 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -10,16 +11,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-  RadioGroup,
-  RadioGroupItem,
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { Grid3X3 } from "lucide-react";
 import React, { useState } from "react";
 

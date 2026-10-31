@@ -1,4 +1,5 @@
-import { ReaderProps, templateProps } from "@hacado/builder";
+import { templateProps } from "@hacado/builder/helpers";
+import { ReaderProps } from "@hacado/builder/reader";
 import { OnlineMeetingProps, OnlineMeetingPropsDefaults } from "./schema";
 import { getLogoUrl, getStyles } from "./styles";
 

@@ -2,7 +2,7 @@ import {
   colorShortcut,
   fontFamilyShortcut,
   Shortcut,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/shortcuts";
 import { AlignHorizontalJustifyCenter, GalleryHorizontal } from "lucide-react";
 import { CarouselStylesSchema } from "./schema";
 

@@ -7,7 +7,7 @@ import { isPublicSignupAllowedFromHeaders } from "@/lib/auth/signup-geo";
 import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Link } from "@hacado/ui";
+import { Link } from "@hacado/ui/link";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";

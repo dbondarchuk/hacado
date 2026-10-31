@@ -9,30 +9,29 @@ import { normalizeSlug } from "@/components/install/constants";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
 import { languages, useI18n } from "@hacado/i18n/client";
+import type { BusinessIndustry, PostalAddress } from "@hacado/types/utils";
 import {
   businessIndustryDefinitions,
   catalogCategoryForIndustry,
   countryOptions,
   currencyOptions,
-  type BusinessIndustry,
-  type PostalAddress,
-} from "@hacado/types";
+} from "@hacado/types/utils";
+import { AddressAutocomplete } from "@hacado/ui-admin/address-autocomplete";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, type IComboboxItem } from "@hacado/ui/combobox";
+import { useDebounceCallback } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
 import {
-  Button,
-  cn,
-  Combobox,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInputClasses,
-  Label,
-  Spinner,
-  toast,
-  useDebounceCallback,
-  type IComboboxItem,
-} from "@hacado/ui";
-import { AddressAutocomplete, AssetSelectorInput } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { getTimeZones } from "@vvo/tzdb";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";

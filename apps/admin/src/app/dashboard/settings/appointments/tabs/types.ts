@@ -1,4 +1,4 @@
-import { BookingConfiguration } from "@hacado/types";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
 import { UseFormReturn } from "react-hook-form";
 
 export type TabProps = {

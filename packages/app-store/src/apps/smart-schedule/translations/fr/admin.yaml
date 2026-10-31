@@ -11,8 +11,10 @@ form:
   preferLaterStartsEarlierEndsTooltip: Donnera une préférence plus élevée aux plages horaires, ce qui permettra des débuts plus tardifs et des fins de quart de travail plus tôt
   allowSmartSlotStarts: Autoriser les heures de début des créneaux intelligents
   allowSmartSlotStartsTooltip: Si aucune heure de début de créneau autorisée n'est trouvée, nous essaierons de trouver un créneau horaire non conventionnel.
+  maximizeForService: Maximiser les rendez-vous d'un service spécifique
+  maximizeForServiceTooltip: Lorsqu'elle est activée, les plages horaires qui permettent le plus de rendez-vous du service sélectionné sont prioritaires.
   preferredService: Service préféré
-  preferredServiceTooltip: Si sélectionné, donnera la priorité aux plages horaires qui produiront un nombre maximum de rendez-vous pour le service sélectionné.
+  preferredServiceRequired: Le service est requis
   add: Ajouter <app></app>
   update: Mettre à jour <app></app>
 statusText:

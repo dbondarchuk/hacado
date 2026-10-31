@@ -1,16 +1,19 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  EventDefinition,
+  PaymentCreatedPayload,
+  PaymentDeletedPayload,
+  PaymentRefundedPayload,
+  PaymentUpdatedPayload,
+} from "@hacado/types/events";
 import {
   PAYMENT_CREATED_EVENT_TYPE,
   PAYMENT_DELETED_EVENT_TYPE,
   PAYMENT_INTENT_PAID_EVENT_TYPE,
   PAYMENT_REFUNDED_EVENT_TYPE,
   PAYMENT_UPDATED_EVENT_TYPE,
-  type EventDefinition,
-  type PaymentCreatedPayload,
-  type PaymentDeletedPayload,
-  type PaymentRefundedPayload,
-  type PaymentUpdatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

@@ -4,29 +4,30 @@ import { auth } from "@/app/auth";
 import { validateFaviconValue } from "@/lib/validate-favicon";
 import { languages } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer, StaticOrganizationService } from "@hacado/services";
 import {
   CONFIGURATION_COLLECTION_NAME,
   MEMBERS_COLLECTION_NAME,
   ORGANIZATIONS_COLLECTION_NAME,
 } from "@hacado/services/collections";
+import { ServicesContainer } from "@hacado/services/container";
 import { getDbConnection } from "@hacado/services/database";
+import { StaticOrganizationService } from "@hacado/services/organization";
+import type { ConfigurationOption } from "@hacado/types/configuration";
+import type { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { brandConfigurationSchema } from "@hacado/types/configuration/brand";
+import { generalConfigurationSchema } from "@hacado/types/configuration/general";
+import type { Organization } from "@hacado/types/organizations";
+import type { OrganizationMember } from "@hacado/types/users";
+import type { PostalAddress } from "@hacado/types/utils";
 import {
   asOptionalField,
-  brandConfigurationSchema,
-  generalConfigurationSchema,
   normalizePostalAddress,
   zAssetName,
   zBusinessIndustry,
   zCountry,
   zCurrency,
   zTimeZone,
-  type BrandConfiguration,
-  type ConfigurationOption,
-  type Organization,
-  type OrganizationMember,
-  type PostalAddress,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
 import * as z from "zod";

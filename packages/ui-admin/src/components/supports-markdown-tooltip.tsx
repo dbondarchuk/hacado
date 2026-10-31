@@ -1,10 +1,10 @@
 import { useI18n } from "@hacado/i18n/client";
+import { Link } from "@hacado/ui/link";
 import {
-  Link,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { CodeSquare } from "lucide-react";
 import React from "react";
 

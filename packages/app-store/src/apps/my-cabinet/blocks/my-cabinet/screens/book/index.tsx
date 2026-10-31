@@ -1,7 +1,7 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
-import { GetAppointmentOptionsResponse } from "@hacado/types";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { GetAppointmentOptionsResponse } from "@hacado/types/booking";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../../waitlist/components/fixtures";
 import { Schedule } from "./schedule";
@@ -29,7 +29,7 @@ export const CabinetBookScreen: React.FC<
 
   React.useEffect(() => {
     const loadOptions = async () => {
-      const data = await clientApi.booking.getBookingOptions();
+      const data = await bookingApi.getBookingOptions();
       setResponse(data);
     };
 
@@ -49,6 +49,7 @@ export const CabinetBookScreen: React.FC<
       flowOrder="service-first"
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}
+      smsText={response?.smsText}
       isEditor={isEditor}
       waitlistAppId={waitlistAppId}
       isOnlyWaitlist={false}

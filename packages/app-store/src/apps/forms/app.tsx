@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { Form } from "lucide-react";
 import { FORMS_APP_NAME } from "./const";
 import {
@@ -16,6 +17,7 @@ export const FormsApp: App<FormsAdminNamespace, FormsAdminKeys> = {
     "customer-tab",
     "dashboard-notifier",
     "quick-link-provider",
+    "command-search-provider",
   ],
   type: "complex",
   target: "company",

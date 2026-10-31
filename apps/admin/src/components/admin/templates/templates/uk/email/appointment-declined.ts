@@ -2,7 +2,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
@@ -12,7 +12,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Запис на послугу {{option.name}} було скасовано",
+        text: "Запис на послугу {{service.name}} було скасовано",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-На жаль, ми не можемо підтвердити ваш візит на послугу {{option.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
+На жаль, ми не можемо підтвердити ваш візит на послугу {{service.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}} або оберіть інший час.
 

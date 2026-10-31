@@ -1,11 +1,9 @@
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  genericMemo,
-  Input,
-  ScrollArea,
-  useDebounce,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { genericMemo } from "@hacado/ui/utils";
 import { Search, X } from "lucide-react";
 import { memo, useMemo, useState } from "react";
 import { useBlocks, useRootBlockType } from "../../../documents/editor/context";

@@ -1,4 +1,4 @@
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 
 export const resolve = (
   obj: any,

@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n } from "@hacado/i18n/client";
-import { Payment } from "@hacado/types";
+import { Payment } from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,12 +13,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Trash } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
@@ -49,7 +48,7 @@ export const PaymentDeleteConfirmationModal = ({
   const remove = async () => {
     setIsLoading(true);
     try {
-      await toastPromise(adminApi.payments.deleteInstore(payment._id), {
+      await toastPromise(paymentsApi.deleteInstore(payment._id), {
         success: t("payment.card.deleteSuccess"),
         error: t("common.toasts.error"),
       });

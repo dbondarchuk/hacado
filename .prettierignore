@@ -1,4 +1,6 @@
 # Ignore artifacts:
+*.generated.ts
+*.keys.d.ts
 build
 coverage
 node_modules

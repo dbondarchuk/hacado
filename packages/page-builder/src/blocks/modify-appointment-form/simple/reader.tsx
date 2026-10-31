@@ -3,7 +3,7 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { ModifyAppointmentForm } from "./components/modify-appointment-form";
 import { ModifyAppointmentFormReaderProps } from "./schema";
 import { styles } from "./styles";

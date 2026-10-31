@@ -1,7 +1,7 @@
 "use client";
 
 import { arrayMove } from "@dnd-kit/sortable";
-import { BaseBlockProps as BaseBlockPropsType } from "@hacado/builder";
+import { BaseBlockProps as BaseBlockPropsType } from "@hacado/builder/types";
 import { AllKeys, useI18n } from "@hacado/i18n/client";
 import React, { useCallback, useMemo, useState } from "react";
 import * as z from "zod";

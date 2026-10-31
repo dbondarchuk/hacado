@@ -1,8 +1,5 @@
-import {
-  useBlockEditor,
-  useCurrentBlock,
-  useDispatchAction,
-} from "@hacado/builder";
+import { useCurrentBlock, useDispatchAction } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { useCallback } from "react";
 import { SpacerProps } from "./schema";
 import { Spacer } from "./spacer";

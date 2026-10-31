@@ -7,20 +7,18 @@ import {
   MenuItemType,
   menuItemTypes,
   MenuItemWithSubMenu,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
-  Combobox,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
 import { cva } from "class-variance-authority";
 import { ChevronDown, GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";

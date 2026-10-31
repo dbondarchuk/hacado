@@ -5,16 +5,20 @@ import {
   useActivityFeedStore,
   useNotificationsStore,
 } from "@/notifications/store";
-import { BASE_ADMIN_API_URL } from "@hacado/api-sdk";
+import { BASE_ADMIN_API_URL } from "@hacado/api-sdk/admin/utils";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   DASHBOARD_BADGE_EVENT,
   DashboardBadgeUpdate,
   DashboardNotification,
-  type SessionUser,
-} from "@hacado/types";
-import { Badge, cn, toast, useTimeZone } from "@hacado/ui";
-import { applyDashboardBadgeUpdate, resolvedI18nText } from "@hacado/ui-admin";
+} from "@hacado/types/apps";
+import type { SessionUser } from "@hacado/types/users";
+import { resolvedI18nText } from "@hacado/ui-admin/hooks";
+import { applyDashboardBadgeUpdate } from "@hacado/ui-admin/notifications";
+import { Badge } from "@hacado/ui/badge";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
 import { useRouter } from "next/navigation";
 import React from "react";
 

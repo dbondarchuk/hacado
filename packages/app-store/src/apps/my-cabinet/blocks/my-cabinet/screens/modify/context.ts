@@ -5,7 +5,7 @@ import type {
   DateTime,
   ModifyAppointmentInformation,
   ModifyAppointmentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 import { CabinetModifySteps, CANCEL_STEPS, RESCHEDULE_STEPS } from "./steps";

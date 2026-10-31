@@ -4,24 +4,26 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   SyncedPaymentStandalonePaymentType,
   syncedPaymentStandalonePaymentTypes,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Label,
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-} from "@hacado/ui";
-import { CustomerSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { Spinner } from "@hacado/ui/spinner";
 import { useEffect, useState } from "react";
 
 const DEFAULT_PAYMENT_TYPE: SyncedPaymentStandalonePaymentType = "other";

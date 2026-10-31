@@ -629,7 +629,7 @@ export const features: Feature[] = [
   {
     slug: "notifications",
     title: "Email & SMS",
-    eyebrow: "Show up",
+    eyebrow: "Reduce no-shows",
     summary: "Reminders that cut no-shows without you texting from your phone.",
     description:
       "Branded emails and SMS before the appointment, aftercare after. Resend or SMTP lets mail come from your domain. SMS credits are included on Solo and Studio; Free can buy credits separately. Templates stay in your voice.",
@@ -644,7 +644,7 @@ export const features: Feature[] = [
     featured: true,
     bullets: [
       "Email confirmations and reminders",
-      "SMS reminders with plan credits or Textbelt",
+      "SMS reminders with plan credits or bring your own SMS provider",
       "Custom templates that match your brand",
       "Waitlist: email or SMS when a matching slot opens, with a book link",
       "Logs when a client says they never got the message",
@@ -659,11 +659,11 @@ export const features: Feature[] = [
       },
       {
         title: "Email from you, not a no-reply void",
-        body: "Connect Resend (OAuth, verified domain) or SMTP (Google Workspace, Microsoft 365, or a transactional host) so clients see mail from your domain. Hacado email sending still works if you are not ready.",
+        body: "Connect Resend or SMTP so clients see mail from your domain. Hacado email sending still works if you are not ready.",
       },
       {
         title: "Texts without a second app",
-        body: "Solo includes 100 SMS credits a month; Studio includes 300. Free can purchase credits. Textbelt is there if you want pay-as-you-go through their key. Follow local consent rules - Hacado sends what you configure.",
+        body: "Solo includes 100 SMS credits a month; Studio includes 300. Free can purchase credits. Follow local consent rules - Hacado sends what you configure.",
       },
       {
         title: "Waitlist should not mean you call down a list",
@@ -724,7 +724,7 @@ export const features: Feature[] = [
     title: "Calendars & video",
     eyebrow: "Connected",
     summary:
-      "Google, Outlook, CalDAV, Zoom, Meet, and Teams - plus ICS import for busy time.",
+      "Google, Outlook, Apple Calendar, CalDAV, Zoom, Meet, and Teams - plus ICS import for busy time.",
     description:
       "Two-way calendar sync keeps personal life off your booking page. Import an ICS feed when another system only publishes a subscribe link. For coaches and consults, Zoom, Google Meet, or Microsoft Teams links are created automatically.",
     image: "/assets/generated/usecase-coach.png",

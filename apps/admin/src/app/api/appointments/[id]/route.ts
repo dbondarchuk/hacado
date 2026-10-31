@@ -10,7 +10,7 @@ import {
   effectiveStaffPrice,
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -123,13 +123,13 @@ export async function PUT(
 
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");
-  const option = await servicesContainer.servicesService.getOption(
-    data.optionId,
+  const option = await servicesContainer.catalogService.getService(
+    data.serviceId,
   );
   if (!option) {
-    logger.warn({ optionId: data.optionId }, "Option not found");
+    logger.warn({ serviceId: data.serviceId }, "Service not found");
     return NextResponse.json(
-      { success: false, error: "Option not found", code: "option_not_found" },
+      { success: false, error: "Service not found", code: "option_not_found" },
       { status: 400 },
     );
   }
@@ -143,7 +143,7 @@ export async function PUT(
   }
 
   const addons = data.addonsIds?.length
-    ? await servicesContainer.servicesService.getAddonsById(data.addonsIds)
+    ? await servicesContainer.catalogService.getAddonsById(data.addonsIds)
     : undefined;
 
   const memberId = data.memberId ?? auth.appointment.memberId;
@@ -177,13 +177,13 @@ export async function PUT(
   }
 
   const discount = data.discount
-    ? await servicesContainer.servicesService.getDiscountByCode(
+    ? await servicesContainer.catalogService.getDiscountByCode(
         data.discount.code,
       )
     : undefined;
 
   const selectedFields =
-    await servicesContainer.servicesService.getFieldsByNames(
+    await servicesContainer.catalogService.getFieldsByNames(
       Object.keys(data.fields),
     );
   const fieldsLabels = selectedFields.reduce(
@@ -225,6 +225,7 @@ export async function PUT(
 
   const {
     acknowledgeUnassignedMember: _acknowledgeUnassignedMember,
+    serviceId: _serviceId,
     ...eventData
   } = data;
 
@@ -238,7 +239,7 @@ export async function PUT(
       ),
     fieldsLabels,
     timeZone,
-    option: {
+    service: {
       _id: option._id,
       name: option.name,
       price: optionPrice,

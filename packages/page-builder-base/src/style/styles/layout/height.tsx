@@ -1,4 +1,5 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { Ruler } from "lucide-react";
 import { RawNumberInputWithUnitsAndKeywords } from "../../../style-inputs/base/raw-number-input-with-units-and-keywords";
 import { widthOrHeightOptions } from "../../../style-inputs/base/types";

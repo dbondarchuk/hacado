@@ -1,25 +1,25 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
-  PhoneInput,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  useAuth,
-} from "@hacado/ui-admin";
-import { canProcessOtherMembersAppointments } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { Spinner } from "@hacado/ui/spinner";
+import { canProcessOtherMembersAppointments } from "@hacado/utils/permissions";
 import React from "react";
 import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
@@ -65,16 +65,14 @@ export const TextMessageNotificationAppSetup: React.FC<AppSetupProps> = ({
               name="phone"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.phone.label")}
-                    <InfoTooltip>{t("form.phone.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.phone.label")}</FormLabel>
                   <FormControl>
                     <PhoneInput
                       {...field}
                       label={t("form.phone.placeholder")}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.phone.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

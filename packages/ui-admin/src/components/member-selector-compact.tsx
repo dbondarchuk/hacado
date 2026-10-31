@@ -1,23 +1,21 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
-import type { TeamMemberListModel } from "@hacado/types";
+import type { TeamMemberListModel } from "@hacado/types/users";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Skeleton,
-  useDebounce,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Check, Users } from "lucide-react";
 import React from "react";
 import { useInView } from "react-intersection-observer";
@@ -74,7 +72,7 @@ export const MemberSelectorCompact: React.FC<MemberSelectorCompactProps> = ({
 
     let cancelled = false;
     void (async () => {
-      const result = await adminApi.teams.getMembers({
+      const result = await teamsApi.getMembers({
         page: 1,
         limit: 1,
         priorityId: [value],
@@ -104,7 +102,7 @@ export const MemberSelectorCompact: React.FC<MemberSelectorCompactProps> = ({
     const load = async () => {
       setLoading(true);
       try {
-        const result = await adminApi.teams.getMembers({
+        const result = await teamsApi.getMembers({
           page,
           limit: PAGE_SIZE,
           search: debouncedSearch || undefined,

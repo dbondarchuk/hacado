@@ -15,25 +15,25 @@ import {
   Wand2Icon,
 } from "lucide-react";
 
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
+} from "@hacado/ui/command";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 
 interface Model {
   label: string;

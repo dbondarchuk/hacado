@@ -9,13 +9,16 @@ import {
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { getArguments } from "@hacado/utils/get-arguments";
 import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  template,
-} from "@hacado/utils";
+  appendSharedPoolSuffix,
+  isPlatformSmsCountry,
+  isSmsEnabled,
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
+import { getAutoReplySms } from "./messages";
 import {
   TextMessageAutoReplyConfiguration,
   textMessageAutoReplyConfigurationSchema,
@@ -51,8 +54,11 @@ export default class TextMessageAutoReplyConnectedApp
       "Processing Text Message Auto Reply configuration request",
     );
 
-    const { data, success, error } =
-      textMessageAutoReplyConfigurationSchema.safeParse(request);
+    const {
+      data: parsedData,
+      success,
+      error,
+    } = textMessageAutoReplyConfigurationSchema.safeParse(request);
     if (!success) {
       logger.error(
         { error },
@@ -66,35 +72,24 @@ export default class TextMessageAutoReplyConnectedApp
       );
     }
 
+    const data = {
+      ...parsedData,
+      replyText: parsedData.replyText?.trim() || undefined,
+    };
+
     try {
-      logger.debug(
-        { appId: appData._id, templateId: data.autoReplyTemplateId },
-        "Validating auto reply template",
-      );
-
-      const template = await this.props.services.templatesService.getTemplate(
-        data.autoReplyTemplateId,
-      );
-
-      if (!template) {
-        logger.error(
-          { appId: appData._id, templateId: data.autoReplyTemplateId },
-          "Auto reply template not found",
+      if (data.autoReplyTemplateId) {
+        const stored = await this.props.services.templatesService.getTemplate(
+          data.autoReplyTemplateId,
         );
-        throw new ConnectedAppError<
-          TextMessageAutoReplyAdminNamespace,
-          TextMessageAutoReplyAdminKeys
-        >("app_text-message-auto-reply_admin.statusText.template_not_found");
-      }
 
-      logger.debug(
-        {
-          appId: appData._id,
-          templateId: data.autoReplyTemplateId,
-          templateName: template.name,
-        },
-        "Auto reply template validated successfully",
-      );
+        if (!stored || stored.type !== "text-message") {
+          throw new ConnectedAppError<
+            TextMessageAutoReplyAdminNamespace,
+            TextMessageAutoReplyAdminKeys
+          >("app_text-message-auto-reply_admin.statusText.template_not_found");
+        }
+      }
 
       const status: ConnectedAppStatusWithText<
         TextMessageAutoReplyAdminNamespace,
@@ -217,34 +212,52 @@ export default class TextMessageAutoReplyConnectedApp
         member,
       });
 
-      if (appData.data?.autoReplyTemplateId) {
-        logger.debug(
-          { appId: appData._id, templateId: appData.data.autoReplyTemplateId },
-          "Retrieving auto reply template",
-        );
+      if (isSmsEnabled(appData.data?.enabled)) {
+        const replyText = appData.data?.replyText?.trim();
+        const platformCountry = isPlatformSmsCountry(reply.from);
+        const allowCustom = (
+          await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+        ).allowCustomTemplates;
 
-        const autoReplyTemplate =
-          await this.props.services.templatesService.getTemplate(
-            appData.data.autoReplyTemplateId,
+        let message: string | undefined;
+        if (platformCountry && !allowCustom) {
+          message = appendSharedPoolSuffix(
+            template(getAutoReplySms(config.brand.language), args, true),
           );
-
-        if (autoReplyTemplate) {
-          logger.info(
-            {
-              appId: appData._id,
-              templateId: autoReplyTemplate._id,
-              templateName: autoReplyTemplate.name,
-              fromNumber: reply.from,
-            },
-            "Auto replying with template",
+        } else if (replyText && (!platformCountry || allowCustom)) {
+          try {
+            message = template(replyText, args, true);
+          } catch (error) {
+            logger.error(
+              { appId: appData._id, error },
+              "Auto reply text failed to render",
+            );
+            return null;
+          }
+        } else if (platformCountry) {
+          message = template(
+            getAutoReplySms(config.brand.language),
+            args,
+            true,
           );
+        } else if (appData.data?.autoReplyTemplateId) {
+          const autoReplyTemplate =
+            await this.props.services.templatesService.getTemplate(
+              appData.data.autoReplyTemplateId,
+            );
+          if (autoReplyTemplate?.type === "text-message") {
+            message = templateSafeWithError(
+              autoReplyTemplate.value as string,
+              args,
+              true,
+            );
+          }
+        }
 
-          const message = template(autoReplyTemplate.value, args);
-
+        if (message) {
           logger.debug(
             {
               appId: appData._id,
-              templateId: autoReplyTemplate._id,
               messageLength: message.length,
               fromNumber: reply.from,
             },
@@ -253,6 +266,7 @@ export default class TextMessageAutoReplyConnectedApp
 
           await this.props.services.notificationService.sendTextMessage({
             body: message,
+            dontRequireConsent: true,
             handledBy:
               "app_text-message-auto-reply_admin.handler" satisfies TextMessageAutoReplyAdminAllKeys,
             phone: reply.from,
@@ -267,7 +281,6 @@ export default class TextMessageAutoReplyConnectedApp
           logger.info(
             {
               appId: appData._id,
-              templateId: autoReplyTemplate._id,
               fromNumber: reply.from,
             },
             "Successfully sent auto reply text message",
@@ -282,7 +295,7 @@ export default class TextMessageAutoReplyConnectedApp
           logger.error(
             {
               appId: appData._id,
-              templateId: appData.data.autoReplyTemplateId,
+              templateId: appData.data?.autoReplyTemplateId,
             },
             "Auto reply template not found",
           );

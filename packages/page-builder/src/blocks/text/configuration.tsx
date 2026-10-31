@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder/types";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
 
-import { deepMemo } from "@hacado/ui";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback } from "react";
 import { TextProps } from "./schema";
 import { styles } from "./styles";

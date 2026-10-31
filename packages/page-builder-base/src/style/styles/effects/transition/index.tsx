@@ -20,8 +20,13 @@ export const transitionStyle = {
     if (value.properties.length === 0 || value.properties.includes("none"))
       return null;
 
-    const properties = value.properties.join(", ");
-    return `transition: ${properties} ${value.duration}s ${value.timingFunction};`;
+    const properties = value.properties
+      .map(
+        (property) => `${property} ${value.duration}s ${value.timingFunction}`,
+      )
+      .join(", ");
+
+    return `transition: ${properties};`;
   },
   component: ({ value, onChange }) => {
     return <TransitionConfiguration value={value} onChange={onChange} />;

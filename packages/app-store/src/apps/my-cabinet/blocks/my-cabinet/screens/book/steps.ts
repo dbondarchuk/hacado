@@ -1,4 +1,4 @@
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import {
   Calendar,
   CheckCircle2,
@@ -55,7 +55,7 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
     if (!payment || payment.intent?.status === "paid") {
       ctx.onSubmit(payment?.intent?._id);
     } else {
-      clientApi.booking.trackPaymentReached(payment.intent?.amount);
+      bookingApi.trackPaymentReached(payment.intent?.amount);
       ctx.setCurrentStep("payment");
     }
   } catch (e) {

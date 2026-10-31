@@ -1,5 +1,5 @@
-import type { IBillingService } from "@hacado/types";
-import { openAppointmentStatusMongoFilter } from "@hacado/types";
+import { openAppointmentStatusMongoFilter } from "@hacado/types/booking";
+import type { IBillingService } from "@hacado/types/services";
 import { DateTime } from "luxon";
 
 import { APPOINTMENTS_COLLECTION_NAME } from "../collections";

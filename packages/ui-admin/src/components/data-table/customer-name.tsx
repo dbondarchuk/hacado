@@ -4,7 +4,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { Lock } from "lucide-react";
 
 export const CustomerName = ({

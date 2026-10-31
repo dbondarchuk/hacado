@@ -6,7 +6,8 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn, Spinner } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Spinner } from "@hacado/ui/spinner";
 import {
   FormsAdminKeys,
   FormsAdminNamespace,

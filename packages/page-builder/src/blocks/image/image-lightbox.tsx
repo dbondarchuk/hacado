@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 import { useLightboxImage } from "../lightbox/context";
 

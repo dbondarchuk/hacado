@@ -1,11 +1,8 @@
 "use client";
 
-import {
-  CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
-  zEmail,
-  zPhone,
-  type CustomerOtpChannels,
-} from "@hacado/types";
+import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
+import { CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS } from "@hacado/types/customer-auth";
+import { zEmail, zPhone } from "@hacado/types/utils";
 import { Mail, Phone } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -54,6 +51,7 @@ export type CustomerOtpVerified = {
   phone: string;
   name?: string;
   id?: string;
+  smsConsent?: boolean;
 };
 
 export type CustomerOtpFormProps = {
@@ -75,6 +73,7 @@ export type CustomerOtpFormProps = {
     email?: string;
     phone?: string;
     id?: string;
+    smsConsent?: boolean;
   }>;
   onVerified: (result: CustomerOtpVerified) => void | Promise<void>;
 };
@@ -233,6 +232,7 @@ export const CustomerOtpForm = ({
         phone: response.phone ?? phone,
         name: response.name,
         id: response.id,
+        smsConsent: response.smsConsent === true,
       });
     } catch {
       toast.error(labels.verifyError);

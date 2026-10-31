@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { refundPaymentsSchema } from "@hacado/api-sdk";
+import { refundPaymentsSchema } from "@hacado/api-sdk/admin/schemas/payments";
 import { getLoggerFactory } from "@hacado/logger";
-import { Payment } from "@hacado/types";
+import { Payment } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 import pLimit from "p-limit";
 

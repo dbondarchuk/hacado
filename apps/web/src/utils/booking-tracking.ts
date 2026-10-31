@@ -4,7 +4,7 @@ import {
   BookingStep,
   BookingTrackingEventData,
   BookingTrackingMetadata,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest } from "next/server";
 import { getServicesContainer } from "./utils";
 
@@ -67,7 +67,7 @@ export async function trackBookingStepWithCustomer(
       name: string;
       phone: string;
     };
-    optionId?: string;
+    serviceId?: string;
     dateTime?: Date;
     addonsIds?: string[];
   },
@@ -89,7 +89,7 @@ export async function trackBookingStepWithCustomer(
 
   const enhancedMetadata: BookingTrackingMetadata = {
     ...metadata,
-    optionId: appointmentRequest?.optionId || metadata?.optionId,
+    serviceId: appointmentRequest?.serviceId || metadata?.serviceId,
     customerEmail: appointmentRequest?.fields?.email,
     customerName: appointmentRequest?.fields?.name,
     customerId,

@@ -1,4 +1,5 @@
-import { AllKeys, BaseAllKeys } from "@hacado/i18n";
+import { AllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import * as z from "zod";
 import { Customer } from "../customers";
 import { WithDatabaseId, WithOrganizationId } from "../database";
@@ -42,9 +43,16 @@ export const getGiftCardSchemaWithUniqueCheck = (
   const schema = omitPaymentId
     ? giftCardSchema.omit({ paymentId: true })
     : giftCardSchema;
-  return schema.refine((data) => check(data.code), {
-    message: errorKey,
-  });
+  return schema.refine(
+    (data) => {
+      if (!data.code) return true;
+
+      return check(data.code);
+    },
+    {
+      message: errorKey,
+    },
+  );
 };
 
 export type GiftCardUpdateModel = z.infer<typeof giftCardSchema>;

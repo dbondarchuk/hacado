@@ -1,21 +1,22 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import {
-  BooleanSelect,
-  Breadcrumbs,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
-  Input,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton, Sortable } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
@@ -71,7 +72,7 @@ export const FormEditForm: React.FC<{
     },
   });
 
-  const isArchived = !!initialData?._id && !initialData?.isArchived;
+  const isArchived = !!initialData?._id && initialData?.isArchived;
   const notificationsEnabled = form.watch("notifications.enabled");
   const fieldsDisabled = loading || isArchived;
 
@@ -214,70 +215,53 @@ export const FormEditForm: React.FC<{
               name="notifications.enabled"
               render={({ field }) => {
                 return (
-                  <FormItem>
-                    <FormLabel>
-                      <span>{t("form.notifications.enabled.label")}</span>{" "}
-                      <InfoTooltip>
-                        {t("form.notifications.enabled.description")}
-                      </InfoTooltip>
-                    </FormLabel>
-                    <FormControl>
-                      <BooleanSelect
-                        value={field.value ?? false}
-                        onValueChange={field.onChange}
-                        disabled={fieldsDisabled}
+                  <SwitchCardFormItem
+                    label={t("form.notifications.enabled.label")}
+                    description={t("form.notifications.enabled.description")}
+                    checked={field.value ?? false}
+                    onCheckedChange={field.onChange}
+                    disabled={fieldsDisabled}
+                  >
+                    {notificationsEnabled && (
+                      <FormField
+                        control={form.control}
+                        name="notifications.email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              {t("form.notifications.email.label")}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                disabled={fieldsDisabled}
+                                {...field}
+                                value={field.value ?? ""}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.notifications.email.description")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                    )}
+                  </SwitchCardFormItem>
                 );
               }}
             />
-            {notificationsEnabled && (
-              <FormField
-                control={form.control}
-                name="notifications.email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      <span>{t("form.notifications.email.label")}</span>{" "}
-                      <InfoTooltip>
-                        {t("form.notifications.email.description")}
-                      </InfoTooltip>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        disabled={fieldsDisabled}
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
             <FormField
               control={form.control}
               name="requireCustomerId"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <span>{t("form.requireCustomerId.label")}</span>{" "}
-                    <InfoTooltip>
-                      {t("form.requireCustomerId.description")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value ?? false}
-                      onValueChange={field.onChange}
-                      disabled={fieldsDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.requireCustomerId.label")}
+                  description={t("form.requireCustomerId.description")}
+                  checked={field.value ?? false}
+                  onCheckedChange={field.onChange}
+                  disabled={fieldsDisabled}
+                />
               )}
             />
           </div>

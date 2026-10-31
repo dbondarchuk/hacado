@@ -1,4 +1,4 @@
-import { isLayoutTemplate } from "@hacado/builder";
+import { isLayoutTemplate } from "@hacado/builder/types";
 import type { I18nFn, Language } from "@hacado/i18n";
 import { AppsBlocksEditors } from "../../../blocks/editors";
 import { AppsBlocksReaders } from "../../../blocks/readers";

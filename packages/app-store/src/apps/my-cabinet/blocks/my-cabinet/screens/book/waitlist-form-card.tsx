@@ -1,28 +1,34 @@
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentFields } from "@hacado/types";
+import { AppointmentFields } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
-  EmailField,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  NameField,
-  PhoneField,
-  Textarea,
-  ToggleGroup,
-  ToggleGroupItem,
-  usePrevious,
-} from "@hacado/ui";
-import { deepEqual } from "@hacado/utils";
+} from "@hacado/ui/form";
+import { EmailField, NameField, PhoneField } from "@hacado/ui/forms";
+import { usePrevious } from "@hacado/ui/hooks";
+import {
+  useSyncSmsConsentField,
+  waitlistSmsConsentKind,
+} from "@hacado/ui/sms-consent-choice";
+import { Textarea } from "@hacado/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Calendar } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  useWaitlistSmsText,
+  WaitlistSmsConsent,
+} from "../../../../../waitlist/blocks/waitlist-sms-consent";
 import { WaitlistDatePicker } from "../../../../../waitlist/components/waitlist-date-picker";
 import {
   waitlistRequestDates,
@@ -60,7 +66,6 @@ export const WaitlistFormCard: React.FC = () => {
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
-
   const minDate = useMemo(() => DateTime.now().startOf("day").toJSDate(), []);
 
   const {
@@ -73,7 +78,10 @@ export const WaitlistFormCard: React.FC = () => {
     setFlow,
     setCurrentStep,
     fetchAvailability,
+    waitlistAppId,
   } = useScheduleContext();
+
+  const smsText = useWaitlistSmsText(waitlistAppId);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,26 +93,43 @@ export const WaitlistFormCard: React.FC = () => {
         name: "",
         phone: "",
       }),
+      smsConsent: propsFields.smsConsent === true,
       asSoonAsPossible: waitlistTimes.asSoonAsPossible ?? true,
       dates: waitlistTimes.dates || [],
     } as z.infer<typeof formSchema>,
   });
 
   const values = form.watch();
+  useSyncSmsConsentField(
+    (value) => form.setValue("smsConsent", value),
+    propsFields.smsConsent,
+    values.smsConsent,
+  );
+
   const previousValues = usePrevious(values, values);
+  const smsKind = waitlistSmsConsentKind(smsText) ?? "";
+  const previousSmsKind = usePrevious(smsKind, smsKind);
+
   useEffect(() => {
-    if (!deepEqual(values, previousValues)) {
-      const { asSoonAsPossible, dates, ...rest } = values;
+    if (deepEqual(values, previousValues) && smsKind === previousSmsKind) {
+      return;
+    }
+
+    {
+      const { asSoonAsPossible, dates, smsConsent, ...rest } = values;
 
       setFields({
         ...(rest as AppointmentFields),
         name: propsFields.name,
         email: propsFields.email,
         phone: propsFields.phone,
+        ...(waitlistSmsConsentKind(smsText)
+          ? { smsConsent: smsConsent === true }
+          : {}),
       });
       setWaitlistTimes({ asSoonAsPossible, dates });
     }
-  }, [values]);
+  }, [values, smsKind, previousValues, previousSmsKind, propsFields]);
 
   const isFormValid = form.formState.isValid;
   useEffect(() => {
@@ -154,6 +179,32 @@ export const WaitlistFormCard: React.FC = () => {
               data={{ label: "common.labels.formPhone" }}
               disabled
               namespace={undefined}
+            />
+            <FormField
+              control={form.control}
+              name="smsConsent"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <WaitlistSmsConsent
+                      offer={smsText}
+                      id="cabinet-waitlist-sms-consent"
+                      phone={propsFields.phone}
+                      profilePhone={propsFields.phone}
+                      profileConsent={propsFields.smsConsent === true}
+                      checked={field.value === true}
+                      onCheckedChange={(value) => {
+                        field.onChange(value);
+                        field.onBlur();
+                      }}
+                      lookup={async (phone) => {
+                        const result = await bookingApi.getSmsConsent(phone);
+                        return result.consented === true;
+                      }}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
             <FormField
               control={form.control}

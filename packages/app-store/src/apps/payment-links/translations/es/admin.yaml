@@ -28,9 +28,12 @@ form:
   emailTemplateId:
     label: Plantilla de correo electrónico
     description: Plantilla utilizada al enviar el enlace de pago por correo electrónico
+  smsEnabled:
+    label: Enviar mensaje de texto
+    description: Envía al cliente un enlace para pagar. Se usa un mensaje integrado salvo que elija una plantilla personalizada.
   smsTemplateId:
-    label: plantilla de sms
-    description: Plantilla utilizada al enviar el enlace de pago por SMS
+    label: Plantilla de texto personalizada
+    description: Opcional. Si selecciona una plantilla, el texto de pago la usa en lugar del mensaje integrado.
   linkExpiryDays:
     label: Caducidad del enlace (días)
     description: Opcional. Los enlaces caducan después de estos días si se configuran.

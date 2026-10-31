@@ -24,16 +24,25 @@ form:
   name:
     label: Nom
     placeholder: Nom de la notification de rendez-vous
-    tooltip: Un nom descriptif pour cette notification de rendez-vous
+    description: Un nom descriptif pour cette notification de rendez-vous
     validation:
       unique: Le nom de la notification de rendez-vous doit être unique
   type:
     label: Taper
+    description: Choisissez quand cette notification est envoyée, avant le début du rendez-vous ou après la fin.
     searchLabel: Sélectionnez le type
   appointmentCount:
+    label: Nombre précis de rendez-vous
+    description: "Envoyer cette notification seulement lorsque le client a un nombre précis de rendez-vous."
+    examples:
+      equalTo: "Lorsque c'est le {count, selectordinal, one {#er} other {#e}} rendez-vous du client"
+      lessThan: "Avant le {count, selectordinal, one {#er} other {#e}} rendez-vous du client"
+      lessThanOrEqualTo: "Jusqu'au {count, selectordinal, one {#er} other {#e}} rendez-vous du client"
+      greaterThan: "Pour le {count, selectordinal, one {#er} other {#e}} rendez-vous du client et les suivants"
+      greaterThanOrEqualTo: "Pour le {count, selectordinal, one {#er} other {#e}} rendez-vous du client et les suivants"
     type:
       label: Type de compte de rendez-vous
-      tooltip: Détermine si le client a besoin d'un nombre spécifique de rendez-vous
+      description: Détermine si le client a besoin d'un nombre spécifique de rendez-vous
       placeholder: Sélectionnez le type de nombre de rendez-vous
       types:
         none: Tous les rendez-vous
@@ -44,42 +53,55 @@ form:
         greaterThanOrEqualTo: Supérieur ou égal à
     count:
       label: Nombre de rendez-vous
-      tooltip: Envoyer une notification de rendez-vous après autant de rendez-vous clients
+      description: Envoyer une notification de rendez-vous après autant de rendez-vous clients
       placeholder: Nombre de rendez-vous
   weeksBefore:
     label: Semaines
-    tooltip: Combien de semaines avant le rendez-vous pour envoyer le rappel
+    description: Combien de semaines avant le rendez-vous pour envoyer le rappel
   daysBefore:
     label: Jours
-    tooltip: Combien de jours avant le rendez-vous pour envoyer le rappel
+    description: Combien de jours avant le rendez-vous pour envoyer le rappel
   hoursBefore:
     label: Heures
-    tooltip: Combien d'heures avant le rendez-vous pour envoyer le rappel
+    description: Combien d'heures avant le rendez-vous pour envoyer le rappel
   minutesBefore:
     label: Minutes
-    tooltip: Combien de minutes avant le rendez-vous pour envoyer le rappel
+    description: Combien de minutes avant le rendez-vous pour envoyer le rappel
   weeksAfter:
     label: Semaines
-    tooltip: Combien de semaines après le rendez-vous pour envoyer la notification du rendez-vous
+    description: Combien de semaines après le rendez-vous pour envoyer la notification du rendez-vous
   daysAfter:
     label: Jours
-    tooltip: Combien de jours après le rendez-vous pour envoyer la notification du rendez-vous
+    description: Combien de jours après le rendez-vous pour envoyer la notification du rendez-vous
   hoursAfter:
     label: Heures
-    tooltip: Combien d'heures après le rendez-vous pour envoyer la notification du rendez-vous
+    description: Combien d'heures après le rendez-vous pour envoyer la notification du rendez-vous
   minutesAfter:
     label: Minutes
-    tooltip: Combien de minutes après le rendez-vous pour envoyer la notification du rendez-vous
+    description: Combien de minutes après le rendez-vous pour envoyer la notification du rendez-vous
   time:
     label: Temps
-    tooltip: A quelle heure envoyer la notification de rendez-vous
+    description: A quelle heure du jour envoyer la notification de rendez-vous
+  schedule:
+    label: "Moment d'envoi"
+    startsNow: "Si le rendez-vous commence maintenant ({now}), l'envoi a lieu le {when}."
+    endsNow: "Si le rendez-vous se termine maintenant ({now}), l'envoi a lieu le {when}."
+  delivery:
+    label: Comment envoyer
   channel:
-    label: Type de canal
-    tooltip: Détermine comment envoyer la notification de rendez-vous
-    searchLabel: Sélectionnez le type de canal
-  template:
-    label: Modèle
-    tooltip: Corps de notification de rendez-vous, que vos clients verront.
+    required: "Au moins un canal est requis. Activez l'e-mail, le SMS, ou les deux."
+  email:
+    label: E-mail
+    description: Envoyer cette notification au client par e-mail.
+    templateLabel: Modèle d'e-mail
+    templateDescription: "Obligatoire. C'est l'e-mail que le client reçoit."
+  textMessage:
+    label: SMS
+    description: "Envoyer cette notification par SMS à l'heure choisie."
+    verify: "Pour envoyer des suivis SMS personnalisés, vérifiez les informations de votre entreprise. Cela active les modèles personnalisés."
+    verifyAction: Vérifier les informations de l'entreprise
+    smsDisabled: "Les SMS nécessitent l'activation de la messagerie texte. Tant qu'elle est désactivée, cette option reste indisponible."
+    smsDisabledAction: Activer la messagerie texte
   save: Sauvegarder
   update: Mise à jour
   cancel: Annuler
@@ -155,6 +177,8 @@ validation:
       minute:
         min: La minute doit être comprise entre 0 et 59
         max: La minute doit être comprise entre 0 et 59
+    channel:
+      required: "Au moins un canal est requis. Activez l'e-mail, le SMS, ou les deux."
     templateId:
       required: Le modèle est requis
     atTimeBefore:
@@ -170,4 +194,3 @@ validation:
     appointmentCount:
       min: Le nombre minimum de rendez-vous est de 1
       type: Le type de décompte des rendez-vous est requis
-

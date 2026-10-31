@@ -3,20 +3,21 @@ import {
   getServicesContainer,
   getSession,
 } from "@/app/utils";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
-import { getDashboardNotificationRealtimeBroker } from "@hacado/services";
+import { getDashboardNotificationRealtimeBroker } from "@hacado/services/bullmq";
 import {
   DashboardNotification,
   IDashboardNotifierApp,
-  type SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   canReadActivity,
   canReadSyncedPayments,
   canUpdateAppointments,
   resolveUpdatableAppointmentMemberId,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
 import { DateTime } from "luxon";
 import { NextRequest } from "next/server";
 import { v4 } from "uuid";

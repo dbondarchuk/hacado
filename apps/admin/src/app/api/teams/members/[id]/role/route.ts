@@ -1,5 +1,5 @@
 import { getActor } from "@/app/utils";
-import type { UserRole } from "@hacado/types";
+import type { UserRole } from "@hacado/types/users";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 import { getTeamServices, requireTeamManager } from "../../../_utils";

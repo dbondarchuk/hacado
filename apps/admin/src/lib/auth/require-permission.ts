@@ -4,8 +4,8 @@ import type {
   SessionUser,
   TeamPermissionAction,
   TeamPermissionResource,
-} from "@hacado/types";
-import { hasPermission } from "@hacado/utils";
+} from "@hacado/types/users";
+import { hasPermission } from "@hacado/utils/permissions";
 import { NextResponse } from "next/server";
 
 export async function requirePermission<R extends TeamPermissionResource>(

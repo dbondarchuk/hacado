@@ -1,9 +1,10 @@
-import { BaseAllKeys } from "@hacado/i18n";
-import {
-  SCHEDULE_CHANGED_EVENT_TYPE,
-  type EventDefinition,
-  type ScheduleChangedPayload,
-} from "@hacado/types";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  EventDefinition,
+  ScheduleChangedPayload,
+} from "@hacado/types/events";
+import { SCHEDULE_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

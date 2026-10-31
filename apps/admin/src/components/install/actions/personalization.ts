@@ -9,14 +9,11 @@ import {
   WEBSITE_PACK_IDS,
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
-import { ServicesContainer } from "@hacado/services";
-import {
-  asOptionalField,
-  fontName,
-  zAssetName,
-  type BrandConfiguration,
-  type StylingConfiguration,
-} from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import type { BrandConfiguration } from "@hacado/types/configuration/brand";
+import type { StylingConfiguration } from "@hacado/types/configuration/styling";
+import { fontName } from "@hacado/types/configuration/styling";
+import { asOptionalField, zAssetName } from "@hacado/types/utils";
 import { headers } from "next/headers";
 import * as z from "zod";
 

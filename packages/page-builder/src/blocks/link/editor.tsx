@@ -1,13 +1,11 @@
 "use client";
 
-import {
-  BlockFilterRule,
-  EditorChildren,
-  useBlockEditor,
-  useCurrentBlock,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
-import { cn } from "@hacado/ui";
+import { EditorChildren } from "@hacado/builder/blocks";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockFilterRule } from "@hacado/builder/types";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
+import { cn } from "@hacado/ui/cn";
 import { LinkProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

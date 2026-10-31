@@ -2,10 +2,12 @@
 
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentPackage } from "@hacado/types";
-import { Skeleton, useCurrencyFormat, useDebounceCacheFn } from "@hacado/ui";
+import { AppointmentPackage } from "@hacado/types/booking";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,
@@ -48,12 +50,12 @@ export const PackagesDataTableAsyncFilterBox: React.FC<
   }
 > = ({ title: propsTitle, filterKey = "packageId", ...rest }) => {
   const t = useI18n("admin");
-  const title = propsTitle ?? t("services.packages.sold.table.filters.package");
+  const title = propsTitle ?? t("catalog.packages.sold.table.filters.package");
 
   const getPackages = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.packages.getPackages({
+      const result = await packagesApi.getPackages({
         page,
         limit,
         search,

@@ -67,7 +67,7 @@ function ToggleGroupItem({
         // "min-w-0 flex-1 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l",
         "min-w-0 flex-1 shrink-0 shadow-none rounded-md focus:z-10 focus-visible:z-10",
         "data-[variant=outline]:border-2  data-[variant=outline]:border-border hover:data-[variant=outline]:border-primary/50",
-        "data-[state=on]:data-[variant=outline]:border-primary data-[state=on]:data-[variant=outline]:bg-primary/5",
+        "data-[state=on]:data-[variant=outline]:border-primary data-[state=on]:data-[variant=outline]:bg-primary/5 data-[state=on]:data-[variant=outline]:text-foreground",
         !separated &&
           "rounded-none first:rounded-l-md last:rounded-r-md data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l-2 data-[variant=outline]:data-[variant=outline]:border-l-2",
         className,

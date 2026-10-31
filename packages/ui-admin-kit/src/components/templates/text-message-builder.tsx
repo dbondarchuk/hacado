@@ -1,29 +1,32 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Dialog,
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   FormControl,
   FormDescription,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
-  ScrollArea,
+} from "@hacado/ui/form";
+import { useTheme } from "@hacado/ui/hooks";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useTheme,
-} from "@hacado/ui";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin";
-import { templateSafeWithError } from "@hacado/utils";
+} from "@hacado/ui/tooltip-responsive";
+import { templateSafeWithError } from "@hacado/utils/string";
 import JsonView from "@uiw/react-json-view";
 import { darkTheme } from "@uiw/react-json-view/dark";
 import { lightTheme } from "@uiw/react-json-view/light";
@@ -43,10 +46,7 @@ export const TextMessageBuilder: React.FC<{
     <div className="flex flex-col md:flex-row gap-4">
       <FormItem className="flex-1">
         <FormLabel className="flex flex-row items-center justify-between">
-          <span>
-            {t("templates.textMessageBuilder.content")}
-            <InfoTooltip>{t("common.usesTemplatedValues")}</InfoTooltip>
-          </span>
+          <span>{t("templates.textMessageBuilder.content")}</span>
 
           <Dialog>
             <TooltipResponsive>
@@ -128,6 +128,7 @@ export const TextMessageBuilder: React.FC<{
             onChange={field.onChange}
           />
         </FormControl>
+        <FormDescription>{t("common.usesTemplatedValues")}</FormDescription>
         <FormDescription>
           {t("templates.textMessageBuilder.characterCount", {
             count: preview.length || 0,

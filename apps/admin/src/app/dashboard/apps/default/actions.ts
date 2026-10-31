@@ -2,7 +2,7 @@
 
 import { getActor, getServicesContainer } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { DefaultAppsConfiguration } from "@hacado/types";
+import { DefaultAppsConfiguration } from "@hacado/types/configuration/apps";
 
 const logger = getLoggerFactory("DefaultAppsActions");
 

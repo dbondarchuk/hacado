@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage, cn } from "@hacado/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { cn } from "@hacado/ui/cn";
 import React from "react";
 
 export type MemberNameMember = {

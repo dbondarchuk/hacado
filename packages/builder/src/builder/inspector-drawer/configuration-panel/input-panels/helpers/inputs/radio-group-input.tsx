@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Label, RadioButtonGroup } from "@hacado/ui";
+import { Label } from "@hacado/ui/label";
+import { RadioButtonGroup } from "@hacado/ui/radio-button-group";
 import { ResetButton } from "./reset-button";
 
 type Props = {

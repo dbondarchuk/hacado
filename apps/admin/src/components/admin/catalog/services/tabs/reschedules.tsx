@@ -1,0 +1,209 @@
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentReschedulePolicyRow } from "@hacado/types/configuration/booking";
+import {
+  ReschedulePolicyCard,
+  ReschedulePolicyCardContent,
+} from "@hacado/ui-admin-kit/modification";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Badge } from "@hacado/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import React from "react";
+import { useFieldArray } from "react-hook-form";
+import { TabProps } from "./types";
+
+const RescheduleSection: React.FC<TabProps> = ({ form, disabled }) => {
+  const t = useI18n("admin");
+  const {
+    fields: policies,
+    append: appendPolicy,
+    remove: removePolicy,
+  } = useFieldArray({
+    control: form.control,
+    name: `reschedulePolicy.policies`,
+    keyName: "fields_id",
+  });
+
+  const ids = React.useMemo(() => policies.map((x) => x.fields_id), [policies]);
+
+  const type = form.watch(`reschedulePolicy.type`) ?? "inherit";
+  const enabled = !!form.watch(`reschedulePolicy.enabled`);
+
+  const addNew = () => {
+    appendPolicy({
+      minutesToAppointment: 0,
+      action: "notAllowed",
+      note: "",
+    } as Partial<AppointmentReschedulePolicyRow> as AppointmentReschedulePolicyRow);
+  };
+
+  return (
+    // <Card>
+    //   <CardHeader className="border-b">
+    //     <CardTitle className="text-base font-semibold uppercase tracking-wide text-muted-foreground">
+    //       {t(`catalog.services.form.reschedulePolicy.title`)}
+    //     </CardTitle>
+    //   </CardHeader>
+    //   <CardContent className="flex flex-col gap-4 py-6">
+    <div className="flex flex-col gap-4">
+      <FormField
+        control={form.control}
+        name={`reschedulePolicy.type`}
+        render={({ field }) => (
+          <SwitchCardFormItem
+            label={t(
+              "catalog.services.form.reschedulePolicy.customPolicy.label",
+            )}
+            description={t(
+              "catalog.services.form.reschedulePolicy.customPolicy.tooltip",
+            )}
+            checked={field.value === "custom"}
+            onCheckedChange={(checked) => {
+              field.onChange(checked ? "custom" : "inherit");
+              field.onBlur();
+            }}
+          >
+            {type === "custom" && (
+              <>
+                <FormField
+                  control={form.control}
+                  name={`reschedulePolicy.enabled`}
+                  render={({ field }) => (
+                    <SwitchCardFormItem
+                      label={t(
+                        "catalog.services.form.reschedulePolicy.enabled.label",
+                      )}
+                      description={t(
+                        "catalog.services.form.reschedulePolicy.enabled.tooltip",
+                      )}
+                      checked={field.value ?? false}
+                      onCheckedChange={(checked) => {
+                        field.onChange(checked);
+                        field.onBlur();
+                      }}
+                      noCard="borderTop"
+                      className="pb-0"
+                    >
+                      {enabled && (
+                        <div className="flex flex-col gap-4 pt-4 border-t border-border">
+                          <FormField
+                            control={form.control}
+                            name="reschedulePolicy.maxReschedules"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  {t(
+                                    "cancellationsAndReschedules.reschedulePolicy.maxReschedules.label",
+                                  )}
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    disabled={disabled}
+                                    type="number"
+                                    inputMode="decimal"
+                                  />
+                                </FormControl>
+                                <FormDescription>
+                                  {t(
+                                    "cancellationsAndReschedules.reschedulePolicy.maxReschedules.tooltip",
+                                  )}
+                                </FormDescription>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <Card>
+                            <CardHeader className="border-b">
+                              <CardTitle className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm text-muted-foreground">
+                                <span className="font-semibold uppercase tracking-wide">
+                                  {t(
+                                    "cancellationsAndReschedules.reschedulePolicy.default.title",
+                                  )}
+                                </span>
+                                <span className="text-sm text-muted-foreground">
+                                  {t(
+                                    "cancellationsAndReschedules.reschedulePolicy.default.label",
+                                  )}
+                                </span>
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent className="py-6 grid grid-cols-1 gap-4">
+                              <ReschedulePolicyCardContent
+                                form={form}
+                                basePath="reschedulePolicy"
+                                disabled={disabled}
+                                default
+                              />
+                            </CardContent>
+                          </Card>
+                          <NonSortable
+                            addButtonText={t(
+                              "cancellationsAndReschedules.reschedulePolicy.policies.add",
+                            )}
+                            className="border-none shadow-none [&>div]:border-none [&>div]:py-2 [&>div]:px-0"
+                            title={
+                              <div className="flex flex-row items-center gap-2">
+                                <span>
+                                  {t(
+                                    "cancellationsAndReschedules.reschedulePolicy.policies.title",
+                                  )}
+                                </span>
+                                <Badge
+                                  variant="secondary"
+                                  className="text-sm normal-case hidden md:block"
+                                >
+                                  {t(
+                                    "cancellationsAndReschedules.reschedulePolicy.policies.badge",
+                                  )}
+                                </Badge>
+                              </div>
+                            }
+                            ids={ids}
+                            onAdd={addNew}
+                          >
+                            <div className="flex flex-grow flex-col gap-4">
+                              {policies.map((item, index) => {
+                                return (
+                                  <ReschedulePolicyCard
+                                    form={form}
+                                    basePath="reschedulePolicy"
+                                    disabled={disabled}
+                                    index={index}
+                                    remove={() => removePolicy(index)}
+                                    key={item.fields_id}
+                                  />
+                                );
+                              })}
+                            </div>
+                          </NonSortable>
+                        </div>
+                      )}
+                    </SwitchCardFormItem>
+                  )}
+                />
+              </>
+            )}
+          </SwitchCardFormItem>
+        )}
+      />
+    </div>
+  );
+};
+
+export const ReschedulesTab: React.FC<TabProps> = (props) => {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-1 gap-4">
+      <RescheduleSection {...props} />
+    </div>
+  );
+};

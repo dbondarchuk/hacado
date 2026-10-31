@@ -1,22 +1,20 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import type { Appointment } from "@hacado/types";
+import type { Appointment } from "@hacado/types/booking";
 import {
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
-} from "@hacado/types";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  Link,
-  use12HourFormat,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { MemberName, useAuth } from "@hacado/ui-admin";
-import { canUpdateAppointment, durationToTime } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { useAuth } from "@hacado/ui-admin/context";
+import { MemberName } from "@hacado/ui-admin/data-table";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Link } from "@hacado/ui/link";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
+import { durationToTime } from "@hacado/utils/time";
 import { CalendarCheck2, CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
@@ -65,12 +63,12 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
                 href={`/dashboard/appointments/${appointment._id}`}
                 variant="underline"
               >
-                {appointment.option.name}
+                {appointment.service.name}
               </Link>
             </p>
             {isAppointmentCoveredByPackage(appointment) ? (
               <p className="text-xs text-muted-foreground truncate">
-                {t("services.packages.appointment.used", {
+                {t("catalog.packages.appointment.used", {
                   name: appointment.packageUsage!.name,
                 })}
               </p>

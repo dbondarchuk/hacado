@@ -1,7 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
+
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -10,12 +13,10 @@ import {
   DataTableSearch,
   MembersDataTableAsyncFilterBox,
   OptionsDataTableAsyncFilterBox,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
-import { canFilterByMember, hasPermission } from "@hacado/utils";
-import { Settings2 } from "lucide-react";
+} from "@hacado/ui-admin/data-table";
+import { canFilterByMember, hasPermission } from "@hacado/utils/permissions";
+
 import React from "react";
 import { WaitlistStatus, waitlistStatus } from "../models";
 import {
@@ -102,28 +103,14 @@ export const WaitlistTableAction: React.FC<{
 
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
         />
-        <Popover>
-          <PopoverTrigger
-            tooltip={tUi("table.filters")}
-            asChild
-            className="md:hidden"
-          >
-            <Button variant="outline">
-              <Settings2 size={16} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {additionalFilters}
-          </PopoverContent>
-        </Popover>
-        <div className="hidden md:flex flex-row gap-4">{additionalFilters}</div>
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}

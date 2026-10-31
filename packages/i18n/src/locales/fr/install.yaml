@@ -323,6 +323,37 @@ wizard:
         bookNowLabel: Réservez maintenant
         cancelOrRescheduleLabel: Annuler ou reprogrammer
         policiesLabel: Politiques
+        privacyLabel: Confidentialité
+        termsLabel: Conditions
+      legalFallbackName: Notre entreprise
+      privacy:
+        title: Politique de confidentialité
+        updated: "Dernière mise à jour : {date}"
+        intro: "{businessName} (« nous ») respecte votre vie privée et s'engage à protéger vos renseignements personnels. Cette politique décrit comment nous recueillons, utilisons et protégeons vos renseignements lorsque vous réservez des services ou interagissez avec nous en ligne sur notre site fourni par notre partenaire de planification, Hacado."
+        collectTitle: Renseignements que nous recueillons
+        collectBody: Lorsque vous prenez un rendez-vous, vous inscrivez sur une liste d'attente ou communiquez avec nous, nous pouvons recueillir votre nom, votre adresse courriel et votre numéro de téléphone mobile.
+        useTitle: Comment nous utilisons vos renseignements
+        useBody: Nous utilisons vos renseignements personnels uniquement pour traiter les demandes de rendez-vous, gérer les réservations, offrir le soutien à la clientèle et envoyer des avis transactionnels (confirmations, reports et rappels).
+        smsTitle: Conditions mobiles et confidentialité des SMS
+        smsConsent: "Consentement et données d'adhésion par SMS : Aucun renseignement mobile ne sera partagé avec des tiers ou des sociétés affiliées à des fins de marketing ou de promotion. Les catégories ci-dessus excluent les données d'adhésion et le consentement de l'expéditeur des messages texte; ces renseignements ne seront partagés avec aucun tiers, en aucune circonstance."
+        smsUse: "Usage des messages texte : Les numéros mobiles recueillis pour les messages texte servent uniquement à envoyer des mises à jour de service, des rappels de rendez-vous et des avis de compte liés à vos réservations."
+        contactTitle: Nous joindre
+        contactBody: Si vous avez des questions au sujet de cette politique ou de vos données personnelles, communiquez avec nous directement ou écrivez à notre fournisseur de plateforme à support@hacado.com.
+      terms:
+        title: Conditions d'utilisation
+        updated: "Dernière mise à jour : {date}"
+        intro: Bienvenue chez {businessName}. En prenant un rendez-vous ou en utilisant notre page de planification en ligne propulsée par Hacado, vous acceptez les conditions suivantes.
+        bookingsTitle: Rendez-vous et annulations
+        bookingsBody: En envoyant une réservation, vous acceptez de fournir des coordonnées exactes. Les annulations ou reports doivent être soumis selon nos politiques de planification affichées.
+        smsTitle: Conditions du programme de messages texte
+        smsConsent: En entrant votre numéro de téléphone mobile dans le formulaire de réservation et en acceptant les avis, vous consentez à recevoir des messages texte transactionnels automatisés (confirmations, rappels et mises à jour) de {businessName} par l'entremise de notre partenaire d'infrastructure de réservation, Hacado.
+        smsFrequency: "Fréquence des messages : La fréquence varie selon votre activité de rendez-vous et vos réservations."
+        smsRates: "Frais de messages et de données : Des frais standards de messages et de données peuvent s'appliquer selon votre fournisseur et votre forfait."
+        smsStop: "Désinscription : Vous pouvez annuler les avis par SMS en tout temps en répondant STOP à un message. Après STOP, vous recevrez un seul message de confirmation."
+        smsHelp: "Aide : Pour de l'aide avec les avis par message texte, répondez HELP à un message ou écrivez à support@hacado.com."
+        smsCarriers: "Fournisseurs : Les fournisseurs mobiles ne sont pas responsables des messages retardés ou non livrés."
+        platformTitle: Infrastructure de la plateforme
+        platformBody: La réservation en ligne, la planification et l'envoi des avis automatisés sont assurés par Hacado. Les conditions de l'infrastructure Hacado se trouvent à https://hacado.com/terms.
       home:
         title: Réservez votre prochaine visite
         description: Choisissez un service et réservez votre temps en quelques minutes.

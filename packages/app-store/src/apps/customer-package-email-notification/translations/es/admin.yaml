@@ -5,31 +5,48 @@ navigation:
   title: Correos electrónicos de paquetes de clientes
 form:
   purchased:
+    enabled:
+      label: Enviar correo cuando se compra un paquete
+      description: Se envía cuando se emite un paquete a un cliente.
     templateId:
-      label: Plantilla de correo electrónico comprada
-      description: Enviado cuando se emite un paquete a un cliente
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se les emite un paquete.
+      required: Seleccione una plantilla de correo
   exhausted:
+    enabled:
+      label: Enviar correo cuando se agota un paquete
+      description: Se envía cuando se usan todos los créditos del paquete.
     templateId:
-      label: Plantilla de correo electrónico agotada
-      description: Enviado cuando se utilizan todos los créditos del paquete
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se usan todos los créditos del paquete.
+      required: Seleccione una plantilla de correo
   cancelled:
+    enabled:
+      label: Enviar correo cuando se cancela un paquete
+      description: Se envía cuando se cancela un paquete activo.
     templateId:
-      label: Plantilla de correo electrónico cancelada
-      description: Enviado cuando se cancela un paquete activo
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se cancela un paquete activo.
+      required: Seleccione una plantilla de correo
   expired:
+    enabled:
+      label: Enviar correo cuando vence un paquete
+      description: Se envía cuando un paquete llega a su fecha de vencimiento.
     templateId:
-      label: Plantilla de correo electrónico caducada
-      description: Enviado cuando un paquete llega a su fecha de vencimiento
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando un paquete llega a su fecha de vencimiento.
+      required: Seleccione una plantilla de correo
   expiringSoon:
     enabled:
-      label: Enviar correo electrónico que expirará pronto
-      description: Notificar a los clientes antes de que caduque su paquete
+      label: Enviar correo cuando un paquete está por vencer
+      description: Se envía antes de que venza un paquete.
     thresholdMinutes:
       label: Notificar antes del vencimiento
-      description: Cuánto tiempo antes de que caduque el paquete para enviar el recordatorio
+      description: Cuánto tiempo antes de que venza el paquete se envía el recordatorio.
     templateId:
-      label: Plantilla de correo electrónico que expirará pronto
-      description: Enviado cuando un paquete se acerca a su fecha de vencimiento
+      label: Plantilla de correo
+      description: Correo que reciben los clientes antes de que venza un paquete.
+      required: Seleccione una plantilla de correo
 statusText:
   successfully_set_up: Configurado exitosamente
   error_processing_configuration: Configuración de procesamiento de errores
@@ -43,8 +60,8 @@ handlers:
 validation:
   emailTemplate:
     templateId:
-      required: Se requiere plantilla de correo electrónico
-      min: Se requiere plantilla de correo electrónico
+      required: Seleccione una plantilla de correo
+      min: Seleccione una plantilla de correo
   expiringSoon:
     thresholdMinutes:
       min: Elija cuánto tiempo antes del vencimiento desea enviar el recordatorio

@@ -11,8 +11,10 @@ form:
   preferLaterStartsEarlierEndsTooltip: Will give higher preference for time slots, that will allow later starts and earlier ends of the shift
   allowSmartSlotStarts: Allow smart slot start times
   allowSmartSlotStartsTooltip: If no allowed slot start times were found, will try to find unconventional time slot
+  maximizeForService: Maximize appointments for a specific service
+  maximizeForServiceTooltip: When enabled, time slots that fit the most appointments of the selected service are prioritized.
   preferredService: Preferred service
-  preferredServiceTooltip: If selected, will prioritize time slots that will produce maximum number of appointments of the selected service
+  preferredServiceRequired: Service is required
   add: Add <app></app>
   update: Update <app></app>
 statusText:

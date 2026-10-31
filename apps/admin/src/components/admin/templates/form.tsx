@@ -1,28 +1,29 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
+import { CommunicationChannel } from "@hacado/types/communication";
 import {
-  CommunicationChannel,
   getTemplateSchemaWithUniqueCheck,
   Template,
   TemplatesTemplate,
-} from "@hacado/types";
+} from "@hacado/types/templates";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit/templates";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { ArgumentsAutocomplete, SaveButton } from "@hacado/ui-admin";
-import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -44,7 +45,7 @@ export const TemplateForm: React.FC<
   const template = "template" in rest ? rest.template : undefined;
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.templates.checkUniqueName,
+    templatesApi.checkUniqueName,
     300,
   );
 
@@ -75,14 +76,14 @@ export const TemplateForm: React.FC<
 
       const fn = async () => {
         if (!initialData) {
-          const { _id } = await adminApi.templates.createTemplate(data);
+          const { _id } = await templatesApi.createTemplate(data);
           onFormSubmit();
 
           setTimeout(() => {
             router.push(`/dashboard/templates/${_id}`);
           }, 100);
         } else {
-          await adminApi.templates.updateTemplate(initialData._id, data);
+          await templatesApi.updateTemplate(initialData._id, data);
           onFormSubmit();
 
           setTimeout(() => {
@@ -126,10 +127,9 @@ export const TemplateForm: React.FC<
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("templates.form.name")}{" "}
-                  <InfoTooltip>{t("templates.form.nameTooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("templates.form.name")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     disabled={loading}
@@ -137,6 +137,9 @@ export const TemplateForm: React.FC<
                     {...field}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("templates.form.nameTooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -147,12 +150,9 @@ export const TemplateForm: React.FC<
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("templates.form.subject")}
-                    <InfoTooltip>
-                      {t("templates.form.subjectTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <ArgumentsAutocomplete
                       args={args}
@@ -162,6 +162,9 @@ export const TemplateForm: React.FC<
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("templates.form.subjectTooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -192,7 +195,7 @@ export const TemplateForm: React.FC<
             )}
           />
         </div>
-        <SaveButton form={form} ignoreDirty />
+        <SaveButton form={form} />
       </form>
     </Form>
   );

@@ -47,6 +47,24 @@ export interface StyleVariant<T extends z.ZodType> {
   value: z.infer<T>;
 }
 
+export type StyleVariantValue = {
+  breakpoint?: Breakpoint[] | null;
+  state?: StateWithTarget[] | null;
+  value: unknown;
+};
+
+type CatalogStyles = {
+  [K in AllStylesNames]: z.ZodType<any, any>;
+};
+
+/**
+ * Variant lists for a style dictionary. `value` is unknown so block props do
+ * not infer every Zod schema. Bare `BlockStyles` uses the shared catalog names.
+ */
+export type BlockStyles<T extends BaseStyleDictionary = CatalogStyles> = {
+  [K in keyof T]?: StyleVariantValue[] | null;
+};
+
 export type StyleDictionary<T extends BaseStyleDictionary> = {
   [name in keyof T]: StyleDefinition<T[name], Extract<name, string>>;
 };

@@ -2,9 +2,10 @@ import { getServicesContainer, getUser } from "@/app/utils";
 import {
   communicationLogsSearchParams,
   communicationLogsSearchParamsCache,
-} from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
-import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
+} from "@hacado/api-sdk/admin/search-params/communication-logs";
+import { DataTable } from "@hacado/ui-admin/data-table";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
+import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
 import { columns } from "./columns";
 
 export const CommunicationLogsTable: React.FC<{
@@ -17,6 +18,7 @@ export const CommunicationLogsTable: React.FC<{
   const participantType =
     communicationLogsSearchParamsCache.get("participantType");
   const channel = communicationLogsSearchParamsCache.get("channel");
+  const status = communicationLogsSearchParamsCache.get("status");
   const start = communicationLogsSearchParamsCache.get("start") || undefined;
   const end = communicationLogsSearchParamsCache.get("end") || undefined;
   const sort = communicationLogsSearchParamsCache.get("sort");
@@ -37,6 +39,7 @@ export const CommunicationLogsTable: React.FC<{
       range: { start, end },
       channel,
       direction,
+      status,
       participantType,
       offset,
       limit,

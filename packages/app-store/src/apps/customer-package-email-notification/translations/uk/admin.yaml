@@ -5,31 +5,48 @@ navigation:
   title: Email пакети клієнта
 form:
   purchased:
+    enabled:
+      label: Надсилати email, коли пакет придбано
+      description: Надсилається, коли клієнту видано пакет.
     templateId:
-      label: Шаблон листа про покупку
-      description: Надсилається коли клієнту видано пакет
+      label: Шаблон email
+      description: Email, який клієнти отримують, коли їм видано пакет.
+      required: Оберіть шаблон email
   exhausted:
+    enabled:
+      label: Надсилати email, коли пакет вичерпано
+      description: Надсилається, коли всі кредити пакета використано.
     templateId:
-      label: Шаблон листа про вичерпання
-      description: Надсилається коли всі кредити пакета використано
+      label: Шаблон email
+      description: Email, який клієнти отримують, коли всі кредити пакета використано.
+      required: Оберіть шаблон email
   cancelled:
+    enabled:
+      label: Надсилати email, коли пакет скасовано
+      description: Надсилається, коли активний пакет скасовано.
     templateId:
-      label: Шаблон листа про скасування
-      description: Надсилається коли активний пакет скасовано
+      label: Шаблон email
+      description: Email, який клієнти отримують, коли активний пакет скасовано.
+      required: Оберіть шаблон email
   expired:
+    enabled:
+      label: Надсилати email, коли термін пакета закінчується
+      description: Надсилається, коли настав термін дії пакета.
     templateId:
-      label: Шаблон листа про закінчення терміну
-      description: Надсилається коли настав термін дії пакета
+      label: Шаблон email
+      description: Email, який клієнти отримують, коли настав термін дії пакета.
+      required: Оберіть шаблон email
   expiringSoon:
     enabled:
-      label: Надсилати лист про швидке закінчення
-      description: Повідомляти клієнтів до закінчення терміну дії пакета
+      label: Надсилати email, коли термін пакета скоро закінчиться
+      description: Надсилається до закінчення терміну дії пакета.
     thresholdMinutes:
       label: Сповістити до закінчення
-      description: За який час до закінчення терміну надіслати нагадування
+      description: За який час до закінчення терміну надіслати нагадування.
     templateId:
-      label: Шаблон листа про швидке закінчення
-      description: Надсилається коли термін дії пакета скоро закінчиться
+      label: Шаблон email
+      description: Email, який клієнти отримують до закінчення терміну дії пакета.
+      required: Оберіть шаблон email
 statusText:
   successfully_set_up: Успішно налаштовано
   error_processing_configuration: Помилка обробки конфігурації
@@ -43,8 +60,8 @@ handlers:
 validation:
   emailTemplate:
     templateId:
-      required: Шаблон email обовʼязковий
-      min: Шаблон email обовʼязковий
+      required: Оберіть шаблон email
+      min: Оберіть шаблон email
   expiringSoon:
     thresholdMinutes:
       min: Вкажіть, за який час до закінчення надсилати нагадування

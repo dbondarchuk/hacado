@@ -1,18 +1,15 @@
 import { blocksToPlainText } from "@hacado/page-builder-base/plain-text";
-import type {
-  BrandConfiguration,
-  GeneralConfiguration,
-  IServicesContainer,
-  Page,
-  PageListModel,
-  ScheduleConfiguration,
-  SocialConfiguration,
-} from "@hacado/types";
+import { pageSlugHasPlaceholder } from "@hacado/types/apps";
+import type { BrandConfiguration } from "@hacado/types/configuration/brand";
+import type { GeneralConfiguration } from "@hacado/types/configuration/general";
+import type { ScheduleConfiguration } from "@hacado/types/configuration/schedule";
+import type { SocialConfiguration } from "@hacado/types/configuration/social";
+import type { Page, PageListModel } from "@hacado/types/pages";
+import type { IServicesContainer } from "@hacado/types/services";
 import {
   formatPostalAddress,
   getBusinessIndustryDefinition,
-  pageSlugHasPlaceholder,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
   formatOfferSummary,
   formatPackageSummary,

@@ -1,9 +1,5 @@
-import {
-  paymentTypeSchema,
-  zNonEmptyString,
-  zObjectId,
-  zUniqueArray,
-} from "@hacado/types";
+import { paymentTypeSchema } from "@hacado/types/booking";
+import { zNonEmptyString, zObjectId, zUniqueArray } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const refundPaymentsSchema = z.object({
@@ -40,6 +36,7 @@ export const createPaymentLinkSchema = z
     ),
     channel: z.enum(["email", "sms", "copy"]).optional(),
     to: z.string().optional(),
+    smsConsent: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
     if (
@@ -59,6 +56,7 @@ export type CreatePaymentLinkBody = z.infer<typeof createPaymentLinkSchema>;
 export const resendPaymentLinkSchema = z.object({
   channel: z.enum(["email", "sms"]),
   to: zNonEmptyString("validation.payments.to.required"),
+  smsConsent: z.boolean().optional(),
 });
 
 export type ResendPaymentLinkBody = z.infer<typeof resendPaymentLinkSchema>;

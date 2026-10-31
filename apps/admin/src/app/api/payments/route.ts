@@ -1,5 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
-import { paymentsSearchParamsLoader } from "@hacado/api-sdk";
+import { paymentsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/payments";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 

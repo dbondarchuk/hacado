@@ -1,5 +1,5 @@
 import { navItems } from "@/constants/data";
-import type { RequiredPermission } from "@hacado/types";
+import type { RequiredPermission } from "@hacado/types/users";
 
 type NavNode = {
   href?: string;
@@ -41,7 +41,7 @@ function collectNavPermissions(
 
 /**
  * Longest nav `href` prefix match for the current pathname.
- * e.g. `/dashboard/services/options/new` → options item permission.
+ * e.g. `/dashboard/catalog/services/new` → services item permission.
  */
 export function resolveRequiredPermissionForPath(
   pathname: string,

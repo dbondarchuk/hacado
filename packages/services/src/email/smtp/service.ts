@@ -1,11 +1,11 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  CommunicationParticipantType,
   Email,
   EmailResponse,
   IAssetsStorage,
   IMailSender,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { CommunicationParticipantType } from "@hacado/types/communication";
 import { createEvent } from "ics";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";

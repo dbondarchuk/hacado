@@ -1,4 +1,4 @@
-import { baseSearchParams } from "@hacado/api-sdk";
+import { baseSearchParams } from "@hacado/api-sdk/admin/search-params/base";
 import { createSerializer } from "nuqs";
 
 export const searchParams = {

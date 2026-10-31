@@ -1,4 +1,4 @@
-import { fontsOptions } from "@hacado/types";
+import { fontsOptions } from "@hacado/types/configuration/styling";
 
 export { getWebfontPreviewFilename } from "./font-preview-filename";
 

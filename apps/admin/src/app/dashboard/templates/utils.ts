@@ -2,12 +2,12 @@ import { getServicesContainer } from "@/app/utils";
 import { BuiltInTemplateTemplates } from "@/components/admin/templates/templates";
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
+import { ICommunicationTemplatesProvider } from "@hacado/types/apps";
+import { CommunicationChannel } from "@hacado/types/communication";
 import {
-  CommunicationChannel,
-  ICommunicationTemplatesProvider,
   TemplateTemplatesList,
   TemplatesTemplate,
-} from "@hacado/types";
+} from "@hacado/types/templates";
 
 export const getAllTemplates = async (
   type: CommunicationChannel,

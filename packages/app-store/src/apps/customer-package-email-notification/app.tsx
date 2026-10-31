@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { Package } from "lucide-react";
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./const";
 import {

@@ -3,8 +3,11 @@ import type {
   RequiredPermission,
   TeamPermissionAction,
   TeamPermissionResource,
-} from "@hacado/types";
-import { hasPermission, meetsRequiredPermission } from "@hacado/utils";
+} from "@hacado/types/users";
+import {
+  hasPermission,
+  meetsRequiredPermission,
+} from "@hacado/utils/permissions";
 import { forbidden } from "next/navigation";
 
 /** Throw Next.js `forbidden()` (403) when the user lacks `required`. */

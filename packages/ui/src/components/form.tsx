@@ -1,7 +1,8 @@
 "use client";
 
-import { AllKeys, useI18n, ValidationKeys } from "@hacado/i18n/client";
-import { ErrorMessageWithParams } from "@hacado/types";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import type { ValidationKeys } from "@hacado/i18n/keys";
+import { ErrorMessageWithParams } from "@hacado/types/utils";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import React, { ReactNode } from "react";
@@ -133,6 +134,7 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
           : `${formDescriptionId} ${formMessageId}`
       }
       aria-invalid={!!error}
+      {...(error ? { invalid: "true" } : {})}
       {...props}
     />
   );

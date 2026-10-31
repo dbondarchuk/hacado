@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarButton } from "@hacado/ui";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { withRef } from "@udecode/cn";
 import {
   useLinkToolbarButton,

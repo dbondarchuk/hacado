@@ -1,4 +1,4 @@
-import type { ComplexAppPageProps } from "@hacado/types";
+import type { ComplexAppPageProps } from "@hacado/types/apps";
 import React from "react";
 import { BusyEventsForm } from "./components/form";
 

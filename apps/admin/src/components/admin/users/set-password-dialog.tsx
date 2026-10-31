@@ -1,9 +1,10 @@
 "use client";
 
 import { setUserPassword } from "@/app/dashboard/users/me/profile/set-password-action";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,16 +13,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -72,6 +75,7 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
       confirmPassword: "",
     },
   });
+  const newPassword = form.watch("newPassword");
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
@@ -128,9 +132,9 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("users.profile.setPassword.form.newPassword")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input {...field} type="password" />
                   </FormControl>
@@ -143,9 +147,11 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={newPassword.length > 0}
+                  >
                     {t("users.profile.setPassword.form.confirmPassword")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input {...field} type="password" />
                   </FormControl>

@@ -4,6 +4,7 @@ import type { IActivityService } from "./activity.service";
 import type { IAssetsService } from "./assets.service";
 import type { IBillingService } from "./billing.service";
 import type { IBookingService } from "./booking.service";
+import type { ICatalogService } from "./catalog.service";
 import type { ICommunicationLogsService } from "./communication-logs.service";
 import type { IConfigurationService } from "./configuration.service";
 import type { IConnectedAppsService } from "./connected-apps.service";
@@ -21,11 +22,12 @@ import type { IPackagesService } from "./packages.service";
 import type { IPagesService } from "./pages.service";
 import type { IPaymentsService } from "./payments.service";
 import type { IScheduleService } from "./schedule.service";
-import type { IServicesService } from "./services.service";
 import type { IShortLinksService } from "./short-links.service";
+import type { ISmsConsentService } from "./sms-consent.service";
 import type { ISyncedPaymentsService } from "./synced-payments.service";
 import type { ITeamService } from "./team.service";
 import type { ITemplatesService } from "./templates.service";
+import type { ITextMessageConfigurationService } from "./text-message-configuration.service";
 
 export type IServicesContainer = {
   activityService: IActivityService;
@@ -35,7 +37,7 @@ export type IServicesContainer = {
   bookingService: IBookingService;
   pagesService: IPagesService;
   customersService: ICustomersService;
-  servicesService: IServicesService;
+  catalogService: ICatalogService;
   scheduleService: IScheduleService;
   templatesService: ITemplatesService;
   communicationLogsService: ICommunicationLogsService;
@@ -53,5 +55,7 @@ export type IServicesContainer = {
   billingService: IBillingService;
   customerAuthService: ICustomerAuthService;
   shortLinksService: IShortLinksService;
+  smsConsentService: ISmsConsentService;
+  textMessageConfigurationService: ITextMessageConfigurationService;
   redisClient: Redis;
 };

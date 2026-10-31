@@ -1,4 +1,4 @@
-import { ServicesContainer } from "@hacado/services";
+import { ServicesContainer } from "@hacado/services/container";
 import { BlogConfiguration, blogConfigurationSchema } from "../models";
 
 export const getBlogConfiguration = async (

@@ -1,20 +1,20 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerListModel } from "@hacado/types";
+import { CustomerListModel } from "@hacado/types/customers";
+import { useAuth } from "@hacado/ui-admin/context";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
-import { hasPermission } from "@hacado/utils";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
+import { hasPermission } from "@hacado/utils/permissions";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -42,7 +42,7 @@ export const CellAction: React.FC<CellActionProps> = ({ customer }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.customers.deleteCustomer(customer._id), {
+      await toastPromise(customersApi.deleteCustomer(customer._id), {
         success: t("customers.toasts.customerDeleted", { name: customer.name }),
         error: t("customers.table.delete.error"),
       });

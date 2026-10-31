@@ -4,18 +4,22 @@ import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
 import type { InstallServiceServerSnapshot } from "@/components/install/types";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import { ServicesContainer } from "@hacado/services/container";
 import {
-  appointmentAddonSchema,
   canCreateMoreServices,
-  catalogFromFlatOptions,
-  flattenCatalogOptionIds,
   FREE_TIER_LIMITS,
   ServiceLimitReachedError,
-  type AppointmentAddonUpdateModel,
-  type AppointmentOptionUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/billing";
+import type {
+  AppointmentAddonUpdateModel,
+  AppointmentOptionUpdateModel,
+} from "@hacado/types/booking";
+import { appointmentAddonSchema } from "@hacado/types/booking";
+import {
+  catalogFromFlatOptions,
+  flattenCatalogServiceIds,
+} from "@hacado/types/configuration/booking";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { getDefaultBookingConfiguration } from "../default-booking";
@@ -98,13 +102,13 @@ export async function replaceServices(
     booking = getDefaultBookingConfiguration();
   }
 
-  const oldIds = [...new Set(flattenCatalogOptionIds(booking.catalog))];
+  const oldIds = [...new Set(flattenCatalogServiceIds(booking.catalog))];
 
   for (const id of oldIds) {
-    const opt = await services.servicesService.getOption(id);
+    const opt = await services.catalogService.getService(id);
     const addonIds = opt?.addons?.map((a) => a.id).filter(Boolean) ?? [];
     if (addonIds.length)
-      await services.servicesService.deleteAddons(addonIds, source);
+      await services.catalogService.deleteAddons(addonIds, source);
   }
 
   const staff = [{ memberId }];
@@ -168,14 +172,14 @@ export async function replaceServices(
     }
 
     try {
-      const created = await services.servicesService.createOption(
+      const created = await services.catalogService.createService(
         option,
         source,
       );
       newIds.push(created._id);
     } catch (e) {
       if (newIds.length)
-        await services.servicesService.deleteOptions(newIds, source);
+        await services.catalogService.deleteServices(newIds, source);
       if (e instanceof ServiceLimitReachedError) {
         return { ok: false, code: "service_limit_reached" };
       }
@@ -188,7 +192,7 @@ export async function replaceServices(
   }
 
   if (oldIds.length)
-    await services.servicesService.deleteOptions(oldIds, source);
+    await services.catalogService.deleteServices(oldIds, source);
 
   const fresh =
     (await services.configurationService.getConfiguration("booking")) ?? null;
@@ -238,7 +242,7 @@ export async function createAddons(
   const services = ServicesContainer(organizationId, true);
   const ids: string[] = [];
   for (const addon of parsedAddons.data) {
-    const created = await services.servicesService.createAddon(addon, source);
+    const created = await services.catalogService.createAddon(addon, source);
     ids.push(created._id);
   }
   logger.debug({ organizationId, createdCount: ids.length }, "Created addons");
@@ -272,15 +276,14 @@ export async function replaceAddonsForOption(
   }
 
   const services = ServicesContainer(organizationId, true);
-  const existing = await services.servicesService.getOption(optionId);
+  const existing = await services.catalogService.getService(optionId);
   if (!existing) {
     logger.error({ optionId }, "Option not found");
     return { ok: false, code: "not_found" };
   }
 
   const oldIds = existing.addons?.map((a) => a.id).filter(Boolean) ?? [];
-  if (oldIds.length)
-    await services.servicesService.deleteAddons(oldIds, source);
+  if (oldIds.length) await services.catalogService.deleteAddons(oldIds, source);
   if (!parsedAddons.data.length) {
     logger.debug({ optionId }, "Removed addons and left option without addons");
     return { ok: true, ids: [] };
@@ -288,7 +291,7 @@ export async function replaceAddonsForOption(
 
   const ids: string[] = [];
   for (const addon of parsedAddons.data) {
-    const created = await services.servicesService.createAddon(addon, source);
+    const created = await services.catalogService.createAddon(addon, source);
     ids.push(created._id);
   }
   logger.debug(
@@ -316,11 +319,11 @@ export async function getInstallServicesSnapshot(): Promise<
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const ids = flattenCatalogOptionIds(booking?.catalog);
+  const ids = flattenCatalogServiceIds(booking?.catalog);
 
   const rows: InstallServiceServerSnapshot[] = [];
   for (const id of ids) {
-    const option = await services.servicesService.getOption(id);
+    const option = await services.catalogService.getService(id);
     if (!option) continue;
 
     const anyOption = option as Record<string, unknown>;
@@ -400,7 +403,7 @@ export async function getInstallServiceOptionSnapshot(
   }
 
   const services = ServicesContainer(organizationId, true);
-  const option = await services.servicesService.getOption(optionId);
+  const option = await services.catalogService.getService(optionId);
   if (!option) {
     logger.error({ optionId, organizationId }, "Option not found");
     return { ok: false, code: "not_found" };

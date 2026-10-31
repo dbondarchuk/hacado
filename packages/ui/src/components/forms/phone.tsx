@@ -6,7 +6,7 @@ import { FieldValues } from "react-hook-form";
 import { getFieldName, IFormFieldProps } from "./form-field.types";
 
 import { useI18n } from "@hacado/i18n/client";
-import { WithLabelFieldData } from "@hacado/types";
+import { WithLabelFieldData } from "@hacado/types/booking";
 import { FormFieldDescription } from "./form-field-description";
 import { FormFieldErrorMessage } from "./form-field-error-message";
 import { FormFieldLabel } from "./form-field-label";

@@ -1,17 +1,9 @@
+import { IPaymentProcessor } from "@hacado/types/apps";
 import {
   AppointmentRequest,
   getIntentBaseAmount,
   getPaymentProcessorRefundTarget,
-  IConnectedAppsService,
-  IEventService,
-  IPaymentProcessor,
-  IPaymentsService,
   Payment,
-  PAYMENT_CREATED_EVENT_TYPE,
-  PAYMENT_DELETED_EVENT_TYPE,
-  PAYMENT_INTENT_PAID_EVENT_TYPE,
-  PAYMENT_REFUNDED_EVENT_TYPE,
-  PAYMENT_UPDATED_EVENT_TYPE,
   PaymentExportRow,
   PaymentIntent,
   PaymentIntentUpdateModel,
@@ -21,17 +13,30 @@ import {
   PaymentSummary,
   PaymentType,
   PaymentUpdateModel,
-  Query,
-  WithTotal,
-  type DateRange,
-  type EventSource,
-  type PaymentCreatedPayload,
-  type PaymentDeletedPayload,
-  type PaymentIntentPaidPayload,
-  type PaymentRefundedPayload,
-  type PaymentUpdatedPayload,
-} from "@hacado/types";
-import { escapeRegex } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { Query, WithTotal } from "@hacado/types/database";
+import type {
+  EventSource,
+  PaymentCreatedPayload,
+  PaymentDeletedPayload,
+  PaymentIntentPaidPayload,
+  PaymentRefundedPayload,
+  PaymentUpdatedPayload,
+} from "@hacado/types/events";
+import {
+  PAYMENT_CREATED_EVENT_TYPE,
+  PAYMENT_DELETED_EVENT_TYPE,
+  PAYMENT_INTENT_PAID_EVENT_TYPE,
+  PAYMENT_REFUNDED_EVENT_TYPE,
+  PAYMENT_UPDATED_EVENT_TYPE,
+} from "@hacado/types/events";
+import type { DateRange } from "@hacado/types/general";
+import {
+  IConnectedAppsService,
+  IEventService,
+  IPaymentsService,
+} from "@hacado/types/services";
+import { escapeRegex } from "@hacado/utils/string";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,
@@ -245,7 +250,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         appId,
         amount,
         type,
-        optionId: request.optionId,
+        serviceId: request.serviceId,
         purchasePackageId: request.purchasePackageId,
         customerEmail: request.fields.email,
         customerPhone: request.fields.phone,
@@ -273,7 +278,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
 
     if (!contactMatchers.length) {
       logger.warn(
-        { optionId: request.optionId },
+        { serviceId: request.serviceId },
         "Cannot look up reusable paid intent without email or phone",
       );
       return null;
@@ -290,7 +295,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         appId,
         type,
         appointmentId: { $exists: false },
-        "request.optionId": request.optionId,
+        "request.serviceId": request.serviceId,
         "request.dateTime": request.dateTime,
         $or: contactMatchers,
         ...(purchasePackageMatcher ? { purchasePackageMatcher } : {}),
@@ -368,7 +373,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
 
     return (
       sameDateTime &&
-      intentRequest.optionId === request.optionId &&
+      intentRequest.serviceId === request.serviceId &&
       samePurchasePackage
     );
   }
@@ -631,7 +636,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
             customerName: { $arrayElemAt: ["$customer.name", 0] },
             customerEmail: { $arrayElemAt: ["$customer.email", 0] },
             customerPhone: { $arrayElemAt: ["$customer.phone", 0] },
-            serviceName: { $arrayElemAt: ["$appointment.option.name", 0] },
+            serviceName: { $arrayElemAt: ["$appointment.service.name", 0] },
             appointmentDateTime: {
               $arrayElemAt: ["$appointment.dateTime", 0],
             },
@@ -657,7 +662,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         : {
             effectiveDate,
             customerName: { $arrayElemAt: ["$customer.name", 0] },
-            serviceName: { $arrayElemAt: ["$appointment.option.name", 0] },
+            serviceName: { $arrayElemAt: ["$appointment.service.name", 0] },
           };
 
     const pipeline: Document[] = [

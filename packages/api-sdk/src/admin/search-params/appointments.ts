@@ -10,7 +10,7 @@ import {
   type inferParserType,
 } from "nuqs/server";
 
-import { appointmentStatuses } from "@hacado/types";
+import { appointmentStatuses } from "@hacado/types/booking";
 import { baseSearchParams } from "./base";
 
 export const appointmentsSearchParams = {

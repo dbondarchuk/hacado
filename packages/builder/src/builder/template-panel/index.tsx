@@ -7,7 +7,8 @@ import {
 } from "@dnd-kit/react";
 import { effect } from "@dnd-kit/state";
 import { useI18n } from "@hacado/i18n/client";
-import { Tabs, useThrottleCallback } from "@hacado/ui";
+import { useThrottleCallback } from "@hacado/ui/hooks";
+import { Tabs } from "@hacado/ui/tabs";
 import { ComponentProps, memo } from "react";
 import {
   getActiveOverBlockContext,

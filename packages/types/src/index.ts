@@ -14,6 +14,7 @@ export * from "./organizations";
 export * from "./pages";
 export * from "./pexels";
 export * from "./templates";
+export * from "./text-message/registration";
 export * from "./unsplash";
 export * from "./users";
 

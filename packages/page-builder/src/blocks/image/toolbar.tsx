@@ -1,10 +1,10 @@
 "use client";
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { ShortcutsToolbar } from "@hacado/page-builder-base";
-import { UploadedFile } from "@hacado/types";
-import { ToolbarButton } from "@hacado/ui";
-import { AssetSelectorDialog } from "@hacado/ui-admin";
+import { ShortcutsToolbar } from "@hacado/page-builder-base/toolbars";
+import { UploadedFile } from "@hacado/types/assets";
+import { AssetSelectorDialog } from "@hacado/ui-admin/assets-selector-dialog";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { Image } from "lucide-react";
 import { useState } from "react";
 import { ImageProps } from "./schema";

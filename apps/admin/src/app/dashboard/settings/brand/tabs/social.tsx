@@ -1,8 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { SocialLink } from "@hacado/types";
-import { Sortable } from "@hacado/ui-admin";
+import { SocialLink } from "@hacado/types/configuration/social";
+import { Sortable } from "@hacado/ui-admin/sortable";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { SiteSettingsFormValues } from "../site-settings-schema";

@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutOption, ShortcutWithButtonGroup } from "../types";
 

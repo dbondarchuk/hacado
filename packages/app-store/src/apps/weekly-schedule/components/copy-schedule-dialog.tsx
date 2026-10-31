@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { WeekIdentifier } from "@hacado/types";
+import { WeekIdentifier } from "@hacado/types/general";
+import { WeekSelector } from "@hacado/ui-admin/week-selector";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,7 +12,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -20,12 +23,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
-import { WeekSelector } from "@hacado/ui-admin";
-import { getWeekIdentifier } from "@hacado/utils";
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { getWeekIdentifier } from "@hacado/utils/time";
 import { Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

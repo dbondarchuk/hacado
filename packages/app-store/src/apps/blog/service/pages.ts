@@ -1,4 +1,4 @@
-import { PageUpdateModel } from "@hacado/types";
+import { PageUpdateModel } from "@hacado/types/pages";
 import { getBlogPostReadMoreLinkBlock } from "../blocks/read-more-link-block";
 
 export const BLOG_PAGES: (

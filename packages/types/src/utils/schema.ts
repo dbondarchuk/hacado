@@ -36,16 +36,15 @@ export const zErrorMessageWithParams = (
   params?: Record<string, any>,
 ) => JSON.stringify({ message, params });
 
-export function zUniqueArray<ArrSchema extends z.ZodArray, UniqueVal>(
+export function zUniqueArray<ArrSchema extends z.ZodArray>(
   schema: ArrSchema,
-  uniqueBy: (item: z.infer<ArrSchema>[number]) => UniqueVal,
+  uniqueBy: (item: ArrSchema["_output"][number]) => unknown,
   errorMessage?: string,
-) {
+): ArrSchema {
   return schema.superRefine((items, ctx) => {
-    const seen = new Set<UniqueVal>();
+    const seen = new Set<unknown>();
     for (let index = 0; index < items.length; index++) {
       const item = items[index];
-
       const val = uniqueBy(item);
       if (seen.has(val)) {
         ctx.addIssue({
@@ -74,16 +73,19 @@ export function isPlainObject(
 export function zStrictRecord<
   K extends z.ZodType<string | number | symbol, string | number | symbol>,
   V extends z.ZodType<any, any>,
->(zKey: K, zValue: V) {
-  return z.custom<Record<z.infer<K>, z.infer<V>>>((input: unknown) => {
-    return (
-      isPlainObject(input) &&
-      Object.entries(input).every(
-        ([key, value]) =>
-          zKey.safeParse(key).success && zValue.safeParse(value).success,
-      )
-    );
-  }, "zodStrictRecord: error");
+>(zKey: K, zValue: V): z.ZodType<Record<string | number | symbol, unknown>> {
+  return z.custom<Record<string | number | symbol, unknown>>(
+    (input: unknown) => {
+      return (
+        isPlainObject(input) &&
+        Object.entries(input).every(
+          ([key, value]) =>
+            zKey.safeParse(key).success && zValue.safeParse(value).success,
+        )
+      );
+    },
+    "zodStrictRecord: error",
+  );
 }
 
 export function zOptionalOrMinLengthString(
@@ -190,14 +192,29 @@ export const zObjectId = (message?: string) =>
       message ?? "validation.common.objectId.invalid",
     );
 
+type TaggedUnionItem = { type: string; data?: ZodTypeAny };
+
+type TaggedUnionOutput<Items extends readonly TaggedUnionItem[]> = {
+  [i in keyof Items]: Items[i] extends {
+    type: infer Type;
+    data: infer Data extends ZodTypeAny;
+  }
+    ? { type: Type } & z.output<Data>
+    : Items[i] extends { type: infer Type }
+      ? { type: Type }
+      : never;
+}[number];
+
 /**
  * Builds a union schema for `data & { type }` from a list of { type, data } objects.
  * Each variant is validated as { type: literal, ...data }.
+ *
+ * Output typing is computed once via `z.output` (not nested `z.infer` of the
+ * returned ZodType wrapper) to keep language-server cost down.
  */
-export function zTaggedUnion<
-  const T extends string,
-  const Items extends readonly { type: T; data?: ZodTypeAny }[],
->(items: Items) {
+export function zTaggedUnion<const Items extends readonly TaggedUnionItem[]>(
+  items: Items,
+): z.ZodType<TaggedUnionOutput<Items>> {
   const options = items.map(({ type, data }) =>
     data
       ? z.object({ type: z.literal(type) }).and(data)
@@ -206,11 +223,5 @@ export function zTaggedUnion<
 
   return z.union(
     options as unknown as [z.ZodTypeAny, z.ZodTypeAny, ...z.ZodTypeAny[]],
-  ) as z.ZodType<
-    {
-      [i in keyof Items]: { type: Items[i]["type"] } & z.infer<
-        Items[i]["data"]
-      >;
-    }[number]
-  >;
+  ) as z.ZodType<TaggedUnionOutput<Items>>;
 }

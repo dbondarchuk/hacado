@@ -12,20 +12,20 @@ import {
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
 import { useI18n } from "@hacado/i18n/client";
-import { zEmail } from "@hacado/types";
+import { zEmail } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Link,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, type ReactNode } from "react";
@@ -113,6 +113,7 @@ export const UserForgotPasswordForm = ({
     defaultValues: { password: "", confirmPassword: "" },
     mode: "onChange",
   });
+  const passwordValue = passwordForm.watch("password");
 
   const withProgress = (content: ReactNode) => (
     <div className="flex w-full flex-col gap-4">
@@ -228,7 +229,9 @@ export const UserForgotPasswordForm = ({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("auth.resetPassword.password")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("auth.resetPassword.password")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -247,9 +250,11 @@ export const UserForgotPasswordForm = ({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={passwordValue.length > 0}
+                  >
                     {t("auth.resetPassword.confirmPassword")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -293,7 +298,9 @@ export const UserForgotPasswordForm = ({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("auth.forgotPassword.email")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("auth.forgotPassword.email")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     type="email"

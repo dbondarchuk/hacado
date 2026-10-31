@@ -1,12 +1,13 @@
-import { adminApi } from "@hacado/api-sdk";
-import { Schedule, WeekIdentifier } from "@hacado/types";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { Schedule } from "@hacado/types/configuration/schedule";
+import { WeekIdentifier } from "@hacado/types/general";
 import { RequestAction } from "../models";
 
 export const getWeeklyEvents = async (
   appId: string,
   weekIdentifier: WeekIdentifier,
 ) => {
-  return (await adminApi.apps.processRequest(appId, {
+  return (await appsApi.processRequest(appId, {
     type: "get-weekly-busy-events",
     week: weekIdentifier,
   } as RequestAction)) as Schedule;
@@ -17,7 +18,7 @@ export const setEvents = async (
   week: WeekIdentifier,
   events: Schedule,
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "set-busy-events",
     events,
     week,

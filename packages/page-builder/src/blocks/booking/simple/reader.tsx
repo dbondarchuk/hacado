@@ -3,7 +3,7 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Booking } from "./components/booking";
 import { BookingReaderProps } from "./schema";
 import { styles } from "./styles";

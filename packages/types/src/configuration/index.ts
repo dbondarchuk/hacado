@@ -15,6 +15,10 @@ import { ScheduleConfiguration, scheduleConfigurationSchema } from "./schedule";
 import { ScriptsConfiguration, scriptsConfigurationSchema } from "./scripts";
 import { SocialConfiguration, socialConfigurationSchema } from "./social";
 import { StylingConfiguration, stylingConfigurationSchema } from "./styling";
+import {
+  TextMessagingConfiguration,
+  textMessagingConfigurationSchema,
+} from "./text-messaging";
 
 export * from "./apps";
 export * from "./booking";
@@ -26,6 +30,7 @@ export * from "./schedule";
 export * from "./scripts";
 export * from "./social";
 export * from "./styling";
+export * from "./text-messaging";
 
 export type Configuration = {
   general: GeneralConfiguration;
@@ -37,6 +42,7 @@ export type Configuration = {
   scripts: ScriptsConfiguration;
   styling: StylingConfiguration;
   schedule: ScheduleConfiguration;
+  textMessaging: TextMessagingConfiguration;
 };
 
 export type ConfigurationKey = keyof Configuration;
@@ -62,4 +68,5 @@ export const configurationSchemaMap: Record<
   scripts: scriptsConfigurationSchema,
   styling: stylingConfigurationSchema,
   schedule: scheduleConfigurationSchema,
+  textMessaging: textMessagingConfigurationSchema,
 };

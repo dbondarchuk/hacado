@@ -1,6 +1,7 @@
 "use client";
 
-import { ConfigurationProps, TextInput } from "@hacado/builder";
+import { TextInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { ForeachContainerProps } from "./schema";
 

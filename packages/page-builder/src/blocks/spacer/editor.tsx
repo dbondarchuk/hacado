@@ -1,7 +1,8 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
-import { useResizeBlockStyles } from "@hacado/page-builder-base";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { useResizeBlockStyles } from "@hacado/page-builder-base/helpers";
 import { SpacerProps } from "./schema";
 import { Spacer } from "./spacer";
 

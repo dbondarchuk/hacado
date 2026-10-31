@@ -8,6 +8,13 @@ export type CustomerListModel = Pick<
   appointmentsCount: number;
   lastAppointment?: Appointment;
   nextAppointment?: Appointment;
+  /** Latest consent is on and the number is not opted out. */
+  smsConsent?: boolean;
+};
+
+export type CustomerSmsConsentStatus = {
+  consented: boolean;
+  optedOut: boolean;
 };
 
 export type CustomerSearchField = "name" | "email" | "phone";

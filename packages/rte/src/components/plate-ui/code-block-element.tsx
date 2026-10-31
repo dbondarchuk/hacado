@@ -7,7 +7,7 @@ import { formatCodeBlock, isLangSupported } from "@udecode/plate-code-block";
 import { useCodeBlockElementState } from "@udecode/plate-code-block/react";
 import { BracesIcon } from "lucide-react";
 
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { CodeBlockCombobox } from "./code-block-combobox";
 import { PlateElement } from "./plate-element";
 

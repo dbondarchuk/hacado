@@ -1,21 +1,23 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { NavItemGroup } from "@hacado/types";
+import { NavItemGroup } from "@hacado/types/admin";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+} from "@hacado/ui/collapsible";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-  Link,
+} from "@hacado/ui/dropdown-menu";
+import { Link } from "@hacado/ui/link";
+import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -30,7 +32,7 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
   useSidebar,
-} from "@hacado/ui";
+} from "@hacado/ui/sidebar";
 import { ChevronRight, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";

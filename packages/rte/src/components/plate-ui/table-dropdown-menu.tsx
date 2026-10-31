@@ -19,8 +19,8 @@ import {
   XIcon,
 } from "lucide-react";
 
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -29,9 +29,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 
 export function TableDropdownMenu(props: DropdownMenuProps) {
   const tableSelected = useEditorSelector(

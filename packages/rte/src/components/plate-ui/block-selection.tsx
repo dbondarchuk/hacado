@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { DndPlugin } from "@udecode/plate-dnd";
 import { useBlockSelected } from "@udecode/plate-selection/react";
 import { usePluginOption } from "@udecode/plate/react";

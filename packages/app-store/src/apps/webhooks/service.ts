@@ -6,11 +6,11 @@ import {
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
-  EventEnvelope,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { EventEnvelope } from "@hacado/types/events";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import crypto from "crypto";
 import {

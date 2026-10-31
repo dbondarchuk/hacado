@@ -7,11 +7,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  mergeRefs,
-  Toolbar,
-  ToolbarButton,
-  ToolbarGroup,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { Toolbar, ToolbarButton, ToolbarGroup } from "@hacado/ui/toolbar";
+import { mergeRefs } from "@hacado/ui/utils";
 import { Eraser, MoreHorizontal, Redo2, Undo2 } from "lucide-react";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { useRTEContext } from "../context/rte-context";

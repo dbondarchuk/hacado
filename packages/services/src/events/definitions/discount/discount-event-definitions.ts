@@ -1,15 +1,18 @@
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
+import type {
+  DiscountAppliedPayload,
+  DiscountCreatedPayload,
+  DiscountDeletedPayload,
+  DiscountUpdatedPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   DISCOUNT_APPLIED_EVENT_TYPE,
   DISCOUNT_CREATED_EVENT_TYPE,
   DISCOUNT_DELETED_EVENT_TYPE,
   DISCOUNT_UPDATED_EVENT_TYPE,
-  type DiscountAppliedPayload,
-  type DiscountCreatedPayload,
-  type DiscountDeletedPayload,
-  type DiscountUpdatedPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

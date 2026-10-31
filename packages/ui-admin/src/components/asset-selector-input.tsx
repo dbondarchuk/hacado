@@ -1,23 +1,22 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
+import { Button } from "@hacado/ui/button";
+import { Input, inputVariants } from "@hacado/ui/input";
 import {
-  Button,
-  Input,
   InputGroup,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  inputVariants,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
+import { toast } from "@hacado/ui/sonner";
 import {
   FAVICON_MIN_SIZE,
   isSvgFaviconSource,
   probeImageDimensions,
   type FaviconConstraintErrorCode,
-} from "@hacado/utils";
+} from "@hacado/utils/favicon";
 import { VariantProps } from "class-variance-authority";
 import React from "react";
 import { AssetSelectorDialog } from "./assets-selector-dialog";

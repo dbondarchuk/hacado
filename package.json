@@ -23,6 +23,7 @@
     "purge-organization": "node scripts/purge-organization.mjs",
     "generate-font-previews": "node scripts/generate-font-previews.mjs",
     "generate-template-previews": "node scripts/generate-template-previews.mjs",
+    "rasterize-logos": "node scripts/rasterize-logos.mjs",
     "seed-org": "node scripts/seed-org.mjs",
     "check-translations": "turbo run check-translations --",
     "translate": "turbo run translate --",

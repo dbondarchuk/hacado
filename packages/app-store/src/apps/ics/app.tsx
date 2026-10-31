@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { ICS_APP_NAME } from "./const";
 import { IcsLogo } from "./logo";
 import { IcsAdminKeys, IcsAdminNamespace } from "./translations/types";

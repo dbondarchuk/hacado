@@ -1,16 +1,16 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { DaySchedule, Shift } from "@hacado/types";
+import { Shift } from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
+import { usePointer } from "@hacado/ui/hooks";
+import { ScrollArea, ScrollBar } from "@hacado/ui/scroll-area";
 import {
-  cn,
-  ScrollArea,
-  ScrollBar,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  usePointer,
-  useTimeZone,
-} from "@hacado/ui";
-import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
+} from "@hacado/ui/tooltip-responsive";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils/time";
 import { Clock } from "lucide-react";
 import { DateTime, HourNumbers, SecondNumbers } from "luxon";
 import React, { CSSProperties, Fragment, useCallback } from "react";

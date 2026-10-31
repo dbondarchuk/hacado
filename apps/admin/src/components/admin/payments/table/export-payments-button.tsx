@@ -1,13 +1,11 @@
 "use client";
 
-import {
-  adminApi,
-  PaymentsExportError,
-  paymentsSearchParams,
-} from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
+import { paymentsSearchParams } from "@hacado/api-sdk/admin/search-params/payments";
 import { useI18n } from "@hacado/i18n/client";
-import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types";
-import { Button, toast } from "@hacado/ui";
+import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
 import { FileDown, Loader2 } from "lucide-react";
 import { useQueryState } from "nuqs";
 import { useCallback, useState } from "react";
@@ -39,7 +37,7 @@ export function ExportPaymentsButton({
     setIsExporting(true);
 
     try {
-      await adminApi.payments.exportPayments({
+      await paymentsApi.exportPayments({
         search: searchQuery || undefined,
         type: typeFilter ?? undefined,
         method: methodFilter ?? undefined,
@@ -56,7 +54,7 @@ export function ExportPaymentsButton({
       toast.success(t("paymentsList.exportCsvSuccess"));
     } catch (error) {
       if (
-        error instanceof PaymentsExportError &&
+        error instanceof paymentsApi.PaymentsExportError &&
         error.status === 413 &&
         error.body?.code === "export_limit_exceeded"
       ) {

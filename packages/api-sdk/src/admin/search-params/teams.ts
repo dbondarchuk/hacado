@@ -10,7 +10,7 @@ import {
   parseAsStringLiteral,
 } from "nuqs/server";
 
-import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types";
+import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types/users";
 import { baseSearchParams } from "./base";
 
 export const teamsSearchParams = {

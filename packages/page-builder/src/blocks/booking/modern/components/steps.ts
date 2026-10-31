@@ -1,9 +1,10 @@
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import {
   AppointmentChoice,
   shouldSkipLockedMemberStep,
   shouldSkipLockedServiceStep,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Calendar,
   CheckCircle2,
@@ -96,8 +97,9 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
         ctx.purchasePackageId) &&
       !ctx.otpVerified
     ) {
-      const sessionMatches =
-        await clientApi.customerAuth.sessionMatchesBookingFields(ctx.fields);
+      const sessionMatches = await customerAuthApi.sessionMatchesBookingFields(
+        ctx.fields,
+      );
       if (!sessionMatches) {
         ctx.setOtpReturnStep("payment");
         ctx.setOtpDialogOpen(true);
@@ -110,7 +112,7 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
     if (!payment || payment.intent?.status === "paid") {
       ctx.onSubmit(payment?.intent?._id);
     } else {
-      clientApi.booking.trackPaymentReached(payment.intent?.amount);
+      bookingApi.trackPaymentReached(payment.intent?.amount);
       ctx.setCurrentStep("payment");
     }
   } catch (e) {

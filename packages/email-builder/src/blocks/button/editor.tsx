@@ -1,17 +1,17 @@
 "use client";
 
 import {
-  useBlockEditor,
   useCurrentBlock,
   useCurrentBlockId,
   useDispatchAction,
   useEditorArgs,
-  usePortalContext,
   useSetSelectedBlockId,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
 import { useI18n } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { cn } from "@hacado/ui/cn";
 import { useRef } from "react";
 import sanitizeHtml from "sanitize-html";
 import { ButtonProps } from "./schema";

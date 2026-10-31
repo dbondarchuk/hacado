@@ -1,4 +1,5 @@
-import type { ActivityListItem, WithTotal } from "@hacado/types";
+import type { ActivityListItem } from "@hacado/types/activity";
+import type { WithTotal } from "@hacado/types/database";
 import {
   ActivitiesSearchParams,
   serializeActivitiesSearchParams,

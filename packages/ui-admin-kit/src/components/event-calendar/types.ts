@@ -1,4 +1,5 @@
-import type { DaySchedule, HourNumbers } from "@hacado/types";
+import type { HourNumbers } from "@hacado/types/booking";
+import type { DaySchedule } from "@hacado/types/configuration/schedule";
 import type { ReactNode } from "react";
 
 declare module "react" {

@@ -1,24 +1,25 @@
 import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
 
+import { AssetEntity } from "@hacado/types/assets";
 import {
   Appointment,
   AppointmentStatus,
-  AssetEntity,
-  BookingConfiguration,
-  BrandConfiguration,
-  Country,
-  Currency,
-  Customer,
-  GeneralConfiguration,
   getPaymentServiceAmount,
   isAppointmentCoveredByPackage,
   isSettledPayment,
-  OrganizationMember,
   Payment,
+} from "@hacado/types/booking";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import {
   SocialConfiguration,
   SocialLinkType,
   socialType,
-} from "@hacado/types";
+} from "@hacado/types/configuration/social";
+import { Customer } from "@hacado/types/customers";
+import { OrganizationMember } from "@hacado/types/users";
+import { Country, Currency } from "@hacado/types/utils";
 import { formatArguments, FormattedArguments } from "./format-arguments";
 import { capitalize } from "./string";
 import { durationToTime } from "./time";

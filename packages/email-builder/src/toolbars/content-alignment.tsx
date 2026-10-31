@@ -1,9 +1,9 @@
 import {
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
-} from "@hacado/builder";
+} from "@hacado/builder/toolbars";
 import { useI18n } from "@hacado/i18n/client";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import { ArrowDownToLine, ArrowUpToLine, FoldVertical } from "lucide-react";
 
 type PropsType = {

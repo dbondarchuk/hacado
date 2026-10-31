@@ -1,4 +1,4 @@
-import { getRedisClient } from "@hacado/services";
+import { getRedisClient } from "@hacado/services/bullmq";
 
 const QUICK_LINK_USAGE_TTL_SECONDS = 60 * 60 * 24 * 180;
 

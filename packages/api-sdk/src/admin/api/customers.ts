@@ -1,10 +1,11 @@
 import {
   Customer,
   CustomerListModel,
+  CustomerSmsConsentStatus,
   CustomerUpdateModel,
-  okStatus,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/customers";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
   CustomersSearchParams,
   customersSearchParamsSerializer,
@@ -136,6 +137,24 @@ export const mergeCustomers = async (targetId: string, ids: string[]) => {
   console.debug("Customers merged successfully");
 
   return data;
+};
+
+export const getCustomerSmsConsent = async (id: string, phone?: string) => {
+  const query = phone ? `?phone=${encodeURIComponent(phone)}` : "";
+  const response = await fetchAdminApi(`/customers/${id}/sms-consent${query}`);
+  return response.json<CustomerSmsConsentStatus>();
+};
+
+export const setCustomerSmsConsent = async (
+  id: string,
+  consented: boolean,
+  phone?: string,
+) => {
+  const response = await fetchAdminApi(`/customers/${id}/sms-consent`, {
+    method: "POST",
+    body: JSON.stringify({ consented, ...(phone ? { phone } : {}) }),
+  });
+  return response.json<CustomerSmsConsentStatus>();
 };
 
 export const checkCustomerUniqueEmailAndPhone = async (

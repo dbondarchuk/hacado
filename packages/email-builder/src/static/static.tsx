@@ -1,9 +1,9 @@
 import {
-  BaseZodDictionary,
   Reader,
   TReaderProps,
   renderElementToStaticMarkup as baseRenderToStaticMarkup,
-} from "@hacado/builder";
+} from "@hacado/builder/reader";
+import { BaseZodDictionary } from "@hacado/builder/types";
 import juice from "juice";
 import { ReaderBlocks } from "../blocks/reader";
 import { tailwindCss } from "./tailwind";

@@ -1,12 +1,19 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { syncedPaymentsApi } from "@hacado/api-sdk/admin/synced-payments";
 import { useI18n } from "@hacado/i18n/client";
 import {
-  DateRange,
   HydratedSyncedPayment,
   SyncedPaymentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DateRange } from "@hacado/types/general";
+import {
+  AssignAppointmentDialog,
+  EditSyncedPaymentAmountsDialog,
+  RecordSyncedPaymentDialog,
+  SyncedPaymentCard,
+} from "@hacado/ui-admin-kit/payments";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,23 +23,20 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  CalendarDateRangePicker,
-  Link,
-  Skeleton,
-  Spinner,
-  toastPromise,
-  useTimeZone,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
+import { CalendarDateRangePicker } from "@hacado/ui/date-range-picker";
+import { Link } from "@hacado/ui/link";
 import {
-  AssignAppointmentDialog,
-  EditSyncedPaymentAmountsDialog,
-  RecordSyncedPaymentDialog,
-  SyncedPaymentCard,
-} from "@hacado/ui-admin-kit";
-import { canManageSyncedPayments } from "@hacado/utils";
-import { Check } from "lucide-react";
+  RadioButtonGroup,
+  RadioButtonGroupItem,
+} from "@hacado/ui/radio-button-group";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { canManageSyncedPayments } from "@hacado/utils/permissions";
+import { Check, FilterX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -68,7 +72,7 @@ export const SyncedPaymentsReview = () => {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const result = await adminApi.syncedPayments.listSyncedPayments({
+      const result = await syncedPaymentsApi.listSyncedPayments({
         status: showAll ? undefined : NEEDS_REVIEW,
         limit: PAGE_SIZE,
         offset: page * PAGE_SIZE,
@@ -98,7 +102,7 @@ export const SyncedPaymentsReview = () => {
     setApprovingAll(true);
     try {
       const result = await toastPromise(
-        adminApi.syncedPayments.confirmAllMatchedSyncedPayments({
+        syncedPaymentsApi.confirmAllMatchedSyncedPayments({
           start: range?.start,
           end: range?.end,
           externalId,
@@ -164,23 +168,41 @@ export const SyncedPaymentsReview = () => {
         </div>
       )}
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <Button
-            variant={showAll ? "outline" : "default"}
-            size="sm"
-            onClick={() => setShowAll(false)}
+        <div className="flex flex-wrap items-center gap-2">
+          <RadioButtonGroup
+            value={showAll ? "all" : "needsReview"}
+            onValueChange={(value) => setShowAll(value === "all")}
+            joined
           >
-            {t("syncedPayments.filters.needsReview")}
-          </Button>
-          <Button
-            variant={showAll ? "default" : "outline"}
-            size="sm"
-            onClick={() => setShowAll(true)}
-          >
-            {t("syncedPayments.filters.all")}
-          </Button>
+            <RadioButtonGroupItem value="needsReview" size="sm">
+              {t("syncedPayments.filters.needsReview")}
+            </RadioButtonGroupItem>
+            <RadioButtonGroupItem value="all" size="sm">
+              {t("syncedPayments.filters.all")}
+            </RadioButtonGroupItem>
+          </RadioButtonGroup>
+          <div className="flex flex-wrap items-center gap-2">
+            <CalendarDateRangePicker
+              range={range}
+              onChange={setRange}
+              timeZone={timeZone}
+              className="w-auto min-w-56"
+            />
+            {(range?.start || range?.end) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setRange(undefined)}
+                title={t("syncedPayments.filters.clearDates")}
+              >
+                <FilterX />
+                <span className="max-md:hidden">
+                  {t("syncedPayments.filters.clearDates")}
+                </span>
+              </Button>
+            )}
+          </div>
         </div>
-
         <div className="flex flex-wrap items-center gap-2">
           {canManage && !showAll && (
             <Button
@@ -190,21 +212,6 @@ export const SyncedPaymentsReview = () => {
             >
               <Check />
               {t("syncedPayments.actions.approveAll")}
-            </Button>
-          )}
-          <CalendarDateRangePicker
-            range={range}
-            onChange={setRange}
-            timeZone={timeZone}
-            className="w-auto min-w-56"
-          />
-          {(range?.start || range?.end) && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setRange(undefined)}
-            >
-              {t("syncedPayments.filters.clearDates")}
             </Button>
           )}
         </div>
@@ -229,9 +236,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.confirmSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.confirmSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -239,9 +244,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.rejectSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.rejectSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -249,9 +252,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.ignoreSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.ignoreSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -260,11 +261,11 @@ export const SyncedPaymentsReview = () => {
                       ? (appointmentId) =>
                           runAction(item._id, () =>
                             item.appointmentId
-                              ? adminApi.syncedPayments.reassignSyncedPayment(
+                              ? syncedPaymentsApi.reassignSyncedPayment(
                                   item._id,
                                   appointmentId,
                                 )
-                              : adminApi.syncedPayments.assignSyncedPayment(
+                              : syncedPaymentsApi.assignSyncedPayment(
                                   item._id,
                                   appointmentId,
                                 ),
@@ -282,9 +283,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.unassignSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.unassignSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -292,9 +291,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.unrecordSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.unrecordSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -342,11 +339,11 @@ export const SyncedPaymentsReview = () => {
           setAssignTarget(null);
           await runAction(target._id, () =>
             target.appointmentId
-              ? adminApi.syncedPayments.reassignSyncedPayment(
+              ? syncedPaymentsApi.reassignSyncedPayment(
                   target._id,
                   appointmentId,
                 )
-              : adminApi.syncedPayments.assignSyncedPayment(
+              : syncedPaymentsApi.assignSyncedPayment(
                   target._id,
                   appointmentId,
                 ),
@@ -373,7 +370,7 @@ export const SyncedPaymentsReview = () => {
           const target = recordTarget;
           setRecordTarget(null);
           await runAction(target._id, () =>
-            adminApi.syncedPayments.recordSyncedPayment(target._id, details),
+            syncedPaymentsApi.recordSyncedPayment(target._id, details),
           );
         }}
       />

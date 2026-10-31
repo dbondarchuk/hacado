@@ -88,6 +88,19 @@ common:
     leave: Leave
   pricePerHour: "{price}/hr"
 platformEvents:
+  smsVerification:
+    created:
+      title: Custom text messaging submitted
+      description: Verification was sent for review.
+    pending:
+      title: Custom text messaging in review
+      description: Verification is pending.
+    failed:
+      title: Custom text messaging was not approved
+      description: "{reason}"
+    succeeded:
+      title: Custom text messaging verified
+      description: "Customer texts use {phoneNumber}."
   customer:
     created:
       title: New customer
@@ -218,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# add-on} other {# add-ons}}"
   appointmentOption:
     created:
-      title: Service option created
+      title: Service created
       description: "{name}"
     updated:
-      title: Service option updated
+      title: Service updated
       description: "{name}"
     deleted:
-      title: Service options removed
-      description: "{count, plural, =1 {# option} other {# options}}"
+      title: Services removed
+      description: "{count, plural, =1 {# service} other {# services}}"
   discount:
     created:
       title: Discount created
@@ -386,6 +399,30 @@ billing:
       title: SMS top-up complete
       message: "Added {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. They are used after your included subscription pool."
       action: Open billing settings
+commandPalette:
+  placeholder: Search
+  typeHint: "Search one type with a prefix, such as customer: or blog:."
+  empty: No results
+  loading: Searching…
+  viewAll: View all {label}
+  groups:
+    actions: Quick actions
+    apps: Apps
+    installedApps: Installed apps
+  actions:
+    newAppointment: New appointment
+    newCustomer: New customer
+    newPage: New page
+    newHeader: New header
+    newFooter: New footer
+    newTemplate: New email template
+    newOption: New service
+    newAddon: New add-on
+    newField: New field
+    newDiscount: New discount
+    newGiftCard: New gift card
+    newPackage: New package
+    newAsset: New asset
 navigation:
   overview: Overview
   dashboard: Dashboard
@@ -396,8 +433,10 @@ navigation:
   paymentsInbox: Payments inbox
   financialOverview: Overview
   customerAccess: Customer access
+  textMessaging: Text messaging
   schedule: Schedule
   defaultSchedule: Default schedule
+  catalog: Catalog
   services: Services
   fields: Fields
   addons: Add-ons
@@ -418,6 +457,17 @@ navigation:
   header: Header
   footer: Footer
   settings: Settings
+  descriptions:
+    templates: Email and text templates used for customer messages.
+    store: Browse apps you can install.
+    defaultApps: Choose the default apps for payments, email, and text messages.
+    fields: Questions collected when a service is booked.
+    addons: Optional extras customers can add to a booking.
+    services: Bookable services, with duration and price.
+    discounts: Promo codes and price reductions.
+    giftCards: Gift cards customers can buy and redeem.
+    packages: Prepaid visit packages.
+    soldPackages: Packages that customers have purchased.
   general: General
   brand: Brand
   social: Social
@@ -579,7 +629,7 @@ financialOverview:
     viewAppointment: View Appointment
     revenueAndPayments: Revenue and Payments
     appointmentStatusDistribution: Appointment Status
-    serviceDistribution: Options
+    serviceDistribution: Services
     appointmentsCount: "{count, plural, =1 {1 appointment} other {# appointments}}"
     estimatedRevenueFormat: "Estimated revenue: {revenue}"
     financialOverview: Financial Overview
@@ -612,7 +662,7 @@ financialOverview:
         percentage: "{percentage}% of all conversions"
         noData: No conversion data available
       bookingSteps:
-        optionsRequested: Options Requested
+        optionsRequested: Services requested
         serviceSelected: Service Selected
         specialistSelected: Specialist Selected
         addonSelected: Add-on Selected
@@ -684,7 +734,7 @@ paymentsList:
     appointmentId: Appointment ID
     appointmentDateTime: Appointment date
     appointmentStatus: Appointment status
-    optionName: Option name
+    optionName: Service name
     addons: Addons
     appointmentTotal: Appointment total
     feesTotal: Fees total
@@ -847,7 +897,7 @@ appointments:
     columns:
       status: Status
       statusAriaLabel: "Status: {status}"
-      option: Option
+      option: Service
       customer: Customer
       member: Team member
       dateTime: Date & time
@@ -857,9 +907,9 @@ appointments:
       package: Package
       packageRestored: restored
       price: Price
-      optionName: Option name
-      optionPrice: Option price
-      optionDuration: Option duration
+      optionName: Service name
+      optionPrice: Service price
+      optionDuration: Service duration
       selectedAddons: Selected add-ons
       note: Note
       customerName: Name
@@ -944,7 +994,10 @@ appointments:
     refundError: One or more refund requests have failed.
     giftCardCode: Gift card code
     paymentDescription: Description
+    refundPayment: Refund this payment
+    refundPaymentDescription: Refund part or all of this payment.
     refundFees: Refund fees
+    refundFeesDescription: Include processing fees in the refund amount.
   rescheduleDialog:
     title: Reschedule the appointment
     by: by
@@ -1030,8 +1083,8 @@ appointments:
     "yes": "Yes"
     "no": "No"
     service: Service
-    selectedOption: Selected option
-    option: Option
+    selectedOption: Selected service
+    option: Service
     description: Description
     selectedAddons: Selected addons
     meetingInformation:
@@ -1066,8 +1119,8 @@ appointments:
     newDateTime: "New date and time: {newDateTime}"
     refundedAmount: Refunded {amount}
     totalRefunded: Total refunded {amount}
-    oldOption: "Old option: {oldOption}"
-    newOption: "New option: {newOption}"
+    oldOption: "Old service: {oldOption}"
+    newOption: "New service: {newOption}"
   form:
     dateTimeRequired: Date and time are required
     durationRequired: Duration is required
@@ -1076,7 +1129,7 @@ appointments:
     durationMax: Maximum duration is 10 days
     priceNumber: Total price must be a number
     priceMin: Minimum price is 0
-    optionRequired: Option must be selected
+    optionRequired: Service must be selected
     addonRequired: Addon must be selected
     nameRequired: Name is required
     emailValid: Must be a valid email
@@ -1085,7 +1138,7 @@ appointments:
     scheduledSuccess: Appointment was successfully scheduled
     requestError: There was a problem with your request.
     appointmentType: Appointment type
-    selectOption: Select option
+    selectOption: Select service
     min: min
     custom: Custom
     dateTime: Date & Time
@@ -1110,20 +1163,20 @@ appointments:
       title: Member not assigned
       description:
         The selected team member is not assigned to part of this appointment.
-        Base option/add-on price and duration will be used until you adjust them.
-      optionNotAssigned: "Not assigned to option: {option}"
+        Base service and add-on price and duration will be used until you adjust them.
+      optionNotAssigned: "Not assigned to service: {option}"
       addonsNotAssigned: "Not assigned to add-on(s): {addons}"
       priceDurationHint:
         Please verify that the total price and duration are correct before
         scheduling.
       ackLabel: I acknowledge this member is not assigned
       ackDescription:
-        Required when the selected member is not assigned to the option or one
+        Required when the selected member is not assigned to the service or one
         or more selected add-ons. Please verify price and duration before
         scheduling.
       ackRequired:
         Please acknowledge that the selected member is not assigned to the
-        option or add-on(s).
+        service or add-on(s).
       cancel: Close
       confirm: Got it
     scheduleAppointment: Schedule appointment
@@ -1284,6 +1337,8 @@ communicationLogs:
     columns:
       direction: Direction
       channel: Channel
+      status: Status
+      reason: Reason
       participantType: Participant
       participant: Participant
       handler: Handler
@@ -1325,6 +1380,14 @@ customers:
   addPayment: Add payment
   files: Files
   communications: Communications
+  smsConsent:
+    title: Text messages
+    inactive: This customer has not agreed to receive text messages.
+    noPhone: Add a phone number to manage text message consent.
+    revoke: Revoke consent
+    attested: Consent recorded
+    revoked: Consent revoked
+    error: Could not update SMS consent
   deletedCustomer: Deleted customer
   form:
     customerPhoto: Customer photo
@@ -1355,7 +1418,7 @@ customers:
     selectOption: Select option
     always: Always
     never: Never
-    inherit: Same as selected option or general configuration
+    inherit: Same as selected service or general configuration
     knownNames: Known names
     knownNamesTooltip:
       Alternative names provided by customers during the appointment
@@ -1374,6 +1437,19 @@ customers:
     remove: Remove
     changePhoto: Change photo
     customerPhotoAlt: Customer photo
+    photo: Photo
+    onlineBooking: Online booking
+    onlineBookingDescription: When off, this customer can't book themselves. Only you can add appointments.
+    deposit: Deposit
+    depositDescription: Choose whether this customer must pay a deposit when booking.
+    customDeposit: Custom deposit requirement
+    customDepositTooltip: Use a deposit rule for this customer instead of the service or general configuration.
+    notesPrivate: Only you and your team can see notes.
+    alsoKnownAs: Also known as
+    alsoKnownAsDescription: Other details this customer may use. We use them to match new booking requests to this profile.
+    names: Names
+    emails: Emails
+    phones: Phones
   uploadFiles:
     title: Upload files
     description: Upload files for your customer
@@ -1445,6 +1521,13 @@ pages:
       Page relative URL. For example, page with slug 'my-new-page'
       will be available at 'yourdomain.com/my-new-page'
     pageSlugPlaceholder: Page slug
+    pageName: Page name
+    pageNamePlaceholder: e.g. Policies
+    url: URL
+    editUrl: Edit URL
+    slugGeneratedPlaceholder: created-from-the-name
+    slugAutoHint: Filled in as you type the name. You can change it.
+    slugChangeWarning: Changing the URL can break links you have already shared.
     published: Published?
     publishedTooltip: Is page visible to your visitors
     publishDate: Publish date
@@ -1635,6 +1718,8 @@ pages:
         tooltip: Color for logo name and menu text
       defaultColumn: Default
       onScrollColumn: On scroll
+      mobileColumn: Mobile
+      mobileOnScrollColumn: Mobile on scroll
       onScrollSection: On scroll appearance
       onScrollSectionDescription: Optional overrides applied after the page is scrolled
       mobileSection: Mobile appearance
@@ -1726,6 +1811,7 @@ services:
   fieldSelectCard:
     moveField: Move {type} field
     field: Field
+    fieldDescription: Select the custom field collected during booking.
     required: Required
     requiredTooltip: Marks field as to be required
     deleteConfirmTitle: Are you absolutely sure?
@@ -1735,12 +1821,12 @@ services:
     cancel: Cancel
     delete: Delete
   addonSelectCard:
-    moveAddon: Move option addon
+    moveAddon: Move service add-on
     addon: Addon
     deleteConfirmTitle: Are you absolutely sure?
     deleteConfirmDescription:
       Are you sure you want to remove this addon from this
-      option?
+      service?
     cancel: Cancel
     delete: Delete
   addonSelector:
@@ -1749,25 +1835,280 @@ services:
   memberSelector:
     loading: Loading members...
     selectMember: Select member
-  options:
+templates:
+  page:
+    title: Communication templates
+  formPage:
+    typeTemplates: "{type} templates"
+    new: New
+  newPage:
+    title: New {type} template
+  editPage:
+    title: Update template
+    clone: Clone
+  addNew:
+    emptyTemplate: Empty template
+    add: Add
+    addNewTemplate: Add new template
+    type: Type
+    selectTemplateType: Select template type
+    template: Template
+    close: Close
+  form:
+    subject: Email subject
+    subjectTooltip: Email subject that will be used to send the message
+    subjectPlaceholder: Subject
+    name: Template name
+    nameTooltip: Unique template name
+    namePlaceholder: Template name
+    validation:
+      templateNotValid: Template is not valid
+    toasts:
+      changesSaved: Your changes were saved.
+      requestError: There was a problem with your request.
+  textMessageBuilder:
+    content: Text message content
+    viewContext: View context
+    contextValues: Context values
+    copied: Copied
+    copyPath: Copy path
+    close: Close
+    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    preview: Preview
+  table:
+    filters:
+      type: Type
+      filters: Filters
+    columns:
+      type: Type
+      name: Name
+      updatedAt: Updated at
+    cellAction:
+      templateDeleted: Template "{name}" was deleted.
+      deleteError: There was a problem with your request.
+      actions: Actions
+      update: Update
+      delete: Delete
+      clone: Clone
+    deleteSelected:
+      success: Selected templates have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {template} other {# templates}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription:
+        This action cannot be undone. This will delete selected
+        templates and may break notifications that use them
+      cancel: Cancel
+      deleteSelected: Delete selected
+appearance:
+  styling:
+    title: Styling
+    description: Adjust general styling
+    form:
+      primaryFont: Primary font
+      secondaryFont: Secondary font
+      tertiaryFont: Tertiary font
+      selectFont: Select font
+      colorOverrides: Color overrides
+      invalidField: Invalid field
+      duplicateType: Duplicate type
+      remove: Remove
+      deleteConfirmTitle: Are you absolutely sure?
+      deleteConfirmDescription: Are you sure that you want to remove this color override?
+      cancel: Cancel
+      delete: Delete
+      type: Type
+      typeDescription: Which theme color this override replaces.
+      selectColorOverrideType: Select color override type
+      color: Color
+      colorTooltip: Color in CSS format (HEX, rgb, rgba, hsl)
+      additionalCss: Additional CSS
+      toasts:
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+      fonts:
+        seeOnGoogleFonts: See on Google Fonts
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Variants: {variants}"
+          regular: Regular
+          italic: Italic
+          bold: Bold
+          medium: Medium
+          semibold: Semi-bold
+          extrabold: Extra-bold
+          100italic: 100 Italic
+          200italic: 200 Italic
+          300italic: 300 Italic
+          400italic: 400 Italic
+          500italic: 500 Italic
+          600italic: 600 Italic
+          700italic: 700 Italic
+          800italic: 800 Italic
+          900italic: 900 Italic
+        subsets:
+          label: "Subsets: {subsets}"
+          latin: Latin
+          latin-ext: Latin Extended
+          vietnamese: Vietnamese
+          cyrillic: Cyrillic
+          cyrillic-ext: Cyrillic Extended
+          greek: Greek
+          greek-ext: Greek Extended
+          hebrew: Hebrew
+          math: Math
+          symbols: Symbols
+        category:
+          label: "Category: {category}"
+          sans-serif: Sans-serif
+          serif: Serif
+          monospace: Monospace
+          display: Display
+          handwriting: Handwriting
+          script: Script
+          fantasy: Fantasy
+    colors:
+      default: Default
+      custom: Custom Color
+      background: Background
+      foreground: Text
+      card: Card
+      card-foreground: Card Text
+      popover: Popover
+      popover-foreground: Popover Text
+      primary: Primary
+      primary-foreground: Primary Text
+      secondary: Secondary
+      secondary-foreground: Secondary Text
+      muted: Muted
+      muted-foreground: Muted Text
+      accent: Accent
+      accent-foreground: Accent Text
+      destructive: Destructive
+      destructive-foreground: Destructive Text
+      border: Border
+  footer:
+    title: Footer
+    description: Adjust links in footer
+    form:
+      useCustomFooter: Use custom footer
+      footerContent: Footer content
+      preview: Preview
+      contactUsLabel: Contact us label
+      contactUsLabelTooltip: Defaults to 'Contact us'
+      contactUsPlaceholder: Contact us
+      links: Links
+      toasts:
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+apps:
+  heading: Connected apps
+  description: Manage your connected apps
+  defaultApps: Default apps
+  appStore: App Store
+  searchPlaceholder: Search installed apps
+  noResults: No apps found for your search
+  noConnectedApps: You do not have any connected apps
+  defaultAppsForm:
+    payment:
+      label: Payment processor
+      placeholder: Disable payments
+    emailSender:
+      label: Email sender
+      placeholder: Use default email sender
+    textMessageSender:
+      label: Text message sender
+      placeholder: Use default text message sender
+      tooltip: The app that sends text messages to customers. Optional.
+    textMessageResponder:
+      label: Text message responder
+      tooltip:
+        If not handled by sender, it will be used as default app to respond
+        to text messages (i.e. auto reply). Optional.
+    assetsStorage: Assets storage
+    toasts:
+      changesSaved: Your changes were saved.
+      requestError: There was a problem with your request.
+  defaultAppsDescription: Select default apps
+  migrateAssetsDialog:
+    migrateAssets: Migrate assets
+    title: Migrate existing assets
+    description: Migrate your existing assets from your previous storage
+    sourceApp: Source assets storage app
+    done: "Done: {count}"
+    success: "Success: {count}"
+    error: "Error: {count}"
+    total: "Total: {count}"
+    migrate: Migrate
+    toasts:
+      requestError: Your request has failed
+  events:
+    installed:
+      title: App installed
+      description: "{appDisplayName} was installed."
+    connected:
+      title: App connected
+      description: "{appDisplayName} connected."
+    uninstalled:
+      title: App uninstalled
+      description: "{appDisplayName} was uninstalled."
+    failed:
+      title: App failed
+      description: "{appDisplayName} failed to connect."
+  notifications:
+    failed:
+      title: App connection failed
+      message: "{appDisplayName} failed to connect. Check app settings."
+      action: Open apps
+  emails:
+    failed:
+      subject: "{appDisplayName} - connection failed"
+      preview: "{appDisplayName} could not stay connected"
+      title: We could not keep your app connected
+      body: |-
+        Hello {userName},
+
+        **{appDisplayName}** reported a connection problem or did not finish setup successfully. Open **Apps** in your dashboard to review credentials and settings, then try connecting again.
+
+        If everything already looks correct, you can ignore this email.
+      button: Open apps
+      handledBy: "App connection failed: {appDisplayName}"
+catalog:
+  hub:
+    description: Services, add-ons, packages, and the other items customers can book or buy.
+  services:
     title: Services
     description: Manage services that you provide
     addNew: Add New
     addFromTemplate: Add from template
     addFromTemplateDialog:
-      title: Add new option from template
-      description: Pick a profession and template to prefill the new option.
-      pickServiceLabel: Pick a service template to prefill the new option.
+      title: Add new service from template
+      description: Pick a profession and template to prefill the new service.
+      pickServiceLabel: Pick a service template to prefill the new service.
     createFromTemplate: Create
     upgradeRequired: The Free plan includes one service. Upgrade to Solo to add more.
     upgradeLink: Upgrade in brand settings
     new: New
-    newTitle: New service option
+    newTitle: New service
     newDescription: Add new service that you provide
-    editDescription: Edit option
+    editDescription: Edit service
     form:
+      details: Details
+      durationAndPrice: Duration and price
+      customAutoConfirm: Custom auto confirm
+      customAutoConfirmTooltip: Use an auto-confirm rule for this service instead of the general configuration.
+      virtualAppointment: Virtual appointment
+      virtualAppointmentTooltip: Hold this appointment by video, audio, or phone instead of in person.
       name: Name
-      namePlaceholder: Option name
+      namePlaceholder: Service name
       description: Short description
       descriptionTooltip: Short text that will be visible during booking
       duration: Duration
@@ -1780,15 +2121,15 @@ services:
         placeholder: Select duration type
       durationMin:
         label: Minimum duration
-        tooltip: Minimum duration of the option
+        tooltip: Minimum duration of the service
         placeholder: Select duration min
       durationMax:
         label: Duration max
-        tooltip: Maximum duration of the option
+        tooltip: Maximum duration of the service
         placeholder: Select duration max
       pricePerHour:
         label: Price per hour
-        tooltip: Price per hour of the option
+        tooltip: Price per hour of the service
         placeholder: Select price per hour
         suffix: "/hr"
       durationStep:
@@ -1827,10 +2168,16 @@ services:
           tooltip: App that will be used to provide meeting URL
       paymentSettings:
         title: Payment settings
+        customDeposit:
+          label: Custom deposit requirement
+          tooltip: Use a deposit rule for this service instead of the general configuration.
+        customTips:
+          label: Custom tips configuration
+          tooltip: Use tip settings for this service instead of the general configuration.
         requireDeposit:
           label: Require deposit
           tooltip:
-            Should this option require deposit<br></br>Requires configured
+            Should this service require a deposit<br></br>Requires configured
             payments app
           always: Always, unless not required for customer
           never: Never, unless required for customer
@@ -1875,27 +2222,30 @@ services:
           inherit: Same as general configuration
           custom: Custom policy
           placeholder: Select cancellation policy type
+        customPolicy:
+          label: Custom policy
+          tooltip: Does this service have a custom cancellation policy that is different from general cancellation policy?
         enabled:
           label: Enabled
-          tooltip: Whether to allow cancellation for option
+          tooltip: Whether to allow cancellation for this service
           labels:
             disabled: Disabled
             enabled: Enabled
         withDeposit:
           title: For appointments with deposit
-          description: Configure cancellation policy for option when deposit is required
+          description: Configure cancellation policy for this service when a deposit is required
           enabled: Enabled
           enabledTooltip:
-            Whether to allow cancellation for option when deposit is
+            Whether to allow cancellation for this service when a deposit is
             required
         withoutDeposit:
           title: For appointments without deposit
           description:
-            Configure cancellation policy for option when deposit is not
+            Configure cancellation policy for this service when a deposit is not
             required
           enabled: Enabled
           enabledTooltip:
-            Whether to allow cancellation for option when deposit is
+            Whether to allow cancellation for this service when a deposit is
             not required
       reschedulePolicy:
         title: Reschedules
@@ -1905,9 +2255,12 @@ services:
           inherit: Same as general configuration
           custom: Custom policy
           placeholder: Select reschedule policy type
+        customPolicy:
+          label: Custom policy
+          tooltip: Does this service have a custom reschedule policy that is different from general reschedule policy?
         enabled:
           label: Enabled
-          tooltip: Whether to allow reschedule for option
+          tooltip: Whether to allow rescheduling for this service
           labels:
             disabled: Disabled
             enabled: Enabled
@@ -1916,7 +2269,7 @@ services:
           tooltip:
             Configure default policy that will be applied if no other policy
             is applicable
-      selectOption: Select option
+      selectOption: Select service
       fields: Fields
       addons: Add-ons
       staff:
@@ -1986,35 +2339,35 @@ services:
             Are you sure you want to make another booking for the same service within
             '{{days}}' days?
       validation:
-        nameUnique: Option name must be unique
+        nameUnique: Service name must be unique
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
       addToAvailabilityDialog:
-        title: Add this option to booking availability?
+        title: Add this service to booking availability?
         description: Do you want to make <em>{name}</em> available for appointments now?
-        manageHint: You can always manage available options in <link>Settings -> Appointments</link>
+        manageHint: You can always manage available services in <link>Settings -> Appointments</link>
         actions:
           skip: Not now
-          add: Add to available options
+          add: Add to available services
         toasts:
-          added: Option availability has been updated.
+          added: Service availability has been updated.
           requestError: There was a problem with your request.
     table:
       columns:
         name: Name
         updatedAt: Updated at
         cellAction:
-          optionDeleted: Option "{name}" was deleted.
+          optionDeleted: Service "{name}" was deleted.
           deleteError: There was a problem with your request.
           actions: Actions
           update: Update
           delete: Delete
           clone: Clone
     deleteSelected:
-      success: Selected options have been deleted
+      success: Selected services have been deleted
       error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {option} other {# options}}
+      button: Delete selected {count, plural, =1 {service} other {# services}}
       confirmTitle: Are you absolutely sure?
       confirmDescription: This action cannot be undone.
       cancel: Cancel
@@ -2028,6 +2381,8 @@ services:
     newDescription: Add new custom field
     editDescription: Edit custom field
     form:
+      details: Details
+      fileSettings: File settings
       name: Name
       namePlaceholder: Field name
       nameTooltip: Unique ID of the field. Can contain only letter, digits, and underscore
@@ -2065,11 +2420,11 @@ services:
         label: Label
         updatedAt: Updated at
         addons: Add-ons
-        options: Options
+        options: Services
         addonsInDialog: "{label} in add-ons"
-        optionsInDialog: "{label} in options"
+        optionsInDialog: "{label} in services"
       cellAction:
-        fieldDeleted: Option field "{label}" was deleted.
+        fieldDeleted: Field "{label}" was deleted.
         deleteError: There was a problem with your request.
         actions: Actions
         update: Update
@@ -2082,7 +2437,7 @@ services:
       confirmTitle: Are you absolutely sure?
       confirmDescription:
         This action cannot be undone. This will delete selected
-        fields and remove them from all options and add-ons that use them
+        fields and remove them from all services and add-ons that use them
       cancel: Cancel
       deleteSelected: Delete selected
     selectFieldOptionCard:
@@ -2116,7 +2471,10 @@ services:
       status: Status
       active: Active
       disabled: Disabled
-      codes: Codes
+      details: Details
+      dates: Dates
+      maximumUses: Maximum uses
+      codes: Promo codes
       codesPlaceholder: Discount codes
       codesTooltip: Codes that can be used to apply this discount
       addCode: Add code
@@ -2148,22 +2506,22 @@ services:
         can use this discount. Further attempts to use the discount by that customer
         will be rejected after this limit is reached.
       limitTo: Limit to
-      limitToTooltip: Restrict discount to specific options, add-ons, and packages
+      limitToTooltip: Restrict discount to specific services, add-ons, and packages
       addLimit: Add limit
       removeLimit: Remove limit
-      anyOption: Any option
+      anyOption: Any service
       anyAddon: Any add-on
       anyPackage: Any package
-      anyOptionOrAddon: Any option or add-on
+      anyOptionOrAddon: Any service or add-on
       addNew: Add new
-      optionsLabel: "Any of following options:"
+      optionsLabel: "Any of the following services:"
       addonsLabel: "Any of following add-on bundles:"
       packagesLabel: "Any of following packages:"
       withLabel: With
       orLabel: Or
       removeLimitTitle: Are you absolutely sure?
       removeLimitDescription: Are you sure you want to remove this limit?
-      limitToDescription: You can limit this discount to specific options, add-ons, and packages
+      limitToDescription: You can limit this discount to specific services, add-ons, and packages
       cancel: Cancel
       delete: Delete
       validation:
@@ -2213,7 +2571,7 @@ services:
     editDescription: Edit package
     sell: Sell package
     sellTitle: Sell package
-    sellDescription: Issue this package to a customer and record an in-store payment
+    sellDescription: Issue this package to a customer and collect payment
     sellForm:
       package: Package
       customer: Customer
@@ -2223,6 +2581,7 @@ services:
       title: Sold packages
       description: Packages issued to customers
       statusBadges:
+        pending: Pending payment
         active: Active
         exhausted: Exhausted
         expired: Expired
@@ -2274,6 +2633,9 @@ services:
       cancel: Cancel
       deleteSelected: Delete selected
     form:
+      details: Details
+      service: Service
+      priceAndLimits: Price and limits
       name:
         label: Name
         placeholder: 10x Massage
@@ -2301,7 +2663,7 @@ services:
         tooltip: Leave empty for no limit on how many times a customer can buy this package
       isAutoConfirm:
         label: Auto-confirm appointments
-        tooltip: When a visit is booked with this package, this setting overrides the service option auto-confirm rule
+        tooltip: When a visit is booked with this package, this setting overrides the service auto-confirm rule
         always: Always
         never: Never
         inherit: Inherit from booking settings
@@ -2429,6 +2791,9 @@ services:
       cancel: Cancel
       deleteSelected: Delete selected
     form:
+      giftCard: Gift card
+      amountAndExpiry: Amount and expiry
+      customerAndPayment: Customer and payment
       code:
         label: Code
         placeholder: XXX-XXX-XXX
@@ -2455,10 +2820,15 @@ services:
       customerId:
         label: Customer
         tooltip: Customer who bought the gift card
+      paymentLinkAppId:
+        description: App used to send the payment link for this gift card.
+      channel:
+        description: How the payment link is sent to the customer.
       toasts:
         created: Gift card created successfully
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
+        smsConsentRequired: Text message consent is required before sending the payment link.
   addons:
     title: Add-ons
     description: Manage add-ons
@@ -2468,6 +2838,8 @@ services:
     newDescription: Add new add-on
     editDescription: Edit add-on
     form:
+      details: Details
+      durationAndPrice: Duration and price
       name: Name
       namePlaceholder: Add-on name
       nameTooltip: Unique add-on name
@@ -2510,8 +2882,8 @@ services:
       columns:
         name: Name
         updatedAt: Updated at
-        options: Options
-        optionsInDialog: "{name} in options"
+        options: Services
+        optionsInDialog: "{name} in services"
       cellAction:
         addonDeleted: Add-on "{name}" was deleted.
         deleteError: There was a problem with your request.
@@ -2526,254 +2898,12 @@ services:
       confirmTitle: Are you absolutely sure?
       confirmDescription:
         This action cannot be undone. This will delete selected
-        add-ons and remove them from all options that use them
+        add-ons and remove them from all services that use them
       cancel: Cancel
       deleteSelected: Delete selected
-templates:
-  page:
-    title: Communication templates
-  formPage:
-    typeTemplates: "{type} templates"
-    new: New
-  newPage:
-    title: New {type} template
-  editPage:
-    title: Update template
-    clone: Clone
-  addNew:
-    emptyTemplate: Empty template
-    add: Add
-    addNewTemplate: Add new template
-    type: Type
-    selectTemplateType: Select template type
-    template: Template
-    close: Close
-  form:
-    subject: Email subject
-    subjectTooltip: Email subject that will be used to send the message
-    subjectPlaceholder: Subject
-    name: Template name
-    nameTooltip: Unique template name
-    namePlaceholder: Template name
-    validation:
-      templateNotValid: Template is not valid
-    toasts:
-      changesSaved: Your changes were saved.
-      requestError: There was a problem with your request.
-  textMessageBuilder:
-    content: Text message content
-    viewContext: View context
-    contextValues: Context values
-    copied: Copied
-    copyPath: Copy path
-    close: Close
-    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
-    preview: Preview
-  table:
-    filters:
-      type: Type
-      filters: Filters
-    columns:
-      type: Type
-      name: Name
-      updatedAt: Updated at
-    cellAction:
-      templateDeleted: Template "{name}" was deleted.
-      deleteError: There was a problem with your request.
-      actions: Actions
-      update: Update
-      delete: Delete
-      clone: Clone
-    deleteSelected:
-      success: Selected templates have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {template} other {# templates}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription:
-        This action cannot be undone. This will delete selected
-        templates and may break notifications that use them
-      cancel: Cancel
-      deleteSelected: Delete selected
-appearance:
-  styling:
-    title: Styling
-    description: Adjust general styling
-    form:
-      primaryFont: Primary font
-      secondaryFont: Secondary font
-      tertiaryFont: Tertiary font
-      selectFont: Select font
-      colorOverrides: Color overrides
-      invalidField: Invalid field
-      duplicateType: Duplicate type
-      remove: Remove
-      deleteConfirmTitle: Are you absolutely sure?
-      deleteConfirmDescription: Are you sure that you want to remove this color override?
-      cancel: Cancel
-      delete: Delete
-      type: Type
-      selectColorOverrideType: Select color override type
-      color: Color
-      colorTooltip: Color in CSS format (HEX, rgb, rgba, hsl)
-      additionalCss: Additional CSS
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-      fonts:
-        seeOnGoogleFonts: See on Google Fonts
-        variants:
-          "100": "100"
-          "200": "200"
-          "300": "300"
-          "400": "400"
-          "500": "500"
-          "600": "600"
-          "700": "700"
-          "800": "800"
-          "900": "900"
-          label: "Variants: {variants}"
-          regular: Regular
-          italic: Italic
-          bold: Bold
-          medium: Medium
-          semibold: Semi-bold
-          extrabold: Extra-bold
-          100italic: 100 Italic
-          200italic: 200 Italic
-          300italic: 300 Italic
-          400italic: 400 Italic
-          500italic: 500 Italic
-          600italic: 600 Italic
-          700italic: 700 Italic
-          800italic: 800 Italic
-          900italic: 900 Italic
-        subsets:
-          label: "Subsets: {subsets}"
-          latin: Latin
-          latin-ext: Latin Extended
-          vietnamese: Vietnamese
-          cyrillic: Cyrillic
-          cyrillic-ext: Cyrillic Extended
-          greek: Greek
-          greek-ext: Greek Extended
-          hebrew: Hebrew
-          math: Math
-          symbols: Symbols
-        category:
-          label: "Category: {category}"
-          sans-serif: Sans-serif
-          serif: Serif
-          monospace: Monospace
-          display: Display
-          handwriting: Handwriting
-          script: Script
-          fantasy: Fantasy
-    colors:
-      default: Default
-      custom: Custom Color
-      background: Background
-      foreground: Text
-      card: Card
-      card-foreground: Card Text
-      popover: Popover
-      popover-foreground: Popover Text
-      primary: Primary
-      primary-foreground: Primary Text
-      secondary: Secondary
-      secondary-foreground: Secondary Text
-      muted: Muted
-      muted-foreground: Muted Text
-      accent: Accent
-      accent-foreground: Accent Text
-      destructive: Destructive
-      destructive-foreground: Destructive Text
-      border: Border
-  footer:
-    title: Footer
-    description: Adjust links in footer
-    form:
-      useCustomFooter: Use custom footer
-      footerContent: Footer content
-      preview: Preview
-      contactUsLabel: Contact us label
-      contactUsLabelTooltip: Defaults to 'Contact us'
-      contactUsPlaceholder: Contact us
-      links: Links
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-apps:
-  heading: Connected apps
-  description: Manage your connected apps
-  defaultApps: Default apps
-  appStore: App Store
-  searchPlaceholder: Search installed apps
-  noResults: No apps found for your search
-  noConnectedApps: You do not have any connected apps
-  defaultAppsForm:
-    payment:
-      label: Payment processor
-      placeholder: Disable payments
-    emailSender:
-      label: Email sender
-      placeholder: Use default email sender
-    textMessageSender:
-      label: Text message sender
-      placeholder: Use default text message sender
-    textMessageResponder:
-      label: Text message responder
-      tooltip:
-        If not handled by sender, it will be used as default app to respond
-        to text messages (i.e. auto reply). Optional.
-    assetsStorage: Assets storage
-    toasts:
-      changesSaved: Your changes were saved.
-      requestError: There was a problem with your request.
-  defaultAppsDescription: Select default apps
-  migrateAssetsDialog:
-    migrateAssets: Migrate assets
-    title: Migrate existing assets
-    description: Migrate your existing assets from your previous storage
-    sourceApp: Source assets storage app
-    done: "Done: {count}"
-    success: "Success: {count}"
-    error: "Error: {count}"
-    total: "Total: {count}"
-    migrate: Migrate
-    toasts:
-      requestError: Your request has failed
-  events:
-    installed:
-      title: App installed
-      description: "{appDisplayName} was installed."
-    connected:
-      title: App connected
-      description: "{appDisplayName} connected."
-    uninstalled:
-      title: App uninstalled
-      description: "{appDisplayName} was uninstalled."
-    failed:
-      title: App failed
-      description: "{appDisplayName} failed to connect."
-  notifications:
-    failed:
-      title: App connection failed
-      message: "{appDisplayName} failed to connect. Check app settings."
-      action: Open apps
-  emails:
-    failed:
-      subject: "{appDisplayName} - connection failed"
-      preview: "{appDisplayName} could not stay connected"
-      title: We could not keep your app connected
-      body: |-
-        Hello {userName},
-
-        **{appDisplayName}** reported a connection problem or did not finish setup successfully. Open **Apps** in your dashboard to review credentials and settings, then try connecting again.
-
-        If everything already looks correct, you can ignore this email.
-      button: Open apps
-      handledBy: "App connection failed: {appDisplayName}"
 settings:
+  hub:
+    description: Open a settings area for your business.
   general:
     title: General Settings
     description:
@@ -2859,6 +2989,7 @@ settings:
     form:
       name: Business name
       namePlaceholder: Your business name
+      nameDescription: The public name of your business.
       industry: Industry
       industryPlaceholder: Select industry
       industryTooltip: Used for search listings and search engine optimization.
@@ -2887,6 +3018,7 @@ settings:
       currencyPlaceholder: Select currency
       currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Time zone
+      timeZoneDescription: The business time zone used for scheduling and the booking page.
       selectTimeZone: Select time zone
       useClientTimezone: Use customer's timezone
       useClientTimezoneTooltip:
@@ -2982,7 +3114,7 @@ settings:
     form:
       tabs:
         main: Main
-        options: Options
+        catalog: Services and packages
         payments: Payments
         cancellations: Cancellations
         reschedules: Reschedules
@@ -3003,6 +3135,8 @@ settings:
           Select this option if you want to auto confirm all appointments
           created by customers.<br></br>By default, you will need to manually confirm
           each appointment.
+        scheduleSettingsLabel: Schedule settings
+        scheduleProviderLabel: Schedule providers
         allowStaffCalendarSources: Allow staff to manage calendar sources
         allowStaffCalendarSourcesTooltip:
           When enabled, staff members can connect personal calendar sources on
@@ -3013,7 +3147,7 @@ settings:
         showPromoCodeTooltip:
           Configure whether the promo code field should be shown
           during the booking
-        maxWeeksInFuture: Maximum number of weeks into the future
+        maxWeeksInFuture: How far in the future can customers book appointments?
         maxWeeksInFutureTooltip:
           Specifies the maximum number of weeks into the future
           that a user can schedule appointments.<br></br><b>Example:</b> If set to
@@ -3028,7 +3162,7 @@ settings:
           If set to 30, there must be at least 30 minutes of free time before and
           after each scheduled slot before the next slot can begin.<br></br><b>Default
           value:</b> 0 minutes.
-        minHoursBeforeBooking: Minimum number of hours before booking
+        minHoursBeforeBooking: Minimum time before booking
         minHoursBeforeBookingTooltip:
           Specifies the minimum number of hours required
           in advance for a booking to be made.<br></br>This parameter helps ensure
@@ -3064,10 +3198,15 @@ settings:
         addGroup: Add group
         addService: Add service
         addPackage: Add package
+        group: Group
+        groupWithName: "Group: {name}"
+        service: Service
+        serviceWithName: "Service: {name}"
         groupName: Group name
         groupDescription: Short description
         emptyGroup: This group is empty
         package: Package
+        packageWithName: "Package: {name}"
       payments:
         enableDeposits: Enable Deposits
         enableDepositsTooltip:
@@ -3079,10 +3218,8 @@ settings:
         appointments: appointments
         paymentsAppTooltip: What payment processor to use for payments
         requireDeposit: Require deposit
-        requireDepositTooltip1:
-          If enabled, each customer will be required to pay
-          a deposit to book an appointment
-        requireDepositTooltip2: Can be overriden per each customer
+        requireDepositTooltip: If enabled, each customer will be required to pay
+          a deposit to book an appointment<br></br>Can be overriden per each customer or service
         require: Require
         doNotRequire: Do not require
         depositAmount: Deposit amount
@@ -3108,8 +3245,7 @@ settings:
           full appointment price.</p><p><strong>Optional</strong></p>"
         tipsMode:
           label: Tips during booking
-          tooltip:
-            Allow customers to add a tip when paying online during booking
+          tooltip: Allow customers to add a tip when paying online during booking
           values:
             off: Off
             on: On
@@ -3129,9 +3265,9 @@ settings:
             title: For appointments with deposit
           withoutDeposit:
             title: For appointments without deposit
-          enabledTooltip:
-            Enables ability for customers to cancel an appointment on
-            their own
+          enabled:
+            label: Allowed
+            tooltip: Configure if customers are allowed to cancel an appointment on their own
           doNotAllowIfRescheduled:
             label: Allow if rescheduled
             tooltip:
@@ -3142,9 +3278,9 @@ settings:
               "false": Allow
         reschedules:
           title: Reschedules
-          enabledTooltip:
-            Enables ability for customers to reschedule an appointment
-            on their own
+          enabled:
+            label: Allowed
+            tooltip: Configure if customers are allowed to reschedule an appointment on their own
           minutesToAppointment:
             label: Minimum time to appointment
             tooltip: Configure minimum time to appointment for allowing reschedule
@@ -3152,7 +3288,7 @@ settings:
             label: Maximum number of reschedules
             tooltip: Configure how many times a customer can reschedule an appointment
         enabled:
-          label: Enabled
+          label: Allowed
           selectPlaceholder: Select option
           labels:
             disabled: Disabled
@@ -3180,20 +3316,20 @@ settings:
           policy: Rule
       cards:
         optionSelect:
-          roleDescription: Option
-          moveOption: Move option
-          option: Option
+          roleDescription: Service
+          moveOption: Move service
+          option: Service
           deleteConfirmTitle: Are you absolutely sure?
           deleteConfirmDescription:
-            Are you sure you want to remove this option from
-            list of available options?
+            Are you sure you want to remove this service from
+            the list of available services?
           cancel: Cancel
           delete: Delete
-        optionSelector:
+        serviceSelector:
           time: "{hours}hr {minutes}min"
           requestFailed: Request failed.
-          loadingOptions: Loading options...
-          selectOption: Select option
+          loadingOptions: Loading services...
+          selectOption: Select service
         cancellationPolicy:
           action:
             label: Action
@@ -3316,26 +3452,138 @@ settings:
         cancel: Cancel
         delete: Delete
         type: Type
+        typeDescription: The social network this profile belongs to.
         selectType: Select social link type
         url: Url
         urlTooltip: Full link to your profile
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
+  textMessaging:
+    title: Text messaging
+    description: Turn on customer texts for booking and waitlist forms.
+    countryOnly: Custom messaging is available for businesses in the United States and Canada.
+    verification:
+      title: Custom text messages
+      description: Verify your business so customer texts can use a dedicated number.
+      prompt: Want to enable custom text messages?
+      action: Verify your business details now
+      verifiedPrompt: You have enabled custom text message templates.
+      verifiedAction: View your details
+      failedPrompt: Custom text message verification failed.
+      failedAction: View your details
+      pendingPrompt: Custom text message verification is in review.
+      pendingAction: View your details
+      disabled: Turn on text messaging before you verify a dedicated number.
+    customTemplate:
+      label: Custom text template
+      tooltip: Optional. When a template is selected, customer texts use it instead of the built-in message.
+      renderFailed: Rendering this template failed. Please check <link>your template</link>.
+    notifications:
+      failed:
+        title: Custom text messaging was not approved
+        message: "{reason}"
+        action: View details
+      succeeded:
+        title: Custom text messaging is verified
+        message: Customer texts now use your dedicated number.
+        action: View details
+    emails:
+      failed:
+        subject: Custom text messaging was not approved
+        preview: Update the verification details and submit again.
+        title: Custom text messaging was not approved
+        body: "{reason} Update the form and submit verification again."
+        button: View details
+        handledBy: Text messaging verification
+      succeeded:
+        subject: Custom text messaging is verified
+        preview: Customer texts now use your dedicated number.
+        title: Custom text messaging is verified
+        body: Customer texts now use your dedicated number and custom templates.
+        button: View details
+        handledBy: Text messaging verification
+    status:
+      pending: Review is in progress. Customer texts keep using the shared number until it is approved.
+      verified: Custom messaging is verified. Customer texts use a dedicated number.
+      verifiedWithNumber: "Custom messaging is verified. Customer texts use {number}."
+      rejected: Verification was not approved.
+      preparing: A number is being prepared. Custom messaging can be submitted once it is ready.
+    form:
+      smsEnabled: Enable text messaging
+      smsEnabledDescription: Customers can opt in to texts on your booking and waitlist forms.
+      save: Save
+      enabled: Enable custom messaging
+      enabledDescription: After verification, customer texts use a dedicated number and your own custom templates.
+      disableTitle: Turn off custom messaging?
+      disableDescription: Turning this off starts the verification process again. You will be given a number that may be different, and replies to the old number will not reach you.
+      disableConfirm: Turn off
+      disableCancel: Keep it on
+      unlock: Unlock
+      submit: Submit
+      entityType:
+        label: Business type
+        PRIVATE_PROFIT: Private company
+        PUBLIC_PROFIT: Public company
+        SOLE_PROPRIETOR: Sole proprietor
+        NON_PROFIT: Charity
+      legalName:
+        label: Legal name
+      doingBusinessAs:
+        label: Trade name
+        hint: Add this when the known business name (DBA) is different from the legal name.
+      registrationNumber:
+        label: EIN or business number
+        hint: A US EIN or a Canadian business number.
+        soleHint: A sole proprietor can leave this blank.
+      website:
+        label: Website
+      legalPages:
+        note: These pages are linked from the booking and waitlist forms. Add them to your website footer for legal compliance. Setup already added pages with the required SMS text. You can edit them, then select them here.
+      privacyPage:
+        label: Privacy policy
+        hint: The page must say that mobile opt-in data is not shared with third parties or affiliates for marketing, and that phone numbers are used only for booking texts.
+      termsPage:
+        label: Terms
+        hint: The page must include how often messages are sent, that message and data rates may apply, that customers can reply STOP to opt out and HELP for help, and that carriers are not liable for delayed or undelivered messages.
+      streetAddress:
+        label: Street address
+      addressLine2:
+        label: Address line 2
+      city:
+        label: City
+      state:
+        label: State or province
+      postalCode:
+        label: Postal code
+      contactFirstName:
+        label: Contact first name
+      contactLastName:
+        label: Contact last name
+      contactEmail:
+        label: Contact email
+      contactPhone:
+        label: Contact phone
+    toasts:
+      saved: Your changes were saved.
+      submitted: Verification request was sent. Review may take up to 7 business days.
+      preparing: A number is being prepared. We saved your details.
+      error: There was a problem with your request.
   customerAccess:
     title: Customer access
-    description: OTP templates and verification channels for customer-facing flows
+    description: Choose how customers receive their sign-in code.
     form:
-      otpEmailTemplateId:
-        label: OTP email template
-      otpChannels:
-        label: OTP verification channel
-        options:
-          email: Email only
-          phone: Phone only
-          email_or_phone: Email or phone
-      otpTextTemplateId:
-        label: OTP text message template
+      email:
+        label: Email
+        description: Send a one-time code to the customer's email address.
+        templateLabel: Email template
+        templateDescription: Required. This is the email the customer receives with their code.
+      phone:
+        label: Text message
+        description: Send a one-time code to the customer's phone number. Text messaging must be turned on.
+        builtIn: Customers receive a built-in text with their code.
+      smsDisabled: Phone codes need text messaging. While it is off, this option stays unavailable and customer sign-in uses email instead.
+      smsDisabledAction: Turn on text messaging
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
@@ -3365,7 +3613,7 @@ form:
   durationMax: Maximum duration is 10 days
   priceNumber: Total price must be a number
   priceMin: Minimum price is 0
-  optionRequired: Option must be selected
+  optionRequired: Service must be selected
   addonRequired: Addon must be selected
   nameRequired: Name is required
   emailValid: Must be a valid email
@@ -3374,7 +3622,7 @@ form:
   scheduledSuccess: Appointment was successfully scheduled
   requestError: There was a problem with your request.
   appointmentType: Appointment type
-  selectOption: Select option
+  selectOption: Select service
   min: min
   custom: Custom
   dateTime: Date & Time
@@ -3439,6 +3687,14 @@ dashboard:
       title: Inactive team members have upcoming appointments
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: View appointments
+    smsVerification:
+      title: Text messaging was not approved
+      description: Update the business details and submit the verification again.
+      action: Review
+    customerOtpPhone:
+      title: Phone verification needs text messaging
+      description: Customer sign-in is set to use phone codes, but text messaging is off. Codes fall back to email.
+      action: Open OTP settings
     failedApp:
       title: "{appName} needs attention"
       description: "{appName} is not working correctly and may need to be reconnected."
@@ -3474,6 +3730,27 @@ dashboard:
     calendar: Calendar
     pendingAppointments: Pending Appointments
 communications:
+  status:
+    preparing: Preparing
+    sending: Sending
+    sent: Sent
+    received: Received
+    failed: Failed
+    failedWithRetries: "Failed: {done}/{max} retries"
+    failedFinal: Failed.
+  reason:
+    optedOut: Customer opted out
+    noConsent: Customer has not agreed to texts
+    smsDisabled: Text messaging is off
+    invalidPhone: Invalid phone number
+    creditsExhausted: Text credits are used up
+    platformLimit: "{limit, select, rate {Too many texts this minute.} daily {Daily text limit reached.} other {Text limit reached.}}"
+    numberNotReady: Text number is not ready
+    linkOnly: Message had only a link
+    deliveryFailed: "Delivery failed: {detail}"
+  retries: "{done} retries used, {left} left"
+  retryable: Can be retried
+  notRetryable: Will not be retried
   viewMore: View more
   payloadLoadError: Could not load the full message.
   logContent: Message content
@@ -3483,7 +3760,7 @@ communications:
   sendNew: Send new
   requestError: There was a problem with your request.
   sendNewMessage: Send new message
-  sendNewMessageDescription: Send a new email or text message to the customer
+  sendNewMessageDescription: Send a new email to the customer
   closeDialogWarning: You will lose all content if you close the dialog
   contentNotValid: Content is not valid
   messageSent: Your message was successfully sent.
@@ -3783,12 +4060,15 @@ menuItem:
     label: Label
     labelPlaceholder: Label
     icon: Icon
+    iconDescription: Icon shown for this menu item
     variant: Variant
+    variantDescription: Visual style of this link or button
     selectVariant: Select link variant
     size: Size
     selectSize: Select size
     selectButtonVariant: Select button variant
     textFont: Text font
+    textFontDescription: Font used for this menu item label
     selectTextFont: Select text font
     textSize: Text size
     selectTextSize: Select text size
@@ -3797,6 +4077,7 @@ menuItem:
     prefixIcon: Prefix Icon
     suffixIcon: Suffix Icon
     additionalClasses: Additional classes
+    additionalClassesDescription: Extra CSS classes applied to this menu item
     additionalClassesPlaceholder: font-bold
     doNotCombineClassName: Do not combine with defaults
     doNotCombineClassNameDescription: When enabled, only your additional classes are applied (default classes are skipped)
@@ -3804,6 +4085,7 @@ menuItem:
     textColorDescription: Override the menu item text color
     showOnMobileHeader: Show on mobile header
     showOnMobileHeaderDescription: Keep this item visible in the header on mobile (next to the menu button). Only one item can use this; it still appears in the drawer.
+    useDifferentLabel: Use different label
   card:
     moveMenuItem: Move menu item
     itemType: Item type
@@ -3968,6 +4250,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: Text message reply - notify user
+text-message-reply:
+  handledBy: Text message reply
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: When it's at least {duration} before the appointment
@@ -3981,9 +4265,9 @@ cancellationsAndReschedules:
       title: For appointments with deposit
     withoutDeposit:
       title: For appointments without deposit
-    enabledTooltip:
-      Enables ability for customers to cancel an appointment on their
-      own
+    enabled:
+      label: Allowed
+      tooltip: Configure if customers are allowed to cancel an appointment on their own
     doNotAllowIfRescheduled:
       label: Allow if rescheduled
       tooltip: Configure if a customer can cancel an appointment if it has been rescheduled
@@ -4060,9 +4344,9 @@ cancellationsAndReschedules:
     delete: Delete
   reschedulePolicy:
     title: Reschedules
-    enabledTooltip:
-      Enables ability for customers to reschedule an appointment on
-      their own
+    enabled:
+      label: Allowed
+      tooltip: Configure if customers are allowed to reschedule an appointment on their own
     default:
       title: Default Rule
       tooltip: Configure default rule that will be applied if no other rule is applicable
@@ -4357,3 +4641,7 @@ users:
       max: Title must be no more than 80 characters long
     bio:
       max: Bio must be no more than 1024 characters long
+smsConsent:
+  attest: I attest, that customer agreed to receive text messages
+  already: This customer already consented to text messages.
+  optedOut: This number is opted out. The customer must text START before reminders can be sent.

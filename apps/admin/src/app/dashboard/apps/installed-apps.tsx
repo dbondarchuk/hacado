@@ -1,7 +1,10 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { getAccessibleConnectedApps } from "@/lib/auth/app-access";
 import { AvailableApps } from "@hacado/app-store";
-import { canViewCompanyApps, canViewOtherMembersApps } from "@hacado/utils";
+import {
+  canViewCompanyApps,
+  canViewOtherMembersApps,
+} from "@hacado/utils/app-access";
 import React from "react";
 import { InstalledAppsClient } from "./installed-apps-client";
 

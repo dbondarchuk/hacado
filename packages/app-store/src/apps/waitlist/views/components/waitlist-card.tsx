@@ -1,11 +1,11 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit/communications";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,14 +13,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Link,
-  ScrollArea,
-  Spinner,
-  toastPromise,
-  useTimeZone,
-} from "@hacado/ui";
-import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
-import { durationToTime } from "@hacado/utils";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { durationToTime } from "@hacado/utils/time";
 import { CalendarPlus, Send, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
@@ -102,7 +100,7 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
               })}
             </p>
             <p className="text-sm font-medium text-foreground truncate">
-              {entry.option?.name ?? t("view.unknown")}
+              {entry.service?.name ?? t("view.unknown")}
             </p>
           </div>
         </div>
@@ -275,6 +273,7 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
                 variant="link-dashed"
                 onClick={() => setShowFullNote(!showFullNote)}
                 className="w-full text-center"
+                size="xs"
               >
                 {!showFullNote
                   ? t("view.note.showMore")

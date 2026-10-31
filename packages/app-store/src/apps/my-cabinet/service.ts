@@ -3,20 +3,22 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
-  Appointment,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  CUSTOMER_SESSION_COOKIE,
   IConnectedApp,
   IConnectedAppProps,
   IPublicPageProvider,
   PublicPageChrome,
   PublicPageChromeContext,
   PublicPageClaim,
+} from "@hacado/types/apps";
+import { Appointment } from "@hacado/types/booking";
+import {
+  CUSTOMER_SESSION_COOKIE,
   readCookieValue,
-  resolvePageHeaderPosition,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
+import { resolvePageHeaderPosition } from "@hacado/types/pages";
 import { WAITLIST_APP_NAME } from "../waitlist/const";
 import {
   isMyCabinetPublicPageEnabled,
@@ -424,12 +426,19 @@ export class MyCabinetConnectedApp
       );
     }
 
+    const smsConsent = customer.phone
+      ? await this.props.services.smsConsentService.hasActiveCustomerSmsConsent(
+          customer.phone,
+        )
+      : false;
+
     return Response.json({
       success: true,
       name: customer.name,
       email: customer.email,
       phone: customer.phone,
       id: customer._id,
+      smsConsent,
     });
   }
 
@@ -471,8 +480,8 @@ export class MyCabinetConnectedApp
       totalPrice: appointment.totalPrice,
       timeZone: appointment.timeZone,
       meetingInformation: appointment.meetingInformation,
-      option: appointment.option
-        ? { _id: appointment.option._id, name: appointment.option.name }
+      option: appointment.service
+        ? { _id: appointment.service._id, name: appointment.service.name }
         : undefined,
       addons: appointment.addons?.map((a) => ({ _id: a._id, name: a.name })),
       fields: {

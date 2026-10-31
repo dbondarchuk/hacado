@@ -7,7 +7,7 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
 import { Space } from "lucide-react";
 import { useRTEContext } from "../../context/rte-context";
 

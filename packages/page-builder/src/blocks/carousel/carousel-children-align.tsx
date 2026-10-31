@@ -3,7 +3,7 @@ import {
   justifyItemsStyle,
   StyleDefinition,
 } from "@hacado/page-builder-base/style";
-import { Combobox } from "@hacado/ui";
+import { Combobox } from "@hacado/ui/combobox";
 import { AlignLeft } from "lucide-react";
 import * as z from "zod";
 

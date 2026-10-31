@@ -1,4 +1,4 @@
-import { OrganizationSubscriptionStatus } from "@hacado/types";
+import { OrganizationSubscriptionStatus } from "@hacado/types/billing";
 
 export function isSubscriptionActiveOrTrialing(
   status: string | undefined | null,

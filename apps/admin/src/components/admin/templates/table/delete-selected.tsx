@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
-import { Template } from "@hacado/types";
+import { Template } from "@hacado/types/templates";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,10 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -33,7 +33,7 @@ export const DeleteSelectedTemplatesButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.templates.deleteTemplates(selected.map((page) => page._id)),
+        templatesApi.deleteTemplates(selected.map((page) => page._id)),
         {
           success: t("templates.table.deleteSelected.success"),
           error: t("templates.table.deleteSelected.error"),

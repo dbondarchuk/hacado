@@ -4,7 +4,7 @@ import {
   ConnectedAppError,
   ConnectedAppUpdateModel,
   ConnectedOauthAppTokens,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import { createHash, randomBytes } from "node:crypto";
 import { ResendAppData } from "./models";

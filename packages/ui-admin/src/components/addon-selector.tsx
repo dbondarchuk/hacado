@@ -1,14 +1,11 @@
-import { adminApi } from "@hacado/api-sdk";
+import { addonsApi } from "@hacado/api-sdk/admin/addons";
 import { useI18n } from "@hacado/i18n/client";
-import { AddonsType, AppointmentAddon } from "@hacado/types";
-import {
-  cn,
-  Combobox,
-  IComboboxItem,
-  MultiSelect,
-  OptionType,
-} from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import { AppointmentAddon } from "@hacado/types/booking";
+import { AddonsType } from "@hacado/types/services";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import { MultiSelect, OptionType } from "@hacado/ui/multi-select";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, DollarSign } from "lucide-react";
 import React from "react";
 
@@ -33,7 +30,7 @@ const AddonLabel: React.FC<{ addon: AppointmentAddon }> = ({ addon }) => {
 
 const getAddons = async (forOptionId?: string) => {
   const includeUsage = forOptionId ? true : false;
-  const response = await adminApi.serviceAddons.getServiceAddons({
+  const response = await addonsApi.getAddons({
     limit: 10000,
     includeUsage,
   });
@@ -74,109 +71,124 @@ export type AddonSelectorProps = {
     }
 );
 
-export const AddonSelector: React.FC<AddonSelectorProps> = ({
-  disabled,
-  className,
-  excludeIds,
-  value,
-  onItemSelect,
-  onValueChange,
-  multi,
-  forOptionId,
-}) => {
-  const t = useI18n("admin");
-  const [addons, setAddons] = React.useState<AppointmentAddon[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+export const AddonSelector = React.forwardRef<
+  HTMLButtonElement,
+  AddonSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      excludeIds,
+      value,
+      onItemSelect,
+      onValueChange,
+      multi,
+      forOptionId,
+      ...rest
+    },
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const [addons, setAddons] = React.useState<AppointmentAddon[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    const fn = async () => {
-      try {
-        setIsLoading(true);
-        const addons = await getAddons(forOptionId);
-        setAddons(addons);
+    React.useEffect(() => {
+      const fn = async () => {
+        try {
+          setIsLoading(true);
+          const addons = await getAddons(forOptionId);
+          setAddons(addons);
 
-        if (forOptionId && value) {
-          if (typeof value === "string") {
-            if (!addons.find((addon) => addon._id === value)) {
-              onItemSelect?.(undefined as any);
+          if (forOptionId && value) {
+            if (typeof value === "string") {
+              if (!addons.find((addon) => addon._id === value)) {
+                onItemSelect?.(undefined as any);
+              }
+            } else {
+              onItemSelect?.(
+                value.filter((id) =>
+                  addons.some((addon) => addon._id === id),
+                ) as any,
+              );
             }
-          } else {
-            onItemSelect?.(
-              value.filter((id) =>
-                addons.some((addon) => addon._id === id),
-              ) as any,
-            );
           }
+        } finally {
+          setIsLoading(false);
         }
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      };
 
-    fn();
-  }, [forOptionId]);
+      fn();
+    }, [forOptionId]);
 
-  const addonValues = (addons: AppointmentAddon[]): IComboboxItem[] =>
-    addons
-      .filter(({ _id }) => !excludeIds?.find((id) => id === _id))
-      .map((field) => {
-        return {
-          value: field._id,
-          shortLabel: (
-            <span className="shrink overflow-hidden text-nowrap min-w-0">
-              {field.name}
-            </span>
-          ),
-          label: <AddonLabel addon={field} />,
-        };
-      });
+    const addonValues = (addons: AppointmentAddon[]): IComboboxItem[] =>
+      addons
+        .filter(({ _id }) => !excludeIds?.find((id) => id === _id))
+        .map((field) => {
+          return {
+            value: field._id,
+            shortLabel: (
+              <span className="shrink overflow-hidden text-nowrap min-w-0">
+                {field.name}
+              </span>
+            ),
+            label: <AddonLabel addon={field} />,
+          };
+        });
 
-  const addonMultiOptions = (addons: AppointmentAddon[]): OptionType[] =>
-    addons
-      .filter(({ _id }) => !excludeIds?.find((id) => id === _id))
-      .map((addon) => {
-        return {
-          value: addon._id,
-          label: addon.name,
-        };
-      });
+    const addonMultiOptions = (addons: AppointmentAddon[]): OptionType[] =>
+      addons
+        .filter(({ _id }) => !excludeIds?.find((id) => id === _id))
+        .map((addon) => {
+          return {
+            value: addon._id,
+            label: addon.name,
+          };
+        });
 
-  React.useEffect(() => {
-    const selectedAddons = value
-      ? addons.filter((addon) => value.includes(addon._id))
-      : [];
+    React.useEffect(() => {
+      const selectedAddons = value
+        ? addons.filter((addon) => value.includes(addon._id))
+        : [];
 
-    onValueChange?.((multi ? selectedAddons : selectedAddons[0]) as any);
-  }, [value, addons, onValueChange, multi]);
+      onValueChange?.((multi ? selectedAddons : selectedAddons[0]) as any);
+    }, [value, addons, onValueChange, multi]);
 
-  return multi ? (
-    <MultiSelect
-      disabled={disabled || isLoading}
-      className={cn("flex font-normal text-base", className)}
-      options={addonMultiOptions(addons)}
-      placeholder={
-        isLoading
-          ? t("services.addonSelector.loading")
-          : t("services.addonSelector.selectAddon")
-      }
-      selected={value || []}
-      onChange={onItemSelect}
-    />
-  ) : (
-    <Combobox
-      disabled={disabled || isLoading}
-      className={cn("flex font-normal text-base", className)}
-      values={addonValues(addons)}
-      searchLabel={
-        isLoading
-          ? t("services.addonSelector.loading")
-          : t("services.addonSelector.selectAddon")
-      }
-      value={value}
-      customSearch={(search) =>
-        addonValues(addons.filter((app) => checkAddonSearch(app, search)))
-      }
-      onItemSelect={onItemSelect}
-    />
-  );
-};
+    return multi ? (
+      <MultiSelect
+        {...rest}
+        ref={ref}
+        disabled={disabled || isLoading}
+        className={cn("flex font-normal text-base", className)}
+        options={addonMultiOptions(addons)}
+        placeholder={
+          isLoading
+            ? t("services.addonSelector.loading")
+            : t("services.addonSelector.selectAddon")
+        }
+        selected={value || []}
+        onChange={onItemSelect}
+      />
+    ) : (
+      <Combobox
+        {...rest}
+        ref={ref}
+        disabled={disabled || isLoading}
+        className={cn("flex font-normal text-base", className)}
+        values={addonValues(addons)}
+        searchLabel={
+          isLoading
+            ? t("services.addonSelector.loading")
+            : t("services.addonSelector.selectAddon")
+        }
+        value={value}
+        customSearch={(search) =>
+          addonValues(addons.filter((app) => checkAddonSearch(app, search)))
+        }
+        onItemSelect={onItemSelect}
+      />
+    );
+  },
+);
+
+AddonSelector.displayName = "AddonSelector";

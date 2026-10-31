@@ -1,14 +1,15 @@
 "use client";
 
 import { ResourcesCard } from "@/components/admin/resource/resources-card";
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import {
   ScriptsConfiguration,
   scriptsConfigurationSchema,
-} from "@hacado/types";
-import { Form, toastPromise } from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/types/configuration/scripts";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Form } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -30,13 +31,10 @@ export const ScriptsSettingsForm: React.FC<{
   const onSubmit = async (data: ScriptsConfiguration) => {
     try {
       setLoading(true);
-      await toastPromise(
-        adminApi.configuration.setConfiguration("scripts", data),
-        {
-          success: t("settings.scripts.form.toasts.changesSaved"),
-          error: t("settings.scripts.form.toasts.requestError"),
-        },
-      );
+      await toastPromise(configurationApi.setConfiguration("scripts", data), {
+        success: t("settings.scripts.form.toasts.changesSaved"),
+        error: t("settings.scripts.form.toasts.requestError"),
+      });
 
       router.refresh();
     } catch (error: any) {

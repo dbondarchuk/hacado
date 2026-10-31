@@ -1,9 +1,9 @@
 import type {
-  CustomerOtpChannels,
   CustomerPackage,
   CustomerPackageListModel,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
+import type { WithTotal } from "@hacado/types/database";
 import { fetchClientApi } from "./utils";
 
 export type RequestOtpResponse = {
@@ -18,6 +18,7 @@ export type VerifyOtpResponse = {
   email?: string;
   phone?: string;
   id?: string;
+  smsConsent?: boolean;
 };
 
 export type AuthOptionsResponse = {
@@ -31,6 +32,7 @@ export type CheckSessionResponse = {
   email?: string;
   phone?: string;
   id?: string;
+  smsConsent?: boolean;
 };
 
 export const getAuthOptions = async () => {
@@ -132,7 +134,7 @@ export const getMyPackages = async () => {
 };
 
 export const getEligiblePackages = async (params: {
-  optionId: string;
+  serviceId: string;
   memberId: string;
   dateTime?: string;
 }) => {

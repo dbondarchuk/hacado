@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
 import { FormBlockReader } from "./form";
 import type { FormsBlocksSchema } from "./schema";
 

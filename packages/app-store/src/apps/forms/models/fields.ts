@@ -1,11 +1,10 @@
+import { WithDatabaseId, WithOrganizationId } from "@hacado/types/database";
 import {
   asOptinalNumberField,
-  WithDatabaseId,
-  WithOrganizationId,
   zNonEmptyString,
   zOptionalOrMinMaxLengthString,
   zUniqueArray,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { FormsAdminAllKeys } from "../translations/types";
 

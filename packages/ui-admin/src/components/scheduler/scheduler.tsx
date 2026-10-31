@@ -1,4 +1,4 @@
-import { useIsMobile } from "@hacado/ui";
+import { useIsMobile } from "@hacado/ui/hooks";
 import React from "react";
 import {
   DayScheduleSelector,

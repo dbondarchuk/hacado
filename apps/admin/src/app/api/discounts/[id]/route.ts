@@ -2,7 +2,8 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { getLoggerFactory } from "@hacado/logger";
-import { discountSchema, okStatus } from "@hacado/types";
+import { discountSchema } from "@hacado/types/booking";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +31,7 @@ export async function GET(
     "Processing get discount by ID API request",
   );
 
-  const discount = await servicesContainer.servicesService.getDiscount(id);
+  const discount = await servicesContainer.catalogService.getDiscount(id);
 
   if (!discount) {
     logger.warn({ discountId: id }, "Discount not found");
@@ -95,7 +96,7 @@ export async function PUT(
     );
   }
 
-  await servicesContainer.servicesService.updateDiscount(id, data, actor);
+  await servicesContainer.catalogService.updateDiscount(id, data, actor);
 
   logger.debug(
     { discountId: id, discountName: data.name },
@@ -133,7 +134,7 @@ export async function DELETE(
     "Processing delete discount by ID API request",
   );
 
-  const result = await servicesContainer.servicesService.deleteDiscount(
+  const result = await servicesContainer.catalogService.deleteDiscount(
     id,
     actor,
   );

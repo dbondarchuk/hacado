@@ -1,75 +1,82 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
+import { getCustomerOtpSms } from "@hacado/services/customer-auth-messages";
 import {
   CustomerAuthConfiguration,
   customerAuthConfigurationSchema,
-  customerOtpAllowsEmail,
-  customerOtpAllowsPhone,
-  customerOtpChannels,
-  type CustomerOtpChannels,
-} from "@hacado/types";
+} from "@hacado/types/configuration/customer-auth";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import {
+  renderBuiltInSms,
+  SmsMessagePreview,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "@hacado/ui-admin/sms-example";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { Alert, AlertDescription } from "@hacado/ui/alert";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  toastPromise,
-} from "@hacado/ui";
-import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Link } from "@hacado/ui/link";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Resolver, useForm } from "react-hook-form";
 
-type CustomerAuthFormValues = {
-  otpChannels: CustomerOtpChannels;
-  otpEmailTemplateId?: string;
-  otpTextTemplateId?: string;
-};
-
 export const CustomerAccessSettingsForm: React.FC<{
   values: CustomerAuthConfiguration;
-}> = ({ values }) => {
+  smsEnabled: boolean;
+  allowTextTemplates: boolean;
+  sharedPool: boolean;
+}> = ({ values, smsEnabled, allowTextTemplates, sharedPool }) => {
   const t = useI18n("admin");
-  const form = useForm<CustomerAuthFormValues>({
-    resolver: zodResolver(
-      customerAuthConfigurationSchema,
-    ) as Resolver<CustomerAuthFormValues>,
+  const tValidation = useI18n("validation");
+  const schema = React.useMemo(
+    () =>
+      customerAuthConfigurationSchema.superRefine((value, ctx) => {
+        if (value.phoneEnabled && !smsEnabled) {
+          ctx.addIssue({
+            code: "custom",
+            path: ["phoneEnabled"],
+            message: "configuration.customerAuth.phoneRequiresTextMessaging",
+          });
+        }
+      }),
+    [smsEnabled],
+  );
+
+  const form = useForm<CustomerAuthConfiguration>({
+    resolver: zodResolver(schema) as Resolver<CustomerAuthConfiguration>,
     mode: "all",
-    values: {
-      otpChannels: values.otpChannels,
-      otpEmailTemplateId: values.otpEmailTemplateId,
-      otpTextTemplateId: values.otpTextTemplateId,
-    },
+    reValidateMode: "onChange",
+    values,
   });
+
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
-  const otpChannels = form.watch("otpChannels");
+  const emailEnabled = form.watch("emailEnabled");
+  const phoneEnabled = form.watch("phoneEnabled");
+  const previewArgs = useSmsPreviewArgs();
+  const otpArgs = React.useMemo(
+    () => (previewArgs ? { ...previewArgs, otp: "482913" } : undefined),
+    [previewArgs],
+  );
 
-  const onSubmit = async (data: CustomerAuthFormValues) => {
+  const onSubmit = async (data: CustomerAuthConfiguration) => {
     try {
       setLoading(true);
-      const channels = data.otpChannels;
-      const payload: CustomerAuthConfiguration = {
-        otpChannels: channels,
-        otpEmailTemplateId: customerOtpAllowsEmail(channels)
-          ? data.otpEmailTemplateId
-          : undefined,
-        otpTextTemplateId: customerOtpAllowsPhone(channels)
-          ? data.otpTextTemplateId
-          : undefined,
-      };
       await toastPromise(
-        adminApi.configuration.setConfiguration("customerAuth", payload),
+        configurationApi.setConfiguration("customerAuth", data),
         {
           success: t("settings.customerAccess.form.toasts.changesSaved"),
           error: t("settings.customerAccess.form.toasts.requestError"),
@@ -84,85 +91,135 @@ export const CustomerAccessSettingsForm: React.FC<{
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="otpChannels"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                {t("settings.customerAccess.form.otpChannels.label")}
-              </FormLabel>
-              <FormControl>
-                <Select
-                  value={field.value}
-                  onValueChange={(value) => {
-                    field.onChange(value as CustomerOtpChannels);
-                    field.onBlur();
-                  }}
-                  disabled={loading}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {customerOtpChannels.map((channel) => (
-                      <SelectItem key={channel} value={channel}>
-                        {t(
-                          `settings.customerAccess.form.otpChannels.options.${channel}`,
-                        )}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {customerOtpAllowsEmail(otpChannels) && (
+        {!emailEnabled && !phoneEnabled ? (
+          <p className="text-destructive text-sm">
+            {tValidation("configuration.customerAuth.channel.required")}
+          </p>
+        ) : null}
+        <div className="grid grid-cols-1 items-start gap-4">
           <FormField
             control={form.control}
-            name="otpEmailTemplateId"
+            name="emailEnabled"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("settings.customerAccess.form.otpEmailTemplateId.label")}
-                </FormLabel>
-                <FormControl>
-                  <TemplateSelector
-                    type="email"
-                    disabled={loading}
-                    value={field.value}
-                    onItemSelect={field.onChange}
+              <SwitchCardFormItem
+                alwaysItemsStart
+                label={t("settings.customerAccess.form.email.label")}
+                description={t(
+                  "settings.customerAccess.form.email.description",
+                )}
+                checked={field.value === true}
+                disabled={loading}
+                onCheckedChange={field.onChange}
+              >
+                {field.value === true ? (
+                  <FormField
+                    control={form.control}
+                    name="otpEmailTemplateId"
+                    render={({ field: templateField }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t(
+                            "settings.customerAccess.form.email.templateLabel",
+                          )}
+                        </FormLabel>
+                        <FormDescription>
+                          {t(
+                            "settings.customerAccess.form.email.templateDescription",
+                          )}
+                        </FormDescription>
+                        <FormControl>
+                          <TemplateSelector
+                            type="email"
+                            disabled={loading}
+                            value={templateField.value}
+                            onItemSelect={templateField.onChange}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+                ) : null}
+              </SwitchCardFormItem>
             )}
           />
-        )}
-        {customerOtpAllowsPhone(otpChannels) && (
           <FormField
             control={form.control}
-            name="otpTextTemplateId"
+            name="phoneEnabled"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("settings.customerAccess.form.otpTextTemplateId.label")}
-                </FormLabel>
-                <FormControl>
-                  <TemplateSelector
-                    type="text-message"
-                    disabled={loading}
-                    value={field.value}
-                    onItemSelect={field.onChange}
+              <SwitchCardFormItem
+                alwaysItemsStart
+                label={t("settings.customerAccess.form.phone.label")}
+                description={t(
+                  "settings.customerAccess.form.phone.description",
+                )}
+                checked={field.value === true}
+                disabled={loading || (!smsEnabled && field.value !== true)}
+                onCheckedChange={(value) => {
+                  if (value && !smsEnabled) return;
+                  field.onChange(value);
+                }}
+              >
+                {!smsEnabled ? (
+                  <Alert variant="warning">
+                    <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <span>
+                        {t("settings.customerAccess.form.smsDisabled")}
+                      </span>
+                      <Link
+                        button
+                        href="/dashboard/settings/text-messaging"
+                        variant="default"
+                        size="sm"
+                      >
+                        {t("settings.customerAccess.form.smsDisabledAction")}
+                      </Link>
+                    </AlertDescription>
+                  </Alert>
+                ) : null}
+                {field.value === true && smsEnabled && allowTextTemplates ? (
+                  <FormField
+                    control={form.control}
+                    name="otpTextTemplateId"
+                    render={({ field: templateField }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("settings.textMessaging.customTemplate.label")}
+                        </FormLabel>
+                        <FormDescription>
+                          {t("settings.textMessaging.customTemplate.tooltip")}
+                        </FormDescription>
+                        <FormControl>
+                          <TemplateSelector
+                            type="text-message"
+                            allowClear
+                            disabled={loading}
+                            value={templateField.value}
+                            onItemSelect={templateField.onChange}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </FormControl>
+                ) : null}
+                {field.value === true && smsEnabled ? (
+                  <SmsMessagePreview
+                    templateId={form.watch("otpTextTemplateId")}
+                    allowCustom={allowTextTemplates}
+                    args={otpArgs}
+                    fallback={renderBuiltInSms(
+                      getCustomerOtpSms(smsPreviewLanguage(otpArgs)),
+                      otpArgs,
+                      sharedPool,
+                    )}
+                  />
+                ) : null}
                 <FormMessage />
-              </FormItem>
+              </SwitchCardFormItem>
             )}
           />
-        )}
+        </div>
         <SaveButton form={form} disabled={loading} isLoading={loading} />
       </form>
     </Form>

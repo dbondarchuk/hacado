@@ -1,7 +1,10 @@
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import { useI18n } from "@hacado/i18n/client";
-import { PageFooterListModel } from "@hacado/types";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
+import { PageFooterListModel } from "@hacado/types/pages";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 
 const FooterShortLabel: React.FC<{
@@ -58,67 +61,80 @@ export type FooterSelectorProps =
   | NonClearableFooterSelectorProps
   | ClearableFooterSelectorProps;
 
-export const FooterSelector: React.FC<FooterSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("admin");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, PageFooterListModel>
-  >({});
-
-  const getFooters = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const res = await adminApi.pageFooters.getPageFooters({
-        page,
-        limit,
-        search,
-        priorityId: value ? [value] : undefined,
-      });
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...res.items.reduce(
-          (map, cur) => ({
-            ...map,
-            [cur._id]: cur,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: res.items.map((footer) => ({
-          label: <FooterShortLabel footer={footer} />,
-          shortLabel: <FooterShortLabel footer={footer} row />,
-          value: footer._id ?? "",
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < res.total,
-      };
+export const FooterSelector = React.forwardRef<
+  HTMLButtonElement,
+  FooterSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, setItemsCache],
-  );
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, PageFooterListModel>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache, onValueChange]);
+    const getFooters = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const res = await pageFootersApi.getPageFooters({
+          page,
+          limit,
+          search,
+          priorityId: value ? [value] : undefined,
+        });
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-lg max-w-full", className)}
-      placeholder={t("pages.form.footer")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getFooters}
-      loader={<FooterLoader />}
-    />
-  );
-};
+        setItemsCache((prev) => ({
+          ...prev,
+          ...res.items.reduce(
+            (map, cur) => ({
+              ...map,
+              [cur._id]: cur,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: res.items.map((footer) => ({
+            label: <FooterShortLabel footer={footer} />,
+            shortLabel: <FooterShortLabel footer={footer} row />,
+            value: footer._id ?? "",
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < res.total,
+        };
+      },
+      [value, setItemsCache],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache, onValueChange]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn("flex font-normal text-lg max-w-full", className)}
+        placeholder={t("pages.form.footer")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getFooters}
+        loader={<FooterLoader />}
+      />
+    );
+  },
+);
+
+FooterSelector.displayName = "FooterSelector";

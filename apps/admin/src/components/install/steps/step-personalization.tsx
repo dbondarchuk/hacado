@@ -3,17 +3,15 @@
 import { applyInstallPersonalization } from "@/components/install/actions";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { useI18n } from "@hacado/i18n/client";
-import { fontsNames } from "@hacado/types";
-import {
-  Button,
-  Combobox,
-  type IComboboxItem,
-  Label,
-  Spinner,
-  toast,
-} from "@hacado/ui";
-import { AssetSelectorInput, ColorPickerInput } from "@hacado/ui-admin";
-import { getWebfontPreviewFilename } from "@hacado/utils";
+import { fontsNames } from "@hacado/types/configuration/styling";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { ColorPickerInput } from "@hacado/ui-admin/color-picker-input";
+import { Button } from "@hacado/ui/button";
+import { Combobox, type IComboboxItem } from "@hacado/ui/combobox";
+import { Label } from "@hacado/ui/label";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { getWebfontPreviewFilename } from "@hacado/utils/fonts";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";

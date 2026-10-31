@@ -1,6 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Button } from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import { Button } from "@hacado/ui/button";
+import { durationToTime } from "@hacado/utils/time";
 import React from "react";
 import { useScheduleContext } from "./context";
 

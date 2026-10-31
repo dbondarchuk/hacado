@@ -1,8 +1,8 @@
 import { getServicesContainer } from "@/app/utils";
 import { getI18nAsync, getLocale } from "@hacado/i18n/server";
-import type { AppointmentStatus } from "@hacado/types";
-import { Link } from "@hacado/ui";
-import { durationToTime } from "@hacado/utils";
+import type { AppointmentStatus } from "@hacado/types/booking";
+import { Link } from "@hacado/ui/link";
+import { durationToTime } from "@hacado/utils/time";
 import { DateTime } from "luxon";
 import React from "react";
 
@@ -132,7 +132,7 @@ export const UpcomingAppointments: React.FC<{
                       </span>
                     </div>
                     <p className="truncate font-medium text-foreground">
-                      {appointment.option.name}
+                      {appointment.service.name}
                     </p>
                     <p className="truncate text-muted-foreground">
                       {meta.join(" · ")}

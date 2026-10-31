@@ -1,14 +1,14 @@
 import React from "react";
 
+import { Input } from "@hacado/ui/input";
 import {
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Label,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
 import { ResetButton } from "./reset-button";
 
 type TextDimensionInputProps = {

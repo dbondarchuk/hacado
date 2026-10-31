@@ -1,21 +1,20 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import { useI18n } from "@hacado/i18n/client";
-import { Page } from "@hacado/types";
+import { Page } from "@hacado/types/pages";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
+import { useWebsiteUrl } from "@hacado/ui/context";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toast,
-  toastPromise,
-  useClipboard,
-  useWebsiteUrl,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { useClipboard } from "@hacado/ui/hooks";
+import { toast, toastPromise } from "@hacado/ui/sonner";
 import {
   Copy,
   CopyCheck,
@@ -90,7 +89,7 @@ export const CellAction: React.FC<CellActionProps> = ({ page }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.pages.deletePage(page._id), {
+      await toastPromise(pagesApi.deletePage(page._id), {
         success: t("pages.toasts.pageDeleted", { title: page.title }),
         error: t("pages.table.delete.error"),
       });

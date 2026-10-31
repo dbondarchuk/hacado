@@ -11,18 +11,20 @@ import {
   getPlanTier,
   getServicesContainer,
   getWebsiteUrl,
-  isFreeTier,
   sessionCanUseFeature,
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import type { Resource } from "@hacado/types";
-import { ConfigProvider, SonnerToaster, Toaster } from "@hacado/ui";
+import type { Resource } from "@hacado/types/configuration/resources";
+import { ConfigProvider } from "@hacado/ui/context";
+import { SonnerToaster } from "@hacado/ui/sonner";
+import { Toaster } from "@hacado/ui/toaster";
+import { getColorsCss } from "@hacado/utils/colors";
 import {
   buildGoogleFontsUrl,
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
-  getColorsCss,
-} from "@hacado/utils";
+} from "@hacado/utils/fonts";
+import { isFreeTier } from "@hacado/utils/subscription";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
@@ -124,6 +126,10 @@ export default async function RootLayout({
   const secondaryFont = styling?.fonts?.secondary || DEFAULT_WEB_SECONDARY_FONT;
   const tertiaryFont = styling?.fonts?.tertiary;
   const organizationDomain = await getOrganizationDomain();
+  const textMessaging =
+    await servicesContainer.textMessageConfigurationService.getPublicConfig(
+      websiteUrl,
+    );
 
   const canUseScripts = await sessionCanUseFeature("scripts");
   const planTier = await getPlanTier();
@@ -184,6 +190,7 @@ export default async function RootLayout({
             brandConfiguration={brand}
             domain={organizationDomain}
             websiteUrl={websiteUrl}
+            textMessaging={textMessaging}
           >
             <NextIntlClientProvider>
               <main className="min-h-screen max-w-none">

@@ -10,11 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+} from "@hacado/ui/card";
+import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@hacado/ui";
+} from "@hacado/ui/chart";
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },

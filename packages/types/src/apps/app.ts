@@ -12,6 +12,7 @@ export type AppScope = Extandable<
   | "mail-send"
   | "text-message-send"
   | "text-message-respond"
+  | "customer-appointment-text-message"
   | "event-subscriber"
   | "scheduled"
   | "schedule"
@@ -33,6 +34,7 @@ export type AppScope = Extandable<
   | "public-event-context-provider"
   | "public-page-provider"
   | "payment-link"
+  | "command-search-provider"
 >;
 
 export type AppSetupProps = {

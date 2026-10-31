@@ -1,14 +1,18 @@
 "use client";
 
-import { Asset } from "@hacado/types";
+import { Asset } from "@hacado/types/assets";
 import { useInView } from "react-intersection-observer";
 
 import { AssetsTableAction } from "@/components/admin/assets/table/table-action";
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
+import { AssetPreview } from "@hacado/ui-admin/asset-preview";
+import { useAuth } from "@hacado/ui-admin/context";
+import { useSelectedRowsStore } from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  Checkbox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -17,17 +21,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DndFileInput,
-  Progress,
-  Skeleton,
-  Spinner,
-  Textarea,
-  cn,
-  toast,
-  useUploadFile,
-} from "@hacado/ui";
-import { AssetPreview, useAuth, useSelectedRowsStore } from "@hacado/ui-admin";
-import { hasPermission } from "@hacado/utils";
+} from "@hacado/ui/dialog";
+import { DndFileInput } from "@hacado/ui/dnd-file-input";
+import { useUploadFile } from "@hacado/ui/hooks";
+import { Progress } from "@hacado/ui/progress";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Textarea } from "@hacado/ui/textarea";
+import { hasPermission } from "@hacado/utils/permissions";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";
@@ -241,7 +243,7 @@ export const CustomerFiles: React.FC<{
 
   const loadAssets = React.useCallback(
     async (page: number) => {
-      const result = await adminApi.assets.getAssets({
+      const result = await assetsApi.getAssets({
         customerId: [customerId],
         search,
         page,

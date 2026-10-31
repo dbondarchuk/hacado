@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
-import { asOptinalNumberField } from "@hacado/types";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
+import { asOptinalNumberField } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const ForeachContainerPropsSchema = z.object({

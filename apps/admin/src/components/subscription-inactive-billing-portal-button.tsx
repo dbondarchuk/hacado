@@ -1,8 +1,10 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { billingApi } from "@hacado/api-sdk/admin/billing";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Spinner, toast } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { useState } from "react";
 
 export function SubscriptionInactiveBillingPortalButton() {
@@ -12,7 +14,7 @@ export function SubscriptionInactiveBillingPortalButton() {
   const openPortal = async () => {
     setLoading(true);
     try {
-      const url = await adminApi.billing.getBillingPortalUrl();
+      const url = await billingApi.getBillingPortalUrl();
       window.location.assign(url);
     } catch {
       toast.error(t("settings.general.billing.portalError"));

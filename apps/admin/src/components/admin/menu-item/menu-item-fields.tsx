@@ -1,7 +1,8 @@
 "use client";
 
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { I18nText } from "@hacado/i18n/components";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { ColorExtendedInput } from "@hacado/page-builder-base/style-inputs";
 import { EditableText } from "@hacado/rte-inline";
 import {
@@ -14,22 +15,24 @@ import {
   TextFonts,
   TextSizes,
   TextWeights,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
+import { PageSelectorInput } from "@hacado/ui-admin/page-selector-input";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  BooleanSelect,
-  Combobox,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  InfoTooltip,
-  Input,
-  Link,
-  Switch,
-} from "@hacado/ui";
-import { PageSelectorInput, Sortable } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import { Switch } from "@hacado/ui/switch";
 import { useMemo } from "react";
 import { useFieldArray, UseFormReturn, useWatch } from "react-hook-form";
 import { IconSelect } from "./icon-select";
@@ -223,6 +226,13 @@ const AppearanceFields: React.FC<{
   disabled?: boolean;
 }> = ({ form, prefix, type, disabled }) => {
   const t = useI18n("admin");
+  const isAppearanceOverride =
+    prefix.endsWith(".scrolled") || prefix.endsWith(".mobile");
+  const classNameNeedsDescription =
+    type === "icon" ||
+    type === "link" ||
+    type === "button" ||
+    (type === "submenu" && !isAppearanceOverride);
 
   return (
     <div className="grid md:grid-cols-2 gap-4">
@@ -235,12 +245,7 @@ const AppearanceFields: React.FC<{
           name={`${prefix}.textColor`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("menuItem.fields.textColor")}{" "}
-                <InfoTooltip>
-                  {t("menuItem.fields.textColorDescription")}
-                </InfoTooltip>
-              </FormLabel>
+              <FormLabel>{t("menuItem.fields.textColor")}</FormLabel>
               <FormControl>
                 <ColorExtendedInput
                   defaultValue={field.value ?? null}
@@ -252,6 +257,9 @@ const AppearanceFields: React.FC<{
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                {t("menuItem.fields.textColorDescription")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -267,6 +275,9 @@ const AppearanceFields: React.FC<{
               <FormControl>
                 <IconSelect field={field} disabled={disabled} allowClear />
               </FormControl>
+              <FormDescription>
+                {t("menuItem.fields.iconDescription")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -291,6 +302,9 @@ const AppearanceFields: React.FC<{
                     onItemSelect={field.onChange}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("menuItem.fields.variantDescription")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -337,6 +351,9 @@ const AppearanceFields: React.FC<{
                     onItemSelect={field.onChange}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("menuItem.fields.variantDescription")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -383,6 +400,11 @@ const AppearanceFields: React.FC<{
                     onItemSelect={(value) => field.onChange(value)}
                   />
                 </FormControl>
+                {type === "submenu" ? (
+                  <FormDescription>
+                    {t("menuItem.fields.textFontDescription")}
+                  </FormDescription>
+                ) : null}
                 <FormMessage />
               </FormItem>
             )}
@@ -463,12 +485,7 @@ const AppearanceFields: React.FC<{
           name={`${prefix}.hideChevron`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("menuItem.subMenu.hideChevron")}{" "}
-                <InfoTooltip>
-                  {t("menuItem.subMenu.hideChevronDescription")}
-                </InfoTooltip>
-              </FormLabel>
+              <FormLabel>{t("menuItem.subMenu.hideChevron")}</FormLabel>
               <FormControl>
                 <BooleanSelect
                   className="w-full"
@@ -480,6 +497,9 @@ const AppearanceFields: React.FC<{
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                {t("menuItem.subMenu.hideChevronDescription")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -496,10 +516,7 @@ const AppearanceFields: React.FC<{
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {t("menuItem.fields.doNotCombineClassName")}{" "}
-                  <InfoTooltip>
-                    {t("menuItem.fields.doNotCombineClassNameDescription")}
-                  </InfoTooltip>
+                  {t("menuItem.fields.doNotCombineClassName")}
                 </FormLabel>
                 <FormControl>
                   <BooleanSelect
@@ -512,6 +529,9 @@ const AppearanceFields: React.FC<{
                     }}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("menuItem.fields.doNotCombineClassNameDescription")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -533,6 +553,11 @@ const AppearanceFields: React.FC<{
                     onBlur={field.onBlur}
                   />
                 </FormControl>
+                {classNameNeedsDescription ? (
+                  <FormDescription>
+                    {t("menuItem.fields.additionalClassesDescription")}
+                  </FormDescription>
+                ) : null}
                 <FormMessage />
               </FormItem>
             )}
@@ -547,12 +572,7 @@ const AppearanceFields: React.FC<{
             name={`${prefix}.twoColumns`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("menuItem.subMenu.twoColumns")}{" "}
-                  <InfoTooltip>
-                    {t("menuItem.subMenu.twoColumnsDescription")}
-                  </InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("menuItem.subMenu.twoColumns")}</FormLabel>
                 <FormControl>
                   <BooleanSelect
                     className="w-full"
@@ -564,6 +584,9 @@ const AppearanceFields: React.FC<{
                     }}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("menuItem.subMenu.twoColumnsDescription")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -597,6 +620,10 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
   const menuItems = useWatch({ control: form.control, name: "menu" }) as
     | { type?: string; showOnMobileHeader?: boolean }[]
     | undefined;
+  const useDifferentMobileLabel = useWatch({
+    control: form.control,
+    name: `${name}.mobile.useDifferentLabel`,
+  });
   const itemIndex = Number(name.match(/^menu\.(\d+)/)?.[1] ?? -1);
   const showMobileHeaderPin =
     Boolean(enableMobileHeaderPin) && type !== "submenu" && type !== "spacer";
@@ -640,13 +667,13 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
           name={`${name}.showOnMobileHeader`}
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border px-4 py-3">
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 <FormLabel className="text-sm font-medium">
                   {t("menuItem.fields.showOnMobileHeader")}
                 </FormLabel>
-                <p className="text-xs text-muted-foreground">
+                <FormDescription>
                   {t("menuItem.fields.showOnMobileHeaderDescription")}
-                </p>
+                </FormDescription>
               </div>
               <FormControl>
                 <Switch
@@ -678,7 +705,9 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
             name={`${name}.url`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("menuItem.fields.url")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("menuItem.fields.url")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <PageSelectorInput
                     disabled={disabled}
@@ -697,7 +726,9 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
           name={`${name}.label`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("menuItem.fields.label")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("menuItem.fields.label")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <EditableText
                   value={field.value ?? ""}
@@ -729,6 +760,41 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
               {t("pages.headers.form.mobileSectionDescription")}
             </p>
           </div>
+          <FormField
+            control={form.control}
+            name={`${name}.mobile.useDifferentLabel`}
+            render={({ field }) => (
+              <SwitchCardFormItem
+                label={t("menuItem.fields.useDifferentLabel")}
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                disabled={disabled}
+              >
+                {!!field.value && (
+                  <FormField
+                    control={form.control}
+                    name={`${name}.mobile.label`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("menuItem.fields.label")}</FormLabel>
+                        <FormControl>
+                          <EditableText
+                            value={field.value ?? ""}
+                            onChange={field.onChange}
+                            placeholder={t("menuItem.fields.labelPlaceholder")}
+                            className="w-full border border-input rounded-md p-2 text-base sm:text-sm h-9"
+                            disabled={disabled}
+                            inline
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+              </SwitchCardFormItem>
+            )}
+          />
           <AppearanceFields
             form={form}
             prefix={`${name}.mobile`}

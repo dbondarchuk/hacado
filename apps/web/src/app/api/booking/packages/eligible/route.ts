@@ -28,23 +28,27 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const optionId = request.nextUrl.searchParams.get("optionId") ?? "";
+  const serviceId =
+    request.nextUrl.searchParams.get("serviceId") ||
+    request.nextUrl.searchParams.get("optionId") ||
+    "";
+
   const memberId = request.nextUrl.searchParams.get("memberId") ?? "";
   const dateTimeRaw = request.nextUrl.searchParams.get("dateTime");
   const appointmentDate = dateTimeRaw ? new Date(dateTimeRaw) : new Date();
 
   logger.debug(
-    { optionId, memberId, dateTime: dateTimeRaw },
+    { serviceId, memberId, dateTime: dateTimeRaw },
     "Processing packages eligible API request",
   );
 
   const servicesContainer = await getServicesContainer();
-  const option = await servicesContainer.servicesService.getOption(optionId);
+  const option = await servicesContainer.catalogService.getService(serviceId);
   const optionStaffMemberIds = (option?.staff ?? []).map((s) => s.memberId);
 
   const items = await servicesContainer.packagesService.findEligible({
     customerId: session.customerId,
-    optionId,
+    serviceId,
     memberId,
     appointmentDate,
     optionStaffMemberIds,
@@ -53,7 +57,7 @@ export async function GET(request: NextRequest) {
   logger.debug(
     {
       customerId: session.customerId,
-      optionId,
+      serviceId,
       memberId,
       dateTime: dateTimeRaw,
       items: items.length,

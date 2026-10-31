@@ -1,17 +1,20 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentFields } from "@hacado/types";
+import { AppointmentFields } from "@hacado/types/booking";
 import {
   CustomerOtpForm,
   CustomerOtpVerified,
+} from "@hacado/ui/customer-otp-form";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
 
 type BookingOtpDialogProps = {
   open: boolean;
@@ -47,9 +50,9 @@ export const BookingOtpDialog: React.FC<BookingOtpDialogProps> = ({
           hideContactFields={hideContactFields}
           initialEmail={fields.email}
           initialPhone={fields.phone}
-          getAuthOptions={() => clientApi.customerAuth.getAuthOptions()}
+          getAuthOptions={() => customerAuthApi.getAuthOptions()}
           requestOtp={({ channel, email, phone }) =>
-            clientApi.customerAuth.requestBookingOtp({
+            customerAuthApi.requestBookingOtp({
               ...(existingCustomerOnly
                 ? { existingOnly: true }
                 : { name: fields.name }),
@@ -59,12 +62,12 @@ export const BookingOtpDialog: React.FC<BookingOtpDialogProps> = ({
             })
           }
           verifyOtp={({ channel, email, phone, otp }) =>
-            clientApi.customerAuth.verifyOtp(
+            customerAuthApi.verifyOtp(
               channel === "phone" ? { phone, otp } : { email, otp },
             )
           }
           onVerified={async (result) => {
-            clientApi.booking.trackOtpVerified();
+            bookingApi.trackOtpVerified();
             await onVerified(result);
             onOpenChange(false);
           }}

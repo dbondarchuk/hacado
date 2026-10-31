@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
 import { MyCabinetBlockReader } from "./my-cabinet";
 import { MyCabinetBlocksSchema } from "./schema";
 

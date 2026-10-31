@@ -1,6 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus, pageHeaderSchema } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
+import { pageHeaderSchema } from "@hacado/types/pages";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

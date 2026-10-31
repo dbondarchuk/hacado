@@ -1,7 +1,7 @@
 import {
   BookingProgressAnalyticsDaily,
   BookingProgressMetricsDelta,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { Filter, MongoServerError } from "mongodb";
 import { BOOKING_PROGRESS_ANALYTICS_DAILY_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";

@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  ConfigurationProps,
   FileInput,
   RadioGroupInput,
   RadioGroupInputItem,
   TextDoubleNumberInput,
   TextInput,
-} from "@hacado/builder";
+} from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { ArrowDownToLine, ArrowUpToLine, FoldVertical } from "lucide-react";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";

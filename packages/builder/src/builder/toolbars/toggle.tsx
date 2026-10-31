@@ -1,6 +1,7 @@
-import { Leaves } from "@hacado/types";
-import { Toggle, useOpenState } from "@hacado/ui";
-import { destructAndReplace, resolveProperty } from "@hacado/utils";
+import { Leaves } from "@hacado/types/utils";
+import { useOpenState } from "@hacado/ui/dropdown-menu";
+import { Toggle } from "@hacado/ui/toggle";
+import { destructAndReplace, resolveProperty } from "@hacado/utils/object";
 import { ReactNode } from "react";
 import { ConfigurationProps } from "../../documents/types";
 

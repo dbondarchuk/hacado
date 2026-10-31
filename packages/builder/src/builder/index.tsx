@@ -1,7 +1,8 @@
 "use client";
 
-import { UploadedFile } from "@hacado/types";
-import { cn, SidebarInset, SidebarProvider, useSidebar } from "@hacado/ui";
+import { UploadedFile } from "@hacado/types/assets";
+import { cn } from "@hacado/ui/cn";
+import { SidebarInset, SidebarProvider, useSidebar } from "@hacado/ui/sidebar";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { createPortal } from "react-dom";
@@ -24,6 +25,8 @@ import { InspectorDrawer, SidebarTab } from "./inspector-drawer";
 import { TemplatePanel } from "./template-panel";
 import { PortalProvider } from "./template-panel/portal-context";
 import { BuilderToolbar } from "./template-panel/toolbar/builder-toolbar";
+
+export type { SidebarTab } from "./inspector-drawer";
 
 export type BuilderProps<T extends BaseZodDictionary> = {
   defaultValue?: TEditorConfiguration;

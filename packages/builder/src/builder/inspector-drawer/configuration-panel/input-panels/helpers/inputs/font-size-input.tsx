@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Label } from "@hacado/ui";
+import { Label } from "@hacado/ui/label";
 import { CaseSensitive } from "lucide-react";
 import { RawSliderInput } from "./raw/raw-slider-input";
 

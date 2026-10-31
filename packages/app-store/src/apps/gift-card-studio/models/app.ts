@@ -1,4 +1,9 @@
-import { Prettify, zObjectId, zTaggedUnion, zUniqueArray } from "@hacado/types";
+import {
+  Prettify,
+  zObjectId,
+  zTaggedUnion,
+  zUniqueArray,
+} from "@hacado/types/utils";
 import * as z from "zod";
 import type { GiftCardStudioAdminAllKeys } from "../translations/types";
 import { designSchemaBase, getDesignsQuerySchema } from "./design";
@@ -143,6 +148,7 @@ export const createPurchasedGiftCardActionSchema = z.object({
       paymentLinkAppId: zObjectId().optional(),
       channel: z.enum(["email", "sms", "copy"]).optional(),
       to: z.string().optional(),
+      smsConsent: z.boolean().optional(),
       sendCustomerEmail: z.coerce.boolean<boolean>().optional(),
       sendRecipientEmail: z.coerce.boolean<boolean>().optional(),
     })

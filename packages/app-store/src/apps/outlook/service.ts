@@ -8,8 +8,6 @@ import {
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
-  AppointmentEvent,
-  AppointmentOnlineMeetingInformation,
   CalendarBusyTime,
   CalendarWriterEvent,
   CalendarWriterEventAttendee,
@@ -27,10 +25,14 @@ import {
   IMailSenderApp,
   IMeetingUrlProvider,
   IOAuthConnectedApp,
-  WithDatabaseId,
-} from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+} from "@hacado/types/apps";
+import {
+  AppointmentEvent,
+  AppointmentOnlineMeetingInformation,
+} from "@hacado/types/booking";
+import { WithDatabaseId } from "@hacado/types/database";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import { Client } from "@microsoft/microsoft-graph-client";
 import {
   Attachment,
@@ -706,7 +708,7 @@ export class OutlookConnectedApp
         .setZone(appointment.timeZone)
         .toUTC();
       const response = (await client.api(`/me/onlineMeetings`).post({
-        subject: appointment.option.name,
+        subject: appointment.service.name,
         startDateTime: startDateTime.toISO(),
         endDateTime: startDateTime
           .plus({ minutes: appointment.totalDuration })

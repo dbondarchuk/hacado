@@ -1,16 +1,15 @@
 "use client";
 
 import { LanguageOptions } from "@/constants/texts";
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { organizationApi } from "@hacado/api-sdk/admin/organization";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { languages, useI18n } from "@hacado/i18n/client";
-import { zNonEmptyString } from "@hacado/types";
+import { zNonEmptyString } from "@hacado/types/utils";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Combobox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -19,22 +18,23 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
-  Input,
-  Spinner,
-  TagInput,
-  Textarea,
-  toast,
-  toastPromise,
-  useClipboard,
-} from "@hacado/ui";
-import { AssetSelectorInput } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { useClipboard } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { TagInput } from "@hacado/ui/tag-input";
+import { Textarea } from "@hacado/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Plug, Unplug } from "lucide-react";
 import Link from "next/link";
@@ -130,7 +130,7 @@ export const BrandTab: React.FC<{
     try {
       setSavingDomain(true);
       domainForm.clearErrors("domain");
-      await adminApi.organization.setCustomDomain({
+      await organizationApi.setCustomDomain({
         domain: data.domain,
       });
 
@@ -194,7 +194,7 @@ export const BrandTab: React.FC<{
       setDisconnecting(true);
       await toastPromise(
         (async () => {
-          return adminApi.organization.deleteCustomDomain();
+          return organizationApi.deleteCustomDomain();
         })(),
         {
           success: t("settings.brand.form.toasts.changesSaved"),
@@ -239,12 +239,7 @@ export const BrandTab: React.FC<{
                 name="brand.logo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("settings.brand.form.logo")}{" "}
-                      <InfoTooltip>
-                        {t("settings.brand.form.logoTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("settings.brand.form.logo")}</FormLabel>
                     <FormControl>
                       <AssetSelectorInput
                         value={field.value}
@@ -255,6 +250,9 @@ export const BrandTab: React.FC<{
                         accept="image/*"
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("settings.brand.form.logoTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -276,7 +274,9 @@ export const BrandTab: React.FC<{
                 name="brand.title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("settings.brand.form.title")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("settings.brand.form.title")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Input
                         disabled={loading}
@@ -293,7 +293,9 @@ export const BrandTab: React.FC<{
                 name="brand.language"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("settings.brand.form.language")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("settings.brand.form.language")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Combobox
                         values={languages.map((language) => ({
@@ -318,12 +320,7 @@ export const BrandTab: React.FC<{
                 name="brand.favicon"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("settings.brand.form.favicon")}{" "}
-                      <InfoTooltip>
-                        {t("settings.brand.form.faviconTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("settings.brand.form.favicon")}</FormLabel>
                     <FormControl>
                       <AssetSelectorInput
                         value={field.value}
@@ -352,6 +349,9 @@ export const BrandTab: React.FC<{
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("settings.brand.form.faviconTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -374,7 +374,9 @@ export const BrandTab: React.FC<{
               name="brand.description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("settings.brand.form.description")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.brand.form.description")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Textarea
                       autoResize
@@ -394,12 +396,9 @@ export const BrandTab: React.FC<{
               name="brand.keywords"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t("settings.brand.form.keywords")}{" "}
-                    <InfoTooltip>
-                      {t("settings.brand.form.keywordsTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.brand.form.keywords")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <TagInput
                       {...field}
@@ -413,6 +412,9 @@ export const BrandTab: React.FC<{
                       )}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("settings.brand.form.keywordsTooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

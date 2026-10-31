@@ -2,7 +2,8 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn, Icon as IconComponent } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Icon as IconComponent } from "@hacado/ui/icon";
 import { IconPropsDefaults, IconReaderProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

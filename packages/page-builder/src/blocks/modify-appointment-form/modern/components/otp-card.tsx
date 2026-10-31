@@ -1,25 +1,17 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
-  zEmail,
-  zPhone,
-  type CustomerOtpChannels,
-} from "@hacado/types";
-import {
-  Button,
-  Input,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  PhoneInput,
-  Spinner,
-  ToggleGroup,
-  ToggleGroupItem,
-  toast,
-} from "@hacado/ui";
+import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
+import { CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS } from "@hacado/types/customer-auth";
+import { zEmail, zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { Input } from "@hacado/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@hacado/ui/input-otp";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 import { Mail, Phone } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useModifyAppointmentFormContext } from "./context";
@@ -51,7 +43,7 @@ export const OtpCard: React.FC = () => {
         : t("modification.otp.descriptionEmailOnly");
 
   useEffect(() => {
-    clientApi.customerAuth
+    customerAuthApi
       .getAuthOptions()
       .then((res) => {
         const channels = res.otpChannels ?? "email";
@@ -86,7 +78,7 @@ export const OtpCard: React.FC = () => {
     if (authType === "phone" && !phoneValid) return;
     setIsRequestOtpLoading(true);
     try {
-      const response = await clientApi.customerAuth.requestOtp(
+      const response = await customerAuthApi.requestOtp(
         authType === "phone" ? { phone } : { email },
       );
 
@@ -110,7 +102,7 @@ export const OtpCard: React.FC = () => {
   const verifyOtp = async () => {
     setIsVerifyOtpLoading(true);
     try {
-      await clientApi.customerAuth.verifyOtp(
+      await customerAuthApi.verifyOtp(
         authType === "phone" ? { phone, otp } : { email, otp },
       );
       setIsOtpVerified(true);

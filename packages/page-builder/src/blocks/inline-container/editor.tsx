@@ -1,15 +1,13 @@
-import {
-  BlockFilterRule,
-  EditorChildren,
-  useBlockEditor,
-  useCurrentBlock,
-} from "@hacado/builder";
+import { EditorChildren } from "@hacado/builder/blocks";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockFilterRule } from "@hacado/builder/types";
 import {
   BackgroundVideoLayer,
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { InlineContainerProps, styles } from "./schema";
 
 const allowOnly: BlockFilterRule = {

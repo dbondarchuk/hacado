@@ -1,10 +1,9 @@
 import {
-  Prettify,
   WithAppId,
   WithDatabaseId,
   WithOrganizationId,
-  zNonEmptyString,
-} from "@hacado/types";
+} from "@hacado/types/database";
+import { Prettify, zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 import { designSchema } from "../designer/lib/schema";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
@@ -39,6 +38,8 @@ export const getDesignSchemaWithUniqueCheck = (
     ? designSchemaBase.omit({ design: true })
     : designSchemaBase;
   return schema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

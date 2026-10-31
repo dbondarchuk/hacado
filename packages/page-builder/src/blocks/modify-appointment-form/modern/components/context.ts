@@ -1,4 +1,5 @@
-import { TranslationKeys } from "@hacado/i18n";
+import type { TranslationKeys } from "@hacado/i18n/keys";
+
 import {
   ApplyGiftCardsSuccessResponse,
   Availability,
@@ -6,7 +7,7 @@ import {
   DateTime,
   ModifyAppointmentInformation,
   ModifyAppointmentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 import { ModifyAppointmentFields } from "../../types";

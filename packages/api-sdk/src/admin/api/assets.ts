@@ -1,10 +1,6 @@
-import {
-  AssetEntity,
-  AssetUpdate,
-  okStatus,
-  UploadedFile,
-  WithTotal,
-} from "@hacado/types";
+import { AssetEntity, AssetUpdate, UploadedFile } from "@hacado/types/assets";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
   AssetsSearchParams,
   serializeAssetsSearchParams,

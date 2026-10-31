@@ -1,8 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { DateRange } from "@hacado/types";
-import { CalendarDateRangePicker, useTimeZone } from "@hacado/ui";
+import { DateRange } from "@hacado/types/general";
+import { useTimeZone } from "@hacado/ui/context";
+import { CalendarDateRangePicker } from "@hacado/ui/date-range-picker";
 import { DateTime } from "luxon";
 import { Options } from "nuqs";
 
@@ -113,7 +114,7 @@ export function DataTableRangeBox({
     <CalendarDateRangePicker
       range={range}
       onChange={onRangeChange}
-      className="w-auto"
+      className="w-full justify-center"
       rangeOptions={dateRangeOptions.map((option) => ({
         label: t(`dateRangePicker.rangeOptions.${option}`),
         name: option,

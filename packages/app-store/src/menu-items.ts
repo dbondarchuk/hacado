@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
 import { AppointmentNotificationsMenuItems } from "./apps/appointment-notifications/menu-items";
 import { BLOG_APP_NAME } from "./apps/blog/const";

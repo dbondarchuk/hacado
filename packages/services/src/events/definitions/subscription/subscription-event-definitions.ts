@@ -1,14 +1,15 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
-import { BaseAllKeys, fallbackLanguage, type Language } from "@hacado/i18n";
+import { fallbackLanguage, type Language } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { getI18nAsync } from "@hacado/i18n/server";
-import {
-  OrganizationSubscriptionStatus,
-  SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
-  type EmailNotificationRequest,
-  type EventDefinition,
-  type SubscriptionStatusChangedPayload,
-} from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+import { OrganizationSubscriptionStatus } from "@hacado/types/billing";
+import type {
+  EventDefinition,
+  SubscriptionStatusChangedPayload,
+} from "@hacado/types/events";
+import { SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE } from "@hacado/types/events";
+import type { EmailNotificationRequest } from "@hacado/types/services";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 

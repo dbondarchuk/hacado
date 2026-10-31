@@ -1,13 +1,15 @@
 import { AllKeys } from "@hacado/i18n";
+import { communicationChannels } from "@hacado/types/communication";
 import {
-  asOptinalNumberField,
-  communicationChannels,
   querySchema,
   WithDatabaseId,
   WithOrganizationId,
+} from "@hacado/types/database";
+import {
+  asOptinalNumberField,
   zObjectId,
   zTaggedUnion,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { AppointmentNotificationsAdminAllKeys } from "./translations/types";
 
@@ -149,12 +151,71 @@ export const appointmentNotificationTypeSchema = z.discriminatedUnion("type", [
   appointmentNotificationAtTimeSchema,
 ]);
 
+const appointmentNotificationTemplateRequired =
+  "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys;
+
+const appointmentNotificationChannelRequired =
+  "app_appointment-notifications_admin.validation.form.channel.required" satisfies AppointmentNotificationsAdminAllKeys;
+
 export const appointmentNotificationChannelSchema = z.object({
-  channel: appointmentNotificationChannelsEnum,
-  templateId: zObjectId(
-    "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys,
-  ),
+  emailEnabled: z.boolean().optional(),
+  textEnabled: z.boolean().optional(),
+  emailTemplateId: zObjectId(
+    appointmentNotificationTemplateRequired,
+  ).optional(),
+  textTemplateId: zObjectId().optional(),
 });
+
+export type AppointmentNotificationChannelSelection = {
+  emailEnabled?: boolean;
+  textEnabled?: boolean;
+  emailTemplateId?: string;
+  textTemplateId?: string;
+  channel?: "email" | "text-message" | Array<"email" | "text-message">;
+  templateId?: string;
+  enabled?: boolean;
+  smsKind?: string;
+};
+
+export const readAppointmentNotificationChannels = (
+  value: AppointmentNotificationChannelSelection,
+): {
+  emailEnabled: boolean;
+  textEnabled: boolean;
+  emailTemplateId?: string;
+  textTemplateId?: string;
+} => {
+  if (
+    typeof value.emailEnabled === "boolean" ||
+    typeof value.textEnabled === "boolean"
+  ) {
+    return {
+      emailEnabled: value.emailEnabled === true,
+      textEnabled: value.textEnabled === true,
+      emailTemplateId: value.emailTemplateId,
+      textTemplateId: value.textTemplateId,
+    };
+  }
+
+  const channels = Array.isArray(value.channel)
+    ? value.channel
+    : value.channel
+      ? [value.channel]
+      : [];
+  const emailEnabled = channels.includes("email");
+  const textEnabled =
+    channels.includes("text-message") && value.enabled === true;
+
+  return {
+    emailEnabled,
+    textEnabled,
+    emailTemplateId: emailEnabled ? value.templateId : undefined,
+    textTemplateId:
+      textEnabled && value.smsKind !== "followUp"
+        ? value.templateId
+        : undefined,
+  };
+};
 
 export const appointmentNotificationAppointmentCountType = [
   "none",
@@ -257,6 +318,22 @@ export const appointmentNotificationSchema = z
       });
     }
 
+    if (arg.emailEnabled !== true && arg.textEnabled !== true) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["emailEnabled"],
+        message: appointmentNotificationChannelRequired,
+      });
+    }
+
+    if (arg.emailEnabled === true && !arg.emailTemplateId) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["emailTemplateId"],
+        message: appointmentNotificationTemplateRequired,
+      });
+    }
+
     if (arg.appointmentCount.type !== "none" && !arg.appointmentCount.count) {
       ctx.addIssue({
         code: "custom",
@@ -272,6 +349,8 @@ export const getAppointmentNotificationSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return appointmentNotificationSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

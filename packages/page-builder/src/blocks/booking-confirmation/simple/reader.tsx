@@ -3,8 +3,8 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { Appointment } from "@hacado/types";
-import { cn } from "@hacado/ui";
+import { Appointment } from "@hacado/types/booking";
+import { cn } from "@hacado/ui/cn";
 import { redirect } from "next/navigation";
 import { ConfirmationCard } from "./confirmation-card";
 import { BookingConfirmationReaderProps } from "./schema";

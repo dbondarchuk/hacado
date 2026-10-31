@@ -8,7 +8,7 @@ import {
   ICalendarBusyTimeProvider,
   IConnectedApp,
   IConnectedAppProps,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { DateTime } from "luxon";
 import {
   UrlBusyEventsConfiguration,

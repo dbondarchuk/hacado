@@ -3,6 +3,13 @@
  * Used by getDemoEmailArguments when the waitlist app implements demo-email-arguments-provider.
  */
 const customerId = "customer-1234";
+const demoService = {
+  _id: "option-1234",
+  name: "Demo service",
+  duration: 100,
+  price: 50,
+  durationType: "fixed" as const,
+};
 
 export const demoWaitlistEntry = {
   _id: "waitlist-entry-1234",
@@ -38,13 +45,7 @@ export const demoWaitlistEntry = {
   optionId: "option-1234",
   addonsIds: [],
   duration: 100,
-  option: {
-    _id: "option-1234",
-    name: "Demo option",
-    duration: 100,
-    price: 50,
-    durationType: "fixed",
-  },
+  service: demoService,
   addons: [],
   dates: [],
 };

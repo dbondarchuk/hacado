@@ -1,5 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
-import { appointmentHistorySearchParamsLoader } from "@hacado/api-sdk";
+import { appointmentHistorySearchParamsLoader } from "@hacado/api-sdk/admin/search-params/appointment-history";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 

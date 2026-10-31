@@ -7,8 +7,6 @@ import { meet as googleMeet } from "@googleapis/meet";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
-  AppointmentEvent,
-  AppointmentOnlineMeetingInformation,
   CalendarBusyTime,
   CalendarWriterEvent,
   CalendarWriterEventAttendee,
@@ -22,11 +20,15 @@ import {
   IConnectedAppProps,
   IMeetingUrlProvider,
   IOAuthConnectedApp,
-  okStatus,
-  WithDatabaseId,
-} from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+} from "@hacado/types/apps";
+import {
+  AppointmentEvent,
+  AppointmentOnlineMeetingInformation,
+} from "@hacado/types/booking";
+import { WithDatabaseId } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import { Credentials, OAuth2Client } from "google-auth-library";
 import { DateTime } from "luxon";
 import {

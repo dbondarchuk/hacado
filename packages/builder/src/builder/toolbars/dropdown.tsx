@@ -1,14 +1,14 @@
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
-import { destructAndReplace, resolveProperty } from "@hacado/utils";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
+import { destructAndReplace, resolveProperty } from "@hacado/utils/object";
 import { CSSProperties, ReactNode } from "react";
 import { ConfigurationProps } from "../../documents/types";
 

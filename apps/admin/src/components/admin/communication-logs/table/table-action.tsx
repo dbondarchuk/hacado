@@ -4,15 +4,11 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   communicationChannels,
   communicationDirectionSchema,
+  communicationLogStatuses,
   communicationParticipantTypeSchema,
-} from "@hacado/types";
-import {
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+} from "@hacado/types/communication";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -20,11 +16,11 @@ import {
   DataTableResetFilter,
   DataTableSearch,
   MembersDataTableAsyncFilterBox,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { canFilterCommunicationByMember } from "@hacado/utils";
-import { Settings2 } from "lucide-react";
+} from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
+import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
+
 import React from "react";
 import { ClearAllCommunicationLogsButton } from "./clear-all";
 import { ClearSelectedCommunicationLogsButton } from "./clear-selected";
@@ -46,9 +42,11 @@ export const CommunicationLogsTableAction: React.FC<{
   const {
     directionFilter,
     channelFilter,
+    statusFilter,
     participantTypeFilter,
     setDirectionFilter,
     setChannelFilter,
+    setStatusFilter,
     setParticipantTypeFilter,
     isAnyFilterActive,
     resetFilters,
@@ -92,6 +90,16 @@ export const CommunicationLogsTableAction: React.FC<{
         setFilterValue={setChannelFilter as any}
         filterValue={channelFilter}
       />
+      <DataTableFilterBox
+        filterKey="status"
+        title={t("communicationLogs.table.filters.status")}
+        options={communicationLogStatuses.map((status) => ({
+          value: status,
+          label: t(`communications.status.${status}`),
+        }))}
+        setFilterValue={setStatusFilter as any}
+        filterValue={statusFilter}
+      />
       {showParticipantTypeFilter && (
         <DataTableFilterBox
           filterKey="participantType"
@@ -131,32 +139,18 @@ export const CommunicationLogsTableAction: React.FC<{
   return (
     <div
       className={cn(
-        "flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row",
+        "flex w-full min-w-0 flex-wrap items-center gap-2",
         className,
       )}
     >
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+      <div className="flex w-full min-w-0 flex-nowrap items-center gap-2">
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
         />
-        <Popover>
-          <PopoverTrigger
-            tooltip={t("communicationLogs.table.filters.filters")}
-            asChild
-            className="md:hidden"
-          >
-            <Button variant="outline">
-              <Settings2 size={16} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {additionalFilters}
-          </PopoverContent>
-        </Popover>
-        <div className="hidden md:flex flex-row gap-4">{additionalFilters}</div>
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}

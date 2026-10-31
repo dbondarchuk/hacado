@@ -1,16 +1,16 @@
 "use client";
 
+import { AssetEntity } from "@hacado/types/assets";
 import {
   Appointment,
   AppointmentEventRequest,
   AppointmentHistoryEntry,
   AppointmentStatus,
   AppointmentWithReferenceDateDistance,
-  AssetEntity,
-  okStatus,
   Payment,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
   AppointmentHistorySearchParams,
   serializeAppointmentHistorySearchParams,
@@ -180,9 +180,10 @@ export const createAppointment = async (
   appointment: AppointmentEventRequest,
   files: Record<string, File> | undefined,
   confirmed: boolean = false,
+  smsConsent: boolean = false,
 ) => {
   console.debug("Creating appointment", {
-    optionId: appointment.optionId,
+    serviceId: appointment.serviceId,
     dateTime: appointment.dateTime.toISOString(),
     duration: appointment.totalDuration,
     filesCount: files ? Object.keys(files).length : 0,
@@ -199,6 +200,9 @@ export const createAppointment = async (
     });
 
     formData.append("confirmed", confirmed.toString());
+    if (smsConsent) {
+      formData.append("smsConsent", "true");
+    }
 
     const result = await fetchAdminApi(`/appointments`, {
       method: "POST",
@@ -221,7 +225,7 @@ export const updateAppointment = async (
 ) => {
   console.debug("Updating appointment", {
     appointmentId: id,
-    optionId: appointment.optionId,
+    serviceId: appointment.serviceId,
     dateTime: appointment.dateTime.toISOString(),
     duration: appointment.totalDuration,
     filesCount: files ? Object.keys(files).length : 0,

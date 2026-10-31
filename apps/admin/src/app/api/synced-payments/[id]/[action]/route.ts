@@ -1,12 +1,14 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getLoggerFactory } from "@hacado/logger";
+import type {
+  SyncedPaymentAssignablePaymentType,
+  SyncedPaymentStandalonePaymentType,
+} from "@hacado/types/booking";
 import {
   syncedPaymentAssignablePaymentTypes,
   syncedPaymentStandalonePaymentTypes,
-  type SyncedPaymentAssignablePaymentType,
-  type SyncedPaymentStandalonePaymentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -5,7 +5,8 @@ import {
   findPreviewProvider,
   type TemplatePreviewProvider,
 } from "@hacado/app-store/template-previews";
-import { isLayoutTemplate, type TEditorBlock } from "@hacado/builder";
+import { type TEditorBlock } from "@hacado/builder/editor";
+import { isLayoutTemplate } from "@hacado/builder/types";
 import type { I18nFn } from "@hacado/i18n";
 import type { BlockProviderRegistry } from "@hacado/page-builder";
 import {

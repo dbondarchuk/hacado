@@ -1,7 +1,5 @@
-import {
-  DASHBOARD_BADGE_EVENT,
-  type DashboardBadgeUpdate,
-} from "@hacado/types";
+import type { DashboardBadgeUpdate } from "@hacado/types/apps";
+import { DASHBOARD_BADGE_EVENT } from "@hacado/types/apps";
 
 export function applyDashboardBadgeUpdate(
   badges: Record<string, number>,

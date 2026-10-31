@@ -59,7 +59,7 @@ export const BOOKING_UI_STEP_TRACKING: Record<
 };
 
 export type BookingTrackingMetadata = {
-  optionId?: string;
+  serviceId?: string;
   duration?: number;
   isPaymentRequired?: boolean;
   paymentAmount?: number;
@@ -99,7 +99,7 @@ export type BookingProgressSession = {
   enteredSteps: BookingStep[];
   status: "active" | "completed" | "abandoned";
   convertedTo?: string;
-  optionId?: string;
+  serviceId?: string;
   duration?: number;
   isPaymentRequired?: boolean;
   paymentAmount?: number;

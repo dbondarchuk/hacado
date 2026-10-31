@@ -7,8 +7,8 @@ import {
 } from "@/app/utils";
 import { resolveAppOrigin } from "@/lib/resolve-app-origin";
 import { getLoggerFactory } from "@hacado/logger";
-import { getPolarClient, getPolarConfig } from "@hacado/services";
-import { canManageTeam } from "@hacado/utils";
+import { getPolarClient, getPolarConfig } from "@hacado/services/billing";
+import { canManageTeam } from "@hacado/utils/permissions";
 import * as z from "zod";
 
 const USER_SLOTS_LABEL = "users_amount";

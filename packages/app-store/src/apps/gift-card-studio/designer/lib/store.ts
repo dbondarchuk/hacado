@@ -1,4 +1,4 @@
-import { debounce } from "@hacado/types";
+import { debounce } from "@hacado/types/utils";
 import { create } from "zustand";
 import type { Canvas, Design, Element } from "./types";
 

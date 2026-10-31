@@ -3,8 +3,9 @@ import type {
   LayoutTemplateDefinition,
   LayoutTemplateService,
   TemplatesConfiguration,
-} from "@hacado/builder";
-import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+} from "@hacado/builder/types";
+import type { I18nFn } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { LayoutTemplate } from "lucide-react";
 import { layoutTemplatePreviewPath } from "../preview-manifest";
 import { matchServiceImage } from "./media";
@@ -23,6 +24,7 @@ import type {
 } from "./types";
 
 export * from "./catalog-paths";
+export { legalDocumentBlocks, legalFooterLink } from "./legal-document";
 export * from "./media";
 export * from "./registry";
 export {

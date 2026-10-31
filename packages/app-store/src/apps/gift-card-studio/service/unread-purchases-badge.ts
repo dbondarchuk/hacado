@@ -1,4 +1,7 @@
-import { DashboardNotificationBadge, IConnectedAppProps } from "@hacado/types";
+import {
+  DashboardNotificationBadge,
+  IConnectedAppProps,
+} from "@hacado/types/apps";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "../const";
 import { GiftCardStudioRepositoryService } from "./repository-service";
 

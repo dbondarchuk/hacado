@@ -1,5 +1,5 @@
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Link } from "@hacado/ui";
+import { Link } from "@hacado/ui/link";
 
 export default async function Forbidden() {
   const t = await getI18nAsync("admin");

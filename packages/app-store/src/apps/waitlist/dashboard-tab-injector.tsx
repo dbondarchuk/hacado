@@ -1,4 +1,4 @@
-import { DashboardTabInjectorApp } from "@hacado/types";
+import { DashboardTabInjectorApp } from "@hacado/types/apps";
 import {
   WaitlistAdminKeys,
   WaitlistAdminNamespace,

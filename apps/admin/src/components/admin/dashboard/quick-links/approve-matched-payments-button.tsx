@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { syncedPaymentsApi } from "@hacado/api-sdk/admin/synced-payments";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AlertDialog,
@@ -12,10 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -37,16 +37,13 @@ export function QuickLinkApproveMatchedPaymentsButton({
   const approveAll = async () => {
     setApproving(true);
     try {
-      await toastPromise(
-        adminApi.syncedPayments.confirmAllMatchedSyncedPayments(),
-        {
-          success: (data) =>
-            t("syncedPayments.toast.approveAllSuccess", {
-              count: data.count,
-            }),
-          error: t("syncedPayments.toast.approveAllError"),
-        },
-      );
+      await toastPromise(syncedPaymentsApi.confirmAllMatchedSyncedPayments(), {
+        success: (data) =>
+          t("syncedPayments.toast.approveAllSuccess", {
+            count: data.count,
+          }),
+        error: t("syncedPayments.toast.approveAllError"),
+      });
 
       setOpen(false);
       router.refresh();

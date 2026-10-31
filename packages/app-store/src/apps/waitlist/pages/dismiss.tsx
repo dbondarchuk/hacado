@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@hacado/ui";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { dismissWaitlistEntry } from "../views/components/actions";

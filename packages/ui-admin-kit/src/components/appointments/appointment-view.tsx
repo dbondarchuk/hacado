@@ -6,21 +6,23 @@ import {
   Appointment,
   AppointmentStatus,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Button } from "@hacado/ui/button";
+import { ButtonGroup } from "@hacado/ui/button-group";
 import {
-  Button,
-  ButtonGroup,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+} from "@hacado/ui/dropdown-menu";
+import {
   ResponsiveTabsList,
   Tabs,
   TabsContent,
   TabsTrigger,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
-import { canUpdateAppointment } from "@hacado/utils";
+} from "@hacado/ui/tabs";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import {
   CalendarCheck2,
   CalendarCog,

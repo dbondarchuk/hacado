@@ -1,14 +1,14 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { calendarApi } from "@hacado/api-sdk/admin/calendar";
 import {
   Appointment,
   CalendarEvent,
-  DaySchedule,
   isClosedAppointmentStatus,
-} from "@hacado/types";
-import { cn } from "@hacado/ui";
-import { getColorForName } from "@hacado/utils";
+} from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
+import { cn } from "@hacado/ui/cn";
+import { getColorForName } from "@hacado/utils/colors";
 import { DateTime, HourNumbers } from "luxon";
 import React from "react";
 import { EventCalendar, EventCalendarEvent } from "../event-calendar";
@@ -40,7 +40,7 @@ export const AppointmentCalendar: React.FC<{
 
     setLoading(true);
 
-    const result = await adminApi.calendar.getCalendar({
+    const result = await calendarApi.getCalendar({
       start: start.startOf("day").toJSDate(),
       end: end.endOf("day").toJSDate(),
       member: appointment.memberId,
@@ -86,7 +86,7 @@ export const AppointmentCalendar: React.FC<{
             start: start.toJSDate(),
             end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
             id: app._id,
-            title: app.option.name,
+            title: app.service.name,
             customer: {
               _id: app.customer?._id,
               name: app.fields.name,

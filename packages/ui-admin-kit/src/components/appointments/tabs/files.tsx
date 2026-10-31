@@ -1,8 +1,9 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
-import { Appointment, AssetEntity } from "@hacado/types";
+import { AssetEntity } from "@hacado/types/assets";
+import { Appointment } from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,25 +14,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  Dialog,
-  DialogContent,
-  DndFileInput,
-  Spinner,
-  toast,
-  toastPromise,
-  useUploadFile,
-} from "@hacado/ui";
-import { canUpdateAppointment, mimeTypeToExtension } from "@hacado/utils";
+} from "@hacado/ui/carousel";
+import { Dialog, DialogContent } from "@hacado/ui/dialog";
+import { DndFileInput } from "@hacado/ui/dnd-file-input";
+import { useUploadFile } from "@hacado/ui/hooks";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { mimeTypeToExtension } from "@hacado/utils/assets";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import { FileIcon, Trash } from "lucide-react";
 // import Image from "next/image";
-import { useAuth } from "@hacado/ui-admin";
+import { useAuth } from "@hacado/ui-admin/context";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { DefaultExtensionType, defaultStyles } from "react-file-icon";
@@ -53,7 +55,7 @@ export const AppointmentFiles = ({ appointment }: AppointmentFilesProps) => {
       if (!canUpdate) return;
       try {
         setLoading(true);
-        await toastPromise(adminApi.assets.deleteAsset(fileId), {
+        await toastPromise(assetsApi.deleteAsset(fileId), {
           success: t("appointments.view.changesSaved"),
           error: t("appointments.view.requestError"),
         });

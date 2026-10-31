@@ -1,9 +1,9 @@
 import {
-  ConfigurationProps,
   ToolbarColorMenu,
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
-} from "@hacado/builder";
+} from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { Baseline, Brush, PaintBucket, PaintRoller } from "lucide-react";
 import { FONT_FAMILIES } from "../../style-inputs/helpers/font-family";

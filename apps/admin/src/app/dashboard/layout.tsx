@@ -1,6 +1,12 @@
 import { findPendingInvitationForEmail } from "@/app/accept-invitation/actions";
 import { NotificationsToastStream } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { SubscriptionStatusListener } from "@/components/admin/dashboard/subscription/subscription-status-listener";
+import { CommandPaletteProvider } from "@/components/admin/layout/command-palette";
+import {
+  buildCommandPaletteActions,
+  buildCommandPaletteApps,
+  buildCommandPaletteInstalledApps,
+} from "@/components/admin/layout/command-palette-data";
 import Header from "@/components/admin/layout/header";
 import { AppSidebar } from "@/components/admin/layout/sidebar";
 import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
@@ -15,23 +21,22 @@ import {
   filterNavItemsForPlanTier,
   getAppMinimumPlanTier,
   getSessionPlanTier,
-  isFreeTier,
 } from "@/lib/billing/subscription-plan-access";
-import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { AvailableApps } from "@hacado/app-store";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
+import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { NavItemGroup } from "@hacado/types";
-import {
-  BreadcrumbsProvider,
-  cn,
-  ConfigProvider,
-  Link,
-  SidebarInset,
-  SidebarProvider,
-} from "@hacado/ui";
-import { MediaSourcesProvider } from "@hacado/ui-admin";
-import { canFilterByMember } from "@hacado/utils";
+import { NavItemGroup } from "@hacado/types/admin";
+import { MediaSourcesProvider } from "@hacado/ui-admin/context";
+import { BreadcrumbsProvider } from "@hacado/ui/breadcrumbs";
+import { cn } from "@hacado/ui/cn";
+import { ConfigProvider } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import { SidebarInset, SidebarProvider } from "@hacado/ui/sidebar";
+import { filterConnectedAppsForUser } from "@hacado/utils/app-access";
+import { canFilterByMember } from "@hacado/utils/permissions";
+import { isFreeTier } from "@hacado/utils/subscription";
 import { AlertTriangle, Sparkles } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -100,6 +105,11 @@ export default async function DashboardLayout({
 
   const websiteUrl = await getWebsiteUrl();
   const organizationDomain = await getOrganizationFullDomain();
+  const textMessaging = session.user.organizationId
+    ? await servicesContainer.textMessageConfigurationService.getPublicConfig(
+        websiteUrl,
+      )
+    : { enabled: false };
 
   let groups: NavItemGroup[] = navItems.map((x) => ({
     ...x,
@@ -112,9 +122,8 @@ export default async function DashboardLayout({
   }));
 
   const currentMemberId = session.user.memberId;
-  const appsWithMenu = (
-    await servicesContainer.connectedAppsService.getApps()
-  ).filter((app) => {
+  const connectedApps = await servicesContainer.connectedAppsService.getApps();
+  const appsWithMenu = connectedApps.filter((app) => {
     const target = AvailableApps[app.name]?.target;
     if (target === "member") {
       return !!currentMemberId && app.memberId === currentMemberId;
@@ -179,6 +188,27 @@ export default async function DashboardLayout({
 
   groups = filterNavItemsForPlanTier(groups, planTier);
   groups = filterNavItemsForPermission(groups, session.user);
+  const paletteActions = buildCommandPaletteActions({
+    user: session.user,
+    planTier,
+    websiteUrl,
+    apps: appsWithMenu,
+  });
+  const paletteApps = buildCommandPaletteApps(
+    new Set(appsWithMenu.map((app) => app.name)),
+  );
+  const ownerMemberIds = new Set(
+    (await servicesContainer.teamService.getActiveMembers())
+      .filter((member) => member.role === "owner")
+      .map((member) => member._id),
+  );
+  const paletteInstalledApps = buildCommandPaletteInstalledApps(
+    filterConnectedAppsForUser(
+      session.user,
+      connectedApps.map(withCatalogTarget),
+      ownerMemberIds,
+    ),
+  );
   const isSubscriptionPastDueFlag = isSubscriptionPastDue(subscriptionStatus);
 
   const canSeeInactiveMemberWarnings = canFilterByMember(session.user);
@@ -200,6 +230,7 @@ export default async function DashboardLayout({
         brandConfiguration={brand}
         domain={organizationDomain}
         websiteUrl={websiteUrl}
+        textMessaging={textMessaging}
       >
         <MediaSourcesProvider
           value={{
@@ -229,7 +260,12 @@ export default async function DashboardLayout({
                       </div>
                     </div>
                   ) : (
-                    <>
+                    <CommandPaletteProvider
+                      groups={groups}
+                      actions={paletteActions}
+                      apps={paletteApps}
+                      installedApps={paletteInstalledApps}
+                    >
                       <AppSidebar
                         menuItems={groups}
                         name={name}
@@ -355,7 +391,7 @@ export default async function DashboardLayout({
 
                         {/* </main> */}
                       </SidebarInset>
-                    </>
+                    </CommandPaletteProvider>
                   )}
                 </NuqsAdapter>
               </CookiesProvider>

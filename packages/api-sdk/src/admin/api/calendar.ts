@@ -1,4 +1,5 @@
-import { CalendarEvent, DaySchedule } from "@hacado/types";
+import { CalendarEvent } from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import {
   CalendarSearchParams,
   serializeCalendarSearchParams,

@@ -1,33 +1,37 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { AllKeys } from "@hacado/i18n";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { ConnectedAppData, IConnectedAppProps } from "@hacado/types/apps";
+import type { Appointment } from "@hacado/types/booking";
+import { isClosedAppointmentStatus } from "@hacado/types/booking";
+import type {
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  MemberProfileUpdatedPayload,
+  ScheduleChangedPayload,
+} from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { canUseMemberCalendarSources } from "@hacado/utils/permissions";
 import {
-  AppJobRequest,
-  ConnectedAppData,
-  IConnectedAppProps,
-  isClosedAppointmentStatus,
-  type Appointment,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatusChangedPayload,
-  type MemberProfileUpdatedPayload,
-  type ScheduleChangedPayload,
-} from "@hacado/types";
-import {
-  canUseMemberCalendarSources,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+  appendSharedPoolSuffix,
+  isPlatformSmsCountry,
+  isSmsEnabled,
+  smsCustomerName,
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import pLimit from "p-limit";
 import { WAITLIST_APP_NAME } from "../waitlist/const";
 import { WaitlistEntry } from "../waitlist/models/waitlist";
 import { WaitlistRepositoryService } from "../waitlist/service/repository-service";
 import { createWaitlistOfferToken } from "../waitlist/waitlist-offer-token";
+import { getWaitlistSmsBodies } from "./messages";
 import {
   CustomerWaitlistNotificationsConfiguration,
   CustomerWaitlistNotificationsJobPayload,
+  isWaitlistEmailEnabled,
   OFFER_OPENED_SLOT_JOB_TYPE,
   SCAN_SCHEDULE_OPENED_SLOTS_JOB_TYPE,
 } from "./models";
@@ -333,7 +337,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
         continue;
       }
 
-      const duration = waitlistDurationMinutes(entry, entry.option?.duration);
+      const duration = waitlistDurationMinutes(entry, entry.service?.duration);
       if (
         duration == null ||
         !windowFitsDuration(windowStart, windowEnd, duration)
@@ -646,16 +650,24 @@ export class CustomerWaitlistNotificationsJobProcessor {
       return;
     }
 
-    if (config.slotOpenedEmailTemplateId && entry.email) {
+    const slotOpenedEmailTemplateId = config.slotOpenedEmailTemplateId;
+    if (
+      isWaitlistEmailEnabled(
+        config.slotOpenedEmailEnabled,
+        slotOpenedEmailTemplateId,
+      ) &&
+      slotOpenedEmailTemplateId &&
+      entry.email
+    ) {
       const template = await this.props.services.templatesService.getTemplate(
-        config.slotOpenedEmailTemplateId,
+        slotOpenedEmailTemplateId,
       );
 
       logger.debug(
         {
           appId: appData._id,
           entryId: entry._id,
-          templateId: config.slotOpenedEmailTemplateId,
+          templateId: slotOpenedEmailTemplateId,
         },
         "Found email template",
       );
@@ -691,24 +703,52 @@ export class CustomerWaitlistNotificationsJobProcessor {
       }
     }
 
-    if (config.slotOpenedSmsTemplateId && entry.phone) {
-      const template = await this.props.services.templatesService.getTemplate(
-        config.slotOpenedSmsTemplateId,
-      );
+    if (isSmsEnabled(config.slotOpenedSmsEnabled) && entry.phone) {
+      let smsBody: string | undefined;
+      if (isPlatformSmsCountry(entry.phone)) {
+        const builtIn = template(
+          getWaitlistSmsBodies(args.config.language).slotOpened,
+          args,
+          true,
+        );
 
-      if (template?.type === "text-message") {
+        const allowCustom = (
+          await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+        ).allowCustomTemplates;
+
+        const stored =
+          allowCustom && config.slotOpenedSmsTemplateId
+            ? await this.props.services.templatesService.getTemplate(
+                config.slotOpenedSmsTemplateId,
+              )
+            : null;
+
+        smsBody =
+          stored?.type === "text-message"
+            ? templateSafeWithError(stored.value, args, true)
+            : allowCustom
+              ? builtIn
+              : appendSharedPoolSuffix(builtIn);
+      } else if (config.slotOpenedSmsTemplateId) {
+        const stored = await this.props.services.templatesService.getTemplate(
+          config.slotOpenedSmsTemplateId,
+        );
+
+        if (stored?.type === "text-message") {
+          smsBody = templateSafeWithError(stored.value, args, true);
+        }
+      }
+
+      if (smsBody) {
         logger.debug(
-          {
-            appId: appData._id,
-            entryId: entry._id,
-            templateId: config.slotOpenedSmsTemplateId,
-          },
-          "Found SMS template, sending SMS notification",
+          { appId: appData._id, entryId: entry._id },
+          "Sending waitlist slot SMS",
         );
 
         await this.props.services.notificationService.sendTextMessage({
           phone: entry.phone,
-          body: templateSafeWithError(template.value, args),
+          body: smsBody,
+          idempotencyKey: `sms_${entry.organizationId}_waitlist_${entry._id}_slot`,
           participantType: "customer",
           memberId: entry.memberId,
           handledBy:
@@ -748,20 +788,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
       "Sending leave confirm SMS notification",
     );
 
-    if (!config.leaveWaitlistSmsTemplateId || !entry.phone) {
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "No leave confirm SMS template or phone, skipping",
-      );
-
-      return;
-    }
-
-    const template = await this.props.services.templatesService.getTemplate(
-      config.leaveWaitlistSmsTemplateId,
-    );
-
-    if (template?.type !== "text-message") {
+    if (!isSmsEnabled(config.leaveWaitlistSmsEnabled) || !entry.phone) {
       logger.debug(
         { appId: appData._id, entryId: entry._id },
         "No leave confirm SMS template or phone, skipping",
@@ -791,9 +818,49 @@ export class CustomerWaitlistNotificationsJobProcessor {
       "Sending leave confirm SMS notification",
     );
 
+    let smsBody: string | undefined;
+    if (isPlatformSmsCountry(entry.phone)) {
+      const builtIn = template(
+        getWaitlistSmsBodies(args.config.language).leaveConfirm,
+        args,
+        true,
+      );
+
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
+
+      const stored =
+        allowCustom && config.leaveWaitlistSmsTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              config.leaveWaitlistSmsTemplateId,
+            )
+          : null;
+
+      smsBody =
+        stored?.type === "text-message"
+          ? templateSafeWithError(stored.value, args, true)
+          : allowCustom
+            ? builtIn
+            : appendSharedPoolSuffix(builtIn);
+    } else if (config.leaveWaitlistSmsTemplateId) {
+      const stored = await this.props.services.templatesService.getTemplate(
+        config.leaveWaitlistSmsTemplateId,
+      );
+
+      if (stored?.type === "text-message") {
+        smsBody = templateSafeWithError(stored.value, args, true);
+      }
+    }
+
+    if (!smsBody) {
+      return;
+    }
+
     await this.props.services.notificationService.sendTextMessage({
       phone: entry.phone,
-      body: templateSafeWithError(template.value, args),
+      body: smsBody,
+      idempotencyKey: `sms_${entry.organizationId}_waitlist_${entry._id}_leave`,
       participantType: "customer",
       memberId: entry.memberId,
       handledBy:
@@ -870,6 +937,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
         slotDateTime: slotStart,
         dateTime: slotStart,
         smsRemoveKeyword: config.smsRemoveKeyword || "REMOVE",
+        customerName: smsCustomerName(entry.name),
         hasOtherTimes,
         ...(await loadSlotTimeOfDayArgs(
           slotStart,

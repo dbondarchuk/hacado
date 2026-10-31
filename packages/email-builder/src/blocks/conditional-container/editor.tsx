@@ -1,8 +1,6 @@
-import {
-  EditorChildren,
-  useBlockEditor,
-  useCurrentBlock,
-} from "@hacado/builder";
+import { EditorChildren } from "@hacado/builder/blocks";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { useI18n } from "@hacado/i18n/client";
 import { ConditionalContainerProps } from "./schema";
 

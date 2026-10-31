@@ -1,21 +1,21 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-import { useReload } from "@hacado/ui-admin";
+import { useReload } from "@hacado/ui-admin/hooks";
 import { deleteAppointmentNotification } from "../actions";
 import { AppointmentNotification } from "../models";
 import {

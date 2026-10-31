@@ -2,40 +2,42 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  AppJobRequest,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
-  CustomerPackage,
   DemoArguments,
-  EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDemoArgumentsProvider,
   IEventSubscriber,
-  JobRequest,
+} from "@hacado/types/apps";
+import {
+  CustomerPackage,
   PackageAdjustRequest,
   resolveCustomerPackageStatus,
-  systemEventSource,
-  TemplateTemplatesList,
-  type CustomerPackageAdjustedPayload,
-  type CustomerPackageCancelledPayload,
-  type CustomerPackageExhaustedPayload,
-  type CustomerPackageExpiredPayload,
-  type CustomerPackageIssuedPayload,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import type {
+  CustomerPackageAdjustedPayload,
+  CustomerPackageCancelledPayload,
+  CustomerPackageExhaustedPayload,
+  CustomerPackageExpiredPayload,
+  CustomerPackageIssuedPayload,
+} from "@hacado/types/events";
 import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+  CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
+  EventEnvelope,
+  systemEventSource,
+} from "@hacado/types/events";
+import { AppJobRequest, JobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import { demoPackageEmailArguments } from "./demo-arguments";
 import {
@@ -43,6 +45,7 @@ import {
   customerPackageEmailNotificationConfigurationSchema,
   CustomerPackageEmailNotificationJobPayload,
   CustomerPackageEmailTemplateKeys,
+  isPackageEmailEnabled,
 } from "./models";
 import { CustomerPackageEmailNotificationTemplates } from "./templates";
 import {
@@ -132,25 +135,36 @@ export default class CustomerPackageEmailNotificationConnectedApp
       (appData.data as CustomerPackageEmailNotificationConfiguration) ??
       undefined;
 
+    const channelEnabled = (
+      key: Exclude<CustomerPackageEmailTemplateKeys, "expiringSoon">,
+    ) => {
+      const enabled = current?.templates?.[key]?.enabled;
+      return typeof enabled === "boolean" ? enabled : true;
+    };
+
     await this.props.update({
       data: {
         templates: {
           purchased: {
+            enabled: channelEnabled("purchased"),
             templateId:
               templateIds.purchased ??
               current?.templates?.purchased?.templateId,
           },
           exhausted: {
+            enabled: channelEnabled("exhausted"),
             templateId:
               templateIds.exhausted ??
               current?.templates?.exhausted?.templateId,
           },
           cancelled: {
+            enabled: channelEnabled("cancelled"),
             templateId:
               templateIds.cancelled ??
               current?.templates?.cancelled?.templateId,
           },
           expired: {
+            enabled: channelEnabled("expired"),
             templateId:
               templateIds.expired ?? current?.templates?.expired?.templateId,
           },
@@ -552,11 +566,16 @@ export default class CustomerPackageEmailNotificationConnectedApp
 
       const data =
         appData.data as CustomerPackageEmailNotificationConfiguration;
-      const templateId =
+      const channel =
+        kind === "expiringSoon" ? data?.expiringSoon : data?.templates?.[kind];
+
+      const templateId = channel?.templateId;
+      const enabled =
         kind === "expiringSoon"
-          ? data?.expiringSoon?.templateId
-          : data?.templates?.[kind]?.templateId;
-      if (!templateId) {
+          ? channel?.enabled === true
+          : isPackageEmailEnabled(channel?.enabled, templateId);
+
+      if (!enabled || !templateId) {
         logger.warn({ kind }, "No template configured for package email");
         return;
       }
