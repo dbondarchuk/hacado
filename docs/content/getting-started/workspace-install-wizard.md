@@ -1,166 +1,140 @@
 ---
-description: Step by step first-time setup with field notes and screenshot placeholders for each major screen.
+description: Walk through first-time setup, from your business name to the ready screen.
 ---
 
 # Set up your workspace
 
-Hacado launches this wizard after signup and billing. Numbers in the header show your place in the sequence. Finish on **the same browser** when possible saved answers return after short breaks.
+After checkout, Hacado opens a short setup. A bar at the top shows where you are: **Business**, **Services**, **Schedule**, **Connect**, **Payments**, **Website**, then **Done**.
 
----
+You can close the browser and come back later. Use the same browser, and your answers are still there.
 
-## Step 1: About your business
+## Before you start
 
-Tell Hacado how clients should recognise you and which regional defaults shape money, language, and clocks.
+- You have created an account and finished checkout.
 
-What you normally fill:
+## Business
 
-- **Business name** - displayed on your booking website and in client emails.
-- **Address** - physical office location (optional).
-- **Organization domain** - the unique prefix before `.hacado.me` for your website address.
-- **Time zone** - your personal/office time zone to anchor appointments, reminders.
-- **Language** - controls what language your booking website will use.
-- **Country** - your location's country.
-- **Currency** - what currency to use for prices.
+This step is how clients recognize you. The name, language, and prices on your booking page start here.
 
-![Business details form](/img/getting-started/business.png)
+![Business details, with the name, industry, and booking address filled in](/img/getting-started/business.png)
 
----
+1. Type your **Business or brand name**. This is the name clients see.
+2. Add a **Logo** if you have one. Click **Select** and choose a picture. You can skip this.
+3. Check **Public booking address**. Hacado fills this in from your business name. It is the short name in your Hacado web address. Change it if you want a different one. Wait until you see **This address is available.**
+4. Choose an **Industry**. Hacado uses this to suggest services and a website layout.
+5. Choose your **Timezone**. Appointments and reminders use this clock.
+6. Choose the **Website language** clients will read.
+7. Choose your **Country** and **Currency**. Prices use this currency.
+8. A street address is optional. Fill it in only if you want a location on the business. You can look one up with **Find address**, or type it yourself.
+9. Click **Continue**.
 
-## Step 2: Look and feel
+## Services
 
-Choose your color palette, typography, logo, and favicon to make your booking website stand out.
+A service is something a client can book, such as a portrait session or a consultation. You need at least one before you can go on.
 
-- Pick your main and secondary colors.
-- Select font pairs you can want your website to use (or leave default ones).
-- Logo upload is optional but recommended for better branding
+![A portrait session filled in on the services step](/img/getting-started/services.png)
 
-![Colours and typography](/img/getting-started/brand.png)
+**From template** opens a dialog. Pick the kind of work you do, then pick a service. Each card shows a short description, how long it takes, and a starting price.
 
----
+![Photographer templates in the service dialog](/img/getting-started/service-template.png)
 
-## Step 3: Add your services
+1. Click **From template** to start from a ready-made service, or **Custom service** to start with a blank one.
+2. If you use a template, pick the kind of work you do, then pick a service. Hacado fills in a name and a description. You can change both.
+3. Read the form before you continue. The name, description, price, and length on this form are what clients will see.
+4. Under **Pricing**, choose **Fixed total** for one price for the whole visit, or **Per hour** if you charge by the hour.
+5. Set **Duration** in hours and minutes.
+6. Set **Total price**. Leave it empty only if the service is free.
+7. Click **Continue**.
 
-Hacado needs **at least one bookable offering** to start. You can create a completely new one or select a template to help you jump start your website.
+Hacado shows **Services saved to your booking flow**. If you come back to this step and continue again, the services from this step are replaced with what is on the form now.
 
-### Suggested professions
+### Good to know
 
-Profession catalogues preload names, descriptions, durations, pricing. Select one that matches your profession closelest and make it match what you offer.
+The price on a template card and the price on the form are not always the same. Trust the form.
 
-![Profession picker](/img/getting-started/service-template.png)
+You can add more services later from the dashboard.
 
-### Fine tuning
+## Schedule
 
-- Click on "Custom service" to create empty or _plus_ button to select service template.
-- Add a unique service name, like "Classic Facial" or "Initial consultation".
-- Add a service description - make it brief but easy understandable to your customers.
-- Choose **fixed** or **hourly** pricing to match quotes you quote in real life.
+This is when clients are allowed to book you. Hacado starts with Monday through Friday, 9:00 AM to 5:00 PM. Saturday and Sunday have no hours, so clients cannot book those days.
 
-![Services](/img/getting-started/services.png)
+![Monday through Wednesday set to 9:00 AM–5:00 PM](/img/getting-started/schedule.png)
 
----
+1. Open a day if it is closed.
+2. Click **Edit** to change the start or end time.
+3. Click **Add Shift** if you work two separate blocks in one day, such as a morning and an evening.
+4. Click the red **X** to remove a shift. A day with no shifts is a day off.
+5. Click **Continue**.
 
-## Setup 4: Set your schedule
+You can change these hours later under **Settings → Schedule**. If your hours change from week to week, install [Weekly schedule](/docs/apps/weekly-schedule) later from **Dashboard → Apps**.
 
-The installation wizard will suggest the default schedule - Monday till Friday, 9am-5pm. You can adjust the schedule to match your working hours by adding shifts to each week day.
-You can adjust the schedule later in your dashboard or install app that will allow you to have more custom schedule (for example, [Weekly Schedule](/docs/apps/weekly-schedule) to set custom schedule on week-by-week basis)
+## Connect
 
-![Schedule](/img/getting-started/schedule.png)
+This step links a calendar and turns on extra tools. Nothing here is required. You can leave it as it is and still finish setup.
 
----
+![Calendar choices, with none connected](/img/getting-started/connect.png)
 
-## Step 5: Connect calendar & apps
+Calendars:
 
-In this step, Hacado asks:
-**"How should we deliver bookings to your calendar?"**
+- **Google Calendar** and **Outlook** can add bookings to that calendar and read times when you are already busy.
+- **ICS Feed** reads a calendar link from another app. It is usually one-way: Hacado can see busy times, but it does not write bookings back.
+- **CalDAV Calendar** connects a calendar that uses a server address and a login.
 
-This means:
+Click **Connect** on the one you use, and follow the prompts. Skip them all if you do not want a calendar yet.
 
-- How new appointments should appear in your calendar.
-- Where new appointments should be saved.
-- Which calendar should be used to mark you as busy.
-- Which meeting app should create a video link for online appointments.
+**How should we deliver bookings to your calendar?** starts on **Do not send bookings to my calendar**. The other choices are:
 
-What are possible options?
+- **Send bookings to my calendar by email**, which emails you a calendar file you can open.
+- **Write bookings to my calendar directly**, which needs Google, Outlook, or CalDAV connected first.
 
-- Do not send bookings to my calendar: You won't see bookings in your calendar (for example in your Google Calendar)
-- Send bookings to my calendary by email: We will send you email with event attachment for new bookings, reschedules, and cancellations. Some email providers will automatically add this event to your calendar, or you can manually import it into your calendar
-- Write bookings to my calendar directly: If you connect a compatible calendar app, you can receive new bookings, reschedules, and cancellations directly to you calendar. You will need to select what calendar you want to receive the bookings into.
+Further down, **Optional apps** are switches. They start off. Turn one on only if you want it now:
 
-### What is a calendar app?
+- **Customer email notifications** emails clients when a booking is made or changed.
+- **Customer package emails** emails clients about prepaid packages.
+- **Customer text message notifications** texts clients about bookings.
+- **Appointment reminders and follow-ups** sends a reminder before the visit.
+- **Waitlist** lets clients ask to be told when a full time opens up.
+- **Blog**, **Forms**, and **Gift Card Studio** add those tools to your site.
+- **My account** lets clients sign in to see and change their own bookings.
 
-A calendar app is a connector between Hacado and your calendar account (for example Google Calendar or Outlook).
+Click **Continue**. You can change all of this later under **Dashboard → Apps**. See [Apps](/docs/apps/overview).
 
-When connected, Hacado can:
+## Payments
 
-- Add new bookings to your calendar automatically.
-- Read your existing events to avoid double bookings.
-- Keep booking updates (reschedule/cancel) synced.
+This step decides how a new booking is confirmed, and whether the client pays online.
 
-### What each calendar app does
+![All payment switches on, with PayPal, Square, and Stripe not connected yet](/img/getting-started/payments.png)
 
-- **Google Calendar** - Saves bookings to Google Calendar, reads busy times, and can add a Google Meet link for online appointments.
-- **Outlook** - Saves bookings to Outlook/Microsoft 365 and reads busy times from there.
-- **CalDAV** - Connects to calendars that support the CalDAV standard (often self-hosted or provider-specific calendars). Hacado can read and/or write bookings depending on that server.
-- **Calendar feed (ICS)** - Uses a calendar URL feed to read busy times. Good when another system gives you a read-only calendar link.
+1. Leave **Accept online payments** off if clients will pay you another way. Turn it on to connect **PayPal**, **Square**, or **Stripe**. You connect one. **Continue** stays off until one of them is connected. See [PayPal](/docs/apps/paypal), [Square](/docs/apps/square), and [Stripe](/docs/apps/stripe).
+2. With online payments on, **Require a deposit** appears. Turn it on to ask for part of the price up front, then set the percentage.
+3. Leave **Auto-confirm bookings** off if you want to approve each request yourself. Turn it on if a booking should be confirmed as soon as the client sends it.
+4. **Allow cancellations and reschedules** starts on, so clients can change a booking themselves. You can set time limits and fees later.
+5. Click **Continue**.
 
-### Optional apps in this step
+## Website
 
-Based on your setup screen, you can enable optional apps with simple on/off switches.
+Hacado gives you a starter website. You can change the words and pictures later.
 
-- **Customer email notifications** - Sends booking confirmations and updates to your customers by email. Will create starter email templates.
-- **Customer text message notifications** - Sends booking confirmations and updates to your customers by SMS. Will create starter text message templates
-- **Appointment reminders and follow-ups** - Sends reminder messages and follow-ups by email and SMS. will create a starter email template and set an email reminder for day before an appointment.
-- **Waitlist** - Lets customers join a waitlist when times are unavailable.
-- **Blog** - Lets you publish updates and stories on your website.
-- **Forms** - Adds intake forms, contact forms, and other custom forms.
-- **Gift Card Studio** - Lets you design, sell, and manage gift cards.
-- **My account** - Lets customers sign in (email or phone OTP) to manage their appointments.
+![A suggested website layout, with Use this design](/img/getting-started/website.png)
 
-These are optional. You can leave them off during setup and enable them later in **[Apps overview](/docs/apps/overview)**.
+1. Look at the layout under **Suggested for you**.
+2. If you want a different look, scroll to **Browse all designs** and open a group, such as photography or salon.
+3. Click **Use this design** on the layout you want.
+4. Click **Finish setup**.
 
-If you are unsure, choose the calendar you check every day. You can reconnect or switch later.
+Hacado then builds the page. Wait on this screen. A spinner is not the last step.
 
-![Integrations step](/img/getting-started/integrations.png)
+## Done
 
----
+Stop when you see **Your Hacado is ready**.
 
-## Step 6: Payments & Policies
+![The setup finished](/img/getting-started/ready.png)
 
-During this step you can configure your payment processor, enable deposits and cancellations/reschedules, and turn on auto confirming bookings.
+- **Manage my Hacado** opens the dashboard, where you run the business.
+- **View my booking page** opens the page clients use to book.
 
-### Payments
+## What happens next
 
-Connect one and only one payment processor that you are currently using for your business:
-
-- [PayPal](/docs/apps/paypal) - currently requires you to have PayPal business account, getting API keys from [PayPal Developer dashboard](https://developer.paypal.com/dashboard/) for Extended Checkout. See more in [PayPal app docs](/docs/apps/paypal)
-- [Square](/docs/apps/square) - will prompt you to sign in into your Square account and grant permissions
-- [Stripe](/docs/apps/stripe) - will prompt you to sign in into your Stripe account and grant permissions
-
-Once you enable a payment processor app, you can enable deposit for your appointments and set deposit percentage. Set it to 100% to require full payment. You can always change it later in global or per service settings.
-
-### Auto confirm bookings
-
-If you enable this option, your customers' appointment requests will be automatically confirmed. Otherwise, you will need to manually approve each request for customers to recieve confirmation email/message.
-
-#### Allow cancellations and reschedules
-
-Enable this option to allow customers cancel / reshcedule their appointments themselves. The default "allow all" policy will be created. You can always fine tune your policies later in either global or per service settings.
-
-![Payments connectors](/img/getting-started/payments.png)
-
----
-
-## Step 7: Finished
-
-You are done!. You can now see to your dashboard. Before sharing your booking link publicly, do a quick setup check:
-
-- Review services and prices.
-- Check opening hours and availability.
-- Confirm notifications and reminder templates.
-- Test one booking end to end.
-
-## After the wizard checklist
-
-1. Open your public booking page in a private/incognito window and check the customer experience.
-2. Create one test booking and confirm calendar sync, reminders, and payment behavior.
-3. Continue with **[First steps](/docs/first-steps)**, **[Settings](/docs/daily-use/settings)**, and **[Apps](/docs/apps/overview)**.
+- [First steps](/docs/first-steps)
+- [Settings](/docs/daily-use/settings)
+- [Apps](/docs/apps/overview)

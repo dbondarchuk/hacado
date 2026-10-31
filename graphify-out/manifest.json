@@ -745,7 +745,7 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/customers/[id]/[tab]/page.tsx": {
-    "mtime": 1793340431.2980282,
+    "mtime": 1793401164.576517,
     "ast_hash": "5fc31f0d2324c68279bd3e7b1f1bd536",
     "semantic_hash": ""
   },
@@ -755,7 +755,7 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/customers/new/page.tsx": {
-    "mtime": 1793338329.5781186,
+    "mtime": 1793396215.2317517,
     "ast_hash": "22ae114fd2c169f0c030a161e9de1544",
     "semantic_hash": ""
   },
@@ -13730,8 +13730,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/data-table/data-table-search.tsx": {
-    "mtime": 1793338330.7102957,
-    "ast_hash": "6c6b4dc9afb514bce03e9bd21220f1cc",
+    "mtime": 1793401143.5673442,
+    "ast_hash": "c0b6d9598a6f62bd9f5ac34e4264bfb0",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/data-table/data-table-skeleton.tsx": {
@@ -25285,8 +25285,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/payments/page.tsx": {
-    "mtime": 1793340431.2980282,
-    "ast_hash": "758ba709284fe45a4f4f3f8eeae9188c",
+    "mtime": 1793401156.378832,
+    "ast_hash": "5ddf97ae2ec057253b4b8d008650e8a2",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/appointment-selector.tsx": {
@@ -25305,8 +25305,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/table-action.tsx": {
-    "mtime": 1793340286.851578,
-    "ast_hash": "6943ef6904645d7278ab2c21f53ecc95",
+    "mtime": 1793401149.673473,
+    "ast_hash": "f7e421eb6fe9b6ad45a61575e5bcc4a5",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/table.tsx": {
@@ -32315,12 +32315,12 @@
     "semantic_hash": ""
   },
   "scripts/.pack-compose.mjs": {
-    "mtime": 1790358746.4149525,
-    "ast_hash": "cbb3a1157044eb6c935138be49b8bebb",
+    "mtime": 1793383402.0181496,
+    "ast_hash": "060689fd476a26729ce0dee4fe181131",
     "semantic_hash": ""
   },
   "scripts/.pack-registry.mjs": {
-    "mtime": 1790358746.886742,
+    "mtime": 1793383402.3681555,
     "ast_hash": "885c9b94c1f685e054b4a9a8921e0dc1",
     "semantic_hash": ""
   },
@@ -32345,13 +32345,13 @@
     "semantic_hash": ""
   },
   "scripts/seed-org-compose-entry.ts": {
-    "mtime": 1790358745.9142783,
+    "mtime": 1793383401.5441446,
     "ast_hash": "92c1bbfd9197ffc30178054d759c0785",
     "semantic_hash": ""
   },
   "scripts/seed-org-lib.mjs": {
-    "mtime": 1790359059.7876546,
-    "ast_hash": "8d372d4597608c62bde1c1111b5a80d1",
+    "mtime": 1793383434.6226788,
+    "ast_hash": "2e8996709641f09d4fda46e9b392b696",
     "semantic_hash": ""
   },
   "scripts/seed-org-packs.mjs": {
@@ -32360,8 +32360,8 @@
     "semantic_hash": ""
   },
   "scripts/seed-org.mjs": {
-    "mtime": 1790370388.6575987,
-    "ast_hash": "3ee0dffe9bf9f01a05a5a810c43506a7",
+    "mtime": 1793383486.1467397,
+    "ast_hash": "d6bbc009dff676cf8c0ee9ecbb447bff",
     "semantic_hash": ""
   },
   "scripts/seed.ps1": {
@@ -35720,8 +35720,8 @@
     "semantic_hash": ""
   },
   "docs/content/_meta.ts": {
-    "mtime": 1793373906.3526053,
-    "ast_hash": "31d2c0f1699876d435e80aa0438e5982",
+    "mtime": 1793400537.3533962,
+    "ast_hash": "ca85d9bea927164b97927440d039ae35",
     "semantic_hash": ""
   },
   "docs/content/apps/_meta.ts": {
@@ -35730,13 +35730,13 @@
     "semantic_hash": ""
   },
   "docs/content/daily-use/_meta.ts": {
-    "mtime": 1793373909.1119373,
-    "ast_hash": "e564606342316261e6044f5e2e7ef369",
+    "mtime": 1793386103.2541842,
+    "ast_hash": "6de32dd3877d4ca698dfa0441f625b11",
     "semantic_hash": ""
   },
   "docs/content/first-steps/_meta.ts": {
-    "mtime": 1793373908.3629293,
-    "ast_hash": "69062cd6d05cf62f2d270659ffc79074",
+    "mtime": 1793384012.045824,
+    "ast_hash": "cbd300667db0959e2f85365a2604c47b",
     "semantic_hash": ""
   },
   "docs/content/getting-started/_meta.ts": {
@@ -35745,8 +35745,8 @@
     "semantic_hash": ""
   },
   "docs/mdx-components.tsx": {
-    "mtime": 1793373905.2593863,
-    "ast_hash": "076153eda0dbb5b93969ae03c73265b0",
+    "mtime": 1793386088.5229723,
+    "ast_hash": "ae4a1f7fb69988bb6d49b4970e79e41e",
     "semantic_hash": ""
   },
   "docs/next.config.mjs": {
@@ -36005,48 +36005,48 @@
     "semantic_hash": ""
   },
   "docs/content/first-steps/build-your-website.md": {
-    "mtime": 1793373856.652452,
-    "ast_hash": "532f62c7de64378294cce81e7fe87b4a",
+    "mtime": 1793383902.9070778,
+    "ast_hash": "58e3b71e24046ec52aa8c1090ebfdd76",
     "semantic_hash": ""
   },
   "docs/content/first-steps/complete-your-business-profile.md": {
-    "mtime": 1793373856.6534517,
-    "ast_hash": "17dff507811ed8ac43a17be42eb296ae",
+    "mtime": 1793383730.9005964,
+    "ast_hash": "a6d48895695b499065d70407892c82d8",
     "semantic_hash": ""
   },
   "docs/content/first-steps/connect-essentials.md": {
-    "mtime": 1793373856.6534517,
-    "ast_hash": "a498a697afc537f17ce219edc1004b51",
+    "mtime": 1793383897.2164865,
+    "ast_hash": "5bdfbccff0b8100e820444dd52aa9512",
     "semantic_hash": ""
   },
   "docs/content/first-steps/index.md": {
-    "mtime": 1793373856.6534517,
-    "ast_hash": "b948a74a5b899b36b82100f00c8651df",
+    "mtime": 1793383987.6819348,
+    "ast_hash": "f422c2da4a204fd369c591aec978fc0a",
     "semantic_hash": ""
   },
   "docs/content/first-steps/manage-bookings-and-customers.md": {
-    "mtime": 1793373856.6544516,
-    "ast_hash": "0b2a147b61655ad553dc4270d432297a",
+    "mtime": 1793400614.938613,
+    "ast_hash": "f40eab33f7fa560a67f119f293136eed",
     "semantic_hash": ""
   },
   "docs/content/first-steps/publish-and-share.md": {
-    "mtime": 1793373856.6544516,
-    "ast_hash": "e30d5c6b7eb47a67259ae392b7c2f261",
+    "mtime": 1793383908.1281707,
+    "ast_hash": "5d626259c92c50117b2c6c416ca4c966",
     "semantic_hash": ""
   },
   "docs/content/first-steps/set-up-your-services.md": {
-    "mtime": 1793373856.6544516,
-    "ast_hash": "0cfc721e8bc0bb059c8a4bed41ac11dc",
+    "mtime": 1793387534.4164052,
+    "ast_hash": "d74e435270233ae075732c1dbc5d0574",
     "semantic_hash": ""
   },
   "docs/content/first-steps/set-your-availability.md": {
-    "mtime": 1793373856.6554532,
-    "ast_hash": "d42abdeac9cbb9187c02e44ece384d08",
+    "mtime": 1793383814.3106604,
+    "ast_hash": "cb000e237c0ec38fd25d25584f54a613",
     "semantic_hash": ""
   },
   "docs/content/first-steps/test-the-customer-experience.md": {
-    "mtime": 1793373856.6554532,
-    "ast_hash": "b9561c8b06e535bb4eac6e5fe91b79c5",
+    "mtime": 1793383913.789253,
+    "ast_hash": "011883c2c59f6a5dd2b1e5d5dffe1241",
     "semantic_hash": ""
   },
   "docs/content/getting-started/introduction.md": {
@@ -36055,13 +36055,13 @@
     "semantic_hash": ""
   },
   "docs/content/getting-started/sign-up.md": {
-    "mtime": 1793373856.6564512,
-    "ast_hash": "05d6b434b0dfbd8a1e39fa50ece4cb59",
+    "mtime": 1793379894.9685788,
+    "ast_hash": "f40c27ac23659c8597a956e5abd5dd18",
     "semantic_hash": ""
   },
   "docs/content/getting-started/subscription-and-checkout.md": {
-    "mtime": 1793373856.6564512,
-    "ast_hash": "b6fe3804f92c3bf65e8d29d2c7274bb1",
+    "mtime": 1793379899.306466,
+    "ast_hash": "4da831eb7612ca2e6e82e7ccb16a3810",
     "semantic_hash": ""
   },
   "docs/content/getting-started/what-is-hacado.md": {
@@ -36070,8 +36070,8 @@
     "semantic_hash": ""
   },
   "docs/content/getting-started/workspace-install-wizard.md": {
-    "mtime": 1793373856.657451,
-    "ast_hash": "3677af9ca4b98c3f733ab52a3f5cd444",
+    "mtime": 1793382327.3123853,
+    "ast_hash": "8e6774ce173396e663bf8e2a4450dcce",
     "semantic_hash": ""
   },
   "docs/public/img/placeholders/README.md": {
@@ -36079,64 +36079,34 @@
     "ast_hash": "78bae52010b5a1621efa7cf6cd183e42",
     "semantic_hash": ""
   },
-  "docs/public/img/first-steps/dashboard.png": {
-    "mtime": 1780941640.0102096,
-    "ast_hash": "064315caca1862a48b84c89be9ff4408",
-    "semantic_hash": ""
-  },
-  "docs/public/img/first-steps/settings-brand.png": {
-    "mtime": 1780941734.8650978,
-    "ast_hash": "0dadb1e874c6e58331b69f032c1b55fb",
-    "semantic_hash": ""
-  },
-  "docs/public/img/getting-started/brand.png": {
-    "mtime": 1780938732.332268,
-    "ast_hash": "61c0ac6d5078a525af40bb5d79ef080c",
-    "semantic_hash": ""
-  },
   "docs/public/img/getting-started/business.png": {
-    "mtime": 1780938134.496804,
-    "ast_hash": "adf8e93987b81c96982a17f3bd0b5da1",
-    "semantic_hash": ""
-  },
-  "docs/public/img/getting-started/checkout.png": {
-    "mtime": 1780937952.113551,
-    "ast_hash": "a2446f8c7e889ffca15c275b80d6757d",
-    "semantic_hash": ""
-  },
-  "docs/public/img/getting-started/integrations.png": {
-    "mtime": 1780939195.4331877,
-    "ast_hash": "fbfd3bc290770917cad90e5f26347632",
+    "mtime": 1793380476.0713663,
+    "ast_hash": "8b6f76d6e45aeb0847c6a43b36ad106e",
     "semantic_hash": ""
   },
   "docs/public/img/getting-started/payments.png": {
-    "mtime": 1780939269.2615306,
-    "ast_hash": "7976160625d935b4b42d897647da1c03",
-    "semantic_hash": ""
-  },
-  "docs/public/img/getting-started/polar.png": {
-    "mtime": 1777578004.6936305,
-    "ast_hash": "d3c53237c0cba29b7bdd1117ea9de1e7",
+    "mtime": 1793382291.6651602,
+    "ast_hash": "6eba27c6d69aff0f8020999a5f8caf33",
     "semantic_hash": ""
   },
   "docs/public/img/getting-started/schedule.png": {
-    "mtime": 1780938858.1093848,
-    "ast_hash": "51bd01beed798c28197c32c47135a098",
+    "mtime": 1793381595.9263005,
+    "ast_hash": "8368234eb10369a0d3100716abee6ee7",
     "semantic_hash": ""
   },
   "docs/public/img/getting-started/service-template.png": {
-    "mtime": 1780938781.425428,
-    "ast_hash": "648c5b8e52d12415f926caca3d85dc27",
+    "mtime": 1793382116.0494933,
+    "ast_hash": "0d36b3594f8683d92438b1cf5c452481",
     "semantic_hash": ""
   },
   "docs/public/img/getting-started/services.png": {
-    "mtime": 1780938826.0482256,
-    "ast_hash": "be46ac3e7e54bd73333c136e15d6e0c1",
+    "mtime": 1793381572.6328547,
+    "ast_hash": "82baef88fa9268a88d0da658934afbbf",
     "semantic_hash": ""
   },
   "docs/public/img/getting-started/sign-up.png": {
-    "mtime": 1780937866.9663641,
-    "ast_hash": "5c0c7ddd0ea193e7693eb074eab196b5",
+    "mtime": 1793379965.1287794,
+    "ast_hash": "9a25afffe24c64120bcc26f1b70ef821",
     "semantic_hash": ""
   },
   "docs/public/img/navbar-logo-dark.svg": {
@@ -36842,6 +36812,871 @@
   "docs/public/img/placeholders/signup-page.svg": {
     "mtime": 1777569578.0318213,
     "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/content/website/_meta.ts": {
+    "mtime": 1793383649.4035635,
+    "ast_hash": "832b281f1b2c73425e4a1ba4cb762f14",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/app-docs/SKILL.md": {
+    "mtime": 1793386102.4056726,
+    "ast_hash": "ba2e73346d2dbc1a3cebf2f556246a70",
+    "semantic_hash": ""
+  },
+  "docs/content/website/page-builder.md": {
+    "mtime": 1793383649.0430577,
+    "ast_hash": "63350d11a549fb15f26458ff808ab43b",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/appointments-list.png": {
+    "mtime": 1793383859.7663872,
+    "ast_hash": "8ae58d1b6ad2ad3c6ace0b31d4b49bfe",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/apps-store.png": {
+    "mtime": 1793383827.6983752,
+    "ast_hash": "98bfa9839ace780fea5fa4a7a62b1997",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/customers-list.png": {
+    "mtime": 1793383889.4218624,
+    "ast_hash": "edd723c41da79b715076f4366b9a45ed",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-calendar.png": {
+    "mtime": 1793383570.4170842,
+    "ast_hash": "2f6a8f0fec331d52f76b3d74a367a96e",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-kpis.png": {
+    "mtime": 1793383612.4620674,
+    "ast_hash": "9f70e4be19711a534dedac3c162422a4",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-needs-attention.png": {
+    "mtime": 1793383612.4960678,
+    "ast_hash": "51a0c122962e58cb230d12ee9a583749",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-overview.png": {
+    "mtime": 1793383531.3901985,
+    "ast_hash": "80d71a66bcfe5a6827c981efbce2541d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-pending.png": {
+    "mtime": 1793383598.197469,
+    "ast_hash": "b05a76ccca5f0554ebd1f70027d54281",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-sidebar.png": {
+    "mtime": 1793383612.4495704,
+    "ast_hash": "21579b532994e42fe761a8d8b7edba5a",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-tabs.png": {
+    "mtime": 1793383622.317729,
+    "ast_hash": "58aa767c653efe057711074b312f8cad",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard-upcoming.png": {
+    "mtime": 1793383612.4825673,
+    "ast_hash": "5bae90d4fb18ce4dc9440114754c32f8",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/schedule-desktop.png": {
+    "mtime": 1793383778.6790912,
+    "ast_hash": "bd2f48f73149b7a325763fe93bf54587",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/schedule-mobile-edit.png": {
+    "mtime": 1793383798.0204003,
+    "ast_hash": "b3bdf017157dbb8e8a5abb6464de46a3",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/schedule-mobile.png": {
+    "mtime": 1793383789.3772635,
+    "ast_hash": "a336c60f69048c2cc456c1a8e99b36a5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/services-edit.png": {
+    "mtime": 1793383758.3950598,
+    "ast_hash": "89ba85ce90b01a283567aefc4962f5f8",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/services-list.png": {
+    "mtime": 1793383736.549188,
+    "ast_hash": "3a415b1d03ba21722dd5b319eb9d888b",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/settings-brand-address.png": {
+    "mtime": 1793383722.0254557,
+    "ast_hash": "f3b3d0924dcd7ac86652451743f08b12",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/settings-brand-brand.png": {
+    "mtime": 1793383680.6525636,
+    "ast_hash": "6adc9db71d601652eb647f5020ee714e",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/settings-brand-general.png": {
+    "mtime": 1793383664.2708032,
+    "ast_hash": "25876b607a7cb3fb91bf1dab926b2ced",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/settings-brand-social.png": {
+    "mtime": 1793383691.7438426,
+    "ast_hash": "00c368a565cfe2b0e972751e6ab0191b",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/settings-brand-styling.png": {
+    "mtime": 1793383698.2560592,
+    "ast_hash": "f5d755b91b8ee894d958eb4a94287aa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/website-pages.png": {
+    "mtime": 1793383838.2660437,
+    "ast_hash": "92b23f6942a92afbe3935ce4c83c5d0b",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/connect.png": {
+    "mtime": 1793381615.3598404,
+    "ast_hash": "ba7648968a1c511a59b3ecbf051ee81d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/ready.png": {
+    "mtime": 1793381739.9122894,
+    "ast_hash": "cba597eb16834ec65fa68ee5d6a7fee8",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/website.png": {
+    "mtime": 1793381675.027284,
+    "ast_hash": "b1386d5f49c63de17b14fd94cc5d7cda",
+    "semantic_hash": ""
+  },
+  "docs/components/plan-requirement.tsx": {
+    "mtime": 1793385977.2796533,
+    "ast_hash": "72fd71678645366726a1ef3c70e126f3",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/_meta.ts": {
+    "mtime": 1793393938.3256023,
+    "ast_hash": "4ea057fbcd23edc844d3646d36f82e14",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/addons/_meta.ts": {
+    "mtime": 1793393938.2289343,
+    "ast_hash": "da748ae19fb1dbc3388f2676c3e19348",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/discounts/_meta.ts": {
+    "mtime": 1793393938.2571616,
+    "ast_hash": "649c68029a6dbad0a028c16beb1f8284",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/_meta.ts": {
+    "mtime": 1793393938.2044234,
+    "ast_hash": "90e95a9caac19f75719c1d4a84ab2a3f",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/_meta.ts": {
+    "mtime": 1793393938.270787,
+    "ast_hash": "3e33f95d1c5e172b38f94abe4b3da448",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/_meta.ts": {
+    "mtime": 1793393938.2869146,
+    "ast_hash": "f25d89bdbff967fd1a72f765c43bb9db",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/_meta.ts": {
+    "mtime": 1793393938.243503,
+    "ast_hash": "0f8584361970a7e8a5d590d14a7c8261",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/sold-packages/_meta.ts": {
+    "mtime": 1793393938.3036015,
+    "ast_hash": "676f2f5cbf688b5acc1af317fc61e09e",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/addons/creating-a-new-addon.md": {
+    "mtime": 1793395501.416495,
+    "ast_hash": "dbc8d2d2f731fe587b52d206e00999c1",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/addons/deleting-an-addon.md": {
+    "mtime": 1793386949.344386,
+    "ast_hash": "842a3c3716a98a2ccba61786f69e3441",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/addons/index.md": {
+    "mtime": 1793393942.2983341,
+    "ast_hash": "4d4b29f793ea7e13b4af89d9c0af3e76",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/addons/listing-addons.md": {
+    "mtime": 1793386925.1090367,
+    "ast_hash": "6dda335da8114c564bc53b70da06d9d3",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/addons/updating-an-existing-addon.md": {
+    "mtime": 1793386964.2196002,
+    "ast_hash": "1df60f98bdf4ace7b6bb09a9d055c719",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/discounts/creating-a-new-discount.mdx": {
+    "mtime": 1793396235.3583372,
+    "ast_hash": "e6b444b62ecba6bfbdeeb068b3a61f5e",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/discounts/deleting-a-discount.md": {
+    "mtime": 1793387096.1289992,
+    "ast_hash": "d0ad2ea37d87f993a082ae35cfff5d58",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/discounts/index.mdx": {
+    "mtime": 1793393988.9312444,
+    "ast_hash": "54868739dfcf2722d4f2e467741b47f7",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/discounts/listing-discounts.md": {
+    "mtime": 1793387075.054696,
+    "ast_hash": "25271b411f9d397211a4be40ac4efb94",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/discounts/updating-an-existing-discount.md": {
+    "mtime": 1793396348.1454096,
+    "ast_hash": "83499b7453a122219803516590a66b5a",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/creating-a-new-field.md": {
+    "mtime": 1793386426.5537837,
+    "ast_hash": "99408ac1c1155a4ccd68d977cde2aa3c",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/deleting-a-field.md": {
+    "mtime": 1793386448.8931062,
+    "ast_hash": "06483a623109f418dea991c40d03ab86",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/field-types.md": {
+    "mtime": 1793386437.9479485,
+    "ast_hash": "86b06a6fa7c510fd89070d90bf5207fd",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/listing-fields.md": {
+    "mtime": 1793386420.1791925,
+    "ast_hash": "ab28914778ab83b5776538e936c14c2d",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/updating-an-existing-field.md": {
+    "mtime": 1793386443.8665333,
+    "ast_hash": "26325c829f36f98957f322c04d5c4973",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/activating-and-deactivating.md": {
+    "mtime": 1793387125.8729274,
+    "ast_hash": "a10b3af95fd760c920f05c5ac0fe9628",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/creating-a-new-gift-card.mdx": {
+    "mtime": 1793396291.8199263,
+    "ast_hash": "777627bad3d6f85e6111e6d33f624164",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/deleting-a-gift-card.md": {
+    "mtime": 1793387131.7673028,
+    "ast_hash": "61b9ccf184ab327c155ad508d2762d26",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/index.mdx": {
+    "mtime": 1793393988.968897,
+    "ast_hash": "3174c01d009fcafe1c108cd27fde4901",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/listing-gift-cards.md": {
+    "mtime": 1793387108.156672,
+    "ast_hash": "dd6a79071988787d1601d141f0fb6979",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/gift-cards/updating-an-existing-gift-card.md": {
+    "mtime": 1793396345.7361069,
+    "ast_hash": "77343623e85238b365c3b674e576efe3",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/index.md": {
+    "mtime": 1793387225.8691578,
+    "ast_hash": "12e94c5eaf42c199e981413995dda155",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/creating-a-new-package.mdx": {
+    "mtime": 1793396342.471979,
+    "ast_hash": "ab63675316595a17cb864b233d5dd9bd",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/deleting-a-package.md": {
+    "mtime": 1793387165.9262946,
+    "ast_hash": "62063c614d9a04a7c641a312b241e920",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/index.mdx": {
+    "mtime": 1793393988.912243,
+    "ast_hash": "59c8fe3c482681e381a960d3bbc95dbb",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/listing-packages.md": {
+    "mtime": 1793387141.791947,
+    "ast_hash": "94492a94b3c63f315a3f0d4852835a6a",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/selling-a-package.md": {
+    "mtime": 1793387160.9802246,
+    "ast_hash": "78851e1941aadf39590d17f28a4886f4",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/packages/updating-an-existing-package.md": {
+    "mtime": 1793387154.6921325,
+    "ast_hash": "110bb7aed7afee6f3385ffca65f4aeb5",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/creating-a-new-service.md": {
+    "mtime": 1793400613.0967195,
+    "ast_hash": "f9e5c6fdb9b1d6a0d2e516db9344f175",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/deleting-a-service.md": {
+    "mtime": 1793386695.1443448,
+    "ast_hash": "75db82483403ca58184861f758091982",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/good-to-know.md": {
+    "mtime": 1793386747.885604,
+    "ast_hash": "ea396b10620125af2005868f0a21bd17",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/index.md": {
+    "mtime": 1793393988.951895,
+    "ast_hash": "3aed6191faef80f5d6fd65a7725287c9",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/listing-services.md": {
+    "mtime": 1793386623.4118106,
+    "ast_hash": "5ffd3ca6b98862e0a32c738c803cbd96",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/services/updating-an-existing-service.md": {
+    "mtime": 1793395611.9218104,
+    "ast_hash": "11ac72576cff3fd025d49b9694bfd014",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/sold-packages/index.mdx": {
+    "mtime": 1793393988.8882413,
+    "ast_hash": "ac26c2f47fca84cf4d746b5e7c0b8d2c",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/sold-packages/listing-sold-packages.md": {
+    "mtime": 1793387173.2834003,
+    "ast_hash": "4015faaa5f3f8f0a050e847d37f132b4",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/sold-packages/working-with-sold-packages.md": {
+    "mtime": 1793387180.1029985,
+    "ast_hash": "94f49820ada4af59eea6045a27aec82f",
+    "semantic_hash": ""
+  },
+  "docs/content/daily-use/appointment-settings-services-packages.md": {
+    "mtime": 1793386105.8192217,
+    "ast_hash": "1849a6f0e6cbd129db2d7d5b092beb1f",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/dashboard.md": {
+    "mtime": 1793383638.2607937,
+    "ast_hash": "23db1c011e3b0e785ca80155139e34b3",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/create-form.png": {
+    "mtime": 1793387210.4234354,
+    "ast_hash": "1d9e5b897ad8c19b636ef292ba87bc12",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/delete-confirm.png": {
+    "mtime": 1793386662.431373,
+    "ast_hash": "65e91633f129951fd212b6ba8f721941",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/listing-empty.png": {
+    "mtime": 1793386917.1104217,
+    "ast_hash": "6281f72abba824c29f7180c5fe0579ac",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/listing.png": {
+    "mtime": 1793387003.423665,
+    "ast_hash": "5cc42d2045e9113a19b69b5a55437161",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/member-overrides.png": {
+    "mtime": 1793387236.8048153,
+    "ast_hash": "043bf667297af46c12279868020858b3",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/member-unavailable.png": {
+    "mtime": 1793387249.387996,
+    "ast_hash": "78c77bd4766b3c8c5b9a682a4a313e72",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/addons/row-menu.png": {
+    "mtime": 1793386628.296882,
+    "ast_hash": "dabcf5d37387d965ac264ce2104ef6d4",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/create-form.png": {
+    "mtime": 1793387755.9405947,
+    "ast_hash": "87fbef6f67ab7bc0434f9b3ff4767780",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/delete-confirm.png": {
+    "mtime": 1793386540.6916206,
+    "ast_hash": "230b835ca1a958819285394ec21a856d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/limit-to.png": {
+    "mtime": 1793396151.0792286,
+    "ast_hash": "13c0bffd00a11edea618a5a59da029d1",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/listing.png": {
+    "mtime": 1793387512.6360924,
+    "ast_hash": "0c536b80875b82b9181b06387fe4af20",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/promo-codes.png": {
+    "mtime": 1793396139.9393225,
+    "ast_hash": "afd3d748c02943671fa1c52a6ff22ead",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/row-menu.png": {
+    "mtime": 1793386532.5410025,
+    "ast_hash": "2fb9f8b72786100381063abe9adaee66",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/create-form.png": {
+    "mtime": 1793386488.2558658,
+    "ast_hash": "2ae9d487941a7a969d44c156b0fa09f5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/delete-confirm.png": {
+    "mtime": 1793386540.6916206,
+    "ast_hash": "230b835ca1a958819285394ec21a856d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/file-accept-picker.png": {
+    "mtime": 1793386320.5308142,
+    "ast_hash": "60104ab429b8917731e82d89dfb8b594",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/file-settings.png": {
+    "mtime": 1793386320.5308142,
+    "ast_hash": "60104ab429b8917731e82d89dfb8b594",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/listing-empty.png": {
+    "mtime": 1793386221.3773856,
+    "ast_hash": "c9cf6d41a937561cacea09658391968a",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/listing.png": {
+    "mtime": 1793386509.9506774,
+    "ast_hash": "4fddcbc1ab6d8f552712a74c074bbf8c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/required-switch.png": {
+    "mtime": 1793386488.2558658,
+    "ast_hash": "2ae9d487941a7a969d44c156b0fa09f5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/row-menu.png": {
+    "mtime": 1793386532.5410025,
+    "ast_hash": "2fb9f8b72786100381063abe9adaee66",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/select-options.png": {
+    "mtime": 1793386496.8704894,
+    "ast_hash": "38375f8aa99d20169e2f4274acfef86e",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/type-filter.png": {
+    "mtime": 1793386519.81882,
+    "ast_hash": "2c41589b45f996620d1aa7f07a175328",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/type-picker.png": {
+    "mtime": 1793386287.8743439,
+    "ast_hash": "be2bdb06f382984e76c0c973d6038dda",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/fields/update-form.png": {
+    "mtime": 1793386488.2558658,
+    "ast_hash": "2ae9d487941a7a969d44c156b0fa09f5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/create-form.png": {
+    "mtime": 1793396265.7129486,
+    "ast_hash": "925bc87b63a2e4d3d7c19bd2f5a110ca",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/delete-disabled.png": {
+    "mtime": 1793387539.326975,
+    "ast_hash": "389edc27e119370ec5566ec6e2c515d6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/edit-locked.png": {
+    "mtime": 1793387539.326975,
+    "ast_hash": "389edc27e119370ec5566ec6e2c515d6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/listing.png": {
+    "mtime": 1793387818.4304948,
+    "ast_hash": "780c98a36cc492a541b1dab03db9f57e",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/payment-link.png": {
+    "mtime": 1793387539.326975,
+    "ast_hash": "389edc27e119370ec5566ec6e2c515d6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/row-menu.png": {
+    "mtime": 1793387818.4304948,
+    "ast_hash": "780c98a36cc492a541b1dab03db9f57e",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/create-form.png": {
+    "mtime": 1793396309.6242313,
+    "ast_hash": "cb12a4280aa83cf996a5dc22de88ee35",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/delete-blocked.png": {
+    "mtime": 1793387565.1538477,
+    "ast_hash": "33132e8a3f8dcff7b1ad99c721871921",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/eligible-staff.png": {
+    "mtime": 1793396322.9337678,
+    "ast_hash": "5fc270b3c3cf0aa37024ff61f7ef1678",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/listing.png": {
+    "mtime": 1793387565.1538477,
+    "ast_hash": "33132e8a3f8dcff7b1ad99c721871921",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/sell-dialog.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/add-from-template.png": {
+    "mtime": 1793387277.2528977,
+    "ast_hash": "e4e820af463a4a26f8127322450272ba",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/add-split.png": {
+    "mtime": 1793387277.2528977,
+    "ast_hash": "e4e820af463a4a26f8127322450272ba",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/availability-dialog.png": {
+    "mtime": 1793387705.0343616,
+    "ast_hash": "324c4d57eee1a7f7b24283c4ab823c36",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/create-form.png": {
+    "mtime": 1793387288.1515548,
+    "ast_hash": "25dac11a3f4a9c2dd2ab6d947108f139",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/create-general-fixed.png": {
+    "mtime": 1793393999.5925405,
+    "ast_hash": "8fb6823ec73de907462a493ffd8c9513",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/create-general-flexible.png": {
+    "mtime": 1793394064.2767596,
+    "ast_hash": "4081216d27032935b82f8f617338e695",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/custom-auto-confirm.png": {
+    "mtime": 1793394064.2767596,
+    "ast_hash": "4081216d27032935b82f8f617338e695",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/delete-confirm.png": {
+    "mtime": 1793386540.6916206,
+    "ast_hash": "230b835ca1a958819285394ec21a856d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/listing.png": {
+    "mtime": 1793387264.6682172,
+    "ast_hash": "fda500fd821b4b90f4888288866e7bd8",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/row-menu.png": {
+    "mtime": 1793387264.6682172,
+    "ast_hash": "fda500fd821b4b90f4888288866e7bd8",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-addons.png": {
+    "mtime": 1793394371.9361305,
+    "ast_hash": "4dfecd14ee2463da60766ec81d4e06f6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-cancellations.png": {
+    "mtime": 1793394461.7228155,
+    "ast_hash": "9b07b2715fb0444febc8b896c00cb6ee",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-duplicates.png": {
+    "mtime": 1793394159.8091693,
+    "ast_hash": "11ac1c9d55f31008f6f0f2e747811691",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-fields.png": {
+    "mtime": 1793394361.2482738,
+    "ast_hash": "9246bf70719d9d8f84d73fc94df7fd02",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-payments-deposit.png": {
+    "mtime": 1793394112.0984666,
+    "ast_hash": "8e601839b51bdbec6e7218c9d480f7e3",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-payments-tips.png": {
+    "mtime": 1793394131.3106358,
+    "ast_hash": "8f744035cf45dd5ecb74e170413a6e47",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-reschedules.png": {
+    "mtime": 1793394294.3158014,
+    "ast_hash": "45069b9fd914876bf0635d4a71ecbcc0",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-staff.png": {
+    "mtime": 1793387372.068763,
+    "ast_hash": "cea75ff0779a1142c71a1e9f31ccf6f2",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/virtual-switch.png": {
+    "mtime": 1793394064.2767596,
+    "ast_hash": "4081216d27032935b82f8f617338e695",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/adjust-credits.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/cancel-confirm.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/cancel-reactivate.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/listing-empty.png": {
+    "mtime": 1793387577.457525,
+    "ast_hash": "046476e04933ac0129c691d21233a524",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/listing.png": {
+    "mtime": 1793387577.457525,
+    "ast_hash": "046476e04933ac0129c691d21233a524",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/reactivate.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/row-menu.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/sold-packages/sell-dialog.png": {
+    "mtime": 1793387836.3587527,
+    "ast_hash": "df2b212b3b100c23a04ffecf8171273c",
+    "semantic_hash": ""
+  },
+  "docs/content/customers/_meta.ts": {
+    "mtime": 1793400538.6501772,
+    "ast_hash": "cc04b8f4f9c03dd6a1d007394a3acbcc",
+    "semantic_hash": ""
+  },
+  "docs/content/catalog/fields/index.mdx": {
+    "mtime": 1793395353.688914,
+    "ast_hash": "3853f6d46a46b2e2c57c02e5ee5a3512",
+    "semantic_hash": ""
+  },
+  "docs/content/customers/creating-a-customer.md": {
+    "mtime": 1793400571.0520754,
+    "ast_hash": "401fa7ed6b4cb72e42ab2a8abf823bf3",
+    "semantic_hash": ""
+  },
+  "docs/content/customers/how-customers-are-created.md": {
+    "mtime": 1793400589.0868652,
+    "ast_hash": "3051d6bdc52facbb79a356a300dc2786",
+    "semantic_hash": ""
+  },
+  "docs/content/customers/index.md": {
+    "mtime": 1793400545.2365105,
+    "ast_hash": "75990b24b3416f0c555d23464de9f4a9",
+    "semantic_hash": ""
+  },
+  "docs/content/customers/listing-customers.md": {
+    "mtime": 1793400555.7233312,
+    "ast_hash": "868c531cb9c5639dad5031307520c1a7",
+    "semantic_hash": ""
+  },
+  "docs/content/customers/working-with-a-customer.md": {
+    "mtime": 1793400608.6474535,
+    "ast_hash": "3fa311eb6df4342a54d228fd0aaed706",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/dates.png": {
+    "mtime": 1793396122.958039,
+    "ast_hash": "675bd640f5a69e9bf7fdf00631b6fd3f",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/details-fixed.png": {
+    "mtime": 1793396216.3022459,
+    "ast_hash": "64497a05a0b7ab9c93df12e2a2149612",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/details.png": {
+    "mtime": 1793396112.9401803,
+    "ast_hash": "d78e52c1a6f09af419d01ee27f7b3b8e",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/limit-to-packages.png": {
+    "mtime": 1793396246.2744286,
+    "ast_hash": "b6ed61332c919f8f6fe79289ad25af74",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/discounts/max-uses.png": {
+    "mtime": 1793396133.689629,
+    "ast_hash": "94fee2ae3d9ad682cc566e5336e9c7ac",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/code-and-amount.png": {
+    "mtime": 1793396265.7129486,
+    "ast_hash": "925bc87b63a2e4d3d7c19bd2f5a110ca",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/gift-cards/payment-method.png": {
+    "mtime": 1793396272.554085,
+    "ast_hash": "5f765554ee39c50e49480bf447345a88",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/details.png": {
+    "mtime": 1793396309.6242313,
+    "ast_hash": "cb12a4280aa83cf996a5dc22de88ee35",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/packages/service-price.png": {
+    "mtime": 1793396316.6043782,
+    "ast_hash": "1df7180eec0aa8300f31be2fe75c35c5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/booking-duplicate-warning.png": {
+    "mtime": 1793400536.5683017,
+    "ast_hash": "0bf0e80613c74b8149f3b242afbf2cba",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-cancellations-default.png": {
+    "mtime": 1793394483.9675295,
+    "ast_hash": "854dfbb6855b90f75b94939410bcce69",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-cancellations-overrides-free.png": {
+    "mtime": 1793394677.535243,
+    "ast_hash": "ae3d72126136384898534831ec3cfb2d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-cancellations-overrides.png": {
+    "mtime": 1793394668.3570123,
+    "ast_hash": "9deaf04d9ff55d3987111efa9d307646",
+    "semantic_hash": ""
+  },
+  "docs/public/img/catalog/services/tab-reschedules-overrides.png": {
+    "mtime": 1793394423.434939,
+    "ast_hash": "259ecc534408fa10f46881c47fa2efd9",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/booking-duplicate-warning.png": {
+    "mtime": 1793400536.5623055,
+    "ast_hash": "0bf0e80613c74b8149f3b242afbf2cba",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/booking-your-details.png": {
+    "mtime": 1793400536.5512962,
+    "ast_hash": "a2a2e8eedd74adce6afcd1399e0bd2e2",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/create-form-deposit.png": {
+    "mtime": 1793400331.827172,
+    "ast_hash": "098ecd16c4a2edecf8ad7e9d6f830ef9",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/create-form.png": {
+    "mtime": 1793400303.9125533,
+    "ast_hash": "5730bf02ff967d2c2560137b753e1340",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/details-also-known-as.png": {
+    "mtime": 1793400398.3299236,
+    "ast_hash": "a8ffb2960f79f15591175a61e424d8d1",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/details-deposit.png": {
+    "mtime": 1793400385.3565676,
+    "ast_hash": "3616e0b942098faccf131f0234725535",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/details.png": {
+    "mtime": 1793400370.414772,
+    "ast_hash": "7450d32f49ad07745239bc7bf5b07adb",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/listing.png": {
+    "mtime": 1793400150.7331412,
+    "ast_hash": "906362cd3427aa8b788c52957f0955b9",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/tab-appointments.png": {
+    "mtime": 1793400684.1882458,
+    "ast_hash": "6e4c88459589c91f2d49aba66ad797bf",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/tab-communications.png": {
+    "mtime": 1793400467.2346804,
+    "ast_hash": "a99e6d7218bcf9bbbd21eb8e90cee97f",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/tab-files.png": {
+    "mtime": 1793400454.9483242,
+    "ast_hash": "dbe419ba91a136dd26da1190798977cc",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/tab-packages.png": {
+    "mtime": 1793400695.8706205,
+    "ast_hash": "3be32a0c41b38438040a317b1345e143",
+    "semantic_hash": ""
+  },
+  "docs/public/img/customers/tab-payments.png": {
+    "mtime": 1793400427.678094,
+    "ast_hash": "5a9443d078987883cfe95cf77076fd3e",
     "semantic_hash": ""
   }
 }

@@ -2,6 +2,7 @@ import type { MetaRecord } from "nextra";
 
 const meta: MetaRecord = {
   index: "First steps",
+  dashboard: "Get to know your dashboard",
   "complete-your-business-profile": "Complete your business profile",
   "set-up-your-services": "Set up your services",
   "set-your-availability": "Set your availability",

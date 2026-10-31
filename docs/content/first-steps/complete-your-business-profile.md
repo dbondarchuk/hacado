@@ -6,42 +6,52 @@ description: Confirm your business name, logo, colours, and contact details befo
 
 The setup wizard already captured the basics. Before clients see your site, take a few minutes to make sure your **brand** looks right and your **business details** are accurate.
 
-Open **Settings** → **Brand** in the side menu. Related items are grouped into tabs along the top. Tap **Save** at the bottom when you finish each tab.
-
-![Brand settings](/img/first-steps/settings-brand.png)
+Open **Settings → Brand** in the side menu. Related items are grouped into tabs along the top. Tap **Save** at the bottom when you finish each tab.
 
 ## General tab
 
-Use **General** for information that should stay consistent on paperwork and inside your dashboard:
+Use **General** for information that should stay consistent on paperwork and inside your dashboard.
+
+![General tab with business name, industry, timezone, country, and currency](/img/first-steps/settings-brand-general.png)
 
 - **Business name** - how clients recognise you on emails and your site.
-- **Address** - optional physical location.
+- **Industry** - helps search and listings understand what you do.
+- **Business email** and **phone** - contact details for the business.
 - **Time zone** - anchors appointment times and reminders to your local clock.
-- **Use customer's timezone** - Select yes, if you mainly provide online services and it's important for your customers to operate with times in their own timezone. If your provide in-person services, selecting _No_ will allow customers to see all the times in your location's timezone by default. It's useful for customers who are currently traveling to not confuse their appointment time.
+- **Use customer's timezone** - turn on for mostly online work so clients see times in their own zone. Leave it off for in-person work so everyone sees your location’s clock.
 - **Country and currency** - shape how prices display at checkout.
+- **Street address** - optional physical location. Use **Find address** if you prefer a lookup.
 
 If any of these were wrong in the wizard, fix them here first.
 
 ## Brand tab
 
-Use **Brand** for what visitors see on your booking website:
+Use **Brand** for what visitors see on your booking website.
 
-- **Site title** - the name shown on your public pages.
-- **Logo and favicon** - the small icon in browser tabs; a logo builds trust even if it is simple.
-- **Language** - the default language for your booking site.
-- **SEO Meta** - provide a good description of your business and keywords that greatly describe it for search engines (Google) to show your website higher in the search results. Keep them short but on target.
-- **Booking website address** - your live link (for example `https://yourname.hacado.me`) with a copy button.
-- **Custom domain** - optional; see [Connect your own web address](/docs/daily-use/connect-domain) when you own a domain name.
+![Brand tab with logo, site title, language, favicon, and SEO](/img/first-steps/settings-brand-brand.png)
+
+- **Logo** and **favicon** - click **Select** to pick an image from your assets. A logo builds trust even if it is simple.
+- **Site title** - the name shown on your public pages and in the browser tab.
+- **Default site language** - the language clients read first.
+- **Meta description** and **keywords** - a short description and a few words for search engines.
+
+Further down, **Your Hacado address** shows your public booking link. Use the copy button to save it. Custom domains are optional - see [Connect your own web address](/docs/daily-use/connect-domain).
+
+![Your Hacado address with copy and connect custom domain](/img/first-steps/settings-brand-address.png)
 
 ## Social tab
 
-Add links to profiles you want visitors to find - Instagram, Facebook, LinkedIn, and similar. These can appear on your public pages depending on how your site is laid out.
+Add links to profiles you want visitors to find - Instagram, Facebook, LinkedIn, and similar. Click the **+** button to add one. These can appear on your public pages depending on how your site is laid out.
+
+![Empty social links list with add button](/img/first-steps/settings-brand-social.png)
 
 ## Styling tab
 
-Fine-tune **colours and fonts** beyond what you picked during setup. Small tweaks here make the booking experience feel like your business, not a generic template.
+Fine-tune **fonts** and **colour overrides** beyond what the website design already set. Small tweaks here make the booking experience feel like your business.
 
-You will use the colors and fonts during building your website pages in order to match your style across all pages.
+![Styling tab with fonts and colour overrides](/img/first-steps/settings-brand-styling.png)
+
+You will use these colours and fonts when you edit website pages so the look stays consistent.
 
 ## Quick check before you move on
 
@@ -52,5 +62,5 @@ You will use the colors and fonts during building your website pages in order to
 
 ## Next steps
 
-- [Set up your services]()
+- [Set up your services](./set-up-your-services)
 - [Change settings](/docs/daily-use/settings) - fuller reference for all settings areas

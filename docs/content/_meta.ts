@@ -14,8 +14,20 @@ const meta: MetaRecord = {
     title: "First steps",
     theme: sectionTheme,
   },
+  catalog: {
+    title: "Catalog",
+    theme: sectionTheme,
+  },
+  customers: {
+    title: "Customers",
+    theme: sectionTheme,
+  },
   "daily-use": {
     title: "Using your workspace",
+    theme: sectionTheme,
+  },
+  website: {
+    title: "Website",
     theme: sectionTheme,
   },
   apps: {

@@ -7,6 +7,7 @@ import {
   paymentType,
 } from "@hacado/types/booking";
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   AppointmentsDataTableAsyncFilterBox,
   CustomersDataTableAsyncFilterBox,
@@ -111,30 +112,32 @@ export const PaymentsTableAction: React.FC<{
   );
 
   return (
-    <div
-      className={cn(
-        "flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row",
-        className,
-      )}
-    >
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-        <DataTableSearch
-          searchKey="search"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-          placeholder={t("paymentsList.table.filters.searchPlaceholder")}
-        />
-        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-        <div className="flex flex-wrap items-center gap-4 justify-between">
-          <ExportPaymentsButton customerIdLock={customerIdLock} />
-          {showAddPayment && <AddPaymentButton customerId={customerIdLock} />}
+    <>
+      <HeaderActionButtonsPortal>
+        <ExportPaymentsButton customerIdLock={customerIdLock} />
+        {showAddPayment && <AddPaymentButton customerId={customerIdLock} />}
+      </HeaderActionButtonsPortal>
+      <div
+        className={cn(
+          "flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row",
+          className,
+        )}
+      >
+        <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-2 md:gap-4">
+          <DataTableSearch
+            searchKey="search"
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setPage={setPage}
+            placeholder={t("paymentsList.table.filters.searchPlaceholder")}
+          />
+          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+          <DataTableResetFilter
+            isFilterActive={isAnyFilterActive}
+            onReset={resetFilters}
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };

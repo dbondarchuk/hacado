@@ -8,6 +8,10 @@ import {
 } from "@hacado/api-sdk/admin/search-params/payments";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  HeaderActionButtonsContainer,
+  HeaderActionButtonsProvider,
+} from "@hacado/ui-admin-kit/page";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
@@ -42,25 +46,31 @@ export default async function PaymentsPage(props: Params) {
 
   return (
     <PageContainer scrollable={false}>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("paymentsList.title")}
-            description={t("paymentsList.description")}
-          />
+      <HeaderActionButtonsProvider>
+        <div className="flex flex-1 flex-col gap-4 w-full">
+          <div className="flex flex-col gap-4">
+            <Breadcrumbs items={breadcrumbItems} />
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <Heading
+                title={t("paymentsList.title")}
+                description={t("paymentsList.description")}
+                className="min-w-0"
+              />
+              <HeaderActionButtonsContainer className="w-full flex-wrap justify-end md:w-auto" />
+            </div>
+          </div>
+          <PaymentsTableAction showAddPayment />
+          <Suspense
+            key={key}
+            fallback={<DataTableSkeleton columnCount={8} rowCount={10} />}
+          >
+            <PaymentsTable />
+          </Suspense>
+          <Suspense fallback={null}>
+            <OpenPaymentDetailsFromQuery />
+          </Suspense>
         </div>
-        <PaymentsTableAction showAddPayment />
-        <Suspense
-          key={key}
-          fallback={<DataTableSkeleton columnCount={8} rowCount={10} />}
-        >
-          <PaymentsTable />
-        </Suspense>
-        <Suspense fallback={null}>
-          <OpenPaymentDetailsFromQuery />
-        </Suspense>
-      </div>
+      </HeaderActionButtonsProvider>
     </PageContainer>
   );
 }

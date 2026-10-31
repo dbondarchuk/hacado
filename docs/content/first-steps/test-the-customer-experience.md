@@ -6,31 +6,31 @@ description: Book a test appointment yourself to confirm hours, payments, and no
 
 Before a real client books, walk through the process yourself. One test booking catches wrong hours, missing payments, or broken notifications early.
 
-![Test booking flow](/img/placeholders/first-steps-test-booking.svg)
-
 ## Book as a client
 
-1. Copy your booking link from **Settings** → **Brand**.
+1. Copy your booking link from **Settings → Brand → Brand → Your Hacado address**.
 2. Open a **private or incognito** browser window (so you are not logged in as the owner).
 3. Paste the link and browse your site like a new visitor.
 4. Pick a service, choose a time, and complete the booking form.
 5. Use your own email or phone for the test so you receive confirmations.
 
-If you require a deposit or full payment, complete the payment step with a real or test card according to your payment provider's guidance.
+If you require a deposit or full payment, complete the payment step with a card your payment provider accepts for testing. Do not put a card number in these docs.
 
 ## Check what happens on your side
 
 After booking, confirm each item that matters to your business:
 
 | What to verify | Where to look |
-| -------------- | ------------- |
-| Booking appears in your dashboard | **Dashboard home** or **Appointments** |
+| --- | --- |
+| Booking appears in your dashboard | **Dashboard** home or **Appointments** |
 | Confirmation email or text | Your inbox or phone |
-| Calendar entry | Google Calendar, Outlook, or wherever you connected |
-| Payment recorded | Open the appointment → **Payments** tab |
-| Pending approval (if you do not auto-confirm) | **Dashboard home** → **Pending appointments** |
+| Calendar entry | The calendar app you connected |
+| Payment recorded | Open the appointment → **Payments** |
+| Pending approval (if you do not auto-confirm) | **Dashboard → Pending Appointments** |
 
-Open the appointment in **Appointments**, click the row, and review the **Details**, **Communications**, and **History** tabs.
+![Appointments list with portrait sessions](/img/first-steps/appointments-list.png)
+
+Open the appointment in **Appointments**, click the row, and review the details.
 
 ## Clean up the test booking
 
@@ -44,14 +44,14 @@ Canceling proves your cancellation flow works too.
 ## Common issues and where to fix them
 
 | Problem | Likely fix |
-| ------- | ---------- |
-| No times available | [Set your availability]() |
-| Wrong service or price | [Set up your services]() |
-| No confirmation email | [Connect essentials]() → customer email notifications |
+| --- | --- |
+| No times available | [Set your availability](./set-your-availability) |
+| Wrong service or price | [Set up your services](./set-up-your-services) |
+| No confirmation email | [Connect essentials](./connect-essentials) → customer email notifications |
 | No text message | Customer text message notifications app + templates |
-| Payment did not work | Payment app under **Apps** → **Installed** |
+| Payment did not work | Payment app under **Settings → Apps → Installed apps** |
 | Booking not on calendar | Calendar app connection |
-| Page looks wrong | [Build your website]() and [Publish and share]() |
+| Page looks wrong | [Build your website](./build-your-website) and [Publish and share](./publish-and-share) |
 
 If an app connection fails, see **[Apps troubleshooting](/docs/apps/troubleshooting)**.
 
@@ -61,5 +61,5 @@ When the test booking flows smoothly end to end, share your link with confidence
 
 ## Next steps
 
-- [Manage bookings and customers]()
+- [Manage bookings and customers](./manage-bookings-and-customers)
 - [Apps overview](/docs/apps/overview)

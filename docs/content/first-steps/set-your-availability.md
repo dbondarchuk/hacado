@@ -1,24 +1,42 @@
 ---
-description: Set your working hours so clients can only book times you are actually available.
+description: Set your working hours on desktop or phone so clients can only book times you are free.
 ---
 
 # Set your availability
 
 Clients can only book when you are open. Your **default weekly schedule** tells Hacado which days and hours to offer on your booking website.
 
-Open **Settings** → **Schedule** (you can also reach schedule tools from the **Appointments** area).
+Open **Appointments → Schedule → Default schedule**.
 
-![Default weekly schedule](/img/placeholders/first-steps-schedule.svg)
+The screen looks different on a wide window and on a phone. Both save the same hours.
 
-## Set your default weekly hours
+## On a computer
 
-On the **Default schedule** screen, set working hours for each day of the week:
+You get a week grid. Hours run down the left. Days run across the top.
 
-- Turn days **on** or **off** depending on when you take appointments.
-- For open days, set **start** and **end** times for each block of hours.
-- Add more than one block per day if you take a lunch break, for example morning and afternoon slots.
+![Week grid with Monday through Friday open](/img/first-steps/schedule-desktop.png)
 
-Tap **Save** when finished. These hours are the baseline Hacado uses before any optional tools adjust them further.
+1. Drag down an empty day to draw a block of hours.
+2. Drag a block to move it to another time or day.
+3. Drag the top or bottom edge to make the block longer or shorter.
+4. Click the **X** on a block to remove those hours.
+5. Click **Save** at the bottom when you are done.
+
+A day with no blocks is a day off. Add a second block on the same day if you take a break in the middle.
+
+## On a phone
+
+You get one day at a time in a list. Open a day to see its shifts.
+
+![Day list with Monday open and a 9:00 AM–5:00 PM shift](/img/first-steps/schedule-mobile.png)
+
+1. Tap a day to open it.
+2. Tap **Edit** on a shift to change the start and end times, then **Save**.
+3. Tap **Add Shift** for another block on that day.
+4. Tap the red **X** to remove a shift.
+5. Tap **Save** at the bottom of the page when you are done.
+
+![Monday shift open for editing with start and end times](/img/first-steps/schedule-mobile-edit.png)
 
 ## How availability works on your site
 
@@ -26,34 +44,25 @@ When a client opens your booking page, Hacado shows open slots based on:
 
 1. Your default weekly schedule.
 2. Any appointments already booked.
-3. Optional layers below (if you use them).
+3. Optional tools below (if you use them).
 
 Get the default schedule right first - most small businesses do not need anything more on day one.
 
 ## Optional ways to fine-tune
 
-Install these from **Apps** → **App Store** when you need them. Each has its own guide in **[Apps](/docs/apps/overview)**.
+Install these from **Settings → Apps → Store** when you need them. Each has its own guide in **[Apps](/docs/apps/overview)**.
 
-### Weekly Schedule app
-
-Override your default hours for specific weeks - holidays, summer hours, or a one-off late night.
-
-### Busy Events app
-
-Block time manually when you are unavailable - a doctor visit, travel, or a private event that is not a client booking.
-
-### Connected calendars
-
-Apps such as **[Google Calendar](/docs/apps/google-calendar)** or **[Outlook](/docs/apps/outlook)** can read events from your existing calendar so you do not get double-booked. They can also add new bookings to the calendar you check every day.
+- **[Weekly Schedule](/docs/apps/weekly-schedule)** - override hours for specific weeks.
+- **[Busy Events](/docs/apps/busy-events)** - block time that is not a client booking.
+- **[Google Calendar](/docs/apps/google-calendar)** or **[Outlook](/docs/apps/outlook)** - read busy times from a calendar you already use.
 
 ## Quick check
 
 - Every day you work has the right hours.
-- Days you are closed are turned off.
-- Time zone under **Settings** → **Brand** → **General** matches where you work.
+- Days you are closed have no shifts.
+- Time zone under **Settings → Brand → General** matches where you work.
 
 ## Next steps
 
-- [Build your website]()
-- [Weekly Schedule app](/docs/apps/weekly-schedule)
-- [Busy Events app](/docs/apps/busy-events)
+- [Build your website](./build-your-website)
+- [Connect essentials](./connect-essentials)

@@ -352,6 +352,39 @@ article img {
   background: var(--muted);
 }
 
+.plan-requirement {
+  margin: 1.25rem 0 1.75rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--muted);
+}
+
+.plan-requirement-label {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-foreground);
+}
+
+.plan-requirement-body {
+  margin-top: 0.55rem;
+  color: var(--muted-foreground);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.plan-requirement-body p {
+  margin: 0;
+}
+
+.plan-requirement-body a {
+  color: var(--foreground);
+}
+
 @media (max-width: 720px) {
   .home-header {
     height: auto;

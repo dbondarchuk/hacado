@@ -1,12 +1,10 @@
 ---
-description: Handle incoming bookings, find customer details, and respond to form inquiries.
+description: Handle incoming bookings, find customer details, and keep day-to-day work in one place.
 ---
 
 # Manage bookings and customers
 
 Your site is live and tested. Here is where day-to-day work happens inside your dashboard - approving bookings, talking to clients, and looking up customer history.
-
-![Appointments list](/img/placeholders/first-steps-appointments.svg)
 
 ## Incoming bookings
 
@@ -14,53 +12,43 @@ New bookings appear in two main places:
 
 ### Dashboard home
 
-Your morning starting point. The calendar shows what is coming up. If you do not **auto-confirm** bookings, open the **Pending appointments** tab to approve requests waiting on you.
+Your morning starting point. See **[Get to know your dashboard](./dashboard)** for the Overview, Calendar, and Pending Appointments tabs. If you do not auto-confirm bookings, open **Pending Appointments** to approve requests waiting on you.
 
 ### Appointments
 
-The full list of every booking. Use filters to find visits by date, service, or status. From here you can also **add an appointment by hand** for phone or walk-in clients.
+The full list of every booking. Use filters to find visits by date, service, or status. From here you can also **Schedule appointment** by hand for phone or walk-in clients.
+
+![Appointments list with filters and portrait sessions](/img/first-steps/appointments-list.png)
 
 ## Work with a single appointment
 
 Click any appointment to open its detail view. Common actions:
 
 - **Confirm** - approve a pending request so the client receives confirmation.
-- **Reschedule** - move the visit to a new time (you or the client may do this, depending on your settings).
+- **Reschedule** - move the visit to a new time.
 - **Decline** - cancel or reject a booking.
 - **Edit** - update notes or details.
 - **Send message** - email or text the client from Hacado.
-- **Schedule again** - create a follow-up booking based on this one.
 
-Tabs on the detail screen include **Payments**, **Files**, **Communications**, and **History** - useful when a client calls with a question.
+Tabs on the detail screen include payments, files, communications, and history - useful when a client calls with a question.
 
 ## Customers
 
 Open **Customers** in the side menu for everyone who has booked or been added manually.
 
-Search by name, email, or phone. Click a customer to see:
+![Customers list with names and upcoming appointments](/img/first-steps/customers-list.png)
 
-- **Details** - contact information you can edit.
-- **Appointments** - full visit history and a shortcut to schedule a new one.
-- **Files** - documents attached to this client.
-- **Communications** - recent messages and a way to send a new one.
+Search by name, email, or phone. Click a customer to see contact details, visit history, files, and messages.
 
-There is no separate "Contacts" area - **Customers** is where client records live.
+There is no separate contacts area - **Customers** is where client records live. For the full guide - manual and automatic create, matching fields, and every profile tab - see [Customers](/docs/customers).
 
 ## Inquiries and waitlist
 
 Hacado does not have a generic inbox. Instead:
 
-### Form responses
-
-If you installed the **[Forms](/docs/apps/forms)** app, contact and intake submissions appear under **Website** → **Forms** → **Responses**. Check here for messages that are not tied to a booking.
-
-### Waitlist
-
-If you installed **[Waitlist](/docs/apps/waitlist)**, clients who could not find a time can join a queue. Manage entries from the **Waitlist** area under **Appointments**.
-
-### Communication logs
-
-**Settings** → **Communications** → **Logs** shows outbound emails and texts Hacado already sent - helpful when a client says they never received a message.
+- **Forms** - if you installed **[Forms](/docs/apps/forms)**, responses appear under that app.
+- **Waitlist** - if you installed **[Waitlist](/docs/apps/waitlist)**, manage entries from the waitlist area under Appointments or the dashboard tab the app adds.
+- **Communication logs** - **Settings → Communications → Logs** shows outbound emails and texts Hacado already sent.
 
 ## Hand off to everyday reference
 

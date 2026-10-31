@@ -38,7 +38,7 @@ export const COLLECTIONS = {
   members: "members",
   accounts: "accounts",
   configuration: "configuration",
-  options: "options",
+  options: "services",
   customers: "customers",
   appointments: "appointments",
   pages: "pages",

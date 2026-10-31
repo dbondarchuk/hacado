@@ -1,31 +1,34 @@
 ---
-description: Create your Hacado account and confirm your email.
+description: Create your Hacado account, then confirm your email and phone.
 ---
 
 # Sign up
 
-Signing up creates your **Hacado login** and the **workspace** where your booking site and dashboard live. After signup you confirm your **email**, pick a **plan** if prompted, pay when required, then walk through **[Set up your workspace](./workspace-install-wizard)**.
+Signing up creates the login for your Hacado workspace. The form has five steps. After the last one, you [choose a plan](./subscription-and-checkout).
 
 ## Before you start
 
-- Use an email inbox you **check often** - you need it for email confirmation and password recovery.
-- The person who signs up is usually the one who **manages billing** for that workspace.
+- Use an email inbox you check. Hacado sends a code there.
+- Have a mobile phone nearby. Hacado sends a second code by text.
 
 ## Create your account
 
-Open the **Sign up** page from the Hacado website (or the link you were given). Fill in what the form asks - usually **email**, **password**, and any agreement checkboxes - then submit.
+1. Open **Sign up**.
+2. On **About you**, enter your name and choose a language, or continue with **Google**, **Microsoft**, or **Zoom**. Click **Continue**.
 
-![Sign-up form](/img/getting-started/sign-up.png)
+![About you, the first sign-up step](/img/getting-started/sign-up.png)
 
-You may need to **confirm your email** before you can move on to choosing a plan or finishing setup.
+3. On **Account**, enter your email, a password, and the same password again.
+4. Finish the human check if it is shown, then click **Continue**.
+5. On **Verify email**, enter the six-digit code from the email, then click **Verify**.
+6. Enter your mobile number and continue.
+7. Enter the code from the text message.
+
+### Good to know
+
+The password needs at least 8 characters. **Continue** on the account step stays off until the human check finishes. If a code does not arrive, use **Resend code** and check spam.
 
 ## What happens next
-
-1. **Confirm your email** - click the link in the message.
-2. **Choose a plan** - Compare options and pay safely.
-3. **Set up your workspace** - next you complete **[Set up your workspace](./workspace-install-wizard)**: your business details, look and feel, services, optional calendar and meeting tools, and how you get paid.
-
-## Next steps
 
 - [Choose a plan](./subscription-and-checkout)
 - [Set up your workspace](./workspace-install-wizard)

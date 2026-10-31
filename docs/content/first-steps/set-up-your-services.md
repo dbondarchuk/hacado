@@ -6,42 +6,42 @@ description: Add and refine the bookable services clients see on your booking we
 
 **Services** are what clients book. The setup wizard created at least one starter service - now make sure names, prices, and lengths match what you offer in real life.
 
-Open **Appointments** → **Services** → **Options** in the side menu.
+Open **Appointments → Catalog → Services** in the side menu.
 
-![Services list](/img/placeholders/first-steps-services-list.svg)
+![Services list with Portrait Session](/img/first-steps/services-list.png)
 
 ## Review your first service
 
-Click the service the wizard created (or any row in the list) to open it. Check:
+Click the service name to open it. On the **General** tab, check:
 
-- **Name** - clear and specific, like "Classic facial" or "Initial consultation".
-- **Description** - a short explanation a new client can understand.
-- **Duration** - **fixed** (one set length) or **flexible** (a range the client picks within min/max steps).
-- **Price** - **fixed** (one price) or **hourly** (rate multiplied by time).
+![Portrait Session name, description, duration, and price](/img/first-steps/services-edit.png)
+
+- **Name** - clear and specific, like "Portrait Session" or "Initial consultation".
+- **Short description** - a short explanation a new client can understand during booking.
+- **Duration type** - **Fixed** for one set length, or **Flexible** if the client picks within a range.
+- **Duration** - hours and minutes.
+- **Price** - the amount clients see.
 
 Tap **Save** when you are done.
 
+Other tabs on the same screen (fields, add-ons, staff, payments, and more) can wait. Use them when you need extras on that one service.
+
 ## Add another service
 
-Select **Add** (or the plus button) to create a new service. You can start from scratch or pick a **profession template** that pre-fills common names and durations - then edit until it fits you.
+Click **Add New** to create a service. You can start blank or pick from a profession template, then edit until it fits you.
 
 You need at least one service for clients to book. Add more as your business grows.
 
 ## Optional refinements
 
-These are not required on day one, but useful soon:
+These are not required on day one:
 
-### Add-ons
+- **Add-ons** under **Catalog → Add-ons** - extras clients can add during booking.
+- **Fields** under **Catalog → Fields** - questions every booking should answer.
 
-Under **Services** → **Add-ons**, create extra items clients can add during booking - for example a deep-conditioning treatment or an extended session. Link add-ons to specific services when you edit each service.
+Leave discounts, packages, and gift cards for later unless you already sell them.
 
-### Custom booking fields
-
-Under **Services** → **Fields**, create questions you want every booking to answer - allergies, goals, parking needs, and similar. Attach fields to one or more services.
-
-### Discounts
-
-Under **Services** → **Discounts**, set percentage or fixed-amount codes with optional date and usage limits. Useful for launch promotions or loyal clients.
+For the full Catalog guide - including every service tab, staff, payments rules, and Solo features - see **[Catalog](/docs/catalog)** and **[Services](/docs/catalog/services)**.
 
 ## Tips for new owners
 
@@ -51,5 +51,5 @@ Under **Services** → **Discounts**, set percentage or fixed-amount codes with 
 
 ## Next steps
 
-- [Set your availability]()
-- [Build your website]()
+- [Set your availability](./set-your-availability)
+- [Build your website](./build-your-website)
