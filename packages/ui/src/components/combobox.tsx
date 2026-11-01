@@ -208,7 +208,17 @@ export const ComboboxTrigger = React.forwardRef<
   const invalid = isInvalidProp(props);
 
   return (
-    <div className={cn("flex w-full min-w-0 flex-row", className)}>
+    <div
+      data-slot="combobox-trigger"
+      className={cn(
+        "flex w-full min-w-0 flex-row rounded-md",
+        "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-background",
+        invalid ? "focus-within:ring-destructive" : "focus-within:ring-ring",
+        open && "ring-2 ring-offset-2 ring-offset-background",
+        open && (invalid ? "ring-destructive" : "ring-ring"),
+        className,
+      )}
+    >
       <Button
         variant="outline"
         role="combobox"
@@ -217,10 +227,9 @@ export const ComboboxTrigger = React.forwardRef<
         {...props}
         ref={ref}
         className={cn(
-          "w-full min-w-0 flex-shrink justify-between overflow-hidden ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 max-md:text-base",
+          "w-full min-w-0 flex-shrink justify-between overflow-hidden focus:outline-none focus:ring-0 focus-visible:ring-0 max-md:text-base",
           invalidControlClass,
-          open && "ring-2 ring-offset-2",
-          open && (invalid ? "ring-destructive" : "ring-ring"),
+          open && !invalid && "border-ring",
           allowClear && "rounded-r-none",
         )}
       >
@@ -234,8 +243,9 @@ export const ComboboxTrigger = React.forwardRef<
           type="button"
           size={size}
           className={cn(
-            "rounded-l-none border-l-0",
+            "rounded-l-none border-l-0 focus:ring-0 focus-visible:ring-0",
             invalid && "border-destructive",
+            open && !invalid && "border-ring",
           )}
           aria-label={t("common.clear")}
           disabled={props.disabled}

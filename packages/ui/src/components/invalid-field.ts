@@ -22,11 +22,27 @@ export const invalidShellClass = [
   when("focus-within:ring-destructive"),
 ].join(" ");
 
-/** Grouped control: shell plus borders on the input and direct addons. */
+/** Grouped control: shell plus borders on the input, nested buttons, and direct addons. */
 export const invalidGroupedClass = [
   invalidShellClass,
   when("[&_input]:border-destructive"),
+  when("[&_button]:border-destructive"),
   when("[&>*]:border-destructive"),
+  // One variant. Stacking has- with [&_button] attaches :has() to the button.
+  "[&:has([aria-invalid=true])_input]:border-destructive",
+  "[&:has([invalid])_input]:border-destructive",
+  "[&:has([aria-invalid=true])_button]:border-destructive",
+  "[&:has([invalid])_button]:border-destructive",
+  "[&:has([aria-invalid=true])>*]:border-destructive",
+  "[&:has([invalid])>*]:border-destructive",
+  "[&:has([aria-invalid=true]):has([data-state=open])]:ring-destructive",
+  "[&:has([invalid]):has([data-state=open])]:ring-destructive",
+  "[&:has([aria-invalid=true]):has([data-state=open])_input]:border-destructive",
+  "[&:has([invalid]):has([data-state=open])_input]:border-destructive",
+  "[&:has([aria-invalid=true]):has([data-state=open])_button]:border-destructive",
+  "[&:has([invalid]):has([data-state=open])_button]:border-destructive",
+  "[&:has([aria-invalid=true]):has([data-state=open])>*]:border-destructive",
+  "[&:has([invalid]):has([data-state=open])>*]:border-destructive",
 ].join(" ");
 
 export const isInvalidProp = (props: {

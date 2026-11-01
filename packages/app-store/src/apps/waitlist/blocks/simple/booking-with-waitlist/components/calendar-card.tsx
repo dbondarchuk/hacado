@@ -354,7 +354,7 @@ export const CalendarCard: React.FC = () => {
     timeZoneCombobox: () => (
       <Combobox
         values={timeZones}
-        className="mx-2"
+        className="mx-2 inline-flex w-auto min-w-fit align-middle [&>button]:w-auto"
         searchLabel={t("common.labels.searchTimezone")}
         customSearch={(search) =>
           timeZones.filter(

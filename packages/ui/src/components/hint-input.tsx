@@ -53,7 +53,7 @@ const quietInputClass =
   "border-input aria-[invalid=true]:border-input focus-visible:ring-ring [&[invalid]]:border-input";
 
 const quietGroupClass =
-  "border-input has-[[aria-invalid=true]]:border-input has-[[aria-invalid=true]]:focus-within:ring-ring has-[[aria-invalid=true]]:[&_input]:border-input has-[[aria-invalid=true]]:[&>*]:border-input";
+  "border-input has-[[aria-invalid=true]]:border-input has-[[aria-invalid=true]]:focus-within:ring-ring has-[[aria-invalid=true]]:[&_input]:border-input [&:has([aria-invalid=true])_button]:border-input has-[[aria-invalid=true]]:[&>*]:border-input";
 
 export type HintInputProps = Omit<InputProps, "prefix"> & {
   description?: React.ReactNode;

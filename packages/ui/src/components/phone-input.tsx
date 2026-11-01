@@ -105,7 +105,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
         </label>
         <Combobox
           disabled={disabled}
-          className="*:border-r-0 *:rounded-r-none focus:ring-0 min-w-fit"
+          className="min-w-fit *:border-r-0 *:rounded-r-none ring-0 ring-offset-0 focus-within:ring-0"
           value={defaultCountry}
           onItemSelect={(value: string) => onCountryChange(value)}
           values={countryList}

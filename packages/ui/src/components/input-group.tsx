@@ -91,6 +91,10 @@ export const InputGroup = ({
     <div
       className={cn(
         "rounded-md relative flex focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+        "[&_[data-slot=combobox-trigger]]:ring-0 [&_[data-slot=combobox-trigger]]:ring-offset-0 [&_[data-slot=combobox-trigger]]:focus-within:ring-0",
+        "[&_[role=combobox]]:ring-0 [&_[role=combobox]]:ring-offset-0 [&_[role=combobox]]:focus:ring-0 [&_[role=combobox]]:focus-visible:ring-0",
+        "has-[[data-state=open]]:ring-2 has-[[data-state=open]]:ring-ring has-[[data-state=open]]:ring-offset-2 has-[[data-state=open]]:ring-offset-background",
+        "[&:has([data-state=open])_input]:border-ring [&:has([data-state=open])_button]:border-ring [&:has([data-state=open])>*]:border-ring",
         invalidGroupedClass,
         className,
       )}

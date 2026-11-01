@@ -111,7 +111,7 @@ export const FormCard: React.FC = () => {
               timeZoneCombobox: () => (
                 <Combobox
                   values={timeZones}
-                  className="mx-1"
+                  className="mx-1 inline-flex w-auto min-w-fit align-middle [&>button]:w-auto"
                   searchLabel={i18n("common.labels.searchTimezone")}
                   customSearch={(search) =>
                     timeZones.filter((zone) =>
