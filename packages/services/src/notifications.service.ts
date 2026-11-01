@@ -38,6 +38,7 @@ import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlem
 import {
   appendRatesSentence,
   canSendCustomerSms,
+  prepareTextbeltSmsBody,
   shouldSkipDuplicateSend,
 } from "./text-message/compliance";
 import { SmsTransientError } from "./text-message/errors";
@@ -421,6 +422,30 @@ export class NotificationService implements INotificationService {
         if (!alreadySent) {
           messageBody = appendRatesSentence(messageBody);
         }
+      }
+
+      if (route.kind === "textbelt") {
+        const prepared = prepareTextbeltSmsBody(messageBody);
+        if (!prepared.send) {
+          logger.info(
+            {
+              organizationId: this.organizationId,
+              appointmentId,
+              reason: prepared.reason,
+            },
+            "SMS skipped",
+          );
+
+          await this.recordFailed({
+            logId: props.communicationLogId,
+            reason: prepared.reason,
+            attempt: props.deliveryAttempt,
+          });
+
+          return { success: true, skipped: true, error: prepared.reason };
+        }
+
+        messageBody = prepared.message;
       }
 
       sendTextMessage = async (message: TextMessage) => {

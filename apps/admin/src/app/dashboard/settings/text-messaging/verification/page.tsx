@@ -47,19 +47,26 @@ export default async function Page() {
   }
 
   const store = new SmsRegistrationStore();
-  const [textMessaging, organization, record, assignedNumber, preview] =
-    await Promise.all([
-      services.configurationService.getConfiguration("textMessaging"),
-      services.organizationService.getOrganization(),
-      store.get(organizationId),
-      store.getAssignedProfileNumber(organizationId),
-      loadSmsOptInPreview(services).catch((error): SmsOptInPreviewProps => {
-        getLoggerFactory("Admin/settings/text-messaging/verification")(
-          "preview",
-        ).warn({ error }, "SMS opt-in preview used the default booking form");
-        return { service: null, formFields: [] };
-      }),
-    ]);
+  const [
+    textMessaging,
+    organization,
+    record,
+    assignedNumber,
+    preview,
+    messagingAccess,
+  ] = await Promise.all([
+    services.configurationService.getConfiguration("textMessaging"),
+    services.organizationService.getOrganization(),
+    store.get(organizationId),
+    store.getAssignedProfileNumber(organizationId),
+    loadSmsOptInPreview(services).catch((error): SmsOptInPreviewProps => {
+      getLoggerFactory("Admin/settings/text-messaging/verification")(
+        "preview",
+      ).warn({ error }, "SMS opt-in preview used the default booking form");
+      return { service: null, formFields: [] };
+    }),
+    services.textMessageConfigurationService.getSmsMessagingAccess(),
+  ]);
 
   const values = toSmsRegistrationView(record, {
     legalName: general.name,
@@ -108,6 +115,7 @@ export default async function Page() {
           preview={preview}
           country={general.country}
           phoneNumber={assignedNumber?.phoneNumber}
+          hasTextMessageSenderApp={messagingAccess.hasTextMessageSenderApp}
         />
       </div>
     </PageContainer>

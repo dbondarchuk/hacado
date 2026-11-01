@@ -27,7 +27,12 @@ export type SmsMessagingAccess = {
   customVerified: boolean;
   canCustomize: boolean;
   platformBusiness: boolean;
-  /** Non-US/Canada businesses, or US/Canada businesses with verified details. */
+  /** Connected `defaultApps.textMessageSenderAppId` is set. */
+  hasTextMessageSenderApp: boolean;
+  /**
+   * Non-US/Canada businesses, US/Canada businesses with verified details, or
+   * businesses that send through their own connected texting app.
+   */
   allowCustomTemplates: boolean;
 };
 

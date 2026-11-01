@@ -28,7 +28,7 @@ import {
 } from "./verification";
 
 const confirmedEn =
-  "{{config.name}}: {{#customerName}}Hi {{customerName}}, your{{/customerName}}{{^customerName}}Your{{/customerName}} {{service.name}} is confirmed for {{dateTime.sms}}.{{#manageLink}} Manage: {{manageLink}}{{/manageLink}}";
+  "{{config.name}}: {{#customerName}}Hi {{customerName}}, your{{/customerName}}{{^customerName}}Your{{/customerName}} {{service.name}} is confirmed for {{dateTime.sms}}.";
 const confirmedUk =
   "{{config.name}}: {{#customerName}}Привіт, {{customerName}}, ваш{{/customerName}}{{^customerName}}Ваш{{/customerName}} {{service.name}} підтверджено на {{dateTime.sms}}.";
 const reminderEn =
@@ -48,7 +48,6 @@ describe("built-in SMS copy and segments", () => {
         customerName: "Jessica",
         service: { name: "Cut" },
         dateTime: { sms: "Fri, Oct 17, 3:00 PM" },
-        manageLink: "https://hacado.me/s/abc",
       },
       true,
     );
@@ -57,7 +56,7 @@ describe("built-in SMS copy and segments", () => {
     assert.match(body, /Hi Jessica/);
     assert.match(body, /Cut/);
     assert.match(body, /Fri, Oct 17, 3:00 PM/);
-    assert.match(body, /https:\/\/hacado.me\/s\/abc/);
+    assert.equal(body.includes("http"), false);
   });
 
   it("omits the greeting when the appointment has no name", () => {
@@ -295,12 +294,35 @@ describe("Textbelt link stripping", () => {
     });
   });
 
+  it("skips a payment text that is only the link above the shared-pool suffix", () => {
+    const prepared = prepareTextbeltSmsBody(
+      "Ada Salon: Hi Jessica, here is your payment link: https://ada.hacado.me/payment?id=abc\nSent via Hacado",
+    );
+
+    assert.deepEqual(prepared, {
+      send: false,
+      reason: "message had only a link",
+    });
+  });
+
   it("leaves a text without a link unchanged", () => {
     const body =
       "Ada Salon: Hi Jessica, you were removed from the waitlist for Cut.";
     assert.deepEqual(prepareTextbeltSmsBody(body), {
       send: true,
       message: body,
+    });
+  });
+
+  it("drops a manage link that sits above the shared-pool suffix", () => {
+    const prepared = prepareTextbeltSmsBody(
+      "VIVID Nail Studio: Hi Dmytro Bondarchuk, we received your Gel strengthening (structured gel) request for Tue, Nov 10, 10:15 AM. Manage: https://vividnail.studio/my-cabinet\nSent via Hacado",
+    );
+
+    assert.deepEqual(prepared, {
+      send: true,
+      message:
+        "VIVID Nail Studio: Hi Dmytro Bondarchuk, we received your Gel strengthening (structured gel) request for Tue, Nov 10, 10:15 AM.\nSent via Hacado",
     });
   });
 

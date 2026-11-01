@@ -3266,6 +3266,7 @@ settings:
       save: Guardar
       enabled: Activar mensajes personalizados
       enabledDescription: Después de la verificación, los textos de clientes usan un número dedicado y sus propias plantillas.
+      senderAppSkipsVerification: Su aplicación de mensajes de texto conectada ya se encarga del envío. Las plantillas personalizadas están disponibles sin verificar un número dedicado.
       disableTitle: ¿Desactivar los mensajes personalizados?
       disableDescription: Desactivarlo inicia el proceso de verificación otra vez. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
       disableConfirm: Desactivar

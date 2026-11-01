@@ -27,6 +27,32 @@ const forcedOffer = {
 const lookupDeclines = async () => false;
 const fixtureService = demoBookingOptionsResponse.options[0];
 
+/** Light theme tokens so html-to-image stays readable when admin is in dark mode. */
+const lightThemeStyle = {
+  colorScheme: "light",
+  backgroundColor: "#ffffff",
+  color: "hsl(60 4.9% 12%)",
+  ["--background" as string]: "0 0% 100%",
+  ["--foreground" as string]: "60 4.9% 12%",
+  ["--card" as string]: "0 0% 100%",
+  ["--card-foreground" as string]: "60 4.9% 12%",
+  ["--popover" as string]: "0 0% 100%",
+  ["--popover-foreground" as string]: "60 4.9% 12%",
+  ["--primary" as string]: "105 6.1% 12.9%",
+  ["--primary-foreground" as string]: "42.9 33.3% 95.9%",
+  ["--secondary" as string]: "37.5 42.1% 92.5%",
+  ["--secondary-foreground" as string]: "60 4.9% 12%",
+  ["--muted" as string]: "42.9 33.3% 95.9%",
+  ["--muted-foreground" as string]: "46.7 3.9% 44.9%",
+  ["--accent" as string]: "99 31.2% 87.5%",
+  ["--accent-foreground" as string]: "109.1 15.3% 28.2%",
+  ["--destructive" as string]: "0 72.2% 50.6%",
+  ["--destructive-foreground" as string]: "0 0% 100%",
+  ["--border" as string]: "48 15.6% 87.5%",
+  ["--input" as string]: "48 15.6% 87.5%",
+  ["--ring" as string]: "105 6.1% 12.9%",
+} as const;
+
 export const SmsOptInPreview = ({
   service,
   formFields,
@@ -74,6 +100,7 @@ export const SmsOptInPreview = ({
       <div
         data-sms-opt-in-preview
         className="w-[440px] bg-white p-4 text-left text-foreground"
+        style={lightThemeStyle}
       >
         <TextMessagingProvider value={{ enabled: true }}>
           <SmsConsentLookupContext.Provider value={lookupDeclines}>

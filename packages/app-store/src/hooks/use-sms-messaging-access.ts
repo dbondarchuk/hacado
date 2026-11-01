@@ -20,6 +20,7 @@ export function useSmsMessagingAccess() {
             customVerified: false,
             canCustomize: false,
             platformBusiness: true,
+            hasTextMessageSenderApp: false,
             allowCustomTemplates: false,
           });
         }
@@ -32,7 +33,9 @@ export function useSmsMessagingAccess() {
 
   const allowCustom = Boolean(access?.allowCustomTemplates);
   const sharedPool = Boolean(
-    access?.platformBusiness && !access.customVerified,
+    access?.platformBusiness &&
+      !access.customVerified &&
+      !access.hasTextMessageSenderApp,
   );
 
   return { access, allowCustom, sharedPool };

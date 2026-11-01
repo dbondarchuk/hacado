@@ -92,6 +92,7 @@ saveButton:
   discard: Jeter
   unsaved: Non enregistré
   fixErrors: Veuillez corriger les erreurs avant d'enregistrer
+  showErrors: Afficher toutes les erreurs
 toast:
   close: Fermer
 form:

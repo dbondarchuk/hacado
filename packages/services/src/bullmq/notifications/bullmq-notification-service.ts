@@ -437,7 +437,7 @@ export class BullMQSystemNotificationService
           emailTo: Array.isArray(data.to) ? data.to.join(", ") : data.to,
           subject: data.subject,
         },
-        "Systme email notification job added to queue",
+        "System email notification job added to queue",
       );
     } catch (error) {
       logger.error(

@@ -1,3 +1,5 @@
+import { SHARED_POOL_SMS_SUFFIX } from "@hacado/utils/sms";
+
 export const SMS_RATES_SENTENCE =
   "Msg&data rates may apply. Reply STOP to cancel, HELP for help.";
 
@@ -152,11 +154,16 @@ const hasUsefulSmsContent = (text: string): boolean => {
 export const prepareTextbeltSmsBody = (
   body: string,
 ): PreparedTextbeltSmsBody => {
-  if (!/(?:https?:\/\/|www\.)/i.test(body)) {
+  const suffix = body.endsWith(SHARED_POOL_SMS_SUFFIX)
+    ? SHARED_POOL_SMS_SUFFIX
+    : "";
+  const core = suffix ? body.slice(0, -suffix.length) : body;
+
+  if (!/(?:https?:\/\/|www\.)/i.test(core)) {
     return { send: true, message: body };
   }
 
-  const withoutUrls = body
+  const withoutUrls = core
     .replace(smsUrlPattern(), stripUrl)
     .replace(/[ \t]{2,}/g, " ")
     .replace(/[ \t]+([.,])/g, "$1")
@@ -167,7 +174,7 @@ export const prepareTextbeltSmsBody = (
     return { send: false, reason: "message had only a link" };
   }
 
-  return { send: true, message: withoutUrls };
+  return { send: true, message: `${withoutUrls}${suffix}` };
 };
 
 export const shouldSkipDuplicateSend = (

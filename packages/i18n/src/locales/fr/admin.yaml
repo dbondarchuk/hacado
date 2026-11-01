@@ -3266,6 +3266,7 @@ settings:
       save: Enregistrer
       enabled: Activer les messages personnalisés
       enabledDescription: Après la vérification, les textos clients utilisent un numéro dédié et vos propres modèles.
+      senderAppSkipsVerification: Votre application de textos connectée gère déjà l’envoi. Les modèles personnalisés sont disponibles sans vérification d’un numéro dédié.
       disableTitle: Désactiver les messages personnalisés?
       disableDescription: Le désactiver relance le processus de vérification. Vous recevrez un numéro qui peut être différent, et les réponses à l'ancien numéro ne vous parviendront pas.
       disableConfirm: Désactiver

@@ -92,6 +92,7 @@ saveButton:
   discard: Desechar
   unsaved: No guardado
   fixErrors: Por favor corrija los errores antes de guardar.
+  showErrors: Mostrar todos los errores
 toast:
   close: Cerca
 form:

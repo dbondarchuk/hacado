@@ -11,7 +11,10 @@ import type {
   SmsRegistrationInput,
   SmsRegistrationView,
 } from "@hacado/types/text-message/registration";
-import { smsVerificationFormSchema } from "@hacado/types/text-message/registration";
+import {
+  smsRegistrationInputSchema,
+  smsVerificationFormSchema,
+} from "@hacado/types/text-message/registration";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Alert, AlertDescription } from "@hacado/ui/alert";
 import {
@@ -69,12 +72,14 @@ export const TextMessagingVerificationForm = ({
   preview,
   country,
   phoneNumber,
+  hasTextMessageSenderApp = false,
 }: {
   values: SmsRegistrationView;
   smsEnabled: boolean;
   preview: SmsOptInPreviewProps;
   country: string;
   phoneNumber?: string;
+  hasTextMessageSenderApp?: boolean;
 }) => {
   const t = useI18n("admin");
   const router = useRouter();
@@ -82,7 +87,9 @@ export const TextMessagingVerificationForm = ({
   const [confirmOff, setConfirmOff] = useState(false);
   const form = useForm<SmsRegistrationInput>({
     resolver: zodResolver(
-      smsVerificationFormSchema,
+      hasTextMessageSenderApp
+        ? smsRegistrationInputSchema
+        : smsVerificationFormSchema,
     ) as Resolver<SmsRegistrationInput>,
     mode: "all",
     reValidateMode: "onChange",
@@ -102,10 +109,14 @@ export const TextMessagingVerificationForm = ({
 
   const entityType = form.watch("entityType");
   const customEnabled = form.watch("enabled");
+  const showVerificationDetails = customEnabled && !hasTextMessageSenderApp;
   const preparing = values.blockedReason === "number_preparing";
   const fieldsLocked =
-    !smsEnabled || values.status === "pending" || values.status === "verified";
-  const toggleLocked = !smsEnabled || values.status === "pending";
+    !smsEnabled ||
+    preparing ||
+    values.status === "pending" ||
+    values.status === "verified";
+  const toggleLocked = !smsEnabled || preparing || values.status === "pending";
   const statusVariant =
     values.status === "rejected"
       ? "destructive"
@@ -132,7 +143,10 @@ export const TextMessagingVerificationForm = ({
 
     setLoading(true);
     try {
-      const resubmit = data.enabled && values.status !== "verified";
+      const resubmit =
+        !hasTextMessageSenderApp &&
+        data.enabled &&
+        values.status !== "verified";
       const optInImage = resubmit ? await captureOptInPreview() : undefined;
       await toastPromise(
         textMessagingApi.saveSmsVerification({
@@ -171,7 +185,7 @@ export const TextMessagingVerificationForm = ({
   return (
     <Form {...form}>
       {smsEnabled &&
-      customEnabled &&
+      showVerificationDetails &&
       values.status !== "pending" &&
       values.status !== "verified" ? (
         <SmsOptInPreview {...preview} />
@@ -237,7 +251,14 @@ export const TextMessagingVerificationForm = ({
             </FormItem>
           )}
         />
-        {customEnabled ? (
+        {hasTextMessageSenderApp && customEnabled ? (
+          <Alert>
+            <AlertDescription>
+              {t("settings.textMessaging.form.senderAppSkipsVerification")}
+            </AlertDescription>
+          </Alert>
+        ) : null}
+        {showVerificationDetails ? (
           <div className="space-y-4 rounded-lg border p-4">
             <FormField
               control={form.control}
@@ -528,7 +549,7 @@ export const TextMessagingVerificationForm = ({
             disabled={loading}
             isLoading={loading}
             text={
-              customEnabled && values.status !== "verified"
+              showVerificationDetails && values.status !== "verified"
                 ? t("settings.textMessaging.form.submit")
                 : t("settings.textMessaging.form.save")
             }

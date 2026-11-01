@@ -15,7 +15,7 @@ export async function readSmsMessagingAccess(
   store: SmsRegistrationStore = new SmsRegistrationStore(),
 ): Promise<SmsMessagingAccess> {
   const db = await getDbConnection();
-  const [organization, general] = await Promise.all([
+  const [organization, general, defaultApps] = await Promise.all([
     db
       .collection<Organization>(ORGANIZATIONS_COLLECTION_NAME)
       .findOne({ _id: organizationId }),
@@ -27,6 +27,14 @@ export async function readSmsMessagingAccess(
         key: "general",
         organizationId,
       }),
+    db
+      .collection<{
+        value?: { textMessageSenderAppId?: string };
+      }>(CONFIGURATION_COLLECTION_NAME)
+      .findOne({
+        key: "defaultApps",
+        organizationId,
+      }),
   ]);
 
   const tier = resolvePlanTierFromOrganization(organization);
@@ -34,6 +42,9 @@ export async function readSmsMessagingAccess(
     tier !== BillingPlanTier.Free &&
     (!tier || meetsMinimumPlanTier(tier, BillingPlanTier.Solo));
   const platformBusiness = requiresSmsVerification(general?.value?.country);
+  const hasTextMessageSenderApp = Boolean(
+    defaultApps?.value?.textMessageSenderAppId?.trim(),
+  );
   const registration = await store.get(organizationId);
   const dedicated = canCustomize
     ? await store.getAssignedProfileNumber(organizationId)
@@ -43,11 +54,13 @@ export async function readSmsMessagingAccess(
   return {
     canCustomize,
     platformBusiness,
+    hasTextMessageSenderApp,
     customVerified:
       canCustomize &&
       registration?.enabled === true &&
       detailsVerified &&
       Boolean(dedicated?.phoneNumber),
-    allowCustomTemplates: !platformBusiness || detailsVerified,
+    allowCustomTemplates:
+      !platformBusiness || detailsVerified || hasTextMessageSenderApp,
   };
 }

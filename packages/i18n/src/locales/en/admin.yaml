@@ -3515,6 +3515,7 @@ settings:
       save: Save
       enabled: Enable custom messaging
       enabledDescription: After verification, customer texts use a dedicated number and your own custom templates.
+      senderAppSkipsVerification: Your connected text message app already handles sending. Custom templates are available without a dedicated-number verification.
       disableTitle: Turn off custom messaging?
       disableDescription: Turning this off starts the verification process again. You will be given a number that may be different, and replies to the old number will not reach you.
       disableConfirm: Turn off

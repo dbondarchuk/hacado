@@ -21,12 +21,16 @@ export async function captureOptInPreview(): Promise<string | undefined> {
         top: "0",
         opacity: "1",
         transform: "none",
+        colorScheme: "light",
+        backgroundColor: "#ffffff",
+        color: "hsl(60 4.9% 12%)",
       },
     });
 
     if (!dataUrl.startsWith("data:image/png")) return undefined;
     return dataUrl;
-  } catch {
+  } catch (error) {
+    console.error("SMS opt-in preview capture failed", error);
     return undefined;
   }
 }

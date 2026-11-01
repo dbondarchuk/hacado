@@ -12,6 +12,15 @@ import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
 import { useTimeZone } from "@hacado/ui/context";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@hacado/ui/dialog";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
@@ -107,6 +116,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
     },
     cell: ({ row }) => {
       const t = useI18n();
+      const tAdmin = useI18n("admin");
       const { status, reason } = row.original;
       if (status !== "failed" || !reason) return null;
 
@@ -119,7 +129,37 @@ export const columns: ColumnDef<CommunicationLog>[] = [
             ? t(reason.key, reason.args)
             : reason.key;
 
-      return <span className="line-clamp-2 max-w-64">{text}</span>;
+      if (text.length < 50) return text;
+
+      return (
+        <div className="flex flex-col gap-1">
+          <span>{text.substring(0, 50)}...</span>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="link-dashed">
+                {tAdmin("communicationLogs.table.actions.viewMore")}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[80%] flex flex-col max-h-[100%]">
+              <DialogHeader>
+                <DialogTitle className="w-full flex flex-row justify-between items-center mt-2">
+                  {tAdmin("communicationLogs.table.columns.reason")}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="flex-1 w-full overflow-auto">
+                <p className="whitespace-pre-wrap break-words">{text}</p>
+              </div>
+              <DialogFooter className="flex-row !justify-between gap-2">
+                <DialogClose asChild>
+                  <Button variant="secondary">
+                    {tAdmin("common.buttons.close")}
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      );
     },
   },
   {

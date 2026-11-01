@@ -43,7 +43,9 @@ export default async function Page() {
           smsEnabled={smsEnabled}
           allowTextTemplates={messagingAccess.allowCustomTemplates}
           sharedPool={
-            messagingAccess.platformBusiness && !messagingAccess.customVerified
+            messagingAccess.platformBusiness &&
+            !messagingAccess.customVerified &&
+            !messagingAccess.hasTextMessageSenderApp
           }
         />
       </div>

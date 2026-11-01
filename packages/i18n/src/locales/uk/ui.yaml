@@ -92,6 +92,7 @@ saveButton:
   discard: Відкинути
   unsaved: Незбережено
   fixErrors: Виправте помилки перед збереженням
+  showErrors: Показати всі помилки
 toast:
   close: Закрити
 form:

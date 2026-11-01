@@ -309,7 +309,7 @@ export const SyncedPaymentCard = ({
           <div className="border-t border-border" />
           <div className="flex flex-col gap-2 p-4">
             {showPrimaryActions && (
-              <div className="flex flex-col sm:flex-row  gap-2">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
                 {showConfirm && (
                   <Button
                     className="flex-1"
@@ -360,7 +360,7 @@ export const SyncedPaymentCard = ({
               showUnassign ||
               showUnrecord ||
               showIgnore) && (
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
                 {showRecord && (
                   <Button
                     variant="outline"
