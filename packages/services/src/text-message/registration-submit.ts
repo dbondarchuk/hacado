@@ -33,7 +33,6 @@ import { emitSmsVerificationStatusChange } from "./verification-events";
 const SUPPORT_EMAIL = "support@hacado.com";
 const REQUEUE_DELAY_MS = 60_000;
 const MAX_PROVISION_ATTEMPTS = 30;
-const SMS_VERIFICATION_DEDUPE_TTL_MS = 2 * 60 * 60 * 1000;
 const READINESS_POLL_MS = 1_500;
 const READINESS_ATTEMPTS = 3;
 
@@ -44,15 +43,17 @@ const escapeHtml = (value: string) =>
 
 const paragraph = (value: string) => `<p>${escapeHtml(value)}</p>`;
 
+/** Simple-mode dedupe: one waiting/active/delayed job per org until complete/fail. */
 export const smsVerificationJobDeduplication = (organizationId: string) => ({
   id: `sms-verification:${organizationId}`,
-  ttl: SMS_VERIFICATION_DEDUPE_TTL_MS,
 });
 
 export const scheduleSmsVerificationJob = async (input: {
   organizationId: string;
   executeAt?: Date | "now";
   scheduleJob: (job: JobRequest) => Promise<unknown>;
+  /** Clear simple-mode key first (needed when requeueing from an active job). */
+  removeDeduplicationKey?: (deduplicationId: string) => Promise<void>;
 }) => {
   const logger = getLoggerFactory("SmsRegistration")(
     "scheduleSmsVerificationJob",
@@ -60,6 +61,18 @@ export const scheduleSmsVerificationJob = async (input: {
 
   const executeAt = input.executeAt ?? "now";
   const deduplication = smsVerificationJobDeduplication(input.organizationId);
+
+  if (input.removeDeduplicationKey) {
+    logger.debug(
+      {
+        organizationId: input.organizationId,
+        deduplicationId: deduplication.id,
+      },
+      "Clearing SMS verification deduplication key before schedule",
+    );
+
+    await input.removeDeduplicationKey(deduplication.id);
+  }
 
   logger.debug(
     {
@@ -555,6 +568,7 @@ export async function processSmsVerificationJob(input: {
   country: string;
   sendEmail: (email: Email) => Promise<void>;
   scheduleJob: (job: JobRequest) => Promise<unknown>;
+  removeDeduplicationKey: (deduplicationId: string) => Promise<void>;
   store?: SmsRegistrationStore;
   emit?: (type: string, payload: SmsVerificationStatusPayload) => Promise<void>;
 }): Promise<void> {
@@ -715,6 +729,7 @@ export async function processSmsVerificationJob(input: {
       record: workingRecord,
       sendEmail: input.sendEmail,
       scheduleJob: input.scheduleJob,
+      removeDeduplicationKey: input.removeDeduplicationKey,
       reason: "messaging_profile_create_failed",
     });
 
@@ -750,6 +765,7 @@ export async function processSmsVerificationJob(input: {
         record: workingRecord,
         sendEmail: input.sendEmail,
         scheduleJob: input.scheduleJob,
+        removeDeduplicationKey: input.removeDeduplicationKey,
         reason: "could_not_acquire_number",
       });
 
@@ -774,6 +790,7 @@ export async function processSmsVerificationJob(input: {
         record: workingRecord,
         sendEmail: input.sendEmail,
         scheduleJob: input.scheduleJob,
+        removeDeduplicationKey: input.removeDeduplicationKey,
         reason: "number_not_ready",
         phoneNumber,
       });
@@ -804,6 +821,7 @@ export async function processSmsVerificationJob(input: {
         record: workingRecord,
         sendEmail: input.sendEmail,
         scheduleJob: input.scheduleJob,
+        removeDeduplicationKey: input.removeDeduplicationKey,
         reason: "messaging_profile_not_ready",
         phoneNumber,
       });
@@ -843,6 +861,7 @@ export async function processSmsVerificationJob(input: {
       record: workingRecord,
       sendEmail: input.sendEmail,
       scheduleJob: input.scheduleJob,
+      removeDeduplicationKey: input.removeDeduplicationKey,
       reason: "verification_body_incomplete",
       phoneNumber,
     });
@@ -964,6 +983,7 @@ export async function processSmsVerificationJob(input: {
         record: workingRecord,
         sendEmail: input.sendEmail,
         scheduleJob: input.scheduleJob,
+        removeDeduplicationKey: input.removeDeduplicationKey,
         reason: "telnyx_not_provisioned",
         phoneNumber,
       });
@@ -984,6 +1004,7 @@ async function requeueOrGiveUp(input: {
   record: SmsRegistrationRecord;
   sendEmail: (email: Email) => Promise<void>;
   scheduleJob: (job: JobRequest) => Promise<unknown>;
+  removeDeduplicationKey: (deduplicationId: string) => Promise<void>;
   reason: string;
   phoneNumber?: string;
 }) {
@@ -1034,6 +1055,7 @@ async function requeueOrGiveUp(input: {
     organizationId,
     executeAt: new Date(Date.now() + REQUEUE_DELAY_MS),
     scheduleJob: input.scheduleJob,
+    removeDeduplicationKey: input.removeDeduplicationKey,
   });
 }
 

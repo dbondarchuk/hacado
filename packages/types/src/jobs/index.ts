@@ -6,7 +6,8 @@ export type BaseJobRequest = {
   executeAt: Date | "now";
   deduplication?: {
     id: string;
-    ttl: number;
+    /** When set, throttle mode. Omit for simple mode (until complete/fail). */
+    ttl?: number;
   };
 };
 

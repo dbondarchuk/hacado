@@ -184,6 +184,23 @@ export class BullMQJobService extends BaseBullMQClient implements IJobService {
     }
   }
 
+  public async removeDeduplicationKey(deduplicationId: string): Promise<void> {
+    const logger = this.loggerFactory("removeDeduplicationKey");
+    try {
+      logger.debug({ deduplicationId }, "Removing deduplication key");
+      const queue = this.getQueue(this.config.queues.job.name);
+      await queue.removeDeduplicationKey(deduplicationId);
+      logger.debug({ deduplicationId }, "Deduplication key removed");
+    } catch (error) {
+      logger.error(
+        { error, deduplicationId },
+        "Failed to remove deduplication key",
+      );
+
+      throw error;
+    }
+  }
+
   public async getJobs(): Promise<Job[]> {
     const logger = this.loggerFactory("getJobs");
     try {

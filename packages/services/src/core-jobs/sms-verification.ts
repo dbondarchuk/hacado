@@ -37,6 +37,8 @@ export const processSmsVerificationCoreJob: CoreJobProcessor = async ({
     country: general.country,
     sendEmail: (email) => systemNotifications.sendSystemEmail(email),
     scheduleJob: (job) => services.jobService.scheduleJob(job),
+    removeDeduplicationKey: (deduplicationId) =>
+      services.jobService.removeDeduplicationKey(deduplicationId),
     emit: (type, payload) =>
       services.eventService.emit(type, payload, systemEventSource),
   });

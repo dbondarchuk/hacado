@@ -14,6 +14,7 @@ export interface IJobService {
   removeRepeatableJob(id: string): Promise<void>;
   getJob(id: string): Promise<Job | null>;
   getDeduplicatedJob(deduplicationId: string): Promise<Job | null>;
+  removeDeduplicationKey(deduplicationId: string): Promise<void>;
   getJobs(): Promise<Job[]>;
   cancelJob(id: string): Promise<void>;
 }
