@@ -79,8 +79,10 @@ type PaymentLinkChannel = "email" | "sms" | "copy";
 
 type AddUpdatePaymentDialogProps = {
   onSuccess?: (payment: Payment) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   amount?: number;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 } & (
   | { appointmentId?: string; customerId?: string }
   | { giftCardId: string }
@@ -134,6 +136,8 @@ export const AddUpdatePaymentDialog = ({
   onSuccess,
   children: trigger,
   amount: propsAmount,
+  open: controlledOpen,
+  onOpenChange,
   ...props
 }: AddUpdatePaymentDialogProps) => {
   const t = useI18n("admin");
@@ -146,7 +150,12 @@ export const AddUpdatePaymentDialog = ({
 
   const [loading, setLoading] = useState(false);
   const [smsConsent, setSmsConsent] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const open = controlledOpen ?? uncontrolledOpen;
+  const setOpen = (next: boolean) => {
+    onOpenChange?.(next);
+    if (controlledOpen === undefined) setUncontrolledOpen(next);
+  };
   const [assignOpen, setAssignOpen] = useState(false);
   const [assignedAppointment, setAssignedAppointment] = useState<
     Appointment | undefined
@@ -581,7 +590,7 @@ export const AddUpdatePaymentDialog = ({
   return (
     <>
       <Dialog open={open} onOpenChange={onDialogOpenChange}>
-        <DialogTrigger asChild>{trigger}</DialogTrigger>
+        {trigger ? <DialogTrigger asChild>{trigger}</DialogTrigger> : null}
         <DialogContent>
           <DialogHeader>
             <DialogTitle>

@@ -47,6 +47,8 @@ export type CoreQuickLinkDefinition = {
         label: string;
         icon: React.ReactNode;
         className?: string;
+        open?: boolean;
+        onOpenChange?: (open: boolean) => void;
       }>;
     }
 );

@@ -26,11 +26,39 @@ import {
 import { emitSmsVerificationStatusChange } from "./verification-events";
 
 const SUPPORT_EMAIL = "support@hacado.com";
+const NUMBER_ORDER_WAIT_MS = 45_000;
+const MESSAGING_READY_WAIT_MS = 30_000;
+const PROVISION_POLL_MS = 2_000;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 const paragraph = (value: string) => `<p>${escapeHtml(value)}</p>`;
+
+const isNotProvisionedError = (details: {
+  message?: string;
+  raw?: unknown;
+}) => {
+  const haystack = [
+    details.message,
+    typeof details.raw === "string" ? details.raw : "",
+    details.raw && typeof details.raw === "object"
+      ? JSON.stringify(details.raw)
+      : "",
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return (
+    haystack.includes("not provisioned") ||
+    haystack.includes("not yet provisioned") ||
+    haystack.includes("number is not active") ||
+    haystack.includes("phone number is not ready") ||
+    (haystack.includes("provision") && haystack.includes("not"))
+  );
+};
 
 const telnyxErrorDetails = (error: unknown) => {
   if (!error || typeof error !== "object") {
@@ -373,6 +401,8 @@ export async function saveSmsRegistration(input: {
     return { error: "Telnyx is not configured" };
   }
 
+  const client = new Telnyx({ apiKey });
+
   if (!phoneNumber) {
     logger.info(
       {
@@ -387,6 +417,7 @@ export async function saveSmsRegistration(input: {
       organizationId: input.organizationId,
       messagingProfileId,
       apiKey,
+      client,
     });
 
     if (!dedicated) {
@@ -422,9 +453,31 @@ export async function saveSmsRegistration(input: {
         organizationId: input.organizationId,
         phoneNumber,
         source: dedicated.source,
+        ready: dedicated.ready,
       },
       "Dedicated toll-free number acquired",
     );
+
+    if (!dedicated.ready) {
+      logger.warn(
+        {
+          organizationId: input.organizationId,
+          phoneNumber,
+          source: dedicated.source,
+        },
+        "Number acquired but not provisioned yet; marking number_preparing",
+      );
+
+      const saved = await store.save({
+        ...base,
+        blockedReason: "number_preparing",
+      });
+
+      return {
+        outcome: "preparing",
+        registration: toSmsRegistrationView(saved),
+      };
+    }
   } else {
     logger.info(
       {
@@ -434,6 +487,34 @@ export async function saveSmsRegistration(input: {
       },
       "Using existing assigned dedicated number",
     );
+
+    const ready = await ensureMessagingProfileReady({
+      client,
+      phoneNumber,
+      messagingProfileId,
+      organizationId: input.organizationId,
+    });
+
+    if (!ready) {
+      logger.warn(
+        {
+          organizationId: input.organizationId,
+          phoneNumber,
+          messagingProfileId,
+        },
+        "Assigned number is not messaging-ready yet; marking number_preparing",
+      );
+
+      const saved = await store.save({
+        ...base,
+        blockedReason: "number_preparing",
+      });
+
+      return {
+        outcome: "preparing",
+        registration: toSmsRegistrationView(saved),
+      };
+    }
   }
 
   const webhookUrl = `${getAppsExternalUrl()}/api/webhooks/platform/telnyx/verification`;
@@ -502,7 +583,6 @@ export async function saveSmsRegistration(input: {
   );
 
   try {
-    const client = new Telnyx({ apiKey });
     const requestId = existing?.telnyxRequestId || existing?.telnyxResourceId;
     let usedCreate = !requestId;
     const result = requestId
@@ -568,9 +648,162 @@ export async function saveSmsRegistration(input: {
       "Telnyx verification submit failed",
     );
 
+    if (isNotProvisionedError(details)) {
+      logger.warn(
+        {
+          organizationId: input.organizationId,
+          phoneNumber,
+        },
+        "Verification rejected because the number is not provisioned yet; marking number_preparing",
+      );
+
+      const saved = await store.save({
+        ...base,
+        blockedReason: "number_preparing",
+      });
+
+      return {
+        outcome: "preparing",
+        registration: toSmsRegistrationView(saved),
+      };
+    }
+
     await store.save(base);
     return { error: details.message };
   }
+}
+
+async function waitForNumberOrderSuccess(input: {
+  client: Telnyx;
+  orderId: string;
+  organizationId: string;
+}): Promise<"success" | "failure" | "timeout"> {
+  const logger = getLoggerFactory("SmsRegistration")(
+    "waitForNumberOrderSuccess",
+  );
+
+  const deadline = Date.now() + NUMBER_ORDER_WAIT_MS;
+  let attempt = 0;
+
+  while (Date.now() < deadline) {
+    attempt += 1;
+    const order = await input.client.numberOrders.retrieve(input.orderId);
+    const status = order.data?.status;
+    const phoneStatus = order.data?.phone_numbers?.[0]?.status;
+
+    logger.info(
+      {
+        organizationId: input.organizationId,
+        orderId: input.orderId,
+        status: status ?? null,
+        phoneStatus: phoneStatus ?? null,
+        attempt,
+      },
+      "Polled Telnyx number order status",
+    );
+
+    if (status === "success") return "success";
+    if (status === "failure") return "failure";
+
+    await sleep(PROVISION_POLL_MS);
+  }
+
+  logger.warn(
+    {
+      organizationId: input.organizationId,
+      orderId: input.orderId,
+      attempts: attempt,
+      timeoutMs: NUMBER_ORDER_WAIT_MS,
+    },
+    "Timed out waiting for Telnyx number order success",
+  );
+
+  return "timeout";
+}
+
+async function ensureMessagingProfileReady(input: {
+  client: Telnyx;
+  phoneNumber: string;
+  messagingProfileId: string;
+  organizationId: string;
+}): Promise<boolean> {
+  const logger = getLoggerFactory("SmsRegistration")(
+    "ensureMessagingProfileReady",
+  );
+  const deadline = Date.now() + MESSAGING_READY_WAIT_MS;
+  let attempt = 0;
+
+  while (Date.now() < deadline) {
+    attempt += 1;
+
+    try {
+      let settings = await input.client.phoneNumbers.messaging.retrieve(
+        input.phoneNumber,
+      );
+
+      let profileId = settings.data?.messaging_profile_id ?? null;
+
+      if (profileId !== input.messagingProfileId) {
+        logger.info(
+          {
+            organizationId: input.organizationId,
+            phoneNumber: input.phoneNumber,
+            currentProfileId: profileId,
+            targetProfileId: input.messagingProfileId,
+            attempt,
+          },
+          "Assigning purchased number to client messaging profile",
+        );
+
+        settings = await input.client.phoneNumbers.messaging.update(
+          input.phoneNumber,
+          { messaging_profile_id: input.messagingProfileId },
+        );
+        profileId = settings.data?.messaging_profile_id ?? null;
+      }
+
+      const hasSms = Boolean(settings.data?.features?.sms);
+      logger.info(
+        {
+          organizationId: input.organizationId,
+          phoneNumber: input.phoneNumber,
+          profileId,
+          hasSms,
+          attempt,
+        },
+        "Checked Telnyx messaging settings for dedicated number",
+      );
+
+      if (profileId === input.messagingProfileId) {
+        return true;
+      }
+    } catch (error) {
+      logger.warn(
+        {
+          organizationId: input.organizationId,
+          phoneNumber: input.phoneNumber,
+          attempt,
+          ...telnyxErrorDetails(error),
+        },
+        "Messaging settings not ready yet for dedicated number",
+      );
+    }
+
+    await sleep(PROVISION_POLL_MS);
+  }
+
+  logger.warn(
+    {
+      organizationId: input.organizationId,
+      phoneNumber: input.phoneNumber,
+      messagingProfileId: input.messagingProfileId,
+      attempts: attempt,
+      timeoutMs: MESSAGING_READY_WAIT_MS,
+    },
+    "Timed out waiting for messaging profile on dedicated number",
+  );
+
+  return false;
 }
 
 async function acquireDedicatedNumber(input: {
@@ -578,7 +811,12 @@ async function acquireDedicatedNumber(input: {
   organizationId: string;
   messagingProfileId: string;
   apiKey: string;
-}): Promise<{ phoneNumber: string; source: "released" | "purchased" } | null> {
+  client: Telnyx;
+}): Promise<{
+  phoneNumber: string;
+  source: "released" | "purchased";
+  ready: boolean;
+} | null> {
   const logger = getLoggerFactory("SmsRegistration")("acquireDedicatedNumber");
 
   logger.info(
@@ -594,17 +832,29 @@ async function acquireDedicatedNumber(input: {
   );
 
   if (released?.phoneNumber) {
+    const ready = await ensureMessagingProfileReady({
+      client: input.client,
+      phoneNumber: released.phoneNumber,
+      messagingProfileId: input.messagingProfileId,
+      organizationId: input.organizationId,
+    });
+
     logger.info(
       {
         organizationId: input.organizationId,
         phoneNumber: released.phoneNumber,
         telnyxId: released.telnyxId ?? null,
         source: "released",
+        ready,
       },
       "Reused a released toll-free number",
     );
 
-    return { phoneNumber: released.phoneNumber, source: "released" };
+    return {
+      phoneNumber: released.phoneNumber,
+      source: "released",
+      ready,
+    };
   }
 
   logger.info(
@@ -623,8 +873,7 @@ async function acquireDedicatedNumber(input: {
   );
 
   try {
-    const client = new Telnyx({ apiKey: input.apiKey });
-    const available = await client.availablePhoneNumbers.list({
+    const available = await input.client.availablePhoneNumbers.list({
       filter: {
         country_code: "US",
         phone_number_type: "toll_free",
@@ -669,15 +918,16 @@ async function acquireDedicatedNumber(input: {
       "Creating Telnyx number order",
     );
 
-    const order = await client.numberOrders.create({
+    const order = await input.client.numberOrders.create({
       messaging_profile_id: input.messagingProfileId,
       phone_numbers: [{ phone_number: phoneNumber }],
     });
+    const orderId = order.data?.id;
     const ordered = order.data?.phone_numbers?.[0];
     logger.info(
       {
         organizationId: input.organizationId,
-        orderId: order.data?.id ?? null,
+        orderId: orderId ?? null,
         orderStatus: order.data?.status ?? null,
         orderedPhone: ordered?.phone_number ?? null,
         orderedStatus: ordered?.status ?? null,
@@ -706,17 +956,60 @@ async function acquireDedicatedNumber(input: {
       organizationId: input.organizationId,
     });
 
+    let orderReady = order.data?.status === "success";
+    if (!orderReady && orderId) {
+      const waitResult = await waitForNumberOrderSuccess({
+        client: input.client,
+        orderId,
+        organizationId: input.organizationId,
+      });
+
+      orderReady = waitResult === "success";
+
+      if (waitResult === "failure") {
+        logger.warn(
+          {
+            organizationId: input.organizationId,
+            phoneNumber: ordered.phone_number,
+            orderId,
+          },
+          "Telnyx number order failed while waiting for provisioning",
+        );
+
+        return {
+          phoneNumber: ordered.phone_number,
+          source: "purchased",
+          ready: false,
+        };
+      }
+    }
+
+    const messagingReady = orderReady
+      ? await ensureMessagingProfileReady({
+          client: input.client,
+          phoneNumber: ordered.phone_number,
+          messagingProfileId: input.messagingProfileId,
+          organizationId: input.organizationId,
+        })
+      : false;
+
     logger.info(
       {
         organizationId: input.organizationId,
         phoneNumber: ordered.phone_number,
         telnyxId: ordered.id ?? null,
         source: "purchased",
+        orderReady,
+        messagingReady,
       },
       "Purchased and assigned dedicated toll-free number",
     );
 
-    return { phoneNumber: ordered.phone_number, source: "purchased" };
+    return {
+      phoneNumber: ordered.phone_number,
+      source: "purchased",
+      ready: orderReady && messagingReady,
+    };
   } catch (error) {
     const details = telnyxErrorDetails(error);
     logger.error(

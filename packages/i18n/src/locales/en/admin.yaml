@@ -3508,7 +3508,7 @@ settings:
       verified: Custom messaging is verified. Customer texts use a dedicated number.
       verifiedWithNumber: "Custom messaging is verified. Customer texts use {number}."
       rejected: Verification was not approved.
-      preparing: A number is being prepared. Custom messaging can be submitted once it is ready.
+      preparing: A number is being prepared. Submit again once it is ready, or wait a minute and retry.
     form:
       smsEnabled: Enable text messaging
       smsEnabledDescription: Customers can opt in to texts on your booking and waitlist forms.

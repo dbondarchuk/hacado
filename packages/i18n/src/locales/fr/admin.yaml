@@ -3259,7 +3259,7 @@ settings:
       verified: Les messages personnalisés sont vérifiés. Les textos utilisent votre numéro.
       verifiedWithNumber: Les messages personnalisés sont vérifiés. Les textos utilisent {number}.
       rejected: La vérification n'a pas été approuvée.
-      preparing: Un numéro est en préparation. Les messages personnalisés pourront être envoyés lorsqu'il sera prêt.
+      preparing: Un numéro est en préparation. Soumettez à nouveau quand il sera prêt, ou attendez une minute et réessayez.
     form:
       smsEnabled: Activer les messages texte
       smsEnabledDescription: Les clients peuvent accepter les textos dans vos formulaires de réservation et de liste d'attente.

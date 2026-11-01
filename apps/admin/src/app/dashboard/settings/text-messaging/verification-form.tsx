@@ -111,18 +111,25 @@ export const TextMessagingVerificationForm = ({
   const customEnabled = form.watch("enabled");
   const showVerificationDetails = customEnabled && !hasTextMessageSenderApp;
   const preparing = values.blockedReason === "number_preparing";
+
+  // Lock fully only while we still have no dedicated number. If a number was
+  // bought but is still provisioning, keep Submit available for retry.
+  const waitingForNumber = preparing && !phoneNumber;
   const fieldsLocked =
     !smsEnabled ||
-    preparing ||
+    waitingForNumber ||
     values.status === "pending" ||
     values.status === "verified";
-  const toggleLocked = !smsEnabled || preparing || values.status === "pending";
+
+  const toggleLocked =
+    !smsEnabled || waitingForNumber || values.status === "pending";
   const statusVariant =
     values.status === "rejected"
       ? "destructive"
       : values.status === "verified"
         ? "success"
         : "warning";
+
   const statusMessage =
     values.status === "rejected"
       ? values.rejectionReason || t("settings.textMessaging.status.rejected")
@@ -548,6 +555,7 @@ export const TextMessagingVerificationForm = ({
             form={form}
             disabled={loading}
             isLoading={loading}
+            ignoreDirty
             text={
               showVerificationDetails && values.status !== "verified"
                 ? t("settings.textMessaging.form.submit")

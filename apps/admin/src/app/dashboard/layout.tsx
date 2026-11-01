@@ -21,6 +21,7 @@ import {
   filterNavItemsForPlanTier,
   getAppMinimumPlanTier,
   getSessionPlanTier,
+  sessionCanUseFeature,
 } from "@/lib/billing/subscription-plan-access";
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { AvailableApps } from "@hacado/app-store";
@@ -193,15 +194,19 @@ export default async function DashboardLayout({
     planTier,
     websiteUrl,
     apps: appsWithMenu,
+    canUseFinancials: sessionCanUseFeature(session, "financials"),
   });
+
   const paletteApps = buildCommandPaletteApps(
     new Set(appsWithMenu.map((app) => app.name)),
   );
+
   const ownerMemberIds = new Set(
     (await servicesContainer.teamService.getActiveMembers())
       .filter((member) => member.role === "owner")
       .map((member) => member._id),
   );
+
   const paletteInstalledApps = buildCommandPaletteInstalledApps(
     filterConnectedAppsForUser(
       session.user,
@@ -209,16 +214,19 @@ export default async function DashboardLayout({
       ownerMemberIds,
     ),
   );
+
   const isSubscriptionPastDueFlag = isSubscriptionPastDue(subscriptionStatus);
 
   const canSeeInactiveMemberWarnings = canFilterByMember(session.user);
   const inactiveMemberWarnings = canSeeInactiveMemberWarnings
     ? await servicesContainer.teamService.hasUpcomingAppointmentsOnInactiveMembers()
     : [];
+
   const inactiveMemberAppointmentCount = inactiveMemberWarnings.reduce(
     (sum, warning) => sum + warning.count,
     0,
   );
+
   const inactiveMembersAppointmentsHref = `/dashboard/appointments${serializeAppointmentsSearchParams(
     { member: inactiveMemberWarnings.map((warning) => warning.memberId) },
   )}`;

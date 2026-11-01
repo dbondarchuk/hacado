@@ -1,3 +1,5 @@
+import { QuickLinkAddPaymentButton } from "@/components/admin/dashboard/quick-links/add-payment-button";
+import { QuickLinkApproveMatchedPaymentsButton } from "@/components/admin/dashboard/quick-links/approve-matched-payments-button";
 import type { CommandSearchScope } from "@/lib/command-search/scope";
 import { AvailableApps } from "@hacado/app-store";
 import { DashboardQuickLinkInjectorApps } from "@hacado/app-store/injectors/dashboard-quick-link";
@@ -5,10 +7,15 @@ import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { ConnectedApp, ConnectedAppAccount } from "@hacado/types/apps";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { SessionUser } from "@hacado/types/users";
-import { hasPermission } from "@hacado/utils/permissions";
+import {
+  canManageSyncedPayments,
+  canViewFinancials,
+  hasPermission,
+} from "@hacado/utils/permissions";
 import {
   BadgePercent,
   CalendarPlus,
+  Check,
   FilePlus,
   Gift,
   Globe,
@@ -18,6 +25,7 @@ import {
   PanelBottom,
   PanelTop,
   Paperclip,
+  Plus,
   Puzzle,
   TextCursorInput,
   UserPlus,
@@ -70,11 +78,13 @@ export function buildCommandPaletteActions({
   planTier,
   websiteUrl,
   apps,
+  canUseFinancials = false,
 }: {
   user: SessionUser;
   planTier: BillingPlanTier | null;
   websiteUrl: string;
   apps: { _id: string; name: string }[];
+  canUseFinancials?: boolean;
 }): CommandPaletteAction[] {
   const solo = meetsMinimumPlanTier(planTier, BillingPlanTier.Solo);
   const actions: CommandPaletteAction[] = [];
@@ -199,6 +209,26 @@ export function buildCommandPaletteActions({
       icon: <Paperclip {...iconProps} />,
     },
     hasPermission(user, "page", "update"),
+  );
+  add(
+    {
+      id: "add-payment",
+      labelKey: "admin.paymentsList.addPayment",
+      keywords: "add payment new payment",
+      icon: <Plus {...iconProps} />,
+      Action: QuickLinkAddPaymentButton,
+    },
+    canUseFinancials && canViewFinancials(user),
+  );
+  add(
+    {
+      id: "approve-matched-payments",
+      labelKey: "admin.syncedPayments.actions.approveAll",
+      keywords: "approve all matched payments synced payment inbox",
+      icon: <Check {...iconProps} />,
+      Action: QuickLinkApproveMatchedPaymentsButton,
+    },
+    canUseFinancials && canManageSyncedPayments(user),
   );
 
   for (const app of apps) {

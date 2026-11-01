@@ -23,15 +23,24 @@ export function QuickLinkApproveMatchedPaymentsButton({
   label,
   icon,
   className,
+  open: controlledOpen,
+  onOpenChange,
 }: {
   appId?: string;
   label: string;
   icon: React.ReactNode;
   className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }) {
   const t = useI18n("admin");
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
+  const open = controlledOpen ?? uncontrolledOpen;
+  const setOpen = (next: boolean) => {
+    onOpenChange?.(next);
+    if (controlledOpen === undefined) setUncontrolledOpen(next);
+  };
   const [approving, setApproving] = React.useState(false);
 
   const approveAll = async () => {
@@ -62,18 +71,20 @@ export function QuickLinkApproveMatchedPaymentsButton({
         setOpen(next);
       }}
     >
-      <AlertDialogTrigger asChild>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          className={className}
-          aria-label={label}
-        >
-          {icon}
-          {label}
-        </Button>
-      </AlertDialogTrigger>
+      {controlledOpen === undefined ? (
+        <AlertDialogTrigger asChild>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className={className}
+            aria-label={label}
+          >
+            {icon}
+            {label}
+          </Button>
+        </AlertDialogTrigger>
+      ) : null}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
