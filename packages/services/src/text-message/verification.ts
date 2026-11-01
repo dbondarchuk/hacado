@@ -203,7 +203,7 @@ export const buildTollFreeVerificationBody = (input: {
   const privacyPolicyUrl = input.privacyPolicyUrl.trim();
   const termsAndConditionUrl = input.termsAndConditionUrl.trim();
   const body: TollFreeVerificationBody = {
-    additionalInformation: `Messages sent from this number are strictly transactional appointment communications between ${tradeName} and their registered customers. No marketing, promotional, or cold outreach messaging is permitted or transmitted. Every message clearly identifies the sender brand (${tradeName}) and includes standard opt-out instructions (Reply STOP to cancel) and support details (Reply HELP for help or email support@hacado.com).`,
+    additionalInformation: `This toll-free number is assigned exclusively to ${tradeName} and is not shared with any other business, brand, or Hacado customer. Messages sent from this number are strictly transactional appointment communications between ${tradeName} and their registered customers. No marketing, promotional, or cold outreach messaging is permitted or transmitted. Every message clearly identifies the sender brand (${tradeName}) and includes standard opt-out instructions (Reply STOP to cancel) and support details (Reply HELP for help or email support@hacado.com). Privacy policy: ${privacyPolicyUrl}. Terms: ${termsAndConditionUrl}.`,
     businessAddr1: input.streetAddress.trim(),
     businessCity: capitalize(input.city.trim()),
     businessContactEmail: input.contactEmail.trim(),
@@ -215,12 +215,12 @@ export const buildTollFreeVerificationBody = (input: {
     businessZip: input.postalCode.trim(),
     corporateWebsite: website,
     messageVolume: "1,000",
-    optInWorkflow: `Customer enters a mobile number on the booking or waitlist page for ${tradeName} and may check an unchecked box to receive appointment or waitlist texts. The box is optional. Booking completes if it is left unchecked. Consent is stored for that phone number and ${tradeName}.`,
+    optInWorkflow: `Customer enters a mobile number on the booking or waitlist page for ${tradeName} and may check an unchecked box to receive appointment or waitlist texts. The box is optional. Booking completes if it is left unchecked. Consent is stored for that phone number and ${tradeName} only and is not shared with other businesses.`,
     optInWorkflowImageURLs: [{ url: input.optInImageUrl }],
     phoneNumbers: input.phoneNumbers.map((phoneNumber) => ({ phoneNumber })),
     productionMessageContent: `${tradeName}: Hi Jessica, your appointment on Fri, Oct 17, 3:00 PM is confirmed.`,
     useCase: "Appointments",
-    useCaseSummary: `${tradeName} uses this dedicated toll-free number to send transactional appointment confirmations, booking updates, rescheduling alerts, and automated reminders to their clients. The messaging infrastructure is managed and operated by Hacado, serving as the scheduling software platform for ${tradeName}. All notifications are triggered strictly by client booking activity on ${website}.`,
+    useCaseSummary: `${tradeName} uses this dedicated toll-free number solely for its own transactional appointment confirmations, booking updates, rescheduling alerts, and automated reminders to its clients. The number is not shared with other businesses or used for Hacado platform-wide messaging. The messaging infrastructure is managed by Hacado as the scheduling software ISV for ${tradeName}. All notifications are triggered strictly by client booking activity on ${website}.`,
     ageGatedContent: false,
     entityType: input.entityType,
     helpMessageResponse: input.helpMessage,

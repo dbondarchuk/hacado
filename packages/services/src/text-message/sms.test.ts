@@ -533,8 +533,12 @@ describe("toll-free verification body", () => {
     assert.equal(body.termsAndConditionURL, "https://ada.example/terms");
     assert.equal(body.productionMessageContent.startsWith("Ada Salon:"), true);
     assert.match(body.useCaseSummary, /Ada Salon/);
+    assert.match(body.useCaseSummary, /solely/);
+    assert.match(body.useCaseSummary, /not shared/i);
     assert.match(body.useCaseSummary, /https:\/\/ada\.example/);
     assert.match(body.additionalInformation, /Ada Salon/);
+    assert.match(body.additionalInformation, /exclusively/);
+    assert.match(body.additionalInformation, /not shared/i);
     assert.match(body.additionalInformation, /support@hacado\.com/);
     assert.match(body.additionalInformation, /https:\/\/ada\.example\/privacy/);
     assert.match(body.additionalInformation, /https:\/\/ada\.example\/terms/);

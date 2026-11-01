@@ -24,6 +24,13 @@ export type SmsRegistrationRecord = {
   contactLastName?: string;
   contactEmail?: string;
   contactPhone?: string;
+  optInImageUrl?: string;
+  privacyPolicyUrl?: string;
+  termsAndConditionUrl?: string;
+  notifyEmail?: string;
+  provisionAttempts?: number;
+  /** Per-organization Telnyx messaging profile (Hacado ISV: {business}). */
+  telnyxMessagingProfileId?: string;
   telnyxRequestId?: string;
   telnyxResourceId?: string;
   rejectionReason?: string;
@@ -43,6 +50,8 @@ export type SmsProfileNumberStatus = "assigned" | "released";
 export type SmsProfileNumberRecord = {
   phoneNumber: string;
   telnyxId?: string;
+  /** Org messaging profile this number is/was attached to while assigned. */
+  messagingProfileId?: string;
   organizationId?: string;
   status: SmsProfileNumberStatus;
   createdAt: Date;
@@ -110,6 +119,10 @@ export class SmsRegistrationStore {
       contactLastName: blank(fields.contactLastName),
       contactEmail: blank(fields.contactEmail),
       contactPhone: blank(fields.contactPhone),
+      optInImageUrl: blank(fields.optInImageUrl),
+      privacyPolicyUrl: blank(fields.privacyPolicyUrl),
+      termsAndConditionUrl: blank(fields.termsAndConditionUrl),
+      notifyEmail: blank(fields.notifyEmail),
       rejectionReason: blank(fields.rejectionReason),
       updatedAt: new Date(),
     };
@@ -119,6 +132,12 @@ export class SmsRegistrationStore {
       "businessRegistrationNumber",
       "rejectionReason",
       "blockedReason",
+      "optInImageUrl",
+      "privacyPolicyUrl",
+      "termsAndConditionUrl",
+      "notifyEmail",
+      "provisionAttempts",
+      "telnyxMessagingProfileId",
       "telnyxRequestId",
       "telnyxResourceId",
       "submittedAt",
@@ -195,6 +214,7 @@ export class SmsRegistrationStore {
 
   public async claimReleasedProfileNumber(
     organizationId: string,
+    messagingProfileId?: string,
   ): Promise<SmsProfileNumberRecord | null> {
     const db = await getDbConnection();
     return db
@@ -202,7 +222,11 @@ export class SmsRegistrationStore {
       .findOneAndUpdate(
         { status: "released" },
         {
-          $set: { status: "assigned", organizationId },
+          $set: {
+            status: "assigned",
+            organizationId,
+            ...(messagingProfileId ? { messagingProfileId } : {}),
+          },
           $unset: { releasedAt: "" },
         },
         { sort: { phoneNumber: 1 }, returnDocument: "after" },
@@ -212,6 +236,7 @@ export class SmsRegistrationStore {
   public async insertAssignedProfileNumber(input: {
     phoneNumber: string;
     telnyxId?: string;
+    messagingProfileId?: string;
     organizationId: string;
   }): Promise<void> {
     const db = await getDbConnection();
@@ -220,10 +245,41 @@ export class SmsRegistrationStore {
       .insertOne({
         phoneNumber: input.phoneNumber,
         ...(input.telnyxId ? { telnyxId: input.telnyxId } : {}),
+        ...(input.messagingProfileId
+          ? { messagingProfileId: input.messagingProfileId }
+          : {}),
         organizationId: input.organizationId,
         status: "assigned",
         createdAt: new Date(),
       });
+  }
+
+  public async assignProfileNumber(input: {
+    phoneNumber: string;
+    telnyxId?: string;
+    messagingProfileId?: string;
+    organizationId: string;
+  }): Promise<void> {
+    const db = await getDbConnection();
+    await db
+      .collection<SmsProfileNumberRecord>(SMS_PROFILE_NUMBERS_COLLECTION_NAME)
+      .updateOne(
+        { phoneNumber: input.phoneNumber },
+        {
+          $set: {
+            phoneNumber: input.phoneNumber,
+            ...(input.telnyxId ? { telnyxId: input.telnyxId } : {}),
+            ...(input.messagingProfileId
+              ? { messagingProfileId: input.messagingProfileId }
+              : {}),
+            organizationId: input.organizationId,
+            status: "assigned" as const,
+          },
+          $setOnInsert: { createdAt: new Date() },
+          $unset: { releasedAt: "" },
+        },
+        { upsert: true },
+      );
   }
 
   public async releaseOrganizationNumber(
@@ -251,6 +307,11 @@ export class SmsRegistrationStore {
             telnyxResourceId: "",
             rejectionReason: "",
             blockedReason: "",
+            optInImageUrl: "",
+            privacyPolicyUrl: "",
+            termsAndConditionUrl: "",
+            notifyEmail: "",
+            provisionAttempts: "",
             verifiedAt: "",
             submittedAt: "",
           },

@@ -345,13 +345,24 @@ export class NotificationService implements INotificationService {
           )
         : null;
 
+      const registration = access.customVerified
+        ? await this.registrationStore.get(this.organizationId)
+        : null;
+
+      const dedicatedProfileId =
+        dedicated?.messagingProfileId?.trim() ||
+        registration?.telnyxMessagingProfileId?.trim() ||
+        getClientMessagingProfileId();
+
       const poolNumbers = await this.registrationStore.listPoolNumbers();
       const route = resolvePlatformSmsRoute({
         customVerified: access.customVerified,
         dedicatedNumber: dedicated?.phoneNumber,
         platformCountry: isPlatformSmsCountry(trimmedPhone),
         poolNumber: poolNumbers[0],
-        messagingProfileId: getClientMessagingProfileId(),
+        messagingProfileId: access.customVerified
+          ? dedicatedProfileId
+          : getClientMessagingProfileId(),
         unverifiedProvider: getUnverifiedSmsProvider(),
       });
 

@@ -1,8 +1,16 @@
 "use client";
 
+import { useI18n } from "@hacado/i18n/client";
 import type { AppointmentFields } from "@hacado/types/booking";
-import { TextMessagingProvider, useTimeZone } from "@hacado/ui/context";
-import { useMemo, useState } from "react";
+import { Button } from "@hacado/ui/button";
+import {
+  ConfigContext,
+  TextMessagingProvider,
+  useConfig,
+  useTimeZone,
+  useWebsiteUrl,
+} from "@hacado/ui/context";
+import { useContext, useMemo, useState } from "react";
 
 import { ScheduleContext } from "./modern/components/context";
 import { FormCard } from "./modern/components/form-card";
@@ -56,8 +64,14 @@ const lightThemeStyle = {
 export const SmsOptInPreview = ({
   service,
   formFields,
+  businessTitle,
 }: SmsOptInPreviewProps) => {
+  const t = useI18n("translation");
   const timeZone = useTimeZone();
+  const parentConfig = useContext(ConfigContext);
+  const config = useConfig();
+  const websiteUrl = useWebsiteUrl();
+  const title = businessTitle?.trim() || config.name;
   const [fields, setFields] = useState(sampleFields);
   const dateTime = useMemo(() => {
     const date = new Date();
@@ -102,13 +116,32 @@ export const SmsOptInPreview = ({
         className="w-[440px] bg-white p-4 text-left text-foreground"
         style={lightThemeStyle}
       >
-        <TextMessagingProvider value={{ enabled: true }}>
-          <SmsConsentLookupContext.Provider value={lookupDeclines}>
-            <ScheduleContext.Provider value={value as never}>
-              <FormCard />
-            </ScheduleContext.Provider>
-          </SmsConsentLookupContext.Provider>
-        </TextMessagingProvider>
+        <ConfigContext.Provider
+          value={{
+            ...parentConfig,
+            config: { ...parentConfig.config, name: title },
+            websiteUrl,
+            textMessaging: { enabled: true },
+          }}
+        >
+          <TextMessagingProvider value={{ enabled: true }}>
+            <SmsConsentLookupContext.Provider value={lookupDeclines}>
+              <ScheduleContext.Provider value={value as never}>
+                {title ? (
+                  <p className="mb-3 text-base font-semibold leading-snug text-foreground">
+                    {title}
+                  </p>
+                ) : null}
+                <FormCard />
+                <div className="mt-4 flex justify-end">
+                  <Button type="button" tabIndex={-1} className="next-button">
+                    {t("common.buttons.confirmBooking")}
+                  </Button>
+                </div>
+              </ScheduleContext.Provider>
+            </SmsConsentLookupContext.Provider>
+          </TextMessagingProvider>
+        </ConfigContext.Provider>
       </div>
     </div>
   );

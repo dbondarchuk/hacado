@@ -5,6 +5,7 @@ import { WithOrganizationId } from "@hacado/types/database";
 import { envelopeForAppDelivery, EventEnvelope } from "@hacado/types/events";
 import {
   AppJobRequest,
+  CoreJobRequest,
   EventDeliveryJobRequest,
   OrganizationJobRequest,
 } from "@hacado/types/jobs";
@@ -13,6 +14,7 @@ import { Job } from "bullmq";
 import { resolvePlanTierFromOrganization } from "../../billing/subscription-entitlements";
 import { BuiltInApps } from "../../built-in/apps";
 import { getBuiltInAppData } from "../../built-in/utils";
+import { CoreJobProcessors } from "../../core-jobs";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQJobConfig } from "./types";
 import { reviveJobData } from "./utils";
@@ -68,6 +70,9 @@ export class BullMQJobWorker extends BaseBullMQClient {
           break;
         case "event":
           await this.processEventDeliveryJob(job.id!, jobData);
+          break;
+        case "core":
+          await this.processCoreJob(job.id!, jobData);
           break;
         default:
           throw new Error(`Invalid job type: ${(jobData as any).type}`);
@@ -257,6 +262,70 @@ export class BullMQJobWorker extends BaseBullMQClient {
     }
   }
 
+  private async processCoreJob(
+    jobId: string,
+    jobData: WithOrganizationId<CoreJobRequest>,
+  ): Promise<void> {
+    const logger = this.loggerFactory("processCoreJob");
+    const organizationId = jobData.organizationId;
+
+    logger.info(
+      {
+        jobId,
+        organizationId,
+        requestType: jobData.requestType,
+      },
+      "Processing core job",
+    );
+
+    if (!organizationId) {
+      logger.error(
+        { jobId, jobData },
+        "organizationId is required in job data",
+      );
+
+      throw new Error("organizationId is required in job data");
+    }
+
+    const processor = CoreJobProcessors[jobData.requestType];
+    if (!processor) {
+      logger.error(
+        { jobId, jobData },
+        `Unknown core job requestType: ${jobData.requestType}`,
+      );
+
+      throw new Error(`Unknown core job requestType: ${jobData.requestType}`);
+    }
+
+    logger.info(
+      {
+        jobId,
+        organizationId,
+        requestType: jobData.requestType,
+        hasPayload: jobData.payload !== undefined,
+        executeAt: jobData.executeAt,
+        deduplication: jobData.deduplication ?? null,
+      },
+      "Dispatching core job processor",
+    );
+
+    await processor({
+      organizationId,
+      jobId,
+      services: this.getServices(organizationId),
+      payload: jobData.payload,
+    });
+
+    logger.debug(
+      {
+        jobId,
+        organizationId,
+        requestType: jobData.requestType,
+      },
+      "Core job processor completed",
+    );
+  }
+
   private async processAppJob(
     jobId: string,
     jobData: WithOrganizationId<AppJobRequest>,
@@ -287,15 +356,18 @@ export class BullMQJobWorker extends BaseBullMQClient {
       if (builtIn?.scheduled) {
         const contacts =
           await services.teamService.getOrganizationAdminContacts();
+
         const contact = contacts[0];
         if (!contact) {
           throw new Error("Organization admin member not found");
         }
+
         const appData = getBuiltInAppData(
           organizationId,
           contact.memberId,
           jobData.appId as keyof typeof BuiltInApps,
         );
+
         const service = new builtIn.getService(organizationId, services);
         if (typeof service.processJob === "function") {
           await service.processJob(appData, jobData);

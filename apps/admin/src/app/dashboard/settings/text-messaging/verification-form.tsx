@@ -109,20 +109,20 @@ export const TextMessagingVerificationForm = ({
 
   const entityType = form.watch("entityType");
   const customEnabled = form.watch("enabled");
+  const legalName = form.watch("legalName");
+  const doingBusinessAs = form.watch("doingBusinessAs");
+  const optInBusinessTitle =
+    doingBusinessAs?.trim() || legalName?.trim() || values.legalName || "";
   const showVerificationDetails = customEnabled && !hasTextMessageSenderApp;
   const preparing = values.blockedReason === "number_preparing";
-
-  // Lock fully only while we still have no dedicated number. If a number was
-  // bought but is still provisioning, keep Submit available for retry.
-  const waitingForNumber = preparing && !phoneNumber;
   const fieldsLocked =
     !smsEnabled ||
-    waitingForNumber ||
+    preparing ||
     values.status === "pending" ||
     values.status === "verified";
 
-  const toggleLocked =
-    !smsEnabled || waitingForNumber || values.status === "pending";
+  const toggleLocked = !smsEnabled || preparing || values.status === "pending";
+
   const statusVariant =
     values.status === "rejected"
       ? "destructive"
@@ -195,7 +195,7 @@ export const TextMessagingVerificationForm = ({
       showVerificationDetails &&
       values.status !== "pending" &&
       values.status !== "verified" ? (
-        <SmsOptInPreview {...preview} />
+        <SmsOptInPreview {...preview} businessTitle={optInBusinessTitle} />
       ) : null}
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {statusMessage ? (

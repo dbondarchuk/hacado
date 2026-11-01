@@ -6,7 +6,9 @@ import {
 } from "@hacado/types/billing";
 import type { SubscriptionStatusChangedPayload } from "@hacado/types/events";
 import { SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE } from "@hacado/types/events";
-import { SmsRegistrationStore } from "../../text-message/registration-store";
+import { Telnyx } from "telnyx";
+import { getTelnyxConfiguration } from "../../text-message/telnyx/config";
+import { releaseDedicatedNumberForOrganization } from "../../text-message/telnyx/org-messaging-profile";
 import { claimEventHandler } from "../claim-event-handler";
 import type { EventHandler } from "./types";
 
@@ -36,9 +38,11 @@ export const smsProfileNumberHandler: EventHandler = {
     if (!claimed) return;
 
     const logger = getLoggerFactory("Events/SmsProfileNumber")("run");
-    await new SmsRegistrationStore().releaseOrganizationNumber(
-      envelope.organizationId,
-    );
+    const apiKey = getTelnyxConfiguration().apiKey;
+    await releaseDedicatedNumberForOrganization({
+      organizationId: envelope.organizationId,
+      ...(apiKey ? { client: new Telnyx({ apiKey }) } : {}),
+    });
 
     logger.info(
       { organizationId: envelope.organizationId, status: payload.newStatus },

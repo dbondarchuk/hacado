@@ -21,4 +21,6 @@ export type SmsOptInPreviewService = {
 export type SmsOptInPreviewProps = {
   service: SmsOptInPreviewService | null;
   formFields: SmsOptInFormField[];
+  /** End-business name shown on the opt-in screenshot (DBA or legal name). */
+  businessTitle?: string;
 };

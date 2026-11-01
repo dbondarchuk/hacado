@@ -106,6 +106,7 @@ export async function POST(request: NextRequest) {
     notifyEmail: auth.user.email,
     sendEmail: (email) =>
       SystemServicesContainer().notificationService.sendSystemEmail(email),
+    scheduleJob: (job) => services.jobService.scheduleJob(job),
     emit: (type, payload) =>
       services.eventService.emit(
         type,
