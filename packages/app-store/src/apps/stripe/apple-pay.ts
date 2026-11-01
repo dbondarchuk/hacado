@@ -16,6 +16,7 @@ export function getStripeApplePayDomainAssociation(): string | null {
   const forMode = test
     ? process.env.STRIPE_APPLE_PAY_DOMAIN_ASSOCIATION_TEST?.trim()
     : process.env.STRIPE_APPLE_PAY_DOMAIN_ASSOCIATION_LIVE?.trim();
+
   const fallback = process.env.STRIPE_APPLE_PAY_DOMAIN_ASSOCIATION?.trim();
   return forMode ?? fallback ?? null;
 }

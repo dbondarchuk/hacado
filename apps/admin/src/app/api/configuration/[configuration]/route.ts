@@ -20,6 +20,7 @@ export async function GET(
   const logger = getLoggerFactory("AdminAPI/configuration/[configuration]")(
     "GET",
   );
+
   const servicesContainer = await getServicesContainer();
   const { configuration: configurationKey } = await params;
 
@@ -45,6 +46,7 @@ export async function PUT(
   const logger = getLoggerFactory("AdminAPI/configuration/[configuration]")(
     "PUT",
   );
+
   const servicesContainer = await getServicesContainer();
   const { configuration: configurationKey } = await params;
   const body = await request.json();
@@ -53,6 +55,7 @@ export async function PUT(
 
   const configurationSchema =
     configurationSchemaMap[configurationKey as ConfigurationKey];
+
   if (!configurationSchema) {
     logger.warn({ configurationKey }, "Invalid configuration key");
     return NextResponse.json(
@@ -71,6 +74,7 @@ export async function PUT(
       { error: parseResult.error, configurationKey },
       "Invalid configuration",
     );
+
     return NextResponse.json(
       {
         error: parseResult.error,

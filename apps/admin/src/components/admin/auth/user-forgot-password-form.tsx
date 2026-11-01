@@ -77,8 +77,10 @@ export const UserForgotPasswordForm = ({
       markEmailOtpSent(initialEmail, "forget-password");
       return "otp";
     }
+
     return "email";
   });
+
   const [email, setEmail] = useState(initialEmail);
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -113,6 +115,7 @@ export const UserForgotPasswordForm = ({
     defaultValues: { password: "", confirmPassword: "" },
     mode: "onChange",
   });
+
   const passwordValue = passwordForm.watch("password");
 
   const withProgress = (content: ReactNode) => (
@@ -159,6 +162,7 @@ export const UserForgotPasswordForm = ({
             ? t("auth.captcha.error")
             : t("auth.forgotPassword.error"),
         );
+
         return;
       }
 
@@ -215,7 +219,6 @@ export const UserForgotPasswordForm = ({
       </>,
     );
   }
-
   if (step === "password" && email && otp) {
     return withProgress(
       <>

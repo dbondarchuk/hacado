@@ -23,8 +23,10 @@ export const servicesSearchParams = {
 
 export const servicesSearchParamsCache =
   createSearchParamsCache(servicesSearchParams);
+
 export const servicesSearchParamsSchema =
   createStandardSchemaV1(servicesSearchParams);
+
 export const servicesSearchParamsSerializer =
   createSerializer(servicesSearchParams);
 

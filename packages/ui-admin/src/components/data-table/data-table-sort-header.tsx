@@ -22,6 +22,7 @@ export type SortingFieldType =
   | "date"
   | "time"
   | "default";
+
 type SortingState = "false" | SortDirection;
 
 const buttons: Record<SortingFieldType, Record<SortingState, LucideIcon>> = {

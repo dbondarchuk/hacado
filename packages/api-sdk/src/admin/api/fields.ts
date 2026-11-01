@@ -41,6 +41,7 @@ export const getFields = async (params: FieldsSearchParams) => {
 
   const data =
     await response.json<WithTotal<FieldsType<typeof includeUsage>>>();
+
   console.debug("Service fields retrieved successfully", {
     data,
   });

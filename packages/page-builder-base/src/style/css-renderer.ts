@@ -27,6 +27,7 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
     Object.entries(defaultProperties).forEach(([property, value]) => {
       const definition = styleDefinitions[property as keyof T];
       if (!definition) return;
+
       let cssValue = definition.renderToCSS(value as never, isEditor);
       if (cssValue?.endsWith(";")) {
         cssValue = cssValue.slice(0, -1);
@@ -63,11 +64,13 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
           if (!variantsByBreakpoint[breakpointKey]) {
             variantsByBreakpoint[breakpointKey] = {};
           }
+
           variant.state!.forEach((stateWithParent: StateWithTarget) => {
             const stateSelector = generateStateTargetSelector(stateWithParent);
             if (!variantsByBreakpoint[breakpointKey][stateSelector]) {
               variantsByBreakpoint[breakpointKey][stateSelector] = [];
             }
+
             variantsByBreakpoint[breakpointKey][stateSelector].push(variantCSS);
           });
         }
@@ -78,9 +81,11 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
           if (!variantsByBreakpoint[breakpointKey]) {
             variantsByBreakpoint[breakpointKey] = {};
           }
+
           if (!variantsByBreakpoint[breakpointKey]["base"]) {
             variantsByBreakpoint[breakpointKey]["base"] = [];
           }
+
           variantsByBreakpoint[breakpointKey]["base"].push(variantCSS);
         }
         // If only states are provided (no breakpoints)
@@ -90,6 +95,7 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
             if (!variantsByState[stateSelector]) {
               variantsByState[stateSelector] = [];
             }
+
             variantsByState[stateSelector].push(variantCSS);
           });
         }
@@ -104,6 +110,7 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
       cssRules.forEach((rule) => {
         css += `  ${rule}\n`;
       });
+
       css += "}\n";
     }
   });
@@ -132,6 +139,7 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
           cssRules.forEach((rule) => {
             css += `    ${rule}\n`;
           });
+
           css += "  }\n";
         }
       });
@@ -168,6 +176,7 @@ export function renderStylesToCSS<T extends BaseStyleDictionary>(
         if (!childStyles[styleDef.selector]) {
           childStyles[styleDef.selector] = {};
         }
+
         childStyles[styleDef.selector][styleName as keyof T] = styleValue;
       } else {
         // This style should be applied directly
@@ -183,6 +192,7 @@ export function renderStylesToCSS<T extends BaseStyleDictionary>(
     defaultProperties,
     isEditor,
   );
+
   if (directCSS.trim()) {
     css += `${rootSelector} {\n${directCSS}\n}\n`;
   }
@@ -195,6 +205,7 @@ export function renderStylesToCSS<T extends BaseStyleDictionary>(
       undefined,
       isEditor,
     );
+
     if (childCSS.trim()) {
       const fullSelector = className ? `.${className} ${selector}` : selector;
       css += `\n${fullSelector} {\n${childCSS}\n}`;
@@ -220,6 +231,7 @@ function getBreakpointWidth(breakpoint: string): string {
     "max-xl": "80rem", // < 80rem (1280px)
     "max-2xl": "96rem", // < 96rem (1536px)
   };
+
   return breakpoints[breakpoint as keyof typeof breakpoints] || "40rem";
 }
 

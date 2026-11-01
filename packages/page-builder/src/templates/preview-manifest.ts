@@ -191,6 +191,7 @@ export function layoutPreviewHeaderVariant(
   layoutKind: (typeof LAYOUT_KINDS)[number],
 ): "solid" | "transparent" {
   if (layoutKind !== "home") return "solid";
+
   const hero = WEBSITE_PACKS[packId]?.hero;
   return hero && OVERLAY_HEROES.includes(hero) ? "transparent" : "solid";
 }

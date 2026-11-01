@@ -28,6 +28,7 @@ export function ExportPaymentsButton({
     customerFilter,
     appointmentFilter,
   } = usePaymentsTableFilters();
+
   const [sort] = useQueryState(
     "sort",
     paymentsSearchParams.sort.withOptions({ shallow: false }),
@@ -63,6 +64,7 @@ export function ExportPaymentsButton({
             limit: error.body.limit ?? PAYMENTS_EXPORT_MAX_ROWS,
           }),
         );
+
         return;
       }
 

@@ -53,9 +53,11 @@ export const MarketingBrowserCarouselClient = forwardRef<
 
     useEffect(() => {
       if (!autoRotateMs || safeSlides.length <= 1) return;
+
       const timer = window.setInterval(() => {
         setIndex((i) => (i + 1) % safeSlides.length);
       }, autoRotateMs);
+
       return () => window.clearInterval(timer);
     }, [autoRotateMs, safeSlides.length]);
 

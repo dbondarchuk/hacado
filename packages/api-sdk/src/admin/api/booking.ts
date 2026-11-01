@@ -11,6 +11,7 @@ export const addBookingAvailableOption = async (optionId: string) => {
     success: boolean;
     alreadyPresent?: boolean;
   }>();
+
   console.debug("Added option to booking availability", { optionId, data });
   return data;
 };

@@ -29,6 +29,7 @@ export const BlogPostReadTimeEditor = ({
   const format =
     currentBlock?.data?.props?.format ??
     BlogPostReadTimePropsDefaults.props.format;
+
   const wordsPerMinute =
     currentBlock?.data?.props?.wordsPerMinute ??
     BlogPostReadTimePropsDefaults.props.wordsPerMinute;

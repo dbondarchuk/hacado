@@ -48,6 +48,7 @@ const formatDuration = (entry: WaitlistEntry): string => {
   if (!entry.duration) {
     return "-";
   }
+
   const { hours, minutes } = durationToTime(entry.duration);
   const parts: string[] = [];
   if (hours) parts.push(`${hours} hr`);

@@ -27,6 +27,7 @@ export function resolvePlanTierFromOrganization(
   > | null,
 ): BillingPlanTier | null {
   if (!organization) return null;
+
   return resolvePlanTierFromProductId(organization.polarSubscriptionProductId, {
     feesExempt: organization.feesExempt,
   });

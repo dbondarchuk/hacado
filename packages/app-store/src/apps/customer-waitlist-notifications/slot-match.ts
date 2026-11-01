@@ -14,6 +14,7 @@ export function hourBandForHour(hour: number): WaitlistTime {
   if (hour < EVENING_START_HOUR) {
     return "afternoon";
   }
+
   return "evening";
 }
 
@@ -25,6 +26,7 @@ export function getSlotTimeOfDayArgs(
   const local = DateTime.fromJSDate(slotStart, { zone: "utc" }).setZone(
     timeZone,
   );
+
   const band = hourBandForHour(local.hour);
   return {
     slotTimeOfDay: labels[band],
@@ -70,12 +72,14 @@ export function availabilityFetchRange(
     .minus({ days: 1 })
     .toUTC()
     .toJSDate();
+
   const to = DateTime.fromJSDate(windowEnd, { zone: "utc" })
     .setZone(timeZone)
     .endOf("day")
     .plus({ days: 1 })
     .toUTC()
     .toJSDate();
+
   return { from, to };
 }
 
@@ -129,7 +133,6 @@ export function waitlistEntryMatchesSlot(
   if (entry.asSoonAsPossible) {
     return true;
   }
-
   if (!entry.dates?.length) {
     return false;
   }

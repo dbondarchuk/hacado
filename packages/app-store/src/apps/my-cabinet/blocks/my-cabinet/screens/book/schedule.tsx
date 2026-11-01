@@ -178,6 +178,7 @@ export const Schedule: React.FC<
     selectedAppointmentOption?.durationType === "fixed"
       ? selectedAppointmentOption?.price
       : selectedAppointmentOption?.pricePerHour;
+
   const optionBaseDuration =
     selectedAppointmentOption?.durationType === "fixed"
       ? selectedAppointmentOption?.duration
@@ -202,6 +203,7 @@ export const Schedule: React.FC<
   const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
     null,
   );
+
   const [isAnySpecialist, setIsAnySpecialist] = React.useState(false);
 
   const [isBookingConfirmed, setIsBookingConfirmed] = React.useState(false);
@@ -236,6 +238,7 @@ export const Schedule: React.FC<
   React.useEffect(() => {
     if (!selectedAppointmentOption) return;
     if (selectedAppointmentOption.durationType !== "flexible") return;
+
     setDuration(selectedAppointmentOption.durationMin);
   }, [selectedAppointmentOption?._id, setDuration]);
 
@@ -260,9 +263,11 @@ export const Schedule: React.FC<
   const [purchasePackageId, setPurchasePackageId] = React.useState<
     string | undefined
   >(lockPurchasePackageId);
+
   const [customerPackageId, setCustomerPackageId] = React.useState<
     string | undefined
   >(lockCustomerPackageId);
+
   const [otpVerified, setOtpVerified] = React.useState(true);
   const lockedPackageBootstrappedForId = React.useRef<string | null>(null);
 
@@ -270,6 +275,7 @@ export const Schedule: React.FC<
   const [currentStep, setCurrentStep] = React.useState<StepType>(
     lockCustomerPackageId ? "calendar" : initialStep,
   );
+
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
   );
@@ -280,9 +286,11 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!selectedAddons.length || !selectedMemberId) return;
+
     const filtered = selectedAddons.filter((addon) =>
       isAddonAvailableForMember(addon.staff, selectedMemberId),
     );
+
     if (filtered.length !== selectedAddons.length) {
       setSelectedAddons(filtered);
     }
@@ -291,10 +299,12 @@ export const Schedule: React.FC<
 
   const addonsFields =
     selectedAddons?.flatMap((addon) => addon.fields || []) || [];
+
   const allFormFields = [
     ...(selectedAppointmentOption?.fields || []),
     ...addonsFields,
   ];
+
   const fieldsIdsRequired = [...allFormFields].reduce(
     (map, field) => ({
       ...map,
@@ -324,6 +334,7 @@ export const Schedule: React.FC<
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [confirmDuplicateAppointment, setConfirmDuplicateAppointment] =
     React.useState(false);
+
   const [waitlistTimes, setWaitlistTimes] = React.useState<{
     asSoonAsPossible: boolean;
     dates?: WaitlistDate[];
@@ -357,6 +368,7 @@ export const Schedule: React.FC<
 
       const addonsDuration = (selectedAddons || []).reduce((sum, addon) => {
         if (!isAddonAvailableForMember(addon.staff, memberId)) return sum;
+
         return (
           sum +
           (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0)
@@ -434,6 +446,7 @@ export const Schedule: React.FC<
     (paymentIntentIdOverride?: string): AppointmentRequest | null => {
       if (!dateTime || !duration || !selectedAppointmentOption?._id)
         return null;
+
       return {
         dateTime: LuxonDateTime.fromObject(
           {
@@ -521,9 +534,12 @@ export const Schedule: React.FC<
               const canFulfillAddons = (selectedAddons || []).every((addon) =>
                 isAddonAvailableForMember(addon.staff, memberId),
               );
+
               if (!canFulfillAddons) return null;
+
               const memberDuration = getTotalDurationForMember(memberId);
               if (!memberDuration) return null;
+
               return { memberId, duration: memberDuration };
             })
             .filter((r): r is { memberId: string; duration: number } => !!r);
@@ -545,6 +561,7 @@ export const Schedule: React.FC<
             memberIds: requests.map((r) => r.memberId),
             durations: requests.map((r) => r.duration),
           });
+
           setAvailabilityByMember(data);
           return;
         }
@@ -607,6 +624,7 @@ export const Schedule: React.FC<
         const customerPackage = packagesRes.items?.find(
           (pkg) => pkg._id === lockCustomerPackageId,
         );
+
         if (
           !customerPackage ||
           customerPackage.status === "pending" ||
@@ -645,6 +663,7 @@ export const Schedule: React.FC<
             ? option.duration
             : option.durationMin,
         );
+
         setCurrentStep("calendar");
 
         const staff = getActiveStaffForAssignments(
@@ -653,6 +672,7 @@ export const Schedule: React.FC<
           option.durationType === "fixed" ? option.price : option.pricePerHour,
           option.durationType === "fixed" ? option.duration : undefined,
         );
+
         const memberId = staff.length === 1 ? staff[0].member.id : undefined;
         if (memberId) {
           setSelectedMemberId(memberId);
@@ -662,6 +682,7 @@ export const Schedule: React.FC<
           option.durationType === "fixed"
             ? option.duration
             : option.durationMin;
+
         if (!optionDuration) {
           lockedPackageBootstrappedForId.current = lockCustomerPackageId;
           return;
@@ -673,10 +694,12 @@ export const Schedule: React.FC<
           lockedPackageBootstrappedForId.current = lockCustomerPackageId;
           return;
         }
+
         const data = await availabilityApi.getAvailability({
           memberIds: [memberId],
           durations: [optionDuration],
         });
+
         if (cancelled) return;
 
         setAvailabilityByMember(data);
@@ -882,6 +905,7 @@ export const Schedule: React.FC<
             setCurrentStep("calendar");
             await fetchAvailability();
           }
+
           return;
         }
 
@@ -1053,6 +1077,7 @@ export const Schedule: React.FC<
       otpVerified,
     ],
   );
+
   return (
     <ScheduleContext.Provider value={contextValue}>
       <BookingWithWaitlistLayout

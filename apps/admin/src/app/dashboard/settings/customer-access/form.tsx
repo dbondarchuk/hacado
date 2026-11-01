@@ -82,6 +82,7 @@ export const CustomerAccessSettingsForm: React.FC<{
           error: t("settings.customerAccess.form.toasts.requestError"),
         },
       );
+
       router.refresh();
     } finally {
       setLoading(false);
@@ -157,6 +158,7 @@ export const CustomerAccessSettingsForm: React.FC<{
                 disabled={loading || (!smsEnabled && field.value !== true)}
                 onCheckedChange={(value) => {
                   if (value && !smsEnabled) return;
+
                   field.onChange(value);
                 }}
               >

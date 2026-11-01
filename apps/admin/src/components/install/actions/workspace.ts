@@ -78,6 +78,7 @@ export async function createWorkspace(
     typeof input?.slug === "string"
       ? getOrganizationSlugIssue(input.slug)
       : "invalid";
+
   if (slugIssue === "too_short" || slugIssue === "invalid") {
     return { ok: false, code: "slug_invalid" };
   }
@@ -91,8 +92,10 @@ export async function createWorkspace(
       { error: workspaceInputSchemaResult.error },
       "Invalid workspace input",
     );
+
     return { ok: false, code: "invalid_input" };
   }
+
   const parsed = workspaceInputSchemaResult.data;
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
@@ -100,6 +103,7 @@ export async function createWorkspace(
     logger.error({ session }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
   }
+
   if (!(session.user as { emailVerified?: boolean }).emailVerified) {
     logger.error({ userId: session.user.id }, "Email not verified");
     return { ok: false, code: "email_not_verified" };
@@ -108,6 +112,7 @@ export async function createWorkspace(
   const wasExistingOrg = Boolean(
     (session.user as { organizationId?: string }).organizationId,
   );
+
   const db = await getDbConnection();
   let orgId: string;
   if (session.user.organizationId) {
@@ -115,10 +120,12 @@ export async function createWorkspace(
     const taken = await new StaticOrganizationService().getOrganizationBySlug(
       parsed.slug,
     );
+
     if (taken && String(taken._id) !== String(orgId)) {
       logger.error({ slug: parsed.slug, orgId }, "Slug taken");
       return { ok: false, code: "slug_taken" };
     }
+
     await db
       .collection<Organization>(ORGANIZATIONS_COLLECTION_NAME)
       .updateOne(
@@ -129,10 +136,12 @@ export async function createWorkspace(
     const taken = await new StaticOrganizationService().getOrganizationBySlug(
       parsed.slug,
     );
+
     if (taken) {
       logger.error({ slug: parsed.slug }, "Slug taken");
       return { ok: false, code: "slug_taken" };
     }
+
     orgId = new ObjectId().toString();
     await db
       .collection<{
@@ -152,6 +161,7 @@ export async function createWorkspace(
   const existingMember = await db
     .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
     .findOne({ organizationId: orgId, userId: session.user.id });
+
   if (!existingMember) {
     await db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME).insertOne({
       _id: new ObjectId().toString(),
@@ -216,17 +226,20 @@ export async function createWorkspace(
     | ConfigurationOption<"brand">
     | ConfigurationOption<"booking">
   >(CONFIGURATION_COLLECTION_NAME);
+
   await configurations.updateOne(
     { key: "general", organizationId: orgId },
     { $set: { key: "general", organizationId: orgId, value: generalValue } },
     { upsert: true },
   );
+
   logger.debug({ orgId }, "Stored general configuration");
 
   const existingBrandDoc = await configurations.findOne({
     key: "brand",
     organizationId: orgId,
   } as any);
+
   const existingBrand = (existingBrandDoc?.value ?? {}) as BrandConfiguration;
   const logoInput = parsed.installLogo;
   const logo =
@@ -241,6 +254,7 @@ export async function createWorkspace(
       logo,
       services.assetsService,
     );
+
     if (faviconValidation.ok) {
       favicon = logo;
       logger.debug(
@@ -271,12 +285,14 @@ export async function createWorkspace(
     { $set: { key: "brand", organizationId: orgId, value: brandValue } },
     { upsert: true },
   );
+
   logger.debug({ orgId }, "Stored brand configuration");
 
   const existingBooking = await configurations.findOne({
     key: "booking",
     organizationId: orgId,
   } as any);
+
   if (
     !existingBooking?.value ||
     Object.keys(existingBooking.value).length === 0
@@ -293,6 +309,7 @@ export async function createWorkspace(
       },
       { upsert: true },
     );
+
     logger.debug({ orgId }, "Stored default booking configuration");
   }
 

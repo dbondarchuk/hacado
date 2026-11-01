@@ -14,6 +14,7 @@ export const zIndexStyle = {
   defaultValue: 0,
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `z-index: ${value};`;
   },
   component: ({ value, onChange }) => (

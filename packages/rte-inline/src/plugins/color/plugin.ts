@@ -43,6 +43,7 @@ export const colorPlugin: MarkPlugin = {
     if (marks.color && marks.color !== "inherit") {
       styles.color = marks.color;
     }
+
     return styles;
   },
 };

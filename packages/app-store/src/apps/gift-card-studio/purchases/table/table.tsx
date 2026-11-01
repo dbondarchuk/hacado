@@ -35,6 +35,7 @@ export const PurchasesTable: React.FC<{
     if (!options?.silent) {
       setLoading(true);
     }
+
     try {
       const page = q.page;
       const limit = q.limit;

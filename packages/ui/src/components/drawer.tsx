@@ -14,6 +14,7 @@ const Drawer = ({
     {...props}
   />
 );
+
 Drawer.displayName = "Drawer";
 
 const DrawerTrigger: typeof DrawerPrimitive.Trigger = DrawerPrimitive.Trigger;
@@ -35,6 +36,7 @@ const DrawerOverlay: React.ForwardRefExoticComponent<
     {...props}
   />
 ));
+
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const DrawerContent: React.ForwardRefExoticComponent<
@@ -66,6 +68,7 @@ const DrawerContent: React.ForwardRefExoticComponent<
     </DrawerPrimitive.Content>
   </DrawerPortal>
 ));
+
 DrawerContent.displayName = "DrawerContent";
 
 const DrawerHeader = ({
@@ -77,6 +80,7 @@ const DrawerHeader = ({
     {...props}
   />
 );
+
 DrawerHeader.displayName = "DrawerHeader";
 
 const DrawerFooter = ({
@@ -88,6 +92,7 @@ const DrawerFooter = ({
     {...props}
   />
 );
+
 DrawerFooter.displayName = "DrawerFooter";
 
 const DrawerTitle: React.ForwardRefExoticComponent<
@@ -106,6 +111,7 @@ const DrawerTitle: React.ForwardRefExoticComponent<
     {...props}
   />
 ));
+
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
 const DrawerDescription: React.ForwardRefExoticComponent<
@@ -121,6 +127,7 @@ const DrawerDescription: React.ForwardRefExoticComponent<
     {...props}
   />
 ));
+
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
 export {

@@ -61,7 +61,6 @@ export const FormBlockEditor = ({ props, style }: FormBlockProps) => {
       </>
     );
   }
-
   if (status === "loading") {
     return (
       <>
@@ -85,7 +84,6 @@ export const FormBlockEditor = ({ props, style }: FormBlockProps) => {
       </>
     );
   }
-
   if (status === "success" && form) {
     return (
       <>

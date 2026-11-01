@@ -30,11 +30,9 @@ export function isStyleAllowed(
   support?: StyleSupport,
 ): boolean {
   if (!support) return true;
-
   if (support.blockedStyles?.includes(styleName)) {
     return false;
   }
-
   if (support.allowedStyles && support.allowedStyles.length > 0) {
     return support.allowedStyles.includes(styleName);
   }
@@ -112,15 +110,16 @@ export const renderRawNumberWithUnitCss = (
   value: NumberValueWithUnit | NumberValueWithUnitOrUnitless,
 ) => {
   if (!value) return null;
+
   return `${value.value}${value.unit}`;
 };
+
 export const renderRawNumberWithUnitOrKeywordCss = <T extends string>(
   value: NumberValueWithUnitOrKeyword<T> | null | undefined,
 ): string => {
   if (value === null || typeof value === "undefined") {
     return "inherit";
   }
-
   if (typeof value === "object" && value !== null) {
     return renderRawNumberWithUnitCss(value) ?? "inherit";
   }
@@ -152,6 +151,7 @@ const defaultSideLonghand = (shorthand: string, side: PerSideKey) => {
   if (separator === -1) {
     return `${shorthand}-${side}`;
   }
+
   return `${shorthand.slice(0, separator)}-${side}${shorthand.slice(separator)}`;
 };
 
@@ -167,14 +167,17 @@ export const renderAllOrPerSideCss = <T>(
   if (!isPerSideValue(value)) {
     const css = renderValue(value);
     if (!css) return null;
+
     return `${shorthand}: ${css};`;
   }
 
   const lines = perSideKeys.flatMap((side) => {
     const slot = value[side];
     if (slot == null) return [];
+
     const css = renderValue(slot);
     if (!css) return [];
+
     return [`${longhand(side)}: ${css};`];
   });
 
@@ -193,14 +196,17 @@ export const renderAllOrPerCornerCss = <T>(
   if (!isPerCornerValue(value)) {
     const css = renderValue(value);
     if (!css) return null;
+
     return `${shorthand}: ${css};`;
   }
 
   const lines = perCornerKeys.flatMap((corner) => {
     const slot = value[corner];
     if (slot == null) return [];
+
     const css = renderValue(slot);
     if (!css) return [];
+
     return [`${longhand(corner)}: ${css};`];
   });
 

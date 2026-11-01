@@ -82,6 +82,7 @@ export const YouTubeVideo = forwardRef<
       rel: rel ? "1" : "0",
       showinfo: showInfo ? "1" : "0",
     });
+
     if (start) params.set("start", String(start));
     if (end) params.set("end", String(end));
     if (loop) params.set("playlist", videoId);

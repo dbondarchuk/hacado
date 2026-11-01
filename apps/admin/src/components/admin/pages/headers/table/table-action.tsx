@@ -18,6 +18,7 @@ export function PageHeadersTableAction() {
     setPage,
     setSearchQuery,
   } = usePageHeadersTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
 
   const additionalFilters = <></>;

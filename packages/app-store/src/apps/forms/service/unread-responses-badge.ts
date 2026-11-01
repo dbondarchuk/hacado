@@ -22,6 +22,7 @@ export async function getFormResponsesLastReadAt(
   const lastRead = await services.redisClient.get(
     lastReadRedisKey(organizationId, appId, memberId),
   );
+
   return lastRead ? new Date(lastRead) : new Date(0);
 }
 
@@ -54,12 +55,14 @@ export async function getFormsUnreadResponsesBadges(
     memberId,
     services,
   );
+
   const repository = new FormsRepositoryService(
     appId,
     organizationId,
     getDbConnection,
     services,
   );
+
   const count = await repository.getResponsesCountSince(lastReadAt);
 
   return [{ key: FORMS_UNREAD_RESPONSES_BADGE_KEY, count }];

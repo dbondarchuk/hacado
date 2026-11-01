@@ -16,6 +16,7 @@ export function syncDragIntoNestedModifier(
   setDragIntoNestedModifier: (value: boolean) => void,
 ) {
   if (!event) return;
+
   setDragIntoNestedModifier(readNestedModifier(event));
 }
 
@@ -34,6 +35,7 @@ export function DragIntoNestedModifierTracker() {
     if (typeof window !== "undefined") {
       views.add(window);
     }
+
     const portalView = portalDocument.defaultView;
     if (portalView) {
       views.add(portalView);
@@ -61,6 +63,7 @@ export function DragIntoNestedModifierTracker() {
         view.removeEventListener("pointermove", update);
         view.removeEventListener("blur", reset);
       }
+
       setDragIntoNestedModifier(false);
     };
   }, [hasActiveDragBlock, portalDocument, setDragIntoNestedModifier]);

@@ -68,6 +68,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
   const [pickProfession, setPickProfession] = React.useState<string | null>(
     null,
   );
+
   const [selectedTemplate, setSelectedTemplate] =
     React.useState<SelectedTemplate | null>(null);
 
@@ -83,6 +84,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
   const query = search.trim();
   const matchedProfessions = React.useMemo(() => {
     if (!query) return allProfessions;
+
     return allProfessions.filter((prof) =>
       professionMatchesSearch(
         tInstall as any,
@@ -95,6 +97,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
 
   const shownProfessions = React.useMemo(() => {
     if (!query) return allProfessions.slice(0, 8);
+
     return matchedProfessions.slice(0, 8);
   }, [allProfessions, matchedProfessions, query]);
 
@@ -176,6 +179,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
             closeDialog();
             return;
           }
+
           setDialogOpen(open);
         }}
       >
@@ -215,6 +219,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
                     prof.categoryId,
                     prof.professionId,
                   );
+
                   return (
                     <button
                       key={`${prof.categoryId}:${prof.professionId}`}
@@ -291,6 +296,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
                     selectedTemplate?.categoryId === pickCategory &&
                     selectedTemplate?.professionId === pickProfession &&
                     selectedTemplate?.serviceId === svc.id;
+
                   return (
                     <button
                       key={svc.id}
@@ -356,6 +362,7 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
               disabled={!selectedTemplate}
               onClick={() => {
                 if (!selectedTemplate) return;
+
                 const template = encodeURIComponent(
                   serializeTemplateId(selectedTemplate),
                 );

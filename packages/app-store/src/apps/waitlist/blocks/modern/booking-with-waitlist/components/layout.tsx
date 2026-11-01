@@ -37,6 +37,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
     isLoading,
     areAppointmentOptionsLoading,
   } = ctx;
+
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
@@ -75,6 +76,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
                 duration,
               });
             }
+
             step.next.action(ctx);
           }}
           disabled={
@@ -100,6 +102,7 @@ const CompactBookingSummary = () => {
     price,
     basePrice,
   } = useScheduleContext();
+
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
   const i18n = useI18n("translation");
@@ -223,10 +226,12 @@ export const BookingWithWaitlistLayout = ({
   const previousStep = usePrevious(step, step);
   useEffect(() => {
     if (!scrollToTopRef.current || previousStep === step) return;
+
     if (suppressNextScrollRef?.current) {
       suppressNextScrollRef.current = false;
       return;
     }
+
     topRef?.current?.scrollIntoView();
   }, [previousStep, step, suppressNextScrollRef]);
 
@@ -239,14 +244,12 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
-
       if (
         ctx.isCustomerPackageLocked &&
         (step === "option" || step === "specialist" || step === "addons")
       ) {
         return false;
       }
-
       if (
         step === "addons" &&
         (!selectedAppointmentOption?.addons?.length ||
@@ -255,11 +258,9 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
-
       if (step === "otp") {
         return false;
       }
-
       if (
         step === "option" &&
         shouldSkipLockedServiceStep(
@@ -269,7 +270,6 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
-
       if (
         step === "specialist" &&
         (ctx.lockMemberId ||
@@ -290,6 +290,7 @@ export const BookingWithWaitlistLayout = ({
   const filteredCurrentStepIndex = filteredSteps.findIndex(
     (s) => s.id === currentStep,
   );
+
   const packageVerifyFlow =
     otpReturnStep === "packages" || otpReturnStep === "review";
 
@@ -416,6 +417,7 @@ export const BookingWithWaitlistLayout = ({
           if (otpReturnStep === "packages") {
             setPackageBookingFlow(true);
           }
+
           setFields({
             ...fields,
             name: result.name || fields.name,
@@ -423,12 +425,14 @@ export const BookingWithWaitlistLayout = ({
             phone: result.phone || fields.phone,
             smsConsent: result.smsConsent === true,
           });
+
           setOtpVerified(true);
           if (otpReturnStep === "packages" || otpReturnStep === "review") {
             await refreshBookingOptions?.();
             if (otpReturnStep === "packages") setCurrentStep("option");
             return;
           }
+
           const payment = await fetchPaymentInformation();
           setPaymentInformation(payment);
           if (!payment || payment.intent?.status === "paid") {

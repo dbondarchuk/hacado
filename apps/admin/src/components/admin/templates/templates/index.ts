@@ -28,6 +28,7 @@ export const BuiltInTemplateTemplates: TemplateTemplatesList = Object.entries(
       ...(acc[id] || {}),
       [language]: template,
     };
+
     return {
       ...acc,
       [id]: newList,

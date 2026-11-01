@@ -27,11 +27,13 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
       const sessionMatches = await customerAuthApi.sessionMatchesBookingFields(
         ctx.fields,
       );
+
       if (!sessionMatches) {
         ctx.setOtpDialogOpen(true);
         return;
       }
     }
+
     const payment = await ctx.fetchPaymentInformation();
     ctx.setPaymentInformation(payment);
 
@@ -75,11 +77,13 @@ const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
   if (ctx.selectedMemberId || ctx.preselectedMemberId) {
     return ctx.selectedMemberId ?? ctx.preselectedMemberId ?? null;
   }
+
   if (ctx.activeStaff.length === 1) {
     const memberId = ctx.activeStaff[0].member.id;
     ctx.setSelectedMemberId(memberId);
     return memberId;
   }
+
   return null;
 };
 
@@ -160,6 +164,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
           ctx.goBack?.();
           return;
         }
+
         if (
           ctx.appointmentOption.addons?.length &&
           !ctx.purchasePackageId &&
@@ -192,15 +197,18 @@ export const ScheduleSteps: Record<StepType, Step> = {
       action: async (ctx) => {
         const optionNeedsDuplicateAppointmentsConfirmation =
           ctx.appointmentOption.duplicateAppointmentCheck?.enabled;
+
         if (optionNeedsDuplicateAppointmentsConfirmation) {
           const closeAppointments = await ctx.checkDuplicateAppointments();
           if (closeAppointments.hasDuplicateAppointments) {
             ctx.setClosestDuplicateAppointment(
               closeAppointments.closestAppointment,
             );
+
             ctx.setDuplicateAppointmentDoNotAllowScheduling(
               closeAppointments.doNotAllowScheduling,
             );
+
             ctx.setStep("duplicate-appointments-confirmation");
             return;
           }

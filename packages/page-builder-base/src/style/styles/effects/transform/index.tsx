@@ -36,7 +36,6 @@ export const transformStyle = {
   defaultValue: "none",
   renderToCSS: (value) => {
     if (!value || value === "none") return null;
-
     if (typeof value === "string") {
       return `transform: ${value};`;
     }

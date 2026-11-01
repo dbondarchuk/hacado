@@ -53,7 +53,6 @@ export const resolvePlatformSmsRoute = (input: {
   if (!input.platformCountry || unverifiedProvider === "textbelt") {
     return { kind: "textbelt" };
   }
-
   if (!input.poolNumber) {
     return { kind: "skip", reason: "sms number not ready" };
   }
@@ -104,9 +103,11 @@ export const readVerificationWebhook = (
     readString(record.id) ||
     readString(record.verification_request_id) ||
     readString(record.verificationRequestId);
+
   const status =
     readString(record.verification_status) ||
     readString(record.verificationStatus);
+
   if (!requestId || !status) return null;
 
   const reason =
@@ -210,6 +211,7 @@ export const buildTollFreeVerificationBody = (input: {
     `This toll-free number is exclusive to ${tradeName} and is not shared with other businesses or Hacado customers. Only transactional appointment texts for ${tradeName} customers; no marketing. Messages identify ${tradeName} and include Reply STOP / HELP (support@hacado.com).`,
     500,
   );
+
   const body: TollFreeVerificationBody = {
     additionalInformation,
     businessAddr1: input.streetAddress.trim(),
@@ -250,6 +252,7 @@ export const buildTollFreeVerificationBody = (input: {
     body.businessRegistrationNumber = registrationNumber;
     body.businessRegistrationType =
       input.country.toUpperCase() === "CA" ? "BN" : "EIN";
+
     body.businessRegistrationCountry = input.country.toUpperCase();
   }
 

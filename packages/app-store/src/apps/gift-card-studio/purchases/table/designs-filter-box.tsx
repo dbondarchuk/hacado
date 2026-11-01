@@ -41,6 +41,7 @@ export const DesignsDataTableAsyncFilterBox: React.FC<{
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const fetchItems = useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
@@ -50,6 +51,7 @@ export const DesignsDataTableAsyncFilterBox: React.FC<{
         isArchived: [true, false],
         search,
       });
+
       return {
         items: (res.items ?? []).map((d) => ({
           value: d._id,

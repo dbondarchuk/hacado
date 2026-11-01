@@ -49,6 +49,7 @@ export const FloatingToolbar = forwardRef<HTMLDivElement, FloatingToolbarProps>(
       const rect = toolbar.getBoundingClientRect();
       const viewportWidth =
         documentElement.defaultView?.innerWidth ?? window.innerWidth;
+
       const viewportHeight =
         documentElement.defaultView?.innerHeight ?? window.innerHeight;
 

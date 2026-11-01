@@ -11,6 +11,7 @@ export function OpenPaymentDetailsFromQuery() {
     "id",
     parseAsString.withOptions({ shallow: true, history: "replace" }),
   );
+
   const [payment, setPayment] = useState<Payment | null>(null);
   const [open, setOpen] = useState(false);
 

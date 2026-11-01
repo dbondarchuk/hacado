@@ -60,6 +60,7 @@ export function gaPublicContextFromSource(
     typeof raw.clientId === "string" && isGaClientId(raw.clientId)
       ? raw.clientId
       : undefined;
+
   const sessionId =
     typeof raw.sessionId === "number" &&
     Number.isFinite(raw.sessionId) &&
@@ -155,6 +156,7 @@ export function mapGa4Event(
 
       const { entry } =
         envelope.payload as WaitlistEntryCreatedEvent["payload"];
+
       const itemName = entry.service?.name ?? "Waitlist";
       const itemId = entry.service?._id ?? entry._id;
       const clientIdSeed = `${envelope.organizationId}:${entry.customerId ?? entry._id}`;
@@ -183,6 +185,7 @@ export function mapGa4Event(
 
       const { purchase } =
         envelope.payload as GiftCardStudioPurchaseCreatedPayload;
+
       const value = purchase.amountPurchased;
       const clientIdSeed = `${envelope.organizationId}:${purchase._id}`;
 
@@ -216,6 +219,7 @@ export function mapGa4Event(
     case "customerPackage.issued": {
       const { customerPackage } =
         envelope.payload as CustomerPackageIssuedPayload;
+
       if (customerPackage.channel !== "customer") return undefined;
 
       const value = customerPackage.price;
@@ -253,6 +257,7 @@ export function mapGa4Event(
 
       const { formResponse, form } =
         envelope.payload as FormResponseCreatedPayload;
+
       const clientIdSeed = `${envelope.organizationId}:${formResponse._id}`;
 
       return withBrowserClient(

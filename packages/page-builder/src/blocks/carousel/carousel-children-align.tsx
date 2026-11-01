@@ -38,6 +38,7 @@ export const carouselChildrenAlignStyle = {
     value: z.infer<typeof CarouselChildrenAlignSchema> | null | undefined,
   ) => {
     if (!value) return null;
+
     return `text-align: ${value};
 justify-items: ${carouselChildrenAlignToJustifyItemsMap[value]};`;
   },

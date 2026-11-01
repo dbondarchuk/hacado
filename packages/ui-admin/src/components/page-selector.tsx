@@ -104,6 +104,7 @@ export const PageSelector = React.forwardRef<
 
     React.useEffect(() => {
       if (!value || itemsCache[value]) return;
+
       let cancelled = false;
       void (async () => {
         const result = await pagesApi.getPages({
@@ -111,13 +112,16 @@ export const PageSelector = React.forwardRef<
           limit: 1,
           priorityId: [value],
         });
+
         if (cancelled || !result.items[0]) return;
+
         const item = result.items[0];
         setItemsCache((prev) => ({
           ...prev,
           [item._id]: item,
         }));
       })();
+
       return () => {
         cancelled = true;
       };

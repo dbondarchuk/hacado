@@ -48,6 +48,7 @@ export const ImagePositionEditor = forwardRef<
       x: initialX,
       y: initialY,
     });
+
     const debouncedObjectPosition = useDebounce(objectPosition, 200);
 
     useEffect(() => {
@@ -94,6 +95,7 @@ export const ImagePositionEditor = forwardRef<
             dragStartObjectPosRef.current.x - (deltaX / rect.width) * 100,
           ),
         );
+
         const newY = Math.max(
           0,
           Math.min(
@@ -130,6 +132,7 @@ export const ImagePositionEditor = forwardRef<
             "mousemove",
             handleImageMouseMove,
           );
+
           documentOrPortal.removeEventListener("mouseup", handleImageMouseUp);
         };
       }

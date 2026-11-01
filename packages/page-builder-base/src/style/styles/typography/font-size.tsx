@@ -15,6 +15,7 @@ export const fontSizeStyle = {
   defaultValue: { value: 16, unit: "px" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `font-size: ${renderRawNumberWithUnitCss(value)};`;
   },
   component: ({ value, onChange }) => (

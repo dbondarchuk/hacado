@@ -43,6 +43,7 @@ export type JobRequest =
   | AppJobRequest
   | EventDeliveryJobRequest
   | CoreJobRequest;
+
 export type OrganizationJobRequest = WithOrganizationId<JobRequest>;
 
 export type ScheduleRepeatableJobRequest =

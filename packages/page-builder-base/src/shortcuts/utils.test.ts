@@ -143,6 +143,7 @@ testCases.forEach((testCase, index) => {
   } else {
     console.log(`❌ FAIL: Expected "${testCase.expected}", got "${result}"`);
   }
+
   console.log("");
 });
 
@@ -224,6 +225,7 @@ const result = getShortcutCurrentValue(
   mockShortcut,
   fullVsContainedTest.styles,
 );
+
 console.log(`Result: "${result}" (should be 'contained' due to variant bonus)`);
 console.log("");
 
@@ -352,6 +354,7 @@ const afterAllRemoval = applyShortcutOption(removeAllVariantsOption, {
       "After removing all variants:",
       JSON.stringify(styles.maxWidth, null, 2),
     );
+
     console.log("Style property exists:", "maxWidth" in styles);
   },
 });
@@ -413,6 +416,7 @@ const afterPracticalRemoval = applyShortcutOption(mediumContainedOption, {
       "After applying medium-contained:",
       JSON.stringify(styles.maxWidth, null, 2),
     );
+
     console.log(
       "This creates a container that's contained up to md breakpoint, then full width",
     );

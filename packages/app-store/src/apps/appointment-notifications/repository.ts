@@ -74,6 +74,7 @@ export class AppointmentNotificationsRepository {
         },
         "Error getting appointment notification",
       );
+
       throw error;
     }
   }
@@ -201,6 +202,7 @@ export class AppointmentNotificationsRepository {
         { appId, query, error: error?.message || error?.toString() },
         "Error getting appointment notifications",
       );
+
       throw error;
     }
   }
@@ -235,11 +237,13 @@ export class AppointmentNotificationsRepository {
         appId,
         appointmentNotification.name,
       );
+
       if (!isUnique) {
         logger.error(
           { appId, appointmentNotificationName: appointmentNotification.name },
           "Appointment notification name already exists",
         );
+
         throw new ConnectedAppError(
           "app_appointment-notifications_admin.form.name.validation.unique" satisfies AppointmentNotificationsAdminAllKeys,
         );
@@ -271,6 +275,7 @@ export class AppointmentNotificationsRepository {
         },
         "Error creating appointment notification",
       );
+
       throw error;
     }
   }
@@ -308,6 +313,7 @@ export class AppointmentNotificationsRepository {
           },
           "Appointment notification name already exists",
         );
+
         throw new ConnectedAppError(
           "app_appointment-notifications_admin.form.name.validation.unique" satisfies AppointmentNotificationsAdminAllKeys,
         );
@@ -349,6 +355,7 @@ export class AppointmentNotificationsRepository {
         },
         "Error updating appointment notification",
       );
+
       throw error;
     }
   }
@@ -390,6 +397,7 @@ export class AppointmentNotificationsRepository {
         },
         "Error deleting appointment notifications",
       );
+
       throw error;
     }
   }
@@ -427,6 +435,7 @@ export class AppointmentNotificationsRepository {
           $match: filter,
         },
       ]);
+
       const isUnique = !(await result.hasNext());
 
       logger.debug(
@@ -445,6 +454,7 @@ export class AppointmentNotificationsRepository {
         },
         "Error checking unique name",
       );
+
       throw error;
     }
   }
@@ -491,6 +501,7 @@ export class AppointmentNotificationsRepository {
         { appId, error: error?.message || error?.toString() },
         "Error reading text message offer",
       );
+
       return { reminders: false, other: false };
     }
   }
@@ -515,6 +526,7 @@ export class AppointmentNotificationsRepository {
           { appId },
           "No appointment notifications left, dropping collection",
         );
+
         await db.dropCollection(APPOINTMENT_NOTIFICATIONS_COLLECTION_NAME);
       }
 
@@ -527,6 +539,7 @@ export class AppointmentNotificationsRepository {
         { appId, error: error?.message || error?.toString() },
         "Error cleaning up appointment notifications",
       );
+
       throw error;
     }
   }

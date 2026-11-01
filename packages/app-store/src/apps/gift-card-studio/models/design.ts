@@ -37,6 +37,7 @@ export const getDesignSchemaWithUniqueCheck = (
   const schema = omitDesign
     ? designSchemaBase.omit({ design: true })
     : designSchemaBase;
+
   return schema.superRefine(async (args, ctx) => {
     if (!args.name) return;
 

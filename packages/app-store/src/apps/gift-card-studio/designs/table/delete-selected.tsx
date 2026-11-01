@@ -26,6 +26,7 @@ export const DeleteSelectedDesignsButton: React.FC<{
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
 
   const { reload } = useReload();
@@ -44,6 +45,7 @@ export const DeleteSelectedDesignsButton: React.FC<{
           error: tAdmin("common.toasts.error"),
         },
       );
+
       reload();
       setIsOpen(false);
     } catch (error: any) {

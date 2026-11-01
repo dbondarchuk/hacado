@@ -81,6 +81,7 @@ function walkCatalogLeaves(
   const leaves: Array<
     { type: "service"; id: string } | { type: "package"; id: string }
   > = [];
+
   const walk = (list: BookingCatalogNode[]) => {
     for (const node of list) {
       if (node.type === "group") {
@@ -92,6 +93,7 @@ function walkCatalogLeaves(
       }
     }
   };
+
   walk(nodes ?? []);
   return leaves;
 }
@@ -107,13 +109,16 @@ function buildService(
   const activeAssignments = activeAssignmentsForOption(option, memberIds);
   const basePrice =
     option.durationType === "fixed" ? option.price : option.pricePerHour;
+
   const baseDuration =
     option.durationType === "fixed" ? option.duration : undefined;
+
   const price = minEffectivePrice(basePrice, activeAssignments);
   const duration =
     option.durationType === "fixed"
       ? minEffectiveDuration(baseDuration, activeAssignments)
       : undefined;
+
   const specialistNames = activeAssignments
     .map((a) => membersById.get(a.memberId)?.name)
     .filter((name): name is string => !!name?.trim());
@@ -170,11 +175,13 @@ export async function getPublicCatalogSnapshot(
 ): Promise<PublicCatalogSnapshot> {
   const response =
     await servicesContainer.bookingService.getAppointmentOptions();
+
   const options = response.options || [];
   const optionsById = new Map(options.map((option) => [option._id, option]));
   const packagesById = new Map(
     (response.packages || []).map((pkg) => [pkg._id, pkg]),
   );
+
   const members = response.members || [];
   const membersById = new Map(members.map((m) => [m.id, m]));
   const memberIds = new Set(members.map((m) => m.id));
@@ -312,6 +319,7 @@ export function formatPackageSummary(pkg: PublicCatalogPackage): string {
       : undefined,
     pkg.description?.trim(),
   ].filter(Boolean);
+
   return parts.join(". ");
 }
 

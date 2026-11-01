@@ -11,6 +11,7 @@ export const getEmailProvider = (): EmailProvider => {
   if (provider === "resend") {
     return "resend";
   }
+
   return "smtp";
 };
 

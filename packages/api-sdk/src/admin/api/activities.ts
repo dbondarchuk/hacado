@@ -16,6 +16,7 @@ export const markActivityFeedRead = async () => {
   const result = await fetchAdminApi("/activities/read", {
     method: "POST",
   });
+
   return result.json();
 };
 
@@ -30,6 +31,7 @@ export const getActivityEventTypes = async (params: {
   if (params.search) {
     sp.set("search", params.search);
   }
+
   const result = await fetchAdminApi(`/activities/event-types?${sp}`);
   return result.json<{ items: string[]; total: number }>();
 };

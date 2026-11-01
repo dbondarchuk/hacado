@@ -50,6 +50,7 @@ export const ResponsePreviewDialog: React.FC<{
                   </div>
                 );
               }
+
               return (
                 <div key={answer.name} className="space-y-1">
                   <dt className="text-sm font-medium">{answer.label}</dt>

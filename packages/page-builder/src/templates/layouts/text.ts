@@ -100,9 +100,11 @@ export function buttonFromLabel(
   const btn = structuredClone(ButtonPropsDefaults());
   const inlineText = (btn as any).props?.children?.[0]?.data?.props
     ?.children?.[0];
+
   if (inlineText?.data?.props) {
     inlineText.data.props.text = label;
   }
+
   if ((btn as any).props) {
     (btn as any).props.url = url;
   }

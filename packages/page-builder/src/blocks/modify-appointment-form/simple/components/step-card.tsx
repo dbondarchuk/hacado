@@ -36,6 +36,7 @@ export const StepCard: React.FC = () => {
     async (dir: "prev" | "next") => {
       const setIsLoadingFn =
         dir === "prev" ? setIsPrevLoading : setIsNextLoading;
+
       const { action } = dir === "prev" ? step.prev : step.next;
 
       setIsLoadingFn(true);

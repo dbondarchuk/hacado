@@ -67,6 +67,7 @@ export function Toolbar({
     const textElements = design.elements.filter(
       (el) => el.type === "text",
     ) as any[];
+
     const fieldKeys = textElements.map((el) => el.fieldKey).filter(Boolean);
     return requiredFieldKeys.every((key) => fieldKeys.includes(key));
   };
@@ -76,6 +77,7 @@ export function Toolbar({
     const textElements = design.elements.filter(
       (el) => el.type === "text",
     ) as any[];
+
     const fieldKeys = textElements.map((el) => el.fieldKey).filter(Boolean);
 
     requiredFieldKeys.forEach((key) => {
@@ -84,6 +86,7 @@ export function Toolbar({
           key === "amount"
             ? t("designer.dynamicFields.amount")
             : t("designer.dynamicFields.code");
+
         messages.push(t("designer.toolbar.missingRequiredField", { label }));
       }
     });

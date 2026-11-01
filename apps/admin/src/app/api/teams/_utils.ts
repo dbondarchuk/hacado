@@ -18,6 +18,7 @@ export async function requireTeamManager(logName: string, method: string) {
       ),
     };
   }
+
   if (!canManageTeam(user)) {
     logger.warn({ role: user.role }, "Forbidden");
     return {
@@ -28,6 +29,7 @@ export async function requireTeamManager(logName: string, method: string) {
       ),
     };
   }
+
   return { ok: true as const, session, logger };
 }
 
@@ -49,6 +51,7 @@ export async function requireCanReadAllAppointments(
       ),
     };
   }
+
   if (!canFilterByMember(user)) {
     return {
       ok: true as const,
@@ -57,6 +60,7 @@ export async function requireCanReadAllAppointments(
       skip: true as const,
     };
   }
+
   return { ok: true as const, session, logger, skip: false as const };
 }
 

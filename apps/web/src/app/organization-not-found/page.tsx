@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 function getBaseUrls() {
   const marketingRaw =
     process.env.NEXT_PUBLIC_MARKETING_URL?.trim() || "https://hacado.com";
+
   const marketingBaseUrl =
     marketingRaw.startsWith("http://") || marketingRaw.startsWith("https://")
       ? marketingRaw

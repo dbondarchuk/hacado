@@ -142,12 +142,14 @@ export const MarketingBrowserCarouselConfiguration = deepMemo(
     const liveData = useMemo((): MarketingBrowserCarouselProps => {
       if (liveBlock?.data)
         return liveBlock.data as MarketingBrowserCarouselProps;
+
       return data;
     }, [liveBlock, data]);
 
     const updateStyle = useCallback(
       (s: unknown) => {
         if (!liveBlock) return;
+
         setData({
           ...(liveBlock.data as MarketingBrowserCarouselProps),
           style: s as MarketingBrowserCarouselProps["style"],
@@ -159,6 +161,7 @@ export const MarketingBrowserCarouselConfiguration = deepMemo(
     const updateProps = useCallback(
       (p: MarketingBrowserCarouselProps["props"]) => {
         if (!liveBlock) return;
+
         setData({
           ...(liveBlock.data as MarketingBrowserCarouselProps),
           props: p,
@@ -183,9 +186,11 @@ export const MarketingBrowserCarouselConfiguration = deepMemo(
       (event: DragEndEvent) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
+
         const oldIndex = slideIds.indexOf(String(active.id));
         const newIndex = slideIds.indexOf(String(over.id));
         if (oldIndex < 0 || newIndex < 0) return;
+
         updateProps({
           ...liveData.props,
           slides: arrayMove(slides, oldIndex, newIndex),

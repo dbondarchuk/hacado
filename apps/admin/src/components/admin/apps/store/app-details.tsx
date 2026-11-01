@@ -84,12 +84,14 @@ export const AppDetails: React.FC<AppDetailsProps> = async ({ appName }) => {
               const scopeLabel = t.has(`apps.scopes.${scope}` as any)
                 ? t(`apps.scopes.${scope}` as any)
                 : scope;
+
               const usageLabel =
                 usage === "member"
                   ? t("apps.target.member")
                   : usage === "company"
                     ? t("apps.target.company")
                     : null;
+
               return (
                 <span
                   className="bg-secondary text-secondary-foreground text-emphasis rounded-md p-2 text-sm capitalize"

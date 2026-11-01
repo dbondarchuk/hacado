@@ -148,5 +148,6 @@ export const getDefaultFunctionValues = (
   if (func.includes("scale")) {
     return Array.from({ length: count }, () => 1);
   }
+
   return Array.from({ length: count }, () => 0);
 };

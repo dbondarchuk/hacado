@@ -14,6 +14,7 @@ export const flexGrowStyle = {
   defaultValue: 0,
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `flex-grow: ${value};`;
   },
   component: ({ value, onChange }) => (

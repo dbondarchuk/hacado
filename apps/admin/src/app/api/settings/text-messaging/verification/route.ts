@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory(
     "AdminAPI/settings/text-messaging/verification",
   )("POST");
+
   const auth = await requirePermission("settings", "update", logger);
   if (!auth.ok) return auth.response;
   if (

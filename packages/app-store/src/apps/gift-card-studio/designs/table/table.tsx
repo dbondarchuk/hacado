@@ -36,6 +36,7 @@ export const DesignsTable: React.FC<{ appId: string }> = ({ appId }) => {
         sort: q.sort,
         isArchived: q.isArchived,
       });
+
       setResponse({
         items: (res.items ?? []).map((item) => ({ ...item, appId })),
         total: res.total ?? 0,

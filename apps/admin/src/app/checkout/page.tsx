@@ -70,6 +70,7 @@ export default async function CheckoutPage({
   const checkoutPath = templatePackId
     ? preferredWebsitePackHref("/checkout", templatePackId)
     : "/checkout";
+
   const installPath = templatePackId
     ? preferredWebsitePackHref("/install", templatePackId)
     : "/install";
@@ -77,6 +78,7 @@ export default async function CheckoutPage({
   const organizationInstalled = Boolean(
     (session.user as { organizationInstalled?: boolean }).organizationInstalled,
   );
+
   if (organizationInstalled) {
     redirect("/dashboard");
   }
@@ -141,6 +143,7 @@ export default async function CheckoutPage({
         POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS[def.slug] ??
         POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS.solo ??
         [];
+
       const benefits = benefitKeys.map((key) => t(key as any));
       const lowerTierSlug = POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER[def.slug];
       const includesLowerTierLabel = lowerTierSlug
@@ -150,6 +153,7 @@ export default async function CheckoutPage({
               : lowerTierSlug,
           })
         : null;
+
       const priceParts = product
         ? formatPriceParts(product, t as (k: string) => string)
         : null;
@@ -157,6 +161,7 @@ export default async function CheckoutPage({
       const cardTitle = t.has(`checkout.plans.${def.slug}.title`)
         ? t(`checkout.plans.${def.slug}.title`)
         : (product?.name ?? def.slug);
+
       const cardSubtitle = t.has(`checkout.plans.${def.slug}.subtitle`)
         ? t(`checkout.plans.${def.slug}.subtitle`)
         : (product?.description ?? null);
@@ -174,6 +179,7 @@ export default async function CheckoutPage({
           includesLowerTierLabel,
         };
       }
+
       return {
         productId: product.id,
         slug: def.slug,

@@ -55,5 +55,6 @@ export const HeaderActionButtonsPortal: React.FC<{
   const containerRef = useContainerRef();
 
   if (!containerRef?.isConnected) return null;
+
   return createPortal(children, containerRef);
 };

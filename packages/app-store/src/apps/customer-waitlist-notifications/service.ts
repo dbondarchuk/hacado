@@ -112,6 +112,7 @@ export class CustomerWaitlistNotificationsConnectedApp
   ): Promise<CustomerWaitlistTextOffer> {
     const data = (appData.data ??
       {}) as Partial<CustomerWaitlistNotificationsConfiguration>;
+
     const openSlot =
       data.notifyOnSlotOpened === true &&
       isSmsEnabled(data.slotOpenedSmsEnabled);
@@ -286,11 +287,13 @@ export class CustomerWaitlistNotificationsConnectedApp
 
     const { data, success, error } =
       customerWaitlistNotificationsConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error(
         { error },
         "Invalid customer waitlist notifications configuration request",
       );
+
       throw new ConnectedAppRequestError(
         "invalid_customer-waitlist-notifications_configuration_request",
         { request, error },
@@ -350,6 +353,7 @@ export class CustomerWaitlistNotificationsConnectedApp
         { appId: appData._id, slug, request },
         "Handling leave waitlist request",
       );
+
       return this.handleLeaveWaitlist(appData, request);
     }
 
@@ -447,9 +451,11 @@ export class CustomerWaitlistNotificationsConnectedApp
   ): Promise<DemoArguments> {
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const websiteUrl = organization
       ? getWebsiteUrl(organization)
       : "https://example.com";
+
     const config = appData.data as CustomerWaitlistNotificationsConfiguration;
     const { language, timeZone } =
       await this.props.services.configurationService
@@ -458,10 +464,12 @@ export class CustomerWaitlistNotificationsConnectedApp
           language: c.brand.language,
           timeZone: c.general.timeZone,
         }));
+
     const slotDateTime = DateTime.now()
       .plus({ days: 7 })
       .set({ hour: 14, minute: 0, second: 0, millisecond: 0 })
       .toJSDate();
+
     const { bookingUrl, leaveWaitlistUrl } =
       await this.jobProcessor.buildCustomerUrls(
         appData,
@@ -506,6 +514,7 @@ export class CustomerWaitlistNotificationsConnectedApp
       { appId: appData._id },
       "Successfully uninstalled customer waitlist notifications app",
     );
+
     return { success: true, code: "ok" };
   }
 
@@ -543,6 +552,7 @@ export class CustomerWaitlistNotificationsConnectedApp
 
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const websiteUrl = organization ? getWebsiteUrl(organization) : "";
     const redirectBase = slug ? `/${slug}` : "/";
     const redirectUrl = `${websiteUrl}${redirectBase}?toast=${encodeURIComponent(
@@ -611,6 +621,7 @@ export class CustomerWaitlistNotificationsConnectedApp
 
     const current =
       (appData.data as CustomerWaitlistNotificationsConfiguration) ?? {};
+
     if (
       !options?.forceEnable &&
       current.cooldownMinutes != null &&
@@ -630,6 +641,7 @@ export class CustomerWaitlistNotificationsConnectedApp
     const createdTemplateIds: Partial<
       Record<keyof typeof INSTALL_ASSIGN_TEMPLATE_FIELDS, string>
     > = {};
+
     for (const [field, builtinId] of Object.entries(
       INSTALL_ASSIGN_TEMPLATE_FIELDS,
     ) as [
@@ -835,6 +847,7 @@ export class CustomerWaitlistNotificationsConnectedApp
         },
         "No customer new entry template configured, skipping",
       );
+
       return;
     }
 
@@ -880,6 +893,7 @@ export class CustomerWaitlistNotificationsConnectedApp
     try {
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, entryId: entry._id },
@@ -918,6 +932,7 @@ export class CustomerWaitlistNotificationsConnectedApp
           { appId: appData._id, entryId: entry._id },
           "No customer new entry template ID configured, skipping email notification",
         );
+
         return;
       }
 
@@ -930,6 +945,7 @@ export class CustomerWaitlistNotificationsConnectedApp
           { appId: appData._id, entryId: entry._id },
           "No customer new entry template found, skipping email notification",
         );
+
         return;
       }
 
@@ -938,6 +954,7 @@ export class CustomerWaitlistNotificationsConnectedApp
           { appId: appData._id, entryId: entry._id },
           "Template is not an email template, skipping email notification",
         );
+
         return;
       }
 
@@ -979,6 +996,7 @@ export class CustomerWaitlistNotificationsConnectedApp
         { appId: appData._id, entryId: entry._id, error },
         "Error sending email notification to customer",
       );
+
       throw error;
     }
   }

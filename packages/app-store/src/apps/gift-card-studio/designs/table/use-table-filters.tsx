@@ -21,6 +21,7 @@ export function useDesignsTableFilters() {
       .withOptions({ shallow: false, throttleMs: 1000 })
       .withDefault(""),
   );
+
   const [page, setPage] = useQueryState("page", searchParams.page);
   const [isArchivedFilter, setIsArchivedFilter] = useQueryState(
     "isArchived",

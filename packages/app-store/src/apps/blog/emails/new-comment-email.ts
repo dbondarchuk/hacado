@@ -20,6 +20,7 @@ const truncateBody = (body: string, maxLength = 500) => {
   if (body.length <= maxLength) {
     return body;
   }
+
   return `${body.slice(0, maxLength)}…`;
 };
 

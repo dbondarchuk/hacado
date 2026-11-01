@@ -66,6 +66,7 @@ export const WaitlistFormCard: React.FC = () => {
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const minDate = useMemo(() => DateTime.now().startOf("day").toJSDate(), []);
 
   const {
@@ -127,6 +128,7 @@ export const WaitlistFormCard: React.FC = () => {
           ? { smsConsent: smsConsent === true }
           : {}),
       });
+
       setWaitlistTimes({ asSoonAsPossible, dates });
     }
   }, [values, smsKind, previousValues, previousSmsKind, propsFields]);

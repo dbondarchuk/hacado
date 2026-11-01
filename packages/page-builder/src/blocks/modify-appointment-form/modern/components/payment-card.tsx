@@ -14,6 +14,7 @@ export const PaymentCard: React.FC = () => {
     onSubmit,
     appointment,
   } = useModifyAppointmentFormContext();
+
   if (!paymentForm || !appointment) return null;
 
   const Form = PaymentAppForms[paymentForm.intent.appName];

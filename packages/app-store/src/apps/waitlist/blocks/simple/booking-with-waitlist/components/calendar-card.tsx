@@ -89,6 +89,7 @@ const slotsByDay = (
           hour: dateTime.hour as HourNumbers,
           minute: dateTime.minute as MinuteNumbers,
         });
+
         return prev;
       },
       {} as { [x: string]: Time[] },
@@ -98,6 +99,7 @@ const slotsByDay = (
       prev[curr[0]] = curr[1].sort(
         (a, b) => a.hour - b.hour || a.minute - b.minute,
       );
+
       return prev;
     },
     {} as { [x: string]: Time[] },
@@ -108,6 +110,7 @@ export const CalendarCard: React.FC = () => {
   const tWaitlist = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const locale = useLocale();
   const {
     dateTime,
@@ -183,6 +186,7 @@ export const CalendarCard: React.FC = () => {
         DateTime.fromJSDate(slot, { zone: "utc" }).setZone(timeZone),
       );
     }
+
     return result;
   }, [availabilityByMember, timeZone]);
 
@@ -204,11 +208,13 @@ export const CalendarCard: React.FC = () => {
     for (const [memberId, slots] of Object.entries(adjustedByMember)) {
       result[memberId] = slotsByDay(slots);
     }
+
     return result;
   }, [adjustedByMember]);
 
   const aggregatedTimes = React.useMemo(() => {
     if (!date) return [];
+
     const key = formatDate(date);
     const seen = new Map<string, Time>();
     for (const memberId of memberIds) {
@@ -217,6 +223,7 @@ export const CalendarCard: React.FC = () => {
         if (!seen.has(id)) seen.set(id, slot);
       }
     }
+
     return [...seen.values()].sort(
       (a, b) => a.hour - b.hour || a.minute - b.minute,
     );
@@ -228,6 +235,7 @@ export const CalendarCard: React.FC = () => {
 
   const singleTimes = React.useMemo(() => {
     if (!singleMemberId) return {};
+
     return timesByMember[singleMemberId] ?? {};
   }, [singleMemberId, timesByMember]);
 
@@ -237,8 +245,10 @@ export const CalendarCard: React.FC = () => {
       if (isAnyMulti) {
         setSelectedMemberId(null);
       }
+
       return;
     }
+
     setTime(tSlot);
     if (isAnyMulti) {
       setSelectedMemberId(null);
@@ -249,6 +259,7 @@ export const CalendarCard: React.FC = () => {
 
   const staffForSelectedTime = React.useMemo(() => {
     if (!date || !time || !isAnyMulti) return [];
+
     const key = formatDate(date);
     const availableIds = new Set(
       memberIds.filter((memberId) =>
@@ -257,6 +268,7 @@ export const CalendarCard: React.FC = () => {
         ),
       ),
     );
+
     return activeStaff
       .filter((staff) => availableIds.has(staff.member.id))
       .map((staff) => {
@@ -277,6 +289,7 @@ export const CalendarCard: React.FC = () => {
           purchasePackagePrice,
           isCustomerPackage: !!customerPackageId,
         });
+
         return {
           ...staff,
           effectivePrice: totals.price,
@@ -380,6 +393,7 @@ export const CalendarCard: React.FC = () => {
       setStep("specialist");
       return;
     }
+
     setStep("waitlist-form");
   };
 

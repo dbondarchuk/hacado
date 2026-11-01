@@ -15,6 +15,7 @@ export const gapStyle = {
   defaultValue: { value: 0.5, unit: "rem" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `gap: ${renderRawNumberWithUnitCss(value)};`;
   },
   component: ({ value, onChange }) => (

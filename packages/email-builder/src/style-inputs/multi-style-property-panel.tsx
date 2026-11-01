@@ -9,6 +9,7 @@ type MultiStylePropertyPanelProps = {
   value: TStyle | undefined | null;
   onChange: (style: TStyle) => void;
 };
+
 export const MultiStylePropertyPanel: React.FC<
   MultiStylePropertyPanelProps
 > = ({ names, value, onChange }) => {

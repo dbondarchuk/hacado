@@ -41,7 +41,6 @@ export class SmsConsentService
     if (!normalized) {
       return false;
     }
-
     if (await this.smsStore.isOptedOut(normalized)) {
       return false;
     }

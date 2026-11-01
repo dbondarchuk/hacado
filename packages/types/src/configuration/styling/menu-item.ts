@@ -13,6 +13,7 @@ export const ButtonSizes = [
   "xl",
   "icon",
 ] as const;
+
 export const ButtonVariants = [
   "default",
   "primary",
@@ -24,6 +25,7 @@ export const ButtonVariants = [
   "link-underline",
   "link-dashed",
 ] as const;
+
 export const LinkSizes = ["none", "xs", "sm", "md", "lg", "xl"] as const;
 export const LinkVariants = [
   "none",
@@ -32,12 +34,14 @@ export const LinkVariants = [
   "standalone",
   "dashed",
 ] as const;
+
 export const TextFonts = [
   "default",
   "primary",
   "secondary",
   "tertiary",
 ] as const;
+
 export const TextSizes = ["default", "sm", "md", "lg", "xl"] as const;
 export const TextWeights = [
   "default",
@@ -64,6 +68,7 @@ export const menuItemTypes = [
   "submenu",
   "spacer",
 ] as const;
+
 export const menuItemTypesEnum = z.enum(menuItemTypes);
 export type MenuItemType = (typeof menuItemTypes)[number];
 
@@ -141,6 +146,7 @@ export type MenuItemAppearanceOverride = z.infer<
 /** @deprecated Prefer {@link menuItemAppearanceOverrideSchema} */
 export const menuItemScrolledAppearanceSchema =
   menuItemAppearanceOverrideSchema;
+
 export type MenuItemScrolledAppearance = MenuItemAppearanceOverride;
 
 export const iconMenuItemSchema = z.object({

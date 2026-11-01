@@ -41,6 +41,7 @@ export const DeleteSelectedBlogCommentsButton: React.FC<{
           error: tAdmin("common.toasts.error"),
         },
       );
+
       reload();
       setIsOpen(false);
     } catch (error: unknown) {

@@ -7,4 +7,5 @@ export type {
   PhraseCycleProps,
   PhraseMotion,
 } from "./schema";
+
 export { PhraseCycleToolbar } from "./toolbar";

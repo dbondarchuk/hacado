@@ -23,6 +23,7 @@ export const gridTemplateRowsStyle = {
   defaultValue: "repeat(auto-fit, minmax(150px, 1fr))",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `grid-template-rows: ${value};`;
   },
   component: ({ value, onChange }) => (

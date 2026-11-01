@@ -20,11 +20,13 @@ export function SeatsPurchaseSuccessToast() {
 
   useEffect(() => {
     if (!seatsPurchased) return;
+
     toast.success(t("team.seatsPurchase.purchaseSuccess"));
     setSeatsPurchased(false);
     void authClient.getSession({
       query: { disableCookieCache: true },
     });
+
     router.refresh();
   }, [t, seatsPurchased, setSeatsPurchased, router]);
 

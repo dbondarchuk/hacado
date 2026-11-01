@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/organization/custom-domain")(
     "POST",
   );
+
   const servicesContainer = await getServicesContainer();
   const body = await request.json();
   const { data, success, error } = organizationDomainSchema.safeParse(body);
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
   const expectedCnameHost = publicDomain
     ? `${organizationSlug}.${publicDomain}`
     : undefined;
+
   const expectedARecordIp =
     process.env.CUSTOM_DOMAIN_A_RECORD_IP?.trim() || undefined;
 
@@ -46,6 +48,7 @@ export async function POST(request: NextRequest) {
       { customDomain: data.domain },
       "Custom domain DNS is not configured",
     );
+
     return NextResponse.json(
       {
         error: "DNS is not configured correctly for this domain",
@@ -73,8 +76,10 @@ export async function POST(request: NextRequest) {
         { status: 409 },
       );
     }
+
     throw error;
   }
+
   logger.debug({ customDomain: data.domain }, "Custom domain updated");
   return NextResponse.json(okStatus, { status: 200 });
 }
@@ -83,11 +88,13 @@ export async function DELETE() {
   const logger = getLoggerFactory("AdminAPI/organization/custom-domain")(
     "DELETE",
   );
+
   const servicesContainer = await getServicesContainer();
   await servicesContainer.organizationService.setDomain(
     undefined,
     await getActor(),
   );
+
   logger.debug("Custom domain removed");
   return NextResponse.json(okStatus, { status: 200 });
 }

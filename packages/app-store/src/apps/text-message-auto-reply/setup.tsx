@@ -57,6 +57,7 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
     TextMessageAutoReplyAdminNamespace,
     TextMessageAutoReplyAdminKeys
   >(textMessageAutoReplyAdminNamespace);
+
   const previewArgs = useSmsPreviewArgs();
   const { allowCustom, sharedPool } = useSmsMessagingAccess();
   const messageArgs = previewArgs

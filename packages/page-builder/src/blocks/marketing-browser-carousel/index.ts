@@ -6,4 +6,5 @@ export {
   MarketingBrowserCarouselPropsSchema,
   type MarketingBrowserCarouselProps,
 } from "./schema";
+
 export { MarketingBrowserCarouselToolbar } from "./toolbar";

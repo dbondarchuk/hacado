@@ -31,6 +31,7 @@ export type AppointmentNotificationType =
 export const appointmentNotificationTypesEnum = z.enum(
   appointmentNotificationTypes,
 );
+
 export const appointmentNotificationChannelsEnum = z.enum(
   communicationChannels,
 );
@@ -202,6 +203,7 @@ export const readAppointmentNotificationChannels = (
     : value.channel
       ? [value.channel]
       : [];
+
   const emailEnabled = channels.includes("email");
   const textEnabled =
     channels.includes("text-message") && value.enabled === true;
@@ -225,6 +227,7 @@ export const appointmentNotificationAppointmentCountType = [
   "lessThanOrEqualTo",
   "greaterThanOrEqualTo",
 ] as const;
+
 export const appointmentNotificationAppointmentCountTypeEnum = z.enum(
   appointmentNotificationAppointmentCountType,
   {
@@ -369,6 +372,7 @@ export const appointmentNotificationsSchema = z
 export type TimeBeforeAfterAppointmentNotification = z.infer<
   typeof appointmentNotificationTimeBeforeAfterSchema
 >;
+
 export type AtTimeAppointmentNotification = z.infer<
   typeof appointmentNotificationAtTimeSchema
 >;
@@ -398,6 +402,7 @@ export const getAppointmentNotificationsQuerySchema = z.object({
 export type GetAppointmentNotificationsAction = z.infer<
   typeof getAppointmentNotificationsQuerySchema
 >;
+
 export const GetAppointmentNotificationsActionType =
   "get-appointment-notifications" as const;
 
@@ -410,6 +415,7 @@ export const getAppointmentNotificationActionSchema = z.object({
 export type GetAppointmentNotificationAction = z.infer<
   typeof getAppointmentNotificationActionSchema
 >;
+
 export const GetAppointmentNotificationActionType =
   "get-appointment-notification" as const;
 
@@ -422,6 +428,7 @@ export const deleteAppointmentNotificationsActionSchema = z.object({
 export type DeleteAppointmentNotificationsAction = z.infer<
   typeof deleteAppointmentNotificationsActionSchema
 >;
+
 export const DeleteAppointmentNotificationsActionType =
   "delete-appointment-notifications" as const;
 
@@ -434,6 +441,7 @@ export const createNewAppointmentNotificationActionSchema = z.object({
 export type CreateNewAppointmentNotificationAction = z.infer<
   typeof createNewAppointmentNotificationActionSchema
 >;
+
 export const CreateNewAppointmentNotificationActionType =
   "create-appointment-notification" as const;
 

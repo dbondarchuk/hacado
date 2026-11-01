@@ -38,6 +38,7 @@ export function chunkByColumns<T>(flat: T[], colCount: number): T[][] {
   for (let r = 0; r < flat.length / colCount; r++) {
     rows.push(flat.slice(r * colCount, (r + 1) * colCount));
   }
+
   return rows;
 }
 
@@ -71,6 +72,7 @@ export function moveColumn<T>(
     copy.splice(to, 0, cell);
     return copy;
   });
+
   return flattenRows(next);
 }
 
@@ -84,6 +86,7 @@ export function addRowAtEnd<T>(
 
 export function removeLastRow<T>(flat: T[], colCount: number): T[] {
   if (flat.length <= colCount) return flat;
+
   return flat.slice(0, flat.length - colCount);
 }
 
@@ -98,13 +101,16 @@ export function addColumnAtEnd<T>(
     for (let c = 0; c < colCount; c++) {
       out.push(flat[flatIndex(r, c, colCount)]!);
     }
+
     out.push(newCells[r]!);
   }
+
   return out;
 }
 
 export function removeLastColumn<T>(flat: T[], colCount: number): T[] {
   if (colCount <= 1) return flat;
+
   const rowCount = flat.length / colCount;
   const out: T[] = [];
   for (let r = 0; r < rowCount; r++) {
@@ -112,6 +118,7 @@ export function removeLastColumn<T>(flat: T[], colCount: number): T[] {
       out.push(flat[flatIndex(r, c, colCount)]!);
     }
   }
+
   return out;
 }
 
@@ -132,11 +139,13 @@ export function computeSpanCovered(
     for (let dr = 0; dr < rs; dr++) {
       for (let dc = 0; dc < cs; dc++) {
         if (dr === 0 && dc === 0) continue;
+
         const ni = flatIndex(r + dr, c + dc, colCount);
         if (ni < total) covered.add(ni);
       }
     }
   }
+
   return covered;
 }
 
@@ -185,10 +194,12 @@ function pxColWidthsToPercent(widths: number[]): number[] {
 /** Data columns only - values sum to 100 (%). */
 export function normalizeColWidthsSum100(widths: number[]): number[] {
   if (widths.length === 0) return [];
+
   let w = [...widths].map((x) => Math.max(0, x));
   if (isLikelyPxColWidths(w)) {
     w = pxColWidthsToPercent(w);
   }
+
   const sum = w.reduce((a, b) => a + b, 0) || 1;
   w = w.map((x) => (x / sum) * 100);
   const out = w.map((x) => Math.max(MIN_COL_PCT, roundPct(x)));
@@ -196,6 +207,7 @@ export function normalizeColWidthsSum100(widths: number[]): number[] {
   out[out.length - 1] = roundPct(
     Math.max(MIN_COL_PCT, out[out.length - 1]! + drift),
   );
+
   return out;
 }
 
@@ -240,6 +252,7 @@ export function measureTableDataColumnsWidthPx(
     firstRow?.cells[0] instanceof HTMLElement
       ? firstRow.cells[0].offsetWidth
       : TABLE_EDITOR_GUTTER_COL_PX;
+
   return Math.max(0, tableEl.clientWidth - gutter);
 }
 
@@ -268,6 +281,7 @@ export function snapColWidthsAfterDrag(
   } else if (c > 0) {
     transferBetween(c - 1, c, dPct);
   }
+
   return normalizeColWidthsSum100(next);
 }
 
@@ -453,6 +467,7 @@ export function removeColumnAt(
     gC[r]!.splice(colIndex, 1);
     gR[r]!.splice(colIndex, 1);
   }
+
   return {
     cells: flattenRows(gB),
     colspan: flattenRows(gC),
@@ -483,6 +498,7 @@ export function insertColumnAfter(
     gC[r]!.splice(colIndex + 1, 0, 1);
     gR[r]!.splice(colIndex + 1, 0, 1);
   }
+
   return {
     cells: flattenRows(gB),
     colspan: flattenRows(gC),

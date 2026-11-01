@@ -59,6 +59,7 @@ const ShiftDisplay: React.FC<{
   const { ref, x, y } = usePointer<HTMLDivElement>({
     resetOnExit: false,
   });
+
   return (
     <TooltipResponsive>
       <TooltipResponsiveTrigger>
@@ -224,9 +225,11 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
       const previousMultiDayEvents = events.filter(
         ({ isMultiDay }, index) => isMultiDay && index < events.indexOf(event),
       );
+
       const previousNonMultiDayEvents = events.filter(
         ({ isMultiDay }, index) => !isMultiDay && index < events.indexOf(event),
       );
+
       const isOverlappingNonMultiDay =
         !event.isMultiDay &&
         previousNonMultiDayEvents.reduce(
@@ -268,6 +271,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                 ) {
                   rowStart++;
                 }
+
                 return rowStart;
               }, 1)
             : timeSlots.indexOf(
@@ -375,6 +379,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
               DateTime.now().setZone(timeZone),
               "day",
             );
+
             return (
               <Fragment key={`date-${date.toISO()}`}>
                 <div
@@ -442,6 +447,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                 "--calendar-row-start": __,
                 ...restStyles
               } = classes.styles;
+
               return (
                 <EventPopover event={calendarEvent} key={`event-${index}`}>
                   <div

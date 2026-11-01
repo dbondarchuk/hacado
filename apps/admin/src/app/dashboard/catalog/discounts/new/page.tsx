@@ -55,6 +55,7 @@ export default async function NewDiscountPage(props: Props) {
         { fromDiscountId: from },
         "Source discount not found for copying",
       );
+
       notFound();
     }
 

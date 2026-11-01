@@ -41,6 +41,7 @@ export const fontWeightStyle = {
   defaultValue: "normal",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `font-weight: ${value};`;
   },
   component: ({ value, onChange }) => {

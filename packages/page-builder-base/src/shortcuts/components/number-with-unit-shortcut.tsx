@@ -60,6 +60,7 @@ export const NumberWithUnitShortcut = <T extends BaseStyleDictionary>({
             ...variant,
             value,
           }));
+
           newStyles[shortcut.targetStyle] =
             updatedVariants as StyleValue<T>[keyof T];
         }

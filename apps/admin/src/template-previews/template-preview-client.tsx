@@ -43,6 +43,7 @@ function fullPageHeaderVariant(templateKey: string): PreviewHeaderVariant {
   const packId = packIdFromLayoutTemplateKey(templateKey);
   const layoutKind = layoutKindFromTemplateKey(templateKey);
   if (!packId || !layoutKind) return "solid";
+
   return layoutPreviewHeaderVariant(packId, layoutKind);
 }
 
@@ -68,6 +69,7 @@ export function TemplatePreviewClient({
 
   const businessName = useMemo(() => {
     if (!packId) return "Studio";
+
     return t(getWebsitePack(packId).displayName);
   }, [packId, t]);
 
@@ -78,6 +80,7 @@ export function TemplatePreviewClient({
 
   const header = useMemo(() => {
     if (fullPage) return fullPageHeaderVariant(templateKey);
+
     return queryHeader;
   }, [fullPage, templateKey, queryHeader]);
 
@@ -136,6 +139,7 @@ export function TemplatePreviewClient({
           requestAnimationFrame(scheduleReady);
         });
       });
+
       return;
     }
 

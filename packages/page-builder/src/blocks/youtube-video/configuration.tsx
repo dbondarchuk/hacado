@@ -24,11 +24,13 @@ export const YouTubeVideoConfiguration = deepMemo(
       (d: unknown) => setData(d as YouTubeVideoProps),
       [setData],
     );
+
     const updateProps = useCallback(
       (p: unknown) =>
         setData({ ...data, props: p as YouTubeVideoProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) =>
         setData({ ...data, style: s as YouTubeVideoProps["style"] }),

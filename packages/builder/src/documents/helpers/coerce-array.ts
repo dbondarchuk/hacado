@@ -12,6 +12,8 @@ export function coerceArray<T>(value: unknown): T[] {
     .filter((k) => /^\d+$/.test(k))
     .map(Number)
     .sort((a, b) => a - b);
+
   if (keys.length === 0) return [];
+
   return keys.map((k) => o[String(k)] as T);
 }

@@ -24,6 +24,7 @@ export const CustomHTMLConfiguration = deepMemo(
         setData({ ...data, props: p as CustomHTMLProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) =>
         setData({ ...data, style: s as CustomHTMLProps["style"] }),

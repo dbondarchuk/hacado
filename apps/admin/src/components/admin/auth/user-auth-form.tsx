@@ -52,6 +52,7 @@ export const UserAuthForm = ({
     (templatePackId
       ? preferredWebsitePackHref("/checkout", templatePackId)
       : "/dashboard");
+
   const paramError = searchParams.get("error");
   const paramVerified = searchParams.get("verified");
 
@@ -61,6 +62,7 @@ export const UserAuthForm = ({
     email: "",
     password: "",
   };
+
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -112,9 +114,11 @@ export const UserAuthForm = ({
         email,
         type: "email-verification",
       });
+
       if (response.error?.message) {
         throw new Error(response.error.message);
       }
+
       toast.success(t("auth.verification.success"));
     } catch (err) {
       console.error(err);
@@ -130,16 +134,19 @@ export const UserAuthForm = ({
       toast.error(t("auth.verification.invalidCode"));
       return;
     }
+
     setVerificationLoading(true);
     try {
       const response = await authClient.emailOtp.verifyEmail({
         email,
         otp,
       });
+
       if (response.error?.message) {
         toast.error(t("auth.verification.invalidCode"));
         return;
       }
+
       toast.success(t("auth.verification.verified"));
       setNeedsVerification(false);
       // Retry sign-in with stored password
@@ -149,6 +156,7 @@ export const UserAuthForm = ({
         password,
         callbackURL: postAuthPath,
       });
+
       if (signIn.data?.user) {
         router.push(postAuthPath);
       }
@@ -244,6 +252,7 @@ export const UserAuthForm = ({
                   containerClassName="justify-center"
                   onKeyDown={(e) => {
                     if (e.key !== "Enter") return;
+
                     e.preventDefault();
                     if (otp.length === 6 && !verificationLoading)
                       void onVerifyEmail();

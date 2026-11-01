@@ -189,6 +189,7 @@ export class SmsRegistrationStore {
       .find({})
       .sort({ phoneNumber: 1 })
       .toArray();
+
     return rows
       .map((row) => row.phoneNumber?.trim())
       .filter((phone): phone is string => Boolean(phone));
@@ -296,6 +297,7 @@ export class SmsRegistrationStore {
           $unset: { organizationId: "" },
         },
       );
+
     await db
       .collection<SmsRegistrationRecord>(SMS_REGISTRATIONS_COLLECTION_NAME)
       .updateOne(

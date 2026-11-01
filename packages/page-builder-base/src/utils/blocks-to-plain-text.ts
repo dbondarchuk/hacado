@@ -38,6 +38,7 @@ const SKIP_BLOCK_TYPES = new Set([
 function coerceArray<T>(value: unknown): T[] {
   if (Array.isArray(value)) return value as T[];
   if (value == null) return [];
+
   return [value as T];
 }
 
@@ -110,6 +111,7 @@ function extractBlockText(block: EditorBlockLike): string[] {
             : "",
         )
         .filter(Boolean);
+
       return texts.length ? [texts.join(" / ")] : [];
     }
     case "CustomHTML": {

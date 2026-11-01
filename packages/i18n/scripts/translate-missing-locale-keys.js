@@ -44,6 +44,7 @@ if (!["google", "mymemory"].includes(provider)) {
   console.error(
     `Unsupported provider "${provider}". Use "google" or "mymemory".`,
   );
+
   process.exit(1);
 }
 
@@ -56,6 +57,7 @@ const { object: localeObject, created } = loadOrInitializeLocaleObject(
   resolved.localePath,
   english,
 );
+
 if (created) {
   writeLocale(resolved.localePath, localeObject);
 }
@@ -71,6 +73,7 @@ if (created) {
     `Locale file was missing/empty and has been initialized from English structure.`,
   );
 }
+
 console.log(`Missing or untranslated keys: ${tasks.length}`);
 
 if (tasks.length === 0) {
@@ -108,14 +111,17 @@ function parseArgs(argv) {
       optionProvider = arg.slice("--provider=".length).trim();
       continue;
     }
+
     if (arg.startsWith("--lang=")) {
       optionLang = arg.slice("--lang=".length).trim();
       continue;
     }
+
     if (arg === "--help" || arg === "-h") {
       printUsage();
       process.exit(0);
     }
+
     positional.push(arg);
   }
 
@@ -169,6 +175,7 @@ function resolveTarget(rawTarget, language) {
   const directPath = path.isAbsolute(rawTarget)
     ? rawTarget
     : path.resolve(process.cwd(), rawTarget);
+
   if (fs.existsSync(directPath) && /\.(json|yaml|yml)$/.test(directPath)) {
     const normalizedDirect = path.normalize(directPath);
     const enSegment = `${path.sep}en${path.sep}`;
@@ -213,13 +220,16 @@ function loadDataFromPath(filePath, filename) {
       if (fs.existsSync(jsonPath)) {
         return JSON.parse(fs.readFileSync(jsonPath, "utf8"));
       }
+
       throw new Error(`File not found: ${filePath} (or ${jsonPath})`);
     }
+
     const raw = fs.readFileSync(filePath, "utf8");
     let doc = null;
     if (raw.trim()) {
       doc = parseYaml(raw);
     }
+
     if (
       doc != null &&
       typeof doc === "object" &&
@@ -228,15 +238,19 @@ function loadDataFromPath(filePath, filename) {
     ) {
       return doc;
     }
+
     const jsonPath = filePath.replace(/\.(yaml|yml)$/, ".json");
     if (fs.existsSync(jsonPath)) {
       return JSON.parse(fs.readFileSync(jsonPath, "utf8"));
     }
+
     return {};
   }
+
   if (!fs.existsSync(filePath)) {
     throw new Error(`File not found: ${filePath}`);
   }
+
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
@@ -261,6 +275,7 @@ function ensureAppLocaleFile(appName, filePart) {
       return rest + ext;
     }
   }
+
   return `${rest}.yaml`;
 }
 
@@ -273,6 +288,7 @@ function ensureCoreLocaleFilename(target) {
       return base + ext;
     }
   }
+
   return `${base}.yaml`;
 }
 
@@ -328,6 +344,7 @@ function collectTranslationTasks(enNode, localeNode, currentPath, tasks) {
         source: enNode,
       });
     }
+
     return;
   }
 
@@ -336,6 +353,7 @@ function collectTranslationTasks(enNode, localeNode, currentPath, tasks) {
       localeNode && typeof localeNode === "object" && !Array.isArray(localeNode)
         ? localeNode
         : {};
+
     for (const key of Object.keys(enNode)) {
       collectTranslationTasks(
         enNode[key],
@@ -358,8 +376,10 @@ function setAtPath(obj, keyPath, value) {
     ) {
       current[key] = {};
     }
+
     current = current[key];
   }
+
   current[keyPath[keyPath.length - 1]] = value;
 }
 
@@ -417,6 +437,7 @@ function unshieldTranslatableTokens(text, tokens) {
       return token === undefined ? `___PH_${index}___` : token;
     });
   } while (result !== previous);
+
   return result;
 }
 
@@ -485,6 +506,7 @@ async function fetchFromGoogle(text, language) {
         language,
         `(client=${currentGoogleClient()})`,
       );
+
       if (!Array.isArray(data) || !Array.isArray(data[0])) {
         console.log("Bad response shape:", data);
         throw new Error("Bad response shape");
@@ -531,23 +553,29 @@ async function retryingFetch(buildUrl, parseResponse) {
         console.log(
           `\nRate limited (${response.status}), switching client → ${next}`,
         );
+
         await sleep(RETRY_WAIT_MS * attempt);
         continue;
       }
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
+
       const json = await response.json();
       return parseResponse(json);
     } catch (error) {
       if (attempt === MAX_RETRIES) {
         throw error;
       }
+
       console.log(
         `\nRetry ${attempt}/${MAX_RETRIES} after error: ${error.message}`,
       );
+
       await sleep(RETRY_WAIT_MS * attempt);
     }
   }
+
   throw new Error("Translation request failed after retries.");
 }

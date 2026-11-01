@@ -21,6 +21,7 @@ export const backgroundVideoStyle = {
   defaultValue: {},
   renderToCSS: (value) => {
     if (!value?.src) return null;
+
     // isolation + negative z-index on the video layer keeps children
     // (including grid items) above the video without an extra wrapper.
     return "position: relative; overflow: hidden; isolation: isolate;";

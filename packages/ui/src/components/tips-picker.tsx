@@ -156,10 +156,12 @@ export function computeTipAmount(args: {
   if (args.tipMode === "preset" && args.tipPresetPercent) {
     return roundTipMoney((args.baseAmount * args.tipPresetPercent) / 100);
   }
+
   if (args.tipMode === "custom") {
     const parsed = Number.parseFloat(args.customTip);
     return Number.isFinite(parsed) && parsed > 0 ? roundTipMoney(parsed) : 0;
   }
+
   return 0;
 }
 
@@ -193,6 +195,7 @@ export function BookingTipsPicker({
   const [tipPresetPercent, setTipPresetPercent] = useState<
     number | undefined
   >();
+
   const [customTip, setCustomTip] = useState("");
   const onTipChangeRef = useRef(onDebouncedTipAmountChange);
   onTipChangeRef.current = onDebouncedTipAmountChange;

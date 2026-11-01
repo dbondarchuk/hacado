@@ -16,6 +16,7 @@ const formatMultiSelectValue = (
   locale: string = "en",
 ): string => {
   if (!value || !Array.isArray(value) || value.length === 0) return "-";
+
   try {
     return new Intl.ListFormat(locale, {
       type: "conjunction",
@@ -78,6 +79,7 @@ const FilePreview: FC<AnswerPreviewProps> = ({ answer }) => {
   if (value === null || value === undefined || value === "") {
     return <span className="text-muted-foreground">-</span>;
   }
+
   const filename = String(value).replace(/^\/assets\//, "");
   const mimeType = fileNameToMimeType(filename);
   return (

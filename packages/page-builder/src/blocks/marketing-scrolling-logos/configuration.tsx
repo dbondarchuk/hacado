@@ -26,6 +26,7 @@ export const MarketingScrollingLogosConfiguration = deepMemo(
         }),
       [setData, data],
     );
+
     const updateProps = useCallback(
       (p: unknown) =>
         setData({

@@ -57,6 +57,7 @@ export const AccordionItemEditor = ({ props, style }: AccordionItemProps) => {
         ? "max-h-screen opacity-100 transition-all duration-300 ease-in-out"
         : "max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out";
     }
+
     return isOpen ? "block" : "hidden";
   };
 

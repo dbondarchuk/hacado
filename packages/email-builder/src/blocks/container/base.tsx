@@ -6,6 +6,7 @@ function getBorder(style: ContainerProps["style"]) {
   if (!style || !style.borderColor) {
     return undefined;
   }
+
   return `1px solid ${style.borderColor}`;
 }
 

@@ -1902,11 +1902,13 @@ export function matchServiceImage(
 ): string {
   const library = PACK_MEDIA[packId];
   if (!library) return "";
+
   const haystack = serviceName.toLowerCase();
   for (const item of library.items) {
     if (item.keywords.some((kw) => haystack.includes(kw.toLowerCase()))) {
       return item.src;
     }
   }
+
   return library.generic;
 }

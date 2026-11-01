@@ -115,6 +115,7 @@ export const StyleCategoryStyle = <T extends BaseStyleDictionary>({
     if (styleVariants.length > previousCount) {
       setIsStyleOpen(true);
     }
+
     previousVariantsCountRef.current = styleVariants.length;
   }, [styleVariants.length]);
 

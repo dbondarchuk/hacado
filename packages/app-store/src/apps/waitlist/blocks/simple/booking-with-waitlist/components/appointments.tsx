@@ -96,8 +96,10 @@ export const Appointments: React.FC<
   const [option, setOption] = React.useState<string | null>(
     lockServiceId ?? fromQuery,
   );
+
   const [waitlistOffer, setWaitlistOffer] =
     React.useState<WaitlistOfferPrefill | null>(null);
+
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
   const [purchasePackageId, setPurchasePackageId] = React.useState<string>();
   const [customerPackageId, setCustomerPackageId] = React.useState<string>();
@@ -109,6 +111,7 @@ export const Appointments: React.FC<
     email: "",
     phone: "",
   });
+
   const [myPackages, setMyPackages] = React.useState<CustomerPackage[]>([]);
   const [packagesLoading, setPackagesLoading] = React.useState(false);
   const [packagesError, setPackagesError] = React.useState(false);
@@ -116,6 +119,7 @@ export const Appointments: React.FC<
   const selected = options.find((m) => m._id === option);
   const isCustomerPackageLocked =
     packageBookingFlow && !!customerPackageId && !!selected;
+
   const isBookingRestricted =
     !isOnlyWaitlist && isBookingLimitRestriction(bookingRestriction);
 
@@ -127,22 +131,28 @@ export const Appointments: React.FC<
       ),
     [options, members],
   );
+
   const isSpecialistFirst =
     flowOrder === "specialist-first" && staffAcrossOptions.length > 0;
+
   const [specialistFirstMemberId, setSpecialistFirstMemberId] = React.useState<
     string | null
   >(lockMemberId ?? null);
+
   const [specialistFirstAny, setSpecialistFirstAny] = React.useState(false);
 
   React.useEffect(() => {
     if (!waitlistTokenParam || isEditor || !appId) return;
+
     let cancelled = false;
     void fetchWaitlistOffer(appId, waitlistTokenParam).then((offer) => {
       if (cancelled || !offer) return;
+
       setWaitlistOffer(offer);
       if (!lockServiceId) {
         setOption(offer.optionId);
       }
+
       setBookingFields((current) => ({ ...current, ...offer.fields }));
       if (offer.memberId && !lockMemberId) {
         setSpecialistFirstMemberId(offer.memberId);
@@ -179,14 +189,17 @@ export const Appointments: React.FC<
   React.useEffect(() => {
     const optionId = waitlistOffer?.optionId ?? fromQuery;
     if (!optionId || appliedOfferCatalogPath.current === optionId) return;
+
     const path = catalogPathForService(displayCatalog, optionId);
     if (path === undefined) return;
+
     setCatalogPath(path);
     appliedOfferCatalogPath.current = optionId;
   }, [waitlistOffer?.optionId, fromQuery, displayCatalog]);
 
   const startPackageBooking = async () => {
     if (isOnlyWaitlist) return;
+
     packageOtpVerifiedRef.current = false;
     setPackageBookingFlow(true);
     setPurchasePackageId(undefined);
@@ -203,12 +216,14 @@ export const Appointments: React.FC<
           phone: session.phone || "",
           smsConsent: session.smsConsent === true,
         });
+
         await refreshBookingOptions?.();
         return;
       }
     } catch {
       // Fall through to OTP.
     }
+
     setPackageOtpOpen(true);
   };
 
@@ -226,6 +241,7 @@ export const Appointments: React.FC<
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
+
         setMyPackages(
           (response.items ?? []).filter(
             (pkg) => pkg.status !== "pending" && pkg.remainingCredits > 0,
@@ -234,6 +250,7 @@ export const Appointments: React.FC<
       })
       .catch((error) => {
         if (cancelled) return;
+
         setMyPackages([]);
         setPackagesError(
           !(error instanceof ClientApiError && error.status === 403),
@@ -257,6 +274,7 @@ export const Appointments: React.FC<
         options.some((choice) => choice._id === item.serviceId)
       );
     });
+
     const optionId = redeemableItem?.serviceId;
     if (!optionId) {
       setPackagesError(true);
@@ -339,7 +357,6 @@ export const Appointments: React.FC<
       />
     );
   }
-
   if (!isOnlyWaitlist && packageBookingFlow && otpVerified) {
     return (
       <div className="flex flex-col gap-4" id={id}>
@@ -395,7 +412,6 @@ export const Appointments: React.FC<
       </div>
     );
   }
-
   if (isSpecialistFirst && !specialistFirstMemberId && !specialistFirstAny) {
     return (
       <div className="flex flex-col gap-2" id={id}>
@@ -463,6 +479,7 @@ export const Appointments: React.FC<
             phone: result.phone || "",
             smsConsent: result.smsConsent === true,
           });
+
           await refreshBookingOptions?.();
         }}
       />

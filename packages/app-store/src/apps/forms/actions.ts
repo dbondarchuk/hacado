@@ -53,12 +53,14 @@ export async function getForms(appId: string, query: GetFormsAction["query"]) {
       { appId, resultCount: result?.items?.length || 0 },
       "Successfully retrieved forms",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error getting forms",
     );
+
     throw error;
   }
 }
@@ -80,6 +82,7 @@ export async function getFormById(appId: string, id: string) {
       { appId, error: error?.message || error?.toString() },
       "Error getting form",
     );
+
     throw error;
   }
 }
@@ -101,6 +104,7 @@ export async function createForm(appId: string, form: FormUpdateModel) {
       { appId, error: error?.message || error?.toString() },
       "Error creating form",
     );
+
     throw error;
   }
 }
@@ -127,6 +131,7 @@ export async function updateForm(
       { appId, error: error?.message || error?.toString() },
       "Error updating form",
     );
+
     throw error;
   }
 }
@@ -148,6 +153,7 @@ export async function deleteForm(appId: string, id: string) {
       { appId, error: error?.message || error?.toString() },
       "Error deleting form",
     );
+
     throw error;
   }
 }
@@ -166,12 +172,14 @@ export async function deleteSelectedForms(appId: string, ids: string[]) {
       { appId, count: ids.length },
       "Successfully deleted selected forms",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error deleting selected forms",
     );
+
     throw error;
   }
 }
@@ -190,6 +198,7 @@ export async function setFormArchived(
       id,
       isArchived,
     });
+
     logger.info({ appId, id, isArchived }, "Form archived state updated");
     return result;
   } catch (error: any) {
@@ -197,6 +206,7 @@ export async function setFormArchived(
       { appId, error: error?.message || error?.toString() },
       "Error setting form archived",
     );
+
     throw error;
   }
 }
@@ -215,16 +225,19 @@ export async function setFormsArchived(
       ids,
       isArchived,
     });
+
     logger.info(
       { appId, count: ids.length, isArchived },
       "Forms archived state updated",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error setting forms archived",
     );
+
     throw error;
   }
 }
@@ -246,12 +259,14 @@ export async function getFormResponses(
       { appId, resultCount: result?.items?.length || 0 },
       "Successfully retrieved form responses",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error getting form responses",
     );
+
     throw error;
   }
 }
@@ -273,6 +288,7 @@ export async function getFormResponseById(appId: string, id: string) {
       { appId, error: error?.message || error?.toString() },
       "Error getting form response",
     );
+
     throw error;
   }
 }
@@ -299,6 +315,7 @@ export async function updateFormResponse(
       { appId, error: error?.message || error?.toString() },
       "Error updating form response",
     );
+
     throw error;
   }
 }
@@ -325,6 +342,7 @@ export async function createFormResponse(
       { appId, error: error?.message || error?.toString() },
       "Error creating form response",
     );
+
     throw error;
   }
 }
@@ -346,6 +364,7 @@ export async function deleteFormResponse(appId: string, id: string) {
       { appId, error: error?.message || error?.toString() },
       "Error deleting form response",
     );
+
     throw error;
   }
 }
@@ -367,12 +386,14 @@ export async function deleteSelectedFormResponses(
       { appId, count: ids.length },
       "Successfully deleted selected form responses",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error deleting selected form responses",
     );
+
     throw error;
   }
 }
@@ -399,12 +420,14 @@ export async function reassignFormResponses(
       { appId, count: ids.length, customerId },
       "Successfully reassigned form responses",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error reassigning form responses",
     );
+
     throw error;
   }
 }
@@ -425,6 +448,7 @@ export async function markFormResponsesRead(appId: string) {
       { appId, error: error?.message || error?.toString() },
       "Error marking form responses as read",
     );
+
     throw error;
   }
 }
@@ -448,12 +472,14 @@ export async function checkFormNameUnique(
       { appId, name, id },
       "Successfully checked form name uniqueness",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error checking form name uniqueness",
     );
+
     throw error;
   }
 }

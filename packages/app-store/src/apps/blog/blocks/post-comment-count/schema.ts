@@ -19,6 +19,7 @@ export const BlogPostCommentCountPropsSchema = z.object({
 export type BlogPostCommentCountProps = Prettify<
   z.infer<typeof BlogPostCommentCountPropsSchema>
 >;
+
 export type BlogPostCommentCountReaderProps = BaseReaderBlockProps<any> &
   BlogPostCommentCountProps;
 

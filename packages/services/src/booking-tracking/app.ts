@@ -61,6 +61,7 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
         { type: envelope.type },
         "Skipping event, unknown event type",
       );
+
       return;
     }
 
@@ -149,6 +150,7 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
             skippedOptionsOnly += 1;
             continue;
           }
+
           if (result.claimed) {
             claimed += 1;
             logger.debug(
@@ -190,9 +192,11 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
         "COUNT",
         100,
       );
+
       cursor = result[0];
       for (const key of result[1]) {
         if (!isSessionJsonKey(key)) continue;
+
         const parts = key.split(":");
         const sessionId = parts[3];
         if (sessionId) sessionIds.push(sessionId);
@@ -204,13 +208,16 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
 
   private async getTimeZone(): Promise<string> {
     if (this.timeZone) return this.timeZone;
+
     try {
       const general =
         await this.services.configurationService.getConfiguration("general");
+
       this.timeZone = general?.timeZone || DEFAULT_ANALYTICS_TIME_ZONE;
     } catch {
       this.timeZone = DEFAULT_ANALYTICS_TIME_ZONE;
     }
+
     return this.timeZone;
   }
 }

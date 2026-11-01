@@ -53,6 +53,7 @@ export const AppointmentFiles = ({ appointment }: AppointmentFilesProps) => {
   const onRemoveAppointmentFile = useCallback(
     async (fileId: string) => {
       if (!canUpdate) return;
+
       try {
         setLoading(true);
         await toastPromise(assetsApi.deleteAsset(fileId), {
@@ -62,6 +63,7 @@ export const AppointmentFiles = ({ appointment }: AppointmentFilesProps) => {
 
         const fileIndex =
           appointment.files?.findIndex((file) => file._id === fileId) ?? -1;
+
         if (fileIndex >= 0) {
           appointment.files?.splice(fileIndex, 1);
         }
@@ -91,6 +93,7 @@ export const AppointmentFiles = ({ appointment }: AppointmentFilesProps) => {
 
   useEffect(() => {
     if (!api || !selectedFile || !galleryOpen) return;
+
     const index = galleryItems.findIndex((item) => item._id === selectedFile);
     if (index < 0) return;
 

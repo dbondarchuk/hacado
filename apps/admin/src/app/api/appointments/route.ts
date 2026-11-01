@@ -109,6 +109,7 @@ export async function POST(request: NextRequest) {
 
   const blockedResponse =
     await getSubscriptionBlockingResponseForAppointmentWriteActions();
+
   if (blockedResponse) {
     return blockedResponse;
   }
@@ -129,6 +130,7 @@ export async function POST(request: NextRequest) {
   const { data, success, error } = appointmentEventSchema.safeParse(
     JSON.parse(appointmentJson),
   );
+
   if (!success) {
     logger.warn({ error }, "Invalid appointment JSON");
     return NextResponse.json(
@@ -167,6 +169,7 @@ export async function POST(request: NextRequest) {
 
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");
+
   const option = await servicesContainer.catalogService.getService(
     data.serviceId,
   );
@@ -196,6 +199,7 @@ export async function POST(request: NextRequest) {
     addons,
     memberId: data.memberId,
   });
+
   if (
     unassignedIssues.needsAcknowledgement &&
     !data.acknowledgeUnassignedMember
@@ -208,6 +212,7 @@ export async function POST(request: NextRequest) {
       },
       "Unassigned member acknowledgement required",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -229,6 +234,7 @@ export async function POST(request: NextRequest) {
     await servicesContainer.catalogService.getFieldsByNames(
       Object.keys(data.fields),
     );
+
   const fieldsLabels = selectedFields.reduce(
     (acc, field) => ({ ...acc, [field.name]: field.data?.label }),
     {} as Record<string, string>,
@@ -249,6 +255,7 @@ export async function POST(request: NextRequest) {
           0),
       0,
     ) ?? 0;
+
   const addonsPrice =
     addons?.reduce(
       (sum, addon) =>
@@ -353,6 +360,7 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
+
     throw error;
   }
 

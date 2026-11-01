@@ -65,6 +65,7 @@ export const EventsCalendar = ({
 
   const changeView = (next: EventCalendarView) => {
     if (next === "days-around") return;
+
     setView(next);
     setCookies(VIEW_COOKIE_NAME, next, {
       expires: DateTime.now().plus({ years: 1 }).toJSDate(),

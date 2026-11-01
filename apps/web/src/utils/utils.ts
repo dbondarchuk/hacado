@@ -42,6 +42,7 @@ export const getPlanTier = cache(async (): Promise<BillingPlanTier | null> => {
   ) {
     return raw;
   }
+
   return null;
 });
 

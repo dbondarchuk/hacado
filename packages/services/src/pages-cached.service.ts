@@ -36,6 +36,7 @@ export class CachedPagesService extends PagesService {
         { count: entries.length },
         "Page route table retrieved from Redis",
       );
+
       return entries;
     } catch (error) {
       logger.warn({ error }, "Redis lookup failed");
@@ -53,6 +54,7 @@ export class CachedPagesService extends PagesService {
         CachedPagesService.REDIS_TTL_SECONDS,
         JSON.stringify(entries),
       );
+
       logger.debug({ count: entries.length }, "Page route table cache written");
     } catch (error) {
       logger.warn({ error }, "Failed to write page route table cache");
@@ -86,6 +88,7 @@ export class CachedPagesService extends PagesService {
       { count: entries.length },
       "Page route entries fetched from database",
     );
+
     await this.writeRedisCache(entries);
     return entries;
   }
@@ -100,6 +103,7 @@ export class CachedPagesService extends PagesService {
       { pageId: created._id, slug: created.slug },
       "Invalidating page route cache after create",
     );
+
     await this.invalidateRouteCache();
     return created;
   }
@@ -115,6 +119,7 @@ export class CachedPagesService extends PagesService {
       { pageId: id, slug: update.slug },
       "Invalidating page route cache after update",
     );
+
     await this.invalidateRouteCache();
   }
 
@@ -128,6 +133,7 @@ export class CachedPagesService extends PagesService {
       { pageId: id, slug: deleted?.slug },
       "Invalidating page route cache after delete",
     );
+
     await this.invalidateRouteCache();
     return deleted;
   }
@@ -139,6 +145,7 @@ export class CachedPagesService extends PagesService {
       { pageIds: ids },
       "Invalidating page route cache after bulk delete",
     );
+
     await this.invalidateRouteCache();
   }
 }

@@ -42,6 +42,7 @@ function toSupportedCountry(
   countryCode: string | undefined,
 ): Country | undefined {
   if (!countryCode) return undefined;
+
   const upper = countryCode.toUpperCase();
   return (countryOptions as readonly string[]).includes(upper)
     ? (upper as Country)
@@ -90,6 +91,7 @@ export class GeoapifyService {
     if (!key) {
       throw new Error("GEOAPIFY_API_KEY is not configured");
     }
+
     return key;
   }
 
@@ -112,6 +114,7 @@ export class GeoapifyService {
     const biasCountry = (
       params.countryBias ?? countryOptions.join(",")
     ).toLowerCase();
+
     url.searchParams.set("bias", `countrycode:${biasCountry}`);
 
     if (params.lang) {
@@ -135,6 +138,7 @@ export class GeoapifyService {
         { status: response.status, body: body.slice(0, 500) },
         "Geoapify autocomplete failed",
       );
+
       throw new Error(`Geoapify autocomplete failed (${response.status})`);
     }
 

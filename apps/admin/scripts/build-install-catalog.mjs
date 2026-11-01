@@ -21,8 +21,10 @@ const tagSet = new Set();
 
 for (const f of files) {
   if (f.startsWith("_")) continue;
+
   const full = path.join(dir, f);
   if (fs.statSync(full).size < 4) continue;
+
   const cat = f.replace(/\.yaml$/, "");
   const j = parseYaml(fs.readFileSync(full, "utf8"));
   catalog[cat] = {};
@@ -33,6 +35,7 @@ for (const f of files) {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "_"),
     );
+
     tags.forEach((t) => tagSet.add(t));
     en[cat][profKey] = { label: prof.label, tags: prof.tags };
     en[cat][profKey].services = {};
@@ -50,10 +53,12 @@ for (const f of files) {
         const addonId =
           (typeof a.id === "string" && a.id) ||
           `${id}-addon-${slug(a.name)}-${ai}`;
+
         const duration =
           a.duration != null && Number(a.duration) > 0
             ? Number(a.duration)
             : 10;
+
         const entry = { id: addonId, duration };
         if (
           a.suggestedPrice != null &&
@@ -62,6 +67,7 @@ for (const f of files) {
         ) {
           entry.suggestedPrice = Number(a.suggestedPrice);
         }
+
         catalogAddons.push(entry);
         enAddons[addonId] = {
           name: String(a.name ?? ""),
@@ -76,6 +82,7 @@ for (const f of files) {
         recommended: !!svc.recommended,
         addons: catalogAddons.length ? catalogAddons : undefined,
       });
+
       en[cat][profKey].services[id] = {
         name: svc.name,
         description: svc.description,
@@ -91,6 +98,7 @@ fs.writeFileSync(
   path.join(dir, "_catalog-en-source.json"),
   JSON.stringify(en, null, 2),
 );
+
 console.log("tags", [...tagSet].sort().join(", "));
 console.log("categories", Object.keys(catalog).sort().join(", "));
 console.log("wrote", outCatalog);

@@ -156,6 +156,7 @@ export const getCalendarEventColorStyles = (
 ): CalendarEventColorStyles => {
   const isClosed =
     status === "declined" || status === "canceled" || status === "noShow";
+
   const base = isClosed
     ? Color(hex).mix(Color(DESTRUCTIVE_ROSE), 0.55)
     : Color(hex);
@@ -168,7 +169,6 @@ export const getCalendarEventColorStyles = (
       borderLeftColor: PENDING_AMBER,
     };
   }
-
   if (isClosed) {
     return {
       ...tint,

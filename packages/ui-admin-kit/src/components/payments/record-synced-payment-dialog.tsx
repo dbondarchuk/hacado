@@ -46,6 +46,7 @@ export const RecordSyncedPaymentDialog = ({
   const [customerId, setCustomerId] = useState<string | undefined>();
   const [paymentType, setPaymentType] =
     useState<SyncedPaymentStandalonePaymentType>(DEFAULT_PAYMENT_TYPE);
+
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export const RecordSyncedPaymentDialog = ({
     if (!customerId) {
       return;
     }
+
     setSubmitting(true);
     try {
       await onConfirm({ customerId, paymentType });

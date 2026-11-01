@@ -123,6 +123,7 @@ export const WAITLIST_APP_EVENTS: AppEventConfig = {
 
         const organization =
           await services.organizationService.getOrganization();
+
         const organizationLabel =
           organization?.name?.trim() || organization?.slug || "";
 

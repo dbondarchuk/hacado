@@ -16,6 +16,7 @@ export const ImageConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as ImageProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as ImageProps["style"] }),
       [setData, data],

@@ -66,8 +66,10 @@ export function getFamilyFromStoredFont(
   stored: string | undefined,
 ): string | undefined {
   if (!stored?.trim()) return undefined;
+
   const found = EDITOR_FONTS.find((f) => stored.includes(f.value));
   if (found) return found.value;
+
   const quoted = stored.match(/^["']?([^"',]+)["']?/);
   return quoted ? quoted[1].trim() : undefined;
 }
@@ -82,9 +84,11 @@ export function googleFontsUrl(
   weights = [400, 700],
 ): string {
   if (families.length === 0) return "";
+
   const params = families
     .map((f) => `family=${encodeURIComponent(f)}:wght@${weights.join(";")}`)
     .join("&");
+
   return `https://fonts.googleapis.com/css2?${params}&display=swap`;
 }
 

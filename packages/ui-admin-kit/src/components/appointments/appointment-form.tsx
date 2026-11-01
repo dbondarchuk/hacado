@@ -255,6 +255,7 @@ export const AppointmentScheduleForm: React.FC<
         addons,
         memberId: args.memberId,
       });
+
       if (
         unassignedIssues.needsAcknowledgement &&
         !args.acknowledgeUnassignedMember
@@ -295,6 +296,7 @@ export const AppointmentScheduleForm: React.FC<
   const fromOption = from
     ? options.find((o) => o._id === from.optionId)
     : undefined;
+
   const fromAddons =
     from && fromOption
       ? from.addonsIds?.map((a) => fromOption.addons?.find((o) => o._id === a))
@@ -381,6 +383,7 @@ export const AppointmentScheduleForm: React.FC<
   const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[]>(
     [],
   );
+
   const customerId = form.watch("customerId");
   const [customer, setCustomer] = React.useState<
     CustomerListModel | undefined
@@ -391,9 +394,11 @@ export const AppointmentScheduleForm: React.FC<
   const [discount, setDiscount] = React.useState<
     (Discount & { code: string }) | undefined
   >();
+
   const [customerPackage, setCustomerPackage] = React.useState<
     CustomerPackage | undefined
   >();
+
   const [isPastDueDialogOpen, setIsPastDueDialogOpen] = React.useState(false);
 
   const [disabledFields, setDisabledFields] = React.useState<Set<String>>(
@@ -415,6 +420,7 @@ export const AppointmentScheduleForm: React.FC<
   /** Keep customer + package locked only while the prefilled package is still selected. */
   const packageLocked =
     !!packagePrefillId && customerPackageId === packagePrefillId;
+
   const usingPackage = !!customerPackageId;
 
   const selectedOption = React.useMemo(
@@ -491,8 +497,10 @@ export const AppointmentScheduleForm: React.FC<
 
       let appointmentDiscount: AppointmentEventRequest["discount"] | undefined =
         undefined;
+
       if (!data.customerPackageId) {
         if (data.promoCode && !discount) return;
+
         if (data.promoCode && discount && data.totalPrice) {
           appointmentDiscount = {
             code: data.promoCode,
@@ -557,6 +565,7 @@ export const AppointmentScheduleForm: React.FC<
         setIsPastDueDialogOpen(true);
         return;
       }
+
       console.error(error);
     } finally {
       setLoading(false);
@@ -760,6 +769,7 @@ export const AppointmentScheduleForm: React.FC<
 
   React.useEffect(() => {
     if (!usingPackage) return;
+
     form.setValue("addons", []);
     form.setValue("promoCode", null);
     setDiscount(undefined);
@@ -767,6 +777,7 @@ export const AppointmentScheduleForm: React.FC<
 
   React.useEffect(() => {
     if (!customerPackageId || !customerPackage) return;
+
     if (
       !customerPackage.items.some((item) => item.serviceId === selectedOptionId)
     ) {
@@ -780,6 +791,7 @@ export const AppointmentScheduleForm: React.FC<
       ["name", "email", "phone"].forEach((field) =>
         customerId ? prev.add(field) : prev.delete(field),
       );
+
       return prev;
     });
   }, [customerId, setDisabledFields]);
@@ -796,9 +808,11 @@ export const AppointmentScheduleForm: React.FC<
       form.setValue("customerPackageId", null);
       setCustomerPackage(undefined);
     }
+
     if (c?.smsConsent) {
       setSmsConsent(false);
     }
+
     if (c) {
       form.setValue("fields.name", c.name);
       form.setValue("fields.email", c.email);

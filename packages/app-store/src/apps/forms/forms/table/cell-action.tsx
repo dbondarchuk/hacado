@@ -54,6 +54,7 @@ export const CellAction: React.FC<CellActionProps> = ({ form, appId }) => {
         success: t("forms.table.toast.delete", { name: form.name }),
         error: t("forms.table.toast.deleteError"),
       });
+
       setDeleteOpen(false);
       reload();
     } catch (error: any) {
@@ -71,6 +72,7 @@ export const CellAction: React.FC<CellActionProps> = ({ form, appId }) => {
         success: t("forms.table.toast.formArchived", { name: form.name }),
         error: t("forms.table.toast.archiveError"),
       });
+
       setArchiveOpen(false);
       reload();
     } catch (error: any) {
@@ -88,6 +90,7 @@ export const CellAction: React.FC<CellActionProps> = ({ form, appId }) => {
         success: t("forms.table.toast.formUnarchived", { name: form.name }),
         error: t("forms.table.toast.unarchiveError"),
       });
+
       setUnarchiveOpen(false);
       reload();
     } catch (error: any) {

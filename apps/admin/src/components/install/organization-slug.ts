@@ -478,5 +478,6 @@ export function getOrganizationSlugIssue(slug: string): OrganizationSlugIssue {
   if (isOrganizationSlugBlocked(slug)) {
     return "reserved";
   }
+
   return null;
 }

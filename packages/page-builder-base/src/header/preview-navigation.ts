@@ -7,5 +7,6 @@ export const blockPreviewLinkNavigation = (
   const target = event.target as HTMLElement | null;
   if (!target?.closest?.("a[href]")) return;
   if ("key" in event && event.key !== "Enter" && event.key !== " ") return;
+
   event.preventDefault();
 };

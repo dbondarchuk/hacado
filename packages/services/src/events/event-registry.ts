@@ -22,8 +22,10 @@ export function resolveEventDefinition(
     for (const def of Object.values(EVENT_DEFINITIONS)) {
       definitionsByType.set(def.type, def);
     }
+
     for (const config of Object.values(APP_EVENT_CONFIGS)) {
       if (!config.events?.length) continue;
+
       for (const def of config.events) {
         if (!definitionsByType.has(def.type)) {
           definitionsByType.set(def.type, def);
@@ -31,5 +33,6 @@ export function resolveEventDefinition(
       }
     }
   }
+
   return definitionsByType.get(eventType);
 }

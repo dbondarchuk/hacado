@@ -126,6 +126,7 @@ export class OutlookConnectedApp
         { appId, error: error?.message || error?.toString() },
         "Error generating Outlook login URL",
       );
+
       throw error;
     }
   }
@@ -151,6 +152,7 @@ export class OutlookConnectedApp
           { url: request.url },
           "Redirect request does not contain app ID",
         );
+
         throw new ConnectedAppError(
           "outlook.statusText.redirect_request_does_not_contain_app_id",
         );
@@ -161,6 +163,7 @@ export class OutlookConnectedApp
           { appId },
           "Redirect request does not contain authorization code",
         );
+
         return {
           appId,
           error:
@@ -210,6 +213,7 @@ export class OutlookConnectedApp
           { appId, error: e?.message || e?.toString() },
           "Error parsing authorization result",
         );
+
         return {
           appId,
           error:
@@ -224,6 +228,7 @@ export class OutlookConnectedApp
         { url: request.url, error: e?.message || e?.toString() },
         "Error processing Outlook OAuth redirect",
       );
+
       return {
         appId: new URL(request.url).searchParams.get("state") as string,
         error:
@@ -393,6 +398,7 @@ export class OutlookConnectedApp
             { appId: app._id, icsError },
             "Failed to parse iCal event",
           );
+
           console.error(icsError || "Failed to parse event");
         } else {
           attachments.push({
@@ -417,9 +423,11 @@ export class OutlookConnectedApp
           const result = await this.props.services.assetsStorage.getFile(
             attachment.storageFilename,
           );
+
           if (!result) {
             throw new Error("Attachment not found");
           }
+
           const contentBytes = await readableToBase64(result.stream);
           attachments.push({
             // @ts-expect-error This is required
@@ -702,11 +710,13 @@ export class OutlookConnectedApp
         "app_outlook_admin.statusText.error_processing_configuration" satisfies OutlookAdminAllKeys,
       );
     }
+
     try {
       const client = await this.getClient(app._id, tokens);
       const startDateTime = DateTime.fromJSDate(appointment.dateTime)
         .setZone(appointment.timeZone)
         .toUTC();
+
       const response = (await client.api(`/me/onlineMeetings`).post({
         subject: appointment.service.name,
         startDateTime: startDateTime.toISO(),
@@ -735,6 +745,7 @@ export class OutlookConnectedApp
         { appointmentId: appointment._id, error },
         "Error getting meeting URL for appointment",
       );
+
       throw error;
     }
   }
@@ -768,6 +779,7 @@ export class OutlookConnectedApp
         { uid, outlookEventId: id },
         "Found Outlook Event ID for UID",
       );
+
       return id;
     } catch (error: any) {
       logger.error({ uid, error }, "Error looking up Outlook Event ID for UID");
@@ -926,6 +938,7 @@ export class OutlookConnectedApp
         skip,
         top,
       );
+
       count = response["@odata.count"];
 
       results.push(...(response.value as OutlookEvent[]));
@@ -1048,6 +1061,7 @@ export class OutlookConnectedApp
         { requiredScopes, actualScopes: authResult.scopes },
         "Authorization result does not contain enough scopes",
       );
+
       throw new ConnectedAppError(
         "app_outlook_admin.statusText.authorization_result_not_enough_scopes" satisfies OutlookAdminAllKeys,
       );

@@ -7,6 +7,7 @@ export function isSquareSandbox(): boolean {
   if (process.env.SQUARE_ENVIRONMENT?.toLowerCase() === "sandbox") {
     return true;
   }
+
   return process.env.NODE_ENV !== "production";
 }
 

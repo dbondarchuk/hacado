@@ -62,6 +62,7 @@ export function useConnectedAppSetup<T extends FieldValues>({
       setIsDataLoading(false);
       setIsLoading(false);
     };
+
     setAppId(existingAppId);
     getInitialData();
   }, [existingAppId, form]);

@@ -30,6 +30,7 @@ export async function updateMyPhone(
     excludeMemberId: session.user.memberId,
     excludeUserId: session.user.id,
   });
+
   if (!available) {
     return { ok: false, code: "phone_in_use" };
   }
@@ -40,6 +41,7 @@ export async function updateMyPhone(
     if (error instanceof MemberPhoneOtpError) {
       return { ok: false, code: error.code };
     }
+
     return { ok: false, code: "not_verified" };
   }
 

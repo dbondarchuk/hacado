@@ -8,6 +8,7 @@ export async function GET() {
     "AdminAPI/teams/inactive-warnings",
     "GET",
   );
+
   if (!gate.ok) return gate.response;
   if (gate.skip) {
     return NextResponse.json({ ok: true, warnings: [] });
@@ -16,5 +17,6 @@ export async function GET() {
   const services = await getTeamServices();
   const warnings =
     await services.teamService.hasUpcomingAppointmentsOnInactiveMembers();
+
   return NextResponse.json({ ok: true, warnings });
 }

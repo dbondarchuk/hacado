@@ -22,6 +22,7 @@ export const ModifyAppointmentFormConfiguration = deepMemo(
         setData({ ...data, props: p as ModifyAppointmentFormProps["props"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     const updateStyle = useCallback(

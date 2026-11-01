@@ -29,6 +29,7 @@ import { CustomerProfile, HashState } from "./types";
 
 const parseHash = (hash: string): HashState => {
   if (!hash) return { screen: "list" };
+
   const normalized = hash.replace(/^#/, "");
   const [action, appointmentId] = normalized.split(":");
   if (action === "book") {
@@ -48,6 +49,7 @@ const parseHash = (hash: string): HashState => {
       appointmentId: appointmentId.trim(),
     };
   }
+
   return { screen: "list" };
 };
 
@@ -80,15 +82,18 @@ export const MyCabinetBlockComponent = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [customerProfile, setCustomerProfile] =
     useState<CustomerProfile | null>(null);
+
   const [timezone, setTimeZone] = useState<string>(
     useClientTimezone
       ? (LuxonDateTime.now().zoneName ?? configTimeZone)
       : configTimeZone,
   );
+
   const [hashState, setHashState] = useState<HashState>({ screen: "list" });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const onHashChange = () => setHashState(parseHash(window.location.hash));
     onHashChange();
     window.addEventListener("hashchange", onHashChange);
@@ -97,10 +102,12 @@ export const MyCabinetBlockComponent = ({
 
   useEffect(() => {
     if (!appId) return;
+
     let mounted = true;
     checkSessionAction()
       .then((res) => {
         if (!mounted) return;
+
         setIsAuthenticated(true);
         setCustomerProfile({
           name: res.name,
@@ -113,6 +120,7 @@ export const MyCabinetBlockComponent = ({
       .finally(() => {
         if (mounted) setIsSessionChecked(true);
       });
+
     return () => {
       mounted = false;
     };

@@ -68,8 +68,10 @@ export const PageBuilder = deepMemo(
     const t = useI18n();
     const headerComponent = useMemo(() => {
       if (!header) return null;
+
       const position =
         header.config.position ?? (header.config.sticky ? "sticky" : "static");
+
       return (
         <Header
           name={header.name}

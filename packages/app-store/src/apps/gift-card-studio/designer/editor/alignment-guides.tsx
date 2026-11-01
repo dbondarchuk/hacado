@@ -79,12 +79,15 @@ export function AlignmentGuides({
     if (Math.abs(activeLeft) < SNAP_THRESHOLD) {
       newGuides.push({ type: "vertical", position: 0 });
     }
+
     if (Math.abs(activeRight - canvasWidth) < SNAP_THRESHOLD) {
       newGuides.push({ type: "vertical", position: canvasWidth });
     }
+
     if (Math.abs(activeTop) < SNAP_THRESHOLD) {
       newGuides.push({ type: "horizontal", position: 0 });
     }
+
     if (Math.abs(activeBottom - canvasHeight) < SNAP_THRESHOLD) {
       newGuides.push({ type: "horizontal", position: canvasHeight });
     }
@@ -107,9 +110,11 @@ export function AlignmentGuides({
       if (Math.abs(activeLeft - elLeft) < SNAP_THRESHOLD) {
         newGuides.push({ type: "vertical", position: elLeft });
       }
+
       if (Math.abs(activeRight - elRight) < SNAP_THRESHOLD) {
         newGuides.push({ type: "vertical", position: elRight });
       }
+
       if (Math.abs(activeCenterX - elCenterX) < SNAP_THRESHOLD) {
         newGuides.push({ type: "vertical", position: elCenterX });
       }
@@ -118,9 +123,11 @@ export function AlignmentGuides({
       if (Math.abs(activeTop - elTop) < SNAP_THRESHOLD) {
         newGuides.push({ type: "horizontal", position: elTop });
       }
+
       if (Math.abs(activeBottom - elBottom) < SNAP_THRESHOLD) {
         newGuides.push({ type: "horizontal", position: elBottom });
       }
+
       if (Math.abs(activeCenterY - elCenterY) < SNAP_THRESHOLD) {
         newGuides.push({ type: "horizontal", position: elCenterY });
       }
@@ -286,6 +293,7 @@ export function snapRotationToCardinals(
       Math.abs(normalized - t),
       360 - Math.abs(normalized - t),
     );
+
     if (diff <= ROTATION_SNAP_THRESHOLD_DEG) {
       return t;
     }

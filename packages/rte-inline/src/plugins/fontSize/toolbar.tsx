@@ -35,6 +35,7 @@ export function FontSizeToolbarButton() {
     editorRef,
     registerPopoverRef,
   } = useRTEContext();
+
   const { marks: activeMarks, hasMixed } = getActiveMarks();
   const t = useI18n("builder");
 

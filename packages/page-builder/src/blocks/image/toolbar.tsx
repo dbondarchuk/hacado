@@ -19,6 +19,7 @@ export const ImageToolbar = (props: ConfigurationProps<ImageProps>) => {
       ...props.data,
       props: { ...props.data.props, src: asset.url },
     });
+
     setIsOpen(false);
   };
 

@@ -23,6 +23,7 @@ const Command = React.forwardRef<
     {...props}
   />
 ));
+
 Command.displayName = CommandPrimitive.displayName;
 
 interface CommandDialogProps extends DialogProps {
@@ -125,6 +126,7 @@ const CommandSeparator = React.forwardRef<
     {...props}
   />
 ));
+
 CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
 
 const CommandItem = React.forwardRef<
@@ -157,6 +159,7 @@ const CommandShortcut = ({
     />
   );
 };
+
 CommandShortcut.displayName = "CommandShortcut";
 
 export {

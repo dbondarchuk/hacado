@@ -47,12 +47,14 @@ export function buildPreviewChromeArgs(options?: {
       : undefined) ??
     options?.currency ??
     "USD";
+
   const country =
     (typeof fromGeneral?.country === "string"
       ? (fromGeneral.country as Country)
       : undefined) ??
     options?.country ??
     "US";
+
   const businessName =
     (typeof fromGeneral?.name === "string" && fromGeneral.name.trim()) ||
     options?.businessName?.trim() ||
@@ -113,6 +115,7 @@ export function PreviewChrome({
 
   const footerDocument = useMemo(() => {
     if (!footer) return null;
+
     const document = footerDefaultPage(
       true,
       {
@@ -135,6 +138,7 @@ export function PreviewChrome({
     ) as TEditorBlock;
 
     if (!basePath) return document;
+
     return rewriteCatalogUrlsInTree(document, basePath);
   }, [footer, t, basePath]);
 
@@ -264,5 +268,6 @@ export function parsePreviewHeaderParam(
   value: string | null | undefined,
 ): PreviewHeaderVariant | null {
   if (value === "solid" || value === "transparent") return value;
+
   return null;
 }

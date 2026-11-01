@@ -43,6 +43,7 @@ export const textTransformPlugin: MarkPlugin = {
     if (marks.textTransform && marks.textTransform !== "inherit") {
       styles.textTransform = marks.textTransform;
     }
+
     return styles;
   },
 };

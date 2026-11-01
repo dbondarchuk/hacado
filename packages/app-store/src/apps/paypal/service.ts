@@ -102,6 +102,7 @@ class PaypalConnectedApp
 
     const { data, success, error } =
       paypalConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid PayPal configuration request");
       throw new ConnectedAppRequestError(
@@ -130,6 +131,7 @@ class PaypalConnectedApp
           { appId: appData._id },
           "Invalid PayPal configuration data",
         );
+
         throw new ConnectedAppError(
           "app_paypal_admin.statusText.invalid_configuration_data" satisfies PaypalAdminAllKeys,
         );
@@ -224,11 +226,13 @@ class PaypalConnectedApp
         const body = await request.json();
         const { data, success, error } =
           createOrderRequestSchema.safeParse(body);
+
         if (!success) {
           logger.error(
             { appId: appData._id, error },
             "Invalid create order request data",
           );
+
           return Response.json({ success: false, error }, { status: 400 });
         }
 
@@ -243,6 +247,7 @@ class PaypalConnectedApp
           { appId: appData._id, error: error?.message || error?.toString() },
           "Error creating PayPal order",
         );
+
         throw error;
       }
     } else if (
@@ -257,11 +262,13 @@ class PaypalConnectedApp
         const body = await request.json();
         const { data, success, error } =
           captureOrderRequestSchema.safeParse(body);
+
         if (!success) {
           logger.error(
             { appId: appData._id, error },
             "Invalid capture order request data",
           );
+
           return Response.json({ success: false, error }, { status: 400 });
         }
 
@@ -280,6 +287,7 @@ class PaypalConnectedApp
           { appId: appData._id, error: error?.message || error?.toString() },
           "Error capturing PayPal order",
         );
+
         throw error;
       }
     }
@@ -328,6 +336,7 @@ class PaypalConnectedApp
           "Failed to register PayPal in-store sync webhook",
         );
       }
+
       return;
     }
 
@@ -343,6 +352,7 @@ class PaypalConnectedApp
         );
       }
     }
+
     data.webhookId = undefined;
   }
 
@@ -392,6 +402,7 @@ class PaypalConnectedApp
           { appId: appData._id, error },
           "PayPal webhook signature verification failed",
         );
+
         return Response.json({ success: false }, { status: 400 });
       }
     } else {
@@ -421,6 +432,7 @@ class PaypalConnectedApp
         { appId: appData._id, eventType: event?.event_type },
         "Ignoring non-capture PayPal webhook event",
       );
+
       return Response.json({ success: true, ignored: true }, { status: 200 });
     }
 
@@ -442,6 +454,7 @@ class PaypalConnectedApp
         { appId: appData._id, orderId },
         "Webhook payload omitted the fee breakdown, fetching it from the order",
       );
+
       const { order } = await client.getOrder(orderId);
       breakdown =
         order?.purchase_units?.[0]?.payments?.captures?.[0]
@@ -494,6 +507,7 @@ class PaypalConnectedApp
         { appId: appData._id },
         "In-store sync disabled, skipping transaction poll",
       );
+
       return;
     }
 
@@ -592,11 +606,13 @@ class PaypalConnectedApp
       (capture.orderId
         ? await paymentsService.getPaymentByExternalId(capture.orderId)
         : null);
+
     if (existingPayment) {
       logger.debug(
         { appId: appData._id, captureId: capture.captureId },
         "Capture already recorded as a payment, skipping",
       );
+
       return "already_exists";
     }
 
@@ -605,6 +621,7 @@ class PaypalConnectedApp
       (capture.orderId
         ? await paymentsService.getIntentByExternalId(capture.orderId)
         : null);
+
     if (onlineIntent) {
       logger.debug(
         {
@@ -614,6 +631,7 @@ class PaypalConnectedApp
         },
         "Capture belongs to a tracked online checkout, skipping",
       );
+
       return "skipped";
     }
 
@@ -623,11 +641,13 @@ class PaypalConnectedApp
         limit: 0,
       },
     );
+
     if (existingSynced.total > 0) {
       logger.debug(
         { appId: appData._id, captureId: capture.captureId },
         "Capture already ingested as synced payment, skipping",
       );
+
       return "already_exists";
     }
 
@@ -636,6 +656,7 @@ class PaypalConnectedApp
         { appId: appData._id, captureId: capture.captureId },
         "Capture has no positive amount, skipping",
       );
+
       return "skipped";
     }
 
@@ -645,6 +666,7 @@ class PaypalConnectedApp
         await this.props.services.configurationService.getConfiguration(
           "general",
         );
+
       currency = orgCurrency;
     }
 
@@ -663,6 +685,7 @@ class PaypalConnectedApp
       const breakdown =
         order?.purchase_units?.[0]?.payments?.captures?.[0]
           ?.seller_receivable_breakdown;
+
       fees = this.extractFees(breakdown);
     }
 
@@ -694,6 +717,7 @@ class PaypalConnectedApp
         },
         "Failed to ingest synced PayPal payment",
       );
+
       throw error;
     }
 
@@ -789,6 +813,7 @@ class PaypalConnectedApp
       throw new ConnectedAppError(
         "app_paypal_admin.statusText.app_not_configured" satisfies PaypalAdminAllKeys,
       );
+
     const { secretKey, clientId, ...rest } = appData.data;
 
     return {
@@ -818,6 +843,7 @@ class PaypalConnectedApp
           { appId: appData._id, paymentIntentId: request.paymentIntentId },
           "Payment intent not found",
         );
+
         return Response.json({ error: "intent_not_found" }, { status: 400 });
       }
 
@@ -867,6 +893,7 @@ class PaypalConnectedApp
           },
           "Failed to create PayPal order",
         );
+
         return Response.json(
           { error: "create_order_failed" },
           { status: error.statusCode || 500 },
@@ -907,6 +934,7 @@ class PaypalConnectedApp
         },
         "Error creating PayPal order",
       );
+
       throw error;
     }
   }
@@ -935,6 +963,7 @@ class PaypalConnectedApp
           { appId: appData._id, paymentIntentId: request.paymentIntentId },
           "Payment intent not found",
         );
+
         return Response.json({ error: "intent_not_found" }, { status: 400 });
       }
 
@@ -948,6 +977,7 @@ class PaypalConnectedApp
           },
           "Payment intent order ID mismatch",
         );
+
         return Response.json(
           { error: "intent_order_id_not_match" },
           { status: 400 },
@@ -1006,6 +1036,7 @@ class PaypalConnectedApp
           { appId: appData._id, orderId: request.orderId },
           "Failed to get capture ID from PayPal order",
         );
+
         return Response.json(
           { error: "failed_to_get_capture_id" },
           { status: 400 },
@@ -1063,6 +1094,7 @@ class PaypalConnectedApp
         },
         "Error capturing PayPal order",
       );
+
       throw error;
     }
   }
@@ -1089,11 +1121,13 @@ class PaypalConnectedApp
         { appId: appData._id, paymentId: payment._id },
         "Payment not supported for refund",
       );
+
       return { success: false, error: "not_supported" };
     }
 
     const processorName =
       payment.method === "online" ? payment.appName : payment.processorAppName;
+
     const captureId = payment.externalId;
     if (processorName !== PAYPAL_APP_NAME || !captureId) {
       logger.debug(
@@ -1104,6 +1138,7 @@ class PaypalConnectedApp
         },
         "Payment not supported for refund",
       );
+
       return { success: false, error: "not_supported" };
     }
 
@@ -1141,6 +1176,7 @@ class PaypalConnectedApp
           },
           "Failed to refund PayPal payment",
         );
+
         return {
           success: false,
           error: JSON.stringify(refundError),
@@ -1162,6 +1198,7 @@ class PaypalConnectedApp
         },
         "Error processing PayPal refund",
       );
+
       throw error;
     }
   }
@@ -1217,6 +1254,7 @@ class PaypalConnectedApp
         },
         "Error creating simplified PayPal client",
       );
+
       throw error;
     }
   }
@@ -1310,6 +1348,7 @@ class PaypalConnectedApp
         { appId: appData._id },
         "Cannot uninstall PayPal app: payments exist",
       );
+
       return {
         success: false,
         code: "cannot_uninstall_has_payments",
@@ -1323,6 +1362,7 @@ class PaypalConnectedApp
 
     const webhookId = (appData.data as PaypalConfiguration | undefined)
       ?.webhookId;
+
     if (webhookId) {
       try {
         const client = await this.getSimplifiedClient(appData);

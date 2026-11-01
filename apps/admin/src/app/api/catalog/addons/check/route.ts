@@ -66,6 +66,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to check service addon name uniqueness",
     );
+
     return NextResponse.json(
       {
         success: false,

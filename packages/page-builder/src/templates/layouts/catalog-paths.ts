@@ -56,6 +56,7 @@ export function catalogPartsToPackId(
   packSlug: string,
 ): WebsitePackId | null {
   if (!isCatalogSeries(series)) return null;
+
   const base = packSlug.replaceAll("-", "_");
   const id = (series === "a" ? base : `${base}_${series}`) as WebsitePackId;
   return id in WEBSITE_PACKS ? id : null;
@@ -88,10 +89,12 @@ export function catalogPagePath(
 ): string {
   const base = catalogPackBasePath(packId);
   if (layoutKind === "home") return base;
+
   if (layoutKind === "service") {
     const slug = serviceSlug?.trim() || "service";
     return `${base}/service/${encodeURIComponent(slug)}`;
   }
+
   return `${base}/${LAYOUT_PAGE_SEGMENTS[layoutKind]}`;
 }
 
@@ -113,20 +116,27 @@ export function parseCatalogSlug(
 
   if (first === "book" || first === "booking" || first === "services") {
     if (second) return null;
+
     return { layoutKind: "booking" };
   }
+
   if (first === "about") {
     if (second) return null;
+
     return { layoutKind: "about" };
   }
+
   if (first === "terms" || first === "privacy" || first === "policies") {
     if (second) return null;
+
     return { layoutKind: "terms" };
   }
+
   if (first === "service") {
     if (second) {
       return { layoutKind: "service", serviceSlug: decodeURIComponent(second) };
     }
+
     return { layoutKind: "service", serviceSlug: "" };
   }
 
@@ -142,6 +152,7 @@ function isCatalogSitePath(pathname: string): boolean {
 function splitPathAndQuery(href: string): { path: string; query: string } {
   const q = href.indexOf("?");
   if (q < 0) return { path: href, query: "" };
+
   return { path: href.slice(0, q), query: href.slice(q) };
 }
 
@@ -160,6 +171,7 @@ export function isCatalogInternalPath(pathname: string): boolean {
   ) {
     return false;
   }
+
   // Single-segment template keys under /template-previews/{key}
   if (
     pathname.startsWith(`${CATALOG_URL_PREFIX}/`) &&
@@ -235,6 +247,7 @@ export function rewriteCatalogInternalPath(
 function rewriteHrefString(href: string, basePath: string): string {
   const { path, query } = splitPathAndQuery(href);
   if (!isCatalogInternalPath(path)) return href;
+
   return `${rewriteCatalogInternalPath(basePath, path)}${query}`;
 }
 
@@ -246,6 +259,7 @@ export function rewriteCatalogUrlsInTree<T>(value: T, basePath: string): T {
 
   const walk = (node: unknown): void => {
     if (!node || typeof node !== "object") return;
+
     if (Array.isArray(node)) {
       for (const item of node) walk(item);
       return;
@@ -257,6 +271,7 @@ export function rewriteCatalogUrlsInTree<T>(value: T, basePath: string): T {
         record[key] = rewriteHrefString(child, basePath);
         continue;
       }
+
       walk(child);
     }
   };

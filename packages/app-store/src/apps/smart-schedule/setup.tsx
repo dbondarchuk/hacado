@@ -40,6 +40,7 @@ export const SmartScheduleAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<SmartScheduleAdminNamespace, SmartScheduleAdminKeys>(
     smartScheduleAdminNamespace,
   );
+
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<SmartScheduleSetupConfiguration>({
       appId: existingAppId,

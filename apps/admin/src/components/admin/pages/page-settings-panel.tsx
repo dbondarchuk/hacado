@@ -43,6 +43,7 @@ const HeaderFormField = ({
     },
     [field],
   );
+
   return (
     <FormItem>
       <FormLabel>{t("pages.form.header")}</FormLabel>
@@ -71,6 +72,7 @@ const FooterFormField = ({
     },
     [field],
   );
+
   return (
     <FormItem>
       <FormLabel>{t("pages.form.footer")}</FormLabel>

@@ -49,6 +49,7 @@ async function readableToBuffer(readable: Readable): Promise<Buffer> {
   for await (const chunk of readable) {
     chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
   }
+
   return Buffer.concat(chunks);
 }
 
@@ -56,7 +57,6 @@ function statusTextKey(statusText: ConnectedAppData["statusText"]): string {
   if (typeof statusText === "string") {
     return statusText;
   }
-
   if (statusText && typeof statusText === "object" && "key" in statusText) {
     return String(statusText.key);
   }
@@ -103,6 +103,7 @@ export class ResendConnectedApp
         this.props.getDbConnection,
         appId,
       );
+
       const existingData = existing?.data ?? {};
       logger.debug(
         {
@@ -120,6 +121,7 @@ export class ResendConnectedApp
           pkceCodeVerifier: encrypt(codeVerifier),
         } satisfies ResendAppData,
       });
+
       logger.debug({ appId }, "Persisted encrypted PKCE code_verifier");
 
       const redirectUri = `${getAdminUrl()}/apps/oauth/${RESEND_APP_NAME}/redirect`;
@@ -141,6 +143,7 @@ export class ResendConnectedApp
         },
         "Generated Resend login URL",
       );
+
       return authUrl.toString();
     } catch (error: unknown) {
       logger.error(
@@ -150,6 +153,7 @@ export class ResendConnectedApp
         },
         "Error generating Resend login URL",
       );
+
       throw error;
     }
   }
@@ -182,6 +186,7 @@ export class ResendConnectedApp
           { url: request.url },
           "Redirect request does not contain app ID (state)",
         );
+
         throw new ConnectedAppError(
           "app_resend_admin.statusText.redirect_request_does_not_contain_app_id" satisfies ResendAdminAllKeys,
         );
@@ -192,6 +197,7 @@ export class ResendConnectedApp
           { appId, oauthError, oauthErrorDescription },
           "Resend authorization denied or failed",
         );
+
         return {
           appId,
           error:
@@ -204,6 +210,7 @@ export class ResendConnectedApp
           { appId },
           "Redirect request does not contain authorization code",
         );
+
         return {
           appId,
           error:
@@ -267,6 +274,7 @@ export class ResendConnectedApp
           },
           "App was not authorized properly",
         );
+
         throw new ConnectedAppError(
           "app_resend_admin.statusText.app_was_not_authorized_properly" satisfies ResendAdminAllKeys,
         );
@@ -335,6 +343,7 @@ export class ResendConnectedApp
         { appId: appData._id, fromEmail: appData.data.fromEmail },
         "Sender already configured; leaving connected",
       );
+
       return;
     }
 
@@ -414,6 +423,7 @@ export class ResendConnectedApp
         { appId: appData._id },
         "Cannot save sender settings: OAuth tokens missing",
       );
+
       throw new ConnectedAppError(
         "app_resend_admin.statusText.app_was_not_authorized_properly" satisfies ResendAdminAllKeys,
       );
@@ -427,6 +437,7 @@ export class ResendConnectedApp
         { appId: appData._id, error },
         "Invalid Resend from settings request",
       );
+
       throw new ConnectedAppRequestError(
         "invalid_resend_from_settings_request",
         { error },
@@ -512,6 +523,7 @@ export class ResendConnectedApp
         { appId: appData._id },
         "Resolving OAuth access token for send",
       );
+
       const { clientId, clientSecret } = getResendOAuthCredentials();
       const oauthClient = new ResendOAuthClient(
         appData,
@@ -568,6 +580,7 @@ export class ResendConnectedApp
             { appId: appData._id, icsError },
             "Failed to parse iCal event",
           );
+
           throw new ConnectedAppError(
             "app_resend_admin.statusText.error_parsing_ical_event" satisfies ResendAdminAllKeys,
           );
@@ -579,6 +592,7 @@ export class ResendConnectedApp
           content: Buffer.from(icsContent, "utf8"),
           contentType: `text/calendar; method=${email.icalEvent.method}; charset=UTF-8`,
         });
+
         logger.debug(
           { appId: appData._id, filename },
           "Created iCal event attachment",
@@ -609,6 +623,7 @@ export class ResendConnectedApp
                 },
                 "Attachment not found in storage",
               );
+
               throw new Error("Attachment not found");
             }
 
@@ -621,6 +636,7 @@ export class ResendConnectedApp
               },
               "Loaded attachment from storage",
             );
+
             return {
               filename: attachment.filename,
               content,
@@ -629,6 +645,7 @@ export class ResendConnectedApp
             };
           }),
         );
+
         attachments.push(...fileAttachments);
       }
 
@@ -670,6 +687,7 @@ export class ResendConnectedApp
           },
           "Resend API returned an error",
         );
+
         throw new Error(error.message || "Failed to send email via Resend");
       }
 
@@ -679,6 +697,7 @@ export class ResendConnectedApp
           { appId: appData._id, subject: email.subject, data },
           "Resend did not return a message id",
         );
+
         throw new Error("Resend did not return a message id");
       }
 
@@ -748,6 +767,7 @@ export class ResendConnectedApp
         },
         "Marking Resend app as failed after send error",
       );
+
       await this.props.update({ ...status });
       throw e;
     }
@@ -775,6 +795,7 @@ export class ResendConnectedApp
           clientId,
           clientSecret,
         });
+
         logger.info({ appId: appData._id }, "Revoked Resend OAuth token");
       } else {
         logger.debug(

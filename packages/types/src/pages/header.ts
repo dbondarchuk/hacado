@@ -16,6 +16,7 @@ export const pageHeaderLogoSize = [
   "large",
   "x-large",
 ] as const;
+
 export type PageHeaderLogoSize = (typeof pageHeaderLogoSize)[number];
 
 export const pageHeaderLogoNameFontSize = [
@@ -24,6 +25,7 @@ export const pageHeaderLogoNameFontSize = [
   "large",
   "x-large",
 ] as const;
+
 export type PageHeaderLogoNameFontSize =
   (typeof pageHeaderLogoNameFontSize)[number];
 
@@ -34,6 +36,7 @@ export const pageHeaderLogoNameFontWeight = [
   "semibold",
   "bold",
 ] as const;
+
 export type PageHeaderLogoNameFontWeight =
   (typeof pageHeaderLogoNameFontWeight)[number];
 

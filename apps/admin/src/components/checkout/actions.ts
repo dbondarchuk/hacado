@@ -40,6 +40,7 @@ export async function createPolarCheckoutSession(
     logger.error({ userId: session?.user?.id }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
   }
+
   if (!(session.user as { emailVerified?: boolean }).emailVerified) {
     logger.error({ userId: session.user.id }, "Email not verified");
     return { ok: false, code: "email_not_verified" };
@@ -48,6 +49,7 @@ export async function createPolarCheckoutSession(
   const sessionOrg = (
     session.user as { organizationId?: string }
   ).organizationId?.trim();
+
   if (!sessionOrg || sessionOrg !== organizationId) {
     return { ok: false, code: "organization_mismatch" };
   }
@@ -75,6 +77,7 @@ export async function createPolarCheckoutSession(
       { products, organizationId },
       "Creating Polar checkout session",
     );
+
     const checkoutSession = await polarBilling.createCheckoutSession({
       products,
       metadata: {
@@ -90,12 +93,14 @@ export async function createPolarCheckoutSession(
       { url: checkoutSession.url, organizationId },
       "Created Polar checkout session",
     );
+
     return { ok: true, url: checkoutSession.url };
   } catch (error) {
     logger.error(
       { error, organizationId },
       "Error creating Polar checkout session",
     );
+
     return { ok: false, code: "polar_checkout_failed" };
   }
 }

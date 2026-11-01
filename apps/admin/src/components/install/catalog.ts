@@ -89,9 +89,11 @@ export function professionMatchesSearch(
 ) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
+
   const label = t(
     catalogProfessionLabelKey(categoryId, professionId),
   ).toLowerCase();
+
   const catLabel = t(catalogCategoryLabelKey(categoryId)).toLowerCase();
   const prof = getCatalogProfession(categoryId, professionId);
   const tagMatch =
@@ -99,6 +101,7 @@ export function professionMatchesSearch(
       const tagText = t(catalogTagLabelKey(tag)).toLowerCase();
       return tagText.includes(q) || tag.includes(q);
     }) ?? false;
+
   return (
     label.includes(q) ||
     catLabel.includes(q) ||

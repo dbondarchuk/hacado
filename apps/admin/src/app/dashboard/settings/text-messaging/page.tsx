@@ -39,6 +39,7 @@ export default async function Page() {
     services.configurationService.getConfiguration("textMessaging"),
     new SmsRegistrationStore().get(organizationId),
   ]);
+
   const verificationStatus = registration?.status;
   const verificationCopy =
     verificationStatus === "verified"
@@ -65,6 +66,7 @@ export default async function Page() {
     services.pagesService.getPageBySlug("privacy").catch(() => null),
     services.pagesService.getPageBySlug("terms").catch(() => null),
   ]);
+
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
     { title: t("navigation.settings"), link: "/dashboard/settings" },

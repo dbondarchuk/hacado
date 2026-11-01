@@ -63,6 +63,7 @@ export abstract class BaseBullMQClient {
             reject(error);
           });
         });
+
         logger.info("Redis connection established");
       } else {
         await this.redis.connect();
@@ -277,6 +278,7 @@ export abstract class BaseBullMQClient {
     if (!queue) {
       throw new Error(`Queue ${queueName} not found`);
     }
+
     return queue;
   }
 }

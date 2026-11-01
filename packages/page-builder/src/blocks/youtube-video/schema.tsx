@@ -26,6 +26,7 @@ export const YouTubeVideoPropsSchema = z.object({
 export type YouTubeVideoProps = Prettify<
   z.infer<typeof YouTubeVideoPropsSchema>
 >;
+
 export type YouTubeVideoReaderProps = BaseReaderBlockProps<any> &
   YouTubeVideoProps;
 

@@ -74,6 +74,7 @@ export function canInstallApp(
   app: Pick<App, "target" | "requiredPermission">,
 ): boolean {
   if (!canInstallAppTarget(user, app.target)) return false;
+
   return meetsRequiredPermission(user, app.requiredPermission);
 }
 
@@ -87,6 +88,7 @@ export function filterInstallDefaultScopesForUser<
   const allowCompany = canInstallCompanyApps(user);
   return scopes.filter((scope) => {
     if (getAppScopeUsage(scope) === "company") return allowCompany;
+
     return true;
   });
 }
@@ -109,17 +111,12 @@ export function canAccessConnectedApp(
   ownerMemberIds: ReadonlySet<string>,
 ): boolean {
   if (!user) return false;
-
   if (app.target === "company") {
     return canUseApps(user);
   }
-
   if (!hasPermission(user, "app", "useUser")) return false;
-
   if (app.memberId === user.memberId) return true;
-
   if (!canViewOtherMembersApps(user)) return false;
-
   // Admins (and below) must not see/control the owner's personal apps.
   if (user.role !== "owner" && ownerMemberIds.has(app.memberId)) {
     return false;
@@ -143,6 +140,7 @@ export function canUninstallConnectedApp(
   if (app.target === "company") {
     return canViewCompanyApps(user);
   }
+
   return true;
 }
 
@@ -170,6 +168,7 @@ export function filterConnectedAppsForInstallQuota<
   return filterConnectedAppsForUser(user, apps, ownerMemberIds).filter(
     (app) => {
       if (app.target !== "member") return true;
+
       return !!user?.memberId && app.memberId === user.memberId;
     },
   );

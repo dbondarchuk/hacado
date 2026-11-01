@@ -36,6 +36,7 @@ export const SocialTab: React.FC<{
     const activeIndex = links.findIndex((x) => x.fields_id === activeId);
     const overIndex = links.findIndex((x) => x.fields_id === overId);
     if (activeIndex < 0 || overIndex < 0) return;
+
     swapLinks(activeIndex, overIndex);
   };
 

@@ -74,6 +74,7 @@ function getHacadoIntentIdFromStripeMetadata(
   if (!metadata) {
     return undefined;
   }
+
   return metadata[METADATA_HACADO_INTENT_ID] ?? undefined;
 }
 
@@ -230,6 +231,7 @@ class StripeConnectedApp
           { status: tokenRes.status, tokenJson },
           "Stripe OAuth token exchange failed",
         );
+
         throw new ConnectedAppError(
           "app_stripe_admin.statusText.oauth_error" satisfies StripeAdminAllKeys,
         );
@@ -241,6 +243,7 @@ class StripeConnectedApp
         stripe_user_id: stripeUserId,
         livemode,
       } = tokenJson;
+
       if (!accessToken || !refreshToken || !stripeUserId) {
         throw new ConnectedAppError(
           "app_stripe_admin.statusText.not_authorized" satisfies StripeAdminAllKeys,
@@ -327,9 +330,11 @@ class StripeConnectedApp
     if (data.enableInStoreSync === undefined) {
       patch.enableInStoreSync = true;
     }
+
     if (data.matchWindowMinutes === undefined) {
       patch.matchWindowMinutes = DEFAULT_IN_STORE_MATCH_WINDOW_MINUTES;
     }
+
     if (Object.keys(patch).length === 0) {
       return;
     }
@@ -416,6 +421,7 @@ class StripeConnectedApp
 
     const { data, success, error } =
       stripeSyncSettingsRequestSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid Stripe sync settings request");
       throw new ConnectedAppRequestError(
@@ -462,11 +468,13 @@ class StripeConnectedApp
       },
       "Stripe processAppCall",
     );
+
     if (request.method.toUpperCase() !== "POST") {
       logger.debug(
         { slug: slug.join("/") },
         "Stripe processAppCall method not handled",
       );
+
       return undefined;
     }
 
@@ -480,11 +488,13 @@ class StripeConnectedApp
             { error: parsed.error.message },
             "Stripe create-payment-intent validation failed",
           );
+
           return Response.json(
             { error: "invalid_request", message: parsed.error.message },
             { status: 400 },
           );
         }
+
         return await this.handleCreatePaymentIntent(
           appData,
           parsed.data.paymentIntentId,
@@ -494,6 +504,7 @@ class StripeConnectedApp
           { appId: appData._id, error: e instanceof Error ? e.message : e },
           "Stripe create payment intent error",
         );
+
         throw e;
       }
     }
@@ -525,6 +536,7 @@ class StripeConnectedApp
           { appId: appData._id, error: e instanceof Error ? e.message : e },
           "Stripe confirm payment error",
         );
+
         throw e;
       }
     }
@@ -533,6 +545,7 @@ class StripeConnectedApp
       { slug: slug.join("/") },
       "Stripe processAppCall no matching handler",
     );
+
     return undefined;
   }
 
@@ -548,6 +561,7 @@ class StripeConnectedApp
 
     const intent =
       await this.props.services.paymentsService.getIntent(hacadoIntentId);
+
     if (!intent) {
       logger.debug({ hacadoIntentId }, "Internal payment intent not found");
       return Response.json({ error: "intent_not_found" }, { status: 404 });
@@ -562,6 +576,7 @@ class StripeConnectedApp
         },
         "Intent app id mismatch for Stripe",
       );
+
       return Response.json({ error: "intent_app_mismatch" }, { status: 403 });
     }
 
@@ -570,6 +585,7 @@ class StripeConnectedApp
         { hacadoIntentId },
         "Internal intent already paid, not creating Stripe PI",
       );
+
       return Response.json({ error: "intent_already_paid" }, { status: 400 });
     }
 
@@ -578,6 +594,7 @@ class StripeConnectedApp
         { hacadoIntentId, status: intent.status },
         "Internal intent in failed state",
       );
+
       return Response.json({ error: "intent_failed" }, { status: 400 });
     }
 
@@ -594,6 +611,7 @@ class StripeConnectedApp
         { amountCents, amount: intent.amount },
         "Amount too low for Stripe PaymentIntent",
       );
+
       return Response.json({ error: "amount_too_low" }, { status: 400 });
     }
 
@@ -613,6 +631,7 @@ class StripeConnectedApp
         },
         "Retrieved existing Stripe PaymentIntent for internal intent",
       );
+
       if (existing.status === "succeeded") {
         return Response.json({ error: "intent_already_paid" }, { status: 400 });
       }
@@ -721,11 +740,13 @@ class StripeConnectedApp
 
     const intent =
       await this.props.services.paymentsService.getIntent(hacadoIntentId);
+
     if (!intent) {
       logger.debug(
         { hacadoIntentId },
         "Internal payment intent not found for confirm",
       );
+
       return Response.json({ error: "intent_not_found" }, { status: 404 });
     }
 
@@ -738,6 +759,7 @@ class StripeConnectedApp
         },
         "Intent app id mismatch for confirm",
       );
+
       return Response.json({ error: "intent_app_mismatch" }, { status: 403 });
     }
 
@@ -747,6 +769,7 @@ class StripeConnectedApp
         { hacadoIntentId },
         "No Stripe PaymentIntent id on internal intent for confirm",
       );
+
       return Response.json(
         { error: "missing_stripe_payment_intent" },
         { status: 400 },
@@ -770,6 +793,7 @@ class StripeConnectedApp
         { stripePaymentIntentId: pi.id, status: pi.status },
         "Stripe PaymentIntent not succeeded on confirm",
       );
+
       return Response.json(
         { success: false, error: "payment_incomplete" },
         { status: 400 },
@@ -784,6 +808,7 @@ class StripeConnectedApp
           pi.id,
           fees,
         );
+
         logger.debug(
           {
             hacadoIntentId: intent._id,
@@ -801,6 +826,7 @@ class StripeConnectedApp
           "Internal intent already paid; no fee data on PaymentIntent, skipping fee update",
         );
       }
+
       return Response.json({ success: true });
     }
 
@@ -810,6 +836,7 @@ class StripeConnectedApp
       externalId: pi.id,
       fees,
     });
+
     const feesApplied = await this.applyStripeFeesToPayment(
       this.props.services.paymentsService,
       pi.id,
@@ -825,6 +852,7 @@ class StripeConnectedApp
       },
       "Marked internal intent paid after Stripe confirm",
     );
+
     return Response.json({ success: true, paymentIntentId: pi.id });
   }
 
@@ -845,14 +873,17 @@ class StripeConnectedApp
     let payment = await paymentService.getPaymentByExternalId(
       stripePaymentIntentId,
     );
+
     if (!payment) {
       const intent = await paymentService.getIntentByExternalId(
         stripePaymentIntentId,
       );
+
       if (intent) {
         payment = await paymentService.getPaymentByIntentId(intent._id);
       }
     }
+
     if (!payment) {
       return false;
     }
@@ -864,6 +895,7 @@ class StripeConnectedApp
         actor: "system",
       },
     );
+
     return true;
   }
 
@@ -909,6 +941,7 @@ class StripeConnectedApp
 
     const processorName =
       payment.method === "online" ? payment.appName : payment.processorAppName;
+
     const externalId = payment.externalId;
     if (processorName !== STRIPE_APP_NAME || !externalId) {
       logger.warn(
@@ -927,6 +960,7 @@ class StripeConnectedApp
       const stripe = this.getStripeClient();
       const idempotencyKey =
         `re_${payment._id}_${Math.round(amount * 100)}`.slice(0, 50);
+
       await stripe.refunds.create(
         { payment_intent: externalId, amount: Math.round(amount * 100) },
         { ...this.stripeAccountOpts(appData), idempotencyKey },
@@ -939,6 +973,7 @@ class StripeConnectedApp
         { error: e instanceof Error ? e.message : e },
         "Stripe refund error",
       );
+
       return { success: false, error: "refund_failed" };
     }
   }
@@ -960,6 +995,7 @@ class StripeConnectedApp
         { method: request.method },
         "Stripe webhook method not POST",
       );
+
       return new Response(null, { status: 405 });
     }
 
@@ -996,6 +1032,7 @@ class StripeConnectedApp
         { err: err instanceof Error ? err.message : err },
         "Stripe webhook signature failed",
       );
+
       return Response.json(
         { error: "invalid_webhook_signature" },
         { status: 400 },
@@ -1047,6 +1084,7 @@ class StripeConnectedApp
           { type: event.type, eventId: event.id },
           "Stripe webhook event type not handled",
         );
+
         return Response.json({ received: true });
     }
   }
@@ -1070,6 +1108,7 @@ class StripeConnectedApp
         },
         "Stripe PI missing org or hacado intent id in metadata, ignoring",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1081,6 +1120,7 @@ class StripeConnectedApp
         { hacadoIntentId, stripePaymentIntentId: pi.id },
         "Internal payment intent not found for Stripe webhook",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1089,6 +1129,7 @@ class StripeConnectedApp
         { hacadoIntentId, appName: intent.appName },
         "Internal intent is not for Stripe app, ignoring webhook",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1097,6 +1138,7 @@ class StripeConnectedApp
         { stripePaymentIntentId: pi.id, status: pi.status },
         "Stripe PI not succeeded, skipping",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1111,6 +1153,7 @@ class StripeConnectedApp
         { hacadoIntentId, hasConnectAccount: !!connectAccount },
         "Could not resolve Stripe connected account for webhook retrieve",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1129,6 +1172,7 @@ class StripeConnectedApp
           retrieveResult.id,
           fees,
         );
+
         logger.debug(
           {
             hacadoIntentId,
@@ -1146,6 +1190,7 @@ class StripeConnectedApp
           "Intent already paid; fee data not ready on PI (expect charge.updated / charge.succeeded)",
         );
       }
+
       return Response.json({ received: true });
     }
 
@@ -1154,6 +1199,7 @@ class StripeConnectedApp
       externalId: retrieveResult.id,
       fees,
     });
+
     const feesApplied = await this.applyStripeFeesToPayment(
       paymentService,
       retrieveResult.id,
@@ -1173,6 +1219,7 @@ class StripeConnectedApp
           ? "Marked internal intent paid via Stripe webhook (fees pending payment row or charge webhook)"
           : "Marked internal intent paid via Stripe webhook (fees pending; listen for charge.updated / charge.succeeded)",
     );
+
     return Response.json({ received: true });
   }
 
@@ -1218,6 +1265,7 @@ class StripeConnectedApp
         { chargeId: charge.id },
         "Charge has no PaymentIntent, ignoring",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1243,6 +1291,7 @@ class StripeConnectedApp
         },
         `Could not retrieve PaymentIntent for ${stripeEventType}`,
       );
+
       return Response.json({ received: true });
     }
 
@@ -1263,6 +1312,7 @@ class StripeConnectedApp
             { chargeId: charge.id, piId: paymentIntentId },
             "Hacado checkout charge, skipping in-store ingest",
           );
+
           return Response.json({ received: true });
         }
 
@@ -1283,6 +1333,7 @@ class StripeConnectedApp
         },
         `PI metadata missing org or hacado intent id, ignoring ${stripeEventType}`,
       );
+
       return Response.json({ received: true });
     }
 
@@ -1294,6 +1345,7 @@ class StripeConnectedApp
         { hacadoIntentId, chargeId: charge.id },
         `Internal payment intent not found for ${stripeEventType}`,
       );
+
       return Response.json({ received: true });
     }
 
@@ -1316,6 +1368,7 @@ class StripeConnectedApp
         },
         `Could not retrieve Charge with balance_transaction for ${stripeEventType}`,
       );
+
       return Response.json({ received: true });
     }
 
@@ -1325,6 +1378,7 @@ class StripeConnectedApp
         { hacadoIntentId, chargeId: charge.id },
         "No fee data on charge after retrieve, skipping",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1345,6 +1399,7 @@ class StripeConnectedApp
         ? `Updated payment fees from ${stripeEventType}`
         : `No payment row for PI ${paymentIntentId} yet; fees not stored (${stripeEventType})`,
     );
+
     return Response.json({ received: true });
   }
 
@@ -1393,6 +1448,7 @@ class StripeConnectedApp
         },
         "No connected Stripe apps with in-store sync enabled for account",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1413,6 +1469,7 @@ class StripeConnectedApp
         },
         "Could not retrieve Stripe charge for in-store ingest",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1460,22 +1517,26 @@ class StripeConnectedApp
     const existingPayment =
       (await paymentsService.getPaymentByExternalId(input.chargeId)) ??
       (piId ? await paymentsService.getPaymentByExternalId(piId) : null);
+
     if (existingPayment) {
       logger.debug(
         { appId: appData._id, chargeId: input.chargeId },
         "Charge already recorded as payment, skipping in-store ingest",
       );
+
       return "already_exists";
     }
 
     const onlineIntent =
       (await paymentsService.getIntentByExternalId(input.chargeId)) ??
       (piId ? await paymentsService.getIntentByExternalId(piId) : null);
+
     if (onlineIntent) {
       logger.debug(
         { appId: appData._id, chargeId: input.chargeId, piId },
         "Charge belongs to tracked online checkout, skipping in-store ingest",
       );
+
       return "skipped";
     }
 
@@ -1489,6 +1550,7 @@ class StripeConnectedApp
         { appId: appData._id, chargeId: input.chargeId },
         "Charge already ingested as synced payment, skipping",
       );
+
       return "already_exists";
     }
 
@@ -1502,6 +1564,7 @@ class StripeConnectedApp
         await this.props.services.configurationService.getConfiguration(
           "general",
         );
+
       currency = orgCurrency;
     }
 
@@ -1530,6 +1593,7 @@ class StripeConnectedApp
         },
         "Failed to ingest synced Stripe payment",
       );
+
       throw error;
     }
 
@@ -1600,6 +1664,7 @@ class StripeConnectedApp
           },
           "Stripe create payment method domain failed",
         );
+
         throw new ConnectedAppError(
           "app_stripe_admin.statusText.apple_pay_domain_registration_failed" satisfies StripeAdminAllKeys,
         );
@@ -1611,6 +1676,7 @@ class StripeConnectedApp
         { appId: appData._id, id: paymentMethodDomain.id },
         "Stripe Apple Pay already active for payment method domain",
       );
+
       return;
     }
 
@@ -1620,6 +1686,7 @@ class StripeConnectedApp
         {},
         accountOpts,
       );
+
       logger.debug(
         {
           appId: appData._id,
@@ -1653,6 +1720,7 @@ class StripeConnectedApp
       { appId, stripeAccountId: id ?? null },
       "Resolved Stripe connected account for connected app",
     );
+
     return id ?? null;
   }
 
@@ -1675,17 +1743,20 @@ class StripeConnectedApp
         { stripePaymentIntentId: pi.id },
         "Failed PI missing org or hacado intent id in metadata",
       );
+
       return Response.json({ received: true });
     }
 
     const paymentService =
       getOrganizationServiceContainer(orgId).services.paymentsService;
+
     const intent = await paymentService.getIntent(hacadoIntentId);
     if (!intent || intent.status === "paid") {
       logger.debug(
         { hacadoIntentId, hasIntent: !!intent, status: intent?.status },
         "Skipping failed-webhook update",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1728,6 +1799,7 @@ class StripeConnectedApp
         { stripeAccountId: accountId },
         "No connected Stripe app documents for deauthorized account",
       );
+
       return Response.json({ received: true });
     }
 
@@ -1738,6 +1810,7 @@ class StripeConnectedApp
 
       const cas = getOrganizationServiceContainer(doc.organizationId).services
         .connectedAppsService;
+
       await cas.updateApp(doc._id, {
         status: "failed",
         statusText:
@@ -1772,6 +1845,7 @@ class StripeConnectedApp
         { appId: appData._id },
         "Cannot uninstall Stripe app: payments exist",
       );
+
       return {
         success: false,
         code: "cannot_uninstall_has_payments",

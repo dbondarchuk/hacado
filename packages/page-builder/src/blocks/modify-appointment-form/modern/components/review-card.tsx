@@ -64,8 +64,10 @@ export const ReviewCard: React.FC = () => {
       ),
     [timeZone],
   );
+
   const totalGiftCardsApplied =
     giftCards?.reduce((sum, gc) => sum + gc.appliedAmount, 0) ?? 0;
+
   const hasGiftCardApplied = totalGiftCardsApplied > 0;
   const totalAfterGiftCards = Math.max(0, paymentFee - totalGiftCardsApplied);
 
@@ -74,7 +76,9 @@ export const ReviewCard: React.FC = () => {
       setGiftCardError(t("booking.giftCard.codeRequired"));
       return;
     }
+
     if ((giftCards?.length ?? 0) >= 2) return;
+
     const newCodes = [
       ...(giftCards?.map((g) => g.code).filter((c) => c !== giftCardCode) ??
         []),
@@ -109,6 +113,7 @@ export const ReviewCard: React.FC = () => {
         setIsLoadingGiftCards(false);
       }
     }
+
     setOpenGiftCards(false);
   };
 

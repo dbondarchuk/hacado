@@ -114,6 +114,7 @@ export const customerWaitlistNotificationsConfigurationSchema = z
             "app_customer-waitlist-notifications_admin.setup.form.smsRemoveKeyword.required",
         });
       }
+
       if (!isSmsEnabled(data.leaveWaitlistSmsEnabled)) {
         ctx.addIssue({
           code: "custom",

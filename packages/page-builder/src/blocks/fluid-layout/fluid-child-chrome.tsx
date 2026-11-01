@@ -120,17 +120,21 @@ export const FluidChildChrome = ({
     if (selected) {
       return { ...style, zIndex: FLUID_SELECTED_Z_INDEX };
     }
+
     return style;
   }, [placement, selected]);
+
   const rotateStyle = useMemo(
     () => placementToRotateStyle(placement),
     [placement],
   );
+
   const isDragging = activeChildId === childId;
   const hasRotation = !!placement.rotate;
 
   const toolbarInside =
     placement.colStart === 1 && placement.colEnd >= columnCount + 1;
+
   const toolbarOnRight = !toolbarInside && placement.colStart === 1;
 
   const stopSelectParent = useCallback(
@@ -167,7 +171,9 @@ export const FluidChildChrome = ({
       const shell = (e.currentTarget as HTMLElement).closest(
         "[data-fluid-child]",
       );
+
       if (!shell) return;
+
       const rect = shell.getBoundingClientRect();
       beginRotate(
         childId,

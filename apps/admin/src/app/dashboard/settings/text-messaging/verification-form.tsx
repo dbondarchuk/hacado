@@ -113,6 +113,7 @@ export const TextMessagingVerificationForm = ({
   const doingBusinessAs = form.watch("doingBusinessAs");
   const optInBusinessTitle =
     doingBusinessAs?.trim() || legalName?.trim() || values.legalName || "";
+
   const showVerificationDetails = customEnabled && !hasTextMessageSenderApp;
   const preparing = values.blockedReason === "number_preparing";
   const fieldsLocked =
@@ -154,6 +155,7 @@ export const TextMessagingVerificationForm = ({
         !hasTextMessageSenderApp &&
         data.enabled &&
         values.status !== "verified";
+
       const optInImage = resubmit ? await captureOptInPreview() : undefined;
       await toastPromise(
         textMessagingApi.saveSmsVerification({
@@ -224,6 +226,7 @@ export const TextMessagingVerificationForm = ({
                       setConfirmOff(true);
                       return;
                     }
+
                     field.onChange(checked);
                   }}
                   disabled={loading || toggleLocked}

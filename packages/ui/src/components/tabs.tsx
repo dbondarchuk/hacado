@@ -29,6 +29,7 @@ export function useTabsContext() {
   if (!ctx) {
     throw new Error("useTabsContext must be used inside <TabsRoot>");
   }
+
   return ctx;
 }
 
@@ -51,6 +52,7 @@ const TabsRoot = React.forwardRef<
         if (controlledValue === undefined) {
           setUncontrolledValue(next);
         }
+
         onValueChange?.(next);
       },
       [controlledValue, onValueChange],
@@ -85,6 +87,7 @@ const TabsRoot = React.forwardRef<
     );
   },
 );
+
 TabsRoot.displayName = TabsPrimitive.Tabs.displayName;
 
 const TabsViaUrl = React.forwardRef<
@@ -155,6 +158,7 @@ const TabsList = React.forwardRef<
     const activeTab = tabsListRef.current.querySelector<HTMLElement>(
       '[data-state="active"]',
     );
+
     if (!activeTab) return;
 
     const activeRect = activeTab.getBoundingClientRect();
@@ -183,6 +187,7 @@ const TabsList = React.forwardRef<
 
     const firstTab =
       tabsListRef.current.querySelector<HTMLElement>('[role="tab"]');
+
     if (!firstTab) return;
 
     const firstRect = firstTab.getBoundingClientRect();
@@ -194,6 +199,7 @@ const TabsList = React.forwardRef<
       width: firstRect.width,
       height: firstRect.height,
     });
+
     hasSeededInitialIndicator.current = true;
   }, []);
 
@@ -239,6 +245,7 @@ const TabsList = React.forwardRef<
     </div>
   );
 });
+
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTriggerBase = React.forwardRef<
@@ -289,6 +296,7 @@ const TabsContent = React.forwardRef<
     {...props}
   />
 ));
+
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
 const ResponsiveTabsList = React.forwardRef<

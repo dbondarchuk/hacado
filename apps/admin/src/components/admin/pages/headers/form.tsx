@@ -183,6 +183,7 @@ export const PageHeaderForm: React.FC<{
   const [logoTextEditorKeys, setLogoTextEditorKeys] = useState<
     Record<string, number>
   >({});
+
   const router = useRouter();
 
   const defaultPosition = resolvePageHeaderPosition({
@@ -287,6 +288,7 @@ export const PageHeaderForm: React.FC<{
     position: watchedConfig?.position,
     sticky: watchedConfig?.sticky,
   });
+
   const showScrolled = position === "sticky" || position === "fixed";
 
   type StyleName = FieldPath<PageFormValues>;
@@ -460,6 +462,7 @@ export const PageHeaderForm: React.FC<{
                       ...keys,
                       [name]: (keys[name] ?? 0) + 1,
                     }));
+
                     field.onBlur();
                   }}
                 >
@@ -486,10 +489,12 @@ export const PageHeaderForm: React.FC<{
     label: t(`pages.headers.form.logoSize.values.${size}`),
     value: size,
   }));
+
   const logoNameFontSizeOptions = pageHeaderLogoNameFontSize.map((size) => ({
     label: t(`pages.headers.form.logoNameFontSize.values.${size}`),
     value: size,
   }));
+
   const logoNameFontWeightOptions = pageHeaderLogoNameFontWeight.map(
     (size) => ({
       label: t(`pages.headers.form.logoNameFontWeight.values.${size}`),
@@ -629,6 +634,7 @@ export const PageHeaderForm: React.FC<{
                         if (val === "static") {
                           setPreviewScrolled(false);
                         }
+
                         field.onBlur();
                       }}
                       disabled={loading}

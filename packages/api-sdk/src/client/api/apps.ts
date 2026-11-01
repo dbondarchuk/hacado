@@ -17,11 +17,9 @@ type CallAppApiParams = {
 export async function callAppApi<TResponse extends any = any>(
   params: CallAppApiParams & { parse?: "json" },
 ): Promise<TResponse>;
-
 export async function callAppApi(
   params: CallAppApiParams & { parse: "text" },
 ): Promise<string>;
-
 export async function callAppApi<TResponse extends any = any>(
   params: CallAppApiParams & { parse?: "json" | "text" },
 ): Promise<TResponse | string> {

@@ -87,6 +87,7 @@ const sellSchema = z
     if (data.price <= 0 || data.paymentMethod !== "payment-link") {
       return;
     }
+
     if (!data.paymentLinkAppId) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -94,6 +95,7 @@ const sellSchema = z
         message: "validation.payments.paymentLinkAppId.required",
       });
     }
+
     if (
       (data.channel === "email" || data.channel === "sms") &&
       !data.to?.trim()
@@ -123,12 +125,15 @@ export const SellPackageDialog: React.FC<{
   const [paymentLinkApps, setPaymentLinkApps] = React.useState<
     PaymentLinkApp[]
   >([]);
+
   const [emailDestinations, setEmailDestinations] = React.useState<string[]>(
     [],
   );
+
   const [phoneDestinations, setPhoneDestinations] = React.useState<string[]>(
     [],
   );
+
   const [selectedPackage, setSelectedPackage] = React.useState<
     AppointmentPackage | undefined
   >(pkg);
@@ -152,16 +157,19 @@ export const SellPackageDialog: React.FC<{
   const smsTo = form.watch("to");
   const sendingSms =
     price > 0 && paymentMethod === "payment-link" && channel === "sms";
+
   const smsConsentStatus = useCustomerPhoneSmsConsent(
     sendingSms ? customerId : undefined,
     sendingSms ? smsTo : undefined,
   );
+
   const smsBlocked =
     sendingSms &&
     !(
       smsConsentStatus === "consented" ||
       (smsConsentStatus === "missing" && smsConsent)
     );
+
   const destinations =
     channel === "email"
       ? emailDestinations
@@ -171,6 +179,7 @@ export const SellPackageDialog: React.FC<{
 
   React.useEffect(() => {
     if (!open) return;
+
     form.reset({
       packageId: pkg?._id ?? "",
       customerId: "",
@@ -178,12 +187,14 @@ export const SellPackageDialog: React.FC<{
       paymentMethod: "cash",
       channel: "copy",
     });
+
     setSelectedPackage(pkg);
     setSmsConsent(false);
   }, [open, pkg, form]);
 
   React.useEffect(() => {
     if (!open) return;
+
     void paymentsApi
       .listPaymentLinkApps()
       .then((result) => setPaymentLinkApps(result.items))
@@ -212,6 +223,7 @@ export const SellPackageDialog: React.FC<{
         setEmailDestinations(
           uniqueNonEmpty([customer.email, ...(customer.knownEmails ?? [])]),
         );
+
         setPhoneDestinations(
           uniqueNonEmpty([customer.phone, ...(customer.knownPhones ?? [])]),
         );
@@ -274,6 +286,7 @@ export const SellPackageDialog: React.FC<{
     if (next && next._id !== selectedPackage?._id) {
       form.setValue("price", next.price, { shouldValidate: true });
     }
+
     setSelectedPackage(next);
   };
 
@@ -283,6 +296,7 @@ export const SellPackageDialog: React.FC<{
       setSelectedPackage(pkg);
       setSmsConsent(false);
     }
+
     onOpenChange(next);
   };
 
@@ -293,6 +307,7 @@ export const SellPackageDialog: React.FC<{
       if (!definition || definition._id !== values.packageId) {
         definition = await packagesApi.getPackage(values.packageId);
       }
+
       if (!definition) return;
 
       const sold = await toastPromise(
@@ -319,14 +334,18 @@ export const SellPackageDialog: React.FC<{
                     const body = (await error.response.clone().json()) as {
                       code?: string;
                     };
+
                     code = body.code;
                   } catch {
                     // ignore parse errors
                   }
+
                   if (code) throw new Error(code);
                 }
+
                 throw error;
               });
+
             paymentId = result.payment._id;
             paymentLinkUrl = result.url;
           } else if (
@@ -342,6 +361,7 @@ export const SellPackageDialog: React.FC<{
               customerId: values.customerId,
               disableUpdate: true,
             });
+
             paymentId = payment._id;
           }
 
@@ -351,6 +371,7 @@ export const SellPackageDialog: React.FC<{
               paymentId,
               price: values.price,
             });
+
             return { created, paymentLinkUrl };
           } catch (error) {
             if (paymentId && values.paymentMethod === "payment-link") {
@@ -360,6 +381,7 @@ export const SellPackageDialog: React.FC<{
                   console.error(cancelError);
                 });
             }
+
             throw error;
           }
         })(),
@@ -378,10 +400,12 @@ export const SellPackageDialog: React.FC<{
             ) {
               return t("catalog.giftCards.form.toasts.smsConsentRequired");
             }
+
             return t("catalog.packages.form.toasts.requestError");
           },
         },
       );
+
       if (values.channel === "copy" && sold.paymentLinkUrl) {
         try {
           await navigator.clipboard.writeText(sold.paymentLinkUrl);
@@ -390,6 +414,7 @@ export const SellPackageDialog: React.FC<{
           console.error(error);
         }
       }
+
       handleOpenChange(false);
       onSuccess?.(sold.created._id, values.packageId);
     } catch (error) {
@@ -574,8 +599,10 @@ export const SellPackageDialog: React.FC<{
                                     {paymentLinkApps.map((app) => {
                                       const Logo =
                                         AvailableApps[app.name]?.Logo;
+
                                       const displayName =
                                         AvailableApps[app.name]?.displayName;
+
                                       return (
                                         <SelectItem
                                           value={app._id}

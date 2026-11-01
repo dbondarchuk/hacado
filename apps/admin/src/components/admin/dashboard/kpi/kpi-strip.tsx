@@ -64,6 +64,7 @@ function changeDetail(
   if (pct === null) {
     return { text: "-", tone: "muted" };
   }
+
   const sign = pct > 0 ? "+" : "";
   return {
     text: `${sign}${formatPct(pct)} ${vsLabel}`,
@@ -87,11 +88,13 @@ export function DashboardKpiStrip({
     vsLastWeek,
     (n) => `${n}%`,
   );
+
   const revenueChange = changeDetail(
     stats.thisWeekRevenueChangePct,
     vsLastWeek,
     (n) => `${n}%`,
   );
+
   const avgChange = changeDetail(
     stats.avgBookingValueChangePct,
     vsLastWeek,

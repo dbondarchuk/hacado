@@ -39,6 +39,7 @@ export const StripeAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<StripeAdminNamespace, StripeAdminKeys>(
     stripeAdminNamespace,
   );
+
   const [isConnecting, setIsConnecting] = React.useState(false);
   const [app, setApp] = React.useState<ConnectedApp | undefined>(undefined);
   const [timer, setTimer] = React.useState<NodeJS.Timeout>();

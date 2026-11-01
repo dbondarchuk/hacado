@@ -107,6 +107,7 @@ export const MEMBER_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { member, previousRole, role } =
         envelope.payload as MemberRoleChangedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,

@@ -66,6 +66,7 @@ export async function PUT(
     "update",
     logger,
   );
+
   if (!ok) return response;
 
   const actor = await getActor();
@@ -119,6 +120,7 @@ export async function DELETE(
     "delete",
     logger,
   );
+
   if (!ok) return response;
 
   const actor = await getActor();

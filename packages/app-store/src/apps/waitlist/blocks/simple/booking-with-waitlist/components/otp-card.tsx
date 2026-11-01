@@ -57,6 +57,7 @@ export const OtpCard: React.FC = () => {
             phone: result.phone || fields.phone,
             smsConsent: result.smsConsent === true,
           });
+
           const payment = await fetchPaymentInformation();
           setPaymentInformation(payment);
           if (!payment || payment.intent?.status === "paid") {

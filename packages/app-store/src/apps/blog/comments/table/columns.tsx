@@ -123,6 +123,7 @@ export const columns: ColumnDef<CommentsTableRow>[] = [
       const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(
         blogAdminNamespace,
       );
+
       return (
         <Dialog>
           <DialogTrigger>

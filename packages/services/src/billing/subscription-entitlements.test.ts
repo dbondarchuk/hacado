@@ -19,6 +19,7 @@ describe("subscription entitlements", () => {
       resolvePlanTierFromProductId("prod_solo", { feesExempt: true }),
       "studio",
     );
+
     assert.equal(resolvePlanTierFromProductId(null), null);
     assert.equal(resolvePlanTierFromProductId("prod_unknown"), "solo");
   });
@@ -61,6 +62,7 @@ describe("subscription entitlements", () => {
       }),
       "free",
     );
+
     assert.equal(
       resolvePlanTierFromOrganization({
         polarSubscriptionProductId: "prod_solo",
@@ -68,12 +70,14 @@ describe("subscription entitlements", () => {
       }),
       "solo",
     );
+
     assert.equal(
       resolvePlanTierFromOrganization({
         polarSubscriptionProductId: "prod_studio",
       }),
       "studio",
     );
+
     assert.equal(
       resolvePlanTierFromOrganization({
         polarSubscriptionProductId: "prod_free",
@@ -86,6 +90,7 @@ describe("subscription entitlements", () => {
   it("maps legacy pro/team env slugs to solo/studio", async () => {
     process.env.POLAR_BILLING_PLANS =
       "free:prod_free,pro:prod_legacy_pro,team:prod_legacy_team";
+
     // Re-import won't re-run module; call getPolarBillingPlansFromEnv fresh
     const { getPolarBillingPlansFromEnv } = await import("./plan-config");
     const plans = getPolarBillingPlansFromEnv();

@@ -52,15 +52,18 @@ const Placeholder = ({
     "nested",
     blockId,
   );
+
   const { ref } = useDroppable({
     id: `${blockId}/${property}/${index}-placeholder`,
     collisionPriority,
     accept: (draggable) => {
       if (!draggable.type) return false;
+
       const type = draggable.type as string;
       const blockDefinition = blocksDefinitions.find((b) => b.type === type);
       if (allow && blockDefinition && !matchesRule(blockDefinition, allow))
         return false;
+
       return true;
     },
     disabled: isOverlay,
@@ -158,6 +161,7 @@ const EditorChildrenRender = deepMemo(
 
     useEffect(() => {
       if (isCurrentOverlay) return;
+
       setAllowedRule(currentBlockId, property, allow ?? {});
     }, [allow, currentBlockId, property, setAllowedRule, isCurrentOverlay]);
 

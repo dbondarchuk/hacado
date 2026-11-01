@@ -40,6 +40,7 @@ const toNumberValueWithUnit = (
   if (typeof value === "object" && value !== null) {
     return value;
   }
+
   return { value: value ?? 0, unit: "px" };
 };
 

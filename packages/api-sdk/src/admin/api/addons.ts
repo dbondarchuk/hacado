@@ -44,6 +44,7 @@ export const getAddons = async (params: AddonsSearchParams) => {
 
   const data =
     await response.json<WithTotal<AddonsType<typeof includeUsage>>>();
+
   console.debug("Service addons retrieved successfully", {
     data,
   });

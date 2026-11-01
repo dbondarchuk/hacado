@@ -30,7 +30,6 @@ export const CoreEditorBlock: React.FC<{
     );
 
     if (rootBlockType === block.type) return <Component {...block.data} />;
-
     if (!Component) return null;
 
     return <Component {...block.data} base={block.base} {...additionalProps} />;

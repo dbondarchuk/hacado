@@ -41,6 +41,7 @@ const toNumberValueWithUnit = (
   if (typeof value === "object" && value !== null) {
     return value;
   }
+
   return { value: value ?? 0, unit: "px" };
 };
 
@@ -54,6 +55,7 @@ const getNumberOptions = (func: string) => {
   if (func === "hue-rotate") {
     return [0, 45, 90, 180, 270, 360];
   }
+
   return [0, 1, 2, 4, 8];
 };
 

@@ -40,6 +40,7 @@ export function CompleteProfileForm({
   const [profile, setProfile] = useState<CompleteProfileProfileValues | null>(
     null,
   );
+
   const [phone, setPhone] = useState("");
 
   const progressSteps = useMemo(
@@ -68,6 +69,7 @@ export function CompleteProfileForm({
             ? t("auth.phoneOtp.errors.phoneInUse")
             : t("auth.completeProfile.toasts.error"),
         );
+
         return;
       }
 
@@ -96,7 +98,6 @@ export function CompleteProfileForm({
       />,
     );
   }
-
   if (step === "phone") {
     return withProgress(
       <CompleteProfilePhoneStep

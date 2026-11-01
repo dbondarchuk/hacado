@@ -45,6 +45,7 @@ export class ActivityService extends BaseService implements IActivityService {
     ) {
       return undefined;
     }
+
     return new Date(createdAt.getTime() + retentionDays * 24 * 60 * 60 * 1000);
   }
 
@@ -57,6 +58,7 @@ export class ActivityService extends BaseService implements IActivityService {
     if (!organization || organization.feesExempt === true) {
       return null;
     }
+
     return organization.activityRetentionDays ?? null;
   }
 
@@ -110,6 +112,7 @@ export class ActivityService extends BaseService implements IActivityService {
       offset: 0,
       sort: [{ id: "createdAt", desc: true }],
     });
+
     return items.map((e) => this.entryToPreview(e));
   }
 
@@ -120,6 +123,7 @@ export class ActivityService extends BaseService implements IActivityService {
     const lastRead = await this.redisClient.get(
       this.lastReadRedisKey(memberId),
     );
+
     const lastReadDate = lastRead ? new Date(lastRead) : new Date(0);
     const db = await getDbConnection();
     const count = await db
@@ -142,6 +146,7 @@ export class ActivityService extends BaseService implements IActivityService {
     const lastRead = await this.redisClient.get(
       this.lastReadRedisKey(memberId),
     );
+
     const lastReadDate = lastRead ? new Date(lastRead) : new Date(0);
     const db = await getDbConnection();
     const activities = db.collection<ActivityEntry>(ACTIVITIES_COLLECTION_NAME);
@@ -178,10 +183,12 @@ export class ActivityService extends BaseService implements IActivityService {
 
     const highestSeverity =
       result.length > 0 ? (result[0].severity ?? "info") : null;
+
     logger.debug(
       { memberId, highestSeverity },
       "Highest severity since last read",
     );
+
     return highestSeverity;
   }
 
@@ -263,9 +270,11 @@ export class ActivityService extends BaseService implements IActivityService {
       if (query.range.start) {
         createdAt.$gte = query.range.start;
       }
+
       if (query.range.end) {
         createdAt.$lte = query.range.end;
       }
+
       filter.createdAt = createdAt;
     }
 
@@ -347,6 +356,7 @@ export class ActivityService extends BaseService implements IActivityService {
     const collection = db.collection<ActivityListItem>(
       ACTIVITIES_COLLECTION_NAME,
     );
+
     const entry = await collection
       .aggregate([
         { $match: { _id: id, organizationId: this.organizationId } },
@@ -377,6 +387,7 @@ export class ActivityService extends BaseService implements IActivityService {
     const match: Filter<ActivityEntry> = {
       organizationId: this.organizationId,
     };
+
     if (options.search) {
       match.eventType = {
         $regex: new RegExp(escapeRegex(options.search), "i"),
@@ -414,6 +425,7 @@ export class ActivityService extends BaseService implements IActivityService {
     const items = raw
       .map((r) => r._id)
       .filter((x): x is string => typeof x === "string" && x.length > 0);
+
     const total = result?.totalCount?.[0]?.count ?? 0;
 
     logger.debug({ total, count: items.length }, "Distinct event types listed");

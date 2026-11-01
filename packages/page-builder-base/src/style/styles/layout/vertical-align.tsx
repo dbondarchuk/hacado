@@ -30,6 +30,7 @@ export const verticalAlignStyle = {
     value: z.infer<typeof VerticalAlignSchema> | null | undefined,
   ) => {
     if (!value) return null;
+
     return `vertical-align: ${value};`;
   },
   component: ({

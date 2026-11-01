@@ -25,6 +25,7 @@ export const BlogPostNavigationButtonPropsSchema = z.object({
 export type BlogPostNavigationButtonProps = Prettify<
   z.infer<typeof BlogPostNavigationButtonPropsSchema>
 >;
+
 export type BlogPostNavigationButtonReaderProps = BaseReaderBlockProps<any> &
   BlogPostNavigationButtonProps;
 

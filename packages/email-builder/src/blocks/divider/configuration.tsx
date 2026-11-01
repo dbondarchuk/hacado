@@ -16,6 +16,7 @@ export const DividerConfiguration = ({
 
   const lineColor =
     data.props?.lineColor ?? DividerPropsDefaults.props.lineColor;
+
   const lineHeight =
     data.props?.lineHeight ?? DividerPropsDefaults.props.lineHeight;
 

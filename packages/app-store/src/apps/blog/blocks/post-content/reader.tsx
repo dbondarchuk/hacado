@@ -24,6 +24,7 @@ export const BlogPostContentReader = ({
     if (!postContent || showError) {
       return postContent;
     }
+
     return resolveBlogPostDisplayContent(postContent, props);
   }, [postContent, props, showError]);
 

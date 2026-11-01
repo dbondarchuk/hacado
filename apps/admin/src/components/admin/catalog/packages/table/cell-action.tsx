@@ -35,6 +35,7 @@ export const CellAction: React.FC<{ pkg: AppointmentPackage }> = ({ pkg }) => {
         }),
         error: t("catalog.packages.table.cellAction.deleteError"),
       });
+
       router.refresh();
     } finally {
       setLoading(false);

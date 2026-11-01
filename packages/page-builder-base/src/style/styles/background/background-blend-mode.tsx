@@ -24,6 +24,7 @@ const options = [
   "initial",
   "inherit",
 ] as const;
+
 const BackgroundBlendModeSchema = z.enum(options);
 
 export const backgroundBlendModeStyle = {
@@ -35,6 +36,7 @@ export const backgroundBlendModeStyle = {
   defaultValue: "normal",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `background-blend-mode: ${value};`;
   },
   component: ({ value, onChange }) => {

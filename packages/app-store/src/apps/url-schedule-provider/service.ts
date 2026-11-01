@@ -56,11 +56,13 @@ export default class UrlScheduleProviderConnectedApp
 
     const { data, success, error } =
       urlScheduleProviderConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error(
         { error },
         "Invalid URL schedule provider configuration request",
       );
+
       throw new ConnectedAppRequestError(
         "invalid_url-schedule-provider_configuration_request",
         { request, error },
@@ -146,6 +148,7 @@ export default class UrlScheduleProviderConnectedApp
     try {
       const member =
         await this.props.services.teamService.getMemberById(memberId);
+
       if (!member) {
         logger.error(
           {
@@ -172,6 +175,7 @@ export default class UrlScheduleProviderConnectedApp
         start: start.toISOString(),
         end: end.toISOString(),
       };
+
       const url = new URL(
         applyUrlPlaceholders(app.data.url, placeholderValues),
       );
@@ -195,6 +199,7 @@ export default class UrlScheduleProviderConnectedApp
           },
           "HTTP error when fetching schedule",
         );
+
         throw new ConnectedAppError<
           UrlScheduleProviderAdminNamespace,
           UrlScheduleProviderAdminKeys
@@ -280,6 +285,7 @@ export default class UrlScheduleProviderConnectedApp
         start: DateTime.now().toISO()!,
         end: DateTime.now().plus({ days: 7 }).toISO()!,
       };
+
       const headers = buildHeadersWithPlaceholders(
         data.headers,
         placeholderValues,
@@ -302,6 +308,7 @@ export default class UrlScheduleProviderConnectedApp
         { url: data.url, error: error?.message || error?.toString() },
         "URL test failed",
       );
+
       throw error;
     }
   }
@@ -317,6 +324,7 @@ export default class UrlScheduleProviderConnectedApp
         { appId, dataType: typeof data },
         "Response is not an object",
       );
+
       throw new ConnectedAppError<
         UrlScheduleProviderAdminNamespace,
         UrlScheduleProviderAdminKeys
@@ -337,7 +345,6 @@ export default class UrlScheduleProviderConnectedApp
         ) {
           throw new Error(`Invalid date format: ${dateStr}`);
         }
-
         // Validate day schedule structure
         if (!Array.isArray(daySchedule)) {
           throw new Error(`Day schedule must be an array for date: ${dateStr}`);
@@ -349,13 +356,11 @@ export default class UrlScheduleProviderConnectedApp
               `Shift ${index} must be an object for date: ${dateStr}`,
             );
           }
-
           if (!shift.start || typeof shift.start !== "string") {
             throw new Error(
               `Shift ${index} must have a start time for date: ${dateStr}`,
             );
           }
-
           if (!shift.end || typeof shift.end !== "string") {
             throw new Error(
               `Shift ${index} must have an end time for date: ${dateStr}`,
@@ -391,6 +396,7 @@ export default class UrlScheduleProviderConnectedApp
           },
           "Error validating schedule for date",
         );
+
         throw new ConnectedAppError<
           UrlScheduleProviderAdminNamespace,
           UrlScheduleProviderAdminKeys

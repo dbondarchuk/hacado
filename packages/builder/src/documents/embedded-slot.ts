@@ -83,6 +83,7 @@ export function childrenPropertyToStyleProperty(
   if (childrenProperty.endsWith(".children")) {
     return `${childrenProperty.slice(0, -".children".length)}.style`;
   }
+
   return `${childrenProperty}.style`;
 }
 

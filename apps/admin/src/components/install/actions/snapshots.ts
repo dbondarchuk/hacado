@@ -35,6 +35,7 @@ const INSTALL_CALENDAR_APP_NAMES = new Set([
   OUTLOOK_APP_NAME,
   CALDAV_APP_NAME,
 ]);
+
 const INSTALL_PAYMENT_APP_NAMES = new Set([
   PAYPAL_APP_NAME,
   SQUARE_APP_NAME,
@@ -82,6 +83,7 @@ export async function getInstallWorkspaceSnapshot(): Promise<InstallWorkspaceSer
   const logger = getLoggerFactory("InstallActions")(
     "getInstallWorkspaceSnapshot",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const orgId = (session?.user as { organizationId?: string })?.organizationId;
@@ -100,13 +102,16 @@ export async function getInstallWorkspaceSnapshot(): Promise<InstallWorkspaceSer
   const orgRecord = org as typeof org & { name?: string };
   const general =
     await services.configurationService.getConfiguration("general");
+
   const brand = await services.configurationService.getConfiguration("brand");
   const styling =
     (await services.configurationService.getConfiguration("styling")) ?? null;
+
   const businessName =
     (typeof orgRecord.name === "string" && orgRecord.name.trim()) ||
     (typeof general?.name === "string" && general.name.trim()) ||
     "";
+
   const slug = typeof org.slug === "string" ? org.slug : "";
 
   const legacyGeneral = general as Record<string, unknown> | null;
@@ -115,6 +120,7 @@ export async function getInstallWorkspaceSnapshot(): Promise<InstallWorkspaceSer
     (typeof legacyGeneral?.language === "string"
       ? legacyGeneral.language
       : undefined);
+
   const generalPick = installGeneralWorkspaceSchema.safeParse({
     timeZone: general?.timeZone,
     language: installLanguage,
@@ -140,14 +146,17 @@ export async function getInstallWorkspaceSnapshot(): Promise<InstallWorkspaceSer
     if (typeof pr === "string" && hexOk.test(pr)) out.primaryColorHex = pr;
     if (typeof sec === "string" && hexOk.test(sec)) out.secondaryColorHex = sec;
   }
+
   if (styling?.fonts?.primary) {
     const fp = fontName.safeParse(styling.fonts.primary);
     if (fp.success) out.primaryFont = fp.data;
   }
+
   if (styling?.fonts?.secondary) {
     const fs = fontName.safeParse(styling.fonts.secondary);
     if (fs.success) out.secondaryFont = fs.data;
   }
+
   if (brand?.logo && typeof brand.logo === "string")
     out.installLogo = brand.logo;
   else if (
@@ -155,6 +164,7 @@ export async function getInstallWorkspaceSnapshot(): Promise<InstallWorkspaceSer
     legacyGeneral.logo.length > 0
   )
     out.installLogo = legacyGeneral.logo;
+
   logger.debug({ orgId }, "Resolved workspace snapshot");
   return out;
 }
@@ -165,10 +175,12 @@ export async function getInstallCalendarAppsSnapshot(): Promise<
   const logger = getLoggerFactory("InstallActions")(
     "getInstallCalendarAppsSnapshot",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return [];
@@ -181,6 +193,7 @@ export async function getInstallCalendarAppsSnapshot(): Promise<
     { organizationId, count: filtered.length },
     "Resolved calendar apps snapshot",
   );
+
   return filtered;
 }
 
@@ -188,10 +201,12 @@ export async function getInstallPaymentAppsSnapshot(): Promise<ConnectedApp[]> {
   const logger = getLoggerFactory("InstallActions")(
     "getInstallPaymentAppsSnapshot",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return [];
@@ -204,6 +219,7 @@ export async function getInstallPaymentAppsSnapshot(): Promise<ConnectedApp[]> {
     { organizationId, count: filtered.length },
     "Resolved payment apps snapshot",
   );
+
   return filtered;
 }
 
@@ -211,10 +227,12 @@ export async function getInstallPreferencesSnapshot(): Promise<InstallPreference
   const logger = getLoggerFactory("InstallActions")(
     "getInstallPreferencesSnapshot",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return null;
@@ -226,6 +244,7 @@ export async function getInstallPreferencesSnapshot(): Promise<InstallPreference
     logger.error({ organizationId }, "Organization not found");
     return null;
   }
+
   const normalized = normalizeInstallPreferencesFromOrg(
     (org as any).installPreferences,
   );
@@ -240,5 +259,6 @@ export async function getInstallPreferencesSnapshot(): Promise<InstallPreference
     { organizationId, hasPreferences: Boolean(normalized) },
     "Resolved install preferences snapshot",
   );
+
   return normalized;
 }

@@ -36,11 +36,13 @@ export const GiftCardPurchaseBlockConfiguration = deepMemo(
         setData({ ...data, style: s as GiftCardPurchaseBlockProps["style"] }),
       [setData, data],
     );
+
     const updateProps = useCallback(
       (p: unknown) =>
         setData({ ...data, props: p as GiftCardPurchaseBlockProps["props"] }),
       [setData, data],
     );
+
     const updateMetadata = useCallback(
       (m: Record<string, unknown>) => onMetadataChange(m),
       [onMetadataChange],

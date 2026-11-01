@@ -126,6 +126,7 @@ export const columns: ColumnDef<BlogPost & { appId: string }>[] = [
       if (!row.original.tags || row.original.tags.length === 0) {
         return null;
       }
+
       return (
         <div className="flex flex-wrap gap-1">
           {row.original.tags.slice(0, 3).map((tag) => (

@@ -62,10 +62,12 @@ export class TextMessageNotificationConnectedApp
     const config = (appData.data ?? {}) as TextMessageNotificationConfiguration;
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const forMemberId = await resolveAppointmentEventForMemberId(
       async (memberId) => {
         const member =
           await this.props.services.teamService.getMemberById(memberId);
+
         return member?.role ?? null;
       },
       appData.memberId,
@@ -136,11 +138,13 @@ export class TextMessageNotificationConnectedApp
     const logger = this.loggerFactory("processRequest");
     const { data, success, error } =
       textMessageNotificationConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error(
         { error },
         "Invalid Text Message Notification configuration request",
       );
+
       throw new ConnectedAppRequestError(
         "invalid_text-message-notification_configuration_request",
         { request, error },
@@ -223,11 +227,13 @@ export class TextMessageNotificationConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id },
           "Organization not found",
         );
+
         return;
       }
 
@@ -247,6 +253,7 @@ export class TextMessageNotificationConnectedApp
           },
           "Member not found",
         );
+
         return;
       }
 
@@ -373,6 +380,7 @@ export class TextMessageNotificationConnectedApp
           { appId: appData._id, replyData: reply?.data },
           "Appointment ID missing in reply",
         );
+
         throw new Error(`Appointment Id is missing`);
       }
 
@@ -405,11 +413,13 @@ export class TextMessageNotificationConnectedApp
             { appId: appData._id, memberId },
             "Member ID is required in text message reply",
           );
+
           return null;
         }
 
         const user =
           await this.props.services.teamService.getMemberById(memberId);
+
         if (!user) {
           logger.warn({ appId: appData._id, memberId }, "User not found");
           return null;
@@ -499,6 +509,7 @@ export class TextMessageNotificationConnectedApp
 
         const organization =
           await this.props.services.organizationService.getOrganization();
+
         if (!organization) {
           logger.error(
             { appId: appData._id, appointmentId: appointment._id },
@@ -517,11 +528,13 @@ export class TextMessageNotificationConnectedApp
             { appId: appData._id, memberId },
             "Member ID is required in text message reply",
           );
+
           return null;
         }
 
         const user =
           await this.props.services.teamService.getMemberById(memberId);
+
         if (!user) {
           logger.warn({ appId: appData._id, memberId }, "User not found");
           return null;
@@ -611,11 +624,13 @@ export class TextMessageNotificationConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appointmentId: appointment._id },
           "Organization not found",
         );
+
         throw new Error("Organization not found");
       }
 
@@ -624,16 +639,19 @@ export class TextMessageNotificationConnectedApp
 
       const memberId =
         reply.memberId ?? appointment.memberId ?? appData.memberId;
+
       if (!memberId) {
         logger.warn(
           { appId: reply.data.appId, memberId },
           "Member ID is required in text message reply",
         );
+
         return null;
       }
 
       const user =
         await this.props.services.teamService.getMemberById(memberId);
+
       if (!user) {
         logger.warn({ appId: reply.data.appId, memberId }, "User not found");
         return null;

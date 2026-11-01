@@ -41,14 +41,17 @@ export async function readSmsMessagingAccess(
   const canCustomize =
     tier !== BillingPlanTier.Free &&
     (!tier || meetsMinimumPlanTier(tier, BillingPlanTier.Solo));
+
   const platformBusiness = requiresSmsVerification(general?.value?.country);
   const hasTextMessageSenderApp = Boolean(
     defaultApps?.value?.textMessageSenderAppId?.trim(),
   );
+
   const registration = await store.get(organizationId);
   const dedicated = canCustomize
     ? await store.getAssignedProfileNumber(organizationId)
     : null;
+
   const detailsVerified = registration?.status === "verified";
 
   return {

@@ -25,6 +25,7 @@ export const SHARED_POOL_SMS_SUFFIX = "\nSent via Hacado";
 export const appendSharedPoolSuffix = (body: string) => {
   const trimmed = body.replace(/\s+$/, "");
   if (trimmed.endsWith(SHARED_POOL_SMS_SUFFIX)) return trimmed;
+
   return `${trimmed}${SHARED_POOL_SMS_SUFFIX}`;
 };
 

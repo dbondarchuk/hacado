@@ -67,6 +67,7 @@ const dateRangeOptions = [
   "lastYear",
   "allTime",
 ] as const;
+
 type DateRangeOption = (typeof dateRangeOptions)[number];
 
 const getDateRange = (
@@ -265,8 +266,10 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
   const getConvertedToLabel = (convertedTo: string) => {
     const nestedKey = getConvertedToLabelKey(convertedTo);
     if (tAdmin.has(nestedKey)) return tAdmin(nestedKey);
+
     const rootKey = getConvertedToRootLabelKey(convertedTo);
     if (tAdmin.has(rootKey)) return tAdmin(rootKey);
+
     return convertedTo;
   };
 

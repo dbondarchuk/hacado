@@ -43,6 +43,7 @@ export const UnarchiveSelectedFormsButton: React.FC<{
           error: tAdmin("common.toasts.error"),
         },
       );
+
       reload();
       setIsOpen(false);
     } catch (error: any) {

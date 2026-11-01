@@ -54,6 +54,7 @@ export function GeneralBillingCard({
 
   useEffect(() => {
     if (!smsPurchased) return;
+
     toast.success(t("settings.general.billing.smsTopup.purchaseSuccess"));
     setSmsPurchased(false);
   }, [t, smsPurchased, setSmsPurchased]);
@@ -61,6 +62,7 @@ export function GeneralBillingCard({
   const subscriptionPriceLabel = useMemo(() => {
     const price = details.subscriptionPrice;
     if (!price) return null;
+
     const amount = new Intl.NumberFormat(locale, {
       style: "currency",
       currency: price.currency,
@@ -89,6 +91,7 @@ export function GeneralBillingCard({
       style: "currency",
       currency: price.currency,
     }).format(price.amountCents / 100);
+
     return price.recurringInterval
       ? t(
           `settings.general.billing.priceWithIntervalLabel.${price.recurringInterval}`,

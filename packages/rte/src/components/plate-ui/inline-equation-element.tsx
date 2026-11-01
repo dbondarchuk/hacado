@@ -27,6 +27,7 @@ export const InlineEquationElement = withRef<typeof PlateElement>(
       (editor) => editor.api.isCollapsed(),
       [],
     );
+
     const [open, setOpen] = useState(selected && isCollapsed);
 
     useEquationElement({

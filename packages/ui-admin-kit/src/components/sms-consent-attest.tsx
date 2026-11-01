@@ -15,7 +15,6 @@ export const smsConsentAttestStatus = (status: {
   if (status.optedOut) {
     return "optedOut";
   }
-
   if (status.consented) {
     return "consented";
   }
@@ -76,13 +75,11 @@ export const SmsConsentAttest = ({
   if (!normalizeToE164(phone ?? "") || !status) {
     return null;
   }
-
   if (status === "consented") {
     return (
       <p className="text-sm text-muted-foreground">{t("smsConsent.already")}</p>
     );
   }
-
   if (status === "optedOut") {
     return (
       <p className="text-sm text-muted-foreground">

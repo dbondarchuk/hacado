@@ -157,5 +157,6 @@ export const getDefaultFunctionValues = (
   if (func === "hue-rotate") {
     return [0];
   }
+
   return [0];
 };

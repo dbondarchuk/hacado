@@ -33,6 +33,7 @@ export const MediaVideoElement = withHOC(
       } = useMediaState({
         urlParsers: [parseTwitterUrl, parseVideoUrl],
       });
+
       const width = useResizableValue("width");
 
       const isEditorMounted = useEditorMounted();

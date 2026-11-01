@@ -127,6 +127,7 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           "admin.billing.emails.subscriptionAlert.subject",
           interpolation,
         );
+
         const body = await renderUserEmailTemplate(
           {
             previewText: t(

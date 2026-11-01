@@ -14,6 +14,7 @@ export const customCssStyle = {
   defaultValue: "",
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return value;
   },
   component: ({ value, onChange }) => (

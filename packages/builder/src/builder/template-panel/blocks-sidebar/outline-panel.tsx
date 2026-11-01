@@ -64,6 +64,7 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
     const isVisible = useMemo(() => {
       if (!searchQuery) return true;
       if (!schema) return false;
+
       return (
         t(schema.schema.displayName as BuilderKeys)
           .toLocaleLowerCase()
@@ -78,7 +79,6 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
     if (!block?.data) {
       return null;
     }
-
     if (!schema)
       return (
         <div

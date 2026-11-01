@@ -41,6 +41,7 @@ export function ColorCustom({
     customColors,
     updateCustomColor,
   });
+
   const { inputProps, menuItemProps } = useColorsCustom(state);
 
   return (

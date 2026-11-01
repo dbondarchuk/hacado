@@ -155,5 +155,6 @@ export const createDynamicCollisionDetector = (
         }
       }
     }
+
     return null;
   }) as CollisionDetector;

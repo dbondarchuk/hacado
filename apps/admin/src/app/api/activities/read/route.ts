@@ -13,6 +13,7 @@ export async function POST() {
   await servicesContainer.activityService.markActivityFeedRead(
     auth.user.memberId,
   );
+
   auth.logger.debug("Activity feed marked read");
   return NextResponse.json(okStatus, { status: 200 });
 }

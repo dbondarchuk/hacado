@@ -37,6 +37,7 @@ const ComparisonItem = ({
       : position === "left"
         ? `inset(0 0 ${100 - sliderPosition}% 0)`
         : `inset(${sliderPosition}% 0 0 0)`;
+
   return (
     <div
       aria-hidden="true"
@@ -66,6 +67,7 @@ const ComparisonHandle = ({
     orientation === "horizontal"
       ? { left: `${sliderPosition}%` }
       : { top: `${sliderPosition}%` };
+
   return (
     <div
       aria-hidden="true"
@@ -171,6 +173,7 @@ export const BeforeAfterSlider = ({
       documentToUse.addEventListener("touchmove", touchMove, {
         passive: false,
       });
+
       documentToUse.addEventListener("mouseup", handleMouseUp);
       documentToUse.addEventListener("touchend", handleMouseUp);
       return () => {

@@ -14,6 +14,7 @@ export const TableToolbar = (props: ConfigurationProps<TableProps>) => {
   const gridProps = useMemo(() => {
     const p = props.data.props;
     if (!p) return { rowCount: 3, colCount: 3 };
+
     const normalized = normalizeTableGridProps(p);
     return {
       rowCount: normalized.rowCount ?? 3,
@@ -25,6 +26,7 @@ export const TableToolbar = (props: ConfigurationProps<TableProps>) => {
     (rowCount: number, colCount: number) => {
       const p = props.data.props;
       if (!p) return;
+
       const normalized = normalizeTableGridProps(p);
       const next = resizeTableDimensions(
         normalized,
@@ -32,6 +34,7 @@ export const TableToolbar = (props: ConfigurationProps<TableProps>) => {
         colCount,
         createEmptyTableCell,
       );
+
       props.setData({
         ...props.data,
         props: { ...p, ...next },

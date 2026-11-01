@@ -19,6 +19,7 @@ const getUpdatedSize = (
     newStyles.width?.filter(
       (w) => !!w.breakpoint?.length || !!w.state?.length,
     ) || [];
+
   newStyles.height =
     newStyles.height?.filter(
       (h) => !!h.breakpoint?.length || !!h.state?.length,

@@ -81,10 +81,13 @@ export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
           search: query,
           country: countryBias || undefined,
         });
+
         if (cancelled) return;
+
         setItems(result.items);
       } catch {
         if (cancelled) return;
+
         setItems([]);
       } finally {
         if (!cancelled) setLoading(false);
@@ -177,5 +180,6 @@ function formatSuggestionPrimary(address: AddressSuggestion): string {
   const street = [address.streetAddress, address.addressLine2]
     .filter(Boolean)
     .join(", ");
+
   return street || formatPostalAddress(address);
 }

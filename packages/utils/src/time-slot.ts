@@ -43,9 +43,11 @@ export function getAvailableTimeSlotsInCalendar(
   const eventList = [
     ..._getUnavailablePeriodAsEvents(unavailablePeriods ?? [], timeZone),
   ];
+
   if (calendarEvents) {
     eventList.push(...calendarEvents);
   }
+
   const { firstFromMoment, lastToMoment } = _computeBoundaries(
     from,
     to,
@@ -69,6 +71,7 @@ export function getAvailableTimeSlotsInCalendar(
           /* That may happen when shift boundaries exceed global ones */
           return;
         }
+
         timeSlots.push(
           ..._getAvailableTimeSlotsForShift(
             usedConfig,
@@ -79,6 +82,7 @@ export function getAvailableTimeSlotsInCalendar(
         );
       });
     }
+
     /* Go one day forward: all shifts for this day has been processed (if any) */
     fromMoment = fromMoment.plus({ days: 1 }).startOf("day");
   }
@@ -100,10 +104,12 @@ function _checkSearchParameters(
     const formattedPeriods = _mergeOverlappingShiftsInAvailablePeriods(
       configuration.schedule,
     );
+
     usedConfig = { ...configuration, schedule: formattedPeriods };
   } catch (_) {
     /* If workedPeriods aren't formatted well and provoke an error, the validation will fail */
   }
+
   /* Don't go further if configuration is invalid */
   isConfigurationValid(usedConfig);
   return usedConfig;
@@ -129,6 +135,7 @@ function _computeBoundaries(
       .plus({ minutes: configuration.minAvailableTimeBeforeSlot ?? 0 })
       .plus({ minutes: configuration.minTimeBeforeFirstSlot ?? 0 }),
   );
+
   const lastToMoment = searchLimitMoment
     ? Luxon.min(
         Luxon.fromJSDate(to).setZone(configuration.timeZone),
@@ -171,6 +178,7 @@ function _getAvailableTimeSlotsForShift(
 
   const minAvailableTimeBeforeSlot =
     configuration.minAvailableTimeBeforeSlot ?? 0;
+
   const minAvailableTimeAfterSlot =
     configuration.timeSlotDuration +
     (configuration.minAvailableTimeBeforeSlot ?? 0);
@@ -230,10 +238,12 @@ function _getAvailableTimeSlotsForShift(
         searchMoment,
         configuration,
       );
+
       timeSlots.push(timeSlot);
       searchMoment = newSearchMoment;
     }
   }
+
   return timeSlots;
 }
 
@@ -277,6 +287,7 @@ function _findEmcompassingEvent(
       return false;
     }
   }
+
   return false;
 }
 
@@ -305,6 +316,7 @@ function _pushNewSlot(
     endAt: endAt.toUTC().toJSDate(),
     duration: endAt.diff(startAt, "minute").minutes,
   };
+
   /**
    * We should start searching after just created slot (including free time after it) but before
    * next one free time before it (since the search algorithm take it in account).
@@ -360,16 +372,19 @@ function _getUnavailablePeriodAsEvents(
     const startAtString = Luxon.fromObject(unavailablePeriod.startAt).toFormat(
       format,
     );
+
     let startAt = Luxon.fromFormat(startAtString, format).setZone(timeZone);
     const endAtString = Luxon.fromObject(unavailablePeriod.endAt).toFormat(
       "YYYY-MM-DD HH:mm",
     );
+
     let endAt = Luxon.fromFormat(endAtString, format).setZone(timeZone);
 
     /* If no hours defined, use full days */
     if (unavailablePeriod.startAt.hour == null) {
       startAt = startAt.startOf("day");
     }
+
     if (unavailablePeriod.endAt.hour == null) {
       endAt = endAt.endOf("day");
     }
@@ -378,6 +393,7 @@ function _getUnavailablePeriodAsEvents(
     if (endAt < startAt) {
       endAt = endAt.plus({ years: 1 });
     }
+
     return { startAt, endAt };
   });
 }
@@ -394,9 +410,11 @@ function _nextSearchMoment(
     moment.second !== 0
       ? moment.startOf("minute").plus({ minutes: 1 })
       : moment;
+
   const slotStartAt = nextMoment.plus({
     minutes: minAvailableTimeBeforeSlot,
   });
+
   const slotStartMinuteStep = configuration.slotStart ?? 5;
 
   if (slotStartMinuteStep === "every-hour") {
@@ -463,6 +481,7 @@ export function _mergeOverlappingShifts(shifts: Shift[]): Shift[] {
           end: sortedShifts[i + 1].end,
         };
       }
+
       sortedShifts.splice(i + 1, 1);
       /* Come back 1 element to recheck the same shift against the new next one */
       i -= 1;
@@ -510,6 +529,7 @@ function _isScheduleValid(schedule: Record<string, Shift[]>) {
         );
       }
     }
+
     if (_mergeOverlappingShifts(shifts).length !== shifts.length) {
       throw new TimeSlotsFinderError(`Some shifts are overlapping for ${day}`);
     }
@@ -601,6 +621,7 @@ export function isConfigurationValid(
   ) {
     throw new TimeSlotsFinderError("A list of unavailable periods is expected");
   }
+
   if (configuration.unavailablePeriods) {
     for (let i = 0; i < configuration.unavailablePeriods.length; i += 1) {
       if (!_isUnavailablePeriodValid(configuration.unavailablePeriods[i])) {
@@ -610,6 +631,7 @@ export function isConfigurationValid(
       }
     }
   }
+
   return true;
 }
 
@@ -663,6 +685,7 @@ function _checkPrimitiveValue(
       `The number of days before latest slot must be at least 1`,
     );
   }
+
   _checkTimeZone(configuration.timeZone);
 
   const minBeforeFirst = configuration.minTimeBeforeFirstSlot;
@@ -676,6 +699,7 @@ function _checkPrimitiveValue(
       `The first possible slot will always be after last one possible (see minTimeBeforeFirstSlot and maxDaysBeforeLastSlot)`,
     );
   }
+
   return true;
 }
 
@@ -683,6 +707,7 @@ function _checkTimeZone(timeZone: string) {
   if (!timeZone) {
     throw new TimeSlotsFinderError(`Missing time zone`);
   }
+
   try {
     const result = Luxon.now().setZone(timeZone);
     if (!result.zone.isValid) throw new Error();
@@ -694,6 +719,7 @@ function _checkTimeZone(timeZone: string) {
 function _nullOrGreaterThanOrEqualTo(limit: number, value?: number): boolean {
   return value == null || value >= limit;
 }
+
 function _nullOrBetween(min: number, max: number, value?: number): boolean {
   return value == null || (value >= min && value <= max);
 }

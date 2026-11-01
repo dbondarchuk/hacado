@@ -16,6 +16,7 @@ export const getAllTemplates = async (
   const logger = getLoggerFactory("AdminAPI/templates/utils")(
     "getAllTemplates",
   );
+
   logger.debug({ type, language }, "Getting communication templates");
 
   const servicesContainer = await getServicesContainer();

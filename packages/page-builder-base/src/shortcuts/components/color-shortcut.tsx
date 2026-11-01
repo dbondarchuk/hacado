@@ -58,6 +58,7 @@ export const ColorShortcut = <T extends BaseStyleDictionary>({
           ...variant,
           value,
         }));
+
         newStyles[shortcut.targetStyle] =
           updatedVariants as StyleValue<T>[keyof T];
       }

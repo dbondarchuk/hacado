@@ -13,6 +13,7 @@ export function seoArgString(
 ): string | undefined {
   const value = seoArgs[key];
   if (typeof value !== "string") return undefined;
+
   const trimmed = value.trim();
   return trimmed || undefined;
 }
@@ -23,6 +24,7 @@ export function toAbsoluteWebsiteUrl(
 ): string {
   const trimmed = pathOrUrl.trim();
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
+
   const base = websiteUrl.replace(/\/$/, "");
   const path = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
   return `${base}${path}`;
@@ -49,6 +51,7 @@ export async function collectPageSeoArgs(
         if (typeof service.providePageSeoArguments !== "function") {
           return undefined;
         }
+
         return service.providePageSeoArguments(appData, page, routeParams);
       },
       { ignoreErrors: true },

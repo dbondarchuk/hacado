@@ -44,12 +44,14 @@ export function useGiftCardPurchase({
   const t = useI18n<GiftCardStudioPublicNamespace, GiftCardStudioPublicKeys>(
     giftCardStudioPublicNamespace,
   );
+
   const i18n = useI18n("translation");
   const currencyFormat = useCurrencyFormat();
   const currencySymbol = useCurrencySymbol();
 
   const [currentStep, setCurrentStep] =
     useState<(typeof STEPS)[number]>("details");
+
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +60,7 @@ export function useGiftCardPurchase({
   const [payment, setPayment] = useState<CollectPayment | null>(null);
   const [amountLimits, setAmountLimits] =
     useState<GetAmountLimitsResponse | null>(null);
+
   const [designs, setDesigns] = useState<IdName[]>([]);
 
   const PaymentForm = useMemo(
@@ -77,6 +80,7 @@ export function useGiftCardPurchase({
           }),
         });
       }
+
       if (data.amount > (amountLimits?.maxAmount ?? DEFAULT_MAX_AMOUNT)) {
         ctx.addIssue({
           path: ["amount"],

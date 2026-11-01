@@ -64,6 +64,7 @@ export async function GET(
       },
       "Failed to get asset",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -135,6 +136,7 @@ export async function PATCH(
       },
       "Failed to update asset",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -210,6 +212,7 @@ export async function DELETE(
       },
       "Failed to delete asset",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -237,6 +240,7 @@ async function assertCanMutateAsset(
     const appointment = await servicesContainer.bookingService.getAppointment(
       asset.appointmentId,
     );
+
     if (appointment && !canUpdateAppointment(auth.user, appointment.memberId)) {
       logger.warn({ appointmentId: asset.appointmentId }, "Forbidden");
       return {
@@ -247,6 +251,7 @@ async function assertCanMutateAsset(
         ),
       };
     }
+
     return auth;
   }
 

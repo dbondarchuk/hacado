@@ -28,12 +28,14 @@ async function resolveAppointmentForModify(
   const logger = getLoggerFactory("AppointmentsUtils")(
     "resolveAppointmentForModify",
   );
+
   logger.debug({ request }, "Resolving appointment for modify");
   if (request.lookup === "appointmentId") {
     logger.debug(
       { appointmentId: request.appointmentId },
       "Getting appointment by id",
     );
+
     const appointment = await servicesContainer.bookingService.getAppointment(
       request.appointmentId,
     );
@@ -43,6 +45,7 @@ async function resolveAppointmentForModify(
         { appointmentId: request.appointmentId },
         "Appointment not found",
       );
+
       return null;
     }
 
@@ -55,6 +58,7 @@ async function resolveAppointmentForModify(
         },
         "Appointment does not belong to the customer",
       );
+
       return null;
     }
 
@@ -63,6 +67,7 @@ async function resolveAppointmentForModify(
         { appointmentId: request.appointmentId },
         "Appointment is closed",
       );
+
       return null;
     }
 
@@ -90,6 +95,7 @@ async function applyGiftCardsToPaymentAmount(
   if (!giftCardCodes?.length) {
     return { paymentAmount };
   }
+
   const result = await applyGiftCards(giftCardCodes, paymentAmount);
   if (!result.success) {
     return {
@@ -100,10 +106,12 @@ async function applyGiftCardsToPaymentAmount(
       },
     };
   }
+
   const totalApplied = result.giftCards.reduce(
     (sum, gc) => sum + gc.appliedAmount,
     0,
   );
+
   return {
     paymentAmount: Math.max(0, paymentAmount - totalApplied),
     giftCards: result.giftCards,
@@ -194,11 +202,13 @@ export const getModifyAppointmentInformationRequestResult = async (
       option?.cancellationPolicy?.[
         hasDeposit ? "withDeposit" : "withoutDeposit"
       ];
+
     if (optionConfig?.type === "custom") {
       logger.debug(
         { optionId: option?._id },
         "Option has custom cancellation policy. Using it instead of general configuration.",
       );
+
       featureConfig = optionConfig;
     }
 
@@ -249,7 +259,6 @@ export const getModifyAppointmentInformationRequestResult = async (
         customerId: appointment.customerId,
       };
     }
-
     if (policy.action === "allowed") {
       return {
         information: {
@@ -261,7 +270,6 @@ export const getModifyAppointmentInformationRequestResult = async (
         customerId: appointment.customerId,
       };
     }
-
     if (hasDeposit && policy.action === "forfeitDeposit") {
       return {
         information: {
@@ -386,6 +394,7 @@ export const getModifyAppointmentInformationRequestResult = async (
           policy.paymentAmount,
           request.giftCards,
         );
+
         if ("error" in giftCardResult) return giftCardResult;
         if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
           return onlinePaymentUnavailable();
@@ -430,8 +439,8 @@ export const getModifyAppointmentInformationRequestResult = async (
         paymentAmount,
         request.giftCards,
       );
-      if ("error" in giftCardResult) return giftCardResult;
 
+      if ("error" in giftCardResult) return giftCardResult;
       if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
         return onlinePaymentUnavailable();
       }
@@ -467,6 +476,7 @@ export const getModifyAppointmentInformationRequestResult = async (
         { optionId: option?._id },
         "Option has custom reschedule policy. Using it instead of general configuration.",
       );
+
       featureConfig = optionConfig;
     }
 
@@ -533,7 +543,6 @@ export const getModifyAppointmentInformationRequestResult = async (
         customerId: appointment.customerId,
       };
     }
-
     if (policy.action === "allowed") {
       return {
         information: {

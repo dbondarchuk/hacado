@@ -23,6 +23,7 @@ export class TextMessageConfigurationService
   public async isEnabled(): Promise<boolean> {
     const textMessaging =
       await this.configurationService.getConfiguration("textMessaging");
+
     return textMessaging?.enabled === true;
   }
 

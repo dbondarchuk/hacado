@@ -29,6 +29,7 @@ function toBackgroundCss(
   if (color === "transparent") {
     return "transparent";
   }
+
   const base = getColorStyle(color);
   if (!base || !withBlur || color === "currentColor") {
     return base;
@@ -36,6 +37,7 @@ function toBackgroundCss(
   if (base.startsWith("hsl(") && !base.includes("/")) {
     return base.replace(/\)$/, " / 0.9)");
   }
+
   return base;
 }
 
@@ -84,6 +86,7 @@ export const HeaderInternal = ({
     position: style.position,
     sticky: config.sticky,
   });
+
   const withBlur = Boolean(style.backdropBlur) && resolvedPosition !== "static";
   const backgroundColor = toBackgroundCss(style.backgroundColor, withBlur);
 
@@ -101,6 +104,7 @@ export const HeaderInternal = ({
 
   const blockPreviewNavigation = (event: MouseEvent | KeyboardEvent) => {
     if (!preview) return;
+
     blockPreviewLinkNavigation(event);
   };
 

@@ -24,6 +24,7 @@ export async function GET(req: NextRequest) {
       if (typeof service.provideLlmsFullTxt !== "function") {
         return undefined;
       }
+
       return service.provideLlmsFullTxt(appData, { websiteUrl });
     },
     { ignoreErrors: true },

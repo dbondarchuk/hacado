@@ -41,6 +41,7 @@ export const appointmentsSearchParamsLoader = createLoader(
 export const appointmentsSearchParamsSchema = createStandardSchemaV1(
   appointmentsSearchParams,
 );
+
 export type AppointmentsSearchParams = Partial<
   inferParserType<typeof appointmentsSearchParams>
 >;
@@ -48,6 +49,7 @@ export type AppointmentsSearchParams = Partial<
 export const appointmentsSearchParamsCache = createSearchParamsCache(
   appointmentsSearchParams,
 );
+
 export const serializeAppointmentsSearchParams = createSerializer(
   appointmentsSearchParams,
 );

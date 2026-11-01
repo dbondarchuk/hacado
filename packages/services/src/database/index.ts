@@ -19,6 +19,7 @@ const getClient = () => {
     if (!globalWithMongo._mongoClient) {
       globalWithMongo._mongoClient = new MongoClient(uri, options);
     }
+
     client = globalWithMongo._mongoClient;
   } else {
     // In production mode, it's best to not use a global variable.

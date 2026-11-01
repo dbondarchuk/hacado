@@ -22,6 +22,7 @@ export const ForeachContainerConfiguration = deepMemo(
         setData({ ...data, props: p as ForeachContainerProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) =>
         setData({ ...data, style: s as ForeachContainerProps["style"] }),

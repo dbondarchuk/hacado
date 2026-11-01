@@ -60,6 +60,7 @@ export const WaitlistSmsConsent = ({
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const { name: businessName } = useConfig();
   const textMessaging = useTextMessaging();
   if (!textMessaging.enabled || !kind) return null;

@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
   const assets = await Promise.all(
     data.ids.map((id) => servicesContainer.assetsService.getAsset(id)),
   );
+
   const found = assets.filter((asset): asset is NonNullable<typeof asset> =>
     Boolean(asset),
   );
@@ -47,9 +48,11 @@ export async function POST(request: NextRequest) {
 
     for (const asset of appointmentAssets) {
       if (!asset.appointmentId) continue;
+
       const appointment = await servicesContainer.bookingService.getAppointment(
         asset.appointmentId,
       );
+
       if (
         appointment &&
         !canUpdateAppointment(auth.user, appointment.memberId)
@@ -84,6 +87,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to delete assets",
     );
+
     return NextResponse.json(
       {
         success: false,

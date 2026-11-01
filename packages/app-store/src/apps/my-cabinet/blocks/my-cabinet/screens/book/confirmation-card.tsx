@@ -27,6 +27,7 @@ export const ConfirmationCard: React.FC = () => {
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const tc = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );

@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
     json.channel === "email" || json.channel === "phone"
       ? json.channel
       : undefined;
+
   const existingOnly = json.existingOnly === true;
 
   if (!email && !phone) {
@@ -99,10 +100,12 @@ export async function POST(request: NextRequest) {
       otpPayload,
       ip,
     );
+
     await trackBookingStep(request, "OTP_REQUESTED", {
       customerEmail: email,
       customerName: name || undefined,
     });
+
     logger.debug("OTP request processed successfully");
     return NextResponse.json(result);
   } catch (error) {
@@ -111,11 +114,13 @@ export async function POST(request: NextRequest) {
         { code: error.code, message: error.message },
         "Booking OTP request failed",
       );
+
       return NextResponse.json(
         { success: false, error: error.code },
         { status: error.status },
       );
     }
+
     throw error;
   }
 }

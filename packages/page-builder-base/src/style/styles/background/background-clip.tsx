@@ -12,6 +12,7 @@ const options = [
   "initial",
   "inherit",
 ] as const;
+
 const BackgroundClipSchema = z.enum(options);
 
 export const backgroundClipStyle = {
@@ -23,6 +24,7 @@ export const backgroundClipStyle = {
   defaultValue: "border-box",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `background-clip: ${value};`;
   },
   component: ({ value, onChange }) => {

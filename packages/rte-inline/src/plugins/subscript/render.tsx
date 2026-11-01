@@ -8,5 +8,6 @@ export function renderSubscript(
   if (marks.subscript) {
     return <sub>{content}</sub>;
   }
+
   return content;
 }

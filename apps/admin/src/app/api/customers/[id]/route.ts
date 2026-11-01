@@ -60,6 +60,7 @@ export async function GET(
       },
       "Failed to get customer",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -99,6 +100,7 @@ export async function PUT(
       { error, customerId: id },
       "Invalid customer update model format",
     );
+
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
@@ -128,6 +130,7 @@ export async function PUT(
       },
       "Failed to update customer",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -194,6 +197,7 @@ export async function DELETE(
       },
       "Failed to delete customer",
     );
+
     return NextResponse.json(
       {
         success: false,

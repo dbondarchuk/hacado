@@ -175,6 +175,7 @@ export const checkGiftCardCodeUnique = async (code: string, id?: string) => {
     code,
     id,
   });
+
   const response = await fetchAdminApi(`/gift-cards/check${serializedParams}`);
 
   const data = await response.json<boolean>();

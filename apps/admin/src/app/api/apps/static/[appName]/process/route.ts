@@ -9,6 +9,7 @@ export async function POST(
   const logger = getLoggerFactory("AdminAPI/apps/static/[appName]/process")(
     "POST",
   );
+
   const servicesContainer = await getServicesContainer();
   const { appName } = await params;
   const body = await request.json();
@@ -49,6 +50,7 @@ export async function POST(
       },
       "Failed to process static app request",
     );
+
     return NextResponse.json(
       {
         success: false,

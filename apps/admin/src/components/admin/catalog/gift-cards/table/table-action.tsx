@@ -33,6 +33,7 @@ export function GiftCardsTableAction() {
     end,
     setEndValue,
   } = useGiftCardsTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const t = useI18n("admin");
 

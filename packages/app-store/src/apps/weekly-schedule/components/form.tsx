@@ -94,6 +94,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
   const [daySources, setDaySources] = useState<
     Record<number, ScheduleDaySource>
   >({});
+
   const [holidays, setHolidays] = useState<ScheduleWeekDay[]>([]);
   const [savingHolidays, setSavingHolidays] = useState(false);
   const [recurrence, setRecurrence] = useState<ScheduleRecurrenceInfo | null>(
@@ -154,6 +155,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
       setCurrentSchedule(next);
       return;
     }
+
     setCurrentSchedule(next);
   }, []);
 
@@ -162,8 +164,10 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
   const saveDelayedSchedule = useEffectEvent(
     async (newSchedule: WeeklySchedule) => {
       if (loading) return;
+
       const epoch = scopeEpochRef.current;
       if (week < todayWeek) return;
+
       const nextJson = JSON.stringify(newSchedule);
       if (nextJson === baselineJsonRef.current) return;
 
@@ -184,6 +188,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
 
         const response = await getWeeklySchedule(appId, week, memberId);
         if (epoch !== scopeEpochRef.current) return;
+
         setIsDefault(response.isDefault);
         setDaySources(response.daySources || {});
         setHolidays(response.holidays || []);
@@ -196,6 +201,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
 
   useEffect(() => {
     if (!delayedSchedule) return;
+
     void saveDelayedSchedule(delayedSchedule);
   }, [delayedSchedule]);
 
@@ -207,12 +213,14 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
   // keep loadSchedule stable usage for holidays
   const persistHolidays = async (nextHolidays: ScheduleWeekDay[]) => {
     if (!isCompanyScope || week < todayWeek) return;
+
     setSavingHolidays(true);
     try {
       await toastPromise(setCompanyHolidays(appId, week, nextHolidays), {
         success: t("statusText.saved"),
         error: t("statusText.request_error"),
       });
+
       reloadSchedule();
     } catch (error: any) {
       console.error(error);
@@ -225,6 +233,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
     const next = holidays.includes(weekDay)
       ? holidays.filter((day) => day !== weekDay)
       : [...holidays, weekDay].sort((a, b) => a - b);
+
     setHolidays(next);
     void persistHolidays(next);
   };
@@ -249,6 +258,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
           params.set(key, value);
         }
       });
+
       router.push(`?${params.toString()}`);
     },
     [router, searchParams],
@@ -450,6 +460,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
                 .startOf("day")
                 .plus({ days: weekDay - 1 })
                 .toFormat("ccc");
+
               return (
                 <Button
                   key={weekDay}

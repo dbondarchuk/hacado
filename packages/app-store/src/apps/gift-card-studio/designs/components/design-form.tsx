@@ -52,6 +52,7 @@ export const DesignForm: React.FC<{
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
   const [loading, setLoading] = useState(false);
   const isValidDesign = useIsValidDesign();
@@ -76,6 +77,7 @@ export const DesignForm: React.FC<{
     () => initialData?.design ?? getDefaultDesign(),
     [initialData?.design],
   );
+
   const form = useForm<FormValues>({
     // Cast needed when zod schema inference differs slightly from DesignUpdateModel (same shape at runtime).
     resolver: zodResolver(formSchema) as never,
@@ -123,6 +125,7 @@ export const DesignForm: React.FC<{
             error: t("designs.form.toasts.updatedError"),
           },
         );
+
         router.refresh();
       } else {
         const result = await toastPromise(
@@ -135,6 +138,7 @@ export const DesignForm: React.FC<{
             error: t("designs.form.toasts.createdError"),
           },
         );
+
         router.push(`/dashboard/gift-card-studio/edit?id=${result._id}`);
       }
     } catch (e) {

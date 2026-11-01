@@ -26,8 +26,10 @@ export const templateSearchParams = {
 
 export const templateSearchParamsCache =
   createSearchParamsCache(templateSearchParams);
+
 export const templateSearchParamsSchema =
   createStandardSchemaV1(templateSearchParams);
+
 export const templateSearchParamsSerializer =
   createSerializer(templateSearchParams);
 

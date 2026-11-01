@@ -41,6 +41,7 @@ export const BlogCommentsContainerServerWrapper = async ({
   const pageParsed = Array.isArray(pageRaw)
     ? parseInt(pageRaw[0] ?? "1", 10)
     : parseInt(String(pageRaw ?? "1"), 10);
+
   const page = Number.isFinite(pageParsed) && pageParsed > 0 ? pageParsed : 1;
 
   const containerArgs = {
@@ -56,7 +57,6 @@ export const BlogCommentsContainerServerWrapper = async ({
       </div>
     );
   }
-
   if (!commentsEnabled) {
     return (
       <BlogCommentsContainerComponent
@@ -98,6 +98,7 @@ export const BlogCommentsContainerServerWrapper = async ({
   const servicesContainer = ServicesContainer(organizationId);
   const appServiceProps =
     servicesContainer.connectedAppsService.getAppServiceProps(appId);
+
   const repositoryService = new BlogRepositoryService(
     appId,
     organizationId,

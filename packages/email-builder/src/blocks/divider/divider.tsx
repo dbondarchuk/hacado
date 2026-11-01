@@ -12,10 +12,13 @@ export const Divider = forwardRef<
     padding: getPadding(style?.padding),
     backgroundColor: style?.backgroundColor ?? undefined,
   };
+
   const borderTopWidth =
     props?.lineHeight ?? DividerPropsDefaults.props.lineHeight;
+
   const borderTopColor =
     props?.lineColor ?? DividerPropsDefaults.props.lineColor;
+
   return (
     <div style={st} ref={ref} onClick={onClick}>
       <hr

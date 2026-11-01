@@ -72,6 +72,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     reValidateMode: "onChange",
     values: { ...values },
   });
+
   const {
     fields: calendarSourceFields,
     append: appendCalendarSource,
@@ -98,6 +99,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           ? data.meetingUrlProviderAppId
           : values.meetingUrlProviderAppId,
       };
+
       await toastPromise(onSave(payload), {
         success: t("users.profile.toasts.changesSaved"),
         error: t("users.profile.toasts.requestError"),
@@ -113,6 +115,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         if (isSelfProfile) {
           session.refetch();
         }
+
         router.refresh();
       }
     } catch (error: any) {

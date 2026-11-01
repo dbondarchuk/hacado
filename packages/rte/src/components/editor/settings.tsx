@@ -65,6 +65,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     openai: "",
     uploadthing: "",
   });
+
   const [model, setModel] = useState<Model>(models[0]);
 
   const setKey = (service: string, key: string) => {
@@ -108,6 +109,7 @@ export function SettingsDialog() {
     Object.entries(tempKeys).forEach(([service, key]) => {
       setKey(service, key);
     });
+
     setOpen(false);
 
     // Update AI options if needed

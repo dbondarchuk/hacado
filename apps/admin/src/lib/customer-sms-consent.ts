@@ -9,6 +9,7 @@ export const customerConsentPhone = (
   const allowed = [customer.phone, ...(customer.knownPhones ?? [])]
     .map((phone) => normalizeToE164(phone ?? ""))
     .filter((phone): phone is string => Boolean(phone));
+
   const phone = requested
     ? normalizeToE164(requested)
     : customer.phone
@@ -63,6 +64,7 @@ export const ensureCustomerSmsConsent = async (input: {
 
   const allowed =
     await input.smsConsentService.hasActiveCustomerSmsConsent(phone);
+
   if (!allowed) {
     return {
       ok: false,

@@ -72,10 +72,12 @@ export const AllOrSidesInput = <T,>(props: AllOrSidesInputProps<T>) => {
 
   const switchToAll = () => {
     if (!isIndividual) return;
+
     if (props.layout === "sides" && isPerSideValue(props.value)) {
       props.onChange(collapseSidesToAll(props.value, props.defaultAllValue));
       return;
     }
+
     if (props.layout === "corners" && isPerCornerValue(props.value)) {
       props.onChange(collapseCornersToAll(props.value, props.defaultAllValue));
     }
@@ -83,17 +85,21 @@ export const AllOrSidesInput = <T,>(props: AllOrSidesInputProps<T>) => {
 
   const switchToIndividual = () => {
     if (isIndividual) return;
+
     const allValue =
       (props.value as T | null | undefined) ?? props.defaultAllValue;
+
     if (props.layout === "sides") {
       props.onChange(expandAllToSides(allValue));
       return;
     }
+
     props.onChange(expandAllToCorners(allValue));
   };
 
   const handleAllChange = (next: T | null) => {
     if (next == null) return;
+
     props.onChange(next);
   };
 
@@ -108,6 +114,7 @@ export const AllOrSidesInput = <T,>(props: AllOrSidesInputProps<T>) => {
     props.layout === "sides" && isPerSideValue(props.value)
       ? props.value
       : null;
+
   const cornersValue =
     props.layout === "corners" && isPerCornerValue(props.value)
       ? props.value

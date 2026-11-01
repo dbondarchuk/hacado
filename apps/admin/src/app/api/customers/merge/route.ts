@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/customers/merge")("POST");
   const auth = await requirePermission("customer", "merge", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const body = await request.json();
 
@@ -64,6 +65,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to merge customers",
     );
+
     return NextResponse.json(
       {
         success: false,

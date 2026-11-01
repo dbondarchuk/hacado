@@ -162,6 +162,7 @@ export default class BusyEventsConnectedApp
             { appId: appData._id, week: data.week, eventCount: result.length },
             "Retrieved weekly busy events",
           );
+
           return result;
 
         case "set-busy-events":
@@ -312,6 +313,7 @@ export default class BusyEventsConnectedApp
       BusyEventsPublicNamespace,
       BusyEventsPublicKeys
     >(busyEventsPublicNamespace);
+
     logger.debug(
       {
         appId,

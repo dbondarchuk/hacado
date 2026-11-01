@@ -4,6 +4,7 @@ export const catalogSources = [
   "member",
   "package",
 ] as const;
+
 export type CatalogSource = (typeof catalogSources)[number];
 
 export const durationFormats = [
@@ -12,6 +13,7 @@ export const durationFormats = [
   "minutes",
   "hoursMinutes",
 ] as const;
+
 export type DurationFormat = (typeof durationFormats)[number];
 
 export const durationStyles = ["long", "medium", "short"] as const;
@@ -59,6 +61,7 @@ export function getCatalogProperty(
   propertyId: string | null | undefined,
 ) {
   if (!source || !propertyId) return undefined;
+
   return catalogProperties[source].find(
     (property) => property.id === propertyId,
   ) as CatalogProperty | undefined;

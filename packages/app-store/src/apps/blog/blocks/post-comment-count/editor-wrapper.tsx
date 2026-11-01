@@ -37,6 +37,7 @@ export const BlogPostCommentCountEditorWrapper = ({
     if (!args?.post) {
       return t("notInBlogContext");
     }
+
     return getCommentCountFormatPreview(format, t);
   }, [args?.post, format, t]);
 

@@ -47,8 +47,10 @@ export async function GET(request: NextRequest) {
       getUser(),
       getOwnerMemberIds(),
     ]);
+
     const installed =
       await servicesContainer.connectedAppsService.getAppsByApp(appName);
+
     const apps = filterConnectedAppsForUser(
       user,
       installed.map(withCatalogTarget),
@@ -72,6 +74,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to get apps by name",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to delete page footers",
     );
+
     return NextResponse.json(
       {
         success: false,

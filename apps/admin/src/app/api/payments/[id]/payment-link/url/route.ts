@@ -14,6 +14,7 @@ export async function GET(
   const logger = getLoggerFactory("AdminAPI/payments/[id]/payment-link/url")(
     "GET",
   );
+
   const servicesContainer = await getServicesContainer();
   const session = await getSession();
   const { id: paymentId } = await params;

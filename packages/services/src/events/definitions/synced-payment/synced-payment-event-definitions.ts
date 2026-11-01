@@ -47,6 +47,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentIngestedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -69,6 +70,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       dashboardNotification: async (envelope, services) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentIngestedPayload;
+
         const badges = await reviewQueueBadges(services);
         const isMatched = syncedPayment.status === "matched";
         const keyPrefix = isMatched
@@ -115,6 +117,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentConfirmedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -142,6 +145,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentRejectedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -169,6 +173,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment, previousAppointmentId } =
           envelope.payload as SyncedPaymentAssignedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -205,6 +210,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentUnassignedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -232,6 +238,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentUnrecordedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -259,6 +266,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentIgnoredPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -286,6 +294,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
       recordActivity: (envelope) => {
         const { syncedPayment, previousPaymentAmount, previousTip } =
           envelope.payload as SyncedPaymentAmountsUpdatedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,

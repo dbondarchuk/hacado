@@ -8,5 +8,6 @@ export function renderItalic(
   if (marks.italic) {
     return <em>{content}</em>;
   }
+
   return content;
 }

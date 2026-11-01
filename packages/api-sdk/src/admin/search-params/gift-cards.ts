@@ -33,6 +33,7 @@ export const giftCardsSearchParams = {
 export const giftCardsSearchParamsCache = createSearchParamsCache(
   giftCardsSearchParams,
 );
+
 export const giftCardsSearchParamsSerializer = createSerializer(
   giftCardsSearchParams,
 );
@@ -40,6 +41,7 @@ export const giftCardsSearchParamsSerializer = createSerializer(
 export type GiftCardsSearchParams = Partial<
   inferParserType<typeof giftCardsSearchParams>
 >;
+
 export const giftCardsSearchParamsLoader = createLoader(giftCardsSearchParams);
 export const giftCardsSearchParamsSchema = createStandardSchemaV1(
   giftCardsSearchParams,
@@ -53,6 +55,7 @@ export const checkGiftCardCodeUniqueSearchParams = {
 export const checkGiftCardCodeUniqueParamsLoader = createLoader(
   checkGiftCardCodeUniqueSearchParams,
 );
+
 export const checkGiftCardCodeUniqueParamsSerializer = createSerializer(
   checkGiftCardCodeUniqueSearchParams,
 );

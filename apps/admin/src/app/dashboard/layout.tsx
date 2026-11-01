@@ -68,18 +68,22 @@ export default async function DashboardLayout({
       const pendingInvitation = await findPendingInvitationForEmail(
         session.user.email,
       );
+
       if (pendingInvitation) {
         redirect(
           `/accept-invitation?invitationId=${encodeURIComponent(pendingInvitation.id)}`,
         );
       }
     }
+
     const billingOk = await organizationHasInstallBillingAccess(
       session.user.organizationId,
     );
+
     if (!billingOk) {
       redirect("/checkout");
     }
+
     redirect("/install");
   }
 
@@ -87,6 +91,7 @@ export default async function DashboardLayout({
   const planTier = getSessionPlanTier(session);
   const showFreeTierUpgradeBanner =
     isFreeTier(planTier) && !isSubscriptionPastDue(subscriptionStatus);
+
   const t = await getI18nAsync("admin");
 
   const servicesContainer = await getServicesContainer();
@@ -129,8 +134,10 @@ export default async function DashboardLayout({
     if (target === "member") {
       return !!currentMemberId && app.memberId === currentMemberId;
     }
+
     return true;
   });
+
   const appsMenus = appsWithMenu.flatMap(({ name }) =>
     (AppMenuItems[name] || []).map((item) => ({
       ...item,
@@ -145,6 +152,7 @@ export default async function DashboardLayout({
     .forEach(({ Page: _, ...item }) => {
       const group = groups.find((group) => group.id === item.group);
       if (!group) return;
+
       group.children = group.children || [];
       group.children.push({
         ...item,

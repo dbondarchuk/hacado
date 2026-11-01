@@ -20,6 +20,7 @@ export const ToolbarBlockToolbarGroup = () => {
   const slotParentBlock = useBlock(selectedSlot?.blockId ?? "");
   const { styles: slotStyles, setStyles: setSlotStyles } =
     useSelectedSlotStyleHandlers();
+
   const rootBlockId = useRootBlockId();
   const rootBlock = useRootBlock();
   const inspectBlock = selectedBlock ?? slotParentBlock ?? rootBlock;
@@ -60,6 +61,7 @@ export const ToolbarBlockToolbarGroup = () => {
     if (selectedSlot) {
       return { ...data, style: slotStyles };
     }
+
     return data;
   }, [inspectBlock?.data, selectedSlot, slotStyles]);
 
@@ -69,8 +71,10 @@ export const ToolbarBlockToolbarGroup = () => {
         setSlotStyles(
           (data as { style?: Record<string, unknown> }).style ?? {},
         );
+
         return;
       }
+
       setBlockData(data);
     },
     [selectedSlot, setSlotStyles, setBlockData],

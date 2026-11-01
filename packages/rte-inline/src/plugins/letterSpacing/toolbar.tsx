@@ -29,6 +29,7 @@ export function LetterSpacingToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("letterSpacing")) return null;
+
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>

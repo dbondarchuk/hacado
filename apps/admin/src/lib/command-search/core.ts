@@ -93,6 +93,7 @@ export async function searchCoreRecords({
       async () => {
         const { timeZone } =
           await services.configurationService.getConfiguration("general");
+
         const memberIds = gateMemberIds(user, undefined);
         const result = await services.bookingService.getAppointments({
           search: query,

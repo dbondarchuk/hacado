@@ -32,6 +32,7 @@ export function getDateFromWeekIdentifier(identifier: WeekIdentifier): Date {
  */
 export function resolveIanaTimeZone(timeZone?: string | null): string {
   if (timeZone && timeZone !== "local") return timeZone;
+
   return DateTime.now().zoneName || "UTC";
 }
 
@@ -68,6 +69,7 @@ export const timeToDuration = (
   time?: { hours: number; minutes: number } | null,
 ) => {
   if (!time) return undefined;
+
   return time.hours * 60 + time.minutes;
 };
 
@@ -79,6 +81,7 @@ export const weeks = {
       "hours",
       "minutes",
     );
+
     return {
       weeks: duration.weeks,
       days: duration.days,
@@ -95,6 +98,7 @@ export const weeks = {
     } | null,
   ) => {
     if (!time) return undefined;
+
     return (
       time.weeks * 7 * 24 * 60 +
       time.days * 24 * 60 +
@@ -113,6 +117,7 @@ export const is12hourUserTimeFormat = (locale?: string) => {
   const format = new Intl.DateTimeFormat(locale, {
     hour: "numeric",
   }).resolvedOptions().hourCycle;
+
   return format?.startsWith("h12") ?? false;
 };
 

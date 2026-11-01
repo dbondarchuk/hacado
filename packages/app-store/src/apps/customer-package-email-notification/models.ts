@@ -87,6 +87,7 @@ export const customerPackageEmailNotificationConfigurationSchema = z
           "app_customer-package-email-notification_admin.validation.emailTemplate.templateId.required" satisfies CustomerPackageEmailNotificationAdminAllKeys,
       });
     }
+
     if (!data.expiringSoon.thresholdMinutes) {
       ctx.addIssue({
         code: "custom",

@@ -39,6 +39,7 @@ export const optionAppointmentModificationPolicyType = [
   "inherit",
   "custom",
 ] as const;
+
 export const optionAppointmentModificationPolicyTypeSchema = z.enum(
   optionAppointmentModificationPolicyType,
   {
@@ -388,6 +389,7 @@ export type AppointmentAddon = Prettify<
 export const appointmentAddonsSchema = z
   .array(appointmentAddonSchema)
   .optional();
+
 export type AppointmentAddons = z.infer<typeof appointmentAddonsSchema>;
 
 export type AppointmentChoice = Prettify<

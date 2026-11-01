@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/customers/delete")("POST");
   const auth = await requirePermission("customer", "delete", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const body = await request.json();
@@ -51,6 +52,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to delete customers",
     );
+
     return NextResponse.json(
       {
         success: false,

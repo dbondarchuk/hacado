@@ -68,6 +68,7 @@ export class ResendWebhookService {
         { error: error instanceof Error ? error.message : "invalid signature" },
         "Rejected Resend webhook",
       );
+
       return Response.json({ success: false }, { status: 400 });
     }
 
@@ -82,6 +83,7 @@ export class ResendWebhookService {
         args: { detail: failureDetail(event) },
       },
     });
+
     logger.info(
       { type: event.type, emailId: event.data.email_id },
       "Marked communication log failed from Resend",

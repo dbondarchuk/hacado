@@ -25,6 +25,7 @@ export const displayStyle = {
   defaultValue: "block",
   renderToCSS: (value: any) => {
     if (!value) return null;
+
     return `display: ${value};`;
   },
   component: ({ value, onChange }) => {

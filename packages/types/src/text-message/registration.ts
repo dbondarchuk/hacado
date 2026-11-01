@@ -85,6 +85,7 @@ export const textMessagingSettingsFormSchema = z
       "configuration.textMessaging.privacyPage.required",
       ctx,
     );
+
     requiredText(
       value.termsPageId,
       ["termsPageId"],
@@ -182,6 +183,7 @@ export const smsVerificationFormSchema = smsRegistrationInputSchema.superRefine(
       "configuration.textMessaging.contactPhone.required",
       ctx,
     );
+
     if (
       value.contactPhone?.trim() &&
       !zPhone.safeParse(value.contactPhone.trim()).success

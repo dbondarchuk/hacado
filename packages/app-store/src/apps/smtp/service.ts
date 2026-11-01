@@ -213,6 +213,7 @@ export default class SmtpConnectedApp
             { appId: appData._id, icsError },
             "Failed to parse iCal event",
           );
+
           throw new ConnectedAppError(
             "app_smtp_admin.statusText.error_parsing_ical_event" satisfies SmtpAdminAllKeys,
           );
@@ -239,9 +240,11 @@ export default class SmtpConnectedApp
           const result = await this.props.services.assetsStorage.getFile(
             attachment.storageFilename,
           );
+
           if (!result) {
             throw new Error("Attachment not found");
           }
+
           const { stream } = result;
           return {
             cid: attachment.cid,
@@ -382,6 +385,7 @@ export default class SmtpConnectedApp
         },
         "Error creating SMTP client",
       );
+
       throw error;
     }
   }

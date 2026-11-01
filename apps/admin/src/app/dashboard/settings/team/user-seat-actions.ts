@@ -38,6 +38,7 @@ function pickPrimaryFixedPrice(product: {
       };
     }
   }
+
   return null;
 }
 
@@ -72,8 +73,10 @@ export async function listUserSeatProductOffers(): Promise<
 
     for (const product of items) {
       if (String(product.metadata.type ?? "") !== USER_SLOTS_LABEL) continue;
+
       const price = pickPrimaryFixedPrice(product);
       if (!price) continue;
+
       const usersAmount = Number(product.metadata?.users_amount ?? 0);
       if (!Number.isFinite(usersAmount) || usersAmount <= 0) continue;
 
@@ -96,6 +99,7 @@ export async function listUserSeatProductOffers(): Promise<
     products.sort(
       (a, b) => a.usersAmount - b.usersAmount || a.name.localeCompare(b.name),
     );
+
     return { ok: true, products };
   } catch (error) {
     logger.error({ error }, "listUserSeatProductOffers failed");
@@ -124,7 +128,6 @@ export async function createUserSeatCheckoutSession(
 
   const session = await getSession();
   if (!session?.user?.id) return { ok: false, code: "unauthorized" };
-
   if (!canManageTeam(session.user)) {
     return { ok: false, code: "forbidden" };
   }
@@ -134,7 +137,6 @@ export async function createUserSeatCheckoutSession(
   if (org?.feesExempt === true) {
     return { ok: false, code: "additional_users_not_allowed" };
   }
-
   if (!org?.allowAdditionalUsers) {
     return { ok: false, code: "additional_users_not_allowed" };
   }
@@ -171,6 +173,7 @@ export async function createUserSeatCheckoutSession(
       successUrl,
       returnUrl,
     });
+
     return { ok: true, url: checkoutSession.url };
   } catch (error) {
     logger.error({ error }, "User seat checkout failed");

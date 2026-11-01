@@ -50,6 +50,7 @@ async function buildSmsCreditThresholdEmails(
   const organization = await services.organizationService.getOrganization();
   const organizationLabel =
     organization?.name?.trim() || organization?.slug || "";
+
   const layoutArgs = {
     config: organizationLabel ? { name: organizationLabel } : {},
   };
@@ -60,6 +61,7 @@ async function buildSmsCreditThresholdEmails(
   const notifications: EmailNotificationRequest[] = [];
   for (const admin of admins) {
     if (!admin.email) continue;
+
     const t = await getI18nAsync({ locale: admin.language });
     const subject = t(`${keyPrefix}.subject`, interpolation);
     const body = await renderUserEmailTemplate(

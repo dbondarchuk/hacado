@@ -37,11 +37,13 @@ export async function POST(
     body.data.status,
     actor,
   );
+
   if (!result) {
     return NextResponse.json(
       { success: false, code: "package_not_found" },
       { status: 404 },
     );
   }
+
   return NextResponse.json(result);
 }

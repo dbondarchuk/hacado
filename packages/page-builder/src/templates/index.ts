@@ -63,6 +63,7 @@ export {
   type PageLayoutKind,
   type WebsitePackId,
 } from "./layouts";
+
 export { marketingEditorTemplates } from "./marketing";
 export { mediaEditorTemplates } from "./media";
 export {
@@ -89,4 +90,5 @@ export {
   type TemplatePreviewGroup,
   type TemplatePreviewKey,
 } from "./preview-manifest";
+
 export { socialProofEditorTemplates } from "./social-proof";

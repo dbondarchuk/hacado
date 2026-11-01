@@ -38,6 +38,7 @@ export const WaitlistConfiguration = deepMemo(
       (s: unknown) => setData({ ...data, style: s as WaitlistProps["style"] }),
       [setData, data],
     );
+
     const updateProps = useCallback(
       (p: unknown) => setData({ ...data, props: p as WaitlistProps["props"] }),
       [setData, data],

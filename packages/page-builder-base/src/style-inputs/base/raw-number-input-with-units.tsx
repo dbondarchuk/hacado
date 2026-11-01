@@ -128,6 +128,7 @@ export function RawNumberInputWithUnit<U extends UnitOrUnitless = Unit>({
   const [unit, setUnit] = React.useState<U>(
     defaultValue?.unit ?? forceUnit ?? ("px" as U),
   );
+
   React.useEffect(() => {
     setUnit(defaultValue?.unit ?? forceUnit ?? ("px" as U));
   }, [defaultValue, forceUnit]);
@@ -140,6 +141,7 @@ export function RawNumberInputWithUnit<U extends UnitOrUnitless = Unit>({
     step.base ??
     baseUnitConfigs.step[unitKey] ??
     baseUnitConfigs.step.base;
+
   const currentMin = noMin
     ? allowNegative
       ? undefined
@@ -148,12 +150,14 @@ export function RawNumberInputWithUnit<U extends UnitOrUnitless = Unit>({
       min?.base ??
       baseUnitConfigs.min[unitKey] ??
       baseUnitConfigs.min.base);
+
   const currentMax = noMax
     ? undefined
     : (max?.[unit] ??
       max?.base ??
       baseUnitConfigs.max[unitKey] ??
       baseUnitConfigs.max.base);
+
   const currentOptions = [
     ...(options?.[unit] ??
       options?.base ??

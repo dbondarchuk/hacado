@@ -45,7 +45,6 @@ export const BlogEditPage = ({ appId }: { appId: string }) => {
       </AutoSkeleton>
     );
   }
-
   if (!post) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">

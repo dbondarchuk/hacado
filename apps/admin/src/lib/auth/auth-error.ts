@@ -29,11 +29,13 @@ export function normalizeAuthErrorCode(
   raw: string | null | undefined,
 ): string | null {
   if (!raw) return null;
+
   return raw.trim();
 }
 
 export function authErrorMessageKey(code: string | null): string {
   if (!code) return "auth.error.genericDescription";
+
   return (
     AUTH_ERROR_MESSAGE_KEYS[code] ??
     AUTH_ERROR_MESSAGE_KEYS[code.toLowerCase()] ??

@@ -25,6 +25,7 @@ export const GiftCardPurchaseShowcaseBlockEditor = ({
   const className = useClassName();
   const appId = (currentBlock.metadata as { giftCardStudioAppId?: string })
     ?.giftCardStudioAppId;
+
   const blockProps = currentBlock.data?.props;
   const amountPresets = normalizeAmountPresets(blockProps?.amountPresets);
   const parentBlockId = currentBlock.id;

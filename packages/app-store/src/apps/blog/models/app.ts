@@ -75,6 +75,7 @@ export const deleteSelectedBlogPostsActionSchema = z.object({
 export type DeleteSelectedBlogPostsAction = z.infer<
   typeof deleteSelectedBlogPostsActionSchema
 >;
+
 export const DeleteSelectedBlogPostsActionType = "delete-blog-posts" as const;
 
 // Check Blog Post Slug Unique Action
@@ -87,6 +88,7 @@ export const checkBlogPostSlugUniqueActionSchema = z.object({
 export type CheckBlogPostSlugUniqueAction = z.infer<
   typeof checkBlogPostSlugUniqueActionSchema
 >;
+
 export const CheckBlogPostSlugUniqueActionType =
   "check-blog-post-slug-unique" as const;
 
@@ -109,6 +111,7 @@ export const setConfigurationActionSchema = z.object({
 export type SetConfigurationAction = z.infer<
   typeof setConfigurationActionSchema
 >;
+
 export const SetConfigurationActionType = "set-configuration" as const;
 
 // Get Blog Comments Action
@@ -129,6 +132,7 @@ export const approveBlogCommentActionSchema = z.object({
 export type ApproveBlogCommentAction = z.infer<
   typeof approveBlogCommentActionSchema
 >;
+
 export const ApproveBlogCommentActionType = "approve-blog-comment" as const;
 
 // Reject Blog Comment Action
@@ -140,6 +144,7 @@ export const rejectBlogCommentActionSchema = z.object({
 export type RejectBlogCommentAction = z.infer<
   typeof rejectBlogCommentActionSchema
 >;
+
 export const RejectBlogCommentActionType = "reject-blog-comment" as const;
 
 // Delete Blog Comment Action
@@ -151,6 +156,7 @@ export const deleteBlogCommentActionSchema = z.object({
 export type DeleteBlogCommentAction = z.infer<
   typeof deleteBlogCommentActionSchema
 >;
+
 export const DeleteBlogCommentActionType = "delete-blog-comment" as const;
 
 // Delete Selected Blog Comments Action
@@ -162,6 +168,7 @@ export const deleteSelectedBlogCommentsActionSchema = z.object({
 export type DeleteSelectedBlogCommentsAction = z.infer<
   typeof deleteSelectedBlogCommentsActionSchema
 >;
+
 export const DeleteSelectedBlogCommentsActionType =
   "delete-blog-comments" as const;
 
@@ -174,6 +181,7 @@ export const approveSelectedBlogCommentsActionSchema = z.object({
 export type ApproveSelectedBlogCommentsAction = z.infer<
   typeof approveSelectedBlogCommentsActionSchema
 >;
+
 export const ApproveSelectedBlogCommentsActionType =
   "approve-blog-comments" as const;
 
@@ -186,6 +194,7 @@ export const rejectSelectedBlogCommentsActionSchema = z.object({
 export type RejectSelectedBlogCommentsAction = z.infer<
   typeof rejectSelectedBlogCommentsActionSchema
 >;
+
 export const RejectSelectedBlogCommentsActionType =
   "reject-blog-comments" as const;
 

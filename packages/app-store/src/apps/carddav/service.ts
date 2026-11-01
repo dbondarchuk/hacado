@@ -58,6 +58,7 @@ function customerToVCard(customer: Customer): string {
   if (customer.email) {
     lines.push(`EMAIL;TYPE=INTERNET:${customer.email}`);
   }
+
   if (customer.knownEmails && customer.knownEmails.length > 0) {
     customer.knownEmails.forEach((email) => {
       lines.push(`EMAIL;TYPE=INTERNET:${email}`);
@@ -67,6 +68,7 @@ function customerToVCard(customer: Customer): string {
   if (customer.phone) {
     lines.push(`TEL;TYPE=CELL:${customer.phone}`);
   }
+
   if (customer.knownPhones && customer.knownPhones.length > 0) {
     customer.knownPhones.forEach((phone) => {
       lines.push(`TEL;TYPE=CELL:${phone}`);
@@ -100,6 +102,7 @@ function parseBasicAuth(
   authHeader: string | null,
 ): { username: string; password: string } | null {
   if (!authHeader || !authHeader.startsWith("Basic ")) return null;
+
   try {
     const base64 = authHeader.substring(6);
     const decoded = Buffer.from(base64, "base64").toString("utf-8");
@@ -115,9 +118,11 @@ function validateAuth(
   config: CarddavConfiguration | undefined,
 ): boolean {
   if (!config || (!config.username && !config.password)) return true;
+
   const authHeader = request.headers.get("authorization");
   const credentials = parseBasicAuth(authHeader);
   if (!credentials) return false;
+
   const expectedUsername = config.username || "";
   const expectedPassword = config.password || "";
   return (
@@ -313,6 +318,7 @@ export default class CarddavConnectedApp
         { appId: appData._id, method, path },
         "Authentication failed",
       );
+
       return new Response("Unauthorized", {
         status: 401,
         headers: { "WWW-Authenticate": 'Basic realm="CardDAV"' },
@@ -352,6 +358,7 @@ export default class CarddavConnectedApp
           resp.headers.set(key, value);
         });
       }
+
       return resp;
     }
 
@@ -469,6 +476,7 @@ ${inner}
       <D:status>HTTP/1.1 200 OK</D:status>
     </D:propstat>
   </D:response>`;
+
       return new Response(wrap(inner), {
         status: 207,
         headers: { "Content-Type": "application/xml; charset=utf-8" },
@@ -489,6 +497,7 @@ ${inner}
       <D:status>HTTP/1.1 200 OK</D:status>
     </D:propstat>
   </D:response>`;
+
       return new Response(wrap(inner), {
         status: 207,
         headers: { "Content-Type": "application/xml; charset=utf-8" },
@@ -501,6 +510,7 @@ ${inner}
       const customers = await this.props.services.customersService.getCustomers(
         { limit: 1000, offset: 0 },
       );
+
       const collectionHref = `${basePath}/addressbook/customers/`;
       let inner = `
   <D:response>
@@ -546,6 +556,7 @@ ${inner}
 
       const customer =
         await this.props.services.customersService.getCustomer(contactId);
+
       if (!customer) return new Response("Not Found", { status: 404 });
 
       const href = `${basePath}/addressbook/customers/${customer._id}.vcf`;
@@ -592,6 +603,7 @@ ${inner}
 
     const customer =
       await this.props.services.customersService.getCustomer(contactId);
+
     if (!customer) return new Response("Not Found", { status: 404 });
 
     const vcard = customerToVCard(customer);
@@ -663,7 +675,9 @@ ${inner}
         const id = last.replace(/\.vcf$/, "");
         const customer =
           await this.props.services.customersService.getCustomer(id);
+
         if (!customer) continue;
+
         const vcard = customerToVCard(customer);
         inner += `
   <D:response>

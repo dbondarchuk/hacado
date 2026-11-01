@@ -12,6 +12,7 @@ describe("buildGtagScripts", () => {
       source: "remote",
       url: "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
     });
+
     assert.equal(scripts[1].source, "inline");
     assert.equal(scripts[1].id, "gtag-config-G-TEST123");
     if (scripts[1].source === "inline") {

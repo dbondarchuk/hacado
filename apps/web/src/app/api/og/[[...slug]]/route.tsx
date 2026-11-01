@@ -46,6 +46,7 @@ export async function GET(
 
     const { brand } =
       await servicesContainer.configurationService.getConfigurations("brand");
+
     const seoArgs = await collectPageSeoArgs(page, routeParams);
     const websiteUrl = await getWebsiteUrl();
     const { pageTitle, featuredImage } = resolvePageSeoFields(
@@ -89,6 +90,7 @@ export async function GET(
     const logoSrc = brand.logo
       ? toAbsoluteWebsiteUrl(websiteUrl, brand.logo)
       : undefined;
+
     const headline = pageTitle || brand.title || "Untitled";
     const brandName =
       brand.title && brand.title !== headline ? brand.title : undefined;
@@ -160,6 +162,7 @@ export async function GET(
       },
       "Error generating OG image",
     );
+
     return new Response("Error generating image", { status: 500 });
   }
 }

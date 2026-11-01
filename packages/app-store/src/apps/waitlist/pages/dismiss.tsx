@@ -22,5 +22,6 @@ export const WaitlistDismissPage: React.FC<{ appId: string }> = ({ appId }) => {
 
     fn();
   }, [id]);
+
   return <Skeleton className="w-full h-[70vh]" />;
 };

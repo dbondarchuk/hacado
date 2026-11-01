@@ -161,6 +161,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
     "createdAt" in rest
       ? (rest.createdAt as Date | string | undefined)
       : undefined;
+
   const dateTime = toDateTime(paidAt ?? createdAt, timeZone);
   const dateTimeValid = !!dateTime?.isValid;
   const refundedDateTime = refunds?.[0]?.refundedAt
@@ -180,6 +181,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
 
   const isPendingPaymentLink =
     method === "payment-link" && status === "pending";
+
   const canEditInStore =
     method !== "online" &&
     method !== "gift-card" &&
@@ -229,6 +231,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
         success: tAdmin("common.toasts.saved"),
         error: tAdmin("common.toasts.error"),
       });
+
       onUpdate(updated);
     } catch (error) {
       console.error(error);

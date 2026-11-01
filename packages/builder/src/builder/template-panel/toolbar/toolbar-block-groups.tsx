@@ -30,6 +30,7 @@ export const ToolbarBlockGroups = () => {
   const parentInGrandparent = useBlockParentData(
     parentData?.parentBlockId ?? null,
   );
+
   const canMoveOut =
     !!canDoBlockActions && !!parentInGrandparent?.parentBlockId;
 
@@ -63,6 +64,7 @@ export const ToolbarBlockGroups = () => {
             blockId: selectedBlockId,
           },
         });
+
         e.preventDefault();
         e.stopPropagation();
       } else if (
@@ -78,6 +80,7 @@ export const ToolbarBlockGroups = () => {
             blockId: selectedBlockId,
           },
         });
+
         e.preventDefault();
         e.stopPropagation();
       } else if (
@@ -93,6 +96,7 @@ export const ToolbarBlockGroups = () => {
             blockId: selectedBlockId,
           },
         });
+
         e.preventDefault();
         e.stopPropagation();
       }
@@ -155,6 +159,7 @@ export const ToolbarBlockGroups = () => {
           onClick={() => {
             const target = getMoveBlockOutTarget(document, blockId);
             if (!target) return;
+
             dispatchAction({
               type: "move-block",
               value: {

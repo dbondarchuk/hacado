@@ -37,6 +37,7 @@ export const ConfigurationPanel: React.FC = () => {
   const setBlock = useCallback(
     (data: any) => {
       if (!inspectBlockId) return;
+
       dispatchAction({
         type: "set-block-data",
         value: { blockId: inspectBlockId, data },
@@ -48,6 +49,7 @@ export const ConfigurationPanel: React.FC = () => {
   const setBase = useCallback(
     (base: BaseBlockProps) => {
       if (!inspectBlockId) return;
+
       dispatchAction({
         type: "set-block-base",
         value: { blockId: inspectBlockId, base },
@@ -59,6 +61,7 @@ export const ConfigurationPanel: React.FC = () => {
   const setMetadata = useCallback(
     (metadata: Record<string, any> | undefined) => {
       if (!inspectBlockId) return;
+
       dispatchAction({
         type: "set-block-metadata",
         value: { blockId: inspectBlockId, metadata },

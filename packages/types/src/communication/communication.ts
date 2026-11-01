@@ -22,6 +22,7 @@ export const communicationParticipantTypeSchema = [
   "customer",
   "member",
 ] as const;
+
 export type CommunicationParticipantType =
   (typeof communicationParticipantTypeSchema)[number];
 

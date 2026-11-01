@@ -10,6 +10,7 @@ function generateFakeValue(paramName: string): string {
   // fallback
   return Math.random().toString(36).substring(2, 15);
 }
+
 export function generateSlugPreview(slug?: string | null) {
   if (!slug) return { path: "", params: {} };
 

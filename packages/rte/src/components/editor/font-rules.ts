@@ -22,6 +22,7 @@ const getStyleValue = (
       return value;
     }
   }
+
   return;
 };
 

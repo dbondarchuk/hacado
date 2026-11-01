@@ -115,6 +115,7 @@ export const BlocksPanel = genericMemo(
             if (!acc[category]) {
               acc[category] = [];
             }
+
             acc[category].push({ type, config, blockType });
             return acc;
           },

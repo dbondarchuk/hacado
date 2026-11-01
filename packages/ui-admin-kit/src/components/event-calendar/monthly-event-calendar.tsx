@@ -82,6 +82,7 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
         DateTime.now().setZone(timeZone),
         "day",
       );
+
       const daySchedule = schedule[dayClonned.toISODate()!];
       const outsideMonth = !hasSame(dayClonned, dates.monthStart, "month");
 
@@ -161,13 +162,16 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
           </div>
         </div>,
       );
+
       day = day.plus({ days: 1 });
     }
+
     rows.push(
       <div key={day.toString()} className="grid grid-cols-7">
         {days}
       </div>,
     );
+
     days = [];
   }
 

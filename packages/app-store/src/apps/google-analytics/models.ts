@@ -28,6 +28,7 @@ export type DataStreamListItem = z.infer<typeof dataStreamListItemSchema>;
 export const GetDataStreamListRequestType = "get-data-stream-list" as const;
 export const GetSelectedDataStreamRequestType =
   "get-selected-data-stream" as const;
+
 export const SetDataStreamRequestType = "set-data-stream" as const;
 
 export const setDataStreamRequestSchema = z.object({

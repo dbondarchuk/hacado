@@ -25,6 +25,7 @@ export async function getAccessibleConnectedApps(
     user ? Promise.resolve(user) : getUser(),
     getOwnerMemberIds(),
   ]);
+
   const apps = await services.connectedAppsService.getApps();
   return filterConnectedAppsForUser(
     sessionUser,
@@ -42,6 +43,7 @@ export async function assertCanAccessConnectedApp(
     user ? Promise.resolve(user) : getUser(),
     getOwnerMemberIds(),
   ]);
+
   const app = await services.connectedAppsService.getAppStatus(appId);
   if (
     !canAccessConnectedApp(sessionUser, withCatalogTarget(app), ownerMemberIds)
@@ -50,5 +52,6 @@ export async function assertCanAccessConnectedApp(
     (error as Error & { status: number }).status = 403;
     throw error;
   }
+
   return app;
 }

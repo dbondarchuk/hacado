@@ -31,6 +31,7 @@ export const PaymentCard: React.FC = () => {
       if (tipAmount === lastTipAmountRef.current) {
         return;
       }
+
       lastTipAmountRef.current = tipAmount;
       try {
         const data = await fetchPaymentInformation(tipAmount);

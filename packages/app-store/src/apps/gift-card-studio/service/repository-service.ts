@@ -267,6 +267,7 @@ export class GiftCardStudioRepositoryService {
       },
       "Fetched designs",
     );
+
     return response;
   }
 
@@ -287,6 +288,7 @@ export class GiftCardStudioRepositoryService {
       logger.warn({ id }, "Design not found");
       return null;
     }
+
     return design;
   }
 
@@ -383,6 +385,7 @@ export class GiftCardStudioRepositoryService {
       organizationId: this.organizationId,
       appId: this.appId,
     };
+
     if (id) {
       filter._id = { $ne: id };
     }
@@ -451,6 +454,7 @@ export class GiftCardStudioRepositoryService {
       logger.warn({ id }, "Purchased gift card not found");
       return null;
     }
+
     return this.getPurchasedGiftCardById(id);
   }
 
@@ -642,12 +646,14 @@ export class GiftCardStudioRepositoryService {
 
     const items = (result?.paginatedResults ||
       []) as PurchasedGiftCardListModel[];
+
     const total = result?.totalCount?.[0]?.count || 0;
 
     logger.debug(
       { result: { total, count: items.length }, query },
       "Fetched purchased gift cards",
     );
+
     return { total, items };
   }
 
@@ -700,6 +706,7 @@ export class GiftCardStudioRepositoryService {
       { id, type },
       "Purchased gift card ready to send emails and delivery status set",
     );
+
     return result;
   }
 
@@ -859,6 +866,7 @@ export class GiftCardStudioRepositoryService {
       const purchasePayment = await this.services.paymentsService.getPayment(
         giftCard.paymentId,
       );
+
       if (
         purchasePayment?.method !== "payment-link" ||
         purchasePayment.status !== "pending"
@@ -871,6 +879,7 @@ export class GiftCardStudioRepositoryService {
           },
           "Purchased gift card cannot be deleted for this payment method",
         );
+
         return null;
       }
     }
@@ -880,6 +889,7 @@ export class GiftCardStudioRepositoryService {
       { actor: "system" },
       this.appId,
     );
+
     if (!deletedGiftCard) {
       logger.warn({ id }, "Failed to delete gift card");
       return null;
@@ -976,6 +986,7 @@ export class GiftCardStudioRepositoryService {
     await db
       .collection(GIFT_CARD_DESIGNS_COLLECTION_NAME)
       .deleteMany({ appId: this.appId, organizationId: this.organizationId });
+
     await db
       .collection(PURCHASED_GIFT_CARDS_COLLECTION_NAME)
       .deleteMany({ appId: this.appId, organizationId: this.organizationId });
@@ -991,6 +1002,7 @@ export class GiftCardStudioRepositoryService {
         appId: this.appId,
         organizationId: this.organizationId,
       });
+
     return !!purchase;
   }
 }

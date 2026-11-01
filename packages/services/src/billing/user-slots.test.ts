@@ -18,6 +18,7 @@ describe("user slots", () => {
       resolveAvailableUsers({ feesExempt: true, availableUsers: 1 }),
       null,
     );
+
     assert.equal(
       canInviteWithAvailableUsers(
         50,
@@ -25,6 +26,7 @@ describe("user slots", () => {
       ),
       true,
     );
+
     assert.equal(
       membershipLimitFromAvailableUsers(null),
       UNLIMITED_MEMBERSHIP_LIMIT,
@@ -37,6 +39,7 @@ describe("user slots", () => {
       resolveAvailableUsers({ userSlots: { included: 5, additional: 3 } }),
       8,
     );
+
     assert.equal(resolveAvailableUsers({}), 1);
     assert.equal(canInviteWithAvailableUsers(1, 1), false);
     assert.equal(canInviteWithAvailableUsers(0, 1), true);

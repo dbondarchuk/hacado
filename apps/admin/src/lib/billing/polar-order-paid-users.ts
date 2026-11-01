@@ -23,8 +23,10 @@ function organizationIdFromOrder(order: Order): string | null {
     const s = String(raw).trim();
     if (s) return s;
   }
+
   const ext = order.customer?.externalId;
   if (typeof ext === "string" && ext.trim()) return ext.trim();
+
   return null;
 }
 
@@ -49,6 +51,7 @@ export async function applyPolarOrderPaidToUserSlots(
     await ServicesContainer(
       organizationId,
     ).organizationService.getOrganization();
+
   if (org?.feesExempt === true) {
     logger.debug({ organizationId }, "Fees exempt; skipping user slots update");
     return;

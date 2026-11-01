@@ -110,10 +110,12 @@ export function CommandPaletteProvider({
           { q: parsed.text, type: parsed.scope },
           { signal: controller.signal },
         );
+
         setRemote(data.groups ?? []);
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError")
           return;
+
         setRemote([]);
       } finally {
         if (!controller.signal.aborted) setLoading(false);
@@ -155,8 +157,10 @@ export function CommandPaletteProvider({
       ),
     parsed.text,
   );
+
   const showApps =
     parsed.scope === "apps" || (!parsed.scope && parsed.text.length > 0);
+
   const appResults = showApps
     ? sortByQuery(
         apps
@@ -171,14 +175,17 @@ export function CommandPaletteProvider({
         parsed.text,
       )
     : [];
+
   const navHrefs = new Set(
     navigation.flatMap((group) =>
       group.items.map((item) => item.href.split("?")[0]),
     ),
   );
+
   const visibleApps = appResults.filter(
     (app) => !navHrefs.has(app.href.split("?")[0]),
   );
+
   const installedResults =
     parsed.text.length > 0 || parsed.scope
       ? sortByQuery(
@@ -446,6 +453,7 @@ function matches(query: string, ...parts: Array<string | undefined>) {
     .toLowerCase()
     .split(/\s+/)
     .filter((token) => token.length > 0);
+
   if (tokens.length === 0) return true;
 
   const haystack = parts
@@ -539,6 +547,7 @@ function collectNavItems(
     external?: boolean;
     icon?: ReactNode;
   }> = [];
+
   const seenHrefs = new Set<string>();
 
   const push = (item: NavItem, parentTitle?: string) => {

@@ -28,6 +28,7 @@ export const getInitOptions = async (appId: string) => {
     path: "init-options",
     method: "GET",
   });
+
   return res;
 };
 
@@ -41,6 +42,7 @@ export const createOrUpdateIntent = async (
     method: "POST",
     body: payload,
   });
+
   return res;
 };
 
@@ -57,5 +59,6 @@ export const purchaseGiftCard = async (
     method: "POST",
     body: payload,
   });
+
   return res;
 };

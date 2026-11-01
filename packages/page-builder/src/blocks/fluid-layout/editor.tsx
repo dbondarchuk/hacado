@@ -115,10 +115,12 @@ function placementsEqual(
 ) {
   const aKeys = Object.keys(a);
   if (aKeys.length !== Object.keys(b).length) return false;
+
   return aKeys.every((id) => {
     const pa = a[id];
     const pb = b[id];
     if (!pa || !pb) return false;
+
     return (
       pa.colStart === pb.colStart &&
       pa.colEnd === pb.colEnd &&
@@ -148,6 +150,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
   const { ref: overlayRef, onClick: selectFluidLayout } = useBlockEditor(
     currentBlock.id,
   );
+
   const setSelectedBlockId = useSetSelectedBlockId();
   const className = useClassName();
   const base = currentBlock.base;
@@ -167,6 +170,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     "fluid",
     currentBlock.id,
   );
+
   const blocksDefinitions = useBlocksDefinitions();
   const blocks = useBlocks();
   const { document: portalDocument } = usePortalContext();
@@ -193,6 +197,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
       }),
     [basePlacements, childIds, placementOverrides, placementTier],
   );
+
   const storedEffectivePlacementsRef = useRef(storedEffectivePlacements);
   storedEffectivePlacementsRef.current = storedEffectivePlacements;
   const [activeChildId, setActiveChildId] = useState<string | null>(null);
@@ -204,11 +209,13 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     string,
     FluidPlacement
   > | null>(null);
+
   livePlacementsRef.current = livePlacements;
   const [cellSize, setCellSize] = useState<number>(24);
   const [alignmentGuides, setAlignmentGuides] = useState<FluidAlignmentGuide[]>(
     [],
   );
+
   const [isAltPressed, setIsAltPressed] = useState(false);
   const isAltPressedRef = useRef(false);
   isAltPressedRef.current = isAltPressed;
@@ -228,6 +235,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
       const metrics = readGridMetrics(el, gap, columnCount);
       setCellSize(Math.max(8, metrics.colWidth));
     };
+
     update();
 
     const view = portalDocument.defaultView;
@@ -246,14 +254,17 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
           string,
           FluidPlacement
         >;
+
         const cleaned: Record<string, FluidPlacement | undefined> = {
           ...placements,
         };
+
         for (const id of Object.keys(existing)) {
           if (!(id in placements)) {
             cleaned[id] = undefined;
           }
         }
+
         dispatchAction({
           type: "set-block-data",
           value: {
@@ -267,15 +278,18 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
             },
           },
         });
+
         return;
       }
 
       const existingOverrides = (blockProps.placementOverrides ??
         {}) as FluidPlacementOverrides;
+
       const existingTier = existingOverrides[tier] ?? {};
       const cleaned: Record<string, FluidPlacement | undefined> = {
         ...placements,
       };
+
       for (const id of Object.keys(existingTier)) {
         if (!(id in placements)) {
           cleaned[id] = undefined;
@@ -286,6 +300,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
       const nextOverrides: FluidPlacementOverrides = {
         ...existingOverrides,
       };
+
       if (hasValues) {
         nextOverrides[tier] = cleaned as Record<string, FluidPlacement>;
       } else {
@@ -338,13 +353,16 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
 
   useEffect(() => {
     if (livePlacements || dragRef.current) return;
+
     const synced = syncPlacementsAllTiers(childIds, {
       placements: basePlacements,
       placementOverrides,
     });
+
     const overridesChanged =
       JSON.stringify(synced.placementOverrides) !==
       JSON.stringify(placementOverrides);
+
     if (synced.placements !== basePlacements || overridesChanged) {
       const block = currentBlockRef.current;
       dispatchAction({
@@ -375,6 +393,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     () => placementsForChildIds(childIds, placements),
     [childIds, placements],
   );
+
   const rowBuffer = activeChildId || hasActiveDragBlock ? 4 : 0;
   const gridRowCount = getGridRowCount(visiblePlacements, rowBuffer);
   const maxRowEnd = gridRowCount + 1;
@@ -397,11 +416,13 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     collisionPriority: fluidCollisionPriority,
     accept: (draggable) => {
       if (!draggable.type) return false;
+
       const type = draggable.type as string;
       const blockDefinition = blocksDefinitions.find((b) => b.type === type);
       if (blockDefinition && !matchesRule(blockDefinition, FLUID_CHILD_ALLOW)) {
         return false;
       }
+
       const allowedParents = blocks[type]?.allowedIn;
       if (
         allowedParents &&
@@ -416,6 +437,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
       ) {
         return false;
       }
+
       return true;
     },
     data: {
@@ -444,6 +466,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
         e.stopPropagation();
         return;
       }
+
       selectFluidLayout(e);
     },
     [selectFluidLayout],
@@ -492,6 +515,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     (childId: string, clientX: number, clientY: number) => {
       const origin = storedEffectivePlacementsRef.current[childId];
       if (!origin) return;
+
       dragRef.current = {
         mode: "move",
         childId,
@@ -499,6 +523,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
         startY: clientY,
         origin,
       };
+
       lastPointerRef.current = { x: clientX, y: clientY };
       const initial = { ...storedEffectivePlacementsRef.current };
       livePlacementsRef.current = initial;
@@ -517,6 +542,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     ) => {
       const origin = storedEffectivePlacementsRef.current[childId];
       if (!origin) return;
+
       dragRef.current = {
         mode: "resize",
         childId,
@@ -525,6 +551,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
         startY: clientY,
         origin,
       };
+
       lastPointerRef.current = { x: clientX, y: clientY };
       const initial = { ...storedEffectivePlacementsRef.current };
       livePlacementsRef.current = initial;
@@ -544,6 +571,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     ) => {
       const origin = storedEffectivePlacementsRef.current[childId];
       if (!origin) return;
+
       dragRef.current = {
         mode: "rotate",
         childId,
@@ -553,6 +581,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
         originRotate: origin.rotate ?? 0,
         origin,
       };
+
       lastPointerRef.current = { x: clientX, y: clientY };
       const initial = { ...storedEffectivePlacementsRef.current };
       livePlacementsRef.current = initial;
@@ -566,6 +595,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     (childId: string) => {
       const current = placements[childId];
       if (!current?.rotate) return;
+
       persistCurrentTierPlacements({
         ...placements,
         [childId]: { ...current, rotate: undefined },
@@ -577,11 +607,13 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
   const resetChildPlacement = useCallback(
     (childId: string) => {
       if (placementTier === "desktop") return;
+
       const nextOverrides = clearChildPlacementOverride(
         placementOverrides,
         placementTier,
         childId,
       );
+
       setLivePlacements(null);
       const block = currentBlockRef.current;
       dispatchAction({
@@ -606,10 +638,12 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
 
   const resetTierPlacements = useCallback(() => {
     if (placementTier === "desktop") return;
+
     const nextOverrides = clearTierPlacementOverrides(
       placementOverrides,
       placementTier,
     );
+
     setLivePlacements(null);
     const block = currentBlockRef.current;
     dispatchAction({
@@ -654,6 +688,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     (childId: string) => {
       const target = getMoveBlockOutTarget(document, childId);
       if (!target) return;
+
       suppressParentSelection();
       dispatchAction({
         type: "move-block",
@@ -662,6 +697,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
           ...target,
         },
       });
+
       setSelectedBlockId(childId);
     },
     [dispatchAction, document, setSelectedBlockId, suppressParentSelection],
@@ -675,11 +711,13 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
       const session = dragRef.current;
       const el = gridRef.current;
       if (!session || !el) return;
+
       e.preventDefault();
       lastPointerRef.current = { x: e.clientX, y: e.clientY };
       const disableSnap = e.altKey || isAltPressedRef.current;
       const base =
         livePlacementsRef.current ?? storedEffectivePlacementsRef.current;
+
       const cols = columnCountRef.current;
       let childPlacement: FluidPlacement;
 
@@ -690,6 +728,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
           session.centerX,
           session.centerY,
         );
+
         childPlacement = rotatePlacementByPointer(
           session.origin,
           session.originRotate,
@@ -697,6 +736,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
           currentAngle,
           disableSnap,
         );
+
         setAlignmentGuides([]);
       } else {
         const metrics = readGridMetrics(el, gap, cols);
@@ -715,6 +755,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
             disableSnap,
             cols,
           );
+
           setAlignmentGuides(
             computeFluidAlignmentGuides(
               childPlacement,
@@ -733,6 +774,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
             dRow,
             cols,
           );
+
           setAlignmentGuides([]);
         }
       }
@@ -745,6 +787,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
     const onPointerUp = () => {
       const session = dragRef.current;
       if (!session) return;
+
       const childId = session.childId;
       const mode = session.mode;
       dragRef.current = null;
@@ -760,6 +803,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
             placement.rotate ?? 0,
             isAltPressedRef.current,
           );
+
           final = {
             ...final,
             [childId]:
@@ -770,12 +814,15 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
                   })()
                 : { ...placement, rotate },
           };
+
           livePlacementsRef.current = final;
         }
       }
+
       if (final) {
         persistCurrentTierPlacements(final);
       }
+
       suppressGridClickRef.current = true;
       setSelectedBlockId(childId);
     };
@@ -800,6 +847,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
         setIsAltPressed(true);
       }
     };
+
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.key === "Alt") {
         isAltPressedRef.current = false;
@@ -822,6 +870,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
 
     const isEditableTarget = (target: EventTarget | null) => {
       if (!(target instanceof HTMLElement)) return false;
+
       return !!target.closest(
         "input, textarea, select, [contenteditable='true']",
       );
@@ -857,6 +906,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
       const placement =
         livePlacementsRef.current?.[selectedBlockId] ??
         storedEffectivePlacementsRef.current[selectedBlockId];
+
       if (!placement) return;
 
       const disableSnap = e.altKey || isAltPressedRef.current;
@@ -875,6 +925,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
         ...storedEffectivePlacementsRef.current,
         [selectedBlockId]: next,
       };
+
       persistCurrentTierPlacements(nextPlacements);
       setAlignmentGuides(
         computeFluidAlignmentGuides(
@@ -886,6 +937,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
           cols,
         ),
       );
+
       suppressGridClickRef.current = true;
     };
 
@@ -1065,6 +1117,7 @@ display: grid !important;
         {childIds.map((childId, index) => {
           const placement = visiblePlacements[childId];
           if (!placement) return null;
+
           return (
             <FluidChildChrome
               key={childId}

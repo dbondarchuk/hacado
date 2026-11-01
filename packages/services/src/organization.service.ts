@@ -29,16 +29,20 @@ export class OrganizationService
     const organizations = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const organization = await organizations.findOne({
       _id: this.organizationId,
     });
+
     if (!organization) {
       logger.warn(
         { organizationId: this.organizationId },
         "Organization not found",
       );
+
       return null;
     }
+
     return {
       ...organization,
       _id: String(organization._id),
@@ -60,6 +64,7 @@ export class OrganizationService
     const organization = await organizations.findOne({
       _id: this.organizationId,
     });
+
     if (!organization) {
       logger.error(
         { organizationId: this.organizationId, domain },
@@ -75,6 +80,7 @@ export class OrganizationService
         { domain: normalized, previousDomain },
         "Domain is already in use",
       );
+
       return;
     }
 
@@ -105,11 +111,13 @@ export class StaticOrganizationService {
     const organizations = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const organization = await organizations.findOne({ slug });
     if (!organization) {
       // console.warn({ slug }, "Organization not found by slug");
       return null;
     }
+
     return {
       ...organization,
       _id: String(organization._id),
@@ -123,11 +131,13 @@ export class StaticOrganizationService {
     const organizations = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const organization = await organizations.findOne({ domain });
     if (!organization) {
       // console.warn({ domain }, "Organization not found by domain");
       return null;
     }
+
     return {
       ...organization,
       _id: String(organization._id),

@@ -24,6 +24,7 @@ export const OutlookAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<OutlookAdminNamespace, OutlookAdminKeys>(
     outlookAdminNamespace,
   );
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [app, setApp] = React.useState<ConnectedApp | undefined>(undefined);

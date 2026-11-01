@@ -27,9 +27,11 @@ function collectNavPermissions(
     if (item.children) {
       collectNavPermissions(item.children, out);
     }
+
     if (item.items) {
       collectNavPermissions(item.items, out);
     }
+
     if (item.href && item.requiredPermission) {
       out.push({
         href: item.href,
@@ -49,12 +51,14 @@ export function resolveRequiredPermissionForPath(
   const path = pathname.split("?")[0]?.replace(/\/$/, "") || pathname;
   const entries: { href: string; requiredPermission: RequiredPermission }[] =
     [];
+
   collectNavPermissions(navItems, entries);
   entries.push(...EXTRA_PATH_PERMISSIONS);
 
   let best:
     | { href: string; requiredPermission: RequiredPermission }
     | undefined;
+
   for (const entry of entries) {
     const href = entry.href.replace(/\/$/, "");
     if (path === href || path.startsWith(`${href}/`)) {
@@ -63,5 +67,6 @@ export function resolveRequiredPermissionForPath(
       }
     }
   }
+
   return best?.requiredPermission;
 }

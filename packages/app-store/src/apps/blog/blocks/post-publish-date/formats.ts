@@ -29,6 +29,7 @@ export const formatDate = (date: DateTime, format: string): string => {
   if (format in formatPresetMap) {
     return date.toLocaleString(formatPresetMap[format]);
   }
+
   return date.toFormat(format);
 };
 

@@ -12,6 +12,7 @@ export const ConfirmationCard: React.FC = () => {
     newDateTime,
     timeZone: selectedTimeZone,
   } = useModifyAppointmentFormContext();
+
   const locale = useLocale();
 
   if (!appointment) return null;

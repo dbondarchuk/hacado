@@ -182,6 +182,7 @@ export class TemplatesService extends BaseService implements ITemplatesService {
       { id, update: { type: update.type, name: update.name } },
       "Updating template",
     );
+
     const db = await getDbConnection();
     const templates = db.collection<Template>(TEMPLATES_COLLECTION_NAME);
 
@@ -192,6 +193,7 @@ export class TemplatesService extends BaseService implements ITemplatesService {
         { id, update: { type: update.type, name: update.name } },
         "Template name already exists",
       );
+
       throw new Error("Name already exists");
     }
 

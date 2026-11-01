@@ -116,6 +116,7 @@ export const AppSelector = React.forwardRef<
           const apps = scope
             ? await appsApi.getAppsByScope(scope)
             : await appsApi.getAppsByName(appName!);
+
           setApps(apps);
         } catch (e) {
           toast.error(t("common.requestFailed"));

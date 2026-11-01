@@ -67,6 +67,7 @@ export const columns: ColumnDef<DesignsTableRow>[] = [
       const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
         giftCardStudioAdminNamespace,
       );
+
       return row.original.isArchived
         ? t("designs.table.status.archived")
         : t("designs.table.status.active");

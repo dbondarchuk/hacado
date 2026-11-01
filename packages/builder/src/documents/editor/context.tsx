@@ -557,7 +557,6 @@ function buildIndexes(
   // Helper function to recursively strip children from any object
   const stripChildrenRecursively = (obj: any): any => {
     if (!obj || typeof obj !== "object") return obj;
-
     if (Array.isArray(obj)) {
       return obj.map((item) => stripChildrenRecursively(item));
     }
@@ -578,6 +577,7 @@ function buildIndexes(
             // Check if the type is a known block type from schemas
             schemas[item.type],
         );
+
         if (containsBlocks) {
           continue; // Skip this children property
         }
@@ -640,6 +640,7 @@ function buildIndexes(
             );
           }
         });
+
         if (childBlockIds.length > 0) {
           // Use the clean property path (without 'data' and 'children') as the key
           const cleanPropertyPath = currentPath === "data" ? "" : currentPath;
@@ -673,10 +674,12 @@ function buildIndexes(
               index.toString(),
               "children",
             );
+
             let parentProperty = childrenPath;
             if (parentProperty.startsWith("data.")) {
               parentProperty = parentProperty.slice(5);
             }
+
             const slotChildIds: string[] = [];
             item.children.forEach((child: any, childIndex: number) => {
               if (isEditorBlockLike(child)) {
@@ -691,6 +694,7 @@ function buildIndexes(
                 );
               }
             });
+
             if (slotChildIds.length > 0) {
               indexes[blockId].childrenBlockIds[parentProperty] = slotChildIds;
             }
@@ -719,6 +723,7 @@ function buildIndexes(
             traverseDataObject(item, parentBlockId, newPath, depth, blockId);
           }
         });
+
         if (childBlockIds.length > 0) {
           const parentProperty = buildParentPropertyPath(currentPath, prop);
           indexes[blockId].childrenBlockIds[parentProperty] = childBlockIds;
@@ -781,6 +786,7 @@ function buildIndexes(
     if (currentPath === "data") {
       return props.join(".");
     }
+
     // Otherwise, append the property to the existing path
     return `${currentPath}.${props.join(".")}`;
   };
@@ -1099,6 +1105,7 @@ export function useSetActiveDragBlockId() {
 
 export function getActiveOverBlockContext(store: EditorState) {
   if (!store.activeOverBlockContextId) return null;
+
   const [blockId, property, index] = store.activeOverBlockContextId.split("/");
   const block = store.indexes[blockId];
   return block
@@ -1131,8 +1138,10 @@ export function useIsActiveOverDroppable(
     store,
     useDeep((s) => {
       if (!s.activeOverBlockContextId) return false;
+
       const [overBlockId, overProperty, overIndex] =
         s.activeOverBlockContextId.split("/");
+
       return (
         overBlockId === blockId &&
         overProperty === property &&
@@ -1146,6 +1155,7 @@ export function useIsActiveHierarchyOverDroppable(blockId: string) {
   const store = useEditorStateStore();
   return useStore(store, (s) => {
     if (!s.activeOverBlockContextId) return false;
+
     const [overBlockId] = s.activeOverBlockContextId.split("/");
 
     const hierarchy = getBlockHierarchy(overBlockId, s.indexes);
@@ -1289,6 +1299,7 @@ export function useBlock(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       return (
         (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])
           ?.noChildrenBlock || null
@@ -1304,6 +1315,7 @@ export function useDocumentBlock(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       return (
         (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])?.block || null
       );
@@ -1315,6 +1327,7 @@ export function useBlockType(blockId: string | null) {
   const store = useEditorStateStore();
   return useStore(store, (s) => {
     if (!blockId) return null;
+
     return (
       (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])?.blockType ||
       null
@@ -1328,8 +1341,10 @@ export function useBlockDefinition(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       const type = (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])
         ?.blockType;
+
       if (!type) return null;
 
       const block = s.blocks[type];
@@ -1364,9 +1379,12 @@ export function useBlockAllowedParentTypes(blockId: string | null) {
   const store = useEditorStateStore();
   return useStore(store, (s) => {
     if (!blockId) return null;
+
     const blockType = (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])
       ?.blockType;
+
     if (!blockType) return null;
+
     return s.blocks[blockType]?.allowedIn || null;
   });
 }
@@ -1375,6 +1393,7 @@ export function useBlockIndex(blockId: string | null) {
   const store = useEditorStateStore();
   return useStore(store, (s) => {
     if (!blockId) return null;
+
     return (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])?.index;
   });
 }
@@ -1385,6 +1404,7 @@ export function useBlockParentData(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       const data = s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId];
       return data
         ? {
@@ -1405,6 +1425,7 @@ export function useBlockDepth(blockId: string | null) {
   const store = useEditorStateStore();
   return useStore(store, (s) => {
     if (!blockId) return null;
+
     return (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])?.depth;
   });
 }
@@ -1414,25 +1435,30 @@ export function getBlockHierarchy(
   indexes: EditorState["indexes"],
 ) {
   if (!blockId) return null;
+
   const hierarchy = [];
   let currentBlock: {
     block: TEditorBlock;
     parentBlockId: string | null;
     parentProperty: string | null;
   } | null = indexes[blockId];
+
   while (currentBlock) {
     const blockData =
       indexes[currentBlock.block.id] ?? indexes[currentBlock.block.id];
+
     if (blockData) {
       hierarchy.push({
         id: blockData.block.id,
         type: blockData.blockType,
       });
     }
+
     currentBlock = currentBlock.parentBlockId
       ? indexes[currentBlock.parentBlockId]
       : null;
   }
+
   return hierarchy.reverse();
 }
 
@@ -1453,8 +1479,10 @@ export function useBlockParent(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       const parentId = (s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId])
         ?.parentBlockId;
+
       return parentId
         ? (s.indexes[parentId] ?? s.templateBlockIndexes?.[parentId])
             ?.noChildrenBlock || null
@@ -1470,6 +1498,7 @@ export function useBlockChildrenIds(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       const block = s.indexes[blockId] ?? s.templateBlockIndexes?.[blockId];
       if (!block) return null;
 
@@ -1484,14 +1513,17 @@ export function useBlockEditorDisableOptions(blockId: string | null) {
     store,
     useDeep((s) => {
       if (!blockId) return null;
+
       const blockType = s.indexes[blockId]?.blockType;
       if (!blockType) return null;
+
       return s.blocks[blockType]?.disable;
     }),
   );
 }
 
 export const EditorArgsContext = createContext<Record<string, any>>({});
+
 export function useEditorArgs() {
   return useContext(EditorArgsContext);
 }

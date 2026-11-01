@@ -43,6 +43,7 @@ export async function POST(request: NextRequest) {
       payment.appointmentId,
       logger,
     );
+
     if (!auth.ok) return auth.response;
 
     customerId = auth.appointment.customerId;
@@ -91,6 +92,7 @@ export async function POST(request: NextRequest) {
     const giftCard = await servicesContainer.giftCardsService.getGiftCard(
       payment.giftCardId,
     );
+
     if (!giftCard) {
       return NextResponse.json(
         {
@@ -101,7 +103,6 @@ export async function POST(request: NextRequest) {
         { status: 404 },
       );
     }
-
     if (giftCard.status === "inactive") {
       return NextResponse.json(
         {
@@ -112,7 +113,6 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-
     if (giftCard.expiresAt && giftCard.expiresAt < new Date()) {
       return NextResponse.json(
         {
@@ -123,7 +123,6 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-
     if (giftCard.amountLeft < payment.amount) {
       return NextResponse.json(
         {

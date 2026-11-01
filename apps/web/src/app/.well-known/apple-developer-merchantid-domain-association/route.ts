@@ -53,6 +53,7 @@ export async function GET() {
         { appId: paymentAppId },
         "Payment app does not support Apple Pay domain association",
       );
+
       return new NextResponse(null, { status: 404 });
     }
 
@@ -68,6 +69,7 @@ export async function GET() {
         { appId: paymentAppId },
         "Apple Pay domain association file is empty or unavailable",
       );
+
       return new NextResponse(null, { status: 404 });
     }
 
@@ -85,6 +87,7 @@ export async function GET() {
       { error: error?.message || error?.toString() },
       "Error serving Apple Pay domain association file",
     );
+
     return new NextResponse(null, { status: 500 });
   }
 }

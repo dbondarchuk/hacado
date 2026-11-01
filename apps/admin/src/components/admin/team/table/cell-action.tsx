@@ -60,6 +60,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
 
   const onChangeRole = async (role: Exclude<UserRole, "owner">) => {
     if (role === member.role) return;
+
     try {
       setLoading(true);
       await toastPromise(
@@ -68,7 +69,9 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
             memberId: member._id,
             role,
           });
+
           if (!result.ok) throw new Error(result.code);
+
           return result;
         })(),
         {
@@ -76,6 +79,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
           error: t("common.toasts.error"),
         },
       );
+
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -93,12 +97,15 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
         setForceOpen(true);
         return;
       }
+
       await toastPromise(
         (async () => {
           const result = await teamsApi.deactivateMember({
             memberId: member._id,
           });
+
           if (!result.ok) throw new Error(result.code);
+
           return result;
         })(),
         {
@@ -106,6 +113,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
           error: t("common.toasts.error"),
         },
       );
+
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -123,7 +131,9 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
             memberId: member._id,
             force: true,
           });
+
           if (!result.ok) throw new Error(result.code);
+
           return result;
         })(),
         {
@@ -131,6 +141,7 @@ export const CellAction: React.FC<CellActionProps> = ({ member }) => {
           error: t("common.toasts.error"),
         },
       );
+
       setForceOpen(false);
       router.refresh();
     } catch (error) {

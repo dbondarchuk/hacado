@@ -81,10 +81,12 @@ export const MemberSelectCard: React.FC<MemberSelectProps> = ({
   const [selectedMember, setSelectedMember] = React.useState<
     TeamMemberListModel | undefined
   >();
+
   const durationType = form.watch("durationType") as
     | "fixed"
     | "flexible"
     | undefined;
+
   const isFlexible = durationType === "flexible";
   const {
     setNodeRef,

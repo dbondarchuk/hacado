@@ -34,14 +34,17 @@ export interface RenderRequest {
 function paintToCss(paint: Paint | undefined, fallback: string): string {
   if (!paint || paint.type === "none") return fallback;
   if (paint.type === "color") return paint.color ?? fallback;
+
   if (paint.type === "gradient" && paint.gradient) {
     const { type, colors, angle } = paint.gradient;
     return type === "linear"
       ? `linear-gradient(${angle ?? 0}deg, ${colors.join(", ")})`
       : `radial-gradient(circle, ${colors.join(", ")})`;
   }
+
   if (paint.type === "image" && paint.image?.src)
     return `url(${paint.image.src})`;
+
   return fallback;
 }
 
@@ -51,14 +54,17 @@ function backgroundToCss(
   if (!bg) return { backgroundColor: "transparent" };
   if (bg.type === "color")
     return { backgroundColor: bg.color ?? "transparent" };
+
   if (bg.type === "gradient" && bg.gradient) {
     const { type, colors, angle } = bg.gradient;
     const grad =
       type === "linear"
         ? `linear-gradient(${angle ?? 0}deg, ${colors.join(", ")})`
         : `radial-gradient(circle, ${colors.join(", ")})`;
+
     return { background: grad } as React.CSSProperties;
   }
+
   if (bg.type === "image" && bg.image?.src) {
     return {
       backgroundImage: `url(${bg.image.src})`,
@@ -67,6 +73,7 @@ function backgroundToCss(
       backgroundRepeat: "no-repeat",
     } as React.CSSProperties;
   }
+
   return { backgroundColor: "transparent" };
 }
 
@@ -89,6 +96,7 @@ function resolveText(el: TextElement, fields: FieldKeyValues): string {
       return "";
     }
   }
+
   // if (el.fieldKey && el.sampleValue) return el.sampleValue;
   return el.content ?? "";
 }
@@ -101,6 +109,7 @@ function renderTextNode(el: TextElement, fields: FieldKeyValues): object {
     center: "center",
     right: "flex-end",
   };
+
   const fontFamily =
     getFamilyFromStoredFont(el.styles.fontFamily) ??
     el.styles.fontFamily ??
@@ -250,16 +259,19 @@ function renderShapeNode(el: ShapeElement): object {
   const fillPaint =
     styles.fillPaint ??
     (styles.fill ? { type: "color" as const, color: styles.fill } : undefined);
+
   const strokePaint =
     styles.strokePaint ??
     (styles.stroke
       ? { type: "color" as const, color: styles.stroke }
       : undefined);
+
   const fillCss = paintToCss(fillPaint, "transparent");
   const strokeColor =
     strokePaint?.type === "color"
       ? (strokePaint.color ?? undefined)
       : undefined;
+
   const strokeWidth = styles.strokeWidth ?? 1;
 
   if (shapeType === "line") {
@@ -284,6 +296,7 @@ function renderShapeNode(el: ShapeElement): object {
 
   const isGradOrImg =
     fillPaint?.type === "gradient" || fillPaint?.type === "image";
+
   const shapeStyle: Record<string, unknown> = {
     position: "absolute" as const,
     display: "flex",
@@ -296,6 +309,7 @@ function renderShapeNode(el: ShapeElement): object {
     border: strokeColor ? `${strokeWidth}px solid ${strokeColor}` : "none",
     borderRadius: shapeType === "circle" ? "50%" : (styles.borderRadius ?? 0),
   };
+
   if (isGradOrImg) {
     shapeStyle.background = fillCss;
   } else {
@@ -342,7 +356,6 @@ async function renderElement(
   fields: FieldKeyValues,
 ): Promise<object | null> {
   if (el.visible === false) return null;
-
   // When inside a group, positions are already relative to group origin
   // so we create a wrapper only for the offset when not at root
   if (el.type === "text") return renderTextNode(el as TextElement, fields);
@@ -351,6 +364,7 @@ async function renderElement(
   if (el.type === "shape") return renderShapeNode(el as ShapeElement);
   if (el.type === "group")
     return renderGroupNode(el as GroupElement, allElements, fields);
+
   return null;
 }
 
@@ -408,9 +422,11 @@ function collectFontFamilies(design: Design): Set<string> {
       const family = getFamilyFromStoredFont(
         (el as TextElement).styles.fontFamily,
       );
+
       if (family) families.add(family);
     }
   }
+
   return families;
 }
 
@@ -468,6 +484,7 @@ export async function renderGiftCard({
   const fontPromises = toLoad.map((family) =>
     loadGoogleFontForSatori(family, SERVER_FONT_WEIGHTS),
   );
+
   const fontArrays = await Promise.all(fontPromises);
   const fonts = fontArrays.flat();
 
@@ -491,6 +508,7 @@ export async function renderGiftCard({
     const resvg = new Resvg(svg, {
       fitTo: { mode: "original" },
     });
+
     const rendered = resvg.render();
     pngBuffer = Buffer.from(rendered.asPng());
   } catch (err) {

@@ -51,6 +51,7 @@ function readSession(raw: string): BookingProgressSession {
   if (!session.serviceId && session.optionId) {
     session.serviceId = session.optionId;
   }
+
   delete session.optionId;
 
   return session;
@@ -73,6 +74,7 @@ export class BookingProgressTracker {
     this.now = deps.now ?? (() => new Date());
     this.abandonAfterSeconds =
       deps.abandonAfterSeconds ?? ABANDON_AFTER_SECONDS;
+
     this.ttlSeconds = deps.ttlSeconds ?? REDIS_TTL_SECONDS;
   }
 
@@ -124,6 +126,7 @@ export class BookingProgressTracker {
       step !== "OPTIONS_REQUESTED" ||
       !existing ||
       existing.currentStep === "OPTIONS_REQUESTED";
+
     if (shouldUpdateCurrentStep && step !== "BOOKING_CONVERTED") {
       session.currentStep = step;
     }
@@ -138,6 +141,7 @@ export class BookingProgressTracker {
       const startedClaimed = await this.claimFlag(
         getCountedStartedKey(this.organizationId, sessionId),
       );
+
       if (startedClaimed) {
         delta.started = 1;
       }
@@ -151,6 +155,7 @@ export class BookingProgressTracker {
       const enteredClaimed = await this.claimFlag(
         getCountedEnteredKey(this.organizationId, sessionId, step),
       );
+
       if (enteredClaimed) {
         delta.entered = { [step]: 1 };
       }
@@ -166,6 +171,7 @@ export class BookingProgressTracker {
         if (session.convertedTo) {
           delta.convertedTo = { [session.convertedTo]: 1 };
         }
+
         await this.persistSession(sessionKey, session);
         await this.flushDelta(session.startedAt, delta);
         await this.deleteSessionJson(sessionKey);
@@ -212,6 +218,7 @@ export class BookingProgressTracker {
     if (!latestRaw) {
       return { claimed: false, skippedOptionsOnly: false };
     }
+
     const latest = readSession(latestRaw);
     if (!isSessionStale(latest.lastActivityAt, this.abandonAfterSeconds, now)) {
       await this.redis.del(getTerminalKey(this.organizationId, sessionId));
@@ -232,6 +239,7 @@ export class BookingProgressTracker {
     await this.flushDelta(latest.startedAt, {
       stoppedAt: { [currentStep]: 1 },
     });
+
     await this.deleteSessionJson(sessionKey);
     return { claimed: true, skippedOptionsOnly: false, currentStep };
   }
@@ -249,9 +257,11 @@ export class BookingProgressTracker {
     if (metadata.isPaymentRequired !== undefined) {
       session.isPaymentRequired = metadata.isPaymentRequired;
     }
+
     if (metadata.paymentAmount !== undefined) {
       session.paymentAmount = metadata.paymentAmount;
     }
+
     if (metadata.customerId) session.customerId = metadata.customerId;
     if (metadata.customerEmail) session.customerEmail = metadata.customerEmail;
     if (metadata.customerName) session.customerName = metadata.customerName;
@@ -275,6 +285,7 @@ export class BookingProgressTracker {
       this.ttlSeconds,
       "NX",
     );
+
     return ok === "OK";
   }
 
@@ -304,6 +315,7 @@ export class BookingProgressTracker {
     delta: BookingProgressMetricsDelta,
   ): Promise<void> {
     if (isEmptyDelta(delta)) return;
+
     const timeZone = await this.getTimeZone();
     const date = toAnalyticsDate(startedAt, timeZone);
     await this.increment(date, delta);

@@ -16,6 +16,7 @@ export function PageFootersTableAction() {
     setPage,
     setSearchQuery,
   } = usePageFootersTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
 
   const additionalFilters = <></>;

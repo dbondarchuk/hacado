@@ -47,6 +47,7 @@ export const CommentsTable: React.FC<{ appId: string }> = ({ appId }) => {
                 }
               : undefined,
         });
+
         setResponse({
           items: res.items ?? [],
           total: res.total,
@@ -58,6 +59,7 @@ export const CommentsTable: React.FC<{ appId: string }> = ({ appId }) => {
         setLoading(false);
       }
     };
+
     void fn();
   }, [appId, delayedQuery, t]);
 

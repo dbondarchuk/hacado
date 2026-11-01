@@ -44,6 +44,7 @@ export class BullMQJobWorker extends BaseBullMQClient {
         concurrency: this.config.queues.job.concurrency,
       },
     );
+
     this.setupWorkerEventListeners(jobWorker, this.config.queues.job.name);
 
     logger.info("BullMQ job workers initialized");
@@ -160,6 +161,7 @@ export class BullMQJobWorker extends BaseBullMQClient {
             { signal },
             "Received shutdown signal, stopping worker gracefully",
           );
+
           await this.stop();
           process.exit(0);
         };
@@ -177,6 +179,7 @@ export class BullMQJobWorker extends BaseBullMQClient {
               { error, worker: workerName },
               "Worker encountered fatal error",
             );
+
             reject(error);
           });
         }
@@ -197,6 +200,7 @@ export class BullMQJobWorker extends BaseBullMQClient {
         const keepAlive = () => {
           setTimeout(keepAlive, 1000);
         };
+
         keepAlive();
       });
     } catch (error) {
@@ -344,11 +348,13 @@ export class BullMQJobWorker extends BaseBullMQClient {
         organizationId,
         jobData.appId,
       );
+
       if (!allowed) {
         logger.info(
           { jobId, appId: jobData.appId },
           "Skipping app job for subscription plan tier",
         );
+
         return;
       }
 
@@ -378,6 +384,7 @@ export class BullMQJobWorker extends BaseBullMQClient {
             "Built-in service does not implement processJob",
           );
         }
+
         return;
       }
 
@@ -418,11 +425,13 @@ export class BullMQJobWorker extends BaseBullMQClient {
         organizationId,
         jobData.appId,
       );
+
       if (!allowed) {
         logger.info(
           { jobId, appId: jobData.appId },
           "Skipping event delivery for subscription plan tier",
         );
+
         return;
       }
 
@@ -430,15 +439,18 @@ export class BullMQJobWorker extends BaseBullMQClient {
       if (builtIn) {
         const contacts =
           await services.teamService.getOrganizationAdminContacts();
+
         const contact = contacts[0];
         if (!contact) {
           throw new Error("Organization admin member not found");
         }
+
         const appData = getBuiltInAppData(
           organizationId,
           contact.memberId,
           jobData.appId as keyof typeof BuiltInApps,
         );
+
         const service = new builtIn.getService(organizationId, services);
         const subscriber = service as IEventSubscriber;
         if (typeof subscriber.onEvent === "function") {
@@ -479,6 +491,7 @@ export class BullMQJobWorker extends BaseBullMQClient {
         { error, jobId, jobData },
         "Failed to process event delivery job",
       );
+
       throw error;
     }
   }

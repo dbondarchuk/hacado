@@ -14,6 +14,7 @@ export const flexShrinkStyle = {
   defaultValue: 1,
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `flex-shrink: ${value};`;
   },
   component: ({ value, onChange }) => (

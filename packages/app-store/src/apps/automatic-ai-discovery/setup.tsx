@@ -26,6 +26,7 @@ export const AutomaticAiDiscoveryAppSetup: React.FC<AppSetupProps> = ({
     AutomaticAiDiscoveryAdminNamespace,
     AutomaticAiDiscoveryAdminKeys
   >(automaticAiDiscoveryAdminNamespace);
+
   const { appStatus, isLoading, isValid, onSubmit } = useConnectedAppSetup<any>(
     {
       appId: existingAppId,

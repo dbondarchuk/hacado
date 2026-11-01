@@ -25,6 +25,7 @@ function packCategoryId(id: WebsitePackId): string {
   if (id.endsWith("_b") || id.endsWith("_c") || id.endsWith("_d")) {
     return id.slice(0, -2);
   }
+
   return id;
 }
 
@@ -839,6 +840,7 @@ export function suggestWebsitePackId(
       return packDef.id;
     }
   }
+
   if (cat.includes("nail")) return "nails";
   if (cat.includes("lash") || cat.includes("brow")) return "lash";
   if (cat.includes("beauty") || cat.includes("salon")) return "salon";
@@ -858,5 +860,6 @@ export function suggestWebsitePackId(
     return "pet";
   if (cat.includes("home") || cat.includes("clean") || cat.includes("handyman"))
     return "home_services";
+
   return "professional";
 }

@@ -45,6 +45,7 @@ export async function GET(
         { status: 403 },
       );
     }
+
     logger.error(
       {
         appId: id,
@@ -52,6 +53,7 @@ export async function GET(
       },
       "Failed to get app",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -84,6 +86,7 @@ export async function DELETE(
       assertCanAccessConnectedApp(id, user),
       getOwnerMemberIds(),
     ]);
+
     if (
       !canUninstallConnectedApp(user, withCatalogTarget(app), ownerMemberIds)
     ) {
@@ -112,6 +115,7 @@ export async function DELETE(
         { status: 403 },
       );
     }
+
     logger.error(
       {
         appId: id,
@@ -119,6 +123,7 @@ export async function DELETE(
       },
       "Failed to delete app",
     );
+
     return NextResponse.json(
       {
         success: false,

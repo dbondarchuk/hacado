@@ -47,6 +47,7 @@ export default async function InstallPage({
   const billingOk = await organizationHasInstallBillingAccess(organizationId, {
     reconcileWithPolar: Boolean(sp.checkout_id),
   });
+
   if (!billingOk) {
     redirect(
       templatePackId

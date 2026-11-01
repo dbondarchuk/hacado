@@ -28,6 +28,7 @@ export const MembersTab: React.FC<TabProps> = ({ form, disabled }) => {
     const activeIndex = staffFields.findIndex((x) => x.fields_id === activeId);
     const overIndex = staffFields.findIndex((x) => x.fields_id === overId);
     if (activeIndex < 0 || overIndex < 0) return;
+
     swapStaff(activeIndex, overIndex);
   };
 

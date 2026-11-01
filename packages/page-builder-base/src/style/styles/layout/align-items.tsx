@@ -23,6 +23,7 @@ export const alignItemsStyle = {
   defaultValue: "stretch",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `align-items: ${value};`;
   },
   component: ({ value, onChange }) => {

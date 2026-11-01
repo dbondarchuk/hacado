@@ -54,6 +54,7 @@ function scopeFromMemberId(memberId?: string): "company" | "member" {
 
 function daySchedulesEqual(a: DaySchedule = [], b: DaySchedule = []): boolean {
   if (a.length !== b.length) return false;
+
   const normalize = (shifts: DaySchedule) =>
     [...shifts]
       .map((shift) => ({ start: shift.start, end: shift.end }))
@@ -62,6 +63,7 @@ function daySchedulesEqual(a: DaySchedule = [], b: DaySchedule = []): boolean {
           ? left.end.localeCompare(right.end)
           : left.start.localeCompare(right.start),
       );
+
   return JSON.stringify(normalize(a)) === JSON.stringify(normalize(b));
 }
 
@@ -99,6 +101,7 @@ function normalizeExceptionEntity(
       days[weekDay] = shifts;
     }
   }
+
   const holidays = (exception.holidays ?? [])
     .map((day) => Number(day) as ScheduleWeekDay)
     .filter((day) => day >= 1 && day <= 7);
@@ -164,6 +167,7 @@ export default class WeeklyScheduleConnectedApp
             { appId: appData._id, week: data.week, memberId: data.memberId },
             "Getting weekly schedule",
           );
+
           return await this.getWeekSchedule(
             appData._id,
             data.week,
@@ -180,6 +184,7 @@ export default class WeeklyScheduleConnectedApp
             },
             "Setting weekly schedule exceptions",
           );
+
           return await this.setSchedules(
             appData._id,
             data.schedules,
@@ -192,6 +197,7 @@ export default class WeeklyScheduleConnectedApp
             { appId: appData._id, week: data.week, memberId: data.memberId },
             "Removing weekly schedule exception",
           );
+
           return await this.removeSchedule(
             appData._id,
             data.week,
@@ -203,6 +209,7 @@ export default class WeeklyScheduleConnectedApp
             { appId: appData._id, week: data.week, memberId: data.memberId },
             "Removing all weekly schedule exceptions from week",
           );
+
           return await this.removeAllSchedules(
             appData._id,
             data.week,
@@ -218,6 +225,7 @@ export default class WeeklyScheduleConnectedApp
             },
             "Setting company holidays for week",
           );
+
           return await this.setCompanyHolidays(
             appData._id,
             data.week,
@@ -236,6 +244,7 @@ export default class WeeklyScheduleConnectedApp
             },
             "Creating recurring weekly schedule",
           );
+
           return await this.repeatSchedule(
             appData._id,
             data.week,
@@ -254,6 +263,7 @@ export default class WeeklyScheduleConnectedApp
             },
             "Removing recurring weekly schedule",
           );
+
           return await this.removeRecurringSchedule(
             appData._id,
             data.exceptionId,
@@ -274,12 +284,14 @@ export default class WeeklyScheduleConnectedApp
             statusText:
               "app_weekly-schedule_admin.statusText.successfully_installed",
           };
+
           this.props.update({ ...status });
 
           logger.info(
             { appId: appData._id, status: status.status },
             "Successfully installed weekly schedule app",
           );
+
           return status;
         }
       }
@@ -288,11 +300,13 @@ export default class WeeklyScheduleConnectedApp
         { appId: appData._id, requestType: request.type, error },
         "Error processing weekly schedule request",
       );
+
       this.props.update({
         status: "failed",
         statusText:
           "app_weekly-schedule_admin.statusText.error_processing_request" satisfies WeeklyScheduleAdminAllKeys,
       });
+
       throw error;
     }
   }
@@ -308,6 +322,7 @@ export default class WeeklyScheduleConnectedApp
       collection = await db.createCollection<ScheduleExceptionEntity>(
         SCHEDULE_COLLECTION_NAME,
       );
+
       logger.debug(
         { appId: appData._id },
         "Created weekly-schedule-exceptions collection",
@@ -317,6 +332,7 @@ export default class WeeklyScheduleConnectedApp
         collection = db.collection<ScheduleExceptionEntity>(
           SCHEDULE_COLLECTION_NAME,
         );
+
         logger.debug(
           { appId: appData._id },
           "weekly-schedule-exceptions collection already exists",
@@ -375,6 +391,7 @@ export default class WeeklyScheduleConnectedApp
         { appId: appData._id },
         "Deleting weekly schedule exceptions for app",
       );
+
       await collection.deleteMany({ appId: appData._id });
 
       const remaining = await collection.countDocuments({});
@@ -388,6 +405,7 @@ export default class WeeklyScheduleConnectedApp
           { appId: appData._id },
           "Collection is empty, dropping weekly-schedule-exceptions",
         );
+
         await db.dropCollection(SCHEDULE_COLLECTION_NAME);
       }
 
@@ -395,12 +413,14 @@ export default class WeeklyScheduleConnectedApp
         { appId: appData._id },
         "Successfully uninstalled weekly schedule app",
       );
+
       return { success: true, code: "ok" };
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error },
         "Error uninstalling weekly schedule app",
       );
+
       throw error;
     }
   }
@@ -490,6 +510,7 @@ export default class WeeklyScheduleConnectedApp
         },
         "Error getting schedule for date range",
       );
+
       throw error;
     }
   }
@@ -517,6 +538,7 @@ export default class WeeklyScheduleConnectedApp
       const exceptions = db.collection<ScheduleExceptionEntity>(
         SCHEDULE_COLLECTION_NAME,
       );
+
       const scope = scopeFromMemberId(memberId);
 
       const defaultSchedule = (
@@ -524,6 +546,7 @@ export default class WeeklyScheduleConnectedApp
           "schedule",
         )
       ).schedule;
+
       const defaultByWeekDay = defaultSchedule.reduce(
         (map, day) => {
           map[day.weekDay as ScheduleWeekDay] = day.shifts;
@@ -553,6 +576,7 @@ export default class WeeklyScheduleConnectedApp
           endDate,
           memberId,
         });
+
         const existing = await exceptions.findOne(filter as any);
         const preservedHolidays: ScheduleWeekDay[] =
           scope === "company"
@@ -660,6 +684,7 @@ export default class WeeklyScheduleConnectedApp
         { appId, weekCount: Object.keys(schedules).length, memberId, error },
         "Error setting schedule exceptions",
       );
+
       throw error;
     }
   }
@@ -684,6 +709,7 @@ export default class WeeklyScheduleConnectedApp
       const exceptions = db.collection<ScheduleExceptionEntity>(
         SCHEDULE_COLLECTION_NAME,
       );
+
       const { startDate, endDate } = weekToDateRange(weekIdentifier);
       const filter = singleWeekExceptionFilter({
         appId,
@@ -741,12 +767,14 @@ export default class WeeklyScheduleConnectedApp
         },
         "Successfully set company holidays",
       );
+
       await this.emitScheduleChanged();
     } catch (error: any) {
       logger.error(
         { appId, week: weekIdentifier, holidays: uniqueHolidays, error },
         "Error setting company holidays",
       );
+
       throw error;
     }
   }
@@ -768,6 +796,7 @@ export default class WeeklyScheduleConnectedApp
       const exceptions = db.collection<ScheduleExceptionEntity>(
         SCHEDULE_COLLECTION_NAME,
       );
+
       const scope = scopeFromMemberId(memberId);
 
       const filter = singleWeekExceptionFilter({
@@ -783,8 +812,10 @@ export default class WeeklyScheduleConnectedApp
       // Punch this week out of any same-scope recurrence that would still apply.
       const { companyExceptions, memberExceptions } =
         await this.loadExceptionsForRange(appId, startDate, endDate, memberId);
+
       const ownExceptions =
         scope === "company" ? companyExceptions : memberExceptions;
+
       const covering = coveringExceptions(ownExceptions, startDate).filter(
         (exception): exception is ScheduleExceptionEntity =>
           isRecurringException(exception) &&
@@ -818,6 +849,7 @@ export default class WeeklyScheduleConnectedApp
         { appId, week: weekIdentifier, memberId, error },
         "Error removing schedule exception for week",
       );
+
       throw error;
     }
   }
@@ -838,10 +870,12 @@ export default class WeeklyScheduleConnectedApp
       const clipUntil = DateTime.fromISO(startDate, { zone: "utc" })
         .minus({ days: 1 })
         .toISODate()!;
+
       const db = await this.props.getDbConnection();
       const exceptions = db.collection<ScheduleExceptionEntity>(
         SCHEDULE_COLLECTION_NAME,
       );
+
       const scope = scopeFromMemberId(memberId);
       const scopeFilter = {
         appId,
@@ -876,6 +910,7 @@ export default class WeeklyScheduleConnectedApp
           await exceptions.updateOne({ _id: exception._id, appId } as any, {
             $set: { repeatUntil: clipUntil },
           });
+
           clippedRecurring += 1;
         } else {
           await exceptions.deleteOne({ _id: exception._id, appId } as any);
@@ -901,6 +936,7 @@ export default class WeeklyScheduleConnectedApp
         { appId, week: weekIdentifier, memberId, error },
         "Error removing schedule exceptions from week onwards",
       );
+
       throw error;
     }
   }
@@ -955,6 +991,7 @@ export default class WeeklyScheduleConnectedApp
       const occurrenceWeeks: WeekIdentifier[] = [];
       for (let w = weekIdentifier; w <= maxWeek; w += interval) {
         if (w < todayWeek) continue;
+
         occurrenceWeeks.push(w);
       }
 
@@ -1036,6 +1073,7 @@ export default class WeeklyScheduleConnectedApp
         },
         "Error creating recurring schedule",
       );
+
       throw error;
     }
   }
@@ -1084,6 +1122,7 @@ export default class WeeklyScheduleConnectedApp
         { appId, exceptionId, memberId, error },
         "Error removing recurring schedule",
       );
+
       throw error;
     }
   }
@@ -1133,12 +1172,14 @@ export default class WeeklyScheduleConnectedApp
       const holidaysSource = companyCovering.find(
         (exception) => (exception.holidays?.length ?? 0) > 0,
       );
+
       const holidays = (holidaysSource?.holidays ?? []) as ScheduleWeekDay[];
 
       const monday = DateTime.fromJSDate(
         getDateFromWeekIdentifier(weekIdentifier),
         { zone: "utc" },
       );
+
       const schedule: Schedule = [];
       const daySources: Record<number, ScheduleDaySource> = {};
 
@@ -1153,6 +1194,7 @@ export default class WeeklyScheduleConnectedApp
           companyExceptions,
           memberExceptions,
         });
+
         schedule.push({ weekDay, shifts: resolved.shifts });
         daySources[weekDay] = resolved.source;
       }
@@ -1193,6 +1235,7 @@ export default class WeeklyScheduleConnectedApp
         { appId, week: weekIdentifier, memberId, error },
         "Error getting week schedule",
       );
+
       throw error;
     }
   }
@@ -1297,6 +1340,7 @@ export default class WeeklyScheduleConnectedApp
         e.scope === scope &&
         (scope === "member" ? e.memberId === memberId : !e.memberId),
     );
+
     const winningRecurrence =
       (coveringOwn.find((e) => isRecurringException(e)) as
         | ScheduleExceptionEntity

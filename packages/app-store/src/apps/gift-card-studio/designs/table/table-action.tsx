@@ -35,6 +35,7 @@ export const DesignsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
     setIsArchivedFilter,
     STATUS_OPTIONS,
   } = useDesignsTableFilters();
+
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
@@ -52,6 +53,7 @@ export const DesignsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
   const canDeleteAll = rowSelection.every((d) => (d.purchasesCount ?? 0) === 0);
   const allArchived =
     rowSelection.length > 0 && rowSelection.every((d) => d.isArchived);
+
   const allActive =
     rowSelection.length > 0 && rowSelection.every((d) => !d.isArchived);
 

@@ -8,6 +8,7 @@ import {
   parseAsIsoDateTime,
   parseAsString,
 } from "nuqs/server";
+
 export const calendarSearchParams = {
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
@@ -18,10 +19,13 @@ export const calendarSearchParams = {
 export const calendarSearchParamsLoader = createLoader(calendarSearchParams);
 export const calendarSearchParamsSchema =
   createStandardSchemaV1(calendarSearchParams);
+
 export type CalendarSearchParams = Partial<
   inferParserType<typeof calendarSearchParams>
 >;
+
 export const calendarSearchParamsCache =
   createSearchParamsCache(calendarSearchParams);
+
 export const serializeCalendarSearchParams =
   createSerializer(calendarSearchParams);

@@ -17,6 +17,7 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     "AdminAPI/teams/members/[id]/role",
     "PUT",
   );
+
   if (!gate.ok) return gate.response;
 
   const { id } = await params;
@@ -36,11 +37,13 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     parsed.data.role as Exclude<UserRole, "owner">,
     actor,
   );
+
   if (!updated) {
     return NextResponse.json(
       { success: false, code: "update_failed", error: "Failed to update role" },
       { status: 400 },
     );
   }
+
   return NextResponse.json({ ok: true });
 }

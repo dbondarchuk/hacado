@@ -33,7 +33,9 @@ export function isSessionStale(
     typeof lastActivityAt === "string"
       ? DateTime.fromISO(lastActivityAt)
       : DateTime.fromJSDate(lastActivityAt);
+
   if (!last.isValid) return true;
+
   const ageSeconds = DateTime.fromJSDate(now).diff(last, "seconds").seconds;
   return ageSeconds >= abandonAfterSeconds;
 }

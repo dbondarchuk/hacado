@@ -43,6 +43,7 @@ export const getGiftCardSchemaWithUniqueCheck = (
   const schema = omitPaymentId
     ? giftCardSchema.omit({ paymentId: true })
     : giftCardSchema;
+
   return schema.refine(
     (data) => {
       if (!data.code) return true;
@@ -112,6 +113,7 @@ export type ApplyGiftCardsSuccessResponse = {
     amountLeft: number;
   }[];
 };
+
 export type ApplyGiftCardsErrorResponse = {
   success: false;
   giftCardCode?: string;

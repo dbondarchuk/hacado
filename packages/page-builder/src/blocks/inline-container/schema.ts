@@ -9,6 +9,7 @@ import * as z from "zod";
 export const styles = getAllStylesWithAdditionalStyles({
   backgroundVideo: backgroundVideoStyle,
 });
+
 export const zStyles = getStylesSchema(styles);
 
 export const InlineContainerPropsSchema = z.object({

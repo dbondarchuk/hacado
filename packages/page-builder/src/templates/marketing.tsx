@@ -116,12 +116,15 @@ const planCtaButton = (
   const label = t(
     "builder.pageBuilder.marketingDefaults.templates.planCard.cta",
   );
+
   const child = btn.props?.children?.[0];
   if (child?.type !== "InlineContainer" || !child.data?.props?.children?.[0]) {
     return btn;
   }
+
   const inlineText = child.data.props.children[0];
   if (inlineText.type !== "InlineText") return btn;
+
   return {
     ...btn,
     props: {

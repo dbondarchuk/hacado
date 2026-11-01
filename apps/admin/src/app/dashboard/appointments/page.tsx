@@ -39,6 +39,7 @@ export default async function AppointmentsPage(props: Params) {
       await servicesContainer.packagesService.getCustomerPackage(
         parsed.customerPackageId,
       );
+
     soldPackageFilterName = soldPackage?.name ?? null;
   }
 

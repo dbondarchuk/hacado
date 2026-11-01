@@ -26,6 +26,7 @@ export function FieldsTableAction() {
     setPage,
     setSearchQuery,
   } = useFieldsTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const { user } = useAuth();
   const canDelete = hasPermission(user, "service", "delete");

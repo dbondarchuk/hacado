@@ -12,5 +12,6 @@ export const PurchaseNewPage = () => {
   useEffect(() => {
     router.replace("/dashboard/gift-card-studio/purchases?openManual=1");
   }, [router]);
+
   return null;
 };

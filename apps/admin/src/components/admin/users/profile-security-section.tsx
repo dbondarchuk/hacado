@@ -81,6 +81,7 @@ export const ProfileSecuritySection = ({
         console.error(result.error);
         return;
       }
+
       setAccounts(
         (result.data ?? []).map((account) => ({
           id: account.id,
@@ -113,6 +114,7 @@ export const ProfileSecuritySection = ({
           PROVIDER_SECURITY_KEYS[linked].linkSuccess as Parameters<typeof t>[0],
         ),
       );
+
       void loadAccounts();
       router.refresh();
 

@@ -94,6 +94,7 @@ export class TextBeltService implements ITextMessageSender {
           },
           "Failed to send SMS via TextBelt",
         );
+
         throw new Error(response.error || "Failed to send SMS");
       }
 
@@ -127,6 +128,7 @@ export class TextBeltService implements ITextMessageSender {
         },
         "Error sending text message via TextBelt",
       );
+
       throw e;
     }
   }

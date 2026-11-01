@@ -78,6 +78,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [],
       memberExceptions: [],
     });
+
     assert.deepEqual(result.shifts, morning);
     assert.equal(result.source, "default");
   });
@@ -90,6 +91,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [],
       memberExceptions: [memberTuesdayOff],
     });
+
     assert.deepEqual(result.shifts, closed);
     assert.equal(result.source, "member");
   });
@@ -102,6 +104,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [companyHoliday],
       memberExceptions: [memberOpenOnHoliday],
     });
+
     assert.deepEqual(result.shifts, closed);
     assert.equal(result.source, "holiday");
   });
@@ -114,6 +117,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [companyReducedTuesday],
       memberExceptions: [memberEveningTuesday],
     });
+
     assert.deepEqual(result.shifts, evening);
     assert.equal(result.source, "member");
   });
@@ -126,6 +130,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [companyEmptyTuesday],
       memberExceptions: [memberEveningTuesday],
     });
+
     assert.deepEqual(result.shifts, evening);
     assert.equal(result.source, "member");
   });
@@ -139,6 +144,7 @@ describe("resolveDaySchedule", () => {
       memberExceptions: [memberTuesdayOff],
       appDay: afternoon,
     });
+
     assert.deepEqual(result.shifts, afternoon);
     assert.equal(result.source, "app");
   });
@@ -151,6 +157,7 @@ describe("resolveDaySchedule", () => {
       endDate: "2024-06-30",
       days: { 1: morning },
     };
+
     const narrow: ScheduleException = {
       scope: "member",
       memberId: "member-1",
@@ -158,6 +165,7 @@ describe("resolveDaySchedule", () => {
       endDate: "2024-06-03",
       days: { 1: afternoon },
     };
+
     const result = resolveDaySchedule({
       date: "2024-06-03",
       weekDay: 1,
@@ -165,6 +173,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [],
       memberExceptions: [wide, narrow],
     });
+
     assert.deepEqual(result.shifts, afternoon);
     assert.equal(result.source, "member");
   });
@@ -177,6 +186,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [],
       memberExceptions: [],
     });
+
     assert.deepEqual(result.shifts, closed);
     assert.equal(result.source, "default");
   });
@@ -191,6 +201,7 @@ describe("resolveDaySchedule", () => {
       repeatUntil: "2024-06-30",
       createdAt: "2024-06-01T00:00:00.000Z",
     };
+
     const result = resolveDaySchedule({
       date: "2024-06-18", // Tuesday, 2 weeks later
       weekDay: 2,
@@ -198,6 +209,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [recurring],
       memberExceptions: [],
     });
+
     assert.deepEqual(result.shifts, afternoon);
     assert.equal(result.source, "company");
   });
@@ -212,6 +224,7 @@ describe("resolveDaySchedule", () => {
       repeatUntil: "2024-06-30",
       createdAt: "2024-06-01T00:00:00.000Z",
     };
+
     const onHit = resolveDaySchedule({
       date: "2024-06-18",
       weekDay: 2,
@@ -219,6 +232,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [recurring],
       memberExceptions: [],
     });
+
     assert.deepEqual(onHit.shifts, afternoon);
 
     const offHit = resolveDaySchedule({
@@ -228,6 +242,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [recurring],
       memberExceptions: [],
     });
+
     assert.deepEqual(offHit.shifts, morning);
     assert.equal(offHit.source, "default");
   });
@@ -242,6 +257,7 @@ describe("resolveDaySchedule", () => {
       repeatUntil: "2024-06-16",
       createdAt: "2024-06-01T00:00:00.000Z",
     };
+
     const result = resolveDaySchedule({
       date: "2024-06-25",
       weekDay: 2,
@@ -249,6 +265,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [recurring],
       memberExceptions: [],
     });
+
     assert.deepEqual(result.shifts, morning);
     assert.equal(result.source, "default");
   });
@@ -266,6 +283,7 @@ describe("resolveDaySchedule", () => {
       excludeWeeks: [excludedWeek],
       createdAt: "2024-06-01T00:00:00.000Z",
     };
+
     const result = resolveDaySchedule({
       date: "2024-06-11",
       weekDay: 2,
@@ -273,6 +291,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [recurring],
       memberExceptions: [],
     });
+
     assert.deepEqual(result.shifts, morning);
     assert.equal(result.source, "default");
   });
@@ -288,6 +307,7 @@ describe("resolveDaySchedule", () => {
       repeatUntil: "2024-06-30",
       createdAt: "2024-06-01T00:00:00.000Z",
     };
+
     const weekOverride: ScheduleException = {
       scope: "member",
       memberId: "member-1",
@@ -295,6 +315,7 @@ describe("resolveDaySchedule", () => {
       endDate: "2024-06-23",
       days: { 2: evening },
     };
+
     const result = resolveDaySchedule({
       date: "2024-06-18",
       weekDay: 2,
@@ -302,6 +323,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [],
       memberExceptions: [recurring, weekOverride],
     });
+
     assert.deepEqual(result.shifts, evening);
     assert.equal(result.source, "member");
   });
@@ -316,6 +338,7 @@ describe("resolveDaySchedule", () => {
       repeatUntil: "2024-06-30",
       createdAt: "2024-06-01T00:00:00.000Z",
     };
+
     const everyTwo: ScheduleException = {
       scope: "company",
       startDate: "2024-06-03",
@@ -325,6 +348,7 @@ describe("resolveDaySchedule", () => {
       repeatUntil: "2024-06-30",
       createdAt: "2024-06-10T00:00:00.000Z",
     };
+
     const evenWeek = resolveDaySchedule({
       date: "2024-06-18",
       weekDay: 2,
@@ -332,6 +356,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [everyWeek, everyTwo],
       memberExceptions: [],
     });
+
     assert.deepEqual(evenWeek.shifts, evening);
 
     const oddWeek = resolveDaySchedule({
@@ -341,6 +366,7 @@ describe("resolveDaySchedule", () => {
       companyExceptions: [everyWeek, everyTwo],
       memberExceptions: [],
     });
+
     assert.deepEqual(oddWeek.shifts, afternoon);
   });
 });

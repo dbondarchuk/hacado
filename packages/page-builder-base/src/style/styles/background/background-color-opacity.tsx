@@ -8,6 +8,7 @@ const BackgroundColorOpacitySchema = z.coerce
   .min(0)
   .max(100)
   .int();
+
 export const BackgroundColorOpacityVar = "background-color-opacity";
 
 export const backgroundColorOpacityStyle = {
@@ -19,6 +20,7 @@ export const backgroundColorOpacityStyle = {
   defaultValue: 100,
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `--${BackgroundColorOpacityVar}: ${(value / 100).toFixed(2)};`;
   },
   component: ({ value, onChange }) => (

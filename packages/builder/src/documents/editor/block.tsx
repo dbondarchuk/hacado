@@ -39,6 +39,7 @@ const EditorBlockContext = createContext<{
 export const useCurrentBlockId = () => useContext(EditorBlockContext).blockId;
 export const useIsCurrentBlockOverlay = () =>
   useContext(EditorBlockContext).isOverlay;
+
 export const useCurrentBlockAllow = () => useContext(EditorBlockContext).allow;
 export const useCurrentBlockDisableOptions = () =>
   useContext(EditorBlockContext).disable;
@@ -115,11 +116,13 @@ export const EditorBlock = memo(
 
     useEffect(() => {
       if (isOvelayBlock) return;
+
       setBlockDisableOptions(blockId, disable);
     }, [blockId, disable, setBlockDisableOptions]);
 
     useEffect(() => {
       if (isOvelayBlock || !allow) return;
+
       setAllowedRule(parentBlockId, parentProperty, allow);
     }, [allow, isOvelayBlock, parentBlockId, parentProperty, setAllowedRule]);
 

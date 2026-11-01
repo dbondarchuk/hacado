@@ -40,6 +40,7 @@ export const ScheduleSettingsForm: React.FC<ScheduleSettingsFormProps> = ({
         success: t("settings.schedule.form.toasts.changesSaved"),
         error: t("settings.schedule.form.toasts.requestError"),
       });
+
       router.refresh();
     } catch (error: any) {
       console.error(error);

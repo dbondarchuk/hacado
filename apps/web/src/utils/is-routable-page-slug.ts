@@ -13,7 +13,6 @@ export function isRoutablePageSlug(slug?: string[] | string): boolean {
   if (!path || path === "home") {
     return true;
   }
-
   if (NON_PAGE_PREFIXES.some((prefix) => path.startsWith(prefix))) {
     return false;
   }

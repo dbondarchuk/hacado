@@ -95,7 +95,6 @@ export const GiftCardPurchaseBlockReader = forwardRef<
       </div>
     );
   }
-
   if (!isLoading && designs.length === 0) {
     return (
       <div

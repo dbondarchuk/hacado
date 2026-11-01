@@ -53,5 +53,6 @@ export const WaitlistNewAppointmentPage: React.FC<{ appId: string }> = ({
 
     fn();
   }, [id]);
+
   return <Skeleton className="w-full h-[70vh]" />;
 };

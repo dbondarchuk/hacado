@@ -15,6 +15,7 @@ export const wordSpacingStyle = {
   defaultValue: { value: 0.3, unit: "rem" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `word-spacing: ${renderRawNumberWithUnitCss(value)};`;
   },
   component: ({ value, onChange }) => (

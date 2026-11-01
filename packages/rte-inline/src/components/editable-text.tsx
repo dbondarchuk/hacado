@@ -79,6 +79,7 @@ const EditableTextInner = forwardRef<
     const savedSelectionRef = useRef<{ start: number; end: number } | null>(
       null,
     );
+
     const [showToolbar, setShowToolbar] = useState(false);
     const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
     const [activeMarks, setActiveMarks] = useState<{
@@ -88,11 +89,13 @@ const EditableTextInner = forwardRef<
       marks: {},
       hasMixed: new Set(),
     });
+
     const [showAutocomplete, setShowAutocomplete] = useState(false);
     const [autocompletePosition, setAutocompletePosition] = useState({
       top: 0,
       left: 0,
     });
+
     const [variableQuery, setVariableQuery] = useState("");
 
     const renderToHTML = useCallback(
@@ -200,6 +203,7 @@ const EditableTextInner = forwardRef<
           if (currentNode === node) {
             return pos + offset;
           }
+
           pos += currentNode.textContent?.length || 0;
           currentNode = walker.nextNode();
         }
@@ -216,6 +220,7 @@ const EditableTextInner = forwardRef<
           root,
           NodeFilter.SHOW_TEXT,
         );
+
         let startSet = false;
         let endSet = false;
 
@@ -287,6 +292,7 @@ const EditableTextInner = forwardRef<
             savedRange.start,
             savedRange.end,
           );
+
           sel?.removeAllRanges();
           sel?.addRange(newRange);
         } catch (e) {
@@ -332,6 +338,7 @@ const EditableTextInner = forwardRef<
       const range = selection.getRangeAt(0);
       const textBefore =
         range.startContainer.textContent?.slice(0, range.startOffset) || "";
+
       const lastOpenBrace = textBefore.lastIndexOf("{{");
 
       if (lastOpenBrace === -1) {
@@ -394,6 +401,7 @@ const EditableTextInner = forwardRef<
               textNode,
               Math.min(newCursorPos, (textNode.textContent || "").length),
             );
+
             newRange.collapse(true);
             sel?.removeAllRanges();
             sel?.addRange(newRange);
@@ -542,15 +550,19 @@ const EditableTextInner = forwardRef<
               const shortcut = plugin.keyboardShortcut;
               const keyMatch =
                 e.key.toLowerCase() === shortcut.key.toLowerCase();
+
               const metaMatch =
                 shortcut.metaKey === undefined ||
                 (shortcut.metaKey && (e.metaKey || e.ctrlKey));
+
               const ctrlMatch =
                 shortcut.ctrlKey === undefined ||
                 (shortcut.ctrlKey && (e.metaKey || e.ctrlKey));
+
               const shiftMatch =
                 shortcut.shiftKey === undefined ||
                 (shortcut.shiftKey && e.shiftKey);
+
               const altMatch =
                 shortcut.altKey === undefined || (shortcut.altKey && e.altKey);
 
@@ -567,6 +579,7 @@ const EditableTextInner = forwardRef<
                 } else {
                   handleFormat(plugin.name);
                 }
+
                 return;
               }
             }
@@ -595,6 +608,7 @@ const EditableTextInner = forwardRef<
             while (div.firstChild) {
               fragment.appendChild(div.firstChild);
             }
+
             range.insertNode(fragment);
 
             handleInput();
@@ -656,6 +670,7 @@ const EditableTextInner = forwardRef<
           width: ${rect.width}px;
           height: ${rect.height}px;
         `;
+
           documentElement.body.appendChild(highlight);
         });
       };
@@ -672,9 +687,11 @@ const EditableTextInner = forwardRef<
         editorRef.current
           ?.querySelectorAll(".custom-selection-highlight")
           .forEach((el) => el.remove());
+
         documentElement.body
           .querySelectorAll(".custom-selection-highlight")
           .forEach((el) => el.remove());
+
         defaultView.removeEventListener("scroll", handleUpdate, true);
         defaultView.removeEventListener("resize", handleUpdate);
         defaultView.removeEventListener("focusin", handleUpdate);
@@ -779,6 +796,7 @@ export const EditableText = forwardRef<HTMLDivElement, EditableTextProps>(
       if (element) {
         popoverRefs.current.add(element);
       }
+
       return () => {
         if (element) {
           popoverRefs.current.delete(element);

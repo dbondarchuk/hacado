@@ -15,6 +15,7 @@ const ServiceLabel: React.FC<{ option: AppointmentOption }> = ({ option }) => {
   const currencyFormat = useCurrencyFormat();
   const time =
     option.durationType === "fixed" ? durationToTime(option.duration) : null;
+
   return (
     <span className="flex flex-col justify-center gap-2 shrink overflow-hidden text-nowrap min-w-0">
       {option.name}{" "}

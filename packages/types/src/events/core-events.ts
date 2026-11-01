@@ -12,18 +12,25 @@ export const PAYMENT_INTENT_PAID_EVENT_TYPE = "payment-intent.paid" as const;
 
 export const SYNCED_PAYMENT_INGESTED_EVENT_TYPE =
   "syncedPayment.ingested" as const;
+
 export const SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE =
   "syncedPayment.confirmed" as const;
+
 export const SYNCED_PAYMENT_REJECTED_EVENT_TYPE =
   "syncedPayment.rejected" as const;
+
 export const SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE =
   "syncedPayment.assigned" as const;
+
 export const SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE =
   "syncedPayment.unassigned" as const;
+
 export const SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE =
   "syncedPayment.unrecorded" as const;
+
 export const SYNCED_PAYMENT_IGNORED_EVENT_TYPE =
   "syncedPayment.ignored" as const;
+
 export const SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE =
   "syncedPayment.amountsUpdated" as const;
 
@@ -31,26 +38,36 @@ export const GIFT_CARD_CREATED_EVENT_TYPE = "giftCard.created" as const;
 export const GIFT_CARD_UPDATED_EVENT_TYPE = "giftCard.updated" as const;
 export const GIFT_CARD_STATUS_CHANGED_EVENT_TYPE =
   "giftCard.statusChanged" as const;
+
 export const GIFT_CARD_DELETED_EVENT_TYPE = "giftCard.deleted" as const;
 
 export const APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE =
   "appointmentPackage.created" as const;
+
 export const APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE =
   "appointmentPackage.updated" as const;
+
 export const APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE =
   "appointmentPackage.deleted" as const;
+
 export const CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE =
   "customerPackage.issued" as const;
+
 export const CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE =
   "customerPackage.redeemed" as const;
+
 export const CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE =
   "customerPackage.restored" as const;
+
 export const CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE =
   "customerPackage.adjusted" as const;
+
 export const CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE =
   "customerPackage.exhausted" as const;
+
 export const CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE =
   "customerPackage.cancelled" as const;
+
 export const CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE =
   "customerPackage.expired" as const;
 
@@ -64,8 +81,10 @@ export const ADDON_DELETED_EVENT_TYPE = "addon.deleted" as const;
 
 export const APPOINTMENT_OPTION_CREATED_EVENT_TYPE =
   "appointmentOption.created" as const;
+
 export const APPOINTMENT_OPTION_UPDATED_EVENT_TYPE =
   "appointmentOption.updated" as const;
+
 export const APPOINTMENT_OPTION_DELETED_EVENT_TYPE =
   "appointmentOption.deleted" as const;
 
@@ -78,9 +97,11 @@ export const APPOINTMENT_CREATED_EVENT_TYPE = "appointment.created" as const;
 /** Reschedule with full appointment + slot fields (see booking service). */
 export const APPOINTMENT_RESCHEDULED_EVENT_TYPE =
   "appointment.rescheduled" as const;
+
 /** Reschedule by time/duration deltas (see booking service). */
 export const APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE =
   "appointment.slotRescheduled" as const;
+
 export const APPOINTMENT_STATUS_CHANGED_EVENT_TYPE =
   "appointment.statusChanged" as const;
 
@@ -121,6 +142,7 @@ export const MEMBER_REACTIVATED_EVENT_TYPE = "member.reactivated" as const;
 export const MEMBER_ROLE_CHANGED_EVENT_TYPE = "member.roleChanged" as const;
 export const MEMBER_PROFILE_UPDATED_EVENT_TYPE =
   "member.profileUpdated" as const;
+
 export const MEMBER_CREATED_EVENT_TYPE = "member.created" as const;
 
 export const INVITATION_CREATED_EVENT_TYPE = "invitation.created" as const;
@@ -135,15 +157,19 @@ export const SMS_CREDITS_LOW_EVENT_TYPE = "billing.smsCreditsLow" as const;
 /** SMS credits exhausted (0). */
 export const SMS_CREDITS_EXHAUSTED_EVENT_TYPE =
   "billing.smsCreditsExhausted" as const;
+
 /** One-time SMS top-up credits added (Polar one-time `meter_credit` product). */
 export const SMS_TOPUP_PURCHASED_EVENT_TYPE =
   "billing.smsTopupPurchased" as const;
 
 export const SMS_VERIFICATION_CREATED_EVENT_TYPE =
   "smsVerification.created" as const;
+
 export const SMS_VERIFICATION_PENDING_EVENT_TYPE =
   "smsVerification.pending" as const;
+
 export const SMS_VERIFICATION_FAILED_EVENT_TYPE =
   "smsVerification.failed" as const;
+
 export const SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE =
   "smsVerification.succeeded" as const;

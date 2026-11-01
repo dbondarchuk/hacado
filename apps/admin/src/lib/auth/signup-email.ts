@@ -46,6 +46,7 @@ export function getSignupEmailBlockReason(
       { hasEmail: Boolean(email.trim()) },
       "Signup email check skipped: invalid address",
     );
+
     return null;
   }
 
@@ -60,6 +61,7 @@ export function getSignupEmailBlockReason(
       { domain, reason: "disposable" },
       "Signup email blocked: disposable domain",
     );
+
     return "disposable";
   }
 

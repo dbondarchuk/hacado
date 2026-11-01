@@ -46,10 +46,12 @@ describe("ShortLinksService", () => {
       service.persistCalls[0]?.map((link) => link.url).sort(),
       ["https://admin.example/a", "https://salon.hacado.me/book"].sort(),
     );
+
     assert.match(
       rewritten,
       /https:\/\/haca\.do\/[23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{8}/,
     );
+
     assert.equal(rewritten.includes("https://salon.hacado.me/book"), false);
   });
 

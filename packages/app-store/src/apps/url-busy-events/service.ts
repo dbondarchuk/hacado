@@ -59,6 +59,7 @@ export default class UrlBusyEventsConnectedApp
 
     const { data, success, error } =
       urlBusyEventsConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid URL busy events configuration request");
       throw new ConnectedAppRequestError(
@@ -147,6 +148,7 @@ export default class UrlBusyEventsConnectedApp
         start: start.toISOString(),
         end: end.toISOString(),
       };
+
       const url = new URL(
         applyUrlPlaceholders(app.data.url, placeholderValues),
       );
@@ -170,6 +172,7 @@ export default class UrlBusyEventsConnectedApp
           },
           "HTTP error when fetching busy times",
         );
+
         throw new ConnectedAppError<
           UrlBusyEventsAdminNamespace,
           UrlBusyEventsAdminKeys
@@ -226,6 +229,7 @@ export default class UrlBusyEventsConnectedApp
         start: DateTime.now().toISO()!,
         end: DateTime.now().plus({ days: 1 }).toISO()!,
       };
+
       const headers = buildHeadersWithPlaceholders(
         data.headers,
         placeholderValues,
@@ -248,6 +252,7 @@ export default class UrlBusyEventsConnectedApp
         { url: data.url, error: error?.message || error?.toString() },
         "URL test failed",
       );
+
       throw error;
     }
   }
@@ -263,6 +268,7 @@ export default class UrlBusyEventsConnectedApp
         { appId, dataType: typeof data },
         "Response is not an array",
       );
+
       throw new ConnectedAppError<
         UrlBusyEventsAdminNamespace,
         UrlBusyEventsAdminKeys
@@ -286,7 +292,6 @@ export default class UrlBusyEventsConnectedApp
         if (isNaN(startAt.getTime()) || isNaN(endAt.getTime())) {
           throw new Error(`Invalid date format`);
         }
-
         // Validate date order
         if (startAt >= endAt) {
           throw new Error(`startAt must be before endAt`);
@@ -308,6 +313,7 @@ export default class UrlBusyEventsConnectedApp
           },
           "Error validating busy time item",
         );
+
         throw new ConnectedAppError<
           UrlBusyEventsAdminNamespace,
           UrlBusyEventsAdminKeys

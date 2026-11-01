@@ -22,6 +22,7 @@ export const flexDirectionStyle = {
   defaultValue: "row",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `flex-direction: ${value};`;
   },
   component: ({ value, onChange }) => {

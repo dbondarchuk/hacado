@@ -43,6 +43,7 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
     user?.availableUsers,
     user?.feesExempt,
   );
+
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<TextMessageResenderConfiguration>({
       appId,

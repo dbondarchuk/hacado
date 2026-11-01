@@ -22,6 +22,7 @@ export const textDecorationStyle = {
   defaultValue: "none",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `text-decoration: ${value};`;
   },
   component: ({ value, onChange }) => {

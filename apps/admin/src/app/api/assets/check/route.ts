@@ -65,6 +65,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to check asset filename uniqueness",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -8,5 +8,6 @@ export function renderStrikethrough(
   if (marks.strikethrough) {
     return <s>{content}</s>;
   }
+
   return content;
 }

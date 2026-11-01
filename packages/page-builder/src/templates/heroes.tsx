@@ -35,10 +35,13 @@ const heroesCategory =
 
 const UNSPLASH_CENTERED =
   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80";
+
 const UNSPLASH_SPLIT =
   "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80";
+
 const UNSPLASH_VIDEO_POSTER =
   "https://images.unsplash.com/photo-1468931467769-06a09c69aad3?auto=format&fit=crop&w=1920&q=80";
+
 const PEXELS_HERO_VIDEO =
   "https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4";
 
@@ -206,6 +209,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
         "builder.pageBuilder.heroDefaults.subtitle",
         { lightText: true },
       );
+
       return fluidSection(
         [heading, text, button],
         centeredCopyPlacements(heading.id, text.id, button.id),
@@ -233,6 +237,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
         "builder.pageBuilder.heroDefaults.split.subtitle",
         { textAlign: "left" },
       );
+
       const imageBlock: TEditorBlock = {
         type: "Image",
         id: imageId,
@@ -251,6 +256,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
           },
         },
       };
+
       return fluidSection(
         [imageBlock, heading, text, button],
         {
@@ -286,6 +292,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
         "builder.pageBuilder.heroDefaults.subtitle",
         { lightText: true },
       );
+
       return fluidSection(
         [heading, text, button],
         centeredCopyPlacements(heading.id, text.id, button.id),
@@ -312,6 +319,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
         "builder.pageBuilder.heroDefaults.minimal.subtitle",
         { titleFontSize: { value: 3.5, unit: "rem" } },
       );
+
       return fluidSection(
         [heading, text, button],
         centeredCopyPlacements(heading.id, text.id, button.id),
@@ -343,6 +351,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
           titleFontSize: { value: 3.25, unit: "rem" },
         },
       );
+
       return fluidSection(
         [heading, text, button],
         leftOverlayPlacements(heading.id, text.id, button.id),

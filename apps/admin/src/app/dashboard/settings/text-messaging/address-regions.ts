@@ -95,6 +95,7 @@ export const smsAddressRegionOptions = (
     value: name,
     label: name,
   }));
+
   const selected = canonicalSmsAddressRegion(country, value);
   if (!selected || regions.some((region) => region.value === selected)) {
     return regions;

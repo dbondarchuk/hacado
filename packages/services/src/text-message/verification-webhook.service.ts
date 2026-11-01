@@ -38,6 +38,7 @@ export class TelnyxVerificationWebhookService {
         { error: error instanceof Error ? error.message : "invalid signature" },
         "Rejected Telnyx verification webhook",
       );
+
       return Response.json({ success: false }, { status: 400 });
     }
 
@@ -59,6 +60,7 @@ export class TelnyxVerificationWebhookService {
         { requestId: parsed.requestId },
         "No SMS registration for verification webhook",
       );
+
       return Response.json({ success: true });
     }
 
@@ -66,6 +68,7 @@ export class TelnyxVerificationWebhookService {
       status === "rejected"
         ? parsed.reason || "Verification was not approved."
         : undefined;
+
     if (
       current.status === status &&
       (status !== "rejected" || current.rejectionReason === reason)
@@ -80,9 +83,11 @@ export class TelnyxVerificationWebhookService {
       blockedReason: undefined,
       verifiedAt: status === "verified" ? new Date() : current.verifiedAt,
     });
+
     const assigned = await this.store.getAssignedProfileNumber(
       saved.organizationId,
     );
+
     await emitSmsVerificationStatusChange({
       previousStatus: current.status,
       nextStatus: saved.status,
@@ -96,6 +101,7 @@ export class TelnyxVerificationWebhookService {
       { organizationId: saved.organizationId, status },
       "SMS verification status updated",
     );
+
     return Response.json({ success: true });
   }
 }

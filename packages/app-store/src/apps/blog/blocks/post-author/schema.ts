@@ -19,6 +19,7 @@ export const BlogPostAuthorPropsSchema = z.object({
 export type BlogPostAuthorProps = Prettify<
   z.infer<typeof BlogPostAuthorPropsSchema>
 >;
+
 export type BlogPostAuthorReaderProps = BaseReaderBlockProps<any> &
   BlogPostAuthorProps;
 

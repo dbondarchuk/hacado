@@ -157,12 +157,14 @@ export const BLOG_APP_EVENTS: AppEventConfig = {
 
         const admins =
           await services.teamService.getOrganizationAdminContacts();
+
         if (!admins.length) {
           return null;
         }
 
         const organization =
           await services.organizationService.getOrganization();
+
         const organizationLabel =
           organization?.name?.trim() || organization?.slug || "";
 
@@ -210,6 +212,7 @@ export const BLOG_APP_EVENTS: AppEventConfig = {
       recordActivity: (envelope) => {
         const { comment, status } =
           envelope.payload as BlogCommentStatusChangedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,

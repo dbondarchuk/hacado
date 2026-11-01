@@ -19,6 +19,7 @@ function parseCreditAmount(product: Product, meterId: string): number | null {
   for (const benefit of product.benefits) {
     if (benefit.type !== "meter_credit") continue;
     if (benefit.properties.meterId !== meterId) continue;
+
     return Math.max(0, benefit.properties.units);
   }
 
@@ -50,6 +51,7 @@ function pickPrimaryFixedPrice(product: {
       };
     }
   }
+
   return null;
 }
 
@@ -93,6 +95,7 @@ export async function listSmsTopupProductOffers(): Promise<
 
     for (const product of items) {
       if (String(product.metadata.type ?? "") !== SMS_TOPUP_LABEL) continue;
+
       const price = pickPrimaryFixedPrice(product);
       if (!price) continue;
 
@@ -106,6 +109,7 @@ export async function listSmsTopupProductOffers(): Promise<
         product,
         polar.config.smsCreditsMeterId,
       );
+
       if (credits === null) continue;
 
       const offer: SmsTopupProductOffer = {
@@ -147,6 +151,7 @@ export async function createSmsTopupCheckoutSession(
     "SmsTopup",
     organizationId,
   )("createSmsTopupCheckoutSession");
+
   logger.debug({ input }, "Creating SMS top-up checkout session");
 
   const parsed = createTopupInput.safeParse(input);
@@ -176,6 +181,7 @@ export async function createSmsTopupCheckoutSession(
   const sessionOrg = (
     session.user as { organizationId?: string }
   ).organizationId?.trim();
+
   if (!sessionOrg || sessionOrg !== organizationId) {
     return { ok: false, code: "organization_mismatch" };
   }
@@ -219,6 +225,7 @@ export async function createSmsTopupCheckoutSession(
       successUrl,
       returnUrl,
     });
+
     return { ok: true, url: checkoutSession.url };
   } catch (error) {
     logger.error({ error, productId, organizationId }, "SMS top-up checkout");

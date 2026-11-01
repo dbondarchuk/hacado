@@ -39,6 +39,7 @@ export const TipPresetsField: React.FC<TipPresetsFieldProps> = ({
 }) => {
   const presets =
     (form.watch(name) as Array<number | undefined> | undefined) ?? [];
+
   const [ids, setIds] = React.useState<string[]>(() =>
     presets.map(() => createId()),
   );
@@ -72,6 +73,7 @@ export const TipPresetsField: React.FC<TipPresetsFieldProps> = ({
       idsRef.current = nextIds;
       setIds(nextIds);
     }
+
     form.setValue(name, next, {
       shouldDirty: true,
       shouldValidate: true,
@@ -115,6 +117,7 @@ export const TipPresetsField: React.FC<TipPresetsFieldProps> = ({
   const { error: fieldError } = form.getFieldState(name, form.formState);
   const invalidMessage =
     typeof fieldError?.message === "string" ? fieldError.message : undefined;
+
   const itemErrors = Array.isArray(fieldError)
     ? fieldError
     : (fieldError as { [index: number]: FieldError } | undefined);

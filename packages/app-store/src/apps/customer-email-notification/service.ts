@@ -123,6 +123,7 @@ export default class CustomerEmailNotificationConnectedApp
 
     const { data, success, error } =
       customerEmailNotificationConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid request");
       throw new ConnectedAppRequestError(
@@ -226,6 +227,7 @@ export default class CustomerEmailNotificationConnectedApp
         },
         "Appointment status changed, not sending customer email notification - do not notify customer",
       );
+
       return;
     }
 
@@ -283,6 +285,7 @@ export default class CustomerEmailNotificationConnectedApp
         },
         "Appointment rescheduled, not sending customer email notification - do not notify customer",
       );
+
       return;
     }
 
@@ -380,11 +383,13 @@ export default class CustomerEmailNotificationConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id },
           "Organization not found",
         );
+
         return;
       }
 
@@ -435,6 +440,7 @@ export default class CustomerEmailNotificationConnectedApp
           { appId: appData._id, appointmentId: appointment._id, status },
           "No email template ID configured for status, skipping email notification",
         );
+
         return;
       }
 
@@ -459,6 +465,7 @@ export default class CustomerEmailNotificationConnectedApp
           await this.props.services.templatesService.getTemplate(
             eventTemplateId,
           );
+
         if (!eventTemplate) {
           logger.error(
             {
@@ -468,6 +475,7 @@ export default class CustomerEmailNotificationConnectedApp
             },
             "Event template not found",
           );
+
           return;
         }
 
@@ -480,6 +488,7 @@ export default class CustomerEmailNotificationConnectedApp
             },
             "Event template is not an email template, skipping email notification",
           );
+
           return;
         }
 
@@ -518,11 +527,13 @@ export default class CustomerEmailNotificationConnectedApp
 
       const template =
         await this.props.services.templatesService.getTemplate(templateId);
+
       if (!template) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id, templateId },
           "Email template not found",
         );
+
         return;
       }
 
@@ -531,6 +542,7 @@ export default class CustomerEmailNotificationConnectedApp
           { appId: appData._id, appointmentId: appointment._id, templateId },
           "Email template is not an email template, skipping email notification",
         );
+
         return;
       }
 
@@ -590,6 +602,7 @@ export default class CustomerEmailNotificationConnectedApp
         { appId: appData._id, appointmentId: appointment._id, status, error },
         "Error sending customer email notification",
       );
+
       throw error;
     }
   }

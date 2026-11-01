@@ -14,6 +14,7 @@ export const EditorReaderBlock = memo(({ blockId }: { blockId: string }) => {
   const args = useEditorArgs();
   const document = useDocument();
   if (!block) return null;
+
   return (
     <ReaderBlock
       document={document}

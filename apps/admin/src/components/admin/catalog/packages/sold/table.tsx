@@ -14,6 +14,7 @@ export const SoldPackagesTable: React.FC = async () => {
   const sort = soldPackagesSearchParamsCache.get("sort");
   const customerId =
     soldPackagesSearchParamsCache.get("customerId") || undefined;
+
   const packageId = soldPackagesSearchParamsCache.get("packageId") || undefined;
   const offset = (page - 1) * limit;
 

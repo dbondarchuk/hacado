@@ -41,6 +41,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         concurrency: this.config.queues.email.concurrency,
       },
     );
+
     this.setupWorkerEventListeners(emailWorker, this.config.queues.email.name);
 
     // Create text message worker
@@ -51,6 +52,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         concurrency: this.config.queues.textMessage.concurrency,
       },
     );
+
     this.setupWorkerEventListeners(
       textMessageWorker,
       this.config.queues.textMessage.name,
@@ -224,6 +226,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     if (!organizationId) {
       throw new Error("organizationId is required in job data");
     }
+
     const notificationService = this.getNotificationService(organizationId);
     await this.markSending(organizationId, textData.communicationLogId, job);
 
@@ -400,6 +403,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
           { signal },
           "Received shutdown signal, stopping worker gracefully",
         );
+
         await this.stop();
         process.exit(0);
       };
@@ -416,6 +420,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
               { error, worker: workerName },
               "Worker encountered fatal error",
             );
+
             reject(error);
           });
         }
@@ -436,6 +441,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         const keepAlive = () => {
           setTimeout(keepAlive, 1000);
         };
+
         keepAlive();
       });
     } catch (error) {

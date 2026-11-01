@@ -137,6 +137,7 @@ export function AIMenu() {
                   e.preventDefault();
                   api.aiChat.hide();
                 }
+
                 if (isHotkey("enter")(e) && !e.shiftKey && !value) {
                   e.preventDefault();
                   void api.aiChat.submit();

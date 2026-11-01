@@ -19,9 +19,11 @@ export const addressesSearchParams = {
 export const addressesSearchParamsCache = createSearchParamsCache(
   addressesSearchParams,
 );
+
 export const addressesSearchParamsSchema = createStandardSchemaV1(
   addressesSearchParams,
 );
+
 export const addressesSearchParamsSerializer = createSerializer(
   addressesSearchParams,
 );

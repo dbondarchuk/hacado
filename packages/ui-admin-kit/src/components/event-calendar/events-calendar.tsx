@@ -93,13 +93,16 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
       if (managedSchedule) {
         setSchedule(result.schedule);
       }
+
       setEvents(result.events || []);
       onRangeChangeProp?.(start, end);
     },
     [managedEvents, managedSchedule, memberId, onRangeChangeProp, timeZone],
   );
+
   React.useEffect(() => {
     if (!managedEvents || !rangeRef.current) return;
+
     void getEvents(rangeRef.current.start, rangeRef.current.end);
   }, [getEvents, managedEvents, memberId]);
 
@@ -163,6 +166,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
     const found = events.find(
       (app) => (app as Appointment)._id == event.id,
     ) as Appointment;
+
     if (found) setAppointment(found);
   };
 

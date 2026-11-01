@@ -42,6 +42,7 @@ export const InstalledAppsClient: React.FC<InstalledAppsClientProps> = ({
   const [scope, setScope] = React.useState<AppsScope>(
     showCompanyScope ? "company" : "member",
   );
+
   const [memberId, setMemberId] = React.useState(currentMemberId);
 
   const normalizedSearch = search.trim().toLowerCase();
@@ -50,6 +51,7 @@ export const InstalledAppsClient: React.FC<InstalledAppsClientProps> = ({
     return apps.filter((app) => {
       const { target } = withCatalogTarget(app);
       if (scope === "company") return target === "company";
+
       return target === "member" && app.memberId === memberId;
     });
   }, [apps, scope, memberId]);
@@ -62,6 +64,7 @@ export const InstalledAppsClient: React.FC<InstalledAppsClientProps> = ({
       const translatedName = descriptor
         ? tApps(descriptor.displayName as any).toLowerCase()
         : "";
+
       const internalName = app.name.toLowerCase();
 
       return (

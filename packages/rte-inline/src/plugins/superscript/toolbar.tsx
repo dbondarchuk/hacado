@@ -16,6 +16,7 @@ export function SuperscriptToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("superscript")) return null;
+
   return (
     <DropdownMenuCheckboxItem
       checked={

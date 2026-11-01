@@ -92,6 +92,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
     const giftCards = db.collection<typeof dbGiftCard>(
       GIFT_CARDS_COLLECTION_NAME,
     );
+
     await giftCards.insertOne(dbGiftCard);
 
     const newGiftCard = (await this.getGiftCard(
@@ -175,12 +176,14 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
           { giftCard },
           "Gift card has payments, cannot update amount",
         );
+
         throw new Error("Gift card has payments, cannot update amount");
       }
 
       const isInPerson = inPersonPaymentMethod.includes(
         payment.method as InPersonPaymentMethod,
       );
+
       const isPendingPaymentLink =
         payment.method === "payment-link" && payment.status === "pending";
 
@@ -208,6 +211,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
             typeof intent.request.tipAmount === "number"
               ? intent.request.tipAmount
               : 0;
+
           const chargeAmount =
             Math.round((giftCard.amount + tipAmount) * 100) / 100;
 
@@ -326,9 +330,11 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       if (!(await this.canSetGiftCardStatus(giftCard, status, logger))) {
         continue;
       }
+
       if (status === "inactive") {
         await this.cancelPendingPurchasePaymentLink(giftCard.paymentId, source);
       }
+
       allowedIds.push(id);
     }
 
@@ -387,6 +393,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       (inPersonPaymentMethod as readonly string[]).includes(
         giftCardPayment.method,
       );
+
     const isPendingPaymentLink =
       giftCardPayment?.method === "payment-link" &&
       giftCardPayment.status === "pending";
@@ -421,6 +428,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
         { id },
         "Payments using this gift card found, cannot delete gift card",
       );
+
       return null;
     }
 
@@ -511,6 +519,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
           inPersonPaymentMethod.includes(giftCard.payment.method),
       )
       .map((giftCard) => giftCard.payment!._id);
+
     const pendingPaymentLinkIds = toDelete
       .filter(
         (giftCard) =>
@@ -734,6 +743,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
             { expiresAt: { $gte: new Date() } },
           ],
         });
+
         $statusFilter.push({ amountLeft: { $gt: 0 } });
 
         $filterAnd.push({ $and: $statusFilter });
@@ -745,6 +755,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
             { expiresAt: { $lt: new Date() } },
           ],
         });
+
         $statusFilter.push({ amountLeft: { $eq: 0 } });
 
         $filterAnd.push({ $$or: $statusFilter });
@@ -958,6 +969,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
         },
         "Cannot activate gift card while purchase payment link is unpaid",
       );
+
       return false;
     }
 

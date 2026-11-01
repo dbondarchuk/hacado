@@ -54,6 +54,7 @@ export const ReassignSelectedFormResponsesButton: React.FC<{
           error: tAdmin("common.toasts.error"),
         },
       );
+
       reload();
       setIsOpen(false);
       setCustomerId(undefined);

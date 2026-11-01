@@ -12,6 +12,7 @@ export async function getOpenAppointmentsCreatedInBillingCycleCount(
   const billingPeriod = await billingService.getBillingPeriod();
   const periodStart =
     billingPeriod?.start ?? DateTime.utc().startOf("month").toJSDate();
+
   const periodEnd =
     billingPeriod?.end ?? DateTime.utc().endOf("month").toJSDate();
 

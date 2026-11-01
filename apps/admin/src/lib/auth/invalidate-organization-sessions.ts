@@ -21,6 +21,7 @@ async function collectOrganizationUserIds(
   for (const member of members) {
     if (member.userId) userIds.add(member.userId);
   }
+
   return [...userIds];
 }
 
@@ -67,6 +68,7 @@ export async function invalidateOrganizationSessions(
       await ctx.internalAdapter.updateUser(userId, {
         updatedAt: new Date(),
       });
+
       refreshed += 1;
     } catch (error) {
       logger.warn(

@@ -55,6 +55,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
         giftCardStudioAdminNamespace,
       );
+
       const isAwaitingPayment =
         purchase.paymentMethod === "payment-link" &&
         purchase.paymentStatus === "pending";
@@ -66,7 +67,6 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
           </span>
         );
       }
-
       if (purchase.cardGenerationStatus !== "completed") {
         return (
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -113,6 +113,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
         giftCardStudioAdminNamespace,
       );
+
       const isAwaitingPayment =
         purchase.paymentMethod === "payment-link" &&
         purchase.paymentStatus === "pending";
@@ -124,7 +125,6 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
           </span>
         );
       }
-
       if (purchase.invoiceGenerationStatus !== "completed") {
         return (
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -196,6 +196,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
         giftCardStudioAdminNamespace,
       );
+
       return row.original.status === "active"
         ? t("purchases.table.status.active")
         : t("purchases.table.status.inactive");

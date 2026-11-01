@@ -42,11 +42,13 @@ export function CheckoutPlans({
       organizationId,
       productIds,
     });
+
     if (!result.ok) {
       toast.error(t("checkout.checkoutError"));
       setLoadingId(null);
       return;
     }
+
     window.location.assign(result.url);
   };
 

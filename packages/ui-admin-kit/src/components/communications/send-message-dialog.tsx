@@ -83,6 +83,7 @@ export const SendCommunicationDialog: React.FC<
 
   useEffect(() => {
     if (open === undefined || open === isOpen) return;
+
     setIsOpen(open);
   }, [open]);
 

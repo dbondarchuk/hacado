@@ -42,6 +42,7 @@ export const CommentsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
     end,
     setEndValue,
   } = useCommentsTableFilters();
+
   const t = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
   const tAdmin = useI18n("admin");
 

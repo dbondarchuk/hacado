@@ -17,6 +17,7 @@ export const flexWrapStyle = {
   defaultValue: "nowrap",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `flex-wrap: ${value};`;
   },
   component: ({ value, onChange }) => {

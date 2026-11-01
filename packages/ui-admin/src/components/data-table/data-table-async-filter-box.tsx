@@ -82,6 +82,7 @@ export function DataTableAsyncFilterBox({
 
   const selectedValuesSet = React.useMemo(() => {
     if (!filterValue) return new Set<string>();
+
     return new Set(filterValue.filter((value) => value !== ""));
   }, [filterValue]);
 
@@ -98,6 +99,7 @@ export function DataTableAsyncFilterBox({
     } else {
       newSet.add(value);
     }
+
     setFilterValue(newSet.size ? Array.from(newSet) : null);
   };
 
@@ -177,6 +179,7 @@ export function DataTableAsyncFilterBox({
                     const item =
                       items.find((item) => item.value === value) ??
                       itemsCache[value];
+
                     return (
                       <Badge
                         variant="secondary"

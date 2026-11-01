@@ -18,6 +18,7 @@ export const propertiesToArray = (obj: Record<string, any>) => {
       } else {
         product.push({ id: fullPath, display: value?.toString() });
       }
+
       return product;
     }, [] as KeyValuePair[]);
   };

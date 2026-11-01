@@ -55,10 +55,12 @@ export class EmailNotificationConnectedApp
     const config = (appData.data ?? {}) as EmailNotificationConfiguration;
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const forMemberId = await resolveAppointmentEventForMemberId(
       async (memberId) => {
         const member =
           await this.props.services.teamService.getMemberById(memberId);
+
         return member?.role ?? null;
       },
       appData.memberId,
@@ -149,6 +151,7 @@ export class EmailNotificationConnectedApp
 
     const { data, success, error } =
       emailNotificationConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid request");
       throw new ConnectedAppRequestError(
@@ -384,11 +387,13 @@ export class EmailNotificationConnectedApp
     try {
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id },
           "Organization not found",
         );
+
         return;
       }
 
@@ -418,6 +423,7 @@ export class EmailNotificationConnectedApp
           },
           "Member not found",
         );
+
         return;
       }
 
@@ -540,6 +546,7 @@ export class EmailNotificationConnectedApp
         { appId: appData._id, appointmentId: appointment._id, status, error },
         "Error sending email notification",
       );
+
       throw error;
     }
   }

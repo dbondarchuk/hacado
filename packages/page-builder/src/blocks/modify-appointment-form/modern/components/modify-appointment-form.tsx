@@ -84,6 +84,7 @@ export const ModifyAppointmentForm: React.FC<
   const [searchError, setSearchError] = React.useState<
     "notFound" | "notAllowed" | undefined
   >(undefined);
+
   // const [confirmedByUser, setConfirmedByUser] = React.useState(false);
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
@@ -92,11 +93,13 @@ export const ModifyAppointmentForm: React.FC<
   const [appointment, setAppointment] = React.useState<
     ModifyAppointmentInformation | undefined
   >(undefined);
+
   const [availability, setAvailability] = React.useState<Availability>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<ModifyAppointmentFields>({
     dateTime: new Date(),
   });
+
   const [isOtpVerified, setIsOtpVerified] = React.useState(false);
 
   React.useEffect(() => {
@@ -191,6 +194,7 @@ export const ModifyAppointmentForm: React.FC<
       setGiftCards(data.giftCards);
       return data.giftCards;
     }
+
     throw new Error(data.error);
   };
 
@@ -254,7 +258,6 @@ export const ModifyAppointmentForm: React.FC<
       !appointment.memberId
     )
       return;
-
     if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
     setIsLoading(true);
@@ -286,7 +289,6 @@ export const ModifyAppointmentForm: React.FC<
       if (!type) {
         throw new Error("Type is required");
       }
-
       if (type === "reschedule" && !newDateTime) {
         throw new Error("Date time is required");
       }

@@ -112,7 +112,6 @@ export const BlogPostCommentFormComponent = ({
       </>
     );
   }
-
   if (!display.commentsEnabled) {
     return (
       <>
@@ -129,7 +128,6 @@ export const BlogPostCommentFormComponent = ({
       </>
     );
   }
-
   if (submitted) {
     return (
       <>

@@ -18,6 +18,7 @@ export function StepSchedule() {
     const hasWorkingHours = p.installSchedule.some(
       (day) => day.shifts.length > 0,
     );
+
     if (!hasWorkingHours) {
       toast.error(t("wizard.schedule.noWorkingHours"));
       return;
@@ -32,6 +33,7 @@ export function StepSchedule() {
         } else {
           toast.error(t("wizard.schedule.saveError"));
         }
+
         return;
       }
 

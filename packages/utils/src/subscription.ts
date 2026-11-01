@@ -13,5 +13,6 @@ export function canUseFeature(
   feature: SubscriptionFeature,
 ): boolean {
   if (!isFreeTier(planTier)) return true;
+
   return !FREE_TIER_DISABLED_FEATURES.has(feature);
 }

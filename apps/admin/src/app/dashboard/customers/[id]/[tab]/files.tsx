@@ -41,6 +41,7 @@ const AssetItem: React.FC<{ asset: Asset; allowSelect?: boolean }> = ({
   const { rowSelection, setRowSelection } = useSelectedRowsStore();
   const setSelected = React.useCallback(() => {
     if (!allowSelect) return;
+
     const index = rowSelection.findIndex((row: Asset) => row._id === asset._id);
     const newRows = [...rowSelection];
     if (index >= 0) {

@@ -13,7 +13,6 @@ export const getPaymentMethod = (
       ("admin.common.labels.paymentMethod.payment-link" satisfies AllKeys)
     );
   }
-
   if (method === "payment-link") {
     return "admin.common.labels.paymentMethod.payment-link";
   }

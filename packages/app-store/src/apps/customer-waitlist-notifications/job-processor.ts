@@ -181,6 +181,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
     if (payload.oldStatus && isClosedAppointmentStatus(payload.oldStatus)) {
       return Promise.resolve();
     }
+
     return this.scheduleOfferFromAppointmentWindow(
       appData,
       payload.appointment,
@@ -196,6 +197,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
     if (!payload.oldTime || payload.oldDuration == null) {
       return Promise.resolve();
     }
+
     return this.scheduleOfferFromAppointmentWindow(
       appData,
       payload.appointment,
@@ -230,10 +232,12 @@ export class CustomerWaitlistNotificationsJobProcessor {
     if (payload.update.calendarSources === undefined) {
       return;
     }
+
     const booking =
       await this.props.services.configurationService.getConfiguration(
         "booking",
       );
+
     if (
       !canUseMemberCalendarSources(payload.member.role, {
         allowStaffCalendarSources: booking.allowStaffCalendarSources,
@@ -241,6 +245,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
     ) {
       return;
     }
+
     await this.scheduleScanOpenedSlots(appData, [payload.member._id]);
   }
 
@@ -253,6 +258,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
     const windowEnd = new Date(
       windowStart.getTime() + durationMinutes * 60_000,
     );
+
     await this.scheduleOfferOpenedSlot(appData, {
       memberId: appointment.memberId,
       windowStart,
@@ -294,6 +300,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
     const timeZone = (
       await this.props.services.configurationService.getConfiguration("general")
     ).timeZone;
+
     const cooldownMs = (config.cooldownMinutes ?? 180) * 60_000;
     const exclusiveMinutes = config.exclusiveAccessMinutes ?? 0;
     const availabilityByDuration = new Map<number, Date[]>();
@@ -346,6 +353,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
           { appId: appData._id, payload, windowStart, windowEnd, duration },
           "Duration does not fit window, skipping",
         );
+
         continue;
       }
 
@@ -355,6 +363,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
           windowEnd,
           timeZone,
         );
+
         availabilityByDuration.set(
           duration,
           await this.props.services.bookingService.getAvailability(
@@ -382,7 +391,6 @@ export class CustomerWaitlistNotificationsJobProcessor {
         if (includesSlotStart(entry.slotOpenedNotifiedStarts, candidate)) {
           continue;
         }
-
         if (
           await repo.customerHasNotifiedSlotStart({
             customerId: entry.customerId,
@@ -399,11 +407,13 @@ export class CustomerWaitlistNotificationsJobProcessor {
             duration,
             payload.memberId,
           );
+
         if (!stillFree) {
           logger.debug(
             { appId: appData._id, candidate },
             "Candidate start is no longer bookable, trying later start",
           );
+
           continue;
         }
 
@@ -417,6 +427,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
           { appId: appData._id, payload, entryId: entry._id },
           "No remaining bookable start in window for entry, skipping",
         );
+
         continue;
       }
 
@@ -515,6 +526,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
 
     const { options } =
       await this.props.services.bookingService.getAppointmentOptions();
+
     logger.debug({ appId: appData._id, options }, "Found options");
 
     const optionDurationById = new Map(
@@ -571,6 +583,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
             );
 
             if (duration == null) continue;
+
             const slots = availabilityByDuration.get(duration) ?? [];
             for (const slot of slots) {
               logger.debug(

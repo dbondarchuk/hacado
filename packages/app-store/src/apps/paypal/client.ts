@@ -42,6 +42,7 @@ export class PaypalClient {
     if (this.accessToken && this.expiresAt && this.expiresAt > Date.now()) {
       return;
     }
+
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization: `Basic ${Buffer.from(`${this.clientId}:${this.secretKey}`).toString("base64")}`,
@@ -56,6 +57,7 @@ export class PaypalClient {
         headers,
         body,
       });
+
       if (response.ok) {
         const { access_token, expires_in } = await response.json();
         this.accessToken = access_token;
@@ -304,6 +306,7 @@ export class PaypalClient {
         { error, statusCode: response?.status },
         "Error creating PayPal webhook",
       );
+
       return undefined;
     }
   }
@@ -335,6 +338,7 @@ export class PaypalClient {
       console.error(error);
       return [];
     }
+
     return [];
   }
 
@@ -353,6 +357,7 @@ export class PaypalClient {
     } catch (error) {
       console.error(error);
     }
+
     return false;
   }
 
@@ -364,6 +369,7 @@ export class PaypalClient {
       console.error(error);
       return false;
     }
+
     return true;
   }
 
@@ -416,6 +422,7 @@ export class PaypalClient {
         { error, statusCode: response?.status },
         "Failed to list PayPal transactions",
       );
+
       return { error: { statusCode: response?.status } };
     }
   }

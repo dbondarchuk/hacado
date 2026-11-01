@@ -74,7 +74,6 @@ export const backgroundImageStyle = {
   },
   renderToCSS: (value) => {
     if (!value || value.type === "none") return null;
-
     if (value.type === "url" && value.value) {
       return `background-image: url(${value.value});`;
     }
@@ -87,6 +86,7 @@ export const backgroundImageStyle = {
       const colors = value.gradientColors
         .map((color) => getColorStyle(color))
         .join(", ");
+
       if (value.gradientType === "radial") {
         return `background-image: radial-gradient(circle, ${colors});`;
       } else {
@@ -125,6 +125,7 @@ export const backgroundImageStyle = {
       } else {
         colors[index] = color;
       }
+
       handleChange("gradientColors", colors);
     };
 

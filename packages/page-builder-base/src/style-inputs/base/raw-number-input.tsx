@@ -37,10 +37,13 @@ const isPartialNumber = (
 ) => {
   if (val === "") return true;
   if (allowNegative && val === "-") return true;
+
   if (float) {
     if (val === "." || (allowNegative && val === "-.")) return true;
+
     return /^-?\d*\.?\d*$/.test(val);
   }
+
   return /^-?\d*$/.test(val);
 };
 
@@ -72,6 +75,7 @@ export const RawNumberInput: React.FC<RawNumberInputProps> = ({
   const handleInputChange = React.useCallback(
     (next: number | null) => {
       if (next === null && !nullable) return;
+
       if (
         next !== null &&
         ((typeof min !== "undefined" && next < min) ||
@@ -106,10 +110,12 @@ export const RawNumberInput: React.FC<RawNumberInputProps> = ({
         setInputValue("");
         return;
       }
+
       // Incomplete draft ("-", ".") or invalid - restore committed value
       setInputValue(value?.toString() ?? "");
       return;
     }
+
     handleInputChange(parsed);
     setInputValue(parsed.toString());
   };
@@ -168,6 +174,7 @@ export const RawNumberInput: React.FC<RawNumberInputProps> = ({
                   if (next === "" && nullable) {
                     handleInputChange(null);
                   }
+
                   return;
                 }
 

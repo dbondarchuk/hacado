@@ -55,6 +55,7 @@ export function useFluidLayout() {
   if (!ctx) {
     throw new Error("useFluidLayout must be used within FluidLayoutProvider");
   }
+
   return ctx;
 }
 

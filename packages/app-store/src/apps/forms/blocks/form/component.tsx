@@ -58,6 +58,7 @@ function defaultAnswerValue(
     return (
       (f.data as { options?: { option: string }[] })?.options?.[0]?.option ?? ""
     );
+
   return undefined;
 }
 
@@ -72,6 +73,7 @@ export const FormBlockComponent = ({
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
+
   const [customerIdFromUrl, setCustomerIdFromUrl] = useState<string | null>(
     null,
   );
@@ -182,6 +184,7 @@ export const FormBlockComponent = ({
 
   useEffect(() => {
     if (!requireCustomerId || typeof window === "undefined") return;
+
     const params = new URLSearchParams(window.location.search);
     const fromUrl = params.get(CUSTOMER_ID_QUERY_PARAM)?.trim();
     if (fromUrl) {
@@ -192,6 +195,7 @@ export const FormBlockComponent = ({
 
   const onSubmit = async (values: FormValues) => {
     if (!form || !appId || isEditor) return;
+
     setSubmitStatus("idle");
 
     const formData = new FormData();
@@ -208,6 +212,7 @@ export const FormBlockComponent = ({
     for (const field of form.fields) {
       const value = values.answers[field.name];
       if (value === undefined || value === null) continue;
+
       if (field.type === "file" && value instanceof File) {
         formData.append(`file_${field.name}`, value);
       }
@@ -236,15 +241,18 @@ export const FormBlockComponent = ({
           (res?.error as string) ||
           (res?.message as string) ||
           t("block.formSubmit.error");
+
         toast.error(message);
         setSubmitStatus("error");
         return;
       }
+
       formHook.reset(
         customerIdFromUrl && requireCustomerId
           ? { ...defaultValues, customerId: customerIdFromUrl }
           : defaultValues,
       );
+
       setSubmitStatus("success");
     } catch {
       toast.error(t("block.formSubmit.error"));
@@ -268,7 +276,6 @@ export const FormBlockComponent = ({
       </>
     );
   }
-
   if (submitStatus === "success" && !isEditor) {
     return (
       <>
@@ -309,6 +316,7 @@ export const FormBlockComponent = ({
   const isCustomerIdInvalid = !!formHook.formState.errors.customerId;
   const shouldDisableFieldsByCustomerId =
     form.requireCustomerId && (!customerId || isCustomerIdInvalid);
+
   const isDisabled =
     formHook.formState.isSubmitting || shouldDisableFieldsByCustomerId;
 
@@ -365,6 +373,7 @@ export const FormBlockComponent = ({
               const FieldComponent = getPublicFieldComponent(
                 fieldDef.type as FormsFieldType,
               );
+
               return (
                 <FormField
                   key={fieldDef.name}

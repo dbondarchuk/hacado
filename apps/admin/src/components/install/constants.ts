@@ -16,6 +16,7 @@ export const PREFERRED_WEBSITE_PACK_PARAM = "template";
 export function preferredWebsitePackHref(path: string, packId: string): string {
   const id = packId.trim();
   if (!id) return path;
+
   const url = new URL(path, "http://local.invalid");
   url.searchParams.set(PREFERRED_WEBSITE_PACK_PARAM, id);
   return `${url.pathname}${url.search}`;
@@ -23,8 +24,10 @@ export function preferredWebsitePackHref(path: string, packId: string): string {
 
 export function rememberPreferredWebsitePack(packId: string) {
   if (typeof window === "undefined") return;
+
   const id = packId.trim();
   if (!id) return;
+
   try {
     window.localStorage.setItem(PREFERRED_WEBSITE_PACK_KEY, id);
     const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -44,17 +47,22 @@ export function rememberPreferredWebsitePack(packId: string) {
 
 export function readPreferredWebsitePack(): string | null {
   if (typeof window === "undefined") return null;
+
   try {
     const fromPreferred = window.localStorage
       .getItem(PREFERRED_WEBSITE_PACK_KEY)
       ?.trim();
+
     if (fromPreferred) return fromPreferred;
+
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
+
     const parsed = JSON.parse(raw) as {
       catalogPreferredPackId?: unknown;
       websitePackId?: unknown;
     };
+
     if (
       typeof parsed.catalogPreferredPackId === "string" &&
       parsed.catalogPreferredPackId.trim()
@@ -70,11 +78,13 @@ export function readPreferredWebsitePack(): string | null {
   } catch {
     /* ignore */
   }
+
   return null;
 }
 
 export function clearPreferredWebsitePack() {
   if (typeof window === "undefined") return;
+
   try {
     window.localStorage.removeItem(PREFERRED_WEBSITE_PACK_KEY);
   } catch {
@@ -86,6 +96,7 @@ export function newInstallServiceClientId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
   }
+
   return `svc-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
@@ -100,6 +111,7 @@ export function normalizeSlug(raw: string) {
 
 export function defaultPriceFromTemplate(prices: number[]) {
   if (!prices?.length) return "";
+
   const mid = prices[Math.floor(prices.length / 2)];
   return String(mid ?? prices[0]);
 }

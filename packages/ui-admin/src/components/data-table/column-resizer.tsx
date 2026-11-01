@@ -11,6 +11,7 @@ export const ColumnResizer = <TData,>({
 }) => {
   const defaultClass =
     "absolute top-0 right-0 w-px h-full bg-border hover:bg-border items-center justify-center flex";
+
   if (header.column.getCanResize() === false)
     return <div className={cn(defaultClass, className)} />;
 

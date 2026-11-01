@@ -62,6 +62,7 @@ async function startServer(): Promise<void> {
               example: "/check?domain=example.com",
             }),
           );
+
           return;
         }
 
@@ -77,6 +78,7 @@ async function startServer(): Promise<void> {
                 domain,
               }),
             );
+
             logger.info({ domain, inUse: false }, "Domain check completed");
             return;
           }

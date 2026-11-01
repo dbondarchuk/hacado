@@ -40,6 +40,7 @@ const SelectBlockListener: React.FC = memo(() => {
       setSidebarTab(StylesPanelTab);
     }
   }, [selectedBlockId, selectedSlot, setSidebarTab]);
+
   return null;
 });
 

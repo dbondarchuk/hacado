@@ -72,7 +72,6 @@ function statusTextKey(statusText: ConnectedAppData["statusText"]): string {
   if (typeof statusText === "string") {
     return statusText;
   }
-
   if (statusText && typeof statusText === "object" && "key" in statusText) {
     return String(statusText.key);
   }
@@ -185,6 +184,7 @@ class GoogleAnalyticsConnectedApp
             { appId: appData._id, streamCount: streamList.length },
             "Retrieved Google Analytics data stream list",
           );
+
           return streamList;
         }
 
@@ -225,6 +225,7 @@ class GoogleAnalyticsConnectedApp
             },
             "Set Google Analytics data stream",
           );
+
           return;
         }
 
@@ -236,6 +237,7 @@ class GoogleAnalyticsConnectedApp
         { appId: appData._id, type: data.type, error: err },
         "Error processing Google Analytics request",
       );
+
       throw err;
     }
   }
@@ -260,6 +262,7 @@ class GoogleAnalyticsConnectedApp
         { appId, error },
         "Error generating Google Analytics login URL",
       );
+
       throw error;
     }
   }
@@ -284,7 +287,6 @@ class GoogleAnalyticsConnectedApp
           "app_google-analytics_admin.statusText.redirect_request_does_not_contain_app_id" satisfies GoogleAnalyticsAdminAllKeys,
         );
       }
-
       if (!code) {
         throw new ConnectedAppError(
           "app_google-analytics_admin.statusText.redirect_request_does_not_contain_authorization_code" satisfies GoogleAnalyticsAdminAllKeys,
@@ -295,6 +297,7 @@ class GoogleAnalyticsConnectedApp
         code,
         redirect_uri: this.getRedirectUri(),
       });
+
       const tokens = tokenResponse.tokens;
 
       if (!tokens?.access_token || !tokens.refresh_token || !tokens.id_token) {
@@ -302,7 +305,6 @@ class GoogleAnalyticsConnectedApp
           "app_google-analytics_admin.statusText.app_was_not_authorized_properly" satisfies GoogleAnalyticsAdminAllKeys,
         );
       }
-
       if (!requiredScopes.every((s) => !!tokens.scope?.includes(s))) {
         throw new ConnectedAppError(
           "app_google-analytics_admin.statusText.app_was_not_given_required_scopes" satisfies GoogleAnalyticsAdminAllKeys,
@@ -339,6 +341,7 @@ class GoogleAnalyticsConnectedApp
         { url: request.url, error: e?.message || e?.toString() },
         "Error processing Google Analytics OAuth redirect",
       );
+
       throw e;
     }
   }
@@ -361,6 +364,7 @@ class GoogleAnalyticsConnectedApp
         { appId: appData._id, measurementId: appData.data.measurementId },
         "Data stream already configured; leaving connected",
       );
+
       return;
     }
 
@@ -457,6 +461,7 @@ class GoogleAnalyticsConnectedApp
         },
         "Google Analytics is not connected; skipping event",
       );
+
       return;
     }
 
@@ -472,6 +477,7 @@ class GoogleAnalyticsConnectedApp
         },
         "Google Analytics Measurement Protocol is not configured; skipping event",
       );
+
       return;
     }
 
@@ -486,6 +492,7 @@ class GoogleAnalyticsConnectedApp
         envelope.source,
         appData._id,
       );
+
       const mapped = mapGa4Event(envelope, currency, publicContext);
       if (!mapped) {
         logger.info(
@@ -496,6 +503,7 @@ class GoogleAnalyticsConnectedApp
           },
           "Google Analytics event is not mapped (non-public or unsupported); skipping",
         );
+
         return;
       }
 
@@ -531,6 +539,7 @@ class GoogleAnalyticsConnectedApp
           },
           "Google Analytics Measurement Protocol request failed",
         );
+
         return;
       }
 
@@ -676,6 +685,7 @@ class GoogleAnalyticsConnectedApp
         { appId: appData._id, error },
         "Failed to list data streams",
       );
+
       throw new ConnectedAppError(
         "app_google-analytics_admin.statusText.failed_to_retrieve_data_stream_list" satisfies GoogleAnalyticsAdminAllKeys,
       );
@@ -805,6 +815,7 @@ class GoogleAnalyticsConnectedApp
         { appId: appData._id, propertyId, streamId, error },
         "Failed to ensure Measurement Protocol secret",
       );
+
       throw new ConnectedAppError(
         "app_google-analytics_admin.statusText.failed_to_create_measurement_protocol_secret" satisfies GoogleAnalyticsAdminAllKeys,
       );
@@ -838,6 +849,7 @@ class GoogleAnalyticsConnectedApp
         },
         "Google Analytics OAuth env vars are not configured",
       );
+
       throw new ConnectedAppError(
         "app_google-analytics_admin.statusText.missing_oauth_config" satisfies GoogleAnalyticsAdminAllKeys,
       );
@@ -888,6 +900,7 @@ class GoogleAnalyticsConnectedApp
       client.setCredentials(
         credentials as Parameters<typeof client.setCredentials>[0],
       );
+
       client.on("tokens", async (tokens) => {
         logger.debug(
           { appId: appData._id },
@@ -912,6 +925,7 @@ class GoogleAnalyticsConnectedApp
         { appId: appData._id, error },
         "Error creating Google OAuth client with credentials",
       );
+
       throw error;
     }
   }

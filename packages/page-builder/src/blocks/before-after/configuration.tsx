@@ -25,6 +25,7 @@ export const BeforeAfterConfiguration = ({
     (s: unknown) => setData({ ...data, style: s as BeforeAfterProps["style"] }),
     [setData, data],
   );
+
   const updateProps = useCallback(
     (p: unknown) => setData({ ...data, props: p as BeforeAfterProps["props"] }),
     [setData, data],

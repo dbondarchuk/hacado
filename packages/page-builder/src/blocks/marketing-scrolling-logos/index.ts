@@ -5,4 +5,5 @@ export {
   MarketingScrollingLogosPropsDefaults,
   MarketingScrollingLogosPropsSchema,
 } from "./schema";
+
 export { MarketingScrollingLogosToolbar } from "./toolbar";

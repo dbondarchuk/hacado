@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
     error,
     success,
   } = appointmentRequestSchema.safeParse(body);
+
   if (!success) {
     logger.error(
       {
@@ -150,6 +151,7 @@ export async function POST(request: NextRequest) {
       },
       "Error getting duplicate appointment",
     );
+
     throw error;
   }
 }

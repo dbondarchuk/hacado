@@ -93,6 +93,7 @@ function itemColorStyle(item: {
   textColor?: string | null;
 }): CSSProperties | undefined {
   if (!item.textColor) return undefined;
+
   return { color: getColorStyle(item.textColor) };
 }
 
@@ -272,7 +273,6 @@ export const Header: React.FC<HeaderProps> = ({
         </React.Fragment>
       );
     }
-
     if (isSidebar) {
       return (
         <Accordion type="single" collapsible key={index}>

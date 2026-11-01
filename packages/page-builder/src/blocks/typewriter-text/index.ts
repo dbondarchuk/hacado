@@ -5,5 +5,6 @@ export {
   TypewriterTextPropsDefaults,
   TypewriterTextPropsSchema,
 } from "./schema";
+
 export type { TypewriterPhrase, TypewriterTextProps } from "./schema";
 export { TypewriterTextToolbar } from "./toolbar";

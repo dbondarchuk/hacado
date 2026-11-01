@@ -44,15 +44,18 @@ export const InstallComplexAppButton: React.FC<{
     appId: string;
     scopes: DefaultAppToInstallScope[];
   } | null>(null);
+
   const [selectedScopes, setSelectedScopes] = React.useState<
     DefaultAppToInstallScope[]
   >([]);
+
   const [settingDefault, setSettingDefault] = React.useState(false);
 
   const defaultScopes = React.useMemo(() => {
     const intersecting = defaultAppToInstallScopes.filter((scope) =>
       app.scope.includes(scope),
     );
+
     return filterInstallDefaultScopesForUser(
       intersecting,
       session?.user as SessionUser | undefined,
@@ -66,6 +69,7 @@ export const InstallComplexAppButton: React.FC<{
       app.type === "complex" && app.settingsHref
         ? `/dashboard/${app.settingsHref}`
         : window.location.pathname + window.location.search;
+
     window.location.assign(href);
   }, [(app as ComplexApp).settingsHref, app.type]);
 
@@ -102,6 +106,7 @@ export const InstallComplexAppButton: React.FC<{
 
   const onSetDefault = async () => {
     if (!pendingDefaultPrompt) return;
+
     try {
       setSettingDefault(true);
       await toastPromise(

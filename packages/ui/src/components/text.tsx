@@ -78,6 +78,7 @@ const Text = React.forwardRef<HTMLButtonElement, TextProps>(
     );
   },
 );
+
 Text.displayName = "Text";
 
 export { Text, textSizes, textClasses as textVariants, textWeights };

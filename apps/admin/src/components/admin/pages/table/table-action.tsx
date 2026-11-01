@@ -25,6 +25,7 @@ export function PagesTableAction() {
     setSearchQuery,
     STATUS_OPTIONS,
   } = usePagesTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
 
   const additionalFilters = (

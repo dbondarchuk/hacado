@@ -3,6 +3,7 @@ export function readCookieValue(
   name: string,
 ): string | undefined {
   if (!cookieHeader) return undefined;
+
   return cookieHeader
     .split(";")
     .map((part) => part.trim())

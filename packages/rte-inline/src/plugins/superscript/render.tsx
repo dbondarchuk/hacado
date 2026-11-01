@@ -8,5 +8,6 @@ export function renderSuperscript(
   if (marks.superscript) {
     return <sup>{content}</sup>;
   }
+
   return content;
 }

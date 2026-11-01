@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
     "delete",
     logger,
   );
+
   if (!ok) return response;
 
   const actor = await getActor();

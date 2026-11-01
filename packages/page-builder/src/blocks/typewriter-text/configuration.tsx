@@ -120,6 +120,7 @@ export const TypewriterTextConfiguration = deepMemo(
         setData({ ...data, style: s as TypewriterTextProps["style"] }),
       [setData, data],
     );
+
     const updateProps = useCallback(
       (p: unknown) =>
         setData({ ...data, props: p as TypewriterTextProps["props"] }),
@@ -142,9 +143,11 @@ export const TypewriterTextConfiguration = deepMemo(
       (event: DragEndEvent) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
+
         const oldIndex = phraseIds.indexOf(String(active.id));
         const newIndex = phraseIds.indexOf(String(over.id));
         if (oldIndex < 0 || newIndex < 0) return;
+
         updateProps({
           ...data.props,
           phrases: arrayMove(phrases, oldIndex, newIndex),

@@ -35,11 +35,13 @@ export const FormsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
     setIsArchivedFilter,
     STATUS_OPTIONS,
   } = useFormsTableFilters();
+
   const t = useI18n<FormsAdminNamespace, FormsAdminKeys>(formsAdminNamespace);
 
   const canDeleteAll = rowSelection.every((f) => (f.responsesCount ?? 0) === 0);
   const allArchived =
     rowSelection.length > 0 && rowSelection.every((f) => f.isArchived);
+
   const allPublic =
     rowSelection.length > 0 && rowSelection.every((f) => !f.isArchived);
 

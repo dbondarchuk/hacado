@@ -53,6 +53,7 @@ describe("package eligibility", () => {
       appointmentDate: new Date("2026-08-20T12:00:00.000Z"),
       optionStaffMemberIds: [memberId],
     });
+
     assert.equal(result.ok, true);
     if (result.ok) {
       assert.equal(result.credits, 1);
@@ -71,6 +72,7 @@ describe("package eligibility", () => {
       optionStaffMemberIds: [memberId],
       now: new Date("2026-08-19T12:00:00.000Z"),
     });
+
     assert.equal(result.ok, false);
     if (!result.ok) assert.equal(result.code, "customer_package_expired");
   });
@@ -83,6 +85,7 @@ describe("package eligibility", () => {
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId],
     });
+
     assert.equal(result.ok, false);
     if (!result.ok) assert.equal(result.code, "option_not_included");
   });
@@ -95,6 +98,7 @@ describe("package eligibility", () => {
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId, "555555555555555555555555"],
     });
+
     assert.equal(result.ok, false);
     if (!result.ok) assert.equal(result.code, "member_not_eligible");
   });
@@ -107,6 +111,7 @@ describe("package eligibility", () => {
       appointmentDate: new Date(),
       optionStaffMemberIds: ["555555555555555555555555"],
     });
+
     assert.equal(result.ok, false);
     if (!result.ok) assert.equal(result.code, "member_not_eligible");
   });
@@ -123,6 +128,7 @@ describe("package eligibility", () => {
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId],
     });
+
     assert.equal(result.ok, false);
     if (!result.ok) assert.equal(result.code, "customer_package_exhausted");
   });
@@ -133,11 +139,13 @@ describe("package eligibility", () => {
       expiresAt: new Date("2026-12-01T00:00:00.000Z"),
       purchasedAt: new Date("2026-01-01T00:00:00.000Z"),
     });
+
     const sooner = makePackage({
       _id: "cccccccccccccccccccccccc",
       expiresAt: new Date("2026-09-01T00:00:00.000Z"),
       purchasedAt: new Date("2026-06-01T00:00:00.000Z"),
     });
+
     assert.equal(pickDefaultCustomerPackage([later, sooner])?._id, sooner._id);
   });
 
@@ -152,6 +160,7 @@ describe("package eligibility", () => {
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId],
     });
+
     assert.equal(result.ok, true);
   });
 });
@@ -175,6 +184,7 @@ describe("summarizePackageItems", () => {
       ],
       [{ _id: serviceId, name: "Massage" }],
     );
+
     assert.deepEqual(next, [
       { serviceId, name: "Massage", credits: 10, duration: undefined },
     ]);
@@ -199,6 +209,7 @@ describe("summarizePackageItems", () => {
         },
       ],
     );
+
     assert.deepEqual(next, [
       { serviceId, name: "Massage", credits: 5, duration: 60 },
     ]);

@@ -10,7 +10,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@hacado/ui/dropdown-menu";
+
 type CompProps = {};
+
 export default function ThemeToggle({}: CompProps) {
   const { setTheme } = useTheme();
   const t = useI18n("admin");

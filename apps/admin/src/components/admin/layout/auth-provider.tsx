@@ -8,6 +8,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
   const { data, isPending, isRefetching, error, refetch } =
     authClient.useSession();
+
   const value = useMemo(
     () => ({
       user: (data?.user ?? {}) as SessionUser,

@@ -166,6 +166,7 @@ export const MemberOverrideCard: React.FC<MemberOverrideCardProps> = ({
                       form.setValue(`${name}.priceOverride`, undefined, {
                         shouldDirty: true,
                       });
+
                       form.setValue(`${name}.durationOverride`, undefined, {
                         shouldDirty: true,
                       });

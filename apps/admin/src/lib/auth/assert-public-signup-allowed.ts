@@ -29,6 +29,7 @@ export async function assertPublicSignupAllowed({
       { email },
       "Signup allowed: pending invitation for email, skipping email and region checks",
     );
+
     return;
   }
 
@@ -39,6 +40,7 @@ export async function assertPublicSignupAllowed({
         { email, reason },
         "Signup rejected: SIGNUP_EMAIL_BLOCKED",
       );
+
       throw new APIError("FORBIDDEN", {
         message: "We cannot accept this email address",
         code: "SIGNUP_EMAIL_BLOCKED",

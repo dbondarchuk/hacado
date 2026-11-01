@@ -30,6 +30,7 @@ export const StepVerify = ({
         email,
         type: "email-verification",
       });
+
       if (r.error?.message) {
         toast.error(t("wizard.verify.resendError"));
       } else {
@@ -44,6 +45,7 @@ export const StepVerify = ({
 
   const onVerify = async () => {
     if (otp.length !== 6) return;
+
     setVerifyLoading(true);
     try {
       const r = await authClient.emailOtp.verifyEmail({ email, otp });
@@ -51,6 +53,7 @@ export const StepVerify = ({
         toast.error(t("wizard.verify.invalidCode"));
         return;
       }
+
       toast.success(t("wizard.verify.verified"));
       router.refresh();
     } finally {
@@ -83,6 +86,7 @@ export const StepVerify = ({
             disabled={verifyLoading}
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
+
               e.preventDefault();
               if (otp.length === 6 && !verifyLoading) void onVerify();
             }}

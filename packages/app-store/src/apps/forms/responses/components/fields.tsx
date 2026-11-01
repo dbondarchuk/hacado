@@ -167,6 +167,7 @@ const SelectField: React.FC<AnswerFieldProps<"select">> = ({
   const t = useI18n<FormsPublicNamespace, FormsPublicKeys>(
     formsPublicNamespace,
   );
+
   const options = getOptions(fieldDef);
 
   return (
@@ -219,6 +220,7 @@ const MultiSelectField: React.FC<AnswerFieldProps<"multiSelect">> = ({
     const next = arr.includes(option)
       ? arr.filter((x) => x !== option)
       : [...arr, option];
+
     field.onChange(next);
     field.onBlur();
   };

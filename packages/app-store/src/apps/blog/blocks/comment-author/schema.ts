@@ -13,6 +13,7 @@ export const BlogCommentAuthorPropsSchema = z.object({
 export type BlogCommentAuthorProps = z.infer<
   typeof BlogCommentAuthorPropsSchema
 >;
+
 export type BlogCommentAuthorReaderProps = BaseReaderBlockProps<any> &
   BlogCommentAuthorProps;
 

@@ -110,5 +110,6 @@ export async function POST(
     { customerId: id, consented: status.consented },
     "SMS consent updated",
   );
+
   return NextResponse.json(status);
 }

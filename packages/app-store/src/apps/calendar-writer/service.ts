@@ -72,17 +72,21 @@ export class CalendarWriterConnectedApp
         appData,
         envelope as EventEnvelope<AppUninstalledPayload>,
       );
+
       return;
     }
 
     const config = (appData.data ??
       {}) as Partial<CalendarWriterStoredConfiguration>;
+
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const forMemberId = await resolveAppointmentEventForMemberId(
       async (memberId) => {
         const member =
           await this.props.services.teamService.getMemberById(memberId);
+
         return member?.role ?? null;
       },
       appData.memberId,
@@ -213,6 +217,7 @@ export class CalendarWriterConnectedApp
 
     const { data, success, error } =
       calendarWriterConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid request");
       throw new ConnectedAppRequestError(
@@ -378,6 +383,7 @@ export class CalendarWriterConnectedApp
     try {
       const status =
         newStatus === "canceled" ? "cancelledByCustomer" : newStatus;
+
       await this.makeEvent(appData, appointment, status, newStatus);
 
       logger.info(
@@ -495,6 +501,7 @@ export class CalendarWriterConnectedApp
           "brand",
           "social",
         );
+
       logger.debug(
         { appId: appData._id, appointmentId: appointment._id },
         "Retrieved configuration for calendar event",
@@ -502,11 +509,13 @@ export class CalendarWriterConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id },
           "Organization not found",
         );
+
         return;
       }
 
@@ -529,6 +538,7 @@ export class CalendarWriterConnectedApp
           { appId: appData._id, appointmentId: appointment._id },
           "Skipping calendar write: no target app configured",
         );
+
         return;
       }
 
@@ -631,6 +641,7 @@ export class CalendarWriterConnectedApp
           { appId: appData._id, appointmentId: appointment._id, status },
           "Creating new calendar event",
         );
+
         await service.createEvent(app, event);
       } else if (
         isClosedAppointmentStatus(appointment.status) ||
@@ -640,12 +651,14 @@ export class CalendarWriterConnectedApp
           { appId: appData._id, appointmentId: appointment._id, status },
           "Deleting calendar event",
         );
+
         await service.deleteEvent(app, uid, event.id);
       } else {
         logger.debug(
           { appId: appData._id, appointmentId: appointment._id, status },
           "Updating calendar event",
         );
+
         await service.updateEvent(app, uid, event);
       }
 

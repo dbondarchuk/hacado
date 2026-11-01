@@ -13,6 +13,7 @@ export default async function Page(props: Props) {
     getServicesContainer(),
     getSession(),
   ]);
+
   logger.debug(
     {
       appointmentId: params.id,
@@ -24,9 +25,11 @@ export default async function Page(props: Props) {
   const appointment = await servicesContainer.bookingService.getAppointment(
     params.id,
   );
+
   if (!appointment) {
     return notFound();
   }
+
   if (!canUpdateAppointment(session.user, appointment.memberId)) {
     forbidden();
   }

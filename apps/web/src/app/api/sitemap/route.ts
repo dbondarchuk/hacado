@@ -14,6 +14,7 @@ function getSitemapProviderService(
   service: unknown,
 ): ISitemapItemsProvider | null {
   if (!service || typeof service !== "object") return null;
+
   const s = service as Partial<ISitemapItemsProvider>;
   if (
     typeof s.provideSitemapUrls !== "function" &&
@@ -21,6 +22,7 @@ function getSitemapProviderService(
   ) {
     return null;
   }
+
   return s as ISitemapItemsProvider;
 }
 
@@ -60,6 +62,7 @@ export async function GET(req: NextRequest) {
     await servicesContainer.connectedAppsService.getAppsByScopeWithData(
       SITEMAP_ITEMS_PROVIDER_SCOPE,
     );
+
   const connectedSitemapApps = sitemapApps.filter(
     (a) => a.status === "connected",
   );
@@ -69,9 +72,11 @@ export async function GET(req: NextRequest) {
   for (const appData of connectedSitemapApps) {
     const factory = AvailableAppServices[appData.name];
     if (!factory) continue;
+
     const service = factory(
       servicesContainer.connectedAppsService.getAppServiceProps(appData._id),
     );
+
     const provider = getSitemapProviderService(service);
     if (provider?.provideSitemapUrls) {
       const urls = await provider.provideSitemapUrls(appData, websiteUrl);
@@ -94,13 +99,16 @@ export async function GET(req: NextRequest) {
       for (const appData of connectedSitemapApps) {
         const factory = AvailableAppServices[appData.name];
         if (!factory) continue;
+
         const service = factory(
           servicesContainer.connectedAppsService.getAppServiceProps(
             appData._id,
           ),
         );
+
         const provider = getSitemapProviderService(service);
         if (!provider?.expandPlaceholderPageSitemapItems) continue;
+
         const part = await provider.expandPlaceholderPageSitemapItems(
           appData,
           websiteUrl,
@@ -109,6 +117,7 @@ export async function GET(req: NextRequest) {
 
         if (part?.length) expanded.push(...part);
       }
+
       if (expanded.length > 0) pageEntries.push(...expanded);
     } else {
       pageEntries.push({

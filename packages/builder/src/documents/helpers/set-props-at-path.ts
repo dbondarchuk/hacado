@@ -32,6 +32,7 @@ export function setPropsAtPath(
         isNumeric && child && !Array.isArray(child)
           ? recurse(coerceArray(child), depth + 1)
           : recurse(child, depth + 1);
+
       return { ...obj, [seg]: nextChild };
     }
 

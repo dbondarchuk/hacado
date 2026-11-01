@@ -22,6 +22,7 @@ export async function getGiftCardStudioPurchasesLastReadAt(
   const lastRead = await services.redisClient.get(
     lastReadRedisKey(organizationId, appId, memberId),
   );
+
   return lastRead ? new Date(lastRead) : new Date(0);
 }
 
@@ -54,12 +55,14 @@ export async function getGiftCardStudioUnreadPurchasesBadges(
     memberId,
     services,
   );
+
   const repository = new GiftCardStudioRepositoryService(
     appId,
     organizationId,
     getDbConnection,
     services,
   );
+
   const count = await repository.getCustomerPurchasesCountSince(lastReadAt);
 
   return [{ key: GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY, count }];

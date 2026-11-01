@@ -63,6 +63,7 @@ export default async function Page() {
       getLoggerFactory("Admin/settings/text-messaging/verification")(
         "preview",
       ).warn({ error }, "SMS opt-in preview used the default booking form");
+
       return { service: null, formFields: [] };
     }),
     services.textMessageConfigurationService.getSmsMessagingAccess(),

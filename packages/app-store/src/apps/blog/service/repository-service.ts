@@ -390,6 +390,7 @@ export class BlogRepositoryService {
       organizationId: this.organizationId,
       appId: this.appId,
     };
+
     if (id) {
       filter._id = { $ne: id };
     }
@@ -406,6 +407,7 @@ export class BlogRepositoryService {
       { slug, id, result },
       "Blog post slug uniqueness check result",
     );
+
     return result;
   }
 
@@ -531,9 +533,11 @@ export class BlogRepositoryService {
       if (query.range.start) {
         createdAt.$gte = query.range.start;
       }
+
       if (query.range.end) {
         createdAt.$lte = query.range.end;
       }
+
       $and.push({ createdAt });
     }
 
@@ -662,6 +666,7 @@ export class BlogRepositoryService {
         organizationId: this.organizationId,
         appId: this.appId,
       });
+
     return updated as BlogComment | null;
   }
 
@@ -758,6 +763,7 @@ export class BlogRepositoryService {
     const collections = await db
       .listCollections({ name: BLOG_COMMENTS_COLLECTION_NAME })
       .toArray();
+
     const collection =
       collections.length > 0
         ? db.collection(BLOG_COMMENTS_COLLECTION_NAME)
@@ -782,6 +788,7 @@ export class BlogRepositoryService {
       if (await collection.indexExists(name)) {
         continue;
       }
+
       await collection.createIndex(index, { name });
       logger.debug({ name }, "Created blog comments index");
     }
@@ -839,6 +846,7 @@ export class BlogRepositoryService {
     const headers = await this.services.pagesService.getPageHeaders({
       limit: 50,
     });
+
     const preferredHeader =
       headers.items.find(
         (item) => resolvePageHeaderPosition(item) !== "fixed",
@@ -860,6 +868,7 @@ export class BlogRepositoryService {
       const isUnique = await this.services.pagesService.checkUniqueSlug(
         page.slug,
       );
+
       if (!isUnique) {
         logger.warn(`Blog page ${page.title} (${page.slug}) already exists`);
         continue;
@@ -868,6 +877,7 @@ export class BlogRepositoryService {
       logger.debug(
         `Blog page ${page.title} (${page.slug}) is unique. Creating...`,
       );
+
       await this.services.pagesService.createPage(page, systemEventSource);
       logger.debug(`Blog page ${page.title} (${page.slug}) created`);
     }

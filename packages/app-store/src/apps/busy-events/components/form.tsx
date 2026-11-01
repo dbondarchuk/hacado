@@ -37,6 +37,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
   const t = useI18n<BusyEventsAdminNamespace, BusyEventsAdminKeys>(
     busyEventsAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
 
   const searchParams = useSearchParams();
@@ -90,6 +91,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
 
   React.useEffect(() => {
     if (!delayedSchedule) return;
+
     onScheduleChange(delayedSchedule);
   }, [delayedSchedule]);
 
@@ -103,6 +105,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
           params.set(key, value);
         }
       });
+
       router.push(`?${params.toString()}`);
     },
     [router, searchParams],

@@ -68,6 +68,7 @@ export const columns: ColumnDef<AppointmentNotification>[] = [
         AppointmentNotificationsAdminNamespace,
         AppointmentNotificationsAdminKeys
       >(appointmentNotificationsAdminNamespace);
+
       return t(`triggers.${row.original.type}`);
     },
     id: "type",
@@ -83,6 +84,7 @@ export const columns: ColumnDef<AppointmentNotification>[] = [
         AppointmentNotificationsAdminNamespace,
         AppointmentNotificationsAdminKeys
       >(appointmentNotificationsAdminNamespace);
+
       const channels = readAppointmentNotificationChannels(row.original);
       const labels = [
         channels.emailEnabled ? t("channels.email") : null,

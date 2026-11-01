@@ -112,6 +112,7 @@ export const FormCard: React.FC = () => {
         : {}),
       smsConsent: appointmentSmsConsentKind(smsText) ? smsConsent : undefined,
     };
+
     if (!deepEqual(next, propsFields)) {
       setFields(next);
     }
@@ -239,6 +240,7 @@ export const FormCard: React.FC = () => {
 
   useEffect(() => {
     if (!price || !giftCards?.length) return;
+
     (async () => {
       try {
         await applyGiftCards(

@@ -18,6 +18,7 @@ export const maxWidthStyle = {
   defaultValue: { value: 100, unit: "%" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `max-width: ${renderRawNumberWithUnitOrKeywordCss(value)};`;
   },
   component: ({ value, onChange }) => (

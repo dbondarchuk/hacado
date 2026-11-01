@@ -18,6 +18,7 @@ export const maxHeightStyle = {
   defaultValue: { value: 100, unit: "%" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `max-height: ${renderRawNumberWithUnitOrKeywordCss(value)};`;
   },
   component: ({ value, onChange }) => (

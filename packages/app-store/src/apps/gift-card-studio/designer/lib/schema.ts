@@ -193,6 +193,7 @@ export function validateGiftCardDesign(design: unknown): {
           : issue.message,
       );
     });
+
     return { success: false, errors, warnings };
   }
 
@@ -209,8 +210,10 @@ export function validateGiftCardDesign(design: unknown): {
     if (el.type !== "group") {
       const outsideX =
         el.position.x + el.size.width < 0 || el.position.x > width;
+
       const outsideY =
         el.position.y + el.size.height < 0 || el.position.y > height;
+
       if (outsideX || outsideY) {
         warnings.push(`Element "${el.id}" is fully outside the canvas bounds`);
       }

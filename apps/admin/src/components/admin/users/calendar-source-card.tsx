@@ -58,6 +58,7 @@ export const CalendarSourceCard: React.FC<CalendarSourceCardProps> = ({
       ...form.getValues(name),
       appId: value,
     };
+
     update(newValue);
   };
 

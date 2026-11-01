@@ -42,6 +42,7 @@ export async function startBullMQJobProcessorApp(): Promise<void> {
     const jobWorker = new BullMQJobWorker(config, (organizationId) =>
       ServicesContainer(organizationId),
     );
+
     const eventWorker = new BullMQEventWorker(eventConfig, (organizationId) =>
       ServicesContainer(organizationId),
     );
@@ -51,6 +52,7 @@ export async function startBullMQJobProcessorApp(): Promise<void> {
         { signal },
         "Received shutdown signal, stopping workers gracefully",
       );
+
       await Promise.all([jobWorker.stop(), eventWorker.stop()]);
       process.exit(0);
     };
@@ -83,6 +85,7 @@ export async function startBullMQJobProcessorApp(): Promise<void> {
         { maxRestarts, restartDelay },
         "Starting workers with automatic restart",
       );
+
       await Promise.all([
         jobWorker.runWithRestart(maxRestarts, restartDelay, signalOpts),
         eventWorker.runWithRestart(maxRestarts, restartDelay, signalOpts),

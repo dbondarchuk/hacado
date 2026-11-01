@@ -16,6 +16,7 @@ export const boldPlugin: MarkPlugin = {
     const activeMarks = context.getActiveMarks();
     const isActive =
       activeMarks.marks.bold || activeMarks.marks.fontWeight === 700;
+
     context.applyFormat("fontWeight", isActive ? "inherit" : 700);
   },
   isActive: (context) => {

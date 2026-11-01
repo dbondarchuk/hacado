@@ -93,6 +93,7 @@ function snapRowHeightsAfterDrag(
   } else {
     next[r] = Math.max(MIN_ROW_PX, Math.round(start[r]! + dy));
   }
+
   return next;
 }
 
@@ -209,6 +210,7 @@ function TableCellSpanControls({
                   const v = Number.isNaN(n)
                     ? (colspan[flat] ?? 1)
                     : Math.min(maxColspan, Math.max(1, Math.floor(n)));
+
                   const nextC = [...currentProps.colspan];
                   nextC[flat] = v;
                   commitProps({ ...currentProps, colspan: nextC });
@@ -228,6 +230,7 @@ function TableCellSpanControls({
                   const v = Number.isNaN(n)
                     ? (rowspan[flat] ?? 1)
                     : Math.min(maxRowspan, Math.max(1, Math.floor(n)));
+
                   const nextR = [...currentProps.rowspan];
                   nextR[flat] = v;
                   commitProps({ ...currentProps, rowspan: nextR });
@@ -278,6 +281,7 @@ function TableDataCell({
   const { surface, inner } = splitTableCellSlotStyles(
     slot.style as Record<string, unknown> | undefined,
   );
+
   const innerClass = tableCellInnerClassName(slot.id);
 
   return (
@@ -535,6 +539,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
     const raw =
       (documentBlock?.data?.props as TableProps["props"] | undefined) ??
       (props as TableProps["props"] | undefined);
+
     return normalizeTableGridProps(raw ?? EMPTY_TABLE_PROPS);
   }, [documentBlock?.data?.props, props]);
 
@@ -542,6 +547,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
     const raw =
       (documentBlock?.data?.props as TableProps["props"] | undefined) ??
       (currentBlock.data.props as TableProps["props"] | undefined);
+
     return normalizeTableGridProps(raw ?? EMPTY_TABLE_PROPS);
   }, [currentBlock.data.props, documentBlock?.data?.props]);
 
@@ -558,6 +564,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
       ),
     [gridProps.colWidths, colCount],
   );
+
   const rowHeights = useMemo(
     () =>
       normalizedRowHeights(
@@ -570,9 +577,11 @@ export const TableEditor = ({ props, style }: TableProps) => {
   const [previewColWidths, setPreviewColWidths] = useState<number[] | null>(
     null,
   );
+
   const [previewRowHeights, setPreviewRowHeights] = useState<number[] | null>(
     null,
   );
+
   const effectiveColWidths = previewColWidths ?? colWidths;
   const effectiveRowHeights = previewRowHeights ?? rowHeights;
 
@@ -614,12 +623,14 @@ export const TableEditor = ({ props, style }: TableProps) => {
 
     const onMove = (ev: PointerEvent) => {
       if (ev.pointerId !== resizeSession.pointerId) return;
+
       ev.preventDefault();
       if (resizeSession.kind === "col") {
         const dx = ev.clientX - resizeSession.startClientX;
         const dataWidthPx = tableRef.current
           ? measureTableDataColumnsWidthPx(tableRef.current)
           : 0;
+
         setPreviewColWidths(
           snapColWidthsAfterDrag(
             resizeSession.startWidths,
@@ -644,6 +655,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
 
     const onEnd = (ev: PointerEvent) => {
       if (ev.pointerId !== resizeSession.pointerId) return;
+
       ev.preventDefault();
       const p = tablePropsRef.current ?? EMPTY_TABLE_PROPS;
       if (resizeSession.kind === "col") {
@@ -651,6 +663,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
         const dataWidthPx = tableRef.current
           ? measureTableDataColumnsWidthPx(tableRef.current)
           : 0;
+
         commitPropsRef.current({
           ...p,
           colWidths: snapColWidthsAfterDrag(
@@ -661,6 +674,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
             dataWidthPx,
           ),
         });
+
         setPreviewColWidths(null);
       } else {
         const dy = ev.clientY - resizeSession.startClientY;
@@ -673,8 +687,10 @@ export const TableEditor = ({ props, style }: TableProps) => {
             dy,
           ),
         });
+
         setPreviewRowHeights(null);
       }
+
       setResizeSession(null);
     };
 
@@ -696,6 +712,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
         p.colWidths as number[] | undefined,
         colCount,
       );
+
       commitProps({
         ...p,
         colWidths: fillColumnWidthsToRemaining(cw, columnIndex),
@@ -709,10 +726,12 @@ export const TableEditor = ({ props, style }: TableProps) => {
       const tableEl = tableRef.current;
       const p = getTableProps();
       if (!tableEl) return;
+
       const rh = normalizedRowHeights(
         p.rowHeights as number[] | undefined,
         rowCount,
       );
+
       commitProps({
         ...p,
         rowHeights: fillRowHeightsToRemaining(rh, rowCount, rowIndex, tableEl),
@@ -732,6 +751,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
     (event: DragEndEvent) => {
       const { active, over } = event;
       if (!over || active.id === over.id) return;
+
       const aid = String(active.id);
       const oid = String(over.id);
       const p = getTableProps();
@@ -747,6 +767,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
         const from = Number(aid.slice(4));
         const to = Number(oid.slice(4));
         if (Number.isNaN(from) || Number.isNaN(to)) return;
+
         commitProps({
           ...p,
           cells: moveRow(rb, C, from, to),
@@ -754,12 +775,15 @@ export const TableEditor = ({ props, style }: TableProps) => {
           rowspan: moveRow(rr, C, from, to),
           rowHeights: moveRow(rh, 1, from, to),
         });
+
         return;
       }
+
       if (aid.startsWith("col-") && oid.startsWith("col-")) {
         const from = Number(aid.slice(4));
         const to = Number(oid.slice(4));
         if (Number.isNaN(from) || Number.isNaN(to)) return;
+
         commitProps({
           ...p,
           cells: moveColumn(rb, C, from, to),
@@ -776,6 +800,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
     () => Array.from({ length: rowCount }, (_, i) => `row-${i}`),
     [rowCount],
   );
+
   const colIds = useMemo(
     () => Array.from({ length: colCount }, (_, i) => `col-${i}`),
     [colCount],
@@ -824,6 +849,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                       const newCells = Array.from({ length: rowCount }, () =>
                         createEmptyTableCell(),
                       );
+
                       const next = insertColumnAfter(
                         p.cells as any[],
                         p.colspan as number[],
@@ -833,10 +859,12 @@ export const TableEditor = ({ props, style }: TableProps) => {
                         c,
                         newCells,
                       );
+
                       const cw = normalizedColWidths(
                         p.colWidths as number[] | undefined,
                         p.colCount!,
                       );
+
                       commitProps({
                         ...p,
                         ...next,
@@ -845,6 +873,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                     }}
                     onRemove={() => {
                       if (colCount <= 1) return;
+
                       const p = getTableProps();
                       const next = removeColumnAt(
                         p.cells as any[],
@@ -854,10 +883,12 @@ export const TableEditor = ({ props, style }: TableProps) => {
                         p.rowCount!,
                         c,
                       );
+
                       const cw = normalizedColWidths(
                         p.colWidths as number[] | undefined,
                         p.colCount!,
                       );
+
                       const nextCw = [...cw];
                       nextCw.splice(c, 1);
                       commitProps({
@@ -881,6 +912,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                             gridProps.colWidths as number[] | undefined,
                             colCount,
                           );
+
                           setResizeSession({
                             kind: "col",
                             pointerId: e.pointerId,
@@ -918,6 +950,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                     const newRow = Array.from({ length: p.colCount! }, () =>
                       createEmptyTableCell(),
                     );
+
                     const next = insertRowAfter(
                       p.cells as any[],
                       p.colspan as number[],
@@ -926,10 +959,12 @@ export const TableEditor = ({ props, style }: TableProps) => {
                       r,
                       newRow,
                     );
+
                     const rh = normalizedRowHeights(
                       p.rowHeights as number[] | undefined,
                       p.rowCount!,
                     );
+
                     const nextRh = [...rh];
                     const h = nextRh[r] ?? 72;
                     nextRh.splice(r + 1, 0, h);
@@ -942,6 +977,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                   }}
                   onRemove={() => {
                     if (rowCount <= 1) return;
+
                     const p = getTableProps();
                     const next = removeRowAt(
                       p.cells as any[],
@@ -950,10 +986,12 @@ export const TableEditor = ({ props, style }: TableProps) => {
                       p.colCount!,
                       r,
                     );
+
                     const rh = normalizedRowHeights(
                       p.rowHeights as number[] | undefined,
                       p.rowCount!,
                     );
+
                     const nextRh = [...rh];
                     nextRh.splice(r, 1);
                     commitProps({
@@ -978,6 +1016,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                           gridProps.rowHeights as number[] | undefined,
                           rowCount,
                         );
+
                         setResizeSession({
                           kind: "row",
                           pointerId: e.pointerId,
@@ -1000,6 +1039,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                     if (covered.has(flat)) {
                       return null;
                     }
+
                     const slot = cells[flat];
                     if (!slot) {
                       return (
@@ -1009,6 +1049,7 @@ export const TableEditor = ({ props, style }: TableProps) => {
                         />
                       );
                     }
+
                     return (
                       <TableDataCell
                         key={slot.id}

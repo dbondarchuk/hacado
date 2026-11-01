@@ -58,11 +58,13 @@ export function ModeDropdownMenu(props: DropdownMenuProps) {
             if (newValue !== "viewing") {
               setReadOnly(false);
             }
+
             if (newValue === "viewing") {
               setReadOnly(true);
 
               return;
             }
+
             if (newValue === "editing") {
               editor.tf.focus();
 

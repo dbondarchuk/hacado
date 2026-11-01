@@ -49,11 +49,13 @@ const getAppPage = cache(async (path: string) => {
   const installs = await servicesContainer.connectedAppsService.getAppsByApp(
     app.app.name,
   );
+
   const appId =
     app.app.target === "member"
       ? installs.find((install) => install.memberId === session?.user?.memberId)
           ?._id
       : installs[0]?._id;
+
   if (!appId) {
     logger.warn({ appId }, "No app ID found for app");
     redirect("/dashboard");
@@ -73,6 +75,7 @@ const getAppPage = cache(async (path: string) => {
       { path, requiredPermission: menuItem.requiredPermission },
       "User missing permission for app page",
     );
+
     forbidden();
   }
 

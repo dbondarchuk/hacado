@@ -133,16 +133,19 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
                         form.setValue("durationMin", 15, {
                           shouldValidate: true,
                         });
+
                         form.trigger("durationMin");
 
                         form.setValue("durationMax", 4 * 60, {
                           shouldValidate: true,
                         });
+
                         form.trigger("durationMax");
 
                         form.setValue("durationStep", 15, {
                           shouldValidate: true,
                         });
+
                         form.trigger("durationStep");
 
                         const staff = form.getValues("staff") ?? [];

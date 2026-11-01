@@ -36,10 +36,12 @@ export const PageHeroEditor = ({ props, style }: PageHeroProps) => {
     currentBlock.id,
     "props.subtitle",
   )?.[0];
+
   const buttonsId = useBlockChildrenBlockIds(
     currentBlock.id,
     "props.buttons",
   )?.[0];
+
   const className = useClassName();
   const base = currentBlock?.base;
 

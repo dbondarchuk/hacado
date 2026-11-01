@@ -26,6 +26,7 @@ export function getFluidLayoutDropCollisionPriority(
       ? depth + NESTED_DROP_BOOST
       : depth - FLUID_DROP_PENALTY;
   }
+
   return target === "fluid"
     ? depth + FLUID_DROP_BOOST
     : depth - FLUID_DROP_PENALTY;
@@ -37,11 +38,13 @@ export function getFluidLayoutAncestorId(
 ): string | null {
   const hierarchy = getBlockHierarchy(blockId, indexes);
   if (!hierarchy) return null;
+
   for (let i = hierarchy.length - 1; i >= 0; i--) {
     if (hierarchy[i].type === FLUID_LAYOUT_BLOCK_TYPE) {
       return hierarchy[i].id;
     }
   }
+
   return null;
 }
 
@@ -51,11 +54,13 @@ export function useFluidLayoutAncestorId(
   const hierarchy = useBlockHierarchy(blockId);
   return useMemo(() => {
     if (!hierarchy) return null;
+
     for (let i = hierarchy.length - 1; i >= 0; i--) {
       if (hierarchy[i].type === FLUID_LAYOUT_BLOCK_TYPE) {
         return hierarchy[i].id;
       }
     }
+
     return null;
   }, [hierarchy]);
 }
@@ -79,6 +84,7 @@ function isDragSourceOutsideFluid(
   indexes: Parameters<typeof getBlockHierarchy>[1],
 ): boolean {
   if (activeDrag.isTemplate) return true;
+
   return getFluidLayoutAncestorId(activeDrag.blockId, indexes) === null;
 }
 
@@ -97,7 +103,6 @@ function resolvePreferNestedDrop(
     // Ctrl/Cmd: nest into blocks inside fluid, but still allow fluid grid drops.
     return !targetIsFluidRoot;
   }
-
   if (isDragSourceOutsideFluid(activeDrag, indexes)) {
     return false;
   }

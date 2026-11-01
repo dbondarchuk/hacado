@@ -47,6 +47,7 @@ const subscribe = (listener: () => void) => {
 
   const handleStorage = (event: StorageEvent) => {
     if (event.key !== STORAGE_KEY) return;
+
     copiedStyles = readFromSessionStorage();
     notify();
   };
@@ -81,6 +82,7 @@ export const filterStylesForTarget = <T extends BaseStyleDictionary>(
 
   for (const [styleName, variants] of Object.entries(cloned)) {
     if (!availableKeys.has(styleName) || !variants?.length) continue;
+
     filtered[styleName as keyof T] = variants as StyleValue<T>[keyof T];
   }
 

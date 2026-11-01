@@ -66,11 +66,13 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
 /** Resolves the member to use when the specialist step is skipped (sole staff). */
 const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
   if (ctx.selectedMemberId) return ctx.selectedMemberId;
+
   if (ctx.activeStaff.length === 1) {
     const memberId = ctx.activeStaff[0].member.id;
     ctx.setSelectedMemberId(memberId);
     return memberId;
   }
+
   return null;
 };
 
@@ -118,10 +120,12 @@ export const ScheduleSteps: Record<StepType, Step> = {
           ctx.setCatalogPath(ctx.catalogPath.slice(0, -1));
           return;
         }
+
         if (ctx.flowOrder === "specialist-first") {
           ctx.setCurrentStep("specialist");
           return;
         }
+
         goBackToAppointments();
       },
     },
@@ -135,6 +139,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
             return;
           }
         }
+
         await goToStepAfterSpecialist(ctx);
       },
     },
@@ -150,6 +155,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
           setCurrentStep("option");
           return;
         }
+
         goBackToAppointments();
       },
     },
@@ -164,6 +170,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
           ctx.setCurrentStep("option");
           return;
         }
+
         await goToStepAfterSpecialist(ctx);
       },
     },
@@ -240,12 +247,14 @@ export const ScheduleSteps: Record<StepType, Step> = {
       action: async (ctx) => {
         const optionNeedsDuplicateAppointmentsConfirmation =
           ctx.selectedAppointmentOption?.duplicateAppointmentCheck?.enabled;
+
         if (optionNeedsDuplicateAppointmentsConfirmation) {
           const closeAppointments = await ctx.checkDuplicateAppointments();
           if (closeAppointments.hasDuplicateAppointments) {
             ctx.setClosestDuplicateAppointment(
               closeAppointments.closestAppointment,
             );
+
             ctx.setDuplicateAppointmentDoNotAllowScheduling(
               closeAppointments.doNotAllowScheduling,
             );

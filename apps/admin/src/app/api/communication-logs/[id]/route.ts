@@ -16,6 +16,7 @@ export async function GET(
     getServicesContainer(),
     getUser(),
   ]);
+
   const memberIds = gateMemberIds(user, undefined, {
     canFilter: canFilterCommunicationByMember,
   });

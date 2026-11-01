@@ -15,6 +15,7 @@ export const letterSpacingStyle = {
   defaultValue: { value: 0, unit: "rem" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `letter-spacing: ${renderRawNumberWithUnitCss(value)};`;
   },
   component: ({ value, onChange }) => (

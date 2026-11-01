@@ -29,6 +29,7 @@ export const wordBreakStyle = {
   defaultValue: "normal",
   renderToCSS: (value) => {
     if (!value || value === "normal") return null;
+
     return `word-break: ${value};`;
   },
   component: ({ value, onChange }) => {

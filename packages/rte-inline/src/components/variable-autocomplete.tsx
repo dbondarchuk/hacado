@@ -124,6 +124,7 @@ export function VariableAutocomplete({
     const element = ref.current.querySelector(
       `[data-index="${selectedIndex}"]`,
     ) as HTMLElement;
+
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }

@@ -97,6 +97,7 @@ export const columns: ColumnDef<FormsTableRow>[] = [
       const t = useI18n<FormsAdminNamespace, FormsAdminKeys>(
         formsAdminNamespace,
       );
+
       const timeZone = useTimeZone();
       return (
         <Link

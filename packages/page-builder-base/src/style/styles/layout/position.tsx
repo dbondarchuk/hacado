@@ -23,6 +23,7 @@ export const positionStyle = {
   defaultValue: "static",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `position: ${value};`;
   },
   component: ({ value, onChange }) => {

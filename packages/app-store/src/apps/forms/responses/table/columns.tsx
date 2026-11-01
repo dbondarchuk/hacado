@@ -32,8 +32,10 @@ function answersPreview(
       : a.value === null || a.value === undefined
         ? ""
         : String(a.value);
+
     return `${a.label}: ${v}`;
   });
+
   const s = parts.join(" · ");
   return s.length > maxLen ? s.slice(0, maxLen) + "…" : s;
 }

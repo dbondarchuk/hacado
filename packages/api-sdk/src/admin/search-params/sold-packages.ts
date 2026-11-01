@@ -28,6 +28,7 @@ export const soldPackagesSearchParams = {
 export const soldPackagesSearchParamsCache = createSearchParamsCache(
   soldPackagesSearchParams,
 );
+
 export const soldPackagesSearchParamsSerializer = createSerializer(
   soldPackagesSearchParams,
 );
@@ -35,9 +36,11 @@ export const soldPackagesSearchParamsSerializer = createSerializer(
 export type SoldPackagesSearchParams = Partial<
   inferParserType<typeof soldPackagesSearchParams>
 >;
+
 export const soldPackagesSearchParamsLoader = createLoader(
   soldPackagesSearchParams,
 );
+
 export const soldPackagesSearchParamsSchema = createStandardSchemaV1(
   soldPackagesSearchParams,
 );

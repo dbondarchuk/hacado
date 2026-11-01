@@ -19,6 +19,7 @@ export const MarketingScrollingLogosPropsSchema = z.object({
 export type MarketingScrollingLogosProps = z.infer<
   typeof MarketingScrollingLogosPropsSchema
 >;
+
 export type MarketingScrollingLogosReaderProps = BaseReaderBlockProps<any> &
   MarketingScrollingLogosProps;
 

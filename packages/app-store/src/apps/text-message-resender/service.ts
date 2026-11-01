@@ -48,11 +48,13 @@ export default class TextMessageResenderConnectedApp
     const logger = this.loggerFactory("processRequest");
     const { data, success, error } =
       textMessageResenderConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error(
         { error },
         "Invalid Text Message Resender configuration request",
       );
+
       throw new ConnectedAppRequestError(
         "invalid_text-message-resender_configuration_request",
         { request, error },
@@ -63,10 +65,12 @@ export default class TextMessageResenderConnectedApp
 
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
       organization?.availableUsers,
       organization?.feesExempt,
     );
+
     const savedData: TextMessageResenderConfiguration = {
       ...data,
       defaultMemberId: allowsMultipleUsers ? data.defaultMemberId : undefined,
@@ -82,6 +86,7 @@ export default class TextMessageResenderConnectedApp
         const member = await this.props.services.teamService.getMemberById(
           savedData.defaultMemberId,
         );
+
         if (!member) {
           logger.error(
             {
@@ -90,6 +95,7 @@ export default class TextMessageResenderConnectedApp
             },
             "Default member not found",
           );
+
           throw new ConnectedAppRequestError(
             "invalid_text-message-resender_default_member",
             { request, defaultMemberId: savedData.defaultMemberId },
@@ -174,19 +180,23 @@ export default class TextMessageResenderConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
         organization?.availableUsers,
         organization?.feesExempt,
       );
+
       const memberId =
         textMessageReply.memberId ??
         (allowsMultipleUsers ? appData.data?.defaultMemberId : undefined) ??
         appData.memberId;
+
       if (!memberId) {
         logger.warn(
           { appId: appData._id, memberId },
           "Member ID is required in text message reply",
         );
+
         return null;
       }
 
@@ -264,6 +274,7 @@ export default class TextMessageResenderConnectedApp
           { appointmentId: reply.data.appointmentId },
           "Organization not found",
         );
+
         throw new Error("Organization not found");
       }
 

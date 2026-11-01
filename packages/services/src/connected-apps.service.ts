@@ -83,11 +83,13 @@ export class ConnectedAppsService
         target === "member"
           ? existing.some((app) => app.memberId === memberId)
           : existing.length > 0;
+
       if (blocksInstall) {
         logger.warn(
           { name, memberId, target, existingCount: existing.length },
           "App does not allow multiple installations",
         );
+
         throw new Error("app_already_installed");
       }
     }
@@ -114,6 +116,7 @@ export class ConnectedAppsService
         { appId: appData._id, appName: appData.name },
         "Running install hook",
       );
+
       try {
         await service.install(appData);
       } catch (error) {
@@ -121,6 +124,7 @@ export class ConnectedAppsService
           { appId: appData._id, appName: appData.name, error },
           "Install hook failed",
         );
+
         await this.updateApp(
           appData._id,
           {
@@ -129,6 +133,7 @@ export class ConnectedAppsService
           },
           appData.organizationId,
         );
+
         throw error;
       }
     }
@@ -164,6 +169,7 @@ export class ConnectedAppsService
           { appId, appName: app.name, uninstallResult },
           "App uninstall blocked by app service",
         );
+
         return uninstallResult;
       }
     }
@@ -211,6 +217,7 @@ export class ConnectedAppsService
         { appId, overrideOrganizationId: organizationId },
         "App not found",
       );
+
       throw new Error("App not found");
     }
 
@@ -236,6 +243,7 @@ export class ConnectedAppsService
           : updateModel.status === "connected"
             ? APP_CONNECTED_EVENT_TYPE
             : null;
+
       if (eventType) {
         await this.getServices().eventService.emit(
           eventType,
@@ -273,23 +281,28 @@ export class ConnectedAppsService
     ) {
       const currentDefaultApps =
         await services.configurationService.getConfiguration("defaultApps");
+
       const nextDefaultApps: DefaultAppsConfiguration = {
         ...(currentDefaultApps ?? {}),
       };
+
       let hasDefaultAppsChanges = false;
 
       if (nextDefaultApps.paymentAppId === appId) {
         delete nextDefaultApps.paymentAppId;
         hasDefaultAppsChanges = true;
       }
+
       if (nextDefaultApps.emailSenderAppId === appId) {
         delete nextDefaultApps.emailSenderAppId;
         hasDefaultAppsChanges = true;
       }
+
       if (nextDefaultApps.textMessageSenderAppId === appId) {
         delete nextDefaultApps.textMessageSenderAppId;
         hasDefaultAppsChanges = true;
       }
+
       if (nextDefaultApps.textMessageResponderAppId === appId) {
         delete nextDefaultApps.textMessageResponderAppId;
         hasDefaultAppsChanges = true;
@@ -301,6 +314,7 @@ export class ConnectedAppsService
           nextDefaultApps,
           { actor: "system" },
         );
+
         logger.debug({ appId }, "Removed app from default apps configuration");
       }
     }
@@ -335,6 +349,7 @@ export class ConnectedAppsService
           nextBooking,
           { actor: "system" },
         );
+
         logger.debug(
           { appId },
           "Removed app from booking schedule/availability providers",
@@ -351,6 +366,7 @@ export class ConnectedAppsService
       const members = db.collection<OrganizationMember>(
         MEMBERS_COLLECTION_NAME,
       );
+
       await members.updateMany(
         { organizationId: this.organizationId },
         { $pull: { calendarSources: { appId } } },
@@ -364,6 +380,7 @@ export class ConnectedAppsService
       const members = db.collection<OrganizationMember>(
         MEMBERS_COLLECTION_NAME,
       );
+
       await members.updateMany(
         {
           organizationId: this.organizationId,
@@ -403,6 +420,7 @@ export class ConnectedAppsService
         { appId, appName: app.name, appType: appService.type },
         message,
       );
+
       throw new Error(message);
     }
 
@@ -487,6 +505,7 @@ export class ConnectedAppsService
       const connectedApp = await collection.findOne({
         _id: result.appId,
       });
+
       if (connectedApp) {
         const props = this.getServices(
           connectedApp.organizationId,
@@ -495,6 +514,7 @@ export class ConnectedAppsService
         const postConnectService = AvailableAppServices[connectedApp.name](
           props,
         ) as any as IOAuthConnectedApp;
+
         if (typeof postConnectService.afterOAuthConnected === "function") {
           try {
             await postConnectService.afterOAuthConnected(connectedApp);
@@ -539,6 +559,7 @@ export class ConnectedAppsService
         { appId, appName: app.name },
         "App does not process webhooks",
       );
+
       return Response.json(
         {
           error: `App ${app.name} does not process webhooks`,
@@ -590,6 +611,7 @@ export class ConnectedAppsService
           organizationId,
         ).connectedAppsService.getAppServiceProps(organizationId),
     );
+
     logger.debug({ appName }, "Returning static app webhook response");
     return result;
   }
@@ -615,6 +637,7 @@ export class ConnectedAppsService
         { appId, appName: app.name },
         "App does not process app calls",
       );
+
       return Response.json(
         {
           error: `App ${app.name} does not process app calls`,
@@ -653,6 +676,7 @@ export class ConnectedAppsService
         { appId, appName: app.name },
         "App does not process external app calls",
       );
+
       return new Response(
         JSON.stringify({
           error: `App ${app.name} does not process external app calls`,
@@ -735,6 +759,7 @@ export class ConnectedAppsService
         { appId, appName: app.name },
         "App does not implement processFormRequest",
       );
+
       throw new Error(`App ${app.name} does not implement processFormRequest`);
     }
 
@@ -803,6 +828,7 @@ export class ConnectedAppsService
     if (appNames.length === 0) {
       return [];
     }
+
     logger.debug({ appNames }, "Getting apps by app names");
     const db = await getDbConnection();
     const collection = db.collection<ConnectedAppData>(
@@ -848,6 +874,7 @@ export class ConnectedAppsService
       { scope, count: result.length },
       "Returning apps by scope with data",
     );
+
     return result;
   }
 
@@ -978,6 +1005,7 @@ export class ConnectedAppsService
             { appName },
             `App called update method from static request`,
           );
+
           throw new Error(
             `App ${appName} called update method from static request`,
           );
@@ -990,6 +1018,7 @@ export class ConnectedAppsService
         { appName, error },
         "Error getting app service static props",
       );
+
       throw error;
     }
   }
@@ -1090,6 +1119,7 @@ export class ConnectedAppsService
             { appName: appData.name, appId: appData._id, error },
             "Error in app callback",
           );
+
           throw error;
         } else {
           logger.warn(
@@ -1115,12 +1145,14 @@ export class ConnectedAppsService
         const service = new app.getService(this.organizationId, services);
         const contacts =
           await services.teamService.getOrganizationAdminContacts();
+
         const contact = contacts[0];
         if (!contact) {
           logger.error(
             { appName: app.name },
             "Organization admin member not found",
           );
+
           throw new Error("Organization admin member not found");
         }
 
@@ -1134,6 +1166,7 @@ export class ConnectedAppsService
             { appName: app.name, error },
             "Error invoking built-in app",
           );
+
           throw error;
         } else {
           logger.warn(
@@ -1161,9 +1194,11 @@ export class CachedConnectedAppsService extends ConnectedAppsService {
     const collection = db.collection<ConnectedAppData>(
       CONNECTED_APPS_COLLECTION_NAME,
     );
+
     const apps = await collection
       .find({ organizationId: this.organizationId })
       .toArray();
+
     logger.debug({ count: apps.length }, "Returning apps");
 
     return apps;
@@ -1200,6 +1235,7 @@ export class CachedConnectedAppsService extends ConnectedAppsService {
     if (appNames.length === 0) {
       return [];
     }
+
     const set = new Set(appNames);
     const apps = await this.cachedGetApps();
     return apps

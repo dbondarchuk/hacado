@@ -51,6 +51,7 @@ export const BlogPostCommentCountConfiguration = deepMemo(
     const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(
       blogAdminNamespace,
     );
+
     const tPublic = useI18n<BlogPublicNamespace, BlogPublicKeys>(
       blogPublicNamespace,
     );

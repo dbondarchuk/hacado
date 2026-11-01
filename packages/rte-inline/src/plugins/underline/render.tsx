@@ -8,5 +8,6 @@ export function renderUnderline(
   if (marks.underline) {
     return <u>{content}</u>;
   }
+
   return content;
 }

@@ -48,6 +48,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
     const maskPlaceholder = countryMask
       ? `${country?.code} ${countryMask?.replaceAll("#", "_")}`
       : "";
+
     const mask = countryMask
       ? `${country?.code} ${countryMask}`
           .split("")

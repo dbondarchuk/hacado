@@ -10,6 +10,7 @@ export const ModifyAppointmentFormPropsSchema = z.object({
 export type ModifyAppointmentFormProps = z.infer<
   typeof ModifyAppointmentFormPropsSchema
 >;
+
 export type ModifyAppointmentFormReaderProps = BaseReaderBlockProps<any> &
   ModifyAppointmentFormProps;
 

@@ -15,6 +15,7 @@ export const colorStyle = {
   defaultValue: COLORS.foreground.value,
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `color: ${getColorStyle(value)};`;
   },
   component: ({ value, onChange }) => (

@@ -68,6 +68,7 @@ export const GiftCardPurchaseShowcaseBlockConfiguration = deepMemo(
     const presets = data.props?.amountPresets?.length
       ? data.props.amountPresets.slice(0, MAX_AMOUNT_PRESETS)
       : [...DEFAULT_AMOUNT_PRESETS];
+
     const previewPosition =
       data.props?.previewPosition === "right" ? "right" : "left";
 
@@ -160,6 +161,7 @@ export const GiftCardPurchaseShowcaseBlockConfiguration = deepMemo(
                 onChange={(event) => {
                   const nextValue = event.target.valueAsNumber;
                   if (!Number.isFinite(nextValue) || nextValue <= 0) return;
+
                   const next = [...presets];
                   next[index] = nextValue;
                   updateProps({ amountPresets: next });

@@ -169,6 +169,7 @@ export class GiftCardStudioConnectedApp
     for (const giftCardId of ids) {
       const giftCard =
         await this.props.services.giftCardsService.getGiftCard(giftCardId);
+
       if (!giftCard || giftCard.source?.appId !== appData._id) {
         continue;
       }
@@ -176,6 +177,7 @@ export class GiftCardStudioConnectedApp
       const payment = await this.props.services.paymentsService.getPayment(
         giftCard.paymentId,
       );
+
       if (
         !payment ||
         payment.method !== "payment-link" ||
@@ -194,6 +196,7 @@ export class GiftCardStudioConnectedApp
         sendCustomerEmail?: boolean;
         fulfillmentScheduled?: boolean;
       };
+
       if (metadata.fulfillmentScheduled) {
         continue;
       }
@@ -203,6 +206,7 @@ export class GiftCardStudioConnectedApp
           giftCardId,
           appData._id,
         );
+
       if (!claimed) {
         continue;
       }
@@ -285,6 +289,7 @@ export class GiftCardStudioConnectedApp
         parsed.error.message,
       );
     }
+
     const data = parsed.data;
 
     const repo = this.getRepositoryService(appData._id, appData.organizationId);
@@ -298,6 +303,7 @@ export class GiftCardStudioConnectedApp
           { id: data.id, designName: data.design?.name },
           "Update design",
         );
+
         return this.processUpdateDesign(appData, data, repo, memberId);
       case DeleteDesignActionType:
         logger.debug({ id: data.id }, "Delete design");
@@ -310,12 +316,14 @@ export class GiftCardStudioConnectedApp
           { id: data.id, isArchived: data.isArchived },
           "Set design public",
         );
+
         return this.processSetDesignArchived(appData, data, repo, memberId);
       case SetDesignsArchivedActionType:
         logger.debug(
           { ids: data.ids, isArchived: data.isArchived },
           "Set designs archived",
         );
+
         return this.processSetDesignsArchived(appData, data, repo, memberId);
       case GetDesignsActionType:
         logger.debug("Get designs");
@@ -328,6 +336,7 @@ export class GiftCardStudioConnectedApp
           { name: data.name, excludeId: data.id },
           "Check design name unique",
         );
+
         return repo.checkDesignNameUnique(data.name, data.id);
       case GetPurchasedGiftCardsActionType:
         logger.debug("Get purchased gift cards");
@@ -343,6 +352,7 @@ export class GiftCardStudioConnectedApp
           },
           "Create purchased gift card",
         );
+
         return this.processCreatePurchasedGiftCard(
           appData,
           data,
@@ -357,6 +367,7 @@ export class GiftCardStudioConnectedApp
           },
           "Regenerate gift card assets",
         );
+
         return this.processRegenerateGiftCardAssets(
           appData,
           data as RegenerateGiftCardAssetsAction,
@@ -385,6 +396,7 @@ export class GiftCardStudioConnectedApp
           { id: data.id, participantType: data.participantType },
           "Resend email to customer",
         );
+
         return this.processResendEmail(appData, data, repo);
       default:
         logger.warn({ type: (data as any).type }, "Unknown request type");
@@ -426,6 +438,7 @@ export class GiftCardStudioConnectedApp
           { appId: appData._id, baseName },
           "Could not generate unique template name after 10 attempts",
         );
+
         return null;
       };
 
@@ -438,6 +451,7 @@ export class GiftCardStudioConnectedApp
             { appId: appData._id, id, language },
             "No source template found for language",
           );
+
           continue;
         }
 
@@ -559,11 +573,9 @@ export class GiftCardStudioConnectedApp
     if (slug[0] === "preview" && request.method === "POST") {
       return this.handlePreviewRequest(appData, request);
     }
-
     if (slug[0] === "intent" && request.method === "POST") {
       return this.handleIntentRequest(appData, request);
     }
-
     if (slug[0] === "purchase" && request.method === "POST") {
       return this.handlePurchaseRequest(appData, request);
     }
@@ -595,6 +607,7 @@ export class GiftCardStudioConnectedApp
         { designs: designs.items.length, amountLimits: response.amountLimits },
         "Init options got",
       );
+
       return Response.json(response);
     }
 
@@ -620,6 +633,7 @@ export class GiftCardStudioConnectedApp
       this.props.services,
       repo,
     );
+
     await jobProcessor.processJob(appData, jobData);
 
     logger.info(
@@ -652,6 +666,7 @@ export class GiftCardStudioConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const [designs, purchases] = await Promise.all([
       wantDesigns
         ? repository.getDesigns({
@@ -812,11 +827,13 @@ export class GiftCardStudioConnectedApp
         "Design name not unique",
       );
     }
+
     const created = await repo.createDesign(data.design);
     logger.info(
       { designId: (created as { _id: string })?._id, name: data.design.name },
       "Design created",
     );
+
     await this.emitGiftCardStudioEvent(
       GIFT_CARD_STUDIO_DESIGN_CREATED_EVENT_TYPE,
       {
@@ -825,6 +842,7 @@ export class GiftCardStudioConnectedApp
       },
       this.adminEventSource(memberId),
     );
+
     return created;
   }
 
@@ -839,11 +857,13 @@ export class GiftCardStudioConnectedApp
       data.design.name,
       data.id,
     );
+
     if (!isUnique) {
       logger.warn(
         { name: data.design.name, id: data.id },
         "Design name not unique",
       );
+
       throw new ConnectedAppRequestError(
         "design_name_not_unique",
         { name: data.design.name, id: data.id },
@@ -851,6 +871,7 @@ export class GiftCardStudioConnectedApp
         "Design name not unique",
       );
     }
+
     const updated = await repo.updateDesign(data.id, data.design);
     if (!updated) {
       logger.warn({ id: data.id }, "Design not found for update");
@@ -861,6 +882,7 @@ export class GiftCardStudioConnectedApp
         "Design not found",
       );
     }
+
     logger.info({ id: data.id, name: data.design.name }, "Design updated");
     await this.emitGiftCardStudioEvent(
       GIFT_CARD_STUDIO_DESIGN_UPDATED_EVENT_TYPE,
@@ -870,6 +892,7 @@ export class GiftCardStudioConnectedApp
       },
       this.adminEventSource(memberId),
     );
+
     return updated;
   }
 
@@ -891,6 +914,7 @@ export class GiftCardStudioConnectedApp
         "Design not found or has purchases",
       );
     }
+
     logger.info({ id: data.id }, "Design deleted");
     await this.emitGiftCardStudioEvent(
       GIFT_CARD_STUDIO_DESIGN_DELETED_EVENT_TYPE,
@@ -901,6 +925,7 @@ export class GiftCardStudioConnectedApp
       },
       this.adminEventSource(memberId),
     );
+
     return deleted;
   }
 
@@ -914,6 +939,7 @@ export class GiftCardStudioConnectedApp
     const designs = await Promise.all(
       data.ids.map((id) => repo.getDesignById(id)),
     );
+
     const deleted = await repo.deleteDesigns(data.ids);
     if (!deleted) {
       logger.warn({ ids: data.ids }, "Designs not found or have purchases");
@@ -929,6 +955,7 @@ export class GiftCardStudioConnectedApp
     const source = this.adminEventSource(memberId);
     for (const design of designs) {
       if (!design) continue;
+
       await this.emitGiftCardStudioEvent(
         GIFT_CARD_STUDIO_DESIGN_DELETED_EVENT_TYPE,
         {
@@ -939,6 +966,7 @@ export class GiftCardStudioConnectedApp
         source,
       );
     }
+
     return deleted;
   }
 
@@ -959,6 +987,7 @@ export class GiftCardStudioConnectedApp
         "Design not found",
       );
     }
+
     const updated = await repo.getDesignById(data.id);
     if (updated) {
       await this.emitGiftCardStudioEvent(
@@ -970,10 +999,12 @@ export class GiftCardStudioConnectedApp
         this.adminEventSource(memberId),
       );
     }
+
     logger.info(
       { id: data.id, isArchived: data.isArchived },
       "Design visibility updated",
     );
+
     return ok;
   }
 
@@ -994,10 +1025,12 @@ export class GiftCardStudioConnectedApp
         "Designs not found",
       );
     }
+
     const source = this.adminEventSource(memberId);
     for (const id of data.ids) {
       const updated = await repo.getDesignById(id);
       if (!updated) continue;
+
       await this.emitGiftCardStudioEvent(
         GIFT_CARD_STUDIO_DESIGN_UPDATED_EVENT_TYPE,
         {
@@ -1007,10 +1040,12 @@ export class GiftCardStudioConnectedApp
         source,
       );
     }
+
     logger.info(
       { ids: data.ids, isArchived: data.isArchived },
       "Designs archived updated",
     );
+
     return ok;
   }
 
@@ -1104,6 +1139,7 @@ export class GiftCardStudioConnectedApp
       actor: "customer" as const,
       actorId: purchase.customerId,
     };
+
     const isPaymentLink = purchase.paymentType === "payment-link";
 
     let payment;
@@ -1125,9 +1161,11 @@ export class GiftCardStudioConnectedApp
         await this.props.services.connectedAppsService.getAppsByScope(
           "payment-link",
         );
+
       const paymentLinkApp = paymentLinkApps.find(
         (app) => app._id === purchase.paymentLinkAppId,
       );
+
       if (!paymentLinkApp) {
         throw new ConnectedAppRequestError(
           "payment_link_app_not_found",
@@ -1198,6 +1236,7 @@ export class GiftCardStudioConnectedApp
           payment._id,
           paymentSource,
         );
+
         throw error;
       }
 
@@ -1218,6 +1257,7 @@ export class GiftCardStudioConnectedApp
     } else {
       const inPersonMethod =
         purchase.paymentType === "in-person-card" ? "in-person-card" : "cash";
+
       payment = await this.props.services.paymentsService.createPayment(
         {
           amount: purchase.amountPurchased,
@@ -1358,6 +1398,7 @@ export class GiftCardStudioConnectedApp
       },
       "Purchased gift card created",
     );
+
     return repo.getPurchasedGiftCardById(purchased._id);
   }
 
@@ -1374,6 +1415,7 @@ export class GiftCardStudioConnectedApp
         { id: data.id },
         "Purchased gift card not found or not allowed to be deleted",
       );
+
       throw new ConnectedAppRequestError(
         "purchased_gift_card_not_found",
         { id: data.id },
@@ -1396,10 +1438,12 @@ export class GiftCardStudioConnectedApp
         { fileName: getFileName(appData._id, data.id, "gift-card", "png") },
         "Deleting gift card PNG",
       );
+
       await this.props.services.assetsStorage.deleteFile(
         getFileName(appData._id, data.id, "gift-card", "png"),
       );
     }
+
     if (
       await this.props.services.assetsStorage.checkExists(
         getFileName(appData._id, data.id, "gift-card", "pdf"),
@@ -1409,10 +1453,12 @@ export class GiftCardStudioConnectedApp
         { fileName: getFileName(appData._id, data.id, "gift-card", "pdf") },
         "Deleting gift card PDF",
       );
+
       await this.props.services.assetsStorage.deleteFile(
         getFileName(appData._id, data.id, "gift-card", "pdf"),
       );
     }
+
     if (
       await this.props.services.assetsStorage.checkExists(
         getFileName(appData._id, data.id, "invoice", "pdf"),
@@ -1422,6 +1468,7 @@ export class GiftCardStudioConnectedApp
         { fileName: getFileName(appData._id, data.id, "invoice", "pdf") },
         "Deleting invoice PDF",
       );
+
       await this.props.services.assetsStorage.deleteFile(
         getFileName(appData._id, data.id, "invoice", "pdf"),
       );
@@ -1436,6 +1483,7 @@ export class GiftCardStudioConnectedApp
       },
       this.adminEventSource(memberId),
     );
+
     return deleted;
   }
 
@@ -1528,6 +1576,7 @@ export class GiftCardStudioConnectedApp
       this.props.services,
       repo,
     );
+
     if (participantType === "customer") {
       if (purchased.invoiceGenerationStatus !== "completed") {
         logger.warn({ id, participantType }, "Invoice not generated yet");
@@ -1584,8 +1633,10 @@ export class GiftCardStudioConnectedApp
         await this.props.services.giftCardsService.checkGiftCardCodeUnique(
           code,
         );
+
       if (unique) return code;
     }
+
     logger.error("Could not generate unique gift card code after 50 attempts");
     throw new Error("Could not generate unique gift card code");
   }
@@ -1613,10 +1664,12 @@ export class GiftCardStudioConnectedApp
         "Design not found",
       );
     }
+
     const { timeZone } =
       await this.props.services.configurationService.getConfiguration(
         "general",
       );
+
     const settings = (appData.data as GiftCardStudioSettings) ?? {};
     const expirationMonths = settings.expirationMonths ?? 12;
     const locale = await getLocale();
@@ -1637,6 +1690,7 @@ export class GiftCardStudioConnectedApp
       code: "PREVIEW",
       expiresAt,
     };
+
     const imageDataUrl = await this.generatePreviewImage(design, payload);
     return { success: true as const, imageDataUrl };
   }
@@ -1672,6 +1726,7 @@ export class GiftCardStudioConnectedApp
 
     const { amount, designId, name, email, phone, intentId, message, ...rest } =
       data;
+
     const settings = (appData.data as GiftCardStudioSettings) ?? {};
     if (amount < settings.minAmount || amount > settings.maxAmount) {
       logger.debug(
@@ -1682,6 +1737,7 @@ export class GiftCardStudioConnectedApp
         },
         "Purchase rejected: amount is out of range",
       );
+
       return Response.json(
         { success: false, code: "amount_out_of_range" },
         { status: 400 },
@@ -1690,6 +1746,7 @@ export class GiftCardStudioConnectedApp
 
     const intent =
       await this.props.services.paymentsService.getIntent(intentId);
+
     if (!intent) {
       logger.debug({ intentId }, "Purchase rejected: intent not found");
       return Response.json(
@@ -1703,6 +1760,7 @@ export class GiftCardStudioConnectedApp
         { intentId, amount },
         "Purchase rejected: intent amount does not match",
       );
+
       return Response.json(
         { success: false, code: "intent_amount_does_not_match" },
         { status: 400 },
@@ -1727,6 +1785,7 @@ export class GiftCardStudioConnectedApp
         { intentId, customerId: customer._id },
         "Purchase rejected: intent customer id does not match",
       );
+
       return Response.json(
         { success: false, code: "intent_customer_id_does_not_match" },
         { status: 400 },
@@ -1898,17 +1957,20 @@ export class GiftCardStudioConnectedApp
         { status: 400 },
       );
     }
+
     const { amount, intentId, email, phone, name } = data;
     const settings = (appData.data as GiftCardStudioSettings) ?? {};
 
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const planTier = resolvePlanTierFromOrganization(organization);
     if (!canUseFeature(planTier, "payments")) {
       logger.debug(
         { planTier },
         "Intent rejected: payments feature unavailable",
       );
+
       return Response.json(
         { success: false, code: "subscription_upgrade_required" },
         { status: 402 },
@@ -1924,6 +1986,7 @@ export class GiftCardStudioConnectedApp
         },
         "Intent rejected: amount is out of range",
       );
+
       return Response.json(
         { success: false, code: "amount_out_of_range" },
         { status: 400 },
@@ -2013,6 +2076,7 @@ export class GiftCardStudioConnectedApp
       const body = await request.json();
       const { success, error, data } =
         fetchPreviewPayloadSchema.safeParse(body);
+
       if (!success) {
         logger.debug({ error }, "Preview rejected: invalid body");
         return Response.json(
@@ -2028,6 +2092,7 @@ export class GiftCardStudioConnectedApp
           { amount, minAmount: settings.minAmount },
           "Preview rejected: amount is less than minimum amount",
         );
+
         return Response.json(
           {
             success: false,
@@ -2043,6 +2108,7 @@ export class GiftCardStudioConnectedApp
           { amount, maxAmount: settings.maxAmount },
           "Preview rejected: amount is greater than maximum amount",
         );
+
         return Response.json(
           {
             success: false,
@@ -2057,6 +2123,7 @@ export class GiftCardStudioConnectedApp
         appData._id,
         appData.organizationId,
       );
+
       const design = await repo.getDesignById(designId as string);
       if (!design) {
         logger.debug({ designId }, "Preview rejected: design not found");
@@ -2069,6 +2136,7 @@ export class GiftCardStudioConnectedApp
           { status: 404 },
         );
       }
+
       const expirationMonths = settings.expirationMonths ?? 12;
       const locale = await getLocale();
       const { timeZone } =
@@ -2096,6 +2164,7 @@ export class GiftCardStudioConnectedApp
         { designId, dataUrlLength: imageDataUrl?.length },
         "Preview generated",
       );
+
       return Response.json({
         success: true,
         imageDataUrl,
@@ -2135,6 +2204,7 @@ export class GiftCardStudioConnectedApp
       brand.language,
       general.currency,
     );
+
     const fields: FieldKeyValues = {
       amount: amountFormatted,
       code: payload.code ?? "PREVIEW",
@@ -2151,17 +2221,20 @@ export class GiftCardStudioConnectedApp
         fields,
         format: "png",
       });
+
       const base64 = pngBuffer.toString("base64");
       logger.debug(
         { designId: payload.designId, sizeBytes: pngBuffer.length },
         "Preview rendered via renderGiftCard",
       );
+
       return `data:image/png;base64,${base64}`;
     } catch (e) {
       logger.warn(
         { error: e, designId: payload.designId },
         "Render failed, using fallback SVG preview",
       );
+
       return this.generatePreviewImageFallback({ ...payload, amountFormatted });
     }
   }
@@ -2181,6 +2254,7 @@ export class GiftCardStudioConnectedApp
       <text x="20" y="95" font-family="sans-serif" font-size="12" fill="#0f172a">Code: ${escapeXml(code)}</text>
       <text x="20" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#dc2626">PREVIEW - NOT A REAL CARD</text>
     </svg>`;
+
     const base64 = Buffer.from(svg, "utf-8").toString("base64");
     return `data:image/svg+xml;base64,${base64}`;
   }

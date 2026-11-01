@@ -40,6 +40,7 @@ export const BlogPostContentEditor = ({
     if (!postContent || showError) {
       return postContent;
     }
+
     return resolveBlogPostDisplayContent(postContent, blockProps);
   }, [postContent, blockProps, showError]);
 

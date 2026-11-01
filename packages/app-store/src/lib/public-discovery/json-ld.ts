@@ -58,6 +58,7 @@ function openingHours(schedule?: ScheduleConfiguration) {
   const specs = schedule.schedule.flatMap((day) => {
     const dayOfWeek = DAY_NAMES[day.weekDay];
     if (!dayOfWeek) return [];
+
     return (day.shifts || []).map((shift) => ({
       "@type": "OpeningHoursSpecification",
       dayOfWeek,
@@ -87,11 +88,13 @@ function personNodes(
       "@id": `${websiteUrl.replace(/\/$/, "")}/#person-${member.id}`,
       name: member.name,
     };
+
     if (member.jobTitle?.trim()) node.jobTitle = member.jobTitle.trim();
     if (member.bio?.trim()) node.description = member.bio.trim();
     if (member.image) {
       node.image = toAbsoluteWebsiteUrl(websiteUrl, member.image);
     }
+
     return node;
   });
 }
@@ -105,6 +108,7 @@ function toIso8601Duration(minutes: number): string | undefined {
 
   if (hours && mins) return `PT${hours}H${mins}M`;
   if (hours) return `PT${hours}H`;
+
   return `PT${mins}M`;
 }
 
@@ -158,9 +162,11 @@ function offerForService(
     priceCurrency: service.currency,
     itemOffered,
   };
+
   if (service.durationType === "flexible") {
     offer.unitText = "HOUR";
   }
+
   return offer;
 }
 
@@ -170,6 +176,7 @@ function offerForPackage(pkg: PublicCatalogPackage): Record<string, unknown> {
       item.credits > 1 ? `${item.credits}× ${item.name}` : item.name,
     )
     .join(", ");
+
   const descriptionParts = [
     plainTextDescription(pkg.description),
     included ? `Includes ${included}` : undefined,
@@ -210,6 +217,7 @@ export function buildSiteJsonLd(args: {
 }): JsonLdGraph {
   const { websiteUrl, general, brand, social, schedule, offers, members } =
     args;
+
   const base = websiteUrl.replace(/\/$/, "");
   const people = personNodes(websiteUrl, members);
   const makesOffer = offers
@@ -228,6 +236,7 @@ export function buildSiteJsonLd(args: {
     business.logo = toAbsoluteWebsiteUrl(websiteUrl, brand.logo);
     business.image = toAbsoluteWebsiteUrl(websiteUrl, brand.logo);
   }
+
   if (general.phone) business.telephone = general.phone;
   if (general.email) business.email = general.email;
 
@@ -235,6 +244,7 @@ export function buildSiteJsonLd(args: {
     general.address,
     general.country,
   );
+
   if (postalAddress) {
     const streetAddress = formatPostalStreetAddress(postalAddress);
     business.address = {
@@ -267,6 +277,7 @@ export function buildSiteJsonLd(args: {
   if (people.length) {
     business.employee = people.map((person) => ({ "@id": person["@id"] }));
   }
+
   if (makesOffer.length) business.makesOffer = makesOffer;
 
   const website: Record<string, unknown> = {
@@ -301,6 +312,7 @@ export function buildPageJsonLd(args: {
     isPartOf: { "@id": websiteId(websiteUrl) },
     about: { "@id": businessId(websiteUrl) },
   };
+
   if (description) webPage.description = description;
   if (dateModified) webPage.dateModified = dateModified.toISOString();
 
@@ -325,6 +337,7 @@ export function buildPageJsonLd(args: {
         };
       }),
     ];
+
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement,
@@ -350,6 +363,7 @@ export async function loadSiteJsonLd(
     general.currency,
     brand.language,
   );
+
   return buildSiteJsonLd({
     websiteUrl,
     general,

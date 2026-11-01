@@ -37,15 +37,18 @@ export const MyCabinetBlockConfiguration = deepMemo(
         setData({ ...data, style: s as MyCabinetBlockProps["style"] }),
       [setData, data],
     );
+
     const updateMetadata = useCallback(
       (m: Record<string, unknown>) => onMetadataChange(m),
       [onMetadataChange],
     );
+
     const updateProps = useCallback(
       (p: unknown) =>
         setData({ ...data, props: p as MyCabinetBlockProps["props"] }),
       [setData, data],
     );
+
     const appId = (metadata?.myCabinetAppId as string) ?? "";
 
     return (

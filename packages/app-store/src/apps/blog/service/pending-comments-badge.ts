@@ -17,6 +17,7 @@ export async function getBlogPendingCommentsBadges(
     getDbConnection,
     services,
   );
+
   const count = await repository.getPendingCommentsCount();
 
   return [{ key: BLOG_PENDING_COMMENTS_BADGE_KEY, count }];

@@ -13,6 +13,7 @@ export const footerDefaultPage = (
   const secondaryNavLabel = isMyCabinetEnabled
     ? myCabinetLabel
     : manageAppointmentLabel;
+
   const secondaryNavIcon = isMyCabinetEnabled ? "user" : "calendar-sync";
 
   return {

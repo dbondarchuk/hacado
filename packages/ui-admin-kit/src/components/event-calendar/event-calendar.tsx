@@ -139,8 +139,10 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
   const [uncontrolledDate, setUncontrolledDate] = React.useState(
     () => dateProp ?? new Date(),
   );
+
   const [uncontrolledView, setUncontrolledView] =
     React.useState<EventCalendarView>(viewProp ?? defaultView);
+
   const [datePickerOpen, setDatePickerOpen] = React.useState(false);
 
   const date = dateProp ?? uncontrolledDate;
@@ -162,6 +164,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     if (!dateProp) {
       setUncontrolledDate(next);
     }
+
     onDateChange?.(next);
   };
 
@@ -169,11 +172,13 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     if (!viewProp) {
       setUncontrolledView(next);
     }
+
     onViewChange?.(next);
   };
 
   const showViewSwitch =
     showControls && allowViewSwitch && view !== "days-around";
+
   const showTimeNav = showControls && allowTimeChange;
 
   const dateTime = DateTime.fromJSDate(date).setZone(timeZone).startOf("day");
@@ -188,8 +193,10 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
 
   const goToday = () =>
     setDate(DateTime.now().setZone(timeZone).startOf("day").toJSDate());
+
   const goPrevious = () =>
     setDate(shiftDate(dateTime, view, -1, daysAround, daysToShow).toJSDate());
+
   const goNext = () =>
     setDate(shiftDate(dateTime, view, 1, daysAround, daysToShow).toJSDate());
 
@@ -281,12 +288,14 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                     defaultMonth={dateTime.toJSDate()}
                     onSelect={(selected) => {
                       if (!selected) return;
+
                       setDate(
                         DateTime.fromJSDate(selected)
                           .setZone(timeZone)
                           .startOf("day")
                           .toJSDate(),
                       );
+
                       setDatePickerOpen(false);
                     }}
                     numberOfMonths={1}

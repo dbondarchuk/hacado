@@ -24,6 +24,7 @@ export const CatalogValuePropsSchema = z.object({
 export type CatalogValueProps = Prettify<
   z.infer<typeof CatalogValuePropsSchema>
 >;
+
 export type CatalogValueReaderProps = BaseReaderBlockProps<any> &
   CatalogValueProps;
 

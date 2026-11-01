@@ -91,6 +91,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         });
       }
+
       if (dateRange.end) {
         $and.push({
           dateTime: {
@@ -285,6 +286,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         });
       }
+
       if (dateRange.end) {
         $and.push({
           paidAt: {
@@ -356,6 +358,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         });
       }
+
       if (dateRange.end) {
         $and.push({
           dateTime: {
@@ -556,6 +559,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         });
       }
+
       if (dateRange.end) {
         $and.push({
           dateTime: {
@@ -723,6 +727,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         });
       }
+
       if (dateRange.end) {
         $and.push({
           dateTime: {
@@ -811,6 +816,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
         value: GeneralConfiguration;
       }>(CONFIGURATION_COLLECTION_NAME)
       .findOne({ organizationId, key: "general" });
+
     return general?.value?.timeZone || "UTC";
   }
 
@@ -832,6 +838,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
     const matchFilter: Filter<BookingProgressAnalyticsDaily> = {
       organizationId,
     };
+
     if (dateRange?.start || dateRange?.end) {
       matchFilter.date = {};
       if (dateRange.start) matchFilter.date.$gte = dateRange.start;

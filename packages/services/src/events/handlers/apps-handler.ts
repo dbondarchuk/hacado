@@ -17,6 +17,7 @@ export const appsHandler: EventHandler = {
       envelope.id,
       "apps",
     );
+
     if (!claimed) {
       return;
     }

@@ -70,6 +70,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
     ) {
       return externalId;
     }
+
     return undefined;
   }, [method, source, externalId, status]);
 
@@ -98,6 +99,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
         success: t("payment.card.deleteSuccess"),
         error: t("common.toasts.error"),
       });
+
       setIsDeleteOpen(false);
       router.refresh();
     } catch (error) {
@@ -134,6 +136,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
         success: t("common.toasts.saved"),
         error: t("common.toasts.error"),
       });
+
       router.refresh();
     } catch (error) {
       console.error(error);

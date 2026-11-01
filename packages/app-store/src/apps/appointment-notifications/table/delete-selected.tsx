@@ -26,6 +26,7 @@ export const DeleteSelectedAppointmentNotificationsButton: React.FC<{
     AppointmentNotificationsAdminNamespace,
     AppointmentNotificationsAdminKeys
   >(appointmentNotificationsAdminNamespace);
+
   const tAdmin = useI18n("admin");
 
   const { reload } = useReload();

@@ -359,11 +359,13 @@ export class CustomersService extends BaseService implements ICustomersService {
       email?.trim() || "",
       "email",
     );
+
     if (byEmail) {
       logger.debug(
         { email, customerId: byEmail._id },
         "Customer found by email",
       );
+
       return byEmail;
     }
 
@@ -371,6 +373,7 @@ export class CustomersService extends BaseService implements ICustomersService {
       phone?.trim() || "",
       "phone",
     );
+
     if (byPhone) {
       logger.debug(
         { phone, customerId: byPhone._id },
@@ -379,6 +382,7 @@ export class CustomersService extends BaseService implements ICustomersService {
     } else {
       logger.debug({ email, phone }, "Customer not found by email or phone");
     }
+
     return byPhone;
   }
 
@@ -439,6 +443,7 @@ export class CustomersService extends BaseService implements ICustomersService {
         field,
         `known${field[0].toUpperCase()}${field.substring(1)}s` as Leaves<Customer>,
       );
+
       $or.push({ $or: queries });
     }
 
@@ -542,6 +547,7 @@ export class CustomersService extends BaseService implements ICustomersService {
       organizationId: this.organizationId,
       isDeleted: { $ne: true },
     });
+
     if (!updatedCustomer) {
       logger.warn({ customerId: id }, "Customer not found after update");
       return;
@@ -611,6 +617,7 @@ export class CustomersService extends BaseService implements ICustomersService {
 
     const fallbackName =
       (email.includes("@") ? email.split("@")[0] : "") || phone || "Customer";
+
     const resolvedName =
       name?.trim() && name.trim().length >= 2
         ? name.trim()
@@ -683,6 +690,7 @@ export class CustomersService extends BaseService implements ICustomersService {
         { customerId: customer._id, updatedFields: { name, email, phone } },
         "Updating customer with new information",
       );
+
       await this.updateCustomer(customer._id, customer, source);
     } else {
       logger.debug({ customerId: customer._id }, "No customer update needed");
@@ -868,6 +876,7 @@ export class CustomersService extends BaseService implements ICustomersService {
         },
         "Could not find all customers for merge",
       );
+
       throw new Error(`Could not find all customers for merge`);
     }
 
@@ -937,6 +946,7 @@ export class CustomersService extends BaseService implements ICustomersService {
         { collectionName: collection.collectionName },
         "Updating collection",
       );
+
       const { modifiedCount } = await collection.updateMany(
         {
           customerId: {
@@ -1018,6 +1028,7 @@ export class CustomersService extends BaseService implements ICustomersService {
       emailFilter._id = {
         $ne: id,
       };
+
       phoneFilter._id = {
         $ne: id,
       };

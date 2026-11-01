@@ -186,6 +186,7 @@ export const getAppointmentEventFromRequest = async (
       const unavailableAddons = selectedAddons.filter(
         (addon) => !isAddonAvailableForMember(addon.staff, request.memberId),
       );
+
       if (unavailableAddons.length) {
         logger.warn(
           {
@@ -301,6 +302,7 @@ export const getAppointmentEventFromRequest = async (
     selectedOption.durationType === "fixed"
       ? (effectiveStaffDuration(selectedOption.duration, staffAssignment) ?? 0)
       : (request.duration ?? 0);
+
   const addonsDuration =
     selectedAddons?.reduce(
       (sum, cur) =>
@@ -309,6 +311,7 @@ export const getAppointmentEventFromRequest = async (
           0),
       0,
     ) ?? 0;
+
   const totalDuration = (optionDuration ?? 0) + addonsDuration;
 
   const optionPrice =
@@ -318,6 +321,7 @@ export const getAppointmentEventFromRequest = async (
           0) /
           60) *
         (optionDuration || 0);
+
   const addonsPrice =
     selectedAddons?.reduce(
       (sum, cur) =>
@@ -325,6 +329,7 @@ export const getAppointmentEventFromRequest = async (
         (effectiveAddonPrice(cur.price, cur.staff, request.memberId) ?? 0),
       0,
     ) ?? 0;
+
   let totalPrice: number | undefined = (optionPrice ?? 0) + addonsPrice;
 
   logger.debug(
@@ -382,6 +387,7 @@ export const getAppointmentEventFromRequest = async (
   if (request.promoCode && !request.customerPackageId) {
     const organization =
       await servicesContainer.organizationService.getOrganization();
+
     const planTier = resolvePlanTierFromOrganization(organization);
     if (!canUseFeature(planTier, "discounts")) {
       return {
@@ -429,11 +435,13 @@ export const getAppointmentEventFromRequest = async (
       const pkg = await servicesContainer.packagesService.getPackage(
         request.purchasePackageId,
       );
+
       if (!pkg || pkg.status !== "active") {
         logger.warn(
           { packageId: request.purchasePackageId, status: pkg?.status },
           "Package not found or not active",
         );
+
         return {
           error: {
             code: "package_not_found",
@@ -442,6 +450,7 @@ export const getAppointmentEventFromRequest = async (
           },
         };
       }
+
       discountBasePrice = pkg.price;
     }
 

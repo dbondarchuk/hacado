@@ -23,6 +23,7 @@ export function useWaitlistTableFilters() {
     "customer",
     searchParams.customer.withOptions({ shallow: false }),
   );
+
   const [optionFilter, setOptionFilter] = useQueryState(
     "option",
     searchParams.option.withOptions({ shallow: false }),

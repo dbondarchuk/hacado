@@ -28,6 +28,7 @@ export const fieldsSearchParams = {
 
 export const fieldsSearchParamsCache =
   createSearchParamsCache(fieldsSearchParams);
+
 export const fieldsSearchParamsSchema =
   createStandardSchemaV1(fieldsSearchParams);
 

@@ -17,6 +17,7 @@ export const justifySelfStyle = {
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value || value === "auto") return null;
+
     return `justify-self: ${value};`;
   },
   component: ({ value, onChange }) => {

@@ -22,6 +22,7 @@ const PromoCodeShortLabel: React.FC<{
     DateTime.fromJSDate(promoCode.startDate) > DateTime.now()
   )
     active = false;
+
   if (
     promoCode.endDate &&
     DateTime.fromJSDate(promoCode.endDate) < DateTime.now()

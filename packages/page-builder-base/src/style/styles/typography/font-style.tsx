@@ -17,6 +17,7 @@ export const fontStyleStyle = {
   defaultValue: "normal",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `font-style: ${value};`;
   },
   component: ({ value, onChange }) => {

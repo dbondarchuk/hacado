@@ -18,6 +18,7 @@ export const minHeightStyle = {
   defaultValue: { value: 0, unit: "px" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `min-height: ${renderRawNumberWithUnitOrKeywordCss(value)};`;
   },
   component: ({ value, onChange }) => (

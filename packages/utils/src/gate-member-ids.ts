@@ -16,5 +16,6 @@ export function gateMemberIds(
   if (!canFilter(user)) {
     return user.memberId ? [user.memberId] : undefined;
   }
+
   return possibleIds;
 }

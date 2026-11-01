@@ -165,6 +165,7 @@ function KnownValuesEditor({
       items.filter((_, itemIndex) => itemIndex !== index),
       true,
     );
+
     setEditingIndex((current) => {
       if (current === null || current === index) return null;
       if (current > index) return current - 1;
@@ -562,6 +563,7 @@ export const CustomerForm: React.FC<{
                                 if (value === "always") {
                                   const percentage =
                                     form.getValues("depositPercentage");
+
                                   if (percentage == null) {
                                     form.setValue("depositPercentage", 50, {
                                       shouldValidate: true,

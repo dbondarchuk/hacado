@@ -3,6 +3,7 @@ const prettierConfig = require("eslint-config-prettier/flat");
 const turboConfig = require("eslint-config-turbo/flat");
 const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
 const tsParser = require("@typescript-eslint/parser");
+const paddingLines = require("./rules/padding-lines");
 const project = resolve(process.cwd(), "tsconfig.json");
 
 /** @type {import("eslint").Linter.Config} */
@@ -45,7 +46,17 @@ module.exports = [
     ],
   },
   {
+    plugins: {
+      hacado: {
+        rules: {
+          "padding-lines": paddingLines,
+        },
+      },
+    },
     rules: {
+      // Warning so existing code does not fail `yarn lint` (image builds run it).
+      // `eslint --fix` and save still apply it. Switch to "error" after a fix pass.
+      "hacado/padding-lines": "warn",
       "react-hooks/rules-of-hooks": "off",
       // Packages split into domain/component subpaths — ban the root barrel only.
       // Subpaths like `@hacado/types/booking` or `@hacado/ui/button` are allowed.
@@ -140,4 +151,3 @@ module.exports = [
     },
   },
 ];
-

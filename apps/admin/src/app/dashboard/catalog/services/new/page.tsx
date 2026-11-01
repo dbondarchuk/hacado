@@ -77,6 +77,7 @@ export default async function NewServicePage(props: Props) {
         { fromOptionId: from },
         "Source option not found for copying",
       );
+
       notFound();
     }
 
@@ -96,17 +97,20 @@ export default async function NewServicePage(props: Props) {
     const serviceTemplate = profession?.services.find(
       (s) => s.id === serviceId,
     );
+
     if (!serviceTemplate) {
       logger.warn(
         { template },
         "Template not found for service option creation",
       );
+
       notFound();
     }
 
     const name = tInstall(
       catalogServiceNameKey(categoryId, professionId, serviceId) as any,
     ).slice(0, 256);
+
     const description = tInstall(
       catalogServiceDescriptionKey(categoryId, professionId, serviceId) as any,
     ).slice(0, 1024);

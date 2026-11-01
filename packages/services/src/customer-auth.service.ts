@@ -43,6 +43,7 @@ export {
   CUSTOMER_SESSION_COOKIE,
   CustomerAuthError,
 } from "@hacado/types/customer-auth";
+
 export type {
   RequestOtpResult,
   VerifyOtpResult,
@@ -146,6 +147,7 @@ export class CustomerAuthService
         { channel, destination },
         "OTP request completed with generic response (customer not found)",
       );
+
       return genericResponse();
     }
 
@@ -158,6 +160,7 @@ export class CustomerAuthService
         { customerId: customer._id },
         "OTP skipped: text messaging is off and no email template is set",
       );
+
       return genericResponse();
     }
 
@@ -192,11 +195,13 @@ export class CustomerAuthService
 
     const organization =
       await this.services.organizationService.getOrganization();
+
     if (!organization) {
       logger.error(
         { customerId: customer._id },
         "Organization not found for OTP",
       );
+
       throw new CustomerAuthError("organization_not_found", 404);
     }
 
@@ -266,12 +271,14 @@ export class CustomerAuthService
         { channel, ip: payload.ip },
         "OTP verify rate limit exceeded",
       );
+
       throw new CustomerAuthError("too_many_requests", 429);
     }
 
     const otpRaw = await this.services.redisClient.get(
       this.getOtpKey(destination, channel),
     );
+
     const row = otpRaw ? (JSON.parse(otpRaw) as OtpState) : null;
 
     if (!row || row.code !== otp) {
@@ -279,6 +286,7 @@ export class CustomerAuthService
         { channel, hasStoredOtp: !!row },
         "OTP verification failed: invalid or expired code",
       );
+
       throw new CustomerAuthError("invalid_otp", 400);
     }
 
@@ -346,6 +354,7 @@ export class CustomerAuthService
         },
         "Customer session JWT invalid or organization mismatch",
       );
+
       return null;
     }
 
@@ -362,6 +371,7 @@ export class CustomerAuthService
         },
         "Customer session not found in Redis or customer mismatch",
       );
+
       return null;
     }
 
@@ -385,10 +395,12 @@ export class CustomerAuthService
       await this.services.redisClient.del(
         this.getSessionKey(payload.sessionId),
       );
+
       logger.info(
         { sessionId: payload.sessionId, customerId: payload.customerId },
         "Customer session revoked",
       );
+
       return;
     }
 
@@ -424,6 +436,7 @@ export class CustomerAuthService
     const logger = this.loggerFactory("getCustomerAuthConfig");
     const stored =
       await this.services.configurationService.getConfiguration("customerAuth");
+
     const config = normalizeCustomerAuthConfiguration(stored);
 
     logger.debug(
@@ -455,11 +468,13 @@ export class CustomerAuthService
 
     const template =
       await this.services.templatesService.getTemplate(templateId);
+
     if (!template || template.type !== "email") {
       logger.warn(
         { customerId, templateId, templateType: template?.type },
         "OTP email template missing or wrong type",
       );
+
       return;
     }
 
@@ -493,6 +508,7 @@ export class CustomerAuthService
 
     const access =
       await this.services.textMessageConfigurationService.getSmsMessagingAccess();
+
     const templateId = access.allowCustomTemplates
       ? config.otpTextTemplateId
       : undefined;
@@ -552,6 +568,7 @@ export class CustomerAuthService
     const signature = createHmac("sha256", secret)
       .update(`${h}.${p}`)
       .digest("base64url");
+
     return `${h}.${p}.${signature}`;
   }
 
@@ -563,6 +580,7 @@ export class CustomerAuthService
     const expected = createHmac("sha256", secret)
       .update(`${h}.${p}`)
       .digest("base64url");
+
     if (expected !== sig) return null;
 
     const payload = JSON.parse(

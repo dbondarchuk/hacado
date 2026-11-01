@@ -108,6 +108,7 @@ export default class AppointmentNotificationsConnectedApp
             { appId: appData._id, appointmentNotificationId: data.id },
             "Getting appointment notification",
           );
+
           return await this.repository.getAppointmentNotification(
             appData._id,
             data.id,
@@ -118,6 +119,7 @@ export default class AppointmentNotificationsConnectedApp
             { appId: appData._id, query: data.query },
             "Getting appointment notifications",
           );
+
           return await this.repository.getAppointmentNotifications(
             appData._id,
             data.query,
@@ -170,6 +172,7 @@ export default class AppointmentNotificationsConnectedApp
             },
             "Checking unique name",
           );
+
           return await this.repository.checkUniqueName(
             appData._id,
             data.name,
@@ -213,6 +216,7 @@ export default class AppointmentNotificationsConnectedApp
         },
         "Error processing appointment notifications request",
       );
+
       throw error;
     }
   }
@@ -247,6 +251,7 @@ export default class AppointmentNotificationsConnectedApp
       { appId: appData._id },
       "Successfully uninstalled appointment notifications app",
     );
+
     return { success: true, code: "ok" };
   }
 
@@ -282,6 +287,7 @@ export default class AppointmentNotificationsConnectedApp
         { appId: appData._id, appointment },
         "Appointment is not confirmed, skipping on appointment created hook",
       );
+
       return;
     }
 

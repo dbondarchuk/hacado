@@ -32,9 +32,11 @@ function calendarHref(date: string, member?: string) {
     activeTab: "calendar",
     date,
   });
+
   if (member) {
     params.set("member", member);
   }
+
   return `/dashboard?${params.toString()}`;
 }
 

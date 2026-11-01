@@ -85,10 +85,12 @@ export const EmailChangeDialog = ({
         email: currentEmail,
         type: "email-verification",
       });
+
       if (result.error) {
         toast.error(t("users.profile.emailChange.toasts.error"));
         return;
       }
+
       setCurrentOtpSent(true);
       toast.success(t("users.profile.emailChange.toasts.currentCodeSent"));
     } finally {
@@ -107,6 +109,7 @@ export const EmailChangeDialog = ({
       toast.error(t("users.profile.emailChange.toasts.invalidCode"));
       return;
     }
+
     setStep("new-email");
   };
 
@@ -115,6 +118,7 @@ export const EmailChangeDialog = ({
       toast.error(t("users.profile.emailChange.toasts.emailIsTheSame"));
       return;
     }
+
     setLoading(true);
     try {
       const result = await authClient.emailOtp.requestEmailChange({
@@ -127,19 +131,23 @@ export const EmailChangeDialog = ({
           toast.error(t("users.profile.emailChange.toasts.emailAlreadyInUse"));
           return;
         }
+
         if (result.error.code === "EMAIL_IS_THE_SAME") {
           toast.error(t("users.profile.emailChange.toasts.emailIsTheSame"));
           return;
         }
+
         toast.error(
           result.error.code === "INVALID_OTP"
             ? t("users.profile.emailChange.toasts.invalidCode")
             : t("users.profile.emailChange.toasts.error"),
         );
+
         if (result.error.code === "INVALID_OTP") {
           setStep("current-otp");
           setCurrentOtp("");
         }
+
         return;
       }
 
@@ -159,6 +167,7 @@ export const EmailChangeDialog = ({
       toast.error(t("users.profile.emailChange.toasts.invalidCode"));
       return;
     }
+
     setLoading(true);
     try {
       const result = await authClient.emailOtp.changeEmail({
@@ -172,12 +181,14 @@ export const EmailChangeDialog = ({
             ? t("users.profile.emailChange.toasts.invalidCode")
             : t("users.profile.emailChange.toasts.error"),
         );
+
         return;
       }
 
       toast.success(
         t("users.profile.emailChange.toasts.emailChangedSuccessfully"),
       );
+
       onOpenChange(false);
       router.refresh();
     } catch (error) {

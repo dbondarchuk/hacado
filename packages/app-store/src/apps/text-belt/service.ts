@@ -38,7 +38,6 @@ const scrambleKey = (key: string) => {
       .map((c, i) => (i < key.length - 2 ? "*" : c))
       .join("");
   }
-
   if (key.length < 12) {
     return key
       .split("")
@@ -178,6 +177,7 @@ export default class TextBeltConnectedApp
           },
           "Failed to send SMS via TextBelt",
         );
+
         throw new ConnectedAppError(
           "app_text-belt_admin.statusText.failed_to_send_sms" satisfies TextBeltAdminAllKeys,
           {
@@ -208,6 +208,7 @@ export default class TextBeltConnectedApp
         const member = await this.props.services.teamService.getMemberById(
           app.memberId,
         );
+
         const { template: description, subject } = await getEmailTemplate(
           "user-notify-low-quota",
           member?.language ?? brand.language,
@@ -315,6 +316,7 @@ export default class TextBeltConnectedApp
           { appId: appData._id, bodyText },
           "Malformed body in SMS webhook",
         );
+
         return Response.json({ success: false }, { status: 400 });
       }
 
@@ -332,6 +334,7 @@ export default class TextBeltConnectedApp
         await this.props.services.configurationService.getConfiguration(
           "brand",
         );
+
       const keywordReply =
         await this.props.services.smsConsentService.handleInboundSmsKeyword(
           reply.fromNumber,
@@ -413,6 +416,7 @@ export default class TextBeltConnectedApp
         { appId: appData._id, error: error?.message || error?.toString() },
         "Error processing TextBelt webhook",
       );
+
       throw error;
     }
   }
@@ -425,6 +429,7 @@ export default class TextBeltConnectedApp
 
     const { data, success, error } =
       textBeltConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid TextBelt configuration request");
       throw new ConnectedAppRequestError(
@@ -445,6 +450,7 @@ export default class TextBeltConnectedApp
       await this.props.services.configurationService.getConfiguration(
         "defaultApps",
       );
+
     const textMessageResponderAppId = defaultApps.textMessageResponderAppId;
 
     logger.debug(
@@ -479,6 +485,7 @@ export default class TextBeltConnectedApp
             },
             "Provided app does not exist or does not support responding to text messages",
           );
+
           throw new ConnectedAppError(
             "app_text-belt_admin.statusText.invalid_responder_app" satisfies TextBeltAdminAllKeys,
           );
@@ -499,6 +506,7 @@ export default class TextBeltConnectedApp
           { appId: appData._id, statusCode: response.status },
           "Failed to fetch TextBelt quota",
         );
+
         throw new ConnectedAppError(
           "app_text-belt_admin.statusText.failed_to_fetch_quota" satisfies TextBeltAdminAllKeys,
           {
@@ -518,6 +526,7 @@ export default class TextBeltConnectedApp
           },
           "Failed to get remaining quota or quota is zero",
         );
+
         throw new ConnectedAppError(
           "app_text-belt_admin.statusText.failed_to_get_quota" satisfies TextBeltAdminAllKeys,
         );
@@ -608,11 +617,13 @@ export default class TextBeltConnectedApp
 
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     if (!organization) {
       logger.error(
         { appId: appData._id, appointmentId: appointment?._id },
         "Organization not found",
       );
+
       return;
     }
 
@@ -623,6 +634,7 @@ export default class TextBeltConnectedApp
 
     const member =
       await this.props.services.teamService.getMemberById(memberId);
+
     if (!member) {
       logger.error({ appId: appData._id, memberId }, "Member not found");
       return;
@@ -711,6 +723,7 @@ export default class TextBeltConnectedApp
             await this.props.services.configurationService.getConfiguration(
               "defaultApps",
             );
+
           const textMessageResponderAppId =
             defaultApps.textMessageResponderAppId;
 

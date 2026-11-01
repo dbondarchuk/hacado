@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/synced-payments")("GET");
   const auth = await requirePermission("syncedPayment", "read", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
 
   const searchParams = request.nextUrl.searchParams;
@@ -28,6 +29,7 @@ export async function GET(request: NextRequest) {
   const limit = searchParams.get("limit")
     ? Number(searchParams.get("limit"))
     : undefined;
+
   const offset = searchParams.get("offset")
     ? Number(searchParams.get("offset"))
     : undefined;

@@ -77,33 +77,39 @@ export class GiftCardStudioJobProcessor {
     try {
       const purchasedGiftCard =
         await this.repository.getPurchasedGiftCardById(purchasedGiftCardId);
+
       if (!purchasedGiftCard) {
         logger.error(
           { appId: appData._id, purchasedGiftCardId },
           "Purchased gift card not found",
         );
+
         throw new Error("Purchased gift card not found");
       }
 
       const customer = await this.services.customersService.getCustomer(
         purchasedGiftCard.customerId,
       );
+
       if (!customer) {
         logger.error(
           { appId: appData._id, customerId: purchasedGiftCard.customerId },
           "Customer not found",
         );
+
         throw new Error("Customer not found");
       }
 
       const design = await this.repository.getDesignById(
         purchasedGiftCard.designId,
       );
+
       if (!design) {
         logger.error(
           { appId: appData._id, designId: purchasedGiftCard.designId },
           "Design not found",
         );
+
         throw new Error("Design not found");
       }
 
@@ -116,6 +122,7 @@ export class GiftCardStudioJobProcessor {
           { appId: appData._id, giftCardId: purchasedGiftCard.giftCardId },
           "Gift card not found",
         );
+
         throw new Error("Gift card not found");
       }
 
@@ -162,6 +169,7 @@ export class GiftCardStudioJobProcessor {
         "gift-card",
         "png",
       );
+
       logger.debug(
         { appId: appData._id, purchasedGiftCardId, pngFileName },
         "Generated gift card PNG",
@@ -174,6 +182,7 @@ export class GiftCardStudioJobProcessor {
         "gift-card",
         "pdf",
       );
+
       logger.debug(
         { appId: appData._id, purchasedGiftCardId, pngFileName, pdfFileName },
         "Generated gift card PDF, saving to storage",
@@ -184,6 +193,7 @@ export class GiftCardStudioJobProcessor {
         Readable.from(generatedPng),
         generatedPng.length,
       );
+
       logger.debug(
         { appId: appData._id, purchasedGiftCardId, pngFileName },
         "Saved gift card PNG to storage",
@@ -251,36 +261,43 @@ export class GiftCardStudioJobProcessor {
       { appId: appData._id, purchasedGiftCardId },
       "Processing Generate Invoice job",
     );
+
     try {
       const purchasedGiftCard =
         await this.repository.getPurchasedGiftCardById(purchasedGiftCardId);
+
       if (!purchasedGiftCard) {
         logger.error(
           { appId: appData._id, purchasedGiftCardId },
           "Purchased gift card not found",
         );
+
         throw new Error("Purchased gift card not found");
       }
 
       const customer = await this.services.customersService.getCustomer(
         purchasedGiftCard.customerId,
       );
+
       if (!customer) {
         logger.error(
           { appId: appData._id, customerId: purchasedGiftCard.customerId },
           "Customer not found",
         );
+
         throw new Error("Customer not found");
       }
 
       const giftCard = await this.services.giftCardsService.getGiftCard(
         purchasedGiftCard.giftCardId,
       );
+
       if (!giftCard) {
         logger.error(
           { appId: appData._id, giftCardId: purchasedGiftCard.giftCardId },
           "Gift card not found",
         );
+
         throw new Error("Gift card not found");
       }
 
@@ -297,6 +314,7 @@ export class GiftCardStudioJobProcessor {
       const issuedAt = DateTime.now()
         .setZone(general.timeZone)
         .setLocale(brand.language);
+
       const amountFormatted = formatAmountWithCurrency(
         purchasedGiftCard.amountPurchased,
         brand.language,
@@ -323,8 +341,10 @@ export class GiftCardStudioJobProcessor {
             const logoFilename = brand.logo.startsWith("/assets/")
               ? brand.logo.slice(8)
               : brand.logo;
+
             const logoResult =
               await this.services.assetsStorage.getFile(logoFilename);
+
             if (logoResult) {
               const { stream } = logoResult;
               const buffers: Buffer[] = [];
@@ -333,6 +353,7 @@ export class GiftCardStudioJobProcessor {
                 stream.on("end", () => resolveStream());
                 stream.on("error", (err: unknown) => rejectStream(err));
               });
+
               logoBuffer = Buffer.concat(buffers);
             }
           }
@@ -366,6 +387,7 @@ export class GiftCardStudioJobProcessor {
           doc.image(logoBuffer, leftX, y, {
             fit: [logoMaxWidth, logoMaxHeight],
           });
+
           y += 50;
         }
 
@@ -389,12 +411,14 @@ export class GiftCardStudioJobProcessor {
               align: "left",
             },
           );
+
           y += 14;
           if (general.phone) {
             doc.text(general.phone, leftX, y, {
               width: contentWidth / 2,
               align: "left",
             });
+
             y += 14;
           }
         }
@@ -417,6 +441,7 @@ export class GiftCardStudioJobProcessor {
             align: "right",
           },
         );
+
         doc.text(
           `${t.dateLabel} ${issuedAt.toFormat(t.invoiceDateFormat)}`,
           rightX,
@@ -446,6 +471,7 @@ export class GiftCardStudioJobProcessor {
           width: contentWidth / 2,
           align: "left",
         });
+
         y += 16;
 
         doc.fontSize(10).fillColor("#000000").font("Helvetica");
@@ -453,19 +479,23 @@ export class GiftCardStudioJobProcessor {
           width: contentWidth / 2,
           align: "left",
         });
+
         y += 14;
         if (customer.email) {
           doc.text(customer.email, leftX, y, {
             width: contentWidth / 2,
             align: "left",
           });
+
           y += 14;
         }
+
         if ((customer as any).phone) {
           doc.text((customer as any).phone, leftX, y, {
             width: contentWidth / 2,
             align: "left",
           });
+
           y += 16;
         } else {
           y += 8;
@@ -477,6 +507,7 @@ export class GiftCardStudioJobProcessor {
           width: contentWidth,
           align: "left",
         });
+
         y += 22;
 
         // Table layout similar to the HTML-style invoice
@@ -498,6 +529,7 @@ export class GiftCardStudioJobProcessor {
           width: colDescriptionWidth - 16,
           align: "left",
         });
+
         doc.text(
           t.quantityLabel,
           pageMargin + colDescriptionWidth,
@@ -507,6 +539,7 @@ export class GiftCardStudioJobProcessor {
             align: "center",
           },
         );
+
         doc.text(
           t.unitPriceLabel,
           pageMargin + colDescriptionWidth + colQtyWidth,
@@ -516,6 +549,7 @@ export class GiftCardStudioJobProcessor {
             align: "right",
           },
         );
+
         doc.text(
           t.amountLabel,
           pageMargin + colDescriptionWidth + colQtyWidth + colUnitWidth,
@@ -545,10 +579,12 @@ export class GiftCardStudioJobProcessor {
             align: "left",
           },
         );
+
         doc.text("1", pageMargin + colDescriptionWidth, rowY + 6, {
           width: colQtyWidth,
           align: "center",
         });
+
         doc.text(
           amountFormatted,
           pageMargin + colDescriptionWidth + colQtyWidth,
@@ -558,6 +594,7 @@ export class GiftCardStudioJobProcessor {
             align: "right",
           },
         );
+
         doc.text(
           amountFormatted,
           pageMargin + colDescriptionWidth + colQtyWidth + colUnitWidth,
@@ -596,6 +633,7 @@ export class GiftCardStudioJobProcessor {
           width: totalsBoxWidth / 2,
           align: "left",
         });
+
         doc.text(amountFormatted, totalsBoxX, totalsY, {
           width: totalsBoxWidth,
           align: "right",
@@ -606,6 +644,7 @@ export class GiftCardStudioJobProcessor {
           width: totalsBoxWidth / 2,
           align: "left",
         });
+
         doc.text(amountPaid, totalsBoxX, totalsY + 16, {
           width: totalsBoxWidth,
           align: "right",
@@ -615,6 +654,7 @@ export class GiftCardStudioJobProcessor {
           width: totalsBoxWidth / 2,
           align: "left",
         });
+
         doc.text(balance, totalsBoxX, totalsY + 32, {
           width: totalsBoxWidth,
           align: "right",
@@ -701,6 +741,7 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Recipient email is not set or is the same as the customer email, skipping email to recipient",
       );
+
       return;
     }
 
@@ -709,11 +750,13 @@ export class GiftCardStudioJobProcessor {
     const emailTemplate = await this.services.templatesService.getTemplate(
       settings.emailTemplateIdToRecipient,
     );
+
     if (!emailTemplate) {
       logger.debug(
         { appId: appData._id, purchasedGiftCardId },
         "Email template not found, skipping",
       );
+
       return;
     }
 
@@ -722,6 +765,7 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Email template is not an email template, skipping",
       );
+
       return;
     }
 
@@ -730,6 +774,7 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Email template ID for recipient not set, skipping",
       );
+
       return;
     }
 
@@ -738,11 +783,13 @@ export class GiftCardStudioJobProcessor {
         purchasedGiftCardId,
         "recipient",
       );
+
     if (!updatedPurchasedGiftCard) {
       logger.debug(
         { appId: appData._id, purchasedGiftCardId },
         "Purchased gift card not ready to send emails",
       );
+
       return;
     }
 
@@ -811,17 +858,20 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Email template ID for customer not set, skipping",
       );
+
       return;
     }
 
     const emailTemplate = await this.services.templatesService.getTemplate(
       settings.emailTemplateIdToPurchaser,
     );
+
     if (!emailTemplate) {
       logger.debug(
         { appId: appData._id, purchasedGiftCardId },
         "Email template not found, skipping",
       );
+
       return;
     }
 
@@ -830,6 +880,7 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Email template is not an email template, skipping",
       );
+
       return;
     }
 
@@ -838,6 +889,7 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Email template is not an email template, skipping",
       );
+
       return;
     }
 
@@ -863,6 +915,7 @@ export class GiftCardStudioJobProcessor {
         { appId: appData._id, purchasedGiftCardId },
         "Purchased gift card not ready to send emails",
       );
+
       return;
     }
 
@@ -925,8 +978,10 @@ export class GiftCardStudioJobProcessor {
       "brand",
       "social",
     );
+
     const organization =
       await this.services.organizationService.getOrganization();
+
     if (!organization) {
       throw new Error("Organization not found");
     }

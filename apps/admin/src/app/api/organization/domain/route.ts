@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
   const expectedCnameHost = publicDomain
     ? `${organizationSlug}.${publicDomain}`
     : undefined;
+
   const expectedARecordIp =
     process.env.CUSTOM_DOMAIN_A_RECORD_IP?.trim() || undefined;
 
@@ -68,8 +69,10 @@ export async function POST(request: NextRequest) {
         { status: 409 },
       );
     }
+
     throw error;
   }
+
   logger.debug({ domain: data.domain }, "Domain updated");
   return NextResponse.json(okStatus, { status: 200 });
 }
@@ -81,6 +84,7 @@ export async function DELETE() {
     undefined,
     await getActor(),
   );
+
   logger.debug("Domain removed");
   return NextResponse.json(okStatus, { status: 200 });
 }

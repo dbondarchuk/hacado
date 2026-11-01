@@ -35,6 +35,7 @@ export const BlogPostContentPropsSchema = z.object({
 export type BlogPostContentProps = Prettify<
   z.infer<typeof BlogPostContentPropsSchema>
 >;
+
 export type BlogPostContentReaderProps = BaseReaderBlockProps<any> &
   BlogPostContentProps;
 

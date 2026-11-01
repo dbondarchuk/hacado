@@ -48,6 +48,7 @@ export const BlogPostReadTimeConfiguration = deepMemo(
 
     const format =
       data.props?.format ?? BlogPostReadTimePropsDefaults.props.format;
+
     const wordsPerMinute =
       data.props?.wordsPerMinute ??
       BlogPostReadTimePropsDefaults.props.wordsPerMinute;
@@ -55,6 +56,7 @@ export const BlogPostReadTimeConfiguration = deepMemo(
     const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(
       blogAdminNamespace,
     );
+
     const tPublic = useI18n<BlogPublicNamespace, BlogPublicKeys>(
       blogPublicNamespace,
     );

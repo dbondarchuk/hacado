@@ -77,6 +77,7 @@ export const AppointmentOptionCard: React.FC = () => {
       }),
     [catalog, excludePackages, visibleOptions, packages],
   );
+
   const { nodes: currentCatalogNodes, group: currentCatalogGroup } =
     React.useMemo(
       () => catalogNodesAtPath(filteredCatalog, catalogPath),
@@ -104,21 +105,25 @@ export const AppointmentOptionCard: React.FC = () => {
   ) => {
     const baseOptionDuration =
       option.durationType === "fixed" ? option.duration : null;
+
     const baseOptionPrice =
       option.durationType === "fixed" ? option.price : option.pricePerHour;
 
     const memberAssignment = selectedMemberId
       ? option.staff?.find((s) => s.memberId === selectedMemberId)
       : undefined;
+
     const activeAssignments = (option.staff || []).filter((s) =>
       activeMemberIds.has(s.memberId),
     );
+
     const isFromPricing = !selectedMemberId && activeAssignments.length > 1;
 
     const currentDuration = selectedMemberId
       ? (effectiveStaffDuration(baseOptionDuration, memberAssignment) ??
         baseOptionDuration)
       : minEffectiveDuration(baseOptionDuration, activeAssignments);
+
     const currentPrice = selectedMemberId
       ? (effectiveStaffPrice(baseOptionPrice, memberAssignment) ??
         baseOptionPrice)
@@ -311,16 +316,20 @@ export const AppointmentOptionCard: React.FC = () => {
                   </button>
                 );
               }
+
               if (node.type === "package") {
                 const pkg = packages?.find(
                   (item) => item._id === node.packageId,
                 );
+
                 if (!pkg) return null;
+
                 const isSelected = purchasePackageId === pkg._id;
                 const included = summarizePackageItems(
                   pkg.items,
                   appointmentOptions,
                 );
+
                 return (
                   <button
                     key={node.id}
@@ -335,7 +344,9 @@ export const AppointmentOptionCard: React.FC = () => {
                       const option = appointmentOptions.find(
                         (item) => item._id === pkg.items[0]?.serviceId,
                       );
+
                       if (!option) return;
+
                       setFlow("booking");
                       setPurchasePackageId(pkg._id);
                       onClick(option);
@@ -397,10 +408,13 @@ export const AppointmentOptionCard: React.FC = () => {
                   </button>
                 );
               }
+
               const option = visibleOptions.find(
                 (item) => item._id === node.serviceId,
               );
+
               if (!option) return null;
+
               return renderServiceOption(option, {
                 key: node.id,
                 isSelected:

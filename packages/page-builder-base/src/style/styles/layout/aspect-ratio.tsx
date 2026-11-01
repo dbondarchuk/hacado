@@ -30,7 +30,6 @@ export const aspectRatioStyle = {
   defaultValue: "square" as AspectRatioValue,
   renderToCSS: (value) => {
     if (!value) return null;
-
     if (typeof value === "string") {
       return `aspect-ratio: ${value};`;
     }

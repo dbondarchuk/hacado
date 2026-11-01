@@ -70,6 +70,7 @@ export type BookingCatalogGroup = {
   description?: string;
   children: BookingCatalogNode[];
 };
+
 export type BookingCatalogNode =
   | BookingCatalogGroup
   | BookingCatalogService
@@ -80,12 +81,15 @@ export function normalizeCatalogNodes(
   nodes: BookingCatalogNode[] | undefined | null,
 ): BookingCatalogNode[] {
   if (!nodes?.length) return [];
+
   return nodes.map((node) => {
     if (node.type !== "group") return node;
+
     const description =
       node.description == null || node.description === ""
         ? undefined
         : node.description;
+
     return {
       type: "group" as const,
       id: node.id,
@@ -148,6 +152,7 @@ export function flattenCatalogServiceIds(
       if (node.type === "group") walk(node.children ?? []);
     }
   };
+
   walk(nodes ?? []);
   return ids;
 }
@@ -162,6 +167,7 @@ export function flattenCatalogPackageIds(
       if (node.type === "group") walk(node.children ?? []);
     }
   };
+
   walk(nodes ?? []);
   return ids;
 }
@@ -175,9 +181,11 @@ export function catalogNodesAtPath(
   for (const id of path) {
     const next = nodes.find((node) => node.type === "group" && node.id === id);
     if (next?.type !== "group") break;
+
     group = next;
     nodes = next.children ?? [];
   }
+
   return { nodes, group };
 }
 
@@ -194,13 +202,16 @@ export function catalogPathForService(
       if (node.type === "service" && node.serviceId === serviceId) {
         return path;
       }
+
       if (node.type === "group") {
         const found = walk(node.children ?? [], [...path, node.id]);
         if (found) return found;
       }
     }
+
     return undefined;
   };
+
   return walk(catalog ?? [], []);
 }
 
@@ -215,6 +226,7 @@ export function filterCatalogNodes(
   const serviceIdSet = options?.serviceIds
     ? new Set(options.serviceIds)
     : undefined;
+
   const packageIdSet = options?.packageIds
     ? new Set(options.packageIds)
     : undefined;
@@ -225,14 +237,19 @@ export function filterCatalogNodes(
         const children = walk(node.children ?? []);
         return children.length ? [{ ...node, children }] : [];
       }
+
       if (node.type === "package") {
         if (options?.excludePackages) return [];
         if (packageIdSet && !packageIdSet.has(node.packageId)) return [];
+
         return [node];
       }
+
       if (serviceIdSet && !serviceIdSet.has(node.serviceId)) return [];
+
       return [node];
     });
+
   return walk(nodes ?? []);
 }
 
@@ -246,6 +263,7 @@ export function catalogNodeIds(
       if (node.type === "group") walk(node.children ?? []);
     }
   };
+
   walk(nodes ?? []);
   return ids;
 }
@@ -272,12 +290,14 @@ export function moveCatalogNode(
   ): { list: BookingCatalogNode[]; index: number } | null => {
     const index = nodes.findIndex((node) => node.id === id);
     if (index >= 0) return { list: nodes, index };
+
     for (const node of nodes) {
       if (node.type === "group") {
         const found = locate(node.children ?? [], id);
         if (found) return found;
       }
     }
+
     return null;
   };
 
@@ -289,9 +309,11 @@ export function moveCatalogNode(
 
   if (activeNode.type === "group") {
     if (from.list !== to.list) return catalog;
+
     const [moved] = from.list.splice(from.index, 1);
     const overIndex = from.list.findIndex((node) => node.id === overId);
     if (overIndex < 0) return catalog;
+
     from.list.splice(overIndex, 0, moved);
     return next;
   }
@@ -383,6 +405,7 @@ export const bookingConfigurationSchema =
             seenOptionIds.add(node.serviceId);
           }
         }
+
         if (node.type === "package" && node.packageId) {
           if (seenPackageIds.has(node.packageId)) {
             hasDuplicateLeaf = true;
@@ -396,6 +419,7 @@ export const bookingConfigurationSchema =
             seenPackageIds.add(node.packageId);
           }
         }
+
         if (node.type === "group") {
           walk(node.children ?? [], [...path, index, "children"]);
         }

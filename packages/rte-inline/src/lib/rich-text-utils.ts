@@ -22,6 +22,7 @@ export function richTextToString(
   value: RichTextValue | string | undefined,
 ): string {
   if (!value || typeof value === "string") return value ?? "";
+
   return value
     .map((block) => block.content.map((node) => node.text).join(""))
     .join("\n");
@@ -44,6 +45,7 @@ export function htmlToRichText(
         type: "paragraph",
         content: currentNodes,
       });
+
       currentNodes = [];
     }
   }
@@ -69,6 +71,7 @@ export function htmlToRichText(
           blocks.push({ type: "paragraph", content: [{ text: "" }] });
           return;
         }
+
         if (currentNodes.length > 0) {
           finishBlock();
         }
@@ -154,6 +157,7 @@ export function getAbsolutePosition(
     pos +=
       blocks[i].content.reduce((sum, node) => sum + node.text.length, 0) + 1; // +1 for newline
   }
+
   return pos + offsetInBlock;
 }
 
@@ -183,6 +187,7 @@ export function getBlockPosition(
     (sum, node) => sum + node.text.length,
     0,
   );
+
   return { blockIndex: blocks.length - 1, offset: lastBlockLength };
 }
 
@@ -254,6 +259,7 @@ export function applyMarksToRange(
       (sum, node) => sum + node.text.length,
       0,
     );
+
     const start = index === startBlock ? startOffset : 0;
     const end = index === endBlock ? endOffset : blockLength;
 
@@ -282,6 +288,7 @@ export function removeMarkFromRange(
       (sum, node) => sum + node.text.length,
       0,
     );
+
     const start = index === startBlock ? startOffset : 0;
     const end = index === endBlock ? endOffset : blockLength;
 
@@ -356,6 +363,7 @@ export function getMarksInRange(
       (sum, node) => sum + node.text.length,
       0,
     );
+
     const start = blockIndex === startBlock ? startOffset : 0;
     const end = blockIndex === endBlock ? endOffset : blockLength;
 
@@ -425,6 +433,7 @@ export function adjustFontSizesInRange(
       (sum, node) => sum + node.text.length,
       0,
     );
+
     const start = index === startBlock ? startOffset : 0;
     const end = index === endBlock ? endOffset : blockLength;
 
@@ -439,6 +448,7 @@ export function adjustFontSizesInRange(
       } else if (currentPos >= start && nodeEnd <= end) {
         const currentSize =
           typeof node.marks?.fontSize === "number" ? node.marks?.fontSize : 16;
+
         const newSize = Math.max(8, Math.min(200, currentSize + delta));
         result.push({
           text: node.text,
@@ -457,6 +467,7 @@ export function adjustFontSizesInRange(
 
         const currentSize =
           typeof node.marks?.fontSize === "number" ? node.marks?.fontSize : 16;
+
         const newSize = Math.max(8, Math.min(200, currentSize + delta));
 
         result.push({
@@ -500,6 +511,7 @@ export function adjustFontWeightsInRange(
       (sum, node) => sum + node.text.length,
       0,
     );
+
     const start = index === startBlock ? startOffset : 0;
     const end = index === endBlock ? endOffset : blockLength;
 
@@ -518,10 +530,12 @@ export function adjustFontWeightsInRange(
             : node.marks?.bold
               ? 700
               : 400;
+
         const newWeight = Math.max(
           100,
           Math.min(900, Math.round((currentWeight + delta) / 100) * 100),
         );
+
         const newMarks = { ...node.marks, fontWeight: newWeight };
         delete newMarks.bold;
         result.push({
@@ -545,10 +559,12 @@ export function adjustFontWeightsInRange(
             : node.marks?.bold
               ? 700
               : 400;
+
         const newWeight = Math.max(
           100,
           Math.min(900, Math.round((currentWeight + delta) / 100) * 100),
         );
+
         const newMarks = { ...node.marks, fontWeight: newWeight };
         delete newMarks.bold;
 
@@ -612,6 +628,7 @@ export function getSelectionPositions(
       if (currentNode === node) {
         return pos + offset;
       }
+
       pos += currentNode.textContent?.length || 0;
       currentNode = walker.nextNode();
     }
@@ -625,6 +642,7 @@ export function getSelectionPositions(
     range.startOffset,
     defaultView,
   );
+
   const endOffset = getTextOffset(
     editorElement,
     range.endContainer,

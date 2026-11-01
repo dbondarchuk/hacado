@@ -21,6 +21,7 @@ export const customerPackageStatuses = [
   "expired",
   "cancelled",
 ] as const;
+
 export type CustomerPackageStatus = (typeof customerPackageStatuses)[number];
 
 export const packagePurchaseChannels = ["customer", "admin"] as const;
@@ -47,6 +48,7 @@ export const packageErrorCodes = [
   "payment_required",
   "name_already_exists",
 ] as const;
+
 export type PackageErrorCode = (typeof packageErrorCodes)[number];
 
 export class PackageError extends Error {
@@ -252,12 +254,15 @@ export function summarizePackageItems(
     | undefined,
 ): PackageItemSummary[] {
   if (!items?.length) return [];
+
   const byId = new Map((options ?? []).map((option) => [option._id, option]));
   return items.flatMap((item) => {
     const option = byId.get(item.serviceId);
     if (!option) return [];
+
     const duration =
       option.durationType === "flexible" ? option.durationMin : option.duration;
+
     return [
       {
         serviceId: item.serviceId,
@@ -279,6 +284,7 @@ export function sumRemainingCredits(
   remainingByItem: Record<string, number> | undefined,
 ): number {
   if (!remainingByItem) return 0;
+
   return Object.values(remainingByItem).reduce(
     (sum, value) => sum + (value || 0),
     0,
@@ -293,6 +299,7 @@ export function resolveCustomerPackageStatus(
   if (pkg.status === "pending") return "pending";
   if (pkg.expiresAt && pkg.expiresAt < now) return "expired";
   if (pkg.remainingCredits <= 0) return "exhausted";
+
   return "active";
 }
 
@@ -318,6 +325,7 @@ export function canUsePackageForAppointment(
   const item = input.customerPackage.items.find(
     (entry) => entry.serviceId === input.serviceId,
   );
+
   if (!item) {
     return { ok: false, code: "option_not_included" };
   }
@@ -346,10 +354,12 @@ export function pickDefaultCustomerPackage(
   packages: CustomerPackage[],
 ): CustomerPackage | undefined {
   if (!packages.length) return undefined;
+
   return [...packages].sort((a, b) => {
     const aExp = a.expiresAt?.getTime() ?? Number.POSITIVE_INFINITY;
     const bExp = b.expiresAt?.getTime() ?? Number.POSITIVE_INFINITY;
     if (aExp !== bExp) return aExp - bExp;
+
     return a.purchasedAt.getTime() - b.purchasedAt.getTime();
   })[0];
 }

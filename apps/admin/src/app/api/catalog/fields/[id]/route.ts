@@ -97,6 +97,7 @@ export async function PUT(
       { error, fieldId: id },
       "Invalid service field update model format",
     );
+
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
@@ -126,6 +127,7 @@ export async function PUT(
       },
       "Failed to update service field",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -189,6 +191,7 @@ export async function DELETE(
       },
       "Failed to delete service field",
     );
+
     return NextResponse.json(
       {
         success: false,

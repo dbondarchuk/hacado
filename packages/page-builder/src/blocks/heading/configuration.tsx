@@ -16,10 +16,12 @@ export const HeadingConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as HeadingProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as HeadingProps["style"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     return (

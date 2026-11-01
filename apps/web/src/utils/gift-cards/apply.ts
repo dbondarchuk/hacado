@@ -29,6 +29,7 @@ export const applyGiftCards = async (
     logger.debug({ code, remainingAmount }, "Applying gift card");
     const giftCard =
       await servicesContainer.giftCardsService.getGiftCardByCode(code);
+
     if (!giftCard) {
       logger.warn({ code }, "Gift card not found");
       return {
@@ -72,6 +73,7 @@ export const applyGiftCards = async (
       { code, appliedAmount, amountLeft, remainingAmount },
       "Gift card applied",
     );
+
     giftCards.push({ id: giftCard._id, code, appliedAmount, amountLeft });
     if (remainingAmount <= 0) {
       logger.debug("No remaining amount, stopping gift card application");

@@ -99,6 +99,7 @@ function WaitlistWhenValue() {
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const [open, setOpen] = useState(false);
 
   if (waitlistTimes.asSoonAsPossible) {
@@ -118,6 +119,7 @@ function WaitlistWhenValue() {
     const dateLabel = compact
       ? formatWaitlistDateRange(group.startDate, group.endDate, locale)
       : formatDateRange(group.startDate, group.endDate, locale);
+
     const timesLabel = formatter.list(
       group.times.map((time) => t(`block.times.${time}`)),
       { type: "conjunction" },
@@ -184,16 +186,19 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
     packages,
     waitlistTimes,
   } = useScheduleContext();
+
   const t = useI18n("translation");
   const tWaitlist = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
   const isWaitlist = flow === "waitlist";
   const purchasingPackage = packages?.find(
     (pkg) => pkg._id === purchasePackageId,
   );
+
   const hideLinePrices = !!purchasePackageId || !!customerPackageId;
   const servicePrice = selectedAppointmentOption
     ? selectedAppointmentOption.durationType === "fixed"
@@ -201,9 +206,11 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
       : (selectedMember?.effectivePrice ??
         selectedAppointmentOption.pricePerHour)
     : undefined;
+
   const serviceLabel = selectedAppointmentOption
     ? (purchasingPackage?.name ?? selectedAppointmentOption.name)
     : undefined;
+
   const servicePriceLabel =
     !selectedAppointmentOption || hideLinePrices
       ? undefined
@@ -214,11 +221,13 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
         : servicePrice
           ? currencyFormat(servicePrice)
           : undefined;
+
   const specialistName = selectedMember?.member.name
     ? selectedMember.member.name
     : isAnySpecialist
       ? t("booking.specialist.any.title")
       : undefined;
+
   const bookingWhenLabel =
     !isWaitlist && dateTime
       ? DateTime.fromObject(
@@ -239,12 +248,15 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
             minute: "2-digit",
           })
       : undefined;
+
   const showWaitlistWhen =
     isWaitlist &&
     (waitlistTimes.asSoonAsPossible ||
       (waitlistTimes.dates && waitlistTimes.dates.length > 0));
+
   const giftCardsApplied =
     giftCards?.reduce((sum, giftCard) => sum + giftCard.appliedAmount, 0) || 0;
+
   const totalDue = Math.max(0, price - giftCardsApplied);
   const showTotals = !!basePrice;
 
@@ -277,6 +289,7 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
                   addon.staff,
                   selectedMember?.member.id,
                 );
+
                 return (
                   <SummaryRow
                     key={addon._id}

@@ -99,6 +99,7 @@ export async function dispatchAppointmentEventPayload(
         p.confirmed,
         envelope.source,
       );
+
       return true;
     }
     case APPOINTMENT_RESCHEDULED_EVENT_TYPE: {
@@ -121,6 +122,7 @@ export async function dispatchAppointmentEventPayload(
         p.doNotNotifyCustomer,
         envelope.source,
       );
+
       return true;
     }
     case APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE: {
@@ -143,6 +145,7 @@ export async function dispatchAppointmentEventPayload(
         p.doNotNotifyCustomer,
         envelope.source,
       );
+
       return true;
     }
     case APPOINTMENT_STATUS_CHANGED_EVENT_TYPE: {
@@ -163,6 +166,7 @@ export async function dispatchAppointmentEventPayload(
         envelope.source,
         p.doNotNotifyCustomer,
       );
+
       return true;
     }
     default:

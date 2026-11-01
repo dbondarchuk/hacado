@@ -82,6 +82,7 @@ export const ToolbarColorMenu = <T,>({
         : selectValue === "custom"
           ? "0 0% 100%"
           : selectValue;
+
     setValue(newValue);
     onChange(newValue);
   }, [selectValue]);

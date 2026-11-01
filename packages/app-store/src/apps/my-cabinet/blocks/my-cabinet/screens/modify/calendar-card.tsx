@@ -105,6 +105,7 @@ export const CalendarCard: React.FC = () => {
               hour: dateTime.hour as HourNumbers,
               minute: dateTime.minute as MinuteNumbers,
             });
+
             return prev;
           },
           {} as { [x: string]: Time[] },
@@ -114,6 +115,7 @@ export const CalendarCard: React.FC = () => {
           prev[curr[0]] = curr[1].sort(
             (a, b) => a.hour - b.hour || a.minute - b.minute,
           );
+
           return prev;
         },
         {} as { [x: string]: Time[] },

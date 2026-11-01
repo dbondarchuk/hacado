@@ -48,14 +48,17 @@ export const AppointmentChoiceCard: React.FC<AppointmentChoiceCardProps> = ({
     () => new Set(members.map((m) => m.id)),
     [members],
   );
+
   const activeAssignments = (option.staff || []).filter((s) =>
     activeMemberIds.has(s.memberId),
   );
+
   const isFromPricing = activeAssignments.length > 1;
   const displayDuration =
     option.durationType === "fixed"
       ? minEffectiveDuration(option.duration, activeAssignments)
       : undefined;
+
   const displayPrice =
     option.durationType === "fixed"
       ? minEffectivePrice(option.price, activeAssignments)
@@ -259,9 +262,11 @@ export const CatalogCards: React.FC<CatalogCardsProps> = ({
         />,
       ];
     }
+
     if (node.type === "package") {
       const pkg = packages?.find((item) => item._id === node.packageId);
       if (!pkg) return [];
+
       const included = summarizePackageItems(pkg.items, allOptions ?? options);
       return [
         <CatalogItemCard
@@ -322,8 +327,10 @@ export const CatalogCards: React.FC<CatalogCardsProps> = ({
         />,
       ];
     }
+
     const choice = options.find((item) => item._id === node.serviceId);
     if (!choice) return [];
+
     return [
       <AppointmentChoiceCard
         key={node.id}

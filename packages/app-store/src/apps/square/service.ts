@@ -117,26 +117,32 @@ function parsePaymentUpdatedWebhook(body: unknown): {
   if (!body || typeof body !== "object") {
     return null;
   }
+
   const root = body as Record<string, unknown>;
   if (root.type !== "payment.updated") {
     return null;
   }
+
   const merchantId =
     typeof root.merchant_id === "string" ? root.merchant_id : undefined;
+
   const data = root.data;
   if (!data || typeof data !== "object") {
     return null;
   }
+
   const d = data as Record<string, unknown>;
   const obj = d.object;
   if (!obj || typeof obj !== "object") {
     return null;
   }
+
   const o = obj as Record<string, unknown>;
   const payment = o.payment;
   if (!payment || typeof payment !== "object") {
     return null;
   }
+
   return {
     merchantId,
     payment: payment as SquarePaymentForSync,
@@ -176,6 +182,7 @@ class SquareConnectedApp
       "PAYMENTS_READ",
       "PAYMENTS_WRITE",
     ].join(" ");
+
     const authUrl = new URL(squareOAuthAuthorizeUrl());
     authUrl.searchParams.set("client_id", clientId);
     authUrl.searchParams.set("scope", scope);
@@ -213,7 +220,6 @@ class SquareConnectedApp
           "app_square_admin.statusText.redirect_missing_app_id" satisfies SquareAdminAllKeys,
         );
       }
-
       if (!code) {
         throw new ConnectedAppError(
           "app_square_admin.statusText.redirect_missing_code" satisfies SquareAdminAllKeys,
@@ -249,6 +255,7 @@ class SquareConnectedApp
           { status: tokenRes.status, tokenJson },
           "Square ObtainToken failed",
         );
+
         throw new ConnectedAppError(
           "app_square_admin.statusText.oauth_error" satisfies SquareAdminAllKeys,
         );
@@ -269,6 +276,7 @@ class SquareConnectedApp
           },
           "Square ObtainToken response incomplete",
         );
+
         throw new ConnectedAppError(
           "app_square_admin.statusText.not_authorized" satisfies SquareAdminAllKeys,
         );
@@ -366,9 +374,11 @@ class SquareConnectedApp
     if (data.enableInStoreSync === undefined) {
       patch.enableInStoreSync = true;
     }
+
     if (data.matchWindowMinutes === undefined) {
       patch.matchWindowMinutes = DEFAULT_IN_STORE_MATCH_WINDOW_MINUTES;
     }
+
     if (Object.keys(patch).length === 0) {
       return;
     }
@@ -446,6 +456,7 @@ class SquareConnectedApp
 
     const { data, success, error } =
       squareSyncSettingsRequestSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid Square sync settings request");
       throw new ConnectedAppRequestError(
@@ -648,6 +659,7 @@ class SquareConnectedApp
           },
           "Square pay handler error",
         );
+
         throw error;
       }
     }
@@ -664,10 +676,10 @@ class SquareConnectedApp
 
     const intent =
       await this.props.services.paymentsService.getIntent(paymentIntentId);
+
     if (!intent) {
       return Response.json({ error: "intent_not_found" }, { status: 400 });
     }
-
     if (!appData.data?.locationId) {
       return Response.json({ error: "square_not_configured" }, { status: 400 });
     }
@@ -765,6 +777,7 @@ class SquareConnectedApp
       await this.props.services.paymentsService.updateIntent(intent._id, {
         status: "failed",
       });
+
       return Response.json(
         {
           success: false,
@@ -848,6 +861,7 @@ class SquareConnectedApp
 
     const processorName =
       payment.method === "online" ? payment.appName : payment.processorAppName;
+
     const externalId = payment.externalId;
     if (processorName !== SQUARE_APP_NAME || !externalId) {
       logger.debug(
@@ -921,6 +935,7 @@ class SquareConnectedApp
           { paymentId: payment._id, status: res.status, json },
           "Square refund failed",
         );
+
         return {
           success: false,
           error: json.errors?.[0]?.detail ?? "refund_failed",
@@ -944,6 +959,7 @@ class SquareConnectedApp
         },
         "Square refund error",
       );
+
       return { success: false, error: "refund_error" };
     }
   }
@@ -992,6 +1008,7 @@ class SquareConnectedApp
           },
           "Square webhook fees are the same, skipping update",
         );
+
         return;
       }
     }
@@ -1064,6 +1081,7 @@ class SquareConnectedApp
 
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     if (!organization) {
       throw new ConnectedAppError(
         "app_square_admin.statusText.apple_pay_domain_registration_failed" satisfies SquareAdminAllKeys,
@@ -1178,6 +1196,7 @@ class SquareConnectedApp
           },
           "Square GetPayment failed or missing body; continuing without fee breakdown from GET",
         );
+
         return [];
       }
 
@@ -1222,6 +1241,7 @@ class SquareConnectedApp
       { appId, paymentId, attempts: maxAttempts },
       "Square processing_fee still empty after retries",
     );
+
     return [];
   }
 
@@ -1265,6 +1285,7 @@ class SquareConnectedApp
         { merchantId, squarePaymentId, connectedAppCount: appDocs.length },
         "No connected Square apps with in-store sync enabled for merchant",
       );
+
       return;
     }
 
@@ -1275,11 +1296,13 @@ class SquareConnectedApp
     const enrichProps = getOrganizationServiceContainer(
       enrichApp.organizationId,
     );
+
     const enrichInstance = new SquareConnectedApp(enrichProps);
 
     try {
       const accessToken =
         await enrichInstance.getMerchantAccessToken(enrichApp);
+
       const fetched = await getSquarePayment(accessToken, squarePaymentId);
       if (fetched) {
         payment = fetched;
@@ -1295,6 +1318,7 @@ class SquareConnectedApp
       try {
         const accessToken =
           await enrichInstance.getMerchantAccessToken(enrichApp);
+
         order = await getSquareOrder(accessToken, payment.order_id);
       } catch (error) {
         logger.warn(
@@ -1310,6 +1334,7 @@ class SquareConnectedApp
         { merchantId, squarePaymentId },
         "Square payment not eligible for in-store ingest",
       );
+
       return;
     }
 
@@ -1348,11 +1373,13 @@ class SquareConnectedApp
       (input.orderId
         ? await paymentsService.getPaymentByExternalId(input.orderId)
         : null);
+
     if (existingPayment) {
       logger.debug(
         { appId: appData._id, paymentId: input.paymentId },
         "Payment already recorded, skipping in-store ingest",
       );
+
       return "already_exists";
     }
 
@@ -1361,6 +1388,7 @@ class SquareConnectedApp
       (input.orderId
         ? await paymentsService.getIntentByExternalId(input.orderId)
         : null);
+
     if (onlineIntent) {
       logger.debug(
         {
@@ -1370,6 +1398,7 @@ class SquareConnectedApp
         },
         "Payment belongs to tracked online checkout, skipping in-store ingest",
       );
+
       return "skipped";
     }
 
@@ -1383,6 +1412,7 @@ class SquareConnectedApp
         { appId: appData._id, paymentId: input.paymentId },
         "Payment already ingested as synced payment, skipping",
       );
+
       return "already_exists";
     }
 
@@ -1396,6 +1426,7 @@ class SquareConnectedApp
         await this.props.services.configurationService.getConfiguration(
           "general",
         );
+
       currency = orgCurrency;
     }
 
@@ -1425,6 +1456,7 @@ class SquareConnectedApp
         },
         "Failed to ingest synced Square payment",
       );
+
       throw error;
     }
 
@@ -1559,6 +1591,7 @@ class SquareConnectedApp
     const accessToken = body.access_token as string | undefined;
     const refreshToken =
       (body.refresh_token as string | undefined) ?? refreshPlain;
+
     const expiresAtRaw = body.expires_at as string | undefined;
 
     if (!accessToken || !expiresAtRaw) {
@@ -1602,6 +1635,7 @@ class SquareConnectedApp
         { appId: appData._id },
         "Cannot uninstall Square app: payments exist",
       );
+
       return {
         success: false,
         code: "cannot_uninstall_has_payments",

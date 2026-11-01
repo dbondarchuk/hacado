@@ -27,6 +27,7 @@ describe("ActivityService organizationRetentionDays", () => {
       ActivityService.organizationRetentionDays({ activityRetentionDays: 90 }),
       90,
     );
+
     assert.equal(
       ActivityService.organizationRetentionDays({ activityRetentionDays: 365 }),
       365,
@@ -41,12 +42,14 @@ describe("ActivityService organizationRetentionDays", () => {
       }),
       null,
     );
+
     assert.equal(
       ActivityService.organizationRetentionDays({
         activityRetentionDays: null,
       }),
       null,
     );
+
     assert.equal(ActivityService.organizationRetentionDays({}), null);
     assert.equal(ActivityService.organizationRetentionDays(null), null);
   });
@@ -67,6 +70,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt,
       id: "act-1",
     });
+
     assert.equal(entry.expiresAt?.toISOString(), "2026-04-01T00:00:00.000Z");
     assert.equal("noExpiry" in entry, false);
   });
@@ -80,6 +84,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt,
       id: "a",
     });
+
     const year = ActivityService.buildPersistedEntry({
       organizationId: "org-1",
       activity: activity("page.updated"),
@@ -87,6 +92,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt,
       id: "b",
     });
+
     assert.equal(ninety.expiresAt?.toISOString(), "2026-04-01T00:00:00.000Z");
     assert.equal(year.expiresAt?.toISOString(), "2027-01-01T00:00:00.000Z");
   });
@@ -99,6 +105,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt: new Date("2026-01-01T00:00:00.000Z"),
       id: "act-1",
     });
+
     assert.equal(entry.expiresAt, undefined);
   });
 
@@ -111,6 +118,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt,
       id: "act-1",
     });
+
     const afterChange = ActivityService.buildPersistedEntry({
       organizationId: "org-1",
       activity: activity("page.updated"),
@@ -118,6 +126,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt,
       id: "act-2",
     });
+
     assert.equal(first.expiresAt?.toISOString(), "2027-01-01T00:00:00.000Z");
     assert.equal(
       afterChange.expiresAt?.toISOString(),
@@ -133,6 +142,7 @@ describe("ActivityService calculateExpiresAt / buildPersistedEntry", () => {
       createdAt: new Date("2026-01-01T00:00:00.000Z"),
       id: "act-1",
     });
+
     assert.equal(entry.expiresAt, undefined);
   });
 });

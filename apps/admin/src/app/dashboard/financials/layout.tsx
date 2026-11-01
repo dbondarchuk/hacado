@@ -13,5 +13,6 @@ export default async function FinancialsLayout({
   if (!canAccessFinancialsSection(session?.user)) {
     forbidden();
   }
+
   return children;
 }

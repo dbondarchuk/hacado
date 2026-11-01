@@ -68,6 +68,7 @@ export class MyCabinetConnectedApp
 
     const { language } =
       await this.props.services.configurationService.getConfiguration("brand");
+
     const t = await getI18nAsync<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
       {
         locale: language,
@@ -178,6 +179,7 @@ export class MyCabinetConnectedApp
         { appId: appData._id, error },
         "Failed to seed My Cabinet on install",
       );
+
       throw error;
     }
 
@@ -199,22 +201,18 @@ export class MyCabinetConnectedApp
     if (request.method === "GET" && action === "cabinet/appointments") {
       return this.getAppointments(appData, request);
     }
-
     if (request.method === "GET" && action === "cabinet/appointments/summary") {
       return this.getAppointmentsSummary(appData, request);
     }
-
     if (
       request.method === "GET" &&
       action === "cabinet/appointments/upcoming"
     ) {
       return this.getUpcomingAppointments(appData, request);
     }
-
     if (request.method === "GET" && action === "cabinet/appointments/past") {
       return this.getPastAppointments(appData, request);
     }
-
     if (request.method === "GET" && action === "cabinet/me") {
       return this.getCustomerMe(appData, request);
     }
@@ -222,6 +220,7 @@ export class MyCabinetConnectedApp
     const appointmentByIdMatch = action.match(
       /^cabinet\/appointments\/([^/]+)$/,
     );
+
     if (request.method === "GET" && appointmentByIdMatch) {
       return this.getAppointmentById(appData, request, appointmentByIdMatch[1]);
     }
@@ -240,6 +239,7 @@ export class MyCabinetConnectedApp
       await this.props.services.connectedAppsService.getAppsByApp(
         WAITLIST_APP_NAME,
       );
+
     const waitlistApp = waitlistApps.find((app) => app.status === "connected");
     logger.debug(
       { waitlistAppId: waitlistApp?._id },
@@ -265,6 +265,7 @@ export class MyCabinetConnectedApp
         { appId: appData._id, error: "unauthorized" },
         "Unauthorized cabinet request",
       );
+
       return authorized;
     }
 
@@ -316,6 +317,7 @@ export class MyCabinetConnectedApp
       request,
       "getAppointmentsSummary",
     );
+
     if (authorized instanceof Response) return authorized;
 
     const now = new Date();
@@ -349,6 +351,7 @@ export class MyCabinetConnectedApp
       request,
       "getUpcomingAppointments",
     );
+
     if (authorized instanceof Response) return authorized;
 
     const now = new Date();
@@ -375,6 +378,7 @@ export class MyCabinetConnectedApp
       request,
       "getPastAppointments",
     );
+
     if (authorized instanceof Response) return authorized;
 
     const url = new URL(request.url);
@@ -383,6 +387,7 @@ export class MyCabinetConnectedApp
       20,
       Math.max(1, Number(url.searchParams.get("limit") ?? 10)),
     );
+
     const offset = (page - 1) * limit;
     const now = new Date();
     const past = await this.props.services.bookingService.getAppointments({
@@ -392,6 +397,7 @@ export class MyCabinetConnectedApp
       offset,
       sort: [{ id: "dateTime", desc: true }],
     });
+
     const total = past.total ?? past.items.length;
 
     return Response.json({
@@ -413,6 +419,7 @@ export class MyCabinetConnectedApp
       request,
       "getCustomerMe",
     );
+
     if (authorized instanceof Response) return authorized;
 
     const customer = await this.props.services.customersService.getCustomer(
@@ -452,6 +459,7 @@ export class MyCabinetConnectedApp
       request,
       "getAppointmentById",
     );
+
     if (authorized instanceof Response) return authorized;
 
     const appointment =

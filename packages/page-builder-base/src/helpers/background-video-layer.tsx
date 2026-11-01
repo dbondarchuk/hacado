@@ -17,9 +17,11 @@ export function getBaseStyleValue<T>(
   }> | null,
 ): T | undefined {
   if (!styleProp?.length) return undefined;
+
   const base = styleProp.find(
     (variant) => !variant.breakpoint?.length && !variant.state?.length,
   );
+
   return (base ?? styleProp[0])?.value;
 }
 
@@ -31,6 +33,7 @@ export function hasBackgroundVideo(
       | Array<{ value: BackgroundVideoValue }>
       | undefined,
   );
+
   return Boolean(value?.src);
 }
 
@@ -48,12 +51,14 @@ export const BackgroundVideoLayer: React.FC<BackgroundVideoLayerProps> = ({
       | Array<{ value: BackgroundVideoValue }>
       | undefined,
   );
+
   const src = video?.src;
   if (!src) return null;
 
   const color = getBaseStyleValue<string>(
     style?.backgroundColor as Array<{ value: string }> | undefined,
   );
+
   const opacity = getBaseStyleValue<number>(
     style?.backgroundColorOpacity as Array<{ value: number }> | undefined,
   );

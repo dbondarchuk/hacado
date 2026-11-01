@@ -14,6 +14,7 @@ export async function PendingInvitations() {
       query: { organizationId: await getOrganizationId() },
       headers: await headers(),
     });
+
     invitations = (list ?? [])
       .filter((i) => i.status === "pending")
       .map((i) => ({

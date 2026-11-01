@@ -16,6 +16,7 @@ export async function requireCustomerSession(): Promise<CustomerSession> {
   if (!session) {
     throw new CustomerSessionRequiredError();
   }
+
   return session;
 }
 

@@ -3,6 +3,7 @@ import { z, ZodTypeAny } from "zod";
 export const zEmail = z
   .email("validation.common.email.invalid")
   .max(256, "validation.common.email.max");
+
 export const zPhone = z
   .string("validation.common.phone.required")
   .min(1, "validation.common.phone.required")
@@ -30,6 +31,7 @@ export type ErrorMessageWithParams = {
   message: string;
   params?: Record<string, any>;
 };
+
 export type ErrorMessage = string | ErrorMessageWithParams;
 export const zErrorMessageWithParams = (
   message: string,
@@ -164,6 +166,7 @@ export const zNonEmptyString = (
         `String must be at most ${maxLength} characters long`,
     );
   }
+
   return zString;
 };
 

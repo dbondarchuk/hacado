@@ -53,6 +53,7 @@ export const NumberInputWithUnitsToolbarMenu = ({
   const config = shortcut.shortcut.numberWithUnitConfig;
   const availableUnits = (config?.allowedUnits ??
     units) as readonly UnitOrUnitless[];
+
   const activeUnit = currentNumericValue?.unit ?? "rem";
 
   const handleValueChange = (value: NumberValueWithUnitOrUnitless | null) => {
@@ -66,16 +67,19 @@ export const NumberInputWithUnitsToolbarMenu = ({
     config?.step?.base ??
     baseUnitConfigs.step[activeUnit] ??
     baseUnitConfigs.step.base;
+
   const currentMin =
     config?.min?.[activeUnit] ??
     config?.min?.base ??
     baseUnitConfigs.min[activeUnit] ??
     baseUnitConfigs.min.base;
+
   const currentMax =
     config?.max?.[activeUnit] ??
     config?.max?.base ??
     baseUnitConfigs.max[activeUnit] ??
     baseUnitConfigs.max.base;
+
   const currentOptions = [
     ...(config?.options?.[activeUnit] ??
       config?.options?.base ??
@@ -92,6 +96,7 @@ export const NumberInputWithUnitsToolbarMenu = ({
 
   const handleInputChange = (value: number | null) => {
     if (value === null) return;
+
     if (typeof currentMin !== "undefined" && value < currentMin) {
       handleValueChange({
         value: currentMin,
@@ -111,6 +116,7 @@ export const NumberInputWithUnitsToolbarMenu = ({
     const newSize = parseFloat(
       Number((currentNumericValue?.value ?? 0) + delta).toFixed(10),
     );
+
     handleInputChange(newSize);
   };
 
@@ -251,6 +257,7 @@ export const createNumberWithUnitToolbarItem = <T extends BaseStyleDictionary>(
           ...variant,
           value,
         }));
+
         newStyles[shortcut.targetStyle] = updatedVariants;
       }
     } else {

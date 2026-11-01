@@ -80,6 +80,7 @@ export const PasswordChangeDialog = () => {
       confirmPassword: "",
     },
   });
+
   const newPassword = form.watch("newPassword");
 
   const onSubmit = async (data: z.infer<typeof schema>) => {

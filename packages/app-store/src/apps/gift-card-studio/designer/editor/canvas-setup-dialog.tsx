@@ -49,6 +49,7 @@ export function CanvasSetupDialog() {
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const [open, setOpen] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(design.canvas.aspectRatio);
   const [width, setWidth] = useState(design.canvas.width);

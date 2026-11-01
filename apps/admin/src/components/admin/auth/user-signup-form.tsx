@@ -142,6 +142,7 @@ export const UserSignupForm = ({
   const [credentials, setCredentials] = useState<CredentialsValues | null>(
     null,
   );
+
   const [phone, setPhone] = useState("");
   const [createdUserId, setCreatedUserId] = useState<string | null>(null);
   const t = useI18n("admin");
@@ -188,6 +189,7 @@ export const UserSignupForm = ({
         `/accept-invitation?invitationId=${invitation.id}`,
       )}`;
     }
+
     if (preferredWebsitePackId) {
       const params = new URLSearchParams();
       params.set(PREFERRED_WEBSITE_PACK_PARAM, preferredWebsitePackId);
@@ -195,10 +197,13 @@ export const UserSignupForm = ({
         "callbackUrl",
         preferredWebsitePackHref("/checkout", preferredWebsitePackId),
       );
+
       return `/auth/signin?${params.toString()}`;
     }
+
     return "/auth/signin";
   })();
+
   const googleCallbackURL = buildCompleteProfileCallbackUrl(postAuthPath);
 
   const profileForm = useForm<ProfileValues>({
@@ -222,6 +227,7 @@ export const UserSignupForm = ({
     defaultValues: { phone: "" },
     mode: "onChange",
   });
+
   const passwordValue = credentialsForm.watch("password");
 
   const onProfileContinue = async (data: ProfileValues) => {
@@ -272,6 +278,7 @@ export const UserSignupForm = ({
         } else {
           toast.error(t("auth.signUp.toasts.error"));
         }
+
         return;
       }
 
@@ -310,6 +317,7 @@ export const UserSignupForm = ({
             ? t("auth.phoneOtp.errors.phoneInUse")
             : t("auth.signUp.toasts.error"),
         );
+
         return;
       }
 
@@ -345,7 +353,6 @@ export const UserSignupForm = ({
       />,
     );
   }
-
   if (step === "phone") {
     return withProgress(
       <Form {...phoneForm}>
@@ -380,7 +387,6 @@ export const UserSignupForm = ({
       </Form>,
     );
   }
-
   if (step === "phone-otp") {
     return withProgress(
       <PhoneOtpStep
@@ -392,7 +398,6 @@ export const UserSignupForm = ({
       />,
     );
   }
-
   if (step === "credentials") {
     return withProgress(
       <>

@@ -57,6 +57,7 @@ const processAppCall = async (
       },
       "Error processing app call",
     );
+
     throw error;
   }
 };

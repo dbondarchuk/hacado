@@ -41,15 +41,18 @@ function isPageLayoutKind(value: string): value is PageLayoutKind {
 function plateToPlainText(value: unknown): string {
   if (typeof value === "string") return value;
   if (!Array.isArray(value)) return "";
+
   const parts: string[] = [];
   const walk = (nodes: unknown[]) => {
     for (const node of nodes) {
       if (!node || typeof node !== "object") continue;
+
       const record = node as Record<string, unknown>;
       if (typeof record.text === "string") parts.push(record.text);
       if (Array.isArray(record.children)) walk(record.children);
     }
   };
+
   walk(value);
   return parts.join("").trim();
 }
@@ -60,14 +63,17 @@ async function loadLayoutServices(
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
+
   const optionIds = flattenCatalogServiceIds(booking?.catalog);
   const output: LayoutTemplateService[] = [];
 
   for (const optionId of optionIds) {
     const option = await services.catalogService.getService(optionId);
     if (!option) continue;
+
     const descriptionMarkdown =
       typeof option.description === "string" ? option.description : "";
+
     const descriptionPlate = deserializeMarkdown(descriptionMarkdown);
     const name = String(option.name ?? "").trim() || "Service";
     const slug = name
@@ -77,6 +83,7 @@ async function loadLayoutServices(
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-")
       .replace(/^-+|-+$/g, "");
+
     output.push({
       id: optionId,
       name,
@@ -120,6 +127,7 @@ export default async function InstallLayoutPreviewPage(props: Props) {
     (typeof (general as Record<string, unknown> | null)?.language === "string"
       ? ((general as Record<string, unknown>).language as string)
       : "en");
+
   const language = (
     languages.includes(languageCandidate as Language) ? languageCandidate : "en"
   ) as Language;
@@ -134,6 +142,7 @@ export default async function InstallLayoutPreviewPage(props: Props) {
     (typeof general?.name === "string" && general.name.trim()) ||
     (typeof brand?.title === "string" && brand.title.trim()) ||
     "Studio";
+
   const logoUrl =
     typeof brand?.logo === "string"
       ? brand.logo

@@ -60,6 +60,7 @@ export const withAuth: MiddlewareProxy = (next) => {
         await auth.api.signOut({ headers: request.headers });
         return NextResponse.redirect(new URL("/", request.url));
       }
+
       if (containsAdminApi(nextUrl.pathname)) {
         return NextResponse.json(
           { error: "Member inactive", code: "member_inactive" },
@@ -79,6 +80,7 @@ export const withAuth: MiddlewareProxy = (next) => {
         "x-subscription-status",
         sessionUser.subscriptionStatus || "active",
       );
+
       if (sessionUser.feesExempt) {
         request.headers.set("x-subscription-plan-tier", "studio");
       } else if (sessionUser.subscriptionPlanTier) {

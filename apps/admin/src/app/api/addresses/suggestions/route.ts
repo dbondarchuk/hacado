@@ -14,6 +14,7 @@ function parseCountryBias(
   value: string | null | undefined,
 ): Country | undefined {
   if (!value) return undefined;
+
   const upper = value.trim().toUpperCase();
   return (countryOptions as readonly string[]).includes(upper)
     ? (upper as Country)
@@ -46,7 +47,6 @@ export async function GET(request: NextRequest) {
   if (!search || search.length < MIN_SEARCH_LENGTH) {
     return NextResponse.json({ items: [], total: 0 });
   }
-
   // Geoapify autocomplete has no offset; only the first page is fetched.
   if (page > 1) {
     return NextResponse.json({ items: [], total: 0 });

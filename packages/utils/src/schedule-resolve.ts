@@ -54,6 +54,7 @@ export function recurrenceMatchesDate(
   if (offset < 0) return false;
   if (offset % exception.repeatEveryWeeks! !== 0) return false;
   if ((exception.excludeWeeks ?? []).includes(dateWeek)) return false;
+
   return true;
 }
 
@@ -64,6 +65,7 @@ export function exceptionCoversDate(
   if (isRecurringException(exception)) {
     return recurrenceMatchesDate(exception, date);
   }
+
   return exception.startDate <= date && exception.endDate >= date;
 }
 
@@ -120,6 +122,7 @@ export function findExceptionDay(
   );
 
   if (!covering.length) return undefined;
+
   return getExceptionDayShifts(covering[0]!, weekDay);
 }
 
@@ -134,6 +137,7 @@ export function findExceptionHoliday(
   const covering = coveringExceptions(exceptions, date).filter((exception) =>
     (exception.holidays ?? []).some((day) => Number(day) === weekDay),
   );
+
   return covering.length > 0;
 }
 
@@ -159,6 +163,7 @@ function getExceptionDayShifts(
   if (Object.prototype.hasOwnProperty.call(days, String(weekDay))) {
     return days[String(weekDay)];
   }
+
   return undefined;
 }
 
@@ -183,6 +188,7 @@ export function resolveDaySchedule(
     input.date,
     input.weekDay,
   );
+
   if (memberDay !== undefined) {
     return { shifts: memberDay, source: "member" };
   }
@@ -192,10 +198,10 @@ export function resolveDaySchedule(
     input.date,
     input.weekDay,
   );
+
   if (companyDay !== undefined) {
     return { shifts: companyDay, source: "company" };
   }
-
   if (input.appDay !== undefined) {
     return { shifts: input.appDay, source: "app" };
   }

@@ -48,6 +48,7 @@ export const fetchAdminApi = async (url: string, options?: RequestInit) => {
         status: cached.status,
         statusText: cached.statusText,
       });
+
       if (!result.ok) {
         throw new AdminApiError(
           `Failed to fetch ${fullUrl}`,
@@ -55,6 +56,7 @@ export const fetchAdminApi = async (url: string, options?: RequestInit) => {
           result,
         );
       }
+
       return result;
     }
 
@@ -68,6 +70,7 @@ export const fetchAdminApi = async (url: string, options?: RequestInit) => {
           result,
         );
       }
+
       return result;
     }
 
@@ -76,6 +79,7 @@ export const fetchAdminApi = async (url: string, options?: RequestInit) => {
       if (!result.ok) {
         return result;
       }
+
       const bodyText = await result.clone().text();
       pruneStaleAdminApiCache();
       adminApiGetCache.set(key, {
@@ -84,6 +88,7 @@ export const fetchAdminApi = async (url: string, options?: RequestInit) => {
         status: result.status,
         statusText: result.statusText,
       });
+
       // Replay from text so concurrent awaiters can each call `.json()` safely.
       return responseWithJsonBody(bodyText, {
         status: result.status,
@@ -101,6 +106,7 @@ export const fetchAdminApi = async (url: string, options?: RequestInit) => {
           result,
         );
       }
+
       return result;
     } finally {
       adminApiGetInFlight.delete(key);

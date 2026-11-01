@@ -81,6 +81,7 @@ export async function trackBookingStepWithCustomer(
         appointmentRequest.fields.email,
         appointmentRequest.fields.phone,
       );
+
       customerId = customer?._id;
     } catch {
       // Ignore errors - customer might not exist yet

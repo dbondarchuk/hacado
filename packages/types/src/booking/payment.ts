@@ -138,6 +138,7 @@ export const paymentStatus = [
   "refunded",
   "cancelled",
 ] as const;
+
 export type PaymentStatus = (typeof paymentStatus)[number];
 
 export type OnlinePaymentMethod = "online";
@@ -319,6 +320,7 @@ export type InStorePayment = Extract<
   Payment,
   { method: InPersonPaymentMethod }
 >;
+
 export type PaymentLinkPayment = Extract<
   Payment,
   { method: PaymentLinkPaymentMethod }

@@ -22,7 +22,6 @@ export async function getSubscriptionBlockingResponseForAppointmentWriteActions(
       { status: 402 },
     );
   }
-
   if (isSubscriptionInactive(subscriptionStatus)) {
     return NextResponse.json(
       {

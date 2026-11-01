@@ -102,6 +102,7 @@ export const ComboboxAsync = React.forwardRef<
       if (selectedItemProp && selectedItemProp.value === value) {
         return selectedItemProp;
       }
+
       return items.find((item) => item.value === value);
     }, [selectedItemProp, items, value]);
 

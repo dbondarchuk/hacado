@@ -89,6 +89,7 @@ export const PAYMENT_LINKS_APP_EVENTS: AppEventConfig = {
             const appointment = await services.bookingService.getAppointment(
               payment.appointmentId,
             );
+
             await addMember(appointment?.memberId);
           }
         }
@@ -134,6 +135,7 @@ export const PAYMENT_LINKS_APP_EVENTS: AppEventConfig = {
               .setZone(general.timeZone)
               .setLocale(brand.language)
               .toFormat("DDD t")}`;
+
             appointmentUrl = `${adminUrl}/dashboard/appointments/${appointment._id}`;
           }
         }
@@ -143,6 +145,7 @@ export const PAYMENT_LINKS_APP_EVENTS: AppEventConfig = {
           brand.language,
           general.currency,
         );
+
         const tipFormatted =
           typeof payment.tipAmount === "number" && payment.tipAmount > 0
             ? formatAmountWithCurrency(
@@ -151,12 +154,14 @@ export const PAYMENT_LINKS_APP_EVENTS: AppEventConfig = {
                 general.currency,
               )
             : undefined;
+
         const paidAtFormatted = DateTime.fromJSDate(
           new Date(payment.paidAt ?? payment.updatedAt ?? Date.now()),
         )
           .setZone(general.timeZone)
           .setLocale(brand.language)
           .toFormat("DDD t");
+
         const organizationLabel =
           organization.name?.trim() || organization.slug || "";
 

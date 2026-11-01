@@ -59,6 +59,7 @@ export default async function EditPageFooterPage(props: Props) {
       "social",
       "styling",
     );
+
   const connectedApps =
     await servicesContainer.connectedAppsService.getAppsByScope(
       "ui-components",

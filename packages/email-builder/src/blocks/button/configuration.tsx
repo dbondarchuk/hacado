@@ -24,8 +24,10 @@ export const ButtonConfiguration = ({
   const size = data.props?.size ?? ButtonPropsDefaults.props.size;
   const buttonStyle =
     data.props?.buttonStyle ?? ButtonPropsDefaults.props.buttonStyle;
+
   const buttonTextColor =
     data.props?.buttonTextColor ?? ButtonPropsDefaults.props.buttonTextColor;
+
   const buttonBackgroundColor =
     data.props?.buttonBackgroundColor ??
     ButtonPropsDefaults.props.buttonBackgroundColor;

@@ -9,6 +9,7 @@ export const getBlogConfiguration = async (
     await ServicesContainer(
       organizationId,
     ).connectedAppsService.getAppServiceProps(appId);
+
   const app = await props.services.connectedAppsService.getApp(appId);
   return blogConfigurationSchema.parse(app?.data ?? {});
 };

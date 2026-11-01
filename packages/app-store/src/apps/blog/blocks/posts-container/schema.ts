@@ -16,6 +16,7 @@ export const BlogPostsContainerPropsSchema = z.object({
 export type BlogPostsContainerProps = z.infer<
   typeof BlogPostsContainerPropsSchema
 >;
+
 export type BlogPostsContainerReaderProps = BaseReaderBlockProps<any> &
   BlogPostsContainerProps & { appId?: string };
 

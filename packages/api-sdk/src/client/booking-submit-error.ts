@@ -30,6 +30,7 @@ export async function getBookingSubmitErrorKind(
       if (error.error === "time_not_available") {
         return "time_not_available";
       }
+
       return "unknown";
     }
 

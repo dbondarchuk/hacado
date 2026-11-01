@@ -40,6 +40,7 @@ export async function GET(
         { status: 403 },
       );
     }
+
     logger.error(
       {
         appId: id,
@@ -47,6 +48,7 @@ export async function GET(
       },
       "Failed to get app status",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -97,6 +99,7 @@ export async function PATCH(
         { status: 403 },
       );
     }
+
     logger.error(
       {
         appId: id,
@@ -106,6 +109,7 @@ export async function PATCH(
       },
       "Failed to set app status",
     );
+
     return NextResponse.json(
       {
         success: false,

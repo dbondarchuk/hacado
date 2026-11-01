@@ -20,6 +20,7 @@ describe("urlToShortCode", () => {
       [...code].every((char) => SHORT_CODE_ALPHABET.includes(char)),
       true,
     );
+
     assert.equal(urlToShortCode("https://salon.hacado.me/book"), code);
   });
 
@@ -43,10 +44,12 @@ describe("extractHttpUrls", () => {
     const extracted = extractHttpUrls(
       "See https://example.com/path. Thanks https://example.com/x!",
     );
+
     assert.deepEqual(
       extracted.map((item) => item.url),
       ["https://example.com/path", "https://example.com/x"],
     );
+
     assert.equal(extracted[0]?.trailing, ".");
     assert.equal(extracted[1]?.trailing, "!");
   });
@@ -55,6 +58,7 @@ describe("extractHttpUrls", () => {
     const extracted = extractHttpUrls(
       "A https://a.example/one and https://b.example/two",
     );
+
     assert.equal(extracted.length, 2);
   });
 });
@@ -82,6 +86,7 @@ describe("collectUniqueUrlsToShorten", () => {
       "Book https://salon.hacado.me/book or https://salon.hacado.me/book or https://haca.do/Ab3xK9pQ",
       "haca.do",
     );
+
     assert.deepEqual(urls, ["https://salon.hacado.me/book"]);
   });
 });
@@ -90,6 +95,7 @@ describe("planSmsShortLinks and rewriteUrlsInText", () => {
   it("plans unique URLs and rewrites them while keeping punctuation", () => {
     const body =
       "Hi, book https://salon.hacado.me/book. Also https://salon.hacado.me/book and https://haca.do/Already1";
+
     const planned = planSmsShortLinks(body, "haca.do");
     assert.equal(planned.length, 1);
     assert.equal(planned[0]?.url, "https://salon.hacado.me/book");
@@ -100,6 +106,7 @@ describe("planSmsShortLinks and rewriteUrlsInText", () => {
       new Map([[planned[0]!.url, shortUrl]]),
       "haca.do",
     );
+
     assert.equal(
       rewritten,
       `Hi, book ${shortUrl}. Also ${shortUrl} and https://haca.do/Already1`,

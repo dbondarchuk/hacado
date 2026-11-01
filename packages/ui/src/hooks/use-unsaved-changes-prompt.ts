@@ -30,6 +30,7 @@ export const useUnsavedChangesPrompt = (
       if (hasUnsavedChangesRef.current) {
         const defaultMessage =
           "You have unsaved changes. Are you sure you want to leave?";
+
         event.preventDefault();
         event.returnValue = "";
         return message || defaultMessage;
@@ -40,6 +41,7 @@ export const useUnsavedChangesPrompt = (
       if (hasUnsavedChangesRef.current) {
         const defaultMessage =
           "You have unsaved changes. Are you sure you want to leave?";
+
         const userWantsToLeave = window.confirm(message || defaultMessage);
 
         if (!userWantsToLeave) {

@@ -453,5 +453,6 @@ function TotalPriceCell({ appointment }: { appointment: Appointment }) {
   if (!appointment.totalPrice || isAppointmentCoveredByPackage(appointment)) {
     return null;
   }
+
   return currencyFormat(appointment.totalPrice);
 }

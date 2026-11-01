@@ -252,6 +252,7 @@ const labelForField = (path: string) => {
   const field = document.querySelector<HTMLElement>(
     `[name="${CSS.escape(path)}"]`,
   );
+
   const labelledBy = field?.getAttribute("aria-labelledby");
   const label =
     (field?.id
@@ -259,6 +260,7 @@ const labelForField = (path: string) => {
       : null) ??
     (labelledBy ? document.getElementById(labelledBy) : null) ??
     field?.closest("[data-slot='form-item']")?.querySelector("label");
+
   const text = label?.textContent
     ?.replace(/\*/g, "")
     .replace(/\s+/g, " ")
@@ -319,12 +321,14 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
       acceptCurrentValues(form);
       setSettled(true);
     }, 1000);
+
     return () => window.clearTimeout(id);
   }, [form]);
 
   const isSaving = !!propsIsLoading || isSubmitting;
   const serverError =
     errorMessage ?? (errors.root?.serverError?.message as string | undefined);
+
   const hasChanges = !!ignoreDirty || (settled && isDirty);
   const canSave =
     !(disabled || isFormLoading || isSaving) && (ignoreInvalid || isValid);
@@ -335,6 +339,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
       setShowSaved(false);
       return;
     }
+
     if (!wasSaving.current) return;
 
     wasSaving.current = false;
@@ -348,6 +353,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
   // Auto-dismiss the confirmation
   React.useEffect(() => {
     if (!showSaved) return;
+
     const id = window.setTimeout(() => setShowSaved(false), savedDuration);
     return () => window.clearTimeout(id);
   }, [showSaved, savedDuration]);
@@ -391,6 +397,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
         active instanceof HTMLElement && active !== document.body
           ? active
           : null;
+
       const target =
         focused ?? document.querySelector<HTMLElement>("[aria-invalid='true']");
 
@@ -404,6 +411,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
       const field = path
         ? document.querySelector<HTMLElement>(`[name="${CSS.escape(path)}"]`)
         : null;
+
       const target =
         field ?? document.querySelector<HTMLElement>("[aria-invalid='true']");
 

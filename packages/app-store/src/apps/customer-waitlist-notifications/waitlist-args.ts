@@ -33,6 +33,7 @@ export async function loadSlotTimeOfDayArgs(
     locale,
     namespace: customerWaitlistNotificationsPublicNamespace,
   });
+
   return getSlotTimeOfDayArgs(slotStart, timeZone, {
     morning: t("slotTimeOfDay.morning"),
     afternoon: t("slotTimeOfDay.afternoon"),

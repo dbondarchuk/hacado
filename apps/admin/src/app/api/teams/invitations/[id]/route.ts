@@ -11,6 +11,7 @@ export async function DELETE(request: NextRequest, { params }: RouteContext) {
     "AdminAPI/teams/invitations/[id]",
     "DELETE",
   );
+
   if (!gate.ok) return gate.response;
 
   const { id } = await params;
@@ -19,6 +20,7 @@ export async function DELETE(request: NextRequest, { params }: RouteContext) {
       body: { invitationId: id },
       headers: request.headers,
     });
+
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(

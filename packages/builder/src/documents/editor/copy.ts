@@ -17,12 +17,14 @@ export const useBlockClipboard = (document?: Document) => {
 
   const hasBlockClipboard = useMemo(() => {
     if (!isPasteSupported) return !!lastCopiedBlock;
+
     return clipboardText?.startsWith("block:");
   }, [clipboardText, lastCopiedBlock, isPasteSupported]);
 
   const clipboardBlock = useMemo(() => {
     if (!hasBlockClipboard) return null;
     if (lastCopiedBlock) return lastCopiedBlock;
+
     return JSON.parse(clipboardText.slice(6)) as TEditorBlock;
   }, [hasBlockClipboard, clipboardText, lastCopiedBlock]);
 

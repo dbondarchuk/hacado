@@ -81,6 +81,7 @@ export function getInitialBookingStep({
   }
 
   if (selectedOption?.addons?.length) return "addons";
+
   return "calendar";
 }
 
@@ -100,12 +101,14 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
       const sessionMatches = await customerAuthApi.sessionMatchesBookingFields(
         ctx.fields,
       );
+
       if (!sessionMatches) {
         ctx.setOtpReturnStep("payment");
         ctx.setOtpDialogOpen(true);
         return;
       }
     }
+
     const payment = await ctx.fetchPaymentInformation();
     ctx.setPaymentInformation(payment);
 
@@ -123,11 +126,13 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
 /** Resolves the member to use when the specialist step is skipped (sole staff). */
 const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
   if (ctx.selectedMemberId) return ctx.selectedMemberId;
+
   if (ctx.activeStaff.length === 1) {
     const memberId = ctx.activeStaff[0].member.id;
     ctx.setSelectedMemberId(memberId);
     return memberId;
   }
+
   return null;
 };
 
@@ -190,7 +195,6 @@ const canGoToStepBeforeAddons = (ctx: ScheduleContextProps) => {
   ) {
     return true;
   }
-
   if (
     ctx.flowOrder === "specialist-first" &&
     shouldSkipLockedServiceStep(
@@ -224,10 +228,12 @@ export const ScheduleSteps: Record<StepType, Step> = {
           ctx.setCustomerPackageId(undefined);
           return;
         }
+
         if (ctx.catalogPath.length) {
           ctx.setCatalogPath(ctx.catalogPath.slice(0, -1));
           return;
         }
+
         ctx.setCurrentStep("specialist");
       },
     },
@@ -357,12 +363,14 @@ export const ScheduleSteps: Record<StepType, Step> = {
       action: async (ctx) => {
         const optionNeedsDuplicateAppointmentsConfirmation =
           ctx.selectedAppointmentOption?.duplicateAppointmentCheck?.enabled;
+
         if (optionNeedsDuplicateAppointmentsConfirmation) {
           const closeAppointments = await ctx.checkDuplicateAppointments();
           if (closeAppointments.hasDuplicateAppointments) {
             ctx.setClosestDuplicateAppointment(
               closeAppointments.closestAppointment,
             );
+
             ctx.setDuplicateAppointmentDoNotAllowScheduling(
               closeAppointments.doNotAllowScheduling,
             );

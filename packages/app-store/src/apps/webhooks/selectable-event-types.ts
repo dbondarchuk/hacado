@@ -16,9 +16,11 @@ export async function getWebhookSelectableEventTypes(
   const set = new Set<string>([...ALL_CORE_EVENT_TYPES]);
   for (const [appName, config] of Object.entries(APP_EVENT_CONFIGS)) {
     if (!installedNames.has(appName)) continue;
+
     for (const def of config.events ?? []) {
       set.add(def.type);
     }
   }
+
   return [...set].sort((a, b) => a.localeCompare(b));
 }

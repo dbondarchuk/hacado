@@ -67,10 +67,12 @@ export const ServiceForm: React.FC<{
   const [loading, setLoading] = React.useState(false);
   const [showAvailabilityDialog, setShowAvailabilityDialog] =
     React.useState(false);
+
   const [newOption, setNewOption] = React.useState<{
     id: string;
     name: string;
   } | null>(null);
+
   const [availabilityLoading, setAvailabilityLoading] = React.useState(false);
   const router = useRouter();
   const { data: session } = authClient.useSession();
@@ -91,9 +93,12 @@ export const ServiceForm: React.FC<{
 
   React.useEffect(() => {
     if (initialData?._id || initialData?.staff?.length) return;
+
     const memberId = (session?.user as { memberId?: string } | undefined)
       ?.memberId;
+
     if (!memberId) return;
+
     const current = form.getValues("staff");
     if (!current?.length) {
       form.setValue("staff", [{ memberId }]);
@@ -117,6 +122,7 @@ export const ServiceForm: React.FC<{
 
   const navigateToOptionEdit = useCallback(() => {
     if (!newOption?.id) return;
+
     router.push(`/dashboard/catalog/services/${newOption.id}`);
   }, [newOption?.id, router]);
 
@@ -127,6 +133,7 @@ export const ServiceForm: React.FC<{
 
   const onAddToAvailability = useCallback(async () => {
     if (!newOption?.id) return;
+
     try {
       setAvailabilityLoading(true);
       await toastPromise(bookingApi.addBookingAvailableOption(newOption.id), {
@@ -137,6 +144,7 @@ export const ServiceForm: React.FC<{
           "catalog.services.form.addToAvailabilityDialog.toasts.requestError",
         ),
       });
+
       setShowAvailabilityDialog(false);
       navigateToOptionEdit();
     } catch (error) {

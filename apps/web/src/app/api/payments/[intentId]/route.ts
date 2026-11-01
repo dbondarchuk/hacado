@@ -60,6 +60,7 @@ export async function PUT(
       },
       "Error processing payment intent",
     );
+
     throw error;
   }
 }

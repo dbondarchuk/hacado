@@ -14,6 +14,7 @@ export const textMessagingConfigurationSchema = z
   })
   .superRefine((value, ctx) => {
     if (!value.enabled) return;
+
     if (!value.privacyPageId) {
       ctx.addIssue({
         code: "custom",
@@ -21,6 +22,7 @@ export const textMessagingConfigurationSchema = z
         message: "configuration.textMessaging.privacyPage.required",
       });
     }
+
     if (!value.termsPageId) {
       ctx.addIssue({
         code: "custom",

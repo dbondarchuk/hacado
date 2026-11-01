@@ -22,11 +22,9 @@ async function loadTargetAndAuthorize(memberId: string, user: SessionUser) {
       ),
     };
   }
-
   if (user.memberId === member._id) {
     return { ok: true as const, member, services };
   }
-
   if (
     !canUpdateTeamMemberProfile(user, {
       memberId: member._id,
@@ -61,6 +59,7 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
   const logger = getLoggerFactory("AdminAPI/teams/members/[id]/profile")(
     "PATCH",
   );
+
   const auth = await requirePermission("team", "update", logger);
   if (!auth.ok) return auth.response;
 

@@ -44,11 +44,13 @@ export const BeforeAfterEditor = ({ props, style }: BeforeAfterProps) => {
     currentBlock.id,
     "props.before",
   )?.[0];
+
   const afterId = useBlockChildrenBlockIds(currentBlock.id, "props.after")?.[0];
   const beforeLabelId = useBlockChildrenBlockIds(
     currentBlock.id,
     "props.beforeLabel",
   )?.[0];
+
   const afterLabelId = useBlockChildrenBlockIds(
     currentBlock.id,
     "props.afterLabel",

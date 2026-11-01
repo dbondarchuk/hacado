@@ -57,14 +57,17 @@ describe("summarizeBookingProgress", () => {
       summary.entered.find((i) => i.step === "SERVICE_SELECTED")?.count,
       18,
     );
+
     assert.equal(
       summary.stoppedAt.find((i) => i.step === "FORM_FILLED")?.count,
       2,
     );
+
     assert.equal(
       summary.convertedTo.find((i) => i.convertedTo === "appointment")?.count,
       5,
     );
+
     assert.equal(summary.overTime.length, 3);
   });
 
@@ -76,6 +79,7 @@ describe("summarizeBookingProgress", () => {
     const firstWeek = summary.overTime.find(
       (row) => row.date === groupingKey(docs[0].date, "week", "UTC"),
     );
+
     assert.ok(firstWeek);
     assert.equal(firstWeek.total, 15);
     assert.equal(firstWeek.converted, 3);

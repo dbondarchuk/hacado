@@ -80,6 +80,7 @@ export default async function RootLayout({
       { slug: routeParams.slug },
       "Skipping layout for non-page route",
     );
+
     return (
       <html>
         <body>{children}</body>

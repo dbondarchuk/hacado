@@ -129,4 +129,5 @@ export const AvailableAppServices: Record<
   [AUTOMATIC_AI_DISCOVERY_APP_NAME]: (props) =>
     new AutomaticAiDiscoveryConnectedApp(props),
 };
+
 export { AvailableApps as ServiceAvailableApps } from "../apps";

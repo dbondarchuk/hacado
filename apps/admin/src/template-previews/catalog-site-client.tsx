@@ -84,6 +84,7 @@ export function CatalogSiteClient({
       void fontsReady.then(() => {
         window.setTimeout(markReady, previewDelayMs);
       });
+
       return;
     }
 
@@ -101,6 +102,7 @@ export function CatalogSiteClient({
 
       const target = event.target;
       if (!(target instanceof Element)) return;
+
       const anchor = target.closest("a[href]");
       if (!(anchor instanceof HTMLAnchorElement)) return;
 
@@ -134,14 +136,17 @@ export function CatalogSiteClient({
     const user = session?.user as
       | { organizationInstalled?: boolean }
       | undefined;
+
     if (session?.user) {
       router.push(
         user?.organizationInstalled
           ? "/dashboard"
           : preferredWebsitePackHref("/checkout", packId),
       );
+
       return;
     }
+
     router.push(preferredWebsitePackHref("/auth/signup", packId));
   };
 

@@ -113,6 +113,7 @@ export const discountSchema = z
         message: "discount.endDate.min",
       });
     }
+
     if (arg.type === "percentage" && arg.value > 100) {
       ctx.addIssue({
         code: "custom",

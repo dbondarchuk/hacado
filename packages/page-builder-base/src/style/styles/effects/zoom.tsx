@@ -15,6 +15,7 @@ export const zoomStyle = {
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined" || value === 1)
       return null;
+
     return `zoom: ${value};`;
   },
   component: ({ value, onChange }) => (

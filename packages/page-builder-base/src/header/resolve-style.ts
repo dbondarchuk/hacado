@@ -33,6 +33,7 @@ export function pickScrolledValue<T>(
   if (!isScrolled || override === undefined) {
     return rest;
   }
+
   return override;
 }
 
@@ -58,11 +59,9 @@ export function pickHeaderAppearanceValue<T>(
   if (!isScrolled) {
     return atRest;
   }
-
   if (mobileScrolled !== undefined) {
     return mobileScrolled;
   }
-
   if (mobile === undefined && scrolled !== undefined) {
     return scrolled;
   }
@@ -173,6 +172,7 @@ function hasMenuLabel(value: unknown) {
   if (Array.isArray(value)) {
     return value.length > 0;
   }
+
   return false;
 }
 
@@ -193,7 +193,6 @@ function applyMenuItemAppearanceOverride<T extends MenuItemWithSubMenu>(
     if (value === undefined) {
       continue;
     }
-
     if (key === "useDifferentLabel" || key === "label") {
       continue;
     }
@@ -208,6 +207,7 @@ function applyMenuItemAppearanceOverride<T extends MenuItemWithSubMenu>(
         "className" in item && typeof item.className === "string"
           ? item.className
           : "";
+
       const combined = [rest, value].filter(Boolean).join(" ").trim();
       merged.className = combined || undefined;
       continue;

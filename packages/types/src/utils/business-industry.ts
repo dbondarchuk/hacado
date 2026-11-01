@@ -368,6 +368,7 @@ export function getBusinessIndustryDefinition(
   industry: BusinessIndustry | undefined | null,
 ): BusinessIndustryDefinition | undefined {
   if (!industry) return undefined;
+
   return industryById.get(industry);
 }
 

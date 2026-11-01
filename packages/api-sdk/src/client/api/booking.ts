@@ -81,6 +81,7 @@ export const trackAdvanceFromUiStep = (
 ) => {
   const step = BOOKING_UI_STEP_TRACKING[uiStep];
   if (!step || !isClientTrackableBookingStep(step)) return;
+
   void trackStep(step, metadata);
 };
 
@@ -139,6 +140,7 @@ export const getModifyAppointmentInformation = async (
   console.debug("Modify appointment information retrieved successfully", {
     data,
   });
+
   return data;
 };
 

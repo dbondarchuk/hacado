@@ -10,12 +10,15 @@ const gsmSeptets = (body: string): number | null => {
       septets += 1;
       continue;
     }
+
     if (GSM_EXTENDED.includes(char)) {
       septets += 2;
       continue;
     }
+
     return null;
   }
+
   return septets;
 };
 

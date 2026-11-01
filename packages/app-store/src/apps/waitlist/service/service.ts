@@ -175,6 +175,7 @@ export class WaitlistConnectedApp
       logger.debug(
         "Text message configuration is not enabled, returning empty offer",
       );
+
       return offer;
     }
 
@@ -266,12 +267,14 @@ export class WaitlistConnectedApp
         { appId: appData._id },
         "Successfully uninstalled waitlist app",
       );
+
       return { success: true, code: "ok" };
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error: error?.message || error?.toString() },
         "Error uninstalling waitlist app",
       );
+
       throw error;
     }
   }
@@ -296,18 +299,15 @@ export class WaitlistConnectedApp
     ) {
       return this.getCustomerWaitlistEntries(appData, request);
     }
-
     if (
       request.method.toUpperCase() === "POST" &&
       action === "dismiss-customer-waitlist-entry"
     ) {
       return this.dismissCustomerWaitlistEntry(appData, request);
     }
-
     if (request.method.toUpperCase() === "GET" && action === "waitlist-offer") {
       return this.getWaitlistOfferPrefill(appData, request);
     }
-
     if (request.method.toUpperCase() === "GET" && action === "sms-text") {
       return Response.json(await this.getCustomerWaitlistTextOffer());
     }
@@ -350,12 +350,14 @@ export class WaitlistConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const result = await repositoryService.getWaitlistEntry(waitlistId);
     if (!result) {
       logger.debug(
         { appId: appData._id, waitlistId },
         "Waitlist entry not found, skipping appointment created hook",
       );
+
       return;
     }
 
@@ -386,6 +388,7 @@ export class WaitlistConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const result = await repositoryService.getWaitlistEntriesCount(date);
 
     logger.debug({ result }, "Waitlist entries count retrieved");
@@ -445,6 +448,7 @@ export class WaitlistConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const entries = await repository.getWaitlistEntries({
       search: input.query,
       limit: input.limit,
@@ -483,7 +487,6 @@ export class WaitlistConnectedApp
     if (typeof data?.waitlistId === "string" && data.waitlistId) {
       return data.waitlistId;
     }
-
     if (typeof data?.waitlistToken === "string" && data.waitlistToken) {
       return verifyWaitlistOfferToken(data.waitlistToken)?.entryId;
     }
@@ -650,6 +653,7 @@ export class WaitlistConnectedApp
         { status: 404 },
       );
     }
+
     if (entry.status === "active") {
       await repositoryService.dismissWaitlistEntry(entry._id, {
         actor: "customer",
@@ -678,6 +682,7 @@ export class WaitlistConnectedApp
 
     const { data, success, error } =
       waitlistRequestSchema.safeParse(requestParsed);
+
     if (!success) {
       logger.error({ error }, "Invalid waitlist request");
       return Response.json({ success: false, error }, { status: 400 });
@@ -697,6 +702,7 @@ export class WaitlistConnectedApp
 
     const options =
       await this.props.services.bookingService.getAppointmentOptions();
+
     const option = options.options.find((o) => o._id === data.optionId);
     if (!option) {
       logger.error({ data }, "Option not found");
@@ -777,6 +783,7 @@ export class WaitlistConnectedApp
     const logger = this.loggerFactory(
       "processCreateWaitlistEntryActionRequest",
     );
+
     logger.debug({ data }, "Creating waitlist entry");
 
     const repositoryService = this.getRepositoryService(
@@ -787,6 +794,7 @@ export class WaitlistConnectedApp
     const option = await this.props.services.catalogService.getService(
       data.entry.optionId,
     );
+
     if (!option) {
       logger.error({ optionId: data.entry.optionId }, "Option not found");
       throw new ConnectedAppRequestError(
@@ -829,6 +837,7 @@ export class WaitlistConnectedApp
         { memberId: memberIdForAddons, addonsIds: data.entry.addonsIds },
         "Addons unavailable for member",
       );
+
       throw new ConnectedAppRequestError(
         "addon_unavailable_for_member",
         { data },
@@ -891,6 +900,7 @@ export class WaitlistConnectedApp
       waitlistRequest,
       source,
     );
+
     logger.debug({ result }, "Waitlist entry created");
     return result;
   }
@@ -907,6 +917,7 @@ export class WaitlistConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const source = request
       ? await this.props.services.connectedAppsService.attachPublicEventContext(
           { actor: "customer" },
@@ -936,21 +947,25 @@ export class WaitlistConnectedApp
         appData._id,
         appData.organizationId,
       );
+
       const source: EventSource = { actor: "member", actorId: memberId };
       const result = await repositoryService.dismissWaitlistEntries(
         data.ids,
         source,
       );
+
       logger.debug(
         { appId: appData._id },
         "Successfully dismissed waitlist entries",
       );
+
       return result;
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error },
         "Error dismissing waitlist entries",
       );
+
       throw error;
     }
   }
@@ -970,17 +985,20 @@ export class WaitlistConnectedApp
         appData._id,
         appData.organizationId,
       );
+
       const result = await repositoryService.getWaitlistEntry(data.id);
       logger.debug(
         { appId: appData._id },
         "Successfully retrieved waitlist entry",
       );
+
       return result;
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error },
         "Error retrieving waitlist entry",
       );
+
       throw error;
     }
   }
@@ -1016,16 +1034,19 @@ export class WaitlistConnectedApp
         ...data.query,
         memberId,
       });
+
       logger.debug(
         { appId: appData._id },
         "Successfully retrieved waitlist entries",
       );
+
       return result;
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error },
         "Error retrieving waitlist entries",
       );
+
       throw error;
     }
   }

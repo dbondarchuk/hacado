@@ -150,6 +150,7 @@ export const CancelOrRescheduleSteps: Record<StepType, Step> = {
           setAppointment(undefined);
           return;
         }
+
         setCurrentStep("calendar");
       },
     },

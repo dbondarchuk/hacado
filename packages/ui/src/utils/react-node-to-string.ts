@@ -38,7 +38,6 @@ const childToString = (child?: ReactNode): string => {
   ) {
     return "";
   }
-
   if (JSON.stringify(child) === "{}") {
     return "";
   }

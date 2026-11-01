@@ -25,6 +25,7 @@ const ACTIONS = [
   "update",
   "revert",
 ] as const;
+
 type Action = (typeof ACTIONS)[number];
 
 const REQUIRES_APPOINTMENT: Action[] = ["reassign", "assign"];
@@ -36,6 +37,7 @@ export async function POST(
   const logger = getLoggerFactory("AdminAPI/synced-payments/[id]/[action]")(
     "POST",
   );
+
   const auth = await requirePermission("syncedPayment", "manage", logger);
   if (!auth.ok) return auth.response;
 
@@ -83,6 +85,7 @@ export async function POST(
     const paymentType = body?.paymentType as
       | SyncedPaymentAssignablePaymentType
       | undefined;
+
     if (
       !Number.isFinite(paymentAmount) ||
       !Number.isFinite(tip) ||
@@ -111,6 +114,7 @@ export async function POST(
     const paymentType = body?.paymentType as
       | SyncedPaymentStandalonePaymentType
       | undefined;
+
     if (
       !customerId ||
       typeof customerId !== "string" ||
@@ -170,6 +174,7 @@ export async function POST(
           },
           actor,
         );
+
         break;
       case "update":
         result = await service.updateAmounts(
@@ -181,6 +186,7 @@ export async function POST(
           },
           actor,
         );
+
         break;
       case "revert":
         result = await service.revertAmounts(id, actor);
@@ -193,6 +199,7 @@ export async function POST(
       { id, action, error: error?.message || error?.toString() },
       "Failed to process synced payment action",
     );
+
     return NextResponse.json(
       {
         success: false,

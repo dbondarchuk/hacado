@@ -44,10 +44,12 @@ async function setInstallPreferencesInOrg(
   const logger = getLoggerFactory("InstallActions")(
     "setInstallPreferencesInOrg",
   );
+
   logger.debug(
     { organizationId },
     "Persisting install preferences in organization",
   );
+
   const db = await getDbConnection();
   await db
     .collection<Organization>(ORGANIZATIONS_COLLECTION_NAME)
@@ -55,6 +57,7 @@ async function setInstallPreferencesInOrg(
       { _id: organizationId },
       { $set: { installPreferences: prefs } },
     );
+
   logger.debug(
     { organizationId },
     "Persisted install preferences in organization",
@@ -73,6 +76,7 @@ export async function saveInstallPreferences(
       { input, error: parsed.error },
       "Invalid install preferences input",
     );
+
     return { ok: false, code: "invalid_input" };
   }
 
@@ -80,6 +84,7 @@ export async function saveInstallPreferences(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
@@ -101,6 +106,7 @@ export async function completeInstallSetup(
       { input, error: parsed.error },
       "Invalid install preferences input",
     );
+
     return { ok: false, code: "invalid_input" };
   }
 
@@ -118,8 +124,10 @@ export async function completeInstallSetup(
   const services = ServicesContainer(organizationId, true);
   const general =
     (await services.configurationService.getConfiguration("general")) ?? null;
+
   const brand =
     (await services.configurationService.getConfiguration("brand")) ?? null;
+
   if (!general || Object.keys(general).length === 0) {
     logger.error({ organizationId }, "General configuration not found");
     return { ok: false, code: "no_general" };
@@ -131,11 +139,13 @@ export async function completeInstallSetup(
     (typeof legacyGeneral.language === "string"
       ? legacyGeneral.language
       : undefined);
+
   if (!installLanguage || !languages.includes(installLanguage)) {
     logger.error(
       { organizationId, language: installLanguage },
       "Invalid website language for install defaults",
     );
+
     return { ok: false, code: "invalid_language" };
   }
 

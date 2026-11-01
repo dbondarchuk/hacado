@@ -26,6 +26,7 @@ export async function saveSiteSettingsAction(
       { issues: parsed.error.flatten() },
       "Invalid site settings payload",
     );
+
     return { ok: false, code: "invalid_input" };
   }
 
@@ -39,11 +40,13 @@ export async function saveSiteSettingsAction(
       favicon,
       services.assetsService,
     );
+
     if (!faviconValidation.ok) {
       logger.warn(
         { favicon, code: faviconValidation.code },
         "Invalid favicon rejected",
       );
+
       return { ok: false, code: "invalid_favicon" };
     }
   }
@@ -54,21 +57,25 @@ export async function saveSiteSettingsAction(
       d.general,
       source,
     );
+
     await services.configurationService.setConfiguration(
       "brand",
       d.brand,
       source,
     );
+
     await services.configurationService.setConfiguration(
       "social",
       d.social,
       source,
     );
+
     await services.configurationService.setConfiguration(
       "styling",
       d.styling,
       source,
     );
+
     logger.debug("Persisted site settings (general, brand, social, styling)");
 
     const organizationId = await getOrganizationId();
@@ -89,6 +96,7 @@ export async function saveSiteSettingsAction(
       { error: error instanceof Error ? error.message : String(error) },
       "Failed to persist site settings",
     );
+
     return { ok: false, code: "persist_failed" };
   }
 

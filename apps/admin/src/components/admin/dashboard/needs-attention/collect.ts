@@ -228,6 +228,7 @@ async function collectAppItems(
       const member = appData.memberId
         ? await resolveMember(appData.memberId)
         : null;
+
       const items = await service.getNeedAttentionItems(appData, member, user);
 
       return items.map((item) => ({
@@ -249,7 +250,6 @@ async function collectAppItems(
     if (appHasNeedsAttentionScope(app.name)) {
       continue;
     }
-
     if (app.status !== "failed") {
       continue;
     }
@@ -309,6 +309,7 @@ export async function collectNeedsAttentionRows(
   const all = [...coreItems, ...appItems].sort((a, b) => {
     const levelDiff = LEVEL_RANK[a.level] - LEVEL_RANK[b.level];
     if (levelDiff !== 0) return levelDiff;
+
     return (a.order ?? 100) - (b.order ?? 100);
   });
 

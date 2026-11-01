@@ -12,6 +12,7 @@ export const BookingConfirmationPropsSchema = z.object({
 export type BookingConfirmationProps = z.infer<
   typeof BookingConfirmationPropsSchema
 >;
+
 export type BookingConfirmationReaderProps = BaseReaderBlockProps<any> &
   BookingConfirmationProps;
 

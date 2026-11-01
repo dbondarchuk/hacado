@@ -58,6 +58,7 @@ export const modificationPaymentCalculationType = [
   "percentage",
   "amount",
 ] as const;
+
 export const modificationPaymentCalculationTypeSchema = z.enum(
   modificationPaymentCalculationType,
   {

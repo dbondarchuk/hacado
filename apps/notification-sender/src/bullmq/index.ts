@@ -44,6 +44,7 @@ export async function startBullMQNotificationSenderApp(): Promise<void> {
         { signal },
         "Received shutdown signal, stopping worker gracefully",
       );
+
       await worker.stop();
       process.exit(0);
     };
@@ -74,6 +75,7 @@ export async function startBullMQNotificationSenderApp(): Promise<void> {
         { maxRestarts, restartDelay },
         "Starting worker with automatic restart",
       );
+
       await worker.runWithRestart(maxRestarts, restartDelay);
     } else {
       logger.info("Starting worker (will crash on fatal error)");

@@ -27,6 +27,7 @@ export class ShortLinksService implements IShortLinksService {
     const shortLink = await db
       .collection<ShortLink>(SHORT_LINKS_COLLECTION_NAME)
       .findOne({ code });
+
     logger.debug({ code, found: Boolean(shortLink) }, "Short link lookup");
     return shortLink;
   }
@@ -66,12 +67,14 @@ export class ShortLinksService implements IShortLinksService {
           buildShortLinkUrl(code, shortDomain),
         ]),
       );
+
       return rewriteUrlsInText(body, shortUrlByOriginal, shortDomain);
     } catch (error) {
       logger.error(
         { error },
         "Failed to shorten SMS links; sending original body",
       );
+
       return body;
     }
   }
@@ -118,6 +121,7 @@ export class ShortLinksService implements IShortLinksService {
       if (toRetry === null) {
         throw error;
       }
+
       await this.upsertShortLinks(toRetry, codesByUrl);
     }
   }
@@ -148,14 +152,17 @@ function resolveCollisions(
     if (!isCodeIndexDuplicate(writeError.errmsg)) {
       return null;
     }
+
     const link = links[writeError.index];
     if (!link) {
       return null;
     }
+
     const nextLength = link.code.length + 1;
     if (nextLength > MAX_CODE_LENGTH) {
       return null;
     }
+
     const nextCode = urlToShortCode(link.url, nextLength);
     codesByUrl.set(link.url, nextCode);
     toRetry.push({ url: link.url, code: nextCode });
@@ -170,12 +177,14 @@ function getWriteErrors(
   if (!(error instanceof MongoBulkWriteError)) {
     return [];
   }
+
   const writeErrors = error.writeErrors;
   const list = Array.isArray(writeErrors)
     ? writeErrors
     : writeErrors
       ? [writeErrors]
       : [];
+
   return list.map((writeError) => ({
     index: writeError.index,
     code: writeError.code,

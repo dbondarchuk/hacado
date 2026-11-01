@@ -28,6 +28,7 @@ export async function captureOptInPreview(): Promise<string | undefined> {
     });
 
     if (!dataUrl.startsWith("data:image/png")) return undefined;
+
     return dataUrl;
   } catch (error) {
     console.error("SMS opt-in preview capture failed", error);

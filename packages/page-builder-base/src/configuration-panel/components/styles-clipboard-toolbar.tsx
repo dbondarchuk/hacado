@@ -43,6 +43,7 @@ export const StylesClipboardToolbar = <T extends BaseStyleDictionary>({
       ...styles,
       ...pasteableStyles,
     });
+
     toast.success(
       t("pageBuilder.styles.pasteStylesSuccess", { count: pastedCount }),
     );

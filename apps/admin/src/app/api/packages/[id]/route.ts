@@ -28,6 +28,7 @@ export async function GET(
       { status: 404 },
     );
   }
+
   return NextResponse.json(pkg);
 }
 
@@ -60,12 +61,14 @@ export async function PUT(
       data,
       actor,
     );
+
     if (!result) {
       return NextResponse.json(
         { success: false, code: "package_not_found" },
         { status: 404 },
       );
     }
+
     return NextResponse.json(okStatus);
   } catch (error: unknown) {
     if (error instanceof PackageError) {
@@ -74,6 +77,7 @@ export async function PUT(
         { status: 400 },
       );
     }
+
     throw error;
   }
 }
@@ -97,12 +101,14 @@ export async function DELETE(
       id,
       actor,
     );
+
     if (!result) {
       return NextResponse.json(
         { success: false, code: "package_not_found" },
         { status: 404 },
       );
     }
+
     return NextResponse.json(okStatus);
   } catch (error: unknown) {
     if (error instanceof PackageError) {
@@ -111,6 +117,7 @@ export async function DELETE(
         { status: 400 },
       );
     }
+
     throw error;
   }
 }

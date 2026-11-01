@@ -33,6 +33,7 @@ export const whiteSpaceStyle = {
   defaultValue: "normal",
   renderToCSS: (value) => {
     if (!value || value === "normal") return null;
+
     return `white-space: ${value};`;
   },
   component: ({ value, onChange }) => {

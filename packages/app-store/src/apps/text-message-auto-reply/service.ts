@@ -59,11 +59,13 @@ export default class TextMessageAutoReplyConnectedApp
       success,
       error,
     } = textMessageAutoReplyConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error(
         { error },
         "Invalid Text Message Auto Reply configuration request",
       );
+
       throw new ConnectedAppRequestError(
         "invalid_text-message-auto-reply_configuration_request",
         { request, error },
@@ -170,11 +172,13 @@ export default class TextMessageAutoReplyConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment?._id },
           "Organization not found",
         );
+
         return null;
       }
 
@@ -183,16 +187,19 @@ export default class TextMessageAutoReplyConnectedApp
 
       const memberId =
         textMessageReply.memberId ?? appointment?.memberId ?? appData.memberId;
+
       if (!memberId) {
         logger.warn(
           { appId: appData._id, memberId },
           "Member ID is required in text message reply",
         );
+
         return null;
       }
 
       const member =
         await this.props.services.teamService.getMemberById(memberId);
+
       if (!member) {
         logger.warn({ appId: appData._id, memberId }, "Member not found");
         return null;
@@ -232,6 +239,7 @@ export default class TextMessageAutoReplyConnectedApp
               { appId: appData._id, error },
               "Auto reply text failed to render",
             );
+
             return null;
           }
         } else if (platformCountry) {
@@ -245,6 +253,7 @@ export default class TextMessageAutoReplyConnectedApp
             await this.props.services.templatesService.getTemplate(
               appData.data.autoReplyTemplateId,
             );
+
           if (autoReplyTemplate?.type === "text-message") {
             message = templateSafeWithError(
               autoReplyTemplate.value as string,
@@ -329,6 +338,7 @@ export default class TextMessageAutoReplyConnectedApp
         },
         "Error processing text message auto reply",
       );
+
       throw error;
     }
   }

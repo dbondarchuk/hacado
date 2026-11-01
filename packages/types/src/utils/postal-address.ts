@@ -47,6 +47,7 @@ export type PostalAddressTemplateValue = PostalAddress & {
 
 function trimString(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
+
   const trimmed = value.trim();
   return trimmed || undefined;
 }
@@ -56,6 +57,7 @@ export function hasPostalAddress(
   address: PostalAddress | null | undefined,
 ): boolean {
   if (!address) return false;
+
   return Boolean(
     address.streetAddress ||
       address.addressLine2 ||
@@ -80,6 +82,7 @@ export function normalizePostalAddress(
   if (typeof address === "string") {
     const streetAddress = trimString(address);
     if (!streetAddress) return undefined;
+
     raw = { streetAddress };
   } else if (typeof address === "object" && !Array.isArray(address)) {
     const o = address as Record<string, unknown>;
@@ -102,6 +105,7 @@ export function normalizePostalAddress(
 
   const parsed = postalAddressSchema.safeParse(raw);
   if (!parsed.success || !hasPostalAddress(parsed.data)) return undefined;
+
   return parsed.data;
 }
 
@@ -110,6 +114,7 @@ export function formatPostalStreetAddress(
   address: PostalAddress | null | undefined,
 ): string {
   if (!address) return "";
+
   return [address.streetAddress, address.addressLine2]
     .filter(Boolean)
     .join(", ");

@@ -8,7 +8,6 @@ export function applyDashboardBadgeUpdate(
   if (update.count !== undefined) {
     return { ...badges, [update.key]: update.count };
   }
-
   if (update.increment !== undefined) {
     return {
       ...badges,

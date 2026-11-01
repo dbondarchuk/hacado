@@ -26,6 +26,7 @@ export function TemplatesTableAction() {
     typeFilter,
     setTypeFilter,
   } = useTemplatesTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const allowTextTemplates = useCustomTextTemplatesAllowed();
 

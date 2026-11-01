@@ -129,6 +129,7 @@ export async function POST(request: NextRequest) {
       },
       "Error processing payments refund",
     );
+
     return NextResponse.json(
       { success: false, error: e?.message ?? e?.toString() },
       { status: 500 },

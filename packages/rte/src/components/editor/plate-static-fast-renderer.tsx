@@ -122,6 +122,7 @@ function stringFromDescendants(nodes: Descendant[]): string {
     else if (Element.isElement(n) && n.children)
       s += stringFromDescendants(n.children as Descendant[]);
   }
+
   return s;
 }
 
@@ -132,8 +133,10 @@ function stringFromDescendants(nodes: Descendant[]): string {
  */
 function normalizeCodeBlockChildForRender(child: Descendant): Descendant {
   if (!Text.isText(child)) return child;
+
   const leaf = child as TText & { type?: unknown; id?: unknown };
   if (leaf.type !== BaseCodeLinePlugin.key) return child;
+
   return {
     type: BaseCodeLinePlugin.key,
     children: [{ text: leaf.text }],
@@ -146,6 +149,7 @@ function collectHeadings(nodes: Descendant[]): Heading[] {
   const walk = (list: Descendant[]) => {
     for (const n of list) {
       if (!Element.isElement(n)) continue;
+
       if (isHeading(n)) {
         const title = stringFromDescendants(n.children as Descendant[]);
         if (title)
@@ -157,9 +161,11 @@ function collectHeadings(nodes: Descendant[]): Heading[] {
             type: n.type,
           });
       }
+
       if (n.children) walk(n.children as Descendant[]);
     }
   };
+
   walk(nodes);
   return out;
 }
@@ -178,6 +184,7 @@ function renderTextMarks(
       </span>
     );
   }
+
   if (rest[BaseCodePlugin.key]) {
     inner = (
       <code className="rounded-md bg-muted px-[0.3em] py-[0.2em] font-mono text-sm whitespace-pre-wrap">
@@ -185,6 +192,7 @@ function renderTextMarks(
       </code>
     );
   }
+
   if (rest[BaseSuperscriptPlugin.key]) inner = <sup>{inner}</sup>;
   if (rest[BaseSubscriptPlugin.key]) inner = <sub>{inner}</sub>;
   if (rest[BaseStrikethroughPlugin.key]) inner = <del>{inner}</del>;
@@ -198,9 +206,11 @@ function renderTextMarks(
       </kbd>
     );
   }
+
   if (rest[BaseHighlightPlugin.key]) {
     inner = <mark className="bg-highlight/30 text-inherit">{inner}</mark>;
   }
+
   if (rest[BaseCommentsPlugin.key]) {
     inner = (
       <span className="border-b-2 border-b-highlight/35 bg-highlight/15">
@@ -213,16 +223,20 @@ function renderTextMarks(
   if (typeof rest.color === "string") style.color = rest.color;
   if (typeof rest.backgroundColor === "string")
     style.backgroundColor = rest.backgroundColor as string;
+
   if (typeof rest.fontSize === "string")
     style.fontSize = rest.fontSize as string;
+
   if (typeof rest.fontFamily === "string")
     style.fontFamily = rest.fontFamily as string;
+
   if (
     typeof rest.fontWeight === "string" ||
     typeof rest.fontWeight === "number"
   ) {
     style.fontWeight = rest.fontWeight as React.CSSProperties["fontWeight"];
   }
+
   if (Object.keys(style).length) {
     inner = <span style={style}>{inner}</span>;
   }
@@ -243,13 +257,14 @@ function renderPhrasing(
         </React.Fragment>
       );
     }
-
     if (!Element.isElement(child)) return null;
+
     const el = child as {
       type: string;
       children?: Descendant[];
       [k: string]: unknown;
     };
+
     const ch = (el.children ?? []) as Descendant[];
 
     if (el.type === BaseLinkPlugin.key) {
@@ -268,6 +283,7 @@ function renderPhrasing(
         </a>
       );
     }
+
     if (el.type === BaseMentionPlugin.key) {
       const value = typeof el.value === "string" ? el.value : "";
       const first = ch[0] as (TText & Record<string, unknown>) | undefined;
@@ -287,6 +303,7 @@ function renderPhrasing(
         </span>
       );
     }
+
     if (el.type === BaseInlineEquationPlugin.key) {
       const tex = (el as unknown as TEquationElement).texExpression ?? "";
       const html = getEquationHtml({
@@ -303,6 +320,7 @@ function renderPhrasing(
           trust: false,
         },
       });
+
       return (
         <span
           key={k}
@@ -327,6 +345,7 @@ function renderPhrasing(
         </span>
       );
     }
+
     if (el.type === BaseDatePlugin.key) {
       const dateStr = el.date as string | undefined;
       let label = "Pick a date";
@@ -337,6 +356,7 @@ function renderPhrasing(
           elementDate.getDate() === today.getDate() &&
           elementDate.getMonth() === today.getMonth() &&
           elementDate.getFullYear() === today.getFullYear();
+
         const y = new Date();
         y.setDate(y.getDate() - 1);
         const isYesterday = y.toDateString() === elementDate.toDateString();
@@ -353,6 +373,7 @@ function renderPhrasing(
             year: "numeric",
           });
       }
+
       return (
         <span key={k} className="inline-block">
           <span className="w-fit rounded-sm bg-muted px-1 text-muted-foreground">
@@ -377,6 +398,7 @@ function indentBlockStyle(el: { [k: string]: unknown }): React.CSSProperties {
   if (typeof raw !== "number" || raw <= 0 || !Number.isFinite(raw)) {
     return {};
   }
+
   return { marginLeft: raw * INDENT_OFFSET_PX };
 }
 
@@ -393,6 +415,7 @@ function alignBlockStyle(el: { [k: string]: unknown }): React.CSSProperties {
   ) {
     return {};
   }
+
   return { textAlign: align };
 }
 
@@ -407,6 +430,7 @@ function lineHeightBlockStyle(el: {
   if (typeof lh === "string" && lh.length > 0) {
     return { lineHeight: lh };
   }
+
   return {};
 }
 
@@ -418,6 +442,7 @@ function listStyleOnBlock(el: { [k: string]: unknown }): string | undefined {
 function isListBlock(el: Descendant): boolean {
   if (!Element.isElement(el)) return false;
   if (!listStyleOnBlock(el as { [k: string]: unknown })) return false;
+
   return el.type === BaseParagraphPlugin.key || HEADING_TYPE_SET.has(el.type);
 }
 
@@ -442,6 +467,7 @@ function renderBlockContainerChildren(
     if (Element.isElement(c)) {
       return renderBlock(c, k, ctx);
     }
+
     return null;
   });
 }
@@ -452,11 +478,13 @@ function renderBlock(
   ctx: FastRenderCtx = {},
 ): React.ReactNode {
   if (!Element.isElement(node)) return null;
+
   const el = node as {
     type: string;
     children?: Descendant[];
     [k: string]: unknown;
   };
+
   const ch = (el.children ?? []) as Descendant[];
   const ph = renderPhrasing(ch, pathKey);
   const blockIndent = ctx.listIndentOnLi ? {} : indentBlockStyle(el);
@@ -500,6 +528,7 @@ function renderBlock(
         h5: "relative mb-1 mt-[0.75em] text-lg font-semibold tracking-tight",
         h6: "relative mb-1 mt-[0.75em] text-base font-semibold tracking-tight",
       }[Tag];
+
       return React.createElement(
         Tag,
         { key: pathKey, className: cls, style: blockStyle },
@@ -518,6 +547,7 @@ function renderBlock(
       const langClass = lang ? `${lang} language-${lang}` : "";
       const label =
         languages.find((l) => l.value === lang)?.label || lang || "Plain Text";
+
       const lineCtx: FastRenderCtx = { ...ctx, codeBlockLang: lang };
       return (
         <div
@@ -552,6 +582,7 @@ function renderBlock(
         lineText.length > 0
           ? renderHighlightedCodeLineSegments(lineText, lang, pathKey)
           : null;
+
       return (
         <div key={pathKey} className="block">
           {highlighted ?? ph}
@@ -571,6 +602,7 @@ function renderBlock(
       const capText = caption?.[0]
         ? stringFromDescendants([caption[0]] as Descendant[])
         : "";
+
       return url ? (
         <div
           key={pathKey}
@@ -617,6 +649,7 @@ function renderBlock(
       const capText = caption?.[0]
         ? stringFromDescendants([caption[0]] as Descendant[])
         : "";
+
       return (
         <div key={pathKey} className="py-2.5">
           <div style={{ textAlign: align as React.CSSProperties["textAlign"] }}>
@@ -688,6 +721,7 @@ function renderBlock(
           trust: false,
         },
       });
+
       return (
         <div key={pathKey} className="my-1">
           <div
@@ -782,9 +816,11 @@ function renderBlock(
         colSizes?: number[];
         children?: Descendant[];
       };
+
       const colSizes = getTableOverriddenColSizes(
         tableNode as Parameters<typeof getTableOverriddenColSizes>[0],
       ) as number[];
+
       const tableCtx: FastRenderCtx = { ...ctx, tableColSizes: colSizes };
       return (
         <div
@@ -811,6 +847,7 @@ function renderBlock(
         <tr key={pathKey} className="h-full">
           {ch.map((c, i) => {
             if (!Element.isElement(c)) return null;
+
             const span = getColSpan(c as Parameters<typeof getColSpan>[0]);
             const cellStart = colCursor;
             colCursor += span;
@@ -832,12 +869,14 @@ function renderBlock(
         Number(
           el.rowSpan ?? (el.attributes as { rowspan?: number })?.rowspan,
         ) || 1;
+
       const bg = el.background as string | undefined;
       const colSizes = ctx.tableColSizes ?? [];
       const colStart = ctx.cellColStart ?? 0;
       const widthPx = colSizes
         .slice(colStart, colStart + colSpan)
         .reduce((t, w) => t + (Number(w) || 0), 0);
+
       const minH = ctx.rowMinHeight ?? 0;
       return React.createElement(
         Tag,
@@ -890,14 +929,18 @@ function renderRootBlocks(
         group.push(nodes[i]!);
         i++;
       }
+
       const listStart = (() => {
         const first = group[0];
         if (!Element.isElement(first)) return undefined;
+
         const v = (first as Record<string, unknown>)[
           INDENT_LIST_KEYS.listStart
         ];
+
         return typeof v === "number" ? v : undefined;
       })();
+
       out.push(
         <ListTag
           key={`list-${out.length}`}
@@ -944,6 +987,7 @@ function renderRootBlocks(
                 </React.Fragment>
               );
             }
+
             return (
               <li key={j} style={liIndent}>
                 {renderBlock(item, `li-${j}`, listCtx)}
@@ -952,11 +996,14 @@ function renderRootBlocks(
           })}
         </ListTag>,
       );
+
       continue;
     }
+
     out.push(renderBlock(n, `root-${i}`, rootCtx));
     i++;
   }
+
   return out;
 }
 
@@ -985,4 +1032,5 @@ export const PlateStaticFastRenderer = React.forwardRef<
     </div>
   );
 });
+
 PlateStaticFastRenderer.displayName = "PlateStaticFastRenderer";

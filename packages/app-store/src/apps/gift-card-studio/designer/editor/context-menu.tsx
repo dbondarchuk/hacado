@@ -37,6 +37,7 @@ export function EditorContextMenu({
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const {
     design,
     selectedElements,
@@ -53,6 +54,7 @@ export function EditorContextMenu({
   const element = elementId
     ? design.elements.find((el) => el.id === elementId)
     : null;
+
   const isGroup = element?.type === "group";
 
   const handleContextMenu = (e: React.MouseEvent) => {

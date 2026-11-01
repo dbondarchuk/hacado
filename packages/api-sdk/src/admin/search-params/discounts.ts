@@ -34,6 +34,7 @@ export const discountsSearchParams = {
 export const discountsSearchParamsCache = createSearchParamsCache(
   discountsSearchParams,
 );
+
 export const discountsSearchParamsSerializer = createSerializer(
   discountsSearchParams,
 );
@@ -41,6 +42,7 @@ export const discountsSearchParamsSerializer = createSerializer(
 export type DiscountsSearchParams = Partial<
   inferParserType<typeof discountsSearchParams>
 >;
+
 export const discountsSearchParamsLoader = createLoader(discountsSearchParams);
 export const discountsSearchParamsSchema = createStandardSchemaV1(
   discountsSearchParams,
@@ -55,6 +57,7 @@ export const checkDiscountNameAndCodeSearchParams = {
 export const checkDiscountNameAndCodeParamsLoader = createLoader(
   checkDiscountNameAndCodeSearchParams,
 );
+
 export const checkDiscountNameAndCodeParamsSerializer = createSerializer(
   checkDiscountNameAndCodeSearchParams,
 );

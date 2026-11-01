@@ -20,6 +20,7 @@ export const BlogPostReadTimePropsSchema = z.object({
 export type BlogPostReadTimeProps = Prettify<
   z.infer<typeof BlogPostReadTimePropsSchema>
 >;
+
 export type BlogPostReadTimeReaderProps = BaseReaderBlockProps<any> &
   BlogPostReadTimeProps;
 

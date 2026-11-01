@@ -80,6 +80,7 @@ export class AssetsService extends BaseService implements IAssetsService {
       logger.debug(
         "Free tier assets total limit not enforced for non-free plan tier",
       );
+
       return;
     }
 
@@ -101,6 +102,7 @@ export class AssetsService extends BaseService implements IAssetsService {
         { totalBytes, nextFileSizeBytes },
         "Free tier assets total limit reached",
       );
+
       throw new AssetTotalSizeLimitReachedError(
         FREE_TIER_LIMITS.assetsTotalSize,
       );
@@ -412,6 +414,7 @@ export class AssetsService extends BaseService implements IAssetsService {
           _id: assetId,
           organizationId: this.organizationId,
         });
+
         if (!asset) {
           logger.warn({ assetId }, "Asset not found");
           return null;

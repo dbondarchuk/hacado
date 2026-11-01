@@ -21,6 +21,7 @@ export class ParentStateManager {
     if (!ParentStateManager.instance) {
       ParentStateManager.instance = new ParentStateManager();
     }
+
     return ParentStateManager.instance;
   }
 
@@ -131,6 +132,7 @@ export class ParentStateManager {
     if (!this.elementHandlers.has(elementId)) {
       this.elementHandlers.set(elementId, new Map());
     }
+
     this.elementHandlers
       .get(elementId)!
       .set(`${state.state}-${targetLevel}`, cleanup);
@@ -233,6 +235,7 @@ export class ParentStateManager {
       handlers.forEach(({ event, handler }) => {
         parentElement.removeEventListener(event, handler, true);
       });
+
       // Remove data attribute
       targetElement.removeAttribute(dataAttribute!);
     };
@@ -268,6 +271,7 @@ export class ParentStateManager {
       const id = `parent-state-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       element.setAttribute("data-parent-state-id", id);
     }
+
     return element.getAttribute("data-parent-state-id")!;
   }
 
@@ -278,12 +282,14 @@ export class ParentStateManager {
     this.elementHandlers.forEach((handlers) => {
       handlers.forEach((cleanup) => cleanup());
     });
+
     this.elementHandlers.clear();
 
     // Clean up all intersection observers
     this.intersectionObservers.forEach((observer) => {
       observer.disconnect();
     });
+
     this.intersectionObservers.clear();
   }
 }

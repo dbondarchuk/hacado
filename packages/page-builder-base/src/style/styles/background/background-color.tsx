@@ -16,6 +16,7 @@ export const backgroundColorStyle = {
   defaultValue: COLORS.primary.value,
   renderToCSS: (value) => {
     if (!value) return "";
+
     return `background-color: ${getColorStyle(value, `--${BackgroundColorOpacityVar}`)};`;
   },
   component: ({ value, onChange }) => (

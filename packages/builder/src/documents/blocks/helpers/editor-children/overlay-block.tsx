@@ -39,7 +39,6 @@ const OverlayBlockContent = memo(
 
     // Don't show overlay block if the active drag block is in the same position as the current over block
     if (!activeDragBlock) return null;
-
     if (
       activeDragBlock.parentBlockId === blockId &&
       activeDragBlock.parentProperty === property &&

@@ -141,9 +141,11 @@ export async function GET(request: NextRequest) {
       session.user,
       lastDate,
     );
+
     const syncedPaymentsReview = canReadSyncedPayments(session.user)
       ? await getSyncedPaymentsReviewNotifications()
       : undefined;
+
     const activityFeed = canReadActivity(session.user)
       ? await getActivityFeedNotifications(memberId)
       : undefined;
@@ -174,6 +176,7 @@ export async function GET(request: NextRequest) {
       .filter(Boolean)
       .flat()
       .filter((n) => !!n);
+
     notifications.push(...filteredResults);
 
     logger.debug({ notifications }, "Retrieved notifications");

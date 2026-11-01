@@ -30,6 +30,7 @@ export function TextTransformToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("textTransform")) return null;
+
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>

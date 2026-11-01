@@ -12,6 +12,7 @@ export async function assertBookingCustomerAccess(
   const servicesContainer = await getServicesContainer();
   const config =
     await servicesContainer.configurationService.getConfiguration("booking");
+
   const needsSession =
     !!config.requireCustomerOtp ||
     !!request.customerPackageId ||
@@ -26,6 +27,7 @@ export async function assertBookingCustomerAccess(
       },
       "No customer session required",
     );
+
     return null;
   }
 
@@ -64,6 +66,7 @@ export async function assertBookingCustomerAccess(
       { customerId: customer._id },
       "Customer contact details changed",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -18,6 +18,7 @@ export function isPolarSubscriptionStatusAllowed(
   status: OrganizationSubscriptionStatus | undefined,
 ): boolean {
   if (!status) return false;
+
   return ALLOWED_STATUSES.has(status);
 }
 
@@ -44,7 +45,6 @@ export async function organizationHasInstallBillingAccess(
   if (org.feesExempt === true) return true;
   if (isPolarSubscriptionStatusAllowed(org.polarSubscriptionStatus))
     return true;
-
   if (!options?.reconcileWithPolar) return false;
 
   try {
@@ -53,6 +53,7 @@ export async function organizationHasInstallBillingAccess(
       active: true,
       limit: 1,
     });
+
     const sub = page.result.items[0];
     if (sub) {
       await persistPolarSubscriptionToOrganization(sub);

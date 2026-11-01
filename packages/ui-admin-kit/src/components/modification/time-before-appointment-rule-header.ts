@@ -23,6 +23,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
     totalMinutes == null || Number.isNaN(totalMinutes)
       ? 0
       : Math.max(0, totalMinutes);
+
   const { weeks, days, hours, minutes } = toWeeksDaysHoursMinutes(safeMinutes);
 
   const parts: string[] = [];
@@ -33,6 +34,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
       }),
     );
   }
+
   if (days > 0) {
     parts.push(
       t("cancellationsAndReschedules.timeBeforeAppointment.day", {
@@ -40,6 +42,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
       }),
     );
   }
+
   if (hours > 0) {
     parts.push(
       t("cancellationsAndReschedules.timeBeforeAppointment.hour", {
@@ -47,6 +50,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
       }),
     );
   }
+
   if (minutes > 0) {
     parts.push(
       t("cancellationsAndReschedules.timeBeforeAppointment.minute", {
@@ -54,6 +58,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
       }),
     );
   }
+
   if (parts.length === 0) {
     parts.push(
       t("cancellationsAndReschedules.timeBeforeAppointment.minute", {

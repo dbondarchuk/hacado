@@ -70,6 +70,7 @@ export function StepBusiness() {
         setSlugCheck("idle");
         return;
       }
+
       setSlugCheck("checking");
       const ok = await checkOrganizationSlug(slug, organizationId);
       setSlugCheck(ok ? "available" : "taken");
@@ -93,6 +94,7 @@ export function StepBusiness() {
     if (!p.language) return false;
     if (!p.country) return false;
     if (!p.currency) return false;
+
     return true;
   };
 
@@ -121,6 +123,7 @@ export function StepBusiness() {
         currency: p.currency,
         installLogo: p.installLogo?.trim() || null,
       };
+
       const result = await createWorkspace(body);
       if (!result.ok) {
         if (result.code === "slug_taken") {
@@ -132,8 +135,10 @@ export function StepBusiness() {
         } else {
           toast.error(t("wizard.errors.workspace"));
         }
+
         return;
       }
+
       await refetch();
       router.refresh();
       setStep(3);
@@ -166,6 +171,7 @@ export function StepBusiness() {
               const derivedSlug = normalizeSlug(businessName);
               const slugStillSynced =
                 !p.slug || p.slug === normalizeSlug(p.businessName);
+
               const slug = slugStillSynced ? derivedSlug : p.slug;
               setP((prev) => ({ ...prev, businessName, slug }));
               if (slugStillSynced) {
@@ -270,6 +276,7 @@ export function StepBusiness() {
             value={p.industry || undefined}
             onItemSelect={(v) => {
               if (!v) return;
+
               const industry = v as BusinessIndustry;
               const catalogCategory = catalogCategoryForIndustry(industry);
               setP((prev) => ({
@@ -299,6 +306,7 @@ export function StepBusiness() {
               value={p.timeZone}
               onItemSelect={(v) => {
                 if (!v) return;
+
                 setP((prev) => ({ ...prev, timeZone: v }));
               }}
               searchLabel={t("wizard.business.selectTimeZone")}

@@ -19,10 +19,12 @@ export function hasPermission<R extends TeamPermissionResource>(
   action: TeamPermissionAction<R>,
 ): boolean {
   if (!user || !isUserRole(user.role)) return false;
+
   const rolePermissions = teamRolePermissions[user.role] as TeamRolePermissions;
   const granted = rolePermissions[resource] as
     | readonly TeamPermissionAction<R>[]
     | undefined;
+
   return !!granted?.includes(action);
 }
 
@@ -32,6 +34,7 @@ export function meetsRequiredPermission(
   required?: RequiredPermission,
 ): boolean {
   if (!required) return true;
+
   return hasPermission(
     user,
     required.resource,
@@ -58,6 +61,7 @@ export function isRoleStrictlyHigher(
 ): boolean {
   if (!actor || !target) return false;
   if (!(actor in USER_ROLE_RANK) || !(target in USER_ROLE_RANK)) return false;
+
   return USER_ROLE_RANK[actor] > USER_ROLE_RANK[target];
 }
 
@@ -72,6 +76,7 @@ export function canUpdateTeamMemberProfile(
   if (!actor || !target) return false;
   if (actor.memberId === target.memberId) return true;
   if (!hasPermission(actor, "team", "update")) return false;
+
   return isRoleStrictlyHigher(actor.role, target.role);
 }
 
@@ -140,6 +145,7 @@ export function canUseMemberCalendarSources(
 ): boolean {
   if (!role) return false;
   if (role !== "staff") return true;
+
   return !!options?.allowStaffCalendarSources;
 }
 
@@ -170,6 +176,7 @@ export function subscriptionAllowsMultipleUsers(
   feesExempt?: boolean,
 ): boolean {
   if (feesExempt === true) return true;
+
   return (availableUsers ?? 1) > 1;
 }
 
@@ -178,6 +185,7 @@ export function roleCanProcessOtherMembersAppointments(
   role: UserRole | string | null | undefined,
 ): boolean {
   if (!isUserRole(role)) return false;
+
   return (
     hasPermission({ role } as SessionUser, "appointment", "readAll") &&
     hasPermission({ role } as SessionUser, "appointment", "updateAll")
@@ -192,6 +200,7 @@ export function resolveProcessOtherMembersAppointmentsConfig(
   user: SessionUser | null | undefined,
 ): boolean {
   if (!canProcessOtherMembersAppointments(user)) return false;
+
   return !!value;
 }
 
@@ -261,6 +270,7 @@ export function resolveUpdatableAppointmentMemberId(
 ): string | undefined {
   if (!canUpdateAppointments(user)) return user?.memberId || undefined;
   if (hasPermission(user, "appointment", "updateAll")) return undefined;
+
   return user?.memberId || undefined;
 }
 
@@ -274,5 +284,6 @@ export function canUpdateAppointment(
 ): boolean {
   if (!hasPermission(user, "appointment", "update")) return false;
   if (hasPermission(user, "appointment", "updateAll")) return true;
+
   return !!user?.memberId && user.memberId === appointmentMemberId;
 }

@@ -56,6 +56,7 @@ export async function POST(request: NextRequest) {
       data,
       actor,
     );
+
     return NextResponse.json(result, { status: 201 });
   } catch (error: unknown) {
     if (error instanceof PackageError) {
@@ -64,6 +65,7 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
+
     throw error;
   }
 }

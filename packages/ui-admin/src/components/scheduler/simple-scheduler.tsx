@@ -61,12 +61,14 @@ export const SimpleScheduler: React.FC<SimpleSchedulerProps> = ({
   const [expandedDays, setExpandedDays] = useState<string[]>(() =>
     expandDaysWithShiftsByDefault ? getExpandedDayIds(days, value) : [],
   );
+
   const [editingShift, setEditingShift] = useState<{
     day: number;
     index: number;
     startTime: string;
     endTime: string;
   } | null>(null);
+
   const [newShift, setNewShift] = useState<{
     day: number;
     startTime: string;
@@ -164,6 +166,7 @@ export const SimpleScheduler: React.FC<SimpleSchedulerProps> = ({
         start: editingShift.startTime,
         end: editingShift.endTime,
       };
+
       newValue[periodIndex] = {
         ...newValue[periodIndex],
         shifts: mergeOverlappingShifts(newShifts),
@@ -228,6 +231,7 @@ export const SimpleScheduler: React.FC<SimpleSchedulerProps> = ({
       toast.error(t("scheduler.invalidTimeRange"), {
         description: t("scheduler.startTimeBeforeEndTime"),
       });
+
       return;
     }
 

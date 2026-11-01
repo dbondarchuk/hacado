@@ -61,6 +61,7 @@ export function EditorLayout({
       setLeftOpen(lg);
       setRightOpen(lg);
     };
+
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
@@ -70,6 +71,7 @@ export function EditorLayout({
   useEffect(() => {
     const id = "editor-font-preload";
     if (document.getElementById(id)) return;
+
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
@@ -77,6 +79,7 @@ export function EditorLayout({
     const params = EDITOR_FONTS.map(
       (f) => `family=${encodeURIComponent(f.value)}:wght@400;700`,
     ).join("&");
+
     link.href = `https://fonts.googleapis.com/css2?${params}&display=swap`;
     document.head.appendChild(link);
   }, []);
@@ -95,6 +98,7 @@ export function EditorLayout({
         const step = e.shiftKey ? 10 : 1; // Larger step with shift
         const dx =
           e.key === "ArrowLeft" ? -step : e.key === "ArrowRight" ? step : 0;
+
         const dy =
           e.key === "ArrowUp" ? -step : e.key === "ArrowDown" ? step : 0;
 
@@ -109,6 +113,7 @@ export function EditorLayout({
             });
           }
         });
+
         useEditorStore.getState().pushHistory();
         return;
       }

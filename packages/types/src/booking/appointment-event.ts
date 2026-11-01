@@ -37,6 +37,7 @@ export type AppointmentEventService = Prettify<
     price?: number;
   }
 >;
+
 export type AppointmentEventAddon = Prettify<
   Pick<AppointmentAddon, "_id" | "name" | "price" | "duration">
 >;
@@ -229,16 +230,20 @@ export type ModifyAppointmentRequest = z.infer<
 export const MAX_RESCHEDULES_REACHED_REASON = "max_reschedules_reached";
 export const ORIGINAL_APPOINTMENT_DEPOSIT_REQUIRED_REASON =
   "original_appointment_deposit_required";
+
 export const TIME_NOT_AVAILABLE_REASON = "time_not_available";
 export const INVALID_REQUEST_TYPE_REASON = "invalid_request_type";
 export const CANCELLATION_NOT_ALLOWED_REASON = "cancellation_not_allowed";
 export const RESCHEDULE_NOT_ALLOWED_REASON = "reschedule_not_allowed";
 export const CANCELLATION_NOT_ALLOWED_BY_POLICY_REASON =
   "cancellation_not_allowed_by_policy";
+
 export const RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON =
   "reschedule_not_allowed_by_policy";
+
 export const RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON =
   "rescheduled_appointment_not_allowed";
+
 export const ONLINE_PAYMENT_UNAVAILABLE_REASON = "online_payment_unavailable";
 
 export type ModifyAppointmentReason = Extandable<

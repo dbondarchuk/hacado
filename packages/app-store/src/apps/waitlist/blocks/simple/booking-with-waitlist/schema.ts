@@ -23,6 +23,7 @@ export const BookingWithWaitlistPropsSchema = z.object({
 export type BookingWithWaitlistProps = z.infer<
   typeof BookingWithWaitlistPropsSchema
 >;
+
 export type BookingWithWaitlistReaderProps = BaseReaderBlockProps<any> &
   BookingWithWaitlistProps;
 

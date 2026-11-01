@@ -19,6 +19,7 @@ export const FLUID_MOBILE_MAX_WIDTH = "40rem"; // matches max-sm (640px)
 export const styles = getAllStylesWithAdditionalStyles({
   backgroundVideo: backgroundVideoStyle,
 });
+
 export const zStyles = getStylesSchema(styles);
 
 export const fluidPlacementSchema = z.object({

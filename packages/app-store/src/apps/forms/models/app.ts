@@ -14,6 +14,7 @@ export const getFormResponseByIdActionSchema = z.object({
 export type GetFormResponseByIdAction = z.infer<
   typeof getFormResponseByIdActionSchema
 >;
+
 export const GetFormResponseByIdActionType =
   "forms-get-form-response-by-id" as const;
 
@@ -25,6 +26,7 @@ export const updateFormResponseActionSchema = z.object({
 export type UpdateFormResponseAction = z.infer<
   typeof updateFormResponseActionSchema
 >;
+
 export const UpdateFormResponseActionType =
   "forms-update-form-response" as const;
 
@@ -35,6 +37,7 @@ export const deleteFormResponseActionSchema = z.object({
 export type DeleteFormResponseAction = z.infer<
   typeof deleteFormResponseActionSchema
 >;
+
 export const DeleteFormResponseActionType =
   "forms-delete-form-response" as const;
 
@@ -45,6 +48,7 @@ export const deleteSelectedFormResponsesActionSchema = z.object({
 export type DeleteSelectedFormResponsesAction = z.infer<
   typeof deleteSelectedFormResponsesActionSchema
 >;
+
 export const DeleteSelectedFormResponsesActionType =
   "forms-delete-selected-form-responses" as const;
 
@@ -77,6 +81,7 @@ export const deleteSelectedFormsActionSchema = z.object({
 export type DeleteSelectedFormsAction = z.infer<
   typeof deleteSelectedFormsActionSchema
 >;
+
 export const DeleteSelectedFormsActionType =
   "forms-delete-selected-forms" as const;
 
@@ -96,6 +101,7 @@ export const setFormsArchivedActionSchema = z.object({
 export type SetFormsArchivedAction = z.infer<
   typeof setFormsArchivedActionSchema
 >;
+
 export const SetFormsArchivedActionType = "forms-set-forms-archived" as const;
 
 export const getFormsActionSchema = z.object({
@@ -119,6 +125,7 @@ export const getFormResponsesActionSchema = z.object({
 export type GetFormResponsesAction = z.infer<
   typeof getFormResponsesActionSchema
 >;
+
 export const GetFormResponsesActionType = "forms-get-responses" as const;
 
 export const checkFormNameUniqueActionSchema = z.object({
@@ -129,6 +136,7 @@ export const checkFormNameUniqueActionSchema = z.object({
 export type CheckFormNameUniqueAction = z.infer<
   typeof checkFormNameUniqueActionSchema
 >;
+
 export const CheckFormNameUniqueActionType = "forms-check-name-unique" as const;
 
 export const markFormResponsesReadActionSchema = z.object({});
@@ -136,6 +144,7 @@ export const markFormResponsesReadActionSchema = z.object({});
 export type MarkFormResponsesReadAction = z.infer<
   typeof markFormResponsesReadActionSchema
 >;
+
 export const MarkFormResponsesReadActionType =
   "forms-mark-responses-read" as const;
 
@@ -147,6 +156,7 @@ export const createFormResponseActionSchema = z.object({
 export type CreateFormResponseAction = z.infer<
   typeof createFormResponseActionSchema
 >;
+
 export const CreateFormResponseActionType = "forms-create-response" as const;
 
 export const reassignFormResponsesActionSchema = z.object({
@@ -157,6 +167,7 @@ export const reassignFormResponsesActionSchema = z.object({
 export type ReassignFormResponsesAction = z.infer<
   typeof reassignFormResponsesActionSchema
 >;
+
 export const ReassignFormResponsesActionType =
   "forms-reassign-form-responses" as const;
 

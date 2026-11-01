@@ -87,6 +87,7 @@ export const CancelOrRescheduleSteps: Record<StepType, Step> = {
         if (!appointment) {
           return;
         }
+
         setAppointment(appointment);
 
         if (!appointment.allowed) {

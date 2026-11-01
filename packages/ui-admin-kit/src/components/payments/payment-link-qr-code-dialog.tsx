@@ -36,6 +36,7 @@ const canvasToPngBlob = (canvas: HTMLCanvasElement) =>
         resolve(blob);
         return;
       }
+
       reject(new Error("Failed to create PNG"));
     }, "image/png");
   });
@@ -48,6 +49,7 @@ const pngFileFromCanvas = (canvas: HTMLCanvasElement, filename: string) => {
   for (let i = 0; i < binary.length; i += 1) {
     bytes[i] = binary.charCodeAt(i);
   }
+
   return new File([bytes], filename, { type: "image/png" });
 };
 
@@ -126,6 +128,7 @@ export const PaymentLinkQrCodeDialog = ({
       try {
         const { url: resolved } =
           await paymentsApi.getPaymentLinkUrl(paymentId);
+
         if (!cancelled) {
           setUrl(resolved);
         }
@@ -161,6 +164,7 @@ export const PaymentLinkQrCodeDialog = ({
           "image/png": canvasToPngBlob(canvas),
         }),
       ]);
+
       toast.info(t("payment.card.qrCode.copied"));
     } catch {
       toast.error(t("payment.card.qrCode.copyError"));

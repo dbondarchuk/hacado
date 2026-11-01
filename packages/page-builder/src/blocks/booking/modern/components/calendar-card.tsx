@@ -90,6 +90,7 @@ const slotsByDay = (
           hour: dateTime.hour as HourNumbers,
           minute: dateTime.minute as MinuteNumbers,
         });
+
         return prev;
       },
       {} as { [x: string]: Time[] },
@@ -99,6 +100,7 @@ const slotsByDay = (
       prev[curr[0]] = curr[1].sort(
         (a, b) => a.hour - b.hour || a.minute - b.minute,
       );
+
       return prev;
     },
     {} as { [x: string]: Time[] },
@@ -180,6 +182,7 @@ export const CalendarCard: React.FC = () => {
         DateTime.fromJSDate(slot, { zone: "utc" }).setZone(timeZone),
       );
     }
+
     return result;
   }, [availabilityByMember, timeZone]);
 
@@ -201,11 +204,13 @@ export const CalendarCard: React.FC = () => {
     for (const [memberId, slots] of Object.entries(adjustedByMember)) {
       result[memberId] = slotsByDay(slots);
     }
+
     return result;
   }, [adjustedByMember]);
 
   const aggregatedTimes = React.useMemo(() => {
     if (!date) return [];
+
     const key = formatDate(date);
     const seen = new Map<string, Time>();
     for (const memberId of memberIds) {
@@ -214,6 +219,7 @@ export const CalendarCard: React.FC = () => {
         if (!seen.has(id)) seen.set(id, slot);
       }
     }
+
     return [...seen.values()].sort(
       (a, b) => a.hour - b.hour || a.minute - b.minute,
     );
@@ -225,6 +231,7 @@ export const CalendarCard: React.FC = () => {
 
   const singleTimes = React.useMemo(() => {
     if (!singleMemberId) return {};
+
     return timesByMember[singleMemberId] ?? {};
   }, [singleMemberId, timesByMember]);
 
@@ -234,8 +241,10 @@ export const CalendarCard: React.FC = () => {
       if (isAnyMulti) {
         setSelectedMemberId(null);
       }
+
       return;
     }
+
     setTime(tSlot);
     if (isAnyMulti) {
       setSelectedMemberId(null);
@@ -246,6 +255,7 @@ export const CalendarCard: React.FC = () => {
 
   const membersForSelectedTime = React.useMemo(() => {
     if (!date || !time || !isAnyMulti) return [];
+
     const key = formatDate(date);
     return memberIds.filter((memberId) =>
       (timesByMember[memberId]?.[key] || []).some((slot) =>
@@ -336,6 +346,7 @@ export const CalendarCard: React.FC = () => {
     for (const staff of activeStaff) {
       map.set(staff.member.id, staff.member);
     }
+
     return map;
   }, [members, activeStaff]);
 
@@ -455,6 +466,7 @@ export const CalendarCard: React.FC = () => {
                 const isSelected = selectedMemberId === memberId;
                 const durationType =
                   selectedAppointmentOption?.durationType ?? "fixed";
+
                 const totals = getStaffBookingTotals({
                   memberId,
                   staff,

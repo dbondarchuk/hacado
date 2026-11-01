@@ -135,6 +135,7 @@ export class ZoomConnectedApp
         redirect_uri: redirectUri,
         state: appId,
       };
+
       const authUrl = new URL(ZOOM_OAUTH_AUTHORIZATION_URL);
       Object.entries(params).forEach(([key, value]) => {
         authUrl.searchParams.set(key, value as string);
@@ -184,6 +185,7 @@ export class ZoomConnectedApp
           { appId },
           "Redirect request does not contain authorization code",
         );
+
         throw new ConnectedAppError(
           "app_zoom_admin.statusText.redirect_request_does_not_contain_authorization_code" satisfies ZoomAdminAllKeys,
         );
@@ -377,6 +379,7 @@ export class ZoomConnectedApp
           args: { error: e?.message || e?.toString() },
         },
       });
+
       throw e;
     }
   }
@@ -416,6 +419,7 @@ export class ZoomConnectedApp
           timeZone,
           nextPageToken,
         );
+
         results.push(...response.meetings);
         nextPageToken = response.next_page_token;
 
@@ -461,6 +465,7 @@ export class ZoomConnectedApp
           args: { error: e?.message || e?.toString() },
         },
       });
+
       throw e;
     }
   }
@@ -481,6 +486,7 @@ export class ZoomConnectedApp
         { appId: appData._id, appointmentId: appointment._id },
         "Appointment is not a Zoom meeting, skipping",
       );
+
       return;
     }
 
@@ -532,6 +538,7 @@ export class ZoomConnectedApp
           },
           "Error rescheduling Zoom meeting",
         );
+
         throw new Error(responseBody);
       }
 
@@ -579,6 +586,7 @@ export class ZoomConnectedApp
         { appId: appData._id, appointmentId: appointment._id },
         "Appointment is not a Zoom meeting, skipping",
       );
+
       return;
     }
 
@@ -587,6 +595,7 @@ export class ZoomConnectedApp
         { appId: appData._id, appointmentId: appointment._id },
         "Appointment status is not closed, skipping",
       );
+
       return;
     }
 
@@ -675,6 +684,7 @@ export class ZoomConnectedApp
       { startTime, endTime, timeZone, nextPageToken, url },
       "Fetching meetings from Zoom",
     );
+
     const response = await client.fetch(url, { method: "GET" });
 
     if (response.status >= 400) {
@@ -707,6 +717,7 @@ export class ZoomConnectedApp
       },
       "Successfully retrieved meetings from Zoom",
     );
+
     return responseBody;
   }
 
@@ -717,6 +728,7 @@ export class ZoomConnectedApp
     const option = await this.props.services.catalogService.getService(
       appointment.service._id,
     );
+
     const description = option?.description;
 
     return {

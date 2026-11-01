@@ -43,6 +43,7 @@ export async function updateDefaultAppsConfiguration(
       },
       "Failed to update default apps configuration",
     );
+
     throw error;
   }
 }

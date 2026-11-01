@@ -24,6 +24,7 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
   const [purchase, setPurchase] = useState<PurchasedGiftCardListModel | null>(
     null,
   );
+
   const [detailsPayment, setDetailsPayment] = useState<Payment | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const { reload } = useReload();
@@ -94,6 +95,7 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
   const onPurchaseOpenChange = useCallback(
     (open: boolean) => {
       if (open) return;
+
       setPurchase(null);
       router.replace("?");
     },

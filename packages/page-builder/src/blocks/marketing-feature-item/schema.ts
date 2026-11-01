@@ -45,6 +45,7 @@ export const MarketingFeatureItemPropsSchema = z.object({
 export type MarketingFeatureItemProps = z.infer<
   typeof MarketingFeatureItemPropsSchema
 >;
+
 export type MarketingFeatureItemReaderProps = BaseReaderBlockProps<any> &
   MarketingFeatureItemProps;
 

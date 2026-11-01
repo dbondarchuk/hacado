@@ -79,6 +79,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
     timezone,
     setTimeZone,
   } = useCustomerProfile();
+
   const onSessionExpired = useOnSessionExpired();
 
   const [isInitialLoading, setIsInitialLoading] = React.useState(true);
@@ -88,9 +89,11 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
   const [currentStep, setCurrentStep] = React.useState<StepType>(
     action === "reschedule" ? "calendar" : "review",
   );
+
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
   );
+
   const [appointment, setAppointment] = React.useState<
     ModifyAppointmentInformation | undefined
   >(undefined);
@@ -98,12 +101,15 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
   const [appointmentEmail, setAppointmentEmail] = React.useState<
     string | undefined
   >(undefined);
+
   const [availability, setAvailability] = React.useState<Availability>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [paymentInformation, setPaymentInformation] =
     React.useState<CollectPayment | null>();
+
   const [giftCards, setGiftCards] =
     React.useState<ApplyGiftCardsSuccessResponse["giftCards"]>();
+
   const [isModificationConfirmed, setIsModificationConfirmed] =
     React.useState(false);
 
@@ -129,12 +135,14 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
     appt: ModifyAppointmentInformation | undefined,
   ) => {
     if (!appt || !appt.allowed || !appt.duration || !appt.memberId) return;
+
     setIsLoading(true);
     try {
       const data = await availabilityApi.getAvailability({
         memberIds: [appt.memberId],
         durations: [appt.duration],
       });
+
       setAvailability(data[appt.memberId] ?? []);
     } catch (e) {
       console.error(e);
@@ -179,6 +187,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
           onSessionExpired();
           return;
         }
+
         if (mounted) {
           toast.error(errors.fetchTitle, {
             description: errors.fetchDescription,
@@ -204,17 +213,20 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
       setGiftCards(data.giftCards);
       return data.giftCards;
     }
+
     throw new Error(data.error);
   };
 
   const fetchPaymentInformation = async (): Promise<CollectPayment | null> => {
     if (!appointment) throw new Error("Appointment not available");
+
     const intentId = paymentInformation?.intent?._id;
 
     try {
       let request: ModifyAppointmentRequest;
       if (action === "reschedule") {
         if (!newDateTime) throw new Error("Date time is required");
+
         request = {
           dateTime: newDateTime.toUTC().toJSDate(),
           type: action,
@@ -243,6 +255,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
       toast.error(errors.fetchPaymentInformationTitle, {
         description: errors.fetchPaymentInformationDescription,
       });
+
       throw e;
     } finally {
       setIsLoading(false);
@@ -269,6 +282,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
           toast.error(errors.submitTitle, {
             description: errors.timeNotAvailableDescription,
           });
+
           await fetchAvailability(appointment);
           setDateTime(undefined);
           setCurrentStep(action === "reschedule" ? "calendar" : "review");
@@ -288,6 +302,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
   if (notAllowedReason) {
     const reasonKey =
       `modification.form.searchError.notAllowed.reason.${notAllowedReason}` as TranslationKeys;
+
     const reasonText = i18n.has(reasonKey) ? i18n(reasonKey) : notAllowedReason;
     return (
       <div

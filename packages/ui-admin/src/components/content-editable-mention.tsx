@@ -24,8 +24,10 @@ const isBrowser = typeof window !== "undefined";
 
 function getCaretPosition(element: HTMLElement, documentElement: Document) {
   if (!isBrowser) return 0;
+
   let _range = documentElement.getSelection()?.getRangeAt(0);
   if (!_range) return 0;
+
   let range = _range.cloneRange();
   range.selectNodeContents(element);
   range.setEnd(_range.endContainer, _range.endOffset);
@@ -56,6 +58,7 @@ function setCaretPosition(
         found = true;
         return;
       }
+
       currentPos += nodeLength;
     } else {
       for (let i = 0; i < node.childNodes.length; i++) {
@@ -110,6 +113,7 @@ function getCurrentWord(
     trigger,
     documentElement,
   );
+
   const w = text.substring(start, end);
 
   return w;
@@ -184,6 +188,7 @@ function getCaretCoordinates(element: HTMLElement, documentElement: Document) {
   let top = 0,
     left = 0,
     height = 0;
+
   const isSupported = typeof documentElement.getSelection !== "undefined";
   if (isSupported) {
     const selection = documentElement.getSelection();
@@ -198,6 +203,7 @@ function getCaretCoordinates(element: HTMLElement, documentElement: Document) {
       }
     }
   }
+
   return { top, left, height };
 }
 
@@ -266,6 +272,7 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
         const currentWord = getCurrentWord(textarea, trigger, documentElement);
         const isDropdownHidden =
           dropdown.classList.contains("hidden") || dropdown.offsetHeight < 10;
+
         if (currentWord.startsWith(trigger) && !isDropdownHidden) {
           // FIXME: handle Escape
           if (
@@ -309,6 +316,7 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
             trigger,
             documentElement,
           );
+
           if (currentWord.startsWith(trigger)) {
             setCommandValue(currentWord.substring(trigger.length));
             dropdown.style.left = caret.left + "px";
@@ -350,6 +358,7 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
     const handleSectionChange = useCallback(
       (e: Event) => {
         if (!isInside) return;
+
         const textarea = elementRef.current;
         const dropdown = dropdownRef.current;
         if (textarea && dropdown) {
@@ -358,6 +367,7 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
             trigger,
             documentElement,
           );
+
           if (!currentWord.startsWith(trigger) && commandValue !== "") {
             setCommandValue("");
             dropdown.classList.add("hidden");
@@ -395,6 +405,7 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
           "selectionchange",
           handleSectionChange,
         );
+
         dropdown?.removeEventListener("mousedown", handleMouseDown);
       };
     }, [handleBlur, handleKeyDown, handleMouseDown, handleSectionChange]);
@@ -414,6 +425,7 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
               documentElement,
             );
           }
+
           isUpdatingContent.current = false;
         }
       }

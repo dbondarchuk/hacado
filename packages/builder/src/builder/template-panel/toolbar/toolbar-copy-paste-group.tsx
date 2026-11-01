@@ -145,6 +145,7 @@ export const ToolbarCopyPasteGroup = ({
           "text/plain",
           `block:${JSON.stringify(store.getState().indexes[selectedBlockId]?.block)}`,
         );
+
         event.preventDefault();
       }
     };
@@ -170,7 +171,6 @@ export const ToolbarCopyPasteGroup = ({
           if (editorDisableOptions?.keyboardShortcuts?.pasteImage) {
             return;
           }
-
           if (isUploadingImage) return; // Prevent multiple uploads
 
           const imageFile = imageItems[0].getAsFile();

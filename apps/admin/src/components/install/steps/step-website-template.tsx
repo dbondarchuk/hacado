@@ -179,6 +179,7 @@ export function StepWebsiteTemplate() {
     const fromServices = p.installServices.find(
       (s) => s.businessCategory,
     )?.businessCategory;
+
     return suggestWebsitePackId(fromServices || p.businessCategory);
   }, [p.businessCategory, p.catalogPreferredPackId, p.installServices]);
 
@@ -189,6 +190,7 @@ export function StepWebsiteTemplate() {
   const [previewPackId, setPreviewPackId] = useState<WebsitePackId | null>(
     null,
   );
+
   const [continuing, setContinuing] = useState(false);
 
   const packsByCategory = useMemo(() => {
@@ -199,6 +201,7 @@ export function StepWebsiteTemplate() {
       list.push(id);
       map.set(key, list);
     }
+
     return [...map.entries()];
   }, []);
 
@@ -210,6 +213,7 @@ export function StepWebsiteTemplate() {
     const packId = isWebsitePackId(p.websitePackId)
       ? p.websitePackId
       : selectedPackId;
+
     if (!packId) {
       toast.error(t("wizard.website.selectRequired"));
       return;
@@ -240,6 +244,7 @@ export function StepWebsiteTemplate() {
         depositPercent: p.depositPercent,
         websitePackId: packId,
       });
+
       if (!r.ok) {
         toast.error(t("wizard.integrations.saveError"));
         return;

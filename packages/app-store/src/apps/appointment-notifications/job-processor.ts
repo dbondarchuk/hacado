@@ -110,6 +110,7 @@ export class AppointmentNotificationsJobProcessor {
     try {
       const appointment =
         await this.props.services.bookingService.getAppointment(appointmentId);
+
       const appointmentNotification =
         await this.repository.getAppointmentNotification(
           appData._id,
@@ -121,6 +122,7 @@ export class AppointmentNotificationsJobProcessor {
           { appId: appData._id, appointmentNotificationId },
           "Appointment notification not found",
         );
+
         return;
       }
 
@@ -129,6 +131,7 @@ export class AppointmentNotificationsJobProcessor {
           { appId: appData._id, appointmentId },
           "Appointment not found",
         );
+
         return;
       }
 
@@ -137,6 +140,7 @@ export class AppointmentNotificationsJobProcessor {
           { appId: appData._id, appointmentId },
           "Appointment is not confirmed",
         );
+
         return;
       }
 
@@ -150,11 +154,13 @@ export class AppointmentNotificationsJobProcessor {
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id },
           "Organization not found",
         );
+
         return;
       }
 
@@ -183,6 +189,7 @@ export class AppointmentNotificationsJobProcessor {
           },
           "Appointment notification has no channels selected",
         );
+
         return;
       }
 
@@ -215,6 +222,7 @@ export class AppointmentNotificationsJobProcessor {
             },
             "Not enough appointments for appointment notification",
           );
+
           return;
         }
 
@@ -307,6 +315,7 @@ export class AppointmentNotificationsJobProcessor {
           },
           "Skipping text message appointment notification for subscription plan tier",
         );
+
         return;
       }
 
@@ -320,6 +329,7 @@ export class AppointmentNotificationsJobProcessor {
           },
           "Phone number not found for text message appointment notification",
         );
+
         return;
       }
 
@@ -338,20 +348,24 @@ export class AppointmentNotificationsJobProcessor {
             websiteUrl,
           )
         : undefined;
+
       const smsArgs = {
         ...args,
         manageLink,
         customerName: smsCustomerName(appointment.fields?.name),
       };
+
       const platformCountry = isPlatformSmsCountry(phone);
       const allowCustom = (
         await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
       ).allowCustomTemplates;
+
       const builtIn = template(
         getAppointmentReminderSms(config.brand.language),
         smsArgs,
         true,
       );
+
       const stored =
         allowCustom && channels.textTemplateId
           ? await this.props.services.templatesService.getTemplate(
@@ -411,6 +425,7 @@ export class AppointmentNotificationsJobProcessor {
         },
         "Error sending appointment notification",
       );
+
       throw error;
     }
   }
@@ -460,6 +475,7 @@ export class AppointmentNotificationsJobProcessor {
           { appointmentNotificationId, appointmentsCount: appointments.length },
           "Processing appointments batch",
         );
+
         await Promise.all(
           appointments.map((appointment) =>
             limit(async () => {
@@ -468,10 +484,12 @@ export class AppointmentNotificationsJobProcessor {
                   { appointmentNotificationId, appointmentId: appointment._id },
                   "Deleting existing job",
                 );
+
                 await this.deleteExistingJob(
                   appointmentNotificationId,
                   appointment._id,
                 );
+
                 logger.debug(
                   { appointmentNotificationId, appointmentId: appointment._id },
                   "Successfully deleted existing job, sending appointment notification",
@@ -487,6 +505,7 @@ export class AppointmentNotificationsJobProcessor {
                     },
                     "Only deleting jobs or appointment notification not found, skipping sending appointment notification",
                   );
+
                   return;
                 }
 
@@ -495,6 +514,7 @@ export class AppointmentNotificationsJobProcessor {
                   appointment,
                   appointmentNotification,
                 );
+
                 logger.debug(
                   { appointmentNotificationId, appointmentId: appointment._id },
                   "Successfully scheduled appointment notification",
@@ -508,6 +528,7 @@ export class AppointmentNotificationsJobProcessor {
                   },
                   "Error processing appointment",
                 );
+
                 return;
               }
             }),
@@ -521,6 +542,7 @@ export class AppointmentNotificationsJobProcessor {
         { appointmentNotificationId },
         "Successfully updated appointment notification",
       );
+
       return;
     } catch (error: any) {
       logger.error(
@@ -531,6 +553,7 @@ export class AppointmentNotificationsJobProcessor {
         },
         "Error updating appointment notification",
       );
+
       throw error;
     }
   }
@@ -569,6 +592,7 @@ export class AppointmentNotificationsJobProcessor {
           },
           "Processing appointments batch",
         );
+
         await Promise.all(
           appointments.map((appointment) =>
             limit(async () => {
@@ -597,6 +621,7 @@ export class AppointmentNotificationsJobProcessor {
                           appointmentNotificationId,
                           appointment._id,
                         );
+
                         logger.debug(
                           {
                             appointmentNotificationId,
@@ -634,6 +659,7 @@ export class AppointmentNotificationsJobProcessor {
                   },
                   "Error processing appointment",
                 );
+
                 return;
               }
             }),
@@ -647,6 +673,7 @@ export class AppointmentNotificationsJobProcessor {
         { appointmentNotificationIds },
         "Successfully deleted appointment notifications",
       );
+
       return;
     } catch (error: any) {
       logger.error(
@@ -657,6 +684,7 @@ export class AppointmentNotificationsJobProcessor {
         },
         "Error deleting appointment notifications",
       );
+
       throw error;
     }
   }
@@ -735,6 +763,7 @@ export class AppointmentNotificationsJobProcessor {
                     },
                     "Appointment is not confirmed, skipping sending appointment notification",
                   );
+
                   return;
                 }
 
@@ -772,6 +801,7 @@ export class AppointmentNotificationsJobProcessor {
         { appId: appData._id, appointmentId },
         "Successfully updated appointment",
       );
+
       return;
     } catch (error: any) {
       logger.error(
@@ -782,6 +812,7 @@ export class AppointmentNotificationsJobProcessor {
         },
         "Error updating appointment",
       );
+
       throw error;
     }
   }
@@ -818,6 +849,7 @@ export class AppointmentNotificationsJobProcessor {
       { appId, offset, limit },
       "Getting appointment notifications batch",
     );
+
     const result = await this.repository.getAppointmentNotifications(appId, {
       offset,
       limit,
@@ -832,6 +864,7 @@ export class AppointmentNotificationsJobProcessor {
       },
       "Successfully retrieved appointment notifications batch",
     );
+
     return result.items;
   }
 

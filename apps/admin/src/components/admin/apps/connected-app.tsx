@@ -34,12 +34,14 @@ export const ConnectedAppRow: React.FC<ConnectedAppRowProps> = ({ app }) => {
       : app.status === "pending"
         ? "bg-amber-500"
         : "bg-destructive";
+
   const statusIndicatorAnimation =
     app.status === "connected"
       ? "animate-pulse"
       : app.status === "pending"
         ? "animate-bounce"
         : "animate-ping";
+
   const statusLabel = t(`status.${app.status}`);
 
   return (

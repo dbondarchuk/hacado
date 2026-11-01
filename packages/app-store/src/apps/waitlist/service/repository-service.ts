@@ -253,6 +253,7 @@ export class WaitlistRepositoryService {
       const compatibleStatuses = query.status.filter(
         (status) => status !== "expired",
       );
+
       $and.push({
         status: { $in: compatibleStatuses },
       });
@@ -563,6 +564,7 @@ export class WaitlistRepositoryService {
         },
         { projection: { _id: 1 } },
       );
+
     return found != null;
   }
 

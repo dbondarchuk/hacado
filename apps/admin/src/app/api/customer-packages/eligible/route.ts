@@ -35,6 +35,7 @@ export async function GET(request: NextRequest) {
       serviceId,
       memberId,
     });
+
     return NextResponse.json({ items: [] });
   }
 
@@ -53,5 +54,6 @@ export async function GET(request: NextRequest) {
   logger.debug("Successfully retrieved eligible packages", {
     itemsCount: items.length,
   });
+
   return NextResponse.json({ items });
 }

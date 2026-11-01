@@ -143,11 +143,13 @@ export const BrandTab: React.FC<{
           const body = (await error.response.clone().json()) as {
             code?: string;
           };
+
           if (body.code === "dns_not_configured") {
             domainForm.setError("domain", {
               type: "manual",
               message: "configuration.brand.domain.dnsNotConfigured",
             });
+
             return;
           }
         } catch {
@@ -201,6 +203,7 @@ export const BrandTab: React.FC<{
           error: t("settings.brand.form.toasts.requestError"),
         },
       );
+
       router.refresh();
     } finally {
       setDisconnecting(false);
@@ -342,6 +345,7 @@ export const BrandTab: React.FC<{
                             unsupported_type: "common.favicon.unsupportedType",
                             unreadable: "common.favicon.unreadable",
                           } as const;
+
                           form.setError("brand.favicon", {
                             type: "manual",
                             message: keyMap[code],

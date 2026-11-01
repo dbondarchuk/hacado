@@ -151,6 +151,7 @@ async function upsertHeaderByName(
     limit: 50,
     offset: 0,
   });
+
   const existing = headers.items.find((item) => item.name === name);
   if (existing) {
     await pagesService.updatePageHeader(
@@ -158,6 +159,7 @@ async function upsertHeaderByName(
       headerData as any,
       systemEventSource,
     );
+
     return existing._id;
   }
 
@@ -165,6 +167,7 @@ async function upsertHeaderByName(
     headerData as any,
     systemEventSource,
   );
+
   return created._id;
 }
 
@@ -187,6 +190,7 @@ async function upsertDefaultHeader(
     },
     menu: buildDefaultHeaderMenu(menuArgs),
   });
+
   logger.debug({ headerId }, "Upserted default header");
   return headerId;
 }
@@ -217,6 +221,7 @@ async function upsertOverlayHeader(
     },
     menu: buildOverlayHeaderMenu(menuArgs),
   });
+
   logger.debug({ headerId }, "Upserted overlay header");
   return headerId;
 }
@@ -228,8 +233,10 @@ function getByPath(
   let current: unknown = value;
   for (const part of path.split(".")) {
     if (!current || typeof current !== "object") return undefined;
+
     current = (current as Record<string, unknown>)[part];
   }
+
   return typeof current === "string" ? current : undefined;
 }
 
@@ -242,6 +249,7 @@ function replaceSimpleTokens(
       const self = context["."];
       return typeof self === "string" ? self : "";
     }
+
     const value = getByPath(context, token);
     return value ?? "";
   });
@@ -255,6 +263,7 @@ async function getInstallPageDefaultsLabels(language: Language) {
   const logger = getLoggerFactory("InstallActions")(
     "getInstallPageDefaultsLabels",
   );
+
   logger.debug({ language }, "Resolving install page default labels");
   const t = await getI18nAsync({ locale: language, namespace: "install" });
   return {
@@ -305,6 +314,7 @@ async function getTemplateServices(
   logger.debug("Building template services payload");
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
+
   const optionIds = flattenCatalogServiceIds(booking?.catalog);
 
   const output: TemplateServiceArg[] = [];
@@ -314,6 +324,7 @@ async function getTemplateServices(
 
     const descriptionMarkdown =
       typeof option.description === "string" ? option.description : "";
+
     const descriptionPlate = deserializeMarkdown(descriptionMarkdown);
 
     const slug = generateSlug(option.name ?? "");
@@ -333,15 +344,18 @@ async function getTemplateServices(
 function plateToPlainText(value: unknown): string {
   if (typeof value === "string") return value;
   if (!Array.isArray(value)) return "";
+
   const parts: string[] = [];
   const walk = (nodes: unknown[]) => {
     for (const node of nodes) {
       if (!node || typeof node !== "object") continue;
+
       const record = node as Record<string, unknown>;
       if (typeof record.text === "string") parts.push(record.text);
       if (Array.isArray(record.children)) walk(record.children);
     }
   };
+
   walk(value);
   return parts.join("").trim();
 }
@@ -362,6 +376,7 @@ function resolveWebsitePackId(raw?: string | null): WebsitePackId {
   if (raw && (WEBSITE_PACK_IDS as string[]).includes(raw)) {
     return raw as WebsitePackId;
   }
+
   return suggestWebsitePackId() ?? "professional";
 }
 
@@ -403,6 +418,7 @@ async function upsertPackPage(
     footerId: args.footerId,
     content: args.content,
   };
+
   if (existing) {
     await pagesService.updatePage(existing._id, pageData, systemEventSource);
     return existing._id;
@@ -441,6 +457,7 @@ async function upsertDefaultFooter(
     limit: 50,
     offset: 0,
   });
+
   const existing = footers.items.find(
     (item) => item.name === DEFAULT_FOOTER_NAME,
   );
@@ -465,6 +482,7 @@ async function upsertDefaultFooter(
       footerData,
       systemEventSource,
     );
+
     logger.debug({ footerId: existing._id }, "Updated default footer");
     return existing._id;
   }
@@ -473,6 +491,7 @@ async function upsertDefaultFooter(
     footerData,
     systemEventSource,
   );
+
   logger.debug({ footerId: created._id }, "Created default footer");
   return created._id;
 }
@@ -524,6 +543,7 @@ async function upsertDefaultHomePage(
       { pageId: homePage._id, slug: "home" },
       "Updated default home page",
     );
+
     return;
   }
 
@@ -569,6 +589,7 @@ async function upsertDefaultBookPage(
       { pageId: bookPage._id, slug: "book" },
       "Updated default book page",
     );
+
     return;
   }
 
@@ -612,6 +633,7 @@ async function upsertDefaultModifyPage(
       { pageId: modifyPage._id, slug: "book/modify" },
       "Updated default modify page",
     );
+
     return;
   }
 
@@ -632,6 +654,7 @@ async function upsertDefaultGiftCardsPage(
   const logger = getLoggerFactory("InstallActions")(
     "upsertDefaultGiftCardsPage",
   );
+
   logger.debug("Upserting default gift cards page");
   const giftCardStudioApp = (
     await services.connectedAppsService.getAppsByApp(GIFT_CARD_STUDIO_APP_NAME)
@@ -670,10 +693,12 @@ async function upsertDefaultGiftCardsPage(
       pageData,
       systemEventSource,
     );
+
     logger.debug(
       { pageId: giftCardsPage._id, slug: "gift-cards" },
       "Updated default gift cards page",
     );
+
     return;
   }
 
@@ -695,6 +720,7 @@ async function upsertDefaultServicesPage(
   const logger = getLoggerFactory("InstallActions")(
     "upsertDefaultServicesPage",
   );
+
   logger.debug("Upserting default services pages for each service");
   const pagesService = services.pagesService;
 
@@ -726,6 +752,7 @@ async function upsertDefaultServicesPage(
         pageData,
         systemEventSource,
       );
+
       logger.debug(
         {
           pageId: servicesPage._id,
@@ -735,6 +762,7 @@ async function upsertDefaultServicesPage(
         },
         "Updated default services page for service",
       );
+
       continue;
     }
 
@@ -763,6 +791,7 @@ export async function createInstallDefaultPages(
   const logger = getLoggerFactory("InstallActions")(
     "createInstallDefaultPages",
   );
+
   logger.debug({ language: input.language }, "Creating install default pages");
 
   const labels = await getInstallPageDefaultsLabels(input.language);
@@ -865,16 +894,19 @@ export async function createInstallDefaultPages(
   const legalDate = new Intl.DateTimeFormat(input.language, {
     dateStyle: "long",
   }).format(new Date());
+
   const installT = await getI18nAsync({
     locale: input.language,
     namespace: "install",
   });
+
   const privacy = smsLegalCopy(
     installT,
     input.businessName,
     legalDate,
     "privacy",
   );
+
   const terms = smsLegalCopy(installT, input.businessName, legalDate, "terms");
 
   const privacyPageId = await upsertPackPage(input.services, {
@@ -896,6 +928,7 @@ export async function createInstallDefaultPages(
     footerId,
     content: pageContentFromBlocks(legalDocumentBlocks(terms)),
   });
+
   await enableInstallSms(input.services, privacyPageId, termsPageId);
 
   await upsertDefaultGiftCardsPage(input.services, {
@@ -910,5 +943,6 @@ export async function createInstallDefaultPages(
     { language: input.language, packId },
     "Created install default pages",
   );
+
   return { headerId, overlayHeaderId, footerId, labels };
 }

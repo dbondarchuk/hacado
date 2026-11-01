@@ -120,22 +120,26 @@ export const PhraseCycleConfiguration = deepMemo(
         setData({ ...data, style: s as PhraseCycleProps["style"] }),
       [setData, data],
     );
+
     const updateProps = useCallback(
       (p: unknown) =>
         setData({ ...data, props: p as PhraseCycleProps["props"] }),
       [setData, data],
     );
+
     const phrases = data.props?.phrases ?? [];
     const phraseIds = useMemo(
       () => phrases.map((phrase) => phrase.id),
       [phrases],
     );
+
     const sensors = useSensors(
       useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
       useSensor(KeyboardSensor, {
         coordinateGetter: sortableKeyboardCoordinates,
       }),
     );
+
     const motionOptions = phraseMotions.map((motion) => ({
       value: motion,
       label: t(
@@ -147,9 +151,11 @@ export const PhraseCycleConfiguration = deepMemo(
       (event: DragEndEvent) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
+
         const oldIndex = phraseIds.indexOf(String(active.id));
         const newIndex = phraseIds.indexOf(String(over.id));
         if (oldIndex < 0 || newIndex < 0) return;
+
         updateProps({
           ...data.props,
           phrases: arrayMove(phrases, oldIndex, newIndex),

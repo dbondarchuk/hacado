@@ -60,6 +60,7 @@ export const useReaderPopupContext = () => {
   if (!context) {
     return null;
   }
+
   return context.popup;
 };
 
@@ -68,6 +69,7 @@ export const useReaderBannerContext = () => {
   if (!context) {
     return null;
   }
+
   return context.banner;
 };
 

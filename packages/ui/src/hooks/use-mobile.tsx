@@ -14,6 +14,7 @@ export function useIsMobile(context?: Window | null) {
           }),
           innerWidth: 0,
         } as unknown as Window));
+
   const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
     undefined,
   );
@@ -22,9 +23,11 @@ export function useIsMobile(context?: Window | null) {
     const mql = windowContext.matchMedia(
       `(max-width: ${MOBILE_BREAKPOINT - 1}px)`,
     );
+
     const onChange = () => {
       setIsMobile(windowContext.innerWidth < MOBILE_BREAKPOINT);
     };
+
     mql.addEventListener("change", onChange);
     setIsMobile(windowContext.innerWidth < MOBILE_BREAKPOINT);
     return () => mql.removeEventListener("change", onChange);

@@ -28,6 +28,7 @@ export const GoogleAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<GoogleCalendarAdminNamespace, GoogleCalendarAdminKeys>(
     googleCalendarAdminNamespace,
   );
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [app, setApp] = React.useState<ConnectedApp | undefined>(undefined);

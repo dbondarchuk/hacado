@@ -51,6 +51,7 @@ const RadioButtonGroup = React.forwardRef<
     />
   );
 });
+
 RadioButtonGroup.displayName = "RadioButtonGroup";
 
 const buttonClasses = (
@@ -137,6 +138,7 @@ const RadioButtonGroupItem = React.forwardRef<
     );
   },
 );
+
 RadioButtonGroupItem.displayName = "RadioButtonGroupItem";
 
 export { RadioButtonGroup, RadioButtonGroupItem };

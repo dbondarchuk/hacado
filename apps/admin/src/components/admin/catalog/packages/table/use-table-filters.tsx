@@ -11,6 +11,7 @@ export function usePackagesTableFilters() {
       .withOptions({ shallow: false, throttleMs: 1000 })
       .withDefault(""),
   );
+
   const [page, setPage] = useQueryState("page", packagesSearchParams.page);
 
   const resetFilters = useCallback(() => {

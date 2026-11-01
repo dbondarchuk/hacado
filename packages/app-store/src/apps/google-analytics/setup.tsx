@@ -42,6 +42,7 @@ function statusTextKey(
   if (statusText && typeof statusText === "object" && "key" in statusText) {
     return statusText.key;
   }
+
   return undefined;
 }
 
@@ -70,6 +71,7 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<GoogleAnalyticsAdminNamespace, GoogleAnalyticsAdminKeys>(
     googleAnalyticsAdminNamespace,
   );
+
   const [isConnecting, setIsConnecting] = React.useState(false);
   const [isLoadingStreams, setIsLoadingStreams] = React.useState(false);
   const [isSavingStream, setIsSavingStream] = React.useState(false);
@@ -171,6 +173,7 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
     if (!existingAppId) {
       return;
     }
+
     void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 

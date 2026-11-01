@@ -96,6 +96,7 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
           description: tApps("common.connectedAppSetup.error.description"),
         },
       });
+
       setConnectedAppId(appId);
       onSuccess(appId, true);
     } catch (e: any) {

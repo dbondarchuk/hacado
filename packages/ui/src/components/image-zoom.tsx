@@ -137,7 +137,6 @@ export const ImageZoom: React.FC<ImageZoomProps> = ({
     if ((event.target as HTMLElement).closest("[data-zoom-controls]")) {
       return;
     }
-
     if (event.pointerType === "mouse" && event.button !== 0) {
       return;
     }

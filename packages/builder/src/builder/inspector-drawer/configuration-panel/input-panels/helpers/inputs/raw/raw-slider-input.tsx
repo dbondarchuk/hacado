@@ -43,6 +43,7 @@ export const RawSliderInput: React.FC<SliderInputProps> = ({
           onCommit
             ? (val) => {
                 if (typeof val[0] !== "number") return;
+
                 onCommit(val[0]);
               }
             : undefined

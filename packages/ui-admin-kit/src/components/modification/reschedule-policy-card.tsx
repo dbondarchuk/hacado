@@ -116,6 +116,7 @@ export const ReschedulePolicyCardContent: React.FC<
                     form.setValue(`${path}.paymentType`, "percentage", {
                       shouldValidate: true,
                     });
+
                     form.setValue(`${path}.paymentPercentage`, 50, {
                       shouldValidate: true,
                     });
@@ -350,6 +351,7 @@ export const ReschedulePolicyCard: React.FC<
   const path = isDefault
     ? `${basePath}.defaultPolicy`
     : (`${basePath}.policies.${index}` as const);
+
   const { isValid } = useFormState({ control: form.control, name: path });
   const minutesToAppointment = form.watch(
     `${path}.minutesToAppointment` as any,

@@ -133,6 +133,7 @@ export default async function CustomerPage(props: Props) {
   const dynamicTabScrollable = customerTabItems
     .filter((item) => item.scrollable)
     .map((item) => item.href);
+
   const visibleStaticTabs = staticTabs.filter(
     (tab) =>
       (tab !== packagesTab || canUsePackages) &&
@@ -151,6 +152,7 @@ export default async function CustomerPage(props: Props) {
   if (activeTab === packagesTab && !canUsePackages) {
     redirect(`/dashboard/customers/${params.id}/${detailsTab}`);
   }
+
   if (activeTab === paymentsTab && !canUsePayments) {
     redirect(`/dashboard/customers/${params.id}/${detailsTab}`);
   }
@@ -164,6 +166,7 @@ export default async function CustomerPage(props: Props) {
       },
       "Invalid tab requested",
     );
+
     notFound();
   }
 

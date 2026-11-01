@@ -29,6 +29,7 @@ export const TransitionConfiguration = ({
   const [isCustom, setIsCustom] = useState(() => {
     return typeof value === "object";
   });
+
   const [selectedProperties, setSelectedProperties] = useState<string[]>(
     typeof value === "object" && "properties" in value
       ? (value as any).properties

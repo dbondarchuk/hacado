@@ -165,6 +165,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
       const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
         "app_waitlist_admin",
       );
+
       return t("table.columns.dateAndTime");
     },
     sortingFn: tableSortNoopFunction,
@@ -174,6 +175,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
       const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
         "app_waitlist_admin",
       );
+
       return t("table.columns.note");
     },
     cell: ({ row }) => {
@@ -224,6 +226,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
       const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
         "app_waitlist_admin",
       );
+
       return (
         <Link
           href={`/dashboard/waitlist/appointment/new?id=${row.original._id}`}

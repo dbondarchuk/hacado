@@ -64,6 +64,7 @@ const TableCell = ({ index, props, columns }: Props) => {
   const contentAlignment =
     props?.contentAlignment ??
     ColumnsContainerPropsDefaults.props.contentAlignment;
+
   const columnsCount =
     props?.columnsCount ?? ColumnsContainerPropsDefaults.props.columnsCount;
 
@@ -78,6 +79,7 @@ const TableCell = ({ index, props, columns }: Props) => {
     paddingRight: getPaddingAfter(index, props),
     width: props.fixedWidths?.[index] ?? undefined,
   };
+
   const children = (columns && columns[index]) ?? null;
   return <td style={style}>{children}</td>;
 };
@@ -95,6 +97,7 @@ function getPaddingBefore(
   if (index === 1) {
     return columnsGap / 3;
   }
+
   return (2 * columnsGap) / 3;
 }
 
@@ -106,6 +109,7 @@ function getPaddingAfter(
     if (index === 0) {
       return columnsGap / 2;
     }
+
     return 0;
   }
 
@@ -115,5 +119,6 @@ function getPaddingAfter(
   if (index === 1) {
     return columnsGap / 3;
   }
+
   return 0;
 }

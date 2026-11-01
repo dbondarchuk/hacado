@@ -25,6 +25,7 @@ export const fontFamilyStyle = {
   defaultValue: "INHERIT",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `font-family: ${FONT_FAMILIES[value].value};`;
   },
   component: ({ value, onChange }) => {

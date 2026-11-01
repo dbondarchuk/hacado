@@ -49,8 +49,10 @@ import { BaseService } from "./services/base.service";
 
 const DEFAULT_SYNCED_PAYMENT_TYPE: SyncedPaymentAssignablePaymentType =
   "payment";
+
 const DEFAULT_STANDALONE_PAYMENT_TYPE: SyncedPaymentStandalonePaymentType =
   "other";
+
 const DEFAULT_MATCH_WINDOW_MINUTES = 120;
 const MAX_SUGGESTIONS = 5;
 
@@ -78,6 +80,7 @@ const computeRemainingBalance = (appointment: Appointment): number => {
         (acc, refund) => acc + refund.amount,
         0,
       );
+
       return sum + Math.max(0, getPaymentServiceAmount(payment) - refunded);
     }, 0);
 
@@ -103,6 +106,7 @@ export class SyncedPaymentsService
     const collection = db.collection<SyncedPayment>(
       SYNCED_PAYMENTS_COLLECTION_NAME,
     );
+
     return collection.countDocuments({
       organizationId: this.organizationId,
       status: { $in: ["matched", "unmatched"] satisfies SyncedPaymentStatus[] },
@@ -145,6 +149,7 @@ export class SyncedPaymentsService
         },
         "Synced payment already ingested, skipping",
       );
+
       return existing;
     }
 
@@ -166,11 +171,13 @@ export class SyncedPaymentsService
         },
         "No candidate appointment found, parking in unmatched queue",
       );
+
       const record = await this.insert({
         ...transaction,
         status: "unmatched",
         suggestions,
       });
+
       logger.debug(
         {
           id: record._id,
@@ -179,11 +186,13 @@ export class SyncedPaymentsService
         },
         "Synced payment inserted as unmatched",
       );
+
       await this.eventService.emit(
         SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
         { syncedPayment: record } satisfies SyncedPaymentIngestedPayload,
         source,
       );
+
       return record;
     }
 
@@ -264,20 +273,25 @@ export class SyncedPaymentsService
     const filter: Filter<SyncedPayment> = {
       organizationId: this.organizationId,
     };
+
     if (query.externalId) {
       filter.externalId = query.externalId;
     }
+
     if (query.status && query.status.length) {
       filter.status = { $in: query.status };
     }
+
     if (query.range?.start || query.range?.end) {
       const transactionTime: Record<string, Date> = {};
       if (query.range.start) {
         transactionTime.$gte = query.range.start;
       }
+
       if (query.range.end) {
         transactionTime.$lte = query.range.end;
       }
+
       (filter as Record<string, unknown>).transactionTime = transactionTime;
     }
 
@@ -356,6 +370,7 @@ export class SyncedPaymentsService
           }
         : {}),
     });
+
     logger.info(
       {
         id,
@@ -364,11 +379,13 @@ export class SyncedPaymentsService
       },
       "Synced payment confirmed",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE,
       { syncedPayment: record } satisfies SyncedPaymentConfirmedPayload,
       source,
     );
+
     return record;
   }
 
@@ -398,9 +415,11 @@ export class SyncedPaymentsService
       if (query.range.start) {
         transactionTime.$gte = query.range.start;
       }
+
       if (query.range.end) {
         transactionTime.$lte = query.range.end;
       }
+
       (filter as Record<string, unknown>).transactionTime = transactionTime;
     }
 
@@ -438,11 +457,13 @@ export class SyncedPaymentsService
       },
       "Synced payment rejected",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
       { syncedPayment: updated } satisfies SyncedPaymentRejectedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -494,6 +515,7 @@ export class SyncedPaymentsService
         ? "Synced payment reassigned"
         : "Synced payment assigned",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
       {
@@ -502,6 +524,7 @@ export class SyncedPaymentsService
       } satisfies SyncedPaymentAssignedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -528,6 +551,7 @@ export class SyncedPaymentsService
         { id, externalId: record.externalId },
         "Cannot unassign a synced payment that has no appointment",
       );
+
       throw new Error("Synced payment is not assigned to an appointment");
     }
 
@@ -555,6 +579,7 @@ export class SyncedPaymentsService
       },
       "Synced payment unassigned",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
       {
@@ -563,6 +588,7 @@ export class SyncedPaymentsService
       } satisfies SyncedPaymentUnassignedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -588,11 +614,13 @@ export class SyncedPaymentsService
       },
       "Synced payment ignored",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
       { syncedPayment: updated } satisfies SyncedPaymentIgnoredPayload,
       source,
     );
+
     return updated;
   }
 
@@ -631,6 +659,7 @@ export class SyncedPaymentsService
     const customer = await this.customersService.getCustomer(
       details.customerId,
     );
+
     if (!customer) {
       logger.warn(
         { id, customerId: details.customerId },
@@ -717,6 +746,7 @@ export class SyncedPaymentsService
         },
         "Cannot unrecord a synced payment that is assigned to an appointment",
       );
+
       throw new Error(
         "Unassign from the appointment instead of removing a customer record",
       );
@@ -732,6 +762,7 @@ export class SyncedPaymentsService
         },
         "Cannot unrecord a synced payment that is not recorded to a customer",
       );
+
       throw new Error("Synced payment is not recorded to a customer");
     }
 
@@ -758,6 +789,7 @@ export class SyncedPaymentsService
       },
       "Synced payment record removed",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
       {
@@ -766,6 +798,7 @@ export class SyncedPaymentsService
       } satisfies SyncedPaymentUnrecordedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -788,6 +821,7 @@ export class SyncedPaymentsService
         { id, externalId: record.externalId },
         "Cannot edit amounts without an appointment",
       );
+
       throw new Error(
         "Cannot edit amounts of a synced payment without an appointment",
       );
@@ -848,6 +882,7 @@ export class SyncedPaymentsService
       },
       "Synced payment amounts updated",
     );
+
     await this.eventService.emit(
       SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
       {
@@ -857,6 +892,7 @@ export class SyncedPaymentsService
       } satisfies SyncedPaymentAmountsUpdatedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -877,6 +913,7 @@ export class SyncedPaymentsService
         { id, externalId: record.externalId },
         "Cannot revert synced payment without stored original amounts",
       );
+
       throw new Error(
         "Cannot revert synced payment amounts: original split was not recorded",
       );
@@ -978,6 +1015,7 @@ export class SyncedPaymentsService
         appointment.endAt?.getTime() ??
         appointment.dateTime.getTime() +
           (appointment.totalDuration ?? 0) * 60 * 1000;
+
       const diffMs = Math.abs(endTime - txTime);
       if (diffMs > windowMs) {
         skippedOutsideWindow++;
@@ -1075,6 +1113,7 @@ export class SyncedPaymentsService
         { appointmentId },
         "Appointment not found for synced payment",
       );
+
       throw new Error(`Appointment ${appointmentId} not found`);
     }
 
@@ -1088,6 +1127,7 @@ export class SyncedPaymentsService
             tip: round2(Math.max(0, transaction.providerSplit.tip)),
           }
         : this.computeDefaultSplit(appointment, transaction.amount));
+
     const paymentAmount = round2(Math.max(0, split.paymentAmount));
     const inferredTip = round2(Math.max(0, split.tip));
     const servicePaymentType =
@@ -1118,6 +1158,7 @@ export class SyncedPaymentsService
         appId: transaction.appId,
         fees: transaction.fees,
       };
+
       const created = await this.paymentsService.createPayment(payment, source);
       paymentIds.push(created._id);
     }
@@ -1152,6 +1193,7 @@ export class SyncedPaymentsService
         { id: record._id, externalId: record.externalId },
         "No linked payments to remove",
       );
+
       return;
     }
 
@@ -1212,6 +1254,7 @@ export class SyncedPaymentsService
     const collection = db.collection<SyncedPayment>(
       SYNCED_PAYMENTS_COLLECTION_NAME,
     );
+
     return collection.findOne({
       externalId,
       organizationId: this.organizationId,
@@ -1224,14 +1267,17 @@ export class SyncedPaymentsService
     const collection = db.collection<SyncedPayment>(
       SYNCED_PAYMENTS_COLLECTION_NAME,
     );
+
     const record = await collection.findOne({
       _id: id,
       organizationId: this.organizationId,
     });
+
     if (!record) {
       logger.warn({ id }, "Synced payment not found");
       throw new Error(`Synced payment ${id} not found`);
     }
+
     return record;
   }
 
@@ -1275,15 +1321,18 @@ export class SyncedPaymentsService
           { externalId: record.externalId },
           "Duplicate key on insert, returning existing record",
         );
+
         const existing = await this.getRaw(record.externalId);
         if (existing) {
           return existing;
         }
       }
+
       logger.error(
         { externalId: record.externalId, err: error },
         "Failed to insert synced payment",
       );
+
       throw error;
     }
 

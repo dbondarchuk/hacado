@@ -14,13 +14,16 @@ export function getInitialOpenItemIds(
       ids.push(child.id);
     }
   }
+
   const firstId = children[0]?.id;
   if (defaultOpenFirst && firstId && !ids.includes(firstId)) {
     ids.unshift(firstId);
   }
+
   if (!allowMultipleOpen) {
     return ids.slice(0, 1);
   }
+
   return ids;
 }
 
@@ -35,5 +38,6 @@ export function toggleOpenItemIds(
       ? current.filter((openId) => openId !== id)
       : [...current, id];
   }
+
   return isOpen ? [] : [id];
 }

@@ -63,6 +63,7 @@ export function WaitlistDatePicker({
   const [selectedDateRange, setSelectedDateRange] = useState<DateRange | null>(
     null,
   );
+
   const [selectedTimes, setSelectedTimes] = useState<WaitlistTime[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
@@ -116,6 +117,7 @@ export function WaitlistDatePicker({
             JSON.stringify(dateToRemove.time.sort())
         ),
     );
+
     onChange(updatedDates);
   };
 
@@ -129,6 +131,7 @@ export function WaitlistDatePicker({
               JSON.stringify(groupDate.time.sort()),
         ),
     );
+
     onChange(updatedDates);
   };
 
@@ -140,6 +143,7 @@ export function WaitlistDatePicker({
       } else {
         newSet.add(groupId);
       }
+
       return newSet;
     });
   };

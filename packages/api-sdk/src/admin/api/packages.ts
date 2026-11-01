@@ -193,12 +193,14 @@ export const getCustomerPackages = async (params: {
       ? params.customerId
       : [params.customerId]
     : [];
+
   for (const id of customerIds) search.append("customerId", id);
   const packageIds = params.packageId
     ? Array.isArray(params.packageId)
       ? params.packageId
       : [params.packageId]
     : [];
+
   for (const id of packageIds) search.append("packageId", id);
   for (const status of params.status ?? []) search.append("status", status);
   if (params.page) search.set("page", String(params.page));
@@ -238,6 +240,7 @@ export const getEligibleCustomerPackages = async (params: {
   if (params.dateTime) {
     search.set("dateTime", params.dateTime.toISOString());
   }
+
   const response = await fetchAdminApi(
     `/customer-packages/eligible?${search.toString()}`,
   );

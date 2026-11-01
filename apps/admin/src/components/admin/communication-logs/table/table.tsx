@@ -17,6 +17,7 @@ export const CommunicationLogsTable: React.FC<{
   const direction = communicationLogsSearchParamsCache.get("direction");
   const participantType =
     communicationLogsSearchParamsCache.get("participantType");
+
   const channel = communicationLogsSearchParamsCache.get("channel");
   const status = communicationLogsSearchParamsCache.get("status");
   const start = communicationLogsSearchParamsCache.get("start") || undefined;
@@ -24,6 +25,7 @@ export const CommunicationLogsTable: React.FC<{
   const sort = communicationLogsSearchParamsCache.get("sort");
   const customerIds =
     communicationLogsSearchParamsCache.get("customer") || undefined;
+
   const user = await getUser();
   const memberIds = gateMemberIds(
     user,

@@ -26,6 +26,7 @@ export function ReaderEmbeddedSlotChildren({
   rest: ReaderBlockProps;
 }) {
   if (!slot || !isEmbeddedSlot(slot)) return null;
+
   const name = slotClassName(slot);
   return (
     <>
@@ -37,6 +38,7 @@ export function ReaderEmbeddedSlotChildren({
       {slot.children.map((child: unknown) => {
         const block = child as TReaderBlock;
         if (!block?.id || !block?.type) return null;
+
         return <ReaderBlock key={block.id} {...rest} block={block} />;
       })}
     </>

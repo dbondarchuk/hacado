@@ -35,11 +35,13 @@ export default async function Page() {
       "social",
       "styling",
     );
+
   const websiteUrl = await getWebsiteUrl();
   const publicDomain = process.env.PUBLIC_DOMAIN ?? "";
   const baseHost = publicDomain
     ? `${organizationSlug}.${publicDomain}`
     : organizationSlug;
+
   const baseUrl = `https://${baseHost}`;
   const customDomainARecordIp =
     process.env.CUSTOM_DOMAIN_A_RECORD_IP?.trim() || undefined;

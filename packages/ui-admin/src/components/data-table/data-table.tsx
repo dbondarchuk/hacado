@@ -136,6 +136,7 @@ export function DataTable<TData, TValue>({
       .withOptions({ shallow: false, history: "push" })
       .withDefault(sortSchemaDefault || []),
   );
+
   const sortingState = sort || [];
 
   const pageCount = Math.ceil(totalItems / pageSize);

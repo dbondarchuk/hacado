@@ -41,6 +41,7 @@ export function QuickLinkApproveMatchedPaymentsButton({
     onOpenChange?.(next);
     if (controlledOpen === undefined) setUncontrolledOpen(next);
   };
+
   const [approving, setApproving] = React.useState(false);
 
   const approveAll = async () => {
@@ -68,6 +69,7 @@ export function QuickLinkApproveMatchedPaymentsButton({
       open={open}
       onOpenChange={(next) => {
         if (!next && approving) return;
+
         setOpen(next);
       }}
     >

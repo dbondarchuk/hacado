@@ -109,6 +109,7 @@ export async function PUT(
       },
       "Failed to update page",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -178,6 +179,7 @@ export async function DELETE(
       },
       "Failed to delete page",
     );
+
     return NextResponse.json(
       {
         success: false,

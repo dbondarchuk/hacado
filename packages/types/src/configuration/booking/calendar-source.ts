@@ -12,6 +12,7 @@ export type CalendarSourceConfiguration = z.infer<
 export const calendarSourcesConfigurationSchema = z
   .array(calendarSourceConfigurationSchema)
   .optional();
+
 export type CalendarSourcesConfiguration = z.infer<
   typeof calendarSourcesConfigurationSchema
 >;

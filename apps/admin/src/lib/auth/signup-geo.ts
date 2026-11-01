@@ -15,9 +15,11 @@ export function getClientIp(headersList: Headers): {
   for (const key of IP_HEADERS) {
     const value = headersList.get(key);
     if (!value) continue;
+
     const ip = stripIpv6Mapped(value.split(",")[0]?.trim() ?? "");
     if (ip) return { ip, header: key };
   }
+
   return { ip: null, header: null };
 }
 
@@ -27,11 +29,13 @@ export function isPrivateOrLoopbackIp(ip: string): boolean {
   if (v4.startsWith("127.")) return true;
   if (v4.startsWith("10.")) return true;
   if (v4.startsWith("192.168.")) return true;
+
   const match = /^172\.(\d+)\./.exec(v4);
   if (match) {
     const octet = Number(match[1]);
     if (octet >= 16 && octet <= 31) return true;
   }
+
   return false;
 }
 
@@ -62,12 +66,15 @@ export function isPublicSignupAllowed(
         { source, ip, ipHeader, isPrivate, isDev },
         "Public signup allowed: development private or missing IP",
       );
+
       return true;
     }
+
     logger.warn(
       { source, ip, ipHeader, isPrivate, isDev },
       "Public signup blocked: missing or private client IP",
     );
+
     return false;
   }
 

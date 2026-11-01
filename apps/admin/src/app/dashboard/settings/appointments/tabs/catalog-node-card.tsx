@@ -76,6 +76,7 @@ const GroupChildrenList: React.FC<{
     name: childrenPath as "catalog",
     keyName: "fields_id",
   });
+
   const children =
     (form.watch(childrenPath) as BookingCatalogNode[] | undefined) ?? [];
 
@@ -114,6 +115,7 @@ const GroupChildrenList: React.FC<{
           {fields.map((field, index) => {
             const child =
               children[index] ?? (field as unknown as BookingCatalogNode);
+
             return (
               <CatalogNodeCard
                 key={field.fields_id}

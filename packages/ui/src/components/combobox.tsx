@@ -159,6 +159,7 @@ const Items = React.memo(
                   if (!acc[item.category || ""] && item.category) {
                     acc[item.category || ""] = [];
                   }
+
                   acc[item.category || ""].push(item);
                   return acc;
                 },
@@ -193,6 +194,7 @@ const Items = React.memo(
     );
   },
 );
+
 Items.displayName = "Items";
 
 export const ComboboxTrigger = React.forwardRef<

@@ -181,6 +181,7 @@ const Carousel = React.forwardRef<
           : []),
       ],
     );
+
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
@@ -378,6 +379,7 @@ const Carousel = React.forwardRef<
     );
   },
 );
+
 Carousel.displayName = "Carousel";
 
 const CarouselContent = React.forwardRef<
@@ -403,6 +405,7 @@ const CarouselContent = React.forwardRef<
     </div>
   );
 });
+
 CarouselContent.displayName = "CarouselContent";
 
 const CarouselItem = React.forwardRef<
@@ -431,6 +434,7 @@ const CarouselItem = React.forwardRef<
     </div>
   );
 });
+
 CarouselItem.displayName = "CarouselItem";
 
 const CarouselPrevious = React.forwardRef<
@@ -461,6 +465,7 @@ const CarouselPrevious = React.forwardRef<
     </Button>
   );
 });
+
 CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = React.forwardRef<
@@ -491,6 +496,7 @@ const CarouselNext = React.forwardRef<
     </Button>
   );
 });
+
 CarouselNext.displayName = "CarouselNext";
 
 export {

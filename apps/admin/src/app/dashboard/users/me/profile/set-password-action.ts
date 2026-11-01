@@ -18,6 +18,7 @@ export async function setUserPassword(
   const hasCredential = accounts?.some(
     (account) => account.providerId === "credential",
   );
+
   if (hasCredential) {
     return { ok: false, code: "credential_exists" };
   }
@@ -27,6 +28,7 @@ export async function setUserPassword(
       body: { newPassword },
       headers: await headers(),
     });
+
     return { ok: true };
   } catch {
     return { ok: false, code: "set_password_failed" };

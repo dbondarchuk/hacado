@@ -102,6 +102,7 @@ export class PolarClientWrapper {
     }>,
   ): Promise<void> {
     if (!events.length) return;
+
     await this.polar.events.ingest({ events });
   }
 
@@ -117,6 +118,7 @@ export class PolarClientWrapper {
         { externalId, hasOwner: !!ownerUserId, hasEmail: !!ownerEmail },
         "Skipping Polar team customer: missing organization id, owner id, or email",
       );
+
       return;
     }
 
@@ -153,6 +155,7 @@ export class PolarClientWrapper {
       } catch {
         /* fall through */
       }
+
       wrapperLogger("ensureTeamCustomerForOrganization").warn(
         { error, organizationId: externalId },
         "Could not ensure Polar team customer",
@@ -201,6 +204,7 @@ export class PolarClientWrapper {
         { externalId, hasName: !!name, hasEmail: !!email },
         "Skipping Polar team customer sync: missing organization id, name, or email",
       );
+
       return;
     }
 

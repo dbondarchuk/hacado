@@ -6,6 +6,7 @@ export const evaluate = (
     const argsStr = Object.keys(context)
       .map((key) => `${key} = this.${key}`)
       .join(",");
+
     const argsDef = argsStr ? `let ${argsStr};` : "";
     const evalStr = `(() => {${argsDef} return ${code}})`;
 

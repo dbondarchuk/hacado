@@ -95,6 +95,7 @@ export class AutomaticAiDiscoveryConnectedApp
 
     const body = await buildLlmsTxt(this.props.services, ctx.websiteUrl);
     if (!body) return undefined;
+
     return [{ type: "llms.txt", value: body }];
   }
 
@@ -115,6 +116,7 @@ export class AutomaticAiDiscoveryConnectedApp
     );
 
     if (!body) return undefined;
+
     return [{ type: "text/markdown", value: body }];
   }
 

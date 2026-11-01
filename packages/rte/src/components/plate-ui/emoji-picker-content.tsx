@@ -62,6 +62,7 @@ const Button = memo(
     );
   },
 );
+
 Button.displayName = "Button";
 
 const RowOfButtons = memo(
@@ -79,6 +80,7 @@ const RowOfButtons = memo(
     </div>
   ),
 );
+
 RowOfButtons.displayName = "RowOfButtons";
 
 export function EmojiPickerContent({

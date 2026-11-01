@@ -10,6 +10,7 @@ function parseClientTrackingMetadata(
   raw: unknown,
 ): BookingTrackingMetadata | undefined {
   if (!raw || typeof raw !== "object") return undefined;
+
   const src = raw as Record<string, unknown>;
   const metadata: BookingTrackingMetadata = {};
 
@@ -20,21 +21,26 @@ function parseClientTrackingMetadata(
   if (typeof src.duration === "number" && Number.isFinite(src.duration)) {
     metadata.duration = src.duration;
   }
+
   if (typeof src.isPaymentRequired === "boolean") {
     metadata.isPaymentRequired = src.isPaymentRequired;
   }
+
   if (
     typeof src.paymentAmount === "number" &&
     Number.isFinite(src.paymentAmount)
   ) {
     metadata.paymentAmount = src.paymentAmount;
   }
+
   if (typeof src.customerEmail === "string") {
     metadata.customerEmail = src.customerEmail;
   }
+
   if (typeof src.customerName === "string") {
     metadata.customerName = src.customerName;
   }
+
   if (typeof src.error === "string") metadata.error = src.error.slice(0, 200);
 
   return Object.keys(metadata).length ? metadata : undefined;

@@ -40,6 +40,7 @@ export const getAuthOptions = async () => {
     method: "GET",
     credentials: "include",
   });
+
   return response.json<AuthOptionsResponse>();
 };
 
@@ -52,6 +53,7 @@ export const requestOtp = async (payload: {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+
   return response.json<RequestOtpResponse>();
 };
 
@@ -65,6 +67,7 @@ export const verifyOtp = async (payload: {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+
   return response.json<VerifyOtpResponse>();
 };
 
@@ -73,9 +76,11 @@ export const checkSession = async () => {
     method: "GET",
     credentials: "include",
   });
+
   if (!response.ok) {
     throw new Error("unauthorized");
   }
+
   return response.json<CheckSessionResponse>();
 };
 
@@ -84,6 +89,7 @@ export const logout = async () => {
     method: "POST",
     credentials: "include",
   });
+
   return response.json<{ success: true }>();
 };
 
@@ -122,6 +128,7 @@ export const requestBookingOtp = async (payload: {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+
   return response.json<RequestOtpResponse>();
 };
 
@@ -130,6 +137,7 @@ export const getMyPackages = async () => {
     method: "GET",
     credentials: "include",
   });
+
   return response.json<WithTotal<CustomerPackageListModel>>();
 };
 

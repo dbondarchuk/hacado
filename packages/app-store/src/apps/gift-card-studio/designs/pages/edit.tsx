@@ -34,6 +34,7 @@ export const DesignEditPage = ({ appId }: { appId: string }) => {
         setLoading(false);
       }
     };
+
     if (appId && designId) fetchDesign();
   }, [appId, designId]);
 
@@ -44,7 +45,6 @@ export const DesignEditPage = ({ appId }: { appId: string }) => {
       </AutoSkeleton>
     );
   }
-
   if (!design) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">

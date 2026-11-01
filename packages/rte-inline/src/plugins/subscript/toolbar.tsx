@@ -16,6 +16,7 @@ export function SubscriptToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("subscript")) return null;
+
   return (
     <DropdownMenuCheckboxItem
       checked={activeMarks.subscript !== undefined || hasMixed.has("subscript")}

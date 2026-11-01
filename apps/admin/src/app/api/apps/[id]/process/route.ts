@@ -49,6 +49,7 @@ export async function POST(
         { status: 403 },
       );
     }
+
     logger.error(
       {
         appId: id,

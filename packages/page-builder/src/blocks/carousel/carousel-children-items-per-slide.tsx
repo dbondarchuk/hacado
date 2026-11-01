@@ -26,6 +26,7 @@ export const carouselChildrenItemsPerSlideStyle = {
       | undefined,
   ) => {
     if (value === null || typeof value === "undefined") return null;
+
     // Calculate flex-basis as percentage: 100 / items
     const flexBasis = parseFloat((100 / value).toFixed(2));
     return `flex-basis: ${flexBasis}%;`;

@@ -19,6 +19,7 @@ export const updateMyUser = async (user: Partial<UserUpdate>) => {
     method: "PATCH",
     body: JSON.stringify(user),
   });
+
   const data = await response.json<OrganizationMember>();
   console.debug("My user updated successfully", { data });
   return data;

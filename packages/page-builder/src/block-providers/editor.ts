@@ -44,10 +44,12 @@ export function resolveProviders<T extends BuilderSchema>(
         resolved.schemas[type] = block.schema;
         resolved.editors[type as keyof EditorDocumentBlocksDictionary<T>] =
           block.editor;
+
         resolved.readers[type as keyof ReaderDocumentBlocksDictionary<T>] =
           block.reader;
       }
     }
+
     Object.assign(resolved.templates, provider.templates);
   }
 

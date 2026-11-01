@@ -49,6 +49,7 @@ export const fontSizePlugin: MarkPlugin = {
     if (marks.fontSize && marks.fontSize !== "inherit") {
       styles.fontSize = `${marks.fontSize}px`;
     }
+
     return styles;
   },
 };

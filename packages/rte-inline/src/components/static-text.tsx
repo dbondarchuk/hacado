@@ -24,6 +24,7 @@ export const StaticText = forwardRef<
       : typeof value === "string"
         ? stringToRichText(value)
         : value;
+
     const html = richTextToHtml(richTextValue, inline);
 
     return inline ? (

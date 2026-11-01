@@ -13,8 +13,10 @@ export function normalizeHexColor(color: string): string | null {
     const [, h] = short;
     return `#${h![0]}${h![0]}${h![1]}${h![1]}${h![2]}${h![2]}`.toLowerCase();
   }
+
   const long = /^#([0-9A-Fa-f]{6})$/.exec(trimmed);
   if (long) return `#${long[1]!.toLowerCase()}`;
+
   return null;
 }
 
@@ -24,11 +26,14 @@ export function isCustomHexColor(color: string): boolean {
 
 export function readRecentColors(): string[] {
   if (!isBrowser()) return [];
+
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
+
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
+
     return parsed
       .map((c) => (typeof c === "string" ? normalizeHexColor(c) : null))
       .filter((c): c is string => Boolean(c))
@@ -50,5 +55,6 @@ export function rememberRecentColor(color: string): string[] {
   } catch {
     // ignore quota / private mode
   }
+
   return next;
 }

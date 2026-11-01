@@ -61,6 +61,7 @@ function cookieAcknowledgmentBanner(
   const btn = structuredClone(ButtonPropsDefaults());
   const inlineText = (btn as any).props?.children?.[0]?.data?.props
     ?.children?.[0];
+
   if (inlineText?.data?.props) {
     inlineText.data.props.text = label;
   }
@@ -270,6 +271,7 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
         boxShadow: boxShadowValue(16, 40, -12, COLORS.primary.value),
         transform: translateYRem(-0.5),
       });
+
       plans[1] = highlighted;
       return sectionShell(
         [
@@ -326,6 +328,7 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
         alignItems: [{ value: "center" }],
         textAlign: [{ value: "center" }],
       });
+
       return fluidSection(
         [cta],
         { [cta.id]: fullWidthPlacement(cta.id, 1, 10) },

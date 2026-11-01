@@ -40,6 +40,7 @@ export const TableCellElement = withRef<
   const rowId = useElementSelector(([node]) => node.id as string, [], {
     key: TableRowPlugin.key,
   });
+
   const isSelectingRow = useBlockSelected(rowId);
   const isSelectionAreaVisible = usePluginOption(
     BlockSelectionPlugin,

@@ -21,6 +21,7 @@ export async function GET(request: NextRequest) {
       query: { organizationId: await getOrganizationId() },
       headers: request.headers,
     });
+
     return NextResponse.json({
       invitations: (invitations ?? []).map((i: any) => ({
         id: i.id,
@@ -75,6 +76,7 @@ export async function POST(request: NextRequest) {
       },
       headers: request.headers,
     });
+
     return NextResponse.json({ ok: true }, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "invite_failed";
@@ -83,6 +85,7 @@ export async function POST(request: NextRequest) {
         (error as { code?: unknown })?.code ??
         "",
     )}`;
+
     if (serialized.includes("USER_ALREADY_IN_ORGANIZATION")) {
       return NextResponse.json(
         {
@@ -103,6 +106,7 @@ export async function POST(request: NextRequest) {
         { status: 409 },
       );
     }
+
     return NextResponse.json(
       {
         success: false,

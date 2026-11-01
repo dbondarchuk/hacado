@@ -13,6 +13,7 @@ export async function getMemberLanguageForUser(
     const member = await db
       .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
       .findOne({ organizationId, userId });
+
     if (member?.language) return member.language;
   }
 

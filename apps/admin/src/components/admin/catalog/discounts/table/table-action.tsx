@@ -31,6 +31,7 @@ export function DiscountsTableAction() {
     end,
     setEndValue,
   } = useDiscountsTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const t = useI18n("admin");
 

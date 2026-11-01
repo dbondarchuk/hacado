@@ -43,10 +43,12 @@ export function squareMinorToAmount(
   if (raw == null) {
     return 0;
   }
+
   const n = typeof raw === "bigint" ? Number(raw) : Number(raw);
   if (!Number.isFinite(n)) {
     return 0;
   }
+
   return n / 100;
 }
 
@@ -69,10 +71,12 @@ export function processingFeesFromSquarePayment(
     if (raw == null) {
       continue;
     }
+
     const n = typeof raw === "bigint" ? Number(raw) : Number(raw);
     if (Number.isNaN(n) || n <= 0) {
       continue;
     }
+
     totalMinor += n;
   }
 
@@ -103,13 +107,16 @@ export function extractOrderSplit(
       (item.base_price_money?.amount != null
         ? Number(item.base_price_money.amount) * Number(item.quantity ?? "1")
         : undefined);
+
     if (raw == null) {
       return undefined;
     }
+
     const n = typeof raw === "bigint" ? Number(raw) : Number(raw);
     if (!Number.isFinite(n) || n < 0) {
       return undefined;
     }
+
     lineTotal += n;
   }
 

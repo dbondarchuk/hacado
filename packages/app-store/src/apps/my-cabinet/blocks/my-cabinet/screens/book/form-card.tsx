@@ -63,6 +63,7 @@ export const FormCard: React.FC = () => {
       phone: propsFields.phone,
       smsConsent: appointmentSmsConsentKind(smsText) ? smsConsent : undefined,
     };
+
     if (!deepEqual(next, propsFields)) {
       setFields(next);
     }

@@ -127,6 +127,7 @@ export async function DashboardQuickLinks() {
       const scoreB = usageScores.get(b.usageKey) ?? 0;
 
       if (scoreB !== scoreA) return scoreB - scoreA;
+
       return a.order - b.order;
     })
     .map(({ order: _order, ...link }) => link);

@@ -48,6 +48,7 @@ export const CellAction: React.FC<CellActionProps> = ({ design, appId }) => {
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const tUi = useI18n("ui");
   const router = useRouter();
   const { reload } = useReload();
@@ -61,6 +62,7 @@ export const CellAction: React.FC<CellActionProps> = ({ design, appId }) => {
         success: t("designs.table.toast.delete", { name: design.name }),
         error: t("designs.table.toast.deleteError"),
       });
+
       setDeleteOpen(false);
       reload();
     } catch (e) {
@@ -77,6 +79,7 @@ export const CellAction: React.FC<CellActionProps> = ({ design, appId }) => {
         success: t("designs.table.toast.archived", { name: design.name }),
         error: t("designs.table.toast.archiveError"),
       });
+
       setArchiveOpen(false);
       reload();
     } catch (e) {
@@ -93,6 +96,7 @@ export const CellAction: React.FC<CellActionProps> = ({ design, appId }) => {
         success: t("designs.table.toast.unarchived", { name: design.name }),
         error: t("designs.table.toast.unarchiveError"),
       });
+
       setUnarchiveOpen(false);
       reload();
     } catch (e) {
@@ -150,6 +154,7 @@ export const CellAction: React.FC<CellActionProps> = ({ design, appId }) => {
           ) {
             params.set("paymentId", purchase.paymentId);
           }
+
           router.push(
             `/dashboard/gift-card-studio/purchases?${params.toString()}`,
           );

@@ -5,6 +5,7 @@ function fnv1a32(str: string): string {
     h ^= str.charCodeAt(i);
     h = Math.imul(h, 16777619);
   }
+
   return (h >>> 0).toString(16).padStart(8, "0");
 }
 
@@ -19,6 +20,7 @@ export function getWebfontPreviewFilename(family: string): string {
     .replace(/[^a-zA-Z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
     .toLowerCase();
+
   const id = fnv1a32(family);
   return `${slug || "font"}-${id}.png`;
 }

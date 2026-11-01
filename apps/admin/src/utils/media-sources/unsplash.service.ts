@@ -55,6 +55,7 @@ export class UnsplashService {
     if (!key) {
       throw new Error("UNSPLASH_ACCESS_KEY is not configured");
     }
+
     return key;
   }
 
@@ -151,6 +152,7 @@ export class UnsplashService {
           { status: response.status, body },
           "Unsplash search failed",
         );
+
         throw new Error(
           `Unsplash search failed with status ${response.status}`,
         );
@@ -171,6 +173,7 @@ export class UnsplashService {
           { status: response.status, body },
           "Unsplash editorial list failed",
         );
+
         throw new Error(
           `Unsplash editorial list failed with status ${response.status}`,
         );
@@ -237,6 +240,7 @@ export class UnsplashService {
           { status: response.status, body, downloadLocation },
           "Unsplash download tracking failed",
         );
+
         return;
       }
 

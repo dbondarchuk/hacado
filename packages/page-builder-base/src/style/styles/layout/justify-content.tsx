@@ -26,6 +26,7 @@ export const justifyContentStyle = {
   defaultValue: "flex-start",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `justify-content: ${value};`;
   },
   component: ({ value, onChange }) => {

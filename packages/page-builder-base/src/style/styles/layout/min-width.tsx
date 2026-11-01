@@ -18,6 +18,7 @@ export const minWidthStyle = {
   defaultValue: { value: 0, unit: "px" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `min-width: ${renderRawNumberWithUnitOrKeywordCss(value)};`;
   },
   component: ({ value, onChange }) => (

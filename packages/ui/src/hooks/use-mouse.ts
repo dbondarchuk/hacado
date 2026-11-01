@@ -52,6 +52,7 @@ export function useMouse<T extends HTMLElement = HTMLElement>(
     if (resetOnExit) {
       target.addEventListener("mouseleave", handleMouseLeave);
     }
+
     return () => {
       target.removeEventListener("mousemove", handleMouseMove as any);
       if (resetOnExit) {

@@ -139,6 +139,7 @@ export class BlogConnectedApp
         error.message,
       );
     }
+
     switch (data.type) {
       case GetBlogPostsActionType:
         return this.processGetBlogPostsRequest(appData, data);
@@ -216,6 +217,7 @@ export class BlogConnectedApp
         { appId: appData._id, error: error?.message || error?.toString() },
         "Error uninstalling blog app",
       );
+
       throw error;
     }
   }
@@ -409,6 +411,7 @@ export class BlogConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const [posts, comments] = await Promise.all([
       wantPosts
         ? repository.getBlogPosts({
@@ -509,6 +512,7 @@ export class BlogConnectedApp
         { appId: appData._id, error },
         "Error retrieving blog posts",
       );
+
       throw error;
     }
   }
@@ -525,6 +529,7 @@ export class BlogConnectedApp
         appData._id,
         appData.organizationId,
       );
+
       const result = await repositoryService.getBlogPost(data.id, data.slug);
 
       logger.debug({ appId: appData._id }, "Successfully retrieved blog post");
@@ -552,6 +557,7 @@ export class BlogConnectedApp
       const isUnique = await repositoryService.checkBlogPostSlugUnique(
         data.post.slug,
       );
+
       if (!isUnique) {
         throw new ConnectedAppRequestError(
           "blog_post_slug_not_unique",
@@ -601,6 +607,7 @@ export class BlogConnectedApp
         data.post.slug,
         data.id,
       );
+
       if (!isUnique) {
         throw new ConnectedAppRequestError(
           "blog_post_slug_not_unique",
@@ -759,12 +766,14 @@ export class BlogConnectedApp
         { appId: appData._id, slug: data.slug, id: data.id, result },
         "Successfully checked blog post slug uniqueness",
       );
+
       return result;
     } catch (error: any) {
       logger.error(
         { appId: appData._id, slug: data.slug, error },
         "Error checking blog post slug uniqueness",
       );
+
       throw error;
     }
   }
@@ -777,6 +786,7 @@ export class BlogConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     return repositoryService.getBlogComments(data.query);
   }
 
@@ -789,10 +799,12 @@ export class BlogConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const result = await repositoryService.updateCommentStatus(
       data.id,
       "approved",
     );
+
     if (!result) {
       throw new ConnectedAppRequestError(
         "blog_comment_not_found",
@@ -801,6 +813,7 @@ export class BlogConnectedApp
         "Blog comment not found",
       );
     }
+
     await this.emitBlogEvent(
       BLOG_COMMENT_STATUS_CHANGED_EVENT_TYPE,
       {
@@ -814,6 +827,7 @@ export class BlogConnectedApp
       },
       this.adminEventSource(memberId),
     );
+
     return result;
   }
 
@@ -826,10 +840,12 @@ export class BlogConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const result = await repositoryService.updateCommentStatus(
       data.id,
       "rejected",
     );
+
     if (!result) {
       throw new ConnectedAppRequestError(
         "blog_comment_not_found",
@@ -926,10 +942,12 @@ export class BlogConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const result = await repositoryService.updateCommentsStatus(
       data.ids,
       "approved",
     );
+
     await this.publishPendingCommentsBadge(appData);
     return result;
   }
@@ -942,10 +960,12 @@ export class BlogConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const result = await repositoryService.updateCommentsStatus(
       data.ids,
       "rejected",
     );
+
     await this.publishPendingCommentsBadge(appData);
     return result;
   }

@@ -45,6 +45,7 @@ export const PaddingInput: React.FC<Props> = ({
       ...value,
       [internalName]: nValue,
     };
+
     setValue(v);
     onChange(v);
   };

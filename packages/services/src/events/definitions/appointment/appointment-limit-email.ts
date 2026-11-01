@@ -31,6 +31,7 @@ export async function buildAppointmentLimitReachedEmails(
     envelope.organizationId,
     services.billingService,
   );
+
   if (count !== FREE_TIER_LIMITS.appointments) {
     return null;
   }
@@ -40,15 +41,18 @@ export async function buildAppointmentLimitReachedEmails(
 
   const organizationLabel =
     organization?.name?.trim() || organization?.slug || "";
+
   const layoutArgs = {
     config: organizationLabel ? { name: organizationLabel } : {},
   };
+
   const interpolation = { limit: FREE_TIER_LIMITS.appointments };
   const upgradeUrl = `${getAdminUrl()}${dashboardUrls.billing}?activeTab=general`;
 
   const notifications: EmailNotificationRequest[] = [];
   for (const admin of admins) {
     if (!admin.email) continue;
+
     const t = await getI18nAsync({ locale: admin.language });
     const subject = t(`${EMAIL_KEY_PREFIX}.subject`, interpolation);
     const body = await renderUserEmailTemplate(

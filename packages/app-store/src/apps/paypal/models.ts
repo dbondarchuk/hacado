@@ -12,6 +12,7 @@ export const paypalButtonColor = [
   "white",
   "black",
 ] as const;
+
 export const paypalButtonLabel = ["paypal", "pay"] as const;
 
 export const paypalConfigurationSchema = z.object({

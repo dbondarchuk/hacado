@@ -79,9 +79,11 @@ export class SmtpService implements IMailSender {
           const result = await this.storageService.getFile(
             attachment.storageFilename,
           );
+
           if (!result) {
             throw new Error("Attachment not found");
           }
+
           const { stream } = result;
           return {
             cid: attachment.cid,
@@ -179,6 +181,7 @@ export class SmtpService implements IMailSender {
         },
         "Error creating SMTP client",
       );
+
       throw error;
     }
   }

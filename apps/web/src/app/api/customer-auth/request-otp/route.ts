@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
         { status: error.status },
       );
     }
+
     throw error;
   }
 }

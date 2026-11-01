@@ -70,6 +70,7 @@ export const CellAction: React.FC<CellActionProps> = ({ giftCard }) => {
               }),
         error: t("common.toasts.error"),
       });
+
       router.refresh();
     } catch (error: any) {
       console.error(error);

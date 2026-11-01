@@ -48,6 +48,7 @@ export const fontWeightPlugin: MarkPlugin = {
     if (marks.fontWeight && marks.fontWeight !== "inherit") {
       styles.fontWeight = marks.fontWeight;
     }
+
     return styles;
   },
 };

@@ -20,6 +20,7 @@ export const marginStyle = {
   },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return renderFourSideValuesCss(value, "margin");
   },
   component: ({ value, onChange }) => (

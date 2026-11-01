@@ -28,6 +28,7 @@ function FontPreviewThumb({ family }: { family: string }) {
       />
     );
   }
+
   return (
     <img
       src={`/fonts/preview/${getWebfontPreviewFilename(family)}`}
@@ -79,14 +80,17 @@ export function StepPersonalization() {
     () => fonts(p.primaryFont),
     [p.primaryFont],
   );
+
   const customPrimaryFontSearch = useMemo(
     () => customFontSearch(p.primaryFont),
     [p.primaryFont],
   );
+
   const secondaryFontValues = useMemo(
     () => fonts(p.secondaryFont),
     [p.secondaryFont],
   );
+
   const customSecondaryFontSearch = useMemo(
     () => customFontSearch(p.secondaryFont),
     [p.secondaryFont],
@@ -107,14 +111,17 @@ export function StepPersonalization() {
         secondaryFont: p.secondaryFont,
         installLogo: p.installLogo,
       });
+
       if (!r.ok) {
         if (r.code === "invalid_logo") {
           toast.error(t("wizard.personalization.invalidLogo"));
         } else {
           toast.error(t("wizard.personalization.saveError"));
         }
+
         return;
       }
+
       await refetch();
       router.refresh();
       setStep(3);

@@ -292,14 +292,17 @@ export function styledStatCell(
       keys.value,
     );
   }
+
   if (label?.data?.props) {
     label.data.props.text = t(keys.label);
   }
+
   if (supporting?.data?.props) {
     supporting.data.props.value = [
       { type: "p", children: [{ text: t(keys.supporting) }] },
     ];
   }
+
   if (heading?.data?.style) {
     heading.data.style = {
       ...heading.data.style,
@@ -309,6 +312,7 @@ export function styledStatCell(
       color: [{ value: COLORS.primary.value }],
     };
   }
+
   return withBlockStyle(cell, {
     backgroundColor: [{ value: COLORS.card.value }],
     borderStyle: [{ value: "solid" }],
@@ -355,6 +359,7 @@ export function styledStep(
   if (numberBlock?.data?.props) {
     numberBlock.data.props.text = t(keys.number);
   }
+
   if (
     titleBlock?.data?.props?.children?.[0]?.data?.props?.children?.[0]?.data
       ?.props
@@ -362,11 +367,13 @@ export function styledStep(
     titleBlock.data.props.children[0].data.props.children[0].data.props.text =
       t(keys.title);
   }
+
   if (bulletsBlock?.data?.props) {
     bulletsBlock.data.props.value = [
       { type: "p", children: [{ text: t(keys.bullets) }] },
     ];
   }
+
   if (numberBlock?.data?.style) {
     numberBlock.data.style = {
       ...numberBlock.data.style,
@@ -376,6 +383,7 @@ export function styledStep(
       textAlign: [{ value: "center" }],
     };
   }
+
   return withBlockStyle(step, {
     backgroundColor: [{ value: COLORS.card.value }],
     borderStyle: [{ value: "solid" }],
@@ -456,16 +464,20 @@ export function logoImageCard(
   const image = card.data?.props?.children?.find(
     (child: TEditorBlock) => child.type === "Image",
   );
+
   const label = card.data?.props?.children?.find(
     (child: TEditorBlock) => child.type === "InlineText",
   );
+
   if (image?.data?.props) {
     image.data.props.src = src;
     image.data.props.alt = name;
   }
+
   if (label?.data?.props) {
     label.data.props.text = name;
   }
+
   return card;
 }
 
@@ -489,18 +501,22 @@ export function buildScrollingLogos(
             const image = item.data.props.children.find(
               (child: TEditorBlock) => child.type === "Image",
             );
+
             const text = item.data.props.children.find(
               (child: TEditorBlock) => child.type === "InlineText",
             );
+
             if (image?.data?.props) {
               image.data.props.src = logo.src;
               image.data.props.alt = logo.name;
               image.id = generateId();
             }
+
             if (text?.data?.props) {
               text.data.props.text = logo.name;
               text.id = generateId();
             }
+
             return item;
           }),
         },
@@ -518,16 +534,20 @@ export function buildBeforeAfter(
   const defaults = structuredClone(BeforeAfterPropsDefaults());
   const beforeImage =
     defaults.props?.before?.children?.[0]?.data?.props?.children?.[0];
+
   const afterImage =
     defaults.props?.after?.children?.[0]?.data?.props?.children?.[0];
+
   if (beforeImage?.data?.props) {
     beforeImage.data.props.src = beforeSrc;
     beforeImage.data.props.alt = beforeAlt;
   }
+
   if (afterImage?.data?.props) {
     afterImage.data.props.src = afterSrc;
     afterImage.data.props.alt = afterAlt;
   }
+
   return {
     type: "BeforeAfter",
     id: generateId(),
@@ -697,6 +717,7 @@ export function accordionItem(
   if (titleBlock?.data?.props?.children?.[0]?.data?.props) {
     titleBlock.data.props.children[0].data.props.text = t(titleKey);
   }
+
   if (contentText?.data?.props) {
     contentText.data.props.value = [
       { type: "p", children: [{ text: t(contentKey) }] },
@@ -737,5 +758,6 @@ export function marketingBlock<K extends keyof typeof marketingEditorTemplates>(
   if (!("getBlock" in template)) {
     throw new Error(`Marketing template ${String(key)} is not a section`);
   }
+
   return template.getBlock(t);
 }

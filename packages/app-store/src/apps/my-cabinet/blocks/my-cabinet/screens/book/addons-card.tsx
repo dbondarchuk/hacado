@@ -75,11 +75,13 @@ export const AddonsCard: React.FC = () => {
               addon.staff,
               selectedMemberId,
             );
+
             const duration = effectiveAddonDuration(
               addon.duration,
               addon.staff,
               selectedMemberId,
             );
+
             return (
               <button
                 key={addon._id}

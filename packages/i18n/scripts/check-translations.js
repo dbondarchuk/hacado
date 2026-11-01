@@ -125,6 +125,7 @@ function getPreferredTranslationFilenamesInDir(dirPath) {
   if (!fs.existsSync(dirPath)) {
     return [];
   }
+
   const byStem = new Map();
   for (const f of fs.readdirSync(dirPath)) {
     if (f.startsWith(".") || f.endsWith(".generated.ts")) {
@@ -133,6 +134,7 @@ function getPreferredTranslationFilenamesInDir(dirPath) {
     if (!/\.(json|yaml|yml)$/.test(f)) {
       continue;
     }
+
     const stem = f.replace(/\.(json|yaml|yml)$/, "");
     const isYaml = f.endsWith(".yaml") || f.endsWith(".yml");
     const current = byStem.get(stem);
@@ -145,6 +147,7 @@ function getPreferredTranslationFilenamesInDir(dirPath) {
       }
     }
   }
+
   return Array.from(byStem.values()).sort();
 }
 
@@ -170,8 +173,10 @@ function loadDataFromPath(filePath, filename) {
       if (fs.existsSync(jsonPath)) {
         return JSON.parse(fs.readFileSync(jsonPath, "utf8"));
       }
+
       throw new Error(`File not found: ${filePath} (or ${jsonPath})`);
     }
+
     const raw = fs.readFileSync(filePath, "utf8");
     let doc = null;
     if (raw.trim()) {
@@ -183,6 +188,7 @@ function loadDataFromPath(filePath, filename) {
         );
       }
     }
+
     if (
       doc != null &&
       typeof doc === "object" &&
@@ -191,15 +197,19 @@ function loadDataFromPath(filePath, filename) {
     ) {
       return doc;
     }
+
     const jsonPath = filePath.replace(/\.(yaml|yml)$/, ".json");
     if (fs.existsSync(jsonPath)) {
       return JSON.parse(fs.readFileSync(jsonPath, "utf8"));
     }
+
     return {};
   }
+
   if (!fs.existsSync(filePath)) {
     throw new Error(`File not found: ${filePath}`);
   }
+
   const content = fs.readFileSync(filePath, "utf8");
   return JSON.parse(content);
 }
@@ -225,19 +235,23 @@ function getStorageWriteTargetForPath(filePath, filename) {
         }
       }
     }
+
     const yamlHasData =
       doc != null &&
       typeof doc === "object" &&
       !Array.isArray(doc) &&
       !isEmptyRootObject(doc);
+
     if (yamlHasData) {
       return { path: filePath, format: "yaml" };
     }
     if (fs.existsSync(jsonPath)) {
       return { path: jsonPath, format: "json" };
     }
+
     return { path: filePath, format: "yaml" };
   }
+
   return { path: filePath, format: "json" };
 }
 
@@ -314,6 +328,7 @@ function loadAppTranslationFile(appName, locale, filename) {
     locale,
     filename,
   );
+
   try {
     return loadDataFromPath(filePath, filename);
   } catch (error) {
@@ -343,6 +358,7 @@ function loadParentChainContent(locale, filename, loadFn, catalog) {
       // Parent file may be absent; inherit from further ancestors.
     }
   }
+
   return result;
 }
 
@@ -387,6 +403,7 @@ function checkAppTranslations(catalog) {
       if (!report.missing[appName][locale]) {
         report.missing[appName][locale] = {};
       }
+
       if (!report.extra[appName][locale]) {
         report.extra[appName][locale] = {};
       }
@@ -398,6 +415,7 @@ function checkAppTranslations(catalog) {
             // Sparse overlays may omit entire files.
             continue;
           }
+
           // File is missing entirely
           report.missing[appName][locale][filename] = ["FILE_MISSING"];
           report.totalMissing++;
@@ -410,11 +428,13 @@ function checkAppTranslations(catalog) {
             baseLocale,
             filename,
           );
+
           const localeContent = loadAppTranslationFile(
             appName,
             locale,
             filename,
           );
+
           const parentContent = partial
             ? loadParentChainContent(
                 locale,
@@ -437,6 +457,7 @@ function checkAppTranslations(catalog) {
                 if (!report.missing[appName][locale][filename]) {
                   report.missing[appName][locale][filename] = [];
                 }
+
                 report.missing[appName][locale][filename].push(key);
                 report.totalMissing++;
               }
@@ -452,6 +473,7 @@ function checkAppTranslations(catalog) {
               if (!report.extra[appName][locale][filename]) {
                 report.extra[appName][locale][filename] = [];
               }
+
               report.extra[appName][locale][filename].push(key);
               report.totalExtra++;
             }
@@ -469,6 +491,7 @@ function checkAppTranslations(catalog) {
           if (!report.extra[appName][locale][filename]) {
             report.extra[appName][locale][filename] = [];
           }
+
           report.extra[appName][locale][filename].push("EXTRA_FILE");
           report.totalExtra++;
         }
@@ -520,10 +543,12 @@ function checkTranslations(catalog) {
           // Sparse overlays may omit entire files.
           continue;
         }
+
         // File is missing entirely
         if (!report.missing[locale][filename]) {
           report.missing[locale][filename] = [];
         }
+
         report.missing[locale][filename].push("FILE_MISSING");
         report.totalMissing++;
         continue;
@@ -554,6 +579,7 @@ function checkTranslations(catalog) {
               if (!report.missing[locale][filename]) {
                 report.missing[locale][filename] = [];
               }
+
               report.missing[locale][filename].push(key);
               report.totalMissing++;
             }
@@ -569,6 +595,7 @@ function checkTranslations(catalog) {
             if (!report.extra[locale][filename]) {
               report.extra[locale][filename] = [];
             }
+
             report.extra[locale][filename].push(key);
             report.totalExtra++;
           }
@@ -586,6 +613,7 @@ function checkTranslations(catalog) {
         if (!report.extra[locale][filename]) {
           report.extra[locale][filename] = [];
         }
+
         report.extra[locale][filename].push("EXTRA_FILE");
         report.totalExtra++;
       }
@@ -702,6 +730,7 @@ function printReport(report, appReport = null) {
 
   const totalMissing =
     report.totalMissing + (appReport ? appReport.totalMissing : 0);
+
   const totalExtra = report.totalExtra + (appReport ? appReport.totalExtra : 0);
   const totalErrors =
     report.errors.length + (appReport ? appReport.errors.length : 0);
@@ -728,8 +757,10 @@ function applyFixes(report, appReport = null, catalog) {
   // Central translation targets: "<locale>/<filename>" => [target, locale]
   for (const [locale, files] of Object.entries(report.missing || {})) {
     if (catalog.isPartialLocale(locale)) continue;
+
     for (const [filename, missingKeys] of Object.entries(files || {})) {
       if (!missingKeys || missingKeys.length === 0) continue;
+
       const dedupeKey = `central:${locale}:${filename}`;
       targets.set(dedupeKey, [filename, locale]);
     }
@@ -740,8 +771,10 @@ function applyFixes(report, appReport = null, catalog) {
     for (const [appName, locales] of Object.entries(appReport.missing || {})) {
       for (const [locale, files] of Object.entries(locales || {})) {
         if (catalog.isPartialLocale(locale)) continue;
+
         for (const [filename, missingKeys] of Object.entries(files || {})) {
           if (!missingKeys || missingKeys.length === 0) continue;
+
           const dedupeKey = `app:${appName}:${locale}:${filename}`;
           const target = `${appName}/${filename}`;
           targets.set(dedupeKey, [target, locale]);
@@ -758,6 +791,7 @@ function applyFixes(report, appReport = null, catalog) {
         `\n🛠️  --fix: cleaned ${cleanupResult.changed} extra item(s); no missing translations to translate.`,
       );
     }
+
     return { attempted: 0, failed: 0, changed: cleanupResult.changed };
   }
 
@@ -770,6 +804,7 @@ function applyFixes(report, appReport = null, catalog) {
     console.log(
       `\n➡️  Fixing ${target} (${locale}) using ${cliOptions.provider}...`,
     );
+
     const result = spawnSync(
       process.execPath,
       [TRANSLATE_SCRIPT, target, locale, `--provider=${cliOptions.provider}`],
@@ -812,18 +847,21 @@ function cleanupExtras(report, appReport = null) {
           changed++;
           console.log(`🧹 Removed extra file: ${localeFilePath}`);
         }
+
         continue;
       }
 
       if (!fs.existsSync(localeFilePath) && !filename.match(/\.(yaml|yml)$/)) {
         continue;
       }
+
       let localeContent;
       try {
         localeContent = loadTranslationFile(locale, filename);
       } catch {
         continue;
       }
+
       if (!localeContent || typeof localeContent !== "object") continue;
 
       let fileChanged = false;
@@ -842,6 +880,7 @@ function cleanupExtras(report, appReport = null) {
           path.join(LOCALES_DIR, locale, filename),
           filename,
         );
+
         if (target.format === "yaml") {
           writeYamlFile(target.path, localeContent);
         } else {
@@ -863,6 +902,7 @@ function cleanupExtras(report, appReport = null) {
             locale,
             filename,
           );
+
           if (!Array.isArray(extraKeys) || extraKeys.length === 0) continue;
 
           if (extraKeys.includes("EXTRA_FILE")) {
@@ -871,18 +911,21 @@ function cleanupExtras(report, appReport = null) {
               changed++;
               console.log(`🧹 Removed extra app file: ${appFilePath}`);
             }
+
             continue;
           }
 
           if (!fs.existsSync(appFilePath) && !filename.match(/\.(yaml|yml)$/)) {
             continue;
           }
+
           let localeContent;
           try {
             localeContent = loadAppTranslationFile(appName, locale, filename);
           } catch {
             continue;
           }
+
           if (!localeContent || typeof localeContent !== "object") continue;
 
           let fileChanged = false;
@@ -940,6 +983,7 @@ function removeKeyByPath(obj, keyPath) {
     if (!current || typeof current !== "object" || !(key in current)) {
       return false;
     }
+
     stack.push([current, key]);
     current = current[key];
   }
@@ -948,6 +992,7 @@ function removeKeyByPath(obj, keyPath) {
   if (!current || typeof current !== "object" || !(leaf in current)) {
     return false;
   }
+
   delete current[leaf];
 
   // Cleanup empty objects from leaf to root
@@ -995,6 +1040,7 @@ async function main() {
         appReport = config.checkApps ? checkAppTranslations(catalog) : null;
         printReport(report, appReport);
       }
+
       if (fixResult.failed > 0) {
         console.log(`\n⚠️  ${fixResult.failed} fix target(s) failed.`);
       }
@@ -1005,8 +1051,10 @@ async function main() {
 
     const totalMissing =
       report.totalMissing + (appReport ? appReport.totalMissing : 0);
+
     const totalExtra =
       report.totalExtra + (appReport ? appReport.totalExtra : 0);
+
     const totalErrors =
       report.errors.length + (appReport ? appReport.errors.length : 0);
 
@@ -1057,8 +1105,10 @@ process.argv.slice(2).forEach((arg) => {
       console.error(
         `❌ Invalid provider "${provider}". Use --provider=google or --provider=mymemory.`,
       );
+
       process.exit(1);
     }
+
     cliOptions.provider = provider;
   } else if (arg === "--help" || arg === "-h") {
     console.log(`
@@ -1083,6 +1133,7 @@ Examples:
   yarn check-translations --fix              # Auto-fix missing/extra translations and re-check
   yarn check-translations --fix --provider=mymemory
 `);
+
     process.exit(0);
   }
 });

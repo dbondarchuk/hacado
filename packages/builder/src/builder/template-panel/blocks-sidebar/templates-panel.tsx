@@ -108,6 +108,7 @@ function applyLayoutToDocument(
       children,
     },
   };
+
   dispatchAction({
     type: "document",
     value: { document: nextDocument },
@@ -128,6 +129,7 @@ function useTemplateEntries(mode: TemplatePanelMode) {
     return entries
       .filter(([type, config]) => {
         if (!debouncedSearchQuery.trim()) return true;
+
         const query = debouncedSearchQuery.trim().toLocaleLowerCase();
         const name = config.displayName.toLocaleLowerCase();
         const displayName = t(config.displayName).toLocaleLowerCase();
@@ -136,6 +138,7 @@ function useTemplateEntries(mode: TemplatePanelMode) {
         const packId = isLayoutTemplate(config)
           ? config.packId.toLocaleLowerCase()
           : "";
+
         const layoutKind = isLayoutTemplate(config)
           ? config.layoutKind.toLocaleLowerCase()
           : "";
@@ -155,6 +158,7 @@ function useTemplateEntries(mode: TemplatePanelMode) {
           if (!acc[category]) {
             acc[category] = [];
           }
+
           acc[category].push({ type, config });
           return acc;
         },
@@ -226,6 +230,7 @@ export const LayoutsPanel = memo(() => {
   const dispatchAction = useDispatchAction();
   const { searchQuery, setSearchQuery, filteredTemplates } =
     useTemplateEntries("layout");
+
   const [pendingLayoutType, setPendingLayoutType] = useState<string | null>(
     null,
   );
@@ -254,6 +259,7 @@ export const LayoutsPanel = memo(() => {
 
   const confirmApplyLayout = useCallback(() => {
     if (!pendingLayoutType) return;
+
     const template = templates?.[pendingLayoutType];
     if (template && isLayoutTemplate(template)) {
       applyLayoutToDocument(
@@ -263,6 +269,7 @@ export const LayoutsPanel = memo(() => {
         dispatchAction,
       );
     }
+
     setPendingLayoutType(null);
   }, [pendingLayoutType, templates, document, t, dispatchAction]);
 

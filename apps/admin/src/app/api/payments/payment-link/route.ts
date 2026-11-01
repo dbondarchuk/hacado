@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
       payload.appointmentId,
       logger,
     );
+
     if (!auth.ok) return auth.response;
 
     if (auth.appointment.customerId !== payload.customerId) {
@@ -55,6 +56,7 @@ export async function POST(request: NextRequest) {
         },
         "Customer ID does not match appointment",
       );
+
       return NextResponse.json(
         {
           success: false,
@@ -133,6 +135,7 @@ export async function POST(request: NextRequest) {
 
   const paymentLinkApps =
     await servicesContainer.connectedAppsService.getAppsByScope("payment-link");
+
   const paymentLinkApp = paymentLinkApps.find(
     (app) => app._id === payload.paymentLinkAppId,
   );
@@ -142,6 +145,7 @@ export async function POST(request: NextRequest) {
       { paymentLinkAppId: payload.paymentLinkAppId },
       "Payment link app not found or missing payment-link scope",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -162,6 +166,7 @@ export async function POST(request: NextRequest) {
       { appId: paymentLinkApp._id, appName: paymentLinkApp.name },
       "App does not implement createPaymentLink",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -198,6 +203,7 @@ export async function POST(request: NextRequest) {
       { appId: paymentLinkApp._id, appName: paymentLinkApp.name },
       "App does not implement sendPaymentLink",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -249,6 +255,7 @@ export async function POST(request: NextRequest) {
       { paymentId: payment._id, error },
       "Payment link creation failed; removing payment",
     );
+
     await servicesContainer.paymentsService.deletePayment(payment._id, actor);
     throw error;
   }

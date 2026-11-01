@@ -23,6 +23,7 @@ export const gridTemplateColumnsStyle = {
   defaultValue: "repeat(auto-fit, minmax(250px, 1fr))",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `grid-template-columns: ${value};`;
   },
   component: ({ value, onChange }) => (

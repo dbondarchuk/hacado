@@ -45,6 +45,7 @@ export const TypewriterTextClient = forwardRef<
     const currentPhrase = safePhrases[phraseIndex]?.text ?? "";
     const longest = useMemo(() => {
       if (!safePhrases.length) return "";
+
       return safePhrases.reduce(
         (acc, p) => (p.text.length > acc.length ? p.text : acc),
         safePhrases[0]!.text,
@@ -53,6 +54,7 @@ export const TypewriterTextClient = forwardRef<
 
     useEffect(() => {
       if (!safePhrases.length) return;
+
       setPhraseIndex((i) => Math.min(i, safePhrases.length - 1));
     }, [safePhrases.length]);
 
@@ -68,11 +70,13 @@ export const TypewriterTextClient = forwardRef<
                 setDisplayText(currentPhrase.slice(0, displayText.length + 1)),
             };
           }
+
           return {
             delayMs: pauseAfterPhraseMs,
             action: () => setPhase("deleting"),
           };
         }
+
         if (phase === "deleting") {
           if (displayText.length > 0) {
             return {
@@ -80,6 +84,7 @@ export const TypewriterTextClient = forwardRef<
               action: () => setDisplayText((t) => t.slice(0, -1)),
             };
           }
+
           return {
             delayMs: 0,
             action: () => {
@@ -88,6 +93,7 @@ export const TypewriterTextClient = forwardRef<
             },
           };
         }
+
         return { delayMs: 0, action: () => {} };
       })();
 

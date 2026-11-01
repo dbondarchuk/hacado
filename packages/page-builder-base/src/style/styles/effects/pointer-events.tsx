@@ -17,6 +17,7 @@ export const pointerEventsStyle = {
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value || value === "auto") return null;
+
     return `pointer-events: ${value};`;
   },
   component: ({ value, onChange }) => {

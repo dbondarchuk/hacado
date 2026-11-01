@@ -85,6 +85,7 @@ export const GiftCardPurchaseShowcaseView = forwardRef<
       steps,
       appId,
     } = purchase;
+
     const hasNoDesigns = !!appId && !isLoading && designs.length === 0;
     const previewFirstOnWide = previewPosition === "left";
 
@@ -181,6 +182,7 @@ const PreviewFrame = ({
 }) => {
   const { t, previewUrl, previewLoading, previewError, isLoading, appId } =
     purchase;
+
   const message = !appId
     ? t("block.errors.noAppId")
     : hasNoDesigns
@@ -253,7 +255,6 @@ const PurchaseCard = ({
       </p>
     );
   }
-
   if (isSuccess) {
     return (
       <div className="py-8 text-center">
@@ -272,7 +273,6 @@ const PurchaseCard = ({
       </div>
     );
   }
-
   if (currentStep === "payment") {
     return (
       <div className="space-y-6">
@@ -341,6 +341,7 @@ const DetailsStep = ({
     isValid,
     handleGoToPayment,
   } = purchase;
+
   const disabled = isLoading || hasNoDesigns;
   const shownPresets = visibleAmountPresets(
     amountPresets,

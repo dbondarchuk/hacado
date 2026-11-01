@@ -72,6 +72,7 @@ export const ServicesContainer: (
 
     const dashboardNotificationsService =
       new RedisDashboardNotificationPublisher(organizationId, redisClient);
+
     const organizationService = new OrganizationService(
       organizationId,
       eventService,

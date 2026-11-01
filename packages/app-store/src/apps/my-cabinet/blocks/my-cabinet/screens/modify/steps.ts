@@ -49,6 +49,7 @@ export const CabinetModifySteps: Record<StepType, Step> = {
           setAppointment(undefined);
           return;
         }
+
         setCurrentStep("calendar");
       },
     },

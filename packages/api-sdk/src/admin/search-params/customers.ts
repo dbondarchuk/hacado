@@ -24,9 +24,11 @@ export const customersSearchParams = {
 export const customersSearchParamsCache = createSearchParamsCache(
   customersSearchParams,
 );
+
 export const customersSearchParamsSchema = createStandardSchemaV1(
   customersSearchParams,
 );
+
 export const customersSearchParamsSerializer = createSerializer(
   customersSearchParams,
 );

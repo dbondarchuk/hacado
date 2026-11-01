@@ -12,11 +12,9 @@ export const transitionStyle = {
   defaultValue: "all 0.3s ease",
   renderToCSS: (value) => {
     if (!value || value === "none") return null;
-
     if (typeof value === "string") {
       return `transition: ${value};`;
     }
-
     if (value.properties.length === 0 || value.properties.includes("none"))
       return null;
 

@@ -41,6 +41,7 @@ export const BlogPostAuthorServerWrapper = async ({
       post,
       organizationId,
     );
+
     if (!authorName) {
       label = t("block.postAuthor.missingAuthor" satisfies BlogPublicKeys);
     } else {

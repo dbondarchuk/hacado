@@ -165,6 +165,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
           },
         },
       );
+
       setConnectedAppId(appId);
       onSuccess(appId, true);
     } catch (e: any) {

@@ -105,6 +105,7 @@ export const columns: ColumnDef<ActivityListItem>[] = [
       const href = row.original.link;
       const t = useI18n("admin");
       if (!href) return null;
+
       return (
         <Link href={href} variant="underline">
           {t("activity.table.columns.link")}

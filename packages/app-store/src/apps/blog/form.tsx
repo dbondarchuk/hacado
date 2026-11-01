@@ -83,6 +83,7 @@ export const BlogPostForm: React.FC<{
   const [authorMembers, setAuthorMembers] = useState<
     OrganizationAuthorMember[]
   >([]);
+
   const router = useRouter();
 
   const cachedUniqueSlugCheck = useDebounceCacheFn(
@@ -119,6 +120,7 @@ export const BlogPostForm: React.FC<{
         setAuthorMembers(members);
       }
     });
+
     return () => {
       cancelled = true;
     };
@@ -128,7 +130,6 @@ export const BlogPostForm: React.FC<{
     if (initialData?._id) {
       return;
     }
-
     if (initialData?.author) {
       return;
     }
@@ -138,6 +139,7 @@ export const BlogPostForm: React.FC<{
       if (cancelled) {
         return;
       }
+
       form.setValue(
         "author",
         { type: "member", memberId: user._id },
@@ -154,7 +156,6 @@ export const BlogPostForm: React.FC<{
     if (!initialData || initialData._id) {
       return;
     }
-
     if (!initialData.author) {
       return;
     }
@@ -395,6 +396,7 @@ export const BlogPostForm: React.FC<{
                                 : "",
                           });
                         }
+
                         void form.trigger("author");
                       }}
                     >

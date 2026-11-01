@@ -29,6 +29,7 @@ export const AppointmentNotificationsTableAction: React.FC<{
     AppointmentNotificationsAdminNamespace,
     AppointmentNotificationsAdminKeys
   >(appointmentNotificationsAdminNamespace);
+
   const tUi = useI18n("ui");
   const tAdmin = useI18n("admin");
 
@@ -43,6 +44,7 @@ export const AppointmentNotificationsTableAction: React.FC<{
     typeFilter,
     setTypeFilter,
   } = useAppointmentNotificationsTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
 
   const additionalFilters = (

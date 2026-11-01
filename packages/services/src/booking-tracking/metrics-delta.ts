@@ -11,9 +11,11 @@ export function metricsDeltaToInc(
   for (const [step, count] of Object.entries(delta.entered ?? {})) {
     if (count) inc[`metrics.entered.${step}`] = count;
   }
+
   for (const [step, count] of Object.entries(delta.stoppedAt ?? {})) {
     if (count) inc[`metrics.stoppedAt.${step}`] = count;
   }
+
   for (const [type, count] of Object.entries(delta.convertedTo ?? {})) {
     if (count) inc[`metrics.convertedTo.${type}`] = count;
   }
@@ -47,11 +49,14 @@ export function mergeCountMaps(
   const merged: Record<string, number> = {};
   for (const map of maps) {
     if (!map) continue;
+
     for (const [key, value] of Object.entries(map)) {
       if (!value) continue;
+
       merged[key] = (merged[key] ?? 0) + value;
     }
   }
+
   return merged;
 }
 
@@ -59,5 +64,6 @@ export function sumRecordValues(
   map: Record<string, number> | undefined,
 ): number {
   if (!map) return 0;
+
   return Object.values(map).reduce((sum, value) => sum + value, 0);
 }

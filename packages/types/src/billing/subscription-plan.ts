@@ -20,6 +20,7 @@ export function meetsMinimumPlanTier(
   requiredTier: BillingPlanTier,
 ): boolean {
   if (!currentTier) return true;
+
   return PLAN_TIER_RANK[currentTier] >= PLAN_TIER_RANK[requiredTier];
 }
 
@@ -47,6 +48,7 @@ export function canCreateMoreServices(
   currentCount: number,
 ): boolean {
   if (!planTier || planTier !== BillingPlanTier.Free) return true;
+
   return currentCount < FREE_TIER_LIMITS.services;
 }
 
@@ -55,6 +57,7 @@ export function canCreateMorePages(
   currentCount: number,
 ): boolean {
   if (!planTier || planTier !== BillingPlanTier.Free) return true;
+
   return currentCount < FREE_TIER_LIMITS.pages;
 }
 

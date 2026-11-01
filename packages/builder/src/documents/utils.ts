@@ -31,12 +31,14 @@ export function matchesRule<
 const intersect = (a?: string[], b?: string[]) => {
   if (!a) return b;
   if (!b) return a;
+
   return a.filter((v) => b.includes(v));
 };
 
 const union = (a?: string[], b?: string[]) => {
   if (!a) return b;
   if (!b) return a;
+
   return Array.from(new Set([...a, ...b]));
 };
 

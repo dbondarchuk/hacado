@@ -22,6 +22,7 @@ export async function GET() {
   const user = await servicesContainer.teamService.getMemberById(
     session.user.memberId,
   );
+
   if (!user) {
     logger.warn({ userId: session.user.id }, "Member profile not found");
     return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -55,6 +56,7 @@ export async function PATCH(request: Request) {
   const servicesContainer = await getServicesContainer();
   const booking =
     await servicesContainer.configurationService.getConfiguration("booking");
+
   const mayManageSources = canManageCalendarSources(
     session.user as SessionUser,
     {
@@ -69,6 +71,7 @@ export async function PATCH(request: Request) {
           const { calendarSources: _calendarSources, ...rest } = data;
           return rest;
         })();
+
     // Phone changes require OTP via updateMyPhone - ignore phone on generic PATCH
     const { phone: _phone, ...rest } = withoutPhone;
     return rest;

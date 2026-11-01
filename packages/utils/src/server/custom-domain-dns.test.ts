@@ -16,6 +16,7 @@ function mockResolver(map: {
       if (!records) {
         throw Object.assign(new Error("ENOTFOUND"), { code: "ENOTFOUND" });
       }
+
       return records;
     },
     resolveCname: async (hostname) => {
@@ -23,6 +24,7 @@ function mockResolver(map: {
       if (!records) {
         throw Object.assign(new Error("ENODATA"), { code: "ENODATA" });
       }
+
       return records;
     },
   };
@@ -43,6 +45,7 @@ describe("validateCustomDomainDns", () => {
       domain: "shop.example.com",
       resolver: mockResolver({}),
     });
+
     assert.deepEqual(result, { ok: true, skipped: true });
   });
 
@@ -55,6 +58,7 @@ describe("validateCustomDomainDns", () => {
         a: { "shop.example.com": ["1.2.3.4"] },
       }),
     });
+
     assert.deepEqual(result, { ok: true });
   });
 
@@ -67,6 +71,7 @@ describe("validateCustomDomainDns", () => {
         cname: { "shop.example.com": ["slug.hacado.me."] },
       }),
     });
+
     assert.deepEqual(result, { ok: true });
   });
 
@@ -82,6 +87,7 @@ describe("validateCustomDomainDns", () => {
         },
       }),
     });
+
     assert.deepEqual(result, { ok: true });
   });
 
@@ -98,6 +104,7 @@ describe("validateCustomDomainDns", () => {
         cname: { "shop.example.com": ["other.example.net"] },
       }),
     });
+
     assert.deepEqual(result, { ok: false });
   });
 
@@ -108,6 +115,7 @@ describe("validateCustomDomainDns", () => {
       expectedCnameHost: "slug.hacado.me",
       resolver: mockResolver({}),
     });
+
     assert.deepEqual(result, { ok: false });
   });
 });

@@ -46,6 +46,7 @@ export const TextMessagingSettingsForm = ({
       termsPageId: textMessaging.termsPageId ?? "",
     },
   });
+
   const smsEnabled = form.watch("enabled");
 
   const onSubmit = async (data: TextMessagingSettingsInput) => {
@@ -55,6 +56,7 @@ export const TextMessagingSettingsForm = ({
         success: t("settings.textMessaging.toasts.saved"),
         error: t("settings.textMessaging.toasts.error"),
       });
+
       router.refresh();
     } catch (error) {
       console.error(error);

@@ -48,6 +48,7 @@ const DEFAULT_SORT: Sort = [{ id: "createdAt", desc: true }];
 const REFERENCE_DATE_SORT: Sort = [
   { id: "referenceDateDistanceMs", desc: false },
 ];
+
 const DEFAULT_STATUS = appointmentsSearchParams.status.defaultValue;
 const DATE_COLUMN_CLASS = "w-44 whitespace-nowrap";
 const RELATIVE_COLUMN_CLASS = "w-40 whitespace-nowrap";
@@ -56,6 +57,7 @@ function getDefaultRange(referenceDate: Date, timeZone: string): DateRange {
   const center = DateTime.fromJSDate(new Date(referenceDate), {
     zone: timeZone,
   });
+
   return {
     start: center.minus({ days: 7 }).startOf("day").toJSDate(),
     end: center.plus({ days: 7 }).endOf("day").toJSDate(),
@@ -71,9 +73,11 @@ function formatPaymentOffset(
   const end = DateTime.fromJSDate(new Date(appointmentEndAt), {
     zone: timeZone,
   });
+
   const payment = DateTime.fromJSDate(new Date(referenceDate), {
     zone: timeZone,
   });
+
   const diffMs = end.toMillis() - payment.toMillis();
 
   if (diffMs === 0) {
@@ -136,12 +140,14 @@ export const AssignAppointmentDialog = ({
   const [range, setRange] = useState<DateRange | undefined>();
   const [statusFilter, setStatusFilterState] =
     useState<AppointmentStatus[]>(DEFAULT_STATUS);
+
   const [customerId, setCustomerId] = useState<string | undefined>();
   const [sort, setSort] = useState<Sort>(DEFAULT_SORT);
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<
     Appointment[] | AppointmentWithReferenceDateDistance[]
   >([]);
+
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<string | undefined>();
@@ -162,8 +168,10 @@ export const AssignAppointmentDialog = ({
         if (typeof value === "function") {
           return value(current) ?? DEFAULT_STATUS;
         }
+
         return value.length > 0 ? value : DEFAULT_STATUS;
       });
+
       return Promise.resolve(new URLSearchParams());
     },
     [],
@@ -224,6 +232,7 @@ export const AssignAppointmentDialog = ({
     if (!open) {
       return;
     }
+
     load();
   }, [open, load]);
 
@@ -248,6 +257,7 @@ export const AssignAppointmentDialog = ({
     setRange(
       referenceDate ? getDefaultRange(referenceDate, timeZone) : undefined,
     );
+
     setStatusFilterState(DEFAULT_STATUS);
     setCustomerId(lockedCustomerId);
     setSort(referenceDate ? REFERENCE_DATE_SORT : DEFAULT_SORT);
@@ -275,6 +285,7 @@ export const AssignAppointmentDialog = ({
         ? ArrowDown
         : ArrowUp
       : ChevronsUpDown;
+
     return (
       <button
         type="button"
@@ -300,10 +311,12 @@ export const AssignAppointmentDialog = ({
     if (!selected) {
       return;
     }
+
     const appointment = items.find((item) => item._id === selected);
     if (!appointment) {
       return;
     }
+
     setSubmitting(true);
     try {
       await onConfirm(selected, appointment);

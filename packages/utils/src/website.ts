@@ -24,6 +24,7 @@ export const publishedPageUrl = (
   page?: { published?: boolean; slug?: string | null } | null,
 ) => {
   if (!page?.published) return undefined;
+
   const slug = page.slug?.replace(/^\/+/, "").trim();
   if (!slug) return undefined;
 
@@ -48,6 +49,7 @@ export const getAdminUrl = () => {
   const schema = process.env.ADMIN_DOMAIN?.startsWith("localhost")
     ? "http"
     : "https";
+
   return `${schema}://${process.env.ADMIN_DOMAIN}`;
 };
 
@@ -55,5 +57,6 @@ export const getAppsExternalUrl = () => {
   const schema = process.env.APPS_EXTERNAL_DOMAIN?.startsWith("localhost")
     ? "http"
     : "https";
+
   return `${schema}://${process.env.APPS_EXTERNAL_DOMAIN}`;
 };

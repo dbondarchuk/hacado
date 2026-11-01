@@ -35,6 +35,7 @@ export function getValidNumber(
       if (numericValue > max) numericValue = min;
       if (numericValue < min) numericValue = max;
     }
+
     return numericValue.toString().padStart(2, "0");
   }
 
@@ -43,16 +44,19 @@ export function getValidNumber(
 
 export function getValidHour(value: string) {
   if (isValidHour(value)) return value;
+
   return getValidNumber(value, { max: 23 });
 }
 
 export function getValid12Hour(value: string) {
   if (isValid12Hour(value)) return value;
+
   return getValidNumber(value, { min: 1, max: 12 });
 }
 
 export function getValidMinuteOrSecond(value: string) {
   if (isValidMinuteOrSecond(value)) return value;
+
   return getValidNumber(value, { max: 59 });
 }
 
@@ -71,6 +75,7 @@ export function getValidArrowNumber(
     numericValue += step;
     return getValidNumber(String(numericValue), { min, max, loop: true });
   }
+
   return "00";
 }
 
@@ -129,6 +134,7 @@ export function setDateByType(
       return setHours(date, value);
     case "12hours": {
       if (!period) return date;
+
       return set12Hours(date, value, period);
     }
     default:
@@ -189,8 +195,10 @@ export function convert12HourTo24Hour(hour: number, period: Period) {
     }
   } else if (period === "AM") {
     if (hour === 12) return 0;
+
     return hour;
   }
+
   return hour;
 }
 
@@ -203,5 +211,6 @@ export function display12HourValue(hours: number) {
   if (hours === 0 || hours === 12) return "12";
   if (hours >= 22) return `${hours - 12}`;
   if (hours % 12 > 9) return `${hours}`;
+
   return `0${hours % 12}`;
 }

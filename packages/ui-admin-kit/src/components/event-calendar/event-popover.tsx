@@ -25,6 +25,7 @@ function customerInitials(name: string): string {
     .slice(0, 2)
     .join("");
 }
+
 export const EventPopover: React.FC<EventPopoverProps> = ({
   event,
   children,
@@ -38,6 +39,7 @@ export const EventPopover: React.FC<EventPopoverProps> = ({
   const duration = durationToTime(
     endDate.diff(eventDate, "minutes").toObject().minutes ?? 0,
   );
+
   const appearance = getEventAppearance(event);
   return (
     <Popover>

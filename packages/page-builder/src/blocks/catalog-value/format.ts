@@ -17,11 +17,13 @@ export type ResolvedCatalogValue =
 
 const hourWord = (count: number, style: DurationStyle) => {
   if (style === "short") return "hr";
+
   return count === 1 ? "hour" : "hours";
 };
 
 const minuteWord = (count: number, style: DurationStyle) => {
   if (style === "long") return count === 1 ? "minute" : "minutes";
+
   return "min";
 };
 
@@ -37,11 +39,11 @@ export function formatDuration(
   if (format === "duration") return String(total);
   if (format === "hours") return `${hours} ${hourWord(hours, style)}`;
   if (format === "minutes") return `${total} ${minuteWord(total, style)}`;
-
   if (hours > 0 && mins > 0) {
     return `${hours} ${hourWord(hours, style)} ${mins} ${minuteWord(mins, style)}`;
   }
   if (hours > 0) return `${hours} ${hourWord(hours, style)}`;
+
   return `${mins} ${minuteWord(mins, style)}`;
 }
 
@@ -103,6 +105,7 @@ export function resolveCatalogValue({
   if (definition.kind === "price") {
     const amount = typeof raw === "number" ? raw : Number(raw);
     if (!Number.isFinite(amount)) return { kind: "empty" };
+
     return {
       kind: "text",
       text: formatPrice(amount, {
@@ -115,6 +118,7 @@ export function resolveCatalogValue({
   if (definition.kind === "duration") {
     const minutes = typeof raw === "number" ? raw : Number(raw);
     if (!Number.isFinite(minutes)) return { kind: "empty" };
+
     return {
       kind: "text",
       text: formatDuration(

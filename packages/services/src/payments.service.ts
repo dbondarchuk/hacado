@@ -214,7 +214,6 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     if (intent.status !== "paid") {
       return false;
     }
-
     if (
       getIntentBaseAmount(intent) !== amount ||
       intent.appId !== appId ||
@@ -245,6 +244,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     const logger = this.loggerFactory(
       "findReusablePaidIntentForAppointmentRequest",
     );
+
     logger.debug(
       {
         appId,
@@ -263,6 +263,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     const intents = db.collection<PaymentIntent>(
       PAYMENT_INTENTS_COLLECTION_NAME,
     );
+
     const payments = db.collection<Payment & { intentId?: string }>(
       PAYMENTS_COLLECTION_NAME,
     );
@@ -281,6 +282,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         { serviceId: request.serviceId },
         "Cannot look up reusable paid intent without email or phone",
       );
+
       return null;
     }
 
@@ -326,6 +328,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
           { intentId: candidate._id, paymentId: existingPayment._id },
           "Skipping candidate intent because payment row already exists",
         );
+
         continue;
       }
 
@@ -333,6 +336,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         { intentId: candidate._id, appId, amount, type },
         "Found reusable paid payment intent",
       );
+
       return candidate;
     }
 
@@ -340,6 +344,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       { candidateCount: candidates.length, appId, amount, type },
       "No reusable paid payment intent found",
     );
+
     return null;
   }
 
@@ -354,6 +359,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       !!request.fields.email &&
       intentRequest.fields.email.trim().toLowerCase() ===
         request.fields.email.trim().toLowerCase();
+
     const phoneMatches =
       !!intentRequest.fields.phone &&
       !!request.fields.phone &&
@@ -391,6 +397,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       paidAt,
       ...updateObj
     } = update as PaymentIntent; // Remove fields in case it slips here
+
     const db = await getDbConnection();
     const intents = db.collection<PaymentIntent>(
       PAYMENT_INTENTS_COLLECTION_NAME,
@@ -446,6 +453,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       { intentId: id, status: updatedIntent.status },
       "Successfully updated payment intent",
     );
+
     return updatedIntent;
   }
 
@@ -587,26 +595,33 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     if (query.customerId) {
       match.customerId = query.customerId;
     }
+
     if (query.appointmentId) {
       match.appointmentId = query.appointmentId;
     }
+
     if (query.type?.length) {
       match.type = { $in: query.type };
     }
+
     if (query.method?.length) {
       match.method = { $in: query.method };
     }
+
     if (query.status?.length) {
       match.status = { $in: query.status };
     }
+
     if (query.range?.start || query.range?.end) {
       const paidAt: Record<string, Date> = {};
       if (query.range.start) {
         paidAt.$gte = query.range.start;
       }
+
       if (query.range.end) {
         paidAt.$lte = query.range.end;
       }
+
       match.paidAt = paidAt;
     }
 
@@ -888,6 +903,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       _id: id,
       organizationId: this.organizationId,
     });
+
     if (!payment) {
       logger.warn({ paymentId: id }, "Payment not found");
       return null;
@@ -967,6 +983,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         },
         "Refund amount exceeds payment amount",
       );
+
       return {
         success: false,
         error: "refund_amount_exceeds_payment_amount",
@@ -1057,6 +1074,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         await this.connectedAppsService.getAppService<IPaymentProcessor>(
           processor.appId,
         );
+
       if (!service.refundPayment) {
         logger.error(
           { paymentId: payment._id, appId: processor.appId, amount },

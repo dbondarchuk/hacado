@@ -149,6 +149,7 @@ function marketingHref(path: string) {
   if (path === "/template-previews" || path.startsWith("/template-previews/")) {
     return path;
   }
+
   return `${MARKETING_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 

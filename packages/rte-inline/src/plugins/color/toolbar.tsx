@@ -28,6 +28,7 @@ export function ColorToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("color")) return null;
+
   return (
     <ColorPickerButton
       mark="color"

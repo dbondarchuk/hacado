@@ -38,6 +38,7 @@ describe("moveCatalogNode", () => {
       next.some((node) => node.type === "package" && node.id === "pkg-1"),
       true,
     );
+
     const group = next.find((node) => node.id === "group-1");
     assert.equal(group?.type === "group" && group.children.length, 0);
   });
@@ -62,6 +63,7 @@ describe("catalogPathForService", () => {
         children: [{ type: "service", id: "svc-b", serviceId: "bbb" }],
       },
     ];
+
     assert.deepEqual(catalogPathForService(catalog, "bbb"), ["group-1"]);
   });
 
@@ -84,6 +86,7 @@ describe("catalog leaf ids", () => {
         ],
       },
     ];
+
     assert.deepEqual(flattenCatalogServiceIds(catalog), ["aaa", "bbb"]);
     assert.deepEqual(flattenCatalogPackageIds(catalog), ["ppp"]);
   });
@@ -93,6 +96,7 @@ describe("catalog leaf ids", () => {
       { type: "service", id: "svc-a", serviceId: "" },
       { type: "package", id: "pkg-1", packageId: "" },
     ];
+
     assert.deepEqual(flattenCatalogServiceIds(catalog), []);
     assert.deepEqual(flattenCatalogPackageIds(catalog), []);
   });
@@ -109,6 +113,7 @@ describe("bookingCatalogNodeSchema", () => {
         children: [],
       },
     ];
+
     const parsed = bookingCatalogNodeSchema.array().safeParse(catalog);
     assert.equal(parsed.success, true);
     if (parsed.success) {
@@ -126,6 +131,7 @@ describe("bookingCatalogNodeSchema", () => {
     const parsed = bookingCatalogNodeSchema
       .array()
       .safeParse([{ type: "group", id: "group-1", name: "Massage" }]);
+
     assert.equal(parsed.success, true);
     if (parsed.success) {
       assert.equal(parsed.data[0].type, "group");
@@ -142,6 +148,7 @@ describe("normalizeCatalogNodes", () => {
     const next = normalizeCatalogNodes([
       { type: "group", id: "group-1", name: "Massage" } as BookingCatalogNode,
     ]);
+
     assert.deepEqual(next, [
       { type: "group", id: "group-1", name: "Massage", children: [] },
     ]);
@@ -167,6 +174,7 @@ describe("filterCatalogNodes", () => {
         children: [{ type: "service", id: "svc-b", serviceId: "bbb" }],
       },
     ];
+
     const next = filterCatalogNodes(catalog, { serviceIds: ["aaa"] });
     assert.deepEqual(
       next.map((node) => node.id),
@@ -186,6 +194,7 @@ describe("filterCatalogNodes", () => {
         ],
       },
     ];
+
     const next = filterCatalogNodes(catalog, { excludePackages: true });
     assert.equal(next.length, 1);
     assert.equal(next[0].type === "group" && next[0].children.length, 1);

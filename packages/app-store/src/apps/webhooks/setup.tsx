@@ -56,6 +56,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
   const [selectableEventTypes, setSelectableEventTypes] = useState<string[]>(
     [],
   );
+
   const [eventTypesLoading, setEventTypesLoading] = useState(true);
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
         const res = await appsApi.processStaticRequest<{
           eventTypes: string[];
         }>("webhooks", { type: LIST_SELECTABLE_EVENT_TYPES_REQUEST_TYPE });
+
         if (
           cancelled ||
           !res ||
@@ -73,6 +75,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
         ) {
           return;
         }
+
         setSelectableEventTypes(
           (res as { eventTypes: string[] }).eventTypes ?? [],
         );
@@ -86,6 +89,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
         }
       }
     })();
+
     return () => {
       cancelled = true;
     };
@@ -103,6 +107,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
         if (data.secret === MASKED_SECRET) {
           return { ...data, secret: MASKED_SECRET };
         }
+
         return data;
       },
     });

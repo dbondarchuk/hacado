@@ -55,6 +55,7 @@ export function isShortLinkUrl(
     const hostWithPort = url.port
       ? `${url.hostname}:${url.port}`
       : url.hostname;
+
     return hostWithPort === shortDomain;
   } catch {
     return false;
@@ -69,6 +70,7 @@ export function stripTrailingUrlPunctuation(raw: string): {
   if (!match) {
     return { url: raw, trailing: "" };
   }
+
   return {
     url: raw.slice(0, -match[0].length),
     trailing: match[0],
@@ -104,9 +106,11 @@ export function collectUniqueUrlsToShorten(
     if (!isHttpUrl(url) || isShortLinkUrl(url, shortDomain) || seen.has(url)) {
       continue;
     }
+
     seen.add(url);
     urls.push(url);
   }
+
   return urls;
 }
 
@@ -131,10 +135,12 @@ export function rewriteUrlsInText(
     if (!isHttpUrl(url) || isShortLinkUrl(url, shortDomain)) {
       return raw;
     }
+
     const shortUrl = shortUrlByOriginal.get(url);
     if (!shortUrl) {
       return raw;
     }
+
     return `${shortUrl}${trailing}`;
   });
 }
@@ -148,5 +154,6 @@ function encodeUnambiguous(bytes: Buffer, length: number): string {
     encoded = alphabet[Number(value % base)] + encoded;
     value = value / base;
   }
+
   return encoded;
 }

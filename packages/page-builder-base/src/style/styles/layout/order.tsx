@@ -15,6 +15,7 @@ export const orderStyle = {
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined" || value === 0)
       return null;
+
     return `order: ${value};`;
   },
   component: ({ value, onChange }) => (

@@ -43,6 +43,7 @@ export async function GET(
       },
       "Error processing OAuth redirect",
     );
+
     throw error;
   }
 }

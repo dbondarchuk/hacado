@@ -17,6 +17,7 @@ export const formatTime = (
   if (hour < 12)
     return `${hour.toString().padStart(2, "0")}:${minute.padStart(2, "0")} ${amLabel}`;
   if (hour === 12) return `12:${minute.padStart(2, "0")} ${pmLabel}`;
+
   return `${(hour - 12).toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")} ${pmLabel}`;
 };
 

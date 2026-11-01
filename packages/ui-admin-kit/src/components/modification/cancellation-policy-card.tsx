@@ -133,6 +133,7 @@ export const CancellationPolicyCardContent: React.FC<
                     form.setValue(`${path}.paymentType` as any, "percentage", {
                       shouldValidate: true,
                     });
+
                     form.setValue(`${path}.paymentAmount` as any, undefined);
                     form.setValue(`${path}.paymentPercentage` as any, 50, {
                       shouldValidate: true,

@@ -15,10 +15,12 @@ export const appointmentSmsConsentKind = (
   offer?: CustomerAppointmentTextOffer | null,
 ): AppointmentSmsConsentKind | null => {
   if (!offer) return null;
+
   const notifications = offer.notifications || offer.other;
   if (!notifications && !offer.reminders) return null;
   if (notifications && offer.reminders) return "both";
   if (offer.reminders) return "reminders";
+
   return "notifications";
 };
 
@@ -119,6 +121,7 @@ export const SmsConsentChoice = ({
     const changed =
       previousDigits.current !== null &&
       previousDigits.current !== currentDigits;
+
     previousDigits.current = currentDigits;
 
     if (!phoneValid) {
@@ -144,6 +147,7 @@ export const SmsConsentChoice = ({
         .current(phone ?? "")
         .then((value) => {
           if (cancelled) return;
+
           resolvedDigits.current = currentDigits;
           setHasConsent(value);
           setReady(true);
@@ -151,6 +155,7 @@ export const SmsConsentChoice = ({
         })
         .catch(() => {
           if (cancelled) return;
+
           resolvedDigits.current = currentDigits;
           setHasConsent(false);
           setReady(true);
@@ -164,7 +169,6 @@ export const SmsConsentChoice = ({
   }, [phone, phoneValid]);
 
   if (!phoneValid || !ready) return null;
-
   if (hasConsent) {
     return <p className="text-sm text-muted-foreground">{consentedMessage}</p>;
   }

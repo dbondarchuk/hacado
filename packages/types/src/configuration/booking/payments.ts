@@ -105,6 +105,7 @@ export const optionTipsModes = [
   "on",
   "full-payment-only",
 ] as const;
+
 export type OptionTipsMode = (typeof optionTipsModes)[number];
 
 export const optionTipsModeSchema = z.enum(optionTipsModes, {

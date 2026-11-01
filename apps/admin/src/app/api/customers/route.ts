@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/customers")("GET");
   const auth = await requirePermission("customer", "read", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {
@@ -72,6 +73,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/customers")("POST");
   const auth = await requirePermission("customer", "create", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const body = await request.json();
@@ -83,6 +85,7 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
+
   try {
     const result = await servicesContainer.customersService.createCustomer(
       data,

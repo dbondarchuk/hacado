@@ -35,6 +35,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { package: pkg } =
         envelope.payload as AppointmentPackageCreatedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -58,6 +59,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { package: pkg } =
         envelope.payload as AppointmentPackageUpdatedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -81,6 +83,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { packageIds } =
         envelope.payload as AppointmentPackageDeletedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -104,6 +107,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage } =
         envelope.payload as CustomerPackageIssuedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -121,6 +125,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     dashboardNotification: (envelope) => {
       const { customerPackage } =
         envelope.payload as CustomerPackageIssuedPayload;
+
       return {
         type: "customer-package-issued",
         toast: {
@@ -149,6 +154,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage, appointmentId } =
         envelope.payload as CustomerPackageRedeemedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -172,6 +178,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage, appointmentId } =
         envelope.payload as CustomerPackageRestoredPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -195,6 +202,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage } =
         envelope.payload as CustomerPackageAdjustedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -218,6 +226,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage } =
         envelope.payload as CustomerPackageExhaustedPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -241,6 +250,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage } =
         envelope.payload as CustomerPackageCancelledPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -264,6 +274,7 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     recordActivity: (envelope) => {
       const { customerPackage } =
         envelope.payload as CustomerPackageExpiredPayload;
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,

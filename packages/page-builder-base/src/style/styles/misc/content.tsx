@@ -15,8 +15,10 @@ export const contentStyle = {
   defaultValue: '""',
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     const trimmed = value.trim();
     if (!trimmed) return null;
+
     return `content: ${trimmed};`;
   },
   component: ({ value, onChange }) => {

@@ -121,6 +121,7 @@ export class BullMQNotificationService
         { error, data },
         "Failed to add email notification to queue",
       );
+
       throw error;
     }
   }
@@ -170,6 +171,7 @@ export class BullMQNotificationService
         },
         "Failed to add text message notification to queue",
       );
+
       throw error;
     }
   }
@@ -329,6 +331,7 @@ export class BullMQNotificationService
         retriesDone: 0,
         retriesLeft: 0,
       });
+
       throw error;
     }
   }
@@ -373,6 +376,7 @@ export class BullMQNotificationService
         await this.communicationLogsService.clearSelectedLogs([
           communicationLogId,
         ]);
+
         return null;
       }
 
@@ -383,6 +387,7 @@ export class BullMQNotificationService
         retriesDone: 0,
         retriesLeft: 0,
       });
+
       throw error;
     }
   }
@@ -444,6 +449,7 @@ export class BullMQSystemNotificationService
         { error, data },
         "Failed to add system email notification to queue",
       );
+
       throw error;
     }
   }
@@ -476,6 +482,7 @@ export class BullMQSystemNotificationService
         { error, data },
         "Failed to add system text message notification to queue",
       );
+
       throw error;
     }
   }

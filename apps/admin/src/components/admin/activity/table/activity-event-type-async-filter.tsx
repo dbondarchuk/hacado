@@ -26,6 +26,7 @@ export const ActivityEventTypeAsyncFilterBox: React.FC<{
         limit,
         search,
       });
+
       return {
         items: result.items.map(
           (value) =>

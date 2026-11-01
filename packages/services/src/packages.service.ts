@@ -96,6 +96,7 @@ export class PackagesService extends BaseService implements IPackagesService {
             "Service option not found",
           );
         }
+
         return {
           _id: item._id ?? new ObjectId().toString(),
           serviceId: item.serviceId,
@@ -105,6 +106,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         };
       }),
     );
+
     return items;
   }
 
@@ -144,6 +146,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       { package: doc } satisfies AppointmentPackageCreatedPayload,
       source,
     );
+
     return doc;
   }
 
@@ -192,6 +195,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       } satisfies AppointmentPackageUpdatedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -227,6 +231,7 @@ export class PackagesService extends BaseService implements IPackagesService {
   ): Promise<AppointmentPackage | null> {
     const existing = await this.getPackage(id);
     if (!existing) return null;
+
     const db = await getDbConnection();
     await db
       .collection<AppointmentPackage>(APPOINTMENT_PACKAGES_COLLECTION_NAME)
@@ -234,6 +239,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         { _id: id, organizationId: this.organizationId },
         { $set: { status, updatedAt: new Date() } },
       );
+
     const updated = { ...existing, status, updatedAt: new Date() };
     await this.eventService.emit(
       APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE,
@@ -243,6 +249,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       } satisfies AppointmentPackageUpdatedPayload,
       source,
     );
+
     return updated;
   }
 
@@ -257,6 +264,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     const purchases = await db
       .collection(CUSTOMER_PACKAGES_COLLECTION_NAME)
       .countDocuments({ organizationId: this.organizationId, packageId: id });
+
     if (purchases > 0) {
       throw new PackageError("has_purchases");
     }
@@ -270,6 +278,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       { packageIds: [id] } satisfies AppointmentPackageDeletedPayload,
       source,
     );
+
     return true;
   }
 
@@ -299,12 +308,15 @@ export class PackagesService extends BaseService implements IPackagesService {
     const filter: Filter<AppointmentPackage> = {
       organizationId: this.organizationId,
     };
+
     if (query.status?.length) {
       filter.status = { $in: query.status };
     }
+
     if (query.isPublic !== undefined) {
       filter.isPublic = query.isPublic;
     }
+
     if (query.search) {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       filter.$or = buildSearchQuery<AppointmentPackage>(
@@ -433,6 +445,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         },
         { projection: { _id: 1 } },
       );
+
     return !!found;
   }
 
@@ -463,6 +476,7 @@ export class PackagesService extends BaseService implements IPackagesService {
           },
           { session: input.session },
         );
+
       if (count >= definition.maxPurchasesPerCustomer) {
         throw new PackageError("purchase_limit_reached");
       }
@@ -472,6 +486,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     const remainingByItem = Object.fromEntries(
       items.map((item) => [item._id, item.credits]),
     );
+
     const totalCredits = sumRemainingCredits(remainingByItem);
     const now = new Date();
     const expiresAt = definition.validityMonths
@@ -517,6 +532,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         const existing = await this.findByPaymentIntent(input.paymentIntentId);
         if (existing) return existing;
       }
+
       throw error;
     }
 
@@ -584,6 +600,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       input.appointmentId,
       input.session,
     );
+
     if (existingUsage && !existingUsage.restored) {
       return existingUsage;
     }
@@ -592,6 +609,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       input.customerPackageId,
       input.session,
     );
+
     if (!customerPackage) {
       throw new PackageError("customer_package_not_found");
     }
@@ -603,6 +621,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       appointmentDate: input.appointmentDate,
       optionStaffMemberIds: input.optionStaffMemberIds,
     });
+
     if (!eligibility.ok) {
       throw new PackageError(eligibility.code);
     }
@@ -640,6 +659,7 @@ export class PackagesService extends BaseService implements IPackagesService {
           { $set: { status: nextStatus, updatedAt: new Date() } },
           { session: input.session },
         );
+
       updated.status = nextStatus;
     }
 
@@ -682,6 +702,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       input.appointmentId,
       input.session,
     );
+
     if (!usage || usage.restored) return;
 
     const remainingPath = `remainingByItem.${usage.itemId}`;
@@ -714,6 +735,7 @@ export class PackagesService extends BaseService implements IPackagesService {
           { $set: { status: nextStatus } },
           { session: input.session },
         );
+
       updated.status = nextStatus;
     }
 
@@ -762,6 +784,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       if (request.expiresAt !== undefined) {
         $set.expiresAt = request.expiresAt ?? null;
       }
+
       if (request.delta && request.itemId) {
         $inc[`remainingByItem.${request.itemId}`] = request.delta;
         $inc.remainingCredits = request.delta;
@@ -790,6 +813,7 @@ export class PackagesService extends BaseService implements IPackagesService {
             { _id: updated._id, organizationId: this.organizationId },
             { $set: { status: nextStatus } },
           );
+
         updated.status = nextStatus;
       }
     }
@@ -889,6 +913,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     const filter: Filter<CustomerPackage> = {
       organizationId: this.organizationId,
     };
+
     const customerIds = (
       Array.isArray(query.customerId)
         ? query.customerId
@@ -896,12 +921,15 @@ export class PackagesService extends BaseService implements IPackagesService {
           ? [query.customerId]
           : []
     ).filter(Boolean);
+
     if (customerIds.length) {
       filter.customerId = { $in: customerIds };
     }
+
     if (query.status?.length) {
       filter.status = { $in: query.status };
     }
+
     const packageIds = (
       Array.isArray(query.packageId)
         ? query.packageId
@@ -909,13 +937,16 @@ export class PackagesService extends BaseService implements IPackagesService {
           ? [query.packageId]
           : []
     ).filter(Boolean);
+
     if (packageIds.length) {
       filter.packageId = { $in: packageIds };
     }
+
     if (query.search) {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       filter.$or = buildSearchQuery<CustomerPackage>({ $regex }, "name");
     }
+
     const sort: Sort = query.sort?.reduce(
       (prev, curr) => ({
         ...prev,
@@ -1000,6 +1031,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         appointmentDate: input.appointmentDate,
         optionStaffMemberIds: input.optionStaffMemberIds,
       });
+
       return result.ok;
     });
   }
@@ -1014,12 +1046,14 @@ export class PackagesService extends BaseService implements IPackagesService {
     const customerPackage = await this.getCustomerPackageDoc(
       input.customerPackageId,
     );
+
     if (!customerPackage) {
       return {
         ok: false as const,
         code: "customer_package_not_found" as const,
       };
     }
+
     return canUsePackageForAppointment({
       customerPackage,
       serviceId: input.serviceId,
@@ -1083,6 +1117,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         { _id: appointmentId, organizationId: this.organizationId },
         { projection: { packageUsage: 1 }, session },
       );
+
     return appointment?.packageUsage ?? null;
   }
 }

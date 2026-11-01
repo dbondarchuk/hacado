@@ -41,6 +41,7 @@ export const getCustomers = async (params: CustomersSearchParams) => {
       method: "GET",
     },
   );
+
   const data = await response.json<WithTotal<CustomerListModel>>();
 
   console.debug("Customers retrieved successfully", {
@@ -154,6 +155,7 @@ export const setCustomerSmsConsent = async (
     method: "POST",
     body: JSON.stringify({ consented, ...(phone ? { phone } : {}) }),
   });
+
   return response.json<CustomerSmsConsentStatus>();
 };
 

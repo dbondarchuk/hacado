@@ -125,6 +125,7 @@ export const CustomerOtpForm = ({
     getAuthOptions()
       .then((res) => {
         if (!mounted) return;
+
         const channels = res.otpChannels ?? "email";
         setOtpChannels(channels);
 
@@ -149,6 +150,7 @@ export const CustomerOtpForm = ({
       .finally(() => {
         if (mounted) setIsLoadingOptions(false);
       });
+
     return () => {
       mounted = false;
     };
@@ -157,16 +159,19 @@ export const CustomerOtpForm = ({
 
   useEffect(() => {
     if (!resendAllowedAt) return;
+
     const interval = window.setInterval(
       () => setCountdownNow(Date.now()),
       1000,
     );
+
     return () => window.clearInterval(interval);
   }, [resendAllowedAt]);
 
   const resendSecondsLeft = resendAllowedAt
     ? Math.max(0, Math.ceil((resendAllowedAt - countdownNow) / 1000))
     : 0;
+
   const isResendBlocked = resendSecondsLeft > 0;
 
   const sendOtp = async () => {
@@ -177,6 +182,7 @@ export const CustomerOtpForm = ({
       setPhoneTouched(true);
       if (!phoneValid) return;
     }
+
     setIsRequestOtpLoading(true);
     try {
       const response = await requestOtp({
@@ -184,12 +190,14 @@ export const CustomerOtpForm = ({
         email,
         phone,
       });
+
       setIsOtpSent(true);
       setOtp("");
       const resendAfter =
         typeof response.resendAfter === "number"
           ? response.resendAfter
           : Date.now() + CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS * 1000;
+
       setResendAllowedAt(resendAfter);
       setCountdownNow(Date.now());
       toast.success(labels.sent);
@@ -209,6 +217,7 @@ export const CustomerOtpForm = ({
     ) {
       return;
     }
+
     autoSendStarted.current = true;
     void sendOtp();
     // Auto-send once after auth options load and the selected contact is valid.
@@ -223,10 +232,12 @@ export const CustomerOtpForm = ({
         phone,
         otp,
       });
+
       if (response.success === false) {
         toast.error(labels.invalid);
         return;
       }
+
       await onVerified({
         email: response.email ?? email,
         phone: response.phone ?? phone,
@@ -250,6 +261,7 @@ export const CustomerOtpForm = ({
   const handleRequestSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (isRequestDisabled) return;
+
     void sendOtp();
   };
 

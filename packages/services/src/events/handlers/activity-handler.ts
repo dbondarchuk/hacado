@@ -11,6 +11,7 @@ export const activityHandler: EventHandler = {
       envelope.id,
       "activity",
     );
+
     if (!claimed) {
       return;
     }
@@ -19,7 +20,6 @@ export const activityHandler: EventHandler = {
     if (def?.recordActivity === undefined || def.recordActivity === false) {
       return;
     }
-
     if (typeof def.recordActivity !== "function") {
       return;
     }
@@ -29,6 +29,7 @@ export const activityHandler: EventHandler = {
       services,
       getDbConnection,
     );
+
     if (!result) {
       return;
     }

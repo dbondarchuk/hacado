@@ -84,9 +84,11 @@ export function CanvasWorkspace({
     selectedElements,
     disabled,
   } = useEditorStore();
+
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
 
   const [isPanning, setIsPanning] = useState(false);
@@ -94,6 +96,7 @@ export function CanvasWorkspace({
     originClient: { x: 0, y: 0 },
     originPan: { x: 0, y: 0 },
   });
+
   const [isAltPressed, setIsAltPressed] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isMarqueeSelecting, setIsMarqueeSelecting] = useState(false);
@@ -104,25 +107,30 @@ export function CanvasWorkspace({
   const canvasBgPointersRef = useRef(
     new Map<number, { clientX: number; clientY: number }>(),
   );
+
   const pinchLastRef = useRef<{
     dist: number;
     mid: { x: number; y: number };
   } | null>(null);
+
   const panPointerIdRef = useRef<number | null>(null);
   const marqueeSessionRef = useRef(false);
   const marqueeBoundsRef = useRef({
     start: { x: 0, y: 0 },
     end: { x: 0, y: 0 },
   });
+
   const isPanningRef = useRef(false);
   const isMarqueeSelectingRef = useRef(false);
 
   useEffect(() => {
     isPanningRef.current = isPanning;
   }, [isPanning]);
+
   useEffect(() => {
     isMarqueeSelectingRef.current = isMarqueeSelecting;
   }, [isMarqueeSelecting]);
+
   useEffect(() => {
     marqueeBoundsRef.current = { start: marqueeStart, end: marqueeEnd };
   }, [marqueeStart, marqueeEnd]);
@@ -155,6 +163,7 @@ export function CanvasWorkspace({
         visible: true,
         styles: { objectFit: "contain" },
       };
+
       store.addElement(element);
       store.selectMultiple([element.id]);
     }, []),
@@ -168,6 +177,7 @@ export function CanvasWorkspace({
   useEffect(() => {
     const handleCopy = (e: ClipboardEvent) => {
       if (isEditableClipboardTarget(e.target)) return;
+
       const state = useEditorStore.getState();
       if (state.disabled || state.mode === "preview") return;
       if (state.selectedElements.length === 0) return;
@@ -175,18 +185,21 @@ export function CanvasWorkspace({
       const elements = state.design.elements.filter((el) =>
         state.selectedElements.includes(el.id),
       );
+
       if (elements.length === 0) return;
 
       e.clipboardData?.setData(
         "text/plain",
         GIFT_CARD_DESIGNER_CLIPBOARD_PREFIX + JSON.stringify(elements),
       );
+
       e.preventDefault();
       state.copySelectedElements();
     };
 
     const handlePaste = (e: ClipboardEvent) => {
       if (isEditableClipboardTarget(e.target)) return;
+
       const state = useEditorStore.getState();
       if (state.disabled || state.mode === "preview") return;
 
@@ -197,6 +210,7 @@ export function CanvasWorkspace({
 
       if (imageItems.length > 0) {
         if (isUploadingImage) return;
+
         const imageFile = imageItems[0]!.getAsFile();
         if (imageFile && imageFile.size > 0) {
           e.preventDefault();
@@ -208,6 +222,7 @@ export function CanvasWorkspace({
             error: t("designer.pasteImage.error"),
           });
         }
+
         return;
       }
 
@@ -219,18 +234,23 @@ export function CanvasWorkspace({
           const raw = JSON.parse(
             text.slice(GIFT_CARD_DESIGNER_CLIPBOARD_PREFIX.length),
           );
+
           if (!Array.isArray(raw)) return;
+
           const parsed: Element[] = [];
           for (const item of raw) {
             const r = elementSchema.safeParse(item);
             if (r.success) parsed.push(r.data);
           }
+
           if (parsed.length === 0) return;
+
           useEditorStore.setState({ clipboardMultiple: parsed });
           useEditorStore.getState().pasteElements();
         } catch {
           /* invalid clipboard */
         }
+
         return;
       }
 
@@ -292,12 +312,14 @@ export function CanvasWorkspace({
   const handleContainerPointerDown = (e: React.PointerEvent) => {
     if (disabled || mode === "preview") return;
     if (e.pointerType !== "mouse") return;
+
     if (e.button === 1 || (e.button === 0 && e.shiftKey)) {
       e.preventDefault();
       panSessionRef.current = {
         originClient: { x: e.clientX, y: e.clientY },
         originPan: { x: pan.x, y: pan.y },
       };
+
       setIsPanning(true);
       panPointerIdRef.current = e.pointerId;
     }
@@ -333,10 +355,12 @@ export function CanvasWorkspace({
         pts[0].clientX - pts[1].clientX,
         pts[0].clientY - pts[1].clientY,
       );
+
       const mid = {
         x: (pts[0].clientX + pts[1].clientX) / 2,
         y: (pts[0].clientY + pts[1].clientY) / 2,
       };
+
       pinchLastRef.current = d > 0 ? { dist: d, mid } : { dist: 1, mid };
     }
   };
@@ -356,18 +380,22 @@ export function CanvasWorkspace({
       if (map.size >= 2 && pinchLastRef.current) {
         const pts = [...map.values()];
         if (pts.length < 2) return;
+
         const d = Math.hypot(
           pts[0].clientX - pts[1].clientX,
           pts[0].clientY - pts[1].clientY,
         );
+
         const mid = {
           x: (pts[0].clientX + pts[1].clientX) / 2,
           y: (pts[0].clientY + pts[1].clientY) / 2,
         };
+
         const prev = pinchLastRef.current;
         if (d > 0 && prev.dist > 0 && Number.isFinite(d / prev.dist)) {
           store.setZoom(store.zoom * (d / prev.dist));
         }
+
         const dmidx = mid.x - prev.mid.x;
         const dmidy = mid.y - prev.mid.y;
         store.setPan({ x: store.pan.x + dmidx, y: store.pan.y + dmidy });
@@ -382,6 +410,7 @@ export function CanvasWorkspace({
       ) {
         const rect = canvasRef.current?.getBoundingClientRect();
         if (!rect) return;
+
         const x = (e.clientX - rect.left) / z;
         const y = (e.clientY - rect.top) / z;
         setMarqueeEnd({ x, y });
@@ -398,6 +427,7 @@ export function CanvasWorkspace({
           maxX,
           maxY,
         );
+
         setMarqueeHoverIds(hoverIds);
         return;
       }
@@ -419,6 +449,7 @@ export function CanvasWorkspace({
         if (remaining < 2) {
           pinchLastRef.current = null;
         }
+
         if (remaining === 0) {
           if (marqueeSessionRef.current) {
             const { start, end } = marqueeBoundsRef.current;
@@ -435,15 +466,18 @@ export function CanvasWorkspace({
                 maxX,
                 maxY,
               );
+
               useEditorStore.getState().selectMultiple(selectedIds);
               preventUnselectionRef.current = true;
             }
           }
+
           marqueeSessionRef.current = false;
           setIsMarqueeSelecting(false);
           setMarqueeHoverIds([]);
         }
       }
+
       if (panPointerIdRef.current === e.pointerId) {
         panPointerIdRef.current = null;
         setIsPanning(false);
@@ -523,7 +557,6 @@ export function CanvasWorkspace({
         backgroundColor: canvasTheme === "dark" ? "#1a1a1a" : "#ffffff",
       };
     }
-
     if (bg.type === "color") {
       return { backgroundColor: bg.color || "#ffffff" };
     }

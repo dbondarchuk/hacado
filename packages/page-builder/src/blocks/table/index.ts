@@ -8,4 +8,5 @@ export {
   createHeaderTableCell,
   createTableCellBlock,
 } from "./schema";
+
 export { TableToolbar } from "./toolbar";

@@ -187,6 +187,7 @@ export enum AuthorizationStatus {
   Voided = "VOIDED",
   Pending = "PENDING",
 }
+
 /** The currency and amount for a financial transaction, such as a balance or payment due. */
 export interface Money {
   /** The [three-character ISO-4217 currency code](/api/rest/reference/currency-codes/) that identifies the currency. */

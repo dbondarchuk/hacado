@@ -29,6 +29,7 @@ function useCanInstallApp() {
     (app: App) => {
       if (!session?.user) return false;
       if (!canInstallApp(session.user as any, app)) return false;
+
       return sessionCanInstallApp(session as any, app.name);
     },
     [session],
@@ -89,7 +90,6 @@ export const AppStore: React.FC<AppStoreProps> = ({}) => {
           )
         )
           return false;
-
         if (search.length === 0) return true;
 
         const s = search.toLocaleLowerCase();

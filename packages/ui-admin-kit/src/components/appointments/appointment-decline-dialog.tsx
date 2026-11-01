@@ -331,6 +331,7 @@ export const AppointmentDeclineDialog: React.FC<{
   const [isLoading, setIsLoading] = React.useState(false);
   const [closeReason, setCloseReason] =
     React.useState<ClosedAppointmentStatus>("declined");
+
   const [doNotNotifyCustomer, setDoNotNotifyCustomer] = React.useState(false);
 
   const onOpenChange = (open: boolean) => {
@@ -389,6 +390,7 @@ export const AppointmentDeclineDialog: React.FC<{
       appointment.payments?.filter((payment) => {
         const totalRefunded =
           payment.refunds?.reduce((acc, refund) => acc + refund.amount, 0) || 0;
+
         const isRefundableStatus =
           payment.status === "paid" ||
           (payment.status === "refunded" && totalRefunded < payment.amount);
@@ -568,6 +570,7 @@ export const AppointmentDeclineDialog: React.FC<{
                     (acc, payment) => acc + payment.amount,
                     0,
                   );
+
                   return t(
                     `admin.appointments.declineDialog.confirmAndRefund.${closeReason}`,
                     {

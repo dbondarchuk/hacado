@@ -39,6 +39,7 @@ export const ResponsesTable: React.FC<{
           : delayedQuery.customerId?.length
             ? delayedQuery.customerId
             : undefined;
+
         const res = await getFormResponses(appId, {
           offset,
           limit,
@@ -54,6 +55,7 @@ export const ResponsesTable: React.FC<{
                 }
               : undefined,
         });
+
         setResponse({
           items: res.items ?? [],
           total: res.total,
@@ -65,6 +67,7 @@ export const ResponsesTable: React.FC<{
         setLoading(false);
       }
     };
+
     fn();
   }, [appId, customerIdLock, delayedQuery]);
 

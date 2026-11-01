@@ -24,6 +24,7 @@ export const alignSelfStyle = {
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value || value === "auto") return null;
+
     return `align-self: ${value};`;
   },
   component: ({ value, onChange }) => {

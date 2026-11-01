@@ -63,10 +63,12 @@ async function DashboardKpiSection({ memberId }: { memberId?: string }) {
     getOrganizationId(),
     getSession(),
   ]);
+
   const stats = await getDashboardStats(organizationId, memberId);
   const showFinancials =
     sessionCanUseFeature(session, "financials") &&
     canViewFinancials(session?.user);
+
   return <DashboardKpiStrip stats={stats} showFinancials={showFinancials} />;
 }
 
@@ -82,15 +84,18 @@ export default async function Page(params: Params) {
   const showFinancialKpis =
     sessionCanUseFeature(session, "financials") &&
     canViewFinancials(session?.user);
+
   const canFilterMembers = canSeeAllCalendarMembers(session?.user);
   const showMemberFilter =
     canFilterMembers &&
     (await servicesContainer.teamService.getActiveMemberCount()) > 1;
+
   const showPendingAppointmentsTab = canUpdateAppointments(session?.user);
   const memberId = resolveCalendarMemberId(
     session?.user,
     showMemberFilter ? member : undefined,
   );
+
   const memberScopeKey = memberId ?? "all";
   const memberQuery = showMemberFilter ? member : undefined;
   const breadcrumbItems = [

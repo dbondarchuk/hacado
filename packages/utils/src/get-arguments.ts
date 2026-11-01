@@ -178,6 +178,7 @@ export const getArguments = <
   const payments = appointment?.payments?.map((payment) => {
     const totalRefunded =
       payment.refunds?.reduce((acc, refund) => acc + refund.amount, 0) || 0;
+
     const serviceAmount = getPaymentServiceAmount(payment);
     const amountLeft = isSettledPayment(payment)
       ? Math.max(0, serviceAmount - totalRefunded)

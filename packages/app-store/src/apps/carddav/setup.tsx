@@ -77,6 +77,7 @@ export const CarddavAppSetup: React.FC<AppSetupProps> = ({
         const { data } = (await appsApi.processRequest(existingAppId, {
           type: "get-configuration",
         })) as CarddavRequestGetConfigurationActionResponse;
+
         setConfiguration(data as CarddavConfiguration);
       } catch (e: any) {
         console.error(e);
@@ -98,6 +99,7 @@ export const CarddavAppSetup: React.FC<AppSetupProps> = ({
   const onRegeneratePassword = async () => {
     try {
       if (!appId || !configuration) return;
+
       setIsPasswordRegenerating(true);
 
       const { password } = (await appsApi.processRequest(appId, {

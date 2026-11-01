@@ -78,6 +78,7 @@ export class PexelsService {
     if (!key) {
       throw new Error("PEXELS_API_KEY is not configured");
     }
+
     return key;
   }
 
@@ -131,12 +132,14 @@ export class PexelsService {
     const mp4s = files.filter(
       (file) => file.file_type === "video/mp4" && !!file.link,
     );
+
     const candidates = mp4s.length > 0 ? mp4s : files.filter((f) => !!f.link);
     if (candidates.length === 0) return undefined;
 
     const sorted = [...candidates].sort(
       (a, b) => (b.width ?? 0) - (a.width ?? 0),
     );
+
     return (
       sorted.find(
         (file) => (file.width ?? 0) > 0 && (file.width ?? 0) <= 1920,
@@ -200,6 +203,7 @@ export class PexelsService {
       page: String(safePage),
       per_page: String(safePerPage),
     };
+
     if (normalizedQuery) {
       params.query = normalizedQuery;
     }
@@ -211,6 +215,7 @@ export class PexelsService {
         { status: response.status, body },
         "Pexels photo search failed",
       );
+
       throw new Error(
         `Pexels photo search failed with status ${response.status}`,
       );
@@ -267,6 +272,7 @@ export class PexelsService {
       page: String(safePage),
       per_page: String(safePerPage),
     };
+
     if (normalizedQuery) {
       params.query = normalizedQuery;
     }
@@ -278,6 +284,7 @@ export class PexelsService {
         { status: response.status, body },
         "Pexels video search failed",
       );
+
       throw new Error(
         `Pexels video search failed with status ${response.status}`,
       );

@@ -56,16 +56,19 @@ const SlotPlaceholder = ({
     "nested",
     parentBlockId,
   );
+
   const { ref } = useDroppable({
     id: `${parentBlockId}/${childrenProperty}/${index}-placeholder`,
     collisionPriority,
     accept: (draggable) => {
       if (!draggable.type) return false;
+
       const type = draggable.type as string;
       const blockDefinition = blocksDefinitions.find((b) => b.type === type);
       if (allow && blockDefinition && !matchesRule(blockDefinition, allow)) {
         return false;
       }
+
       return true;
     },
     disabled: isOverlay,
@@ -140,6 +143,7 @@ export const EditorEmbeddedSlot = memo(
       parentBlockId,
       childrenProperty,
     );
+
     const setAllowedRule = useSetAllowedRule();
     const setSelectedSlot = useSetSelectedSlot();
     const setSelectedBlockId = useSetSelectedBlockId();
@@ -149,6 +153,7 @@ export const EditorEmbeddedSlot = memo(
 
     useEffect(() => {
       if (isOverlay) return;
+
       setAllowedRule(parentBlockId, childrenProperty, allow ?? {});
     }, [allow, parentBlockId, childrenProperty, setAllowedRule, isOverlay]);
 
@@ -175,6 +180,7 @@ export const EditorEmbeddedSlot = memo(
     const visibleChildIds = useMemo(() => {
       const ids = childrenIds?.filter(Boolean) ?? [];
       if (maxChildren === undefined) return ids;
+
       return ids.slice(0, maxChildren);
     }, [childrenIds, maxChildren]);
 

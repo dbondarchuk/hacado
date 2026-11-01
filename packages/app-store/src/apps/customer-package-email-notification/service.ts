@@ -105,6 +105,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
           return candidate;
         }
       }
+
       return null;
     };
 
@@ -118,6 +119,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     ][]) {
       const templatesByLang =
         CustomerPackageEmailNotificationTemplates[builtinId];
+
       const source = resolveLanguageFromMap(templatesByLang, language);
       if (!source) continue;
 
@@ -128,6 +130,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
         { ...source, name: uniqueName },
         systemEventSource,
       );
+
       templateIds[key] = created._id;
     }
 
@@ -196,6 +199,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     const logger = this.loggerFactory("processRequest");
     const { data, success, error } =
       customerPackageEmailNotificationConfigurationSchema.safeParse(request);
+
     if (!success) {
       throw new ConnectedAppRequestError(
         "invalid_request",
@@ -208,6 +212,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     const previous = appData.data as
       | CustomerPackageEmailNotificationConfiguration
       | undefined;
+
     const expiringSoonChanged =
       previous?.expiringSoon?.enabled !== data.expiringSoon.enabled ||
       previous?.expiringSoon?.thresholdMinutes !==
@@ -249,6 +254,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
       case CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE: {
         const { customerPackage } =
           envelope.payload as CustomerPackageIssuedPayload;
+
         await this.schedulePackageJobs(appData, customerPackage);
         await this.sendPackageEmail(appData, customerPackage, "purchased");
         break;
@@ -256,9 +262,11 @@ export default class CustomerPackageEmailNotificationConnectedApp
       case CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE: {
         const { customerPackage } =
           envelope.payload as CustomerPackageExhaustedPayload;
+
         if (resolveCustomerPackageStatus(customerPackage) !== "exhausted") {
           return;
         }
+
         await this.cancelPackageJobs(customerPackage._id);
         await this.sendPackageEmail(appData, customerPackage, "exhausted");
         break;
@@ -266,9 +274,11 @@ export default class CustomerPackageEmailNotificationConnectedApp
       case CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE: {
         const { customerPackage } =
           envelope.payload as CustomerPackageCancelledPayload;
+
         if (resolveCustomerPackageStatus(customerPackage) !== "cancelled") {
           return;
         }
+
         await this.cancelPackageJobs(customerPackage._id);
         await this.sendPackageEmail(appData, customerPackage, "cancelled");
         break;
@@ -276,9 +286,11 @@ export default class CustomerPackageEmailNotificationConnectedApp
       case CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE: {
         const { customerPackage } =
           envelope.payload as CustomerPackageExpiredPayload;
+
         if (resolveCustomerPackageStatus(customerPackage) !== "expired") {
           return;
         }
+
         await this.cancelExpiringSoonJob(customerPackage._id);
         await this.sendPackageEmail(appData, customerPackage, "expired");
         break;
@@ -286,6 +298,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
       case CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE: {
         const { customerPackage, request } =
           envelope.payload as CustomerPackageAdjustedPayload;
+
         await this.onAdjusted(appData, customerPackage, request);
         break;
       }
@@ -309,6 +322,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
           payload.customerPackageId,
           systemEventSource,
         );
+
         return;
       case "expiring-soon-customer-package":
         await this.sendExpiringSoonIfDue(appData, payload.customerPackageId);
@@ -330,13 +344,16 @@ export default class CustomerPackageEmailNotificationConnectedApp
       await this.cancelPackageJobs(customerPackage._id);
       return;
     }
+
     if (request.reactivate) {
       await this.schedulePackageJobs(appData, customerPackage);
       return;
     }
+
     if (request.expiresAt !== undefined) {
       await this.schedulePackageJobs(appData, customerPackage);
     }
+
     if (resolveCustomerPackageStatus(customerPackage) === "exhausted") {
       await this.cancelPackageJobs(customerPackage._id);
     } else if (request.delta !== undefined) {
@@ -396,6 +413,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
         { customerPackageId: customerPackage._id },
         "Expire time already passed, skipping schedule",
       );
+
       return;
     }
 
@@ -417,6 +435,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     const data = appData.data as
       | CustomerPackageEmailNotificationConfiguration
       | undefined;
+
     return data?.expiringSoon ?? null;
   }
 
@@ -436,11 +455,13 @@ export default class CustomerPackageEmailNotificationConnectedApp
     const executeAt = DateTime.fromJSDate(customerPackage.expiresAt).minus({
       minutes: expiringSoon.thresholdMinutes,
     });
+
     if (executeAt < DateTime.now()) {
       logger.debug(
         { customerPackageId: customerPackage._id },
         "Expiring-soon time already passed, skipping schedule",
       );
+
       return;
     }
 
@@ -477,6 +498,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
           await this.cancelExpiringSoonJob(customerPackage._id);
           continue;
         }
+
         await this.scheduleExpiringSoonJob(appData, customerPackage);
       }
 
@@ -505,6 +527,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
       await this.props.services.packagesService.getCustomerPackage(
         customerPackageId,
       );
+
     if (!customerPackage) {
       logger.warn({ customerPackageId }, "Customer package not found");
       return;
@@ -515,20 +538,25 @@ export default class CustomerPackageEmailNotificationConnectedApp
         { customerPackageId, status: customerPackage.status },
         "Package is not active, skipping expiring soon email",
       );
+
       return;
     }
+
     if (customerPackage.remainingCredits <= 0) {
       logger.debug(
         { customerPackageId },
         "Package has no credits left, skipping expiring soon email",
       );
+
       return;
     }
+
     if (!customerPackage.expiresAt) {
       logger.debug(
         { customerPackageId },
         "Package has no expiry, skipping expiring soon email",
       );
+
       return;
     }
 
@@ -549,23 +577,28 @@ export default class CustomerPackageEmailNotificationConnectedApp
           "brand",
           "social",
         );
+
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) return;
 
       const customer = await this.props.services.customersService.getCustomer(
         customerPackage.customerId,
       );
+
       if (!customer?.email) {
         logger.warn(
           { customerPackageId: customerPackage._id },
           "Customer has no email, skipping package email",
         );
+
         return;
       }
 
       const data =
         appData.data as CustomerPackageEmailNotificationConfiguration;
+
       const channel =
         kind === "expiringSoon" ? data?.expiringSoon : data?.templates?.[kind];
 
@@ -582,6 +615,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
 
       const template =
         await this.props.services.templatesService.getTemplate(templateId);
+
       if (!template || template.type !== "email") return;
 
       const args = getArguments({
@@ -625,6 +659,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
         statusText:
           "app_customer-package-email-notification_admin.statusText.error_sending_package_email",
       });
+
       throw error;
     }
   }

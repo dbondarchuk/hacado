@@ -124,6 +124,7 @@ async function mapPaymentLinkError(error: unknown): Promise<never> {
     } catch {
       // ignore parse errors
     }
+
     if (code) {
       throw new Error(code);
     }
@@ -156,15 +157,18 @@ export const AddUpdatePaymentDialog = ({
     onOpenChange?.(next);
     if (controlledOpen === undefined) setUncontrolledOpen(next);
   };
+
   const [assignOpen, setAssignOpen] = useState(false);
   const [assignedAppointment, setAssignedAppointment] = useState<
     Appointment | undefined
   >(undefined);
+
   const [detailsPayment, setDetailsPayment] = useState<Payment | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [giftCard, setGiftCard] = useState<GiftCardListModel | undefined>(
     undefined,
   );
+
   const [paymentLinkApps, setPaymentLinkApps] = useState<PaymentLinkApp[]>([]);
   const [emailDestinations, setEmailDestinations] = useState<string[]>([]);
   const [phoneDestinations, setPhoneDestinations] = useState<string[]>([]);
@@ -259,6 +263,7 @@ export const AddUpdatePaymentDialog = ({
                 "validation.payments.giftCardId.required" satisfies BaseAllKeys,
               path: ["giftCardId"],
             });
+
             return;
           }
 
@@ -329,12 +334,14 @@ export const AddUpdatePaymentDialog = ({
 
   const resolvedCustomerId =
     lockedCustomerId || selectedCustomerId || undefined;
+
   const smsTo = form.watch("to");
   const sendingSms = !isEdit && method === "payment-link" && channel === "sms";
   const smsConsentStatus = useCustomerPhoneSmsConsent(
     sendingSms ? resolvedCustomerId : undefined,
     sendingSms ? smsTo : undefined,
   );
+
   const smsBlocked =
     sendingSms &&
     !(
@@ -357,7 +364,6 @@ export const AddUpdatePaymentDialog = ({
           : []),
       ];
     }
-
     if (originalMethod === "gift-card") {
       return giftCardPaymentMethod;
     }
@@ -427,6 +433,7 @@ export const AddUpdatePaymentDialog = ({
         setEmailDestinations(
           uniqueNonEmpty([customer.email, ...(customer.knownEmails ?? [])]),
         );
+
         setPhoneDestinations(
           uniqueNonEmpty([customer.phone, ...(customer.knownPhones ?? [])]),
         );
@@ -461,6 +468,7 @@ export const AddUpdatePaymentDialog = ({
       if (form.getValues("to")) {
         form.setValue("to", undefined);
       }
+
       return;
     }
 
@@ -1158,6 +1166,7 @@ export const AddUpdatePaymentDialog = ({
               shouldValidate: true,
               shouldDirty: true,
             });
+
             setAssignedAppointment(appointment);
           }}
         />

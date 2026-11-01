@@ -10,6 +10,8 @@ alwaysApply: true
 
 Use blank lines to separate meaningful logical units of code, but prefer compact code by default.
 
+The mechanical parts of this style are enforced by the ESLint rule `hacado/padding-lines`. `yarn lint:fix` applies them: it inserts a blank line after a multiline statement, after a braced control-flow statement, and after a guard clause, and it removes blank lines between consecutive guard clauses and between call arguments. A blank line between ordinary one-line statements is left in place, because that break marks a logical step.
+
 Do NOT add blank lines between ordinary sequential statements that belong to the same logical operation.
 
 Prefer:

@@ -32,6 +32,7 @@ export default async function AppsPage(props: Params) {
     { title: t("navigation.dashboard"), link: "/dashboard" },
     { title: t("navigation.apps"), link: "/dashboard/apps" },
   ];
+
   return (
     <PageContainer scrollable>
       <div className="flex flex-1 flex-col gap-4 w-full">

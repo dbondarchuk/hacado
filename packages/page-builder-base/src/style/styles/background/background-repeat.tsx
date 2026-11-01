@@ -38,6 +38,7 @@ export const backgroundRepeatStyle = {
   defaultValue: "repeat",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `background-repeat: ${value};`;
   },
   component: ({ value, onChange }) => {

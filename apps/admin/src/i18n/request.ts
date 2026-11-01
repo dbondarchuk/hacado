@@ -16,7 +16,6 @@ const config = getConfig(
         includeInstall: true,
       };
     }
-
     if (headersList.get("x-locale")) {
       return {
         locale: headersList.get("x-locale") as string,
@@ -107,6 +106,7 @@ const config = getConfig(
         const promises = installedApps
           .filter((app) => AppsTranslations[app]?.overrides)
           .map(async (app) => await AppsTranslations[app]?.overrides?.(locale));
+
         const overrides = await Promise.all(promises);
 
         return overrides;

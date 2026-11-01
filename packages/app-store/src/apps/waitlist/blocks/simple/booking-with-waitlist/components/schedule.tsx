@@ -123,6 +123,7 @@ export const Schedule: React.FC<
   const i18n = useI18n("translation");
   const isBookingRestricted =
     !isOnlyWaitlist && isBookingLimitRestriction(bookingRestriction);
+
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
@@ -160,9 +161,11 @@ export const Schedule: React.FC<
     appointmentOption.durationType === "fixed"
       ? appointmentOption.duration
       : appointmentOption.durationMin;
+
   const [duration, setDuration] = React.useState<number | undefined>(
     appointmentOptionDuration,
   );
+
   const [otpVerified, setOtpVerified] = React.useState(!!initialOtpVerified);
   const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
 
@@ -189,6 +192,7 @@ export const Schedule: React.FC<
   const [giftCards, setGiftCards] = React.useState<
     ApplyGiftCardsSuccessResponse["giftCards"]
   >([]);
+
   const [paymentInformation, setPaymentInformation] =
     React.useState<CollectPayment | null>();
 
@@ -196,6 +200,7 @@ export const Schedule: React.FC<
     appointmentOption.durationType === "fixed"
       ? appointmentOption.price
       : appointmentOption.pricePerHour;
+
   const optionBaseDuration =
     appointmentOption.durationType === "fixed"
       ? appointmentOption.duration
@@ -219,6 +224,7 @@ export const Schedule: React.FC<
     preselectedMemberId ??
       (activeStaff.length === 1 ? activeStaff[0].member.id : null),
   );
+
   const [isAnySpecialist, setIsAnySpecialist] = React.useState(
     initialIsAnySpecialist,
   );
@@ -227,6 +233,7 @@ export const Schedule: React.FC<
     appointmentOption.durationType === "flexible"
       ? appointmentOption.durationMin
       : undefined;
+
   const fixedDuration =
     appointmentOption.durationType === "fixed"
       ? appointmentOption.duration
@@ -235,6 +242,7 @@ export const Schedule: React.FC<
   React.useEffect(() => {
     if (waitlistOffer) return;
     if (flexibleDurationMin == null) return;
+
     setDuration(flexibleDurationMin);
   }, [appointmentOption._id, flexibleDurationMin, setDuration, waitlistOffer]);
 
@@ -282,9 +290,11 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!selectedAddons.length || !selectedMemberId) return;
+
     const filtered = selectedAddons.filter((addon) =>
       isAddonAvailableForMember(addon.staff, selectedMemberId),
     );
+
     if (filtered.length !== selectedAddons.length) {
       setSelectedAddons(filtered);
     }
@@ -293,6 +303,7 @@ export const Schedule: React.FC<
 
   const addonsFields =
     selectedAddons?.flatMap((addon) => addon.fields || []) || [];
+
   const allFormFields = [...(appointmentOption.fields || []), ...addonsFields];
   const fieldsIdsRequired = [...allFormFields].reduce(
     (map, field) => ({
@@ -311,6 +322,7 @@ export const Schedule: React.FC<
 
   const [availabilityByMember, setAvailabilityByMember] =
     React.useState<AvailabilityByMember>({});
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<AppointmentFields>(
     initialFields ??
@@ -323,6 +335,7 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!waitlistOffer) return;
+
     if (waitlistOffer.memberId) {
       setSelectedMemberId(waitlistOffer.memberId);
     }
@@ -350,12 +363,14 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (customerPackageId) return;
+
     setOtpVerified(false);
   }, [fields.email, fields.phone, customerPackageId]);
 
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [confirmDuplicateAppointment, setConfirmDuplicateAppointment] =
     React.useState(false);
+
   const [waitlistTimes, setWaitlistTimes] = React.useState<{
     asSoonAsPossible: boolean;
     dates?: WaitlistDate[];
@@ -374,16 +389,19 @@ export const Schedule: React.FC<
         appointmentOption.durationType === "fixed"
           ? (selectedStaff?.effectiveDuration ?? appointmentOption.duration)
           : duration;
+
       if (!baseDuration) {
         baseDuration =
           appointmentOption.durationType === "fixed"
             ? appointmentOption.duration
             : appointmentOption.durationMin;
       }
+
       if (!baseDuration) return undefined;
 
       const addonsDuration = (selectedAddons || []).reduce((sum, addon) => {
         if (!isAddonAvailableForMember(addon.staff, memberId)) return sum;
+
         return (
           sum +
           (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0)
@@ -456,9 +474,11 @@ export const Schedule: React.FC<
     selectedAddons,
     selectedMemberId,
   ]);
+
   const getAppointmentRequest = useCallback(
     (paymentIntentIdOverride?: string): AppointmentRequest | null => {
       if (!dateTime || !duration) return null;
+
       return {
         dateTime: LuxonDateTime.fromObject(
           {
@@ -516,6 +536,7 @@ export const Schedule: React.FC<
       waitlistToken,
     ],
   );
+
   const router = useRouter();
 
   const fetchAvailability = useCallback(
@@ -550,9 +571,12 @@ export const Schedule: React.FC<
               const canFulfillAddons = (selectedAddons || []).every((addon) =>
                 isAddonAvailableForMember(addon.staff, memberId),
               );
+
               if (!canFulfillAddons) return null;
+
               const memberDuration = getTotalDurationForMember(memberId);
               if (!memberDuration) return null;
+
               return { memberId, duration: memberDuration };
             })
             .filter((r): r is { memberId: string; duration: number } => !!r);
@@ -574,6 +598,7 @@ export const Schedule: React.FC<
             memberIds: requests.map((r) => r.memberId),
             durations: requests.map((r) => r.duration),
           });
+
           setAvailabilityByMember(data);
           return;
         }
@@ -797,6 +822,7 @@ export const Schedule: React.FC<
             setStep("calendar");
             await fetchAvailability();
           }
+
           return;
         }
 
@@ -961,6 +987,7 @@ export const Schedule: React.FC<
       otpDialogOpen,
     ],
   );
+
   return (
     <div className="relative" id={id} {...props}>
       <div ref={topRef} />

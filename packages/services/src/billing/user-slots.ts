@@ -22,6 +22,7 @@ export function resolveAvailableUsers(
   org: OrganizationSeatFields | null | undefined,
 ): number | null {
   if (hasUnlimitedUserSlots(org)) return null;
+
   return (
     org?.availableUsers ??
     (org?.userSlots
@@ -35,6 +36,7 @@ export function canInviteWithAvailableUsers(
   availableUsers: number | null,
 ): boolean {
   if (availableUsers === null) return true;
+
   return activeCount < availableUsers;
 }
 

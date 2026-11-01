@@ -94,19 +94,24 @@ export const NewEntryDialog = ({
   const [selectedOption, setSelectedOption] = useState<
     AppointmentOption | undefined
   >(undefined);
+
   const [selectedAddons, setSelectedAddons] = useState<
     AppointmentAddon[] | undefined
   >(undefined);
+
   const minDate = useMemo(() => DateTime.now().startOf("day").toJSDate(), []);
 
   const calculatedDuration = useMemo(() => {
     if (!selectedOption) return 0;
+
     const base =
       selectedOption.durationType === "fixed"
         ? selectedOption.duration
         : (selectedOption.durationMin ?? 0);
+
     const addonsMinutes =
       selectedAddons?.reduce((sum, a) => sum + (a.duration ?? 0), 0) ?? 0;
+
     return base + addonsMinutes;
   }, [selectedOption, selectedAddons]);
 
@@ -124,6 +129,7 @@ export const NewEntryDialog = ({
       .getCustomer(customerIdLock)
       .then((loaded) => {
         if (cancelled) return;
+
         setCustomer({
           _id: loaded._id,
           avatar: loaded.avatar,
@@ -175,10 +181,12 @@ export const NewEntryDialog = ({
           data.duration && data.duration >= 1 ? data.duration : undefined,
         ...(attest && consentStatus === "missing" ? { smsConsent: true } : {}),
       };
+
       await toastPromise(createWaitlistEntry(appId, payload), {
         success: t("newEntry.toasts.success"),
         error: t("newEntry.toasts.error"),
       });
+
       form.reset();
       setAttest(false);
       setCustomer(undefined);

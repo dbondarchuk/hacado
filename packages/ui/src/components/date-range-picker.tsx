@@ -48,6 +48,7 @@ export const CalendarDateRangePicker: React.FC<
     if (rest.timeZone) {
       return d.setZone(rest.timeZone, { keepLocalTime: true });
     }
+
     return d;
   };
 

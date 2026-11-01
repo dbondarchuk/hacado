@@ -15,10 +15,12 @@ export async function getInstallScheduleSnapshot(): Promise<Schedule | null> {
   const logger = getLoggerFactory("InstallActions")(
     "getInstallScheduleSnapshot",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return null;
@@ -27,9 +29,11 @@ export async function getInstallScheduleSnapshot(): Promise<Schedule | null> {
   const services = ServicesContainer(organizationId, true);
   const existing =
     (await services.configurationService.getConfiguration("schedule")) ?? null;
+
   const hasWorkingHours = existing?.schedule?.some(
     (day) => day.shifts?.length > 0,
   );
+
   if (!hasWorkingHours) {
     logger.debug({ organizationId }, "No install schedule snapshot yet");
     return null;
@@ -52,6 +56,7 @@ export async function saveInstallSchedule(
   const hasWorkingHours = parsedSchedule.data.some(
     (day) => day.shifts.length > 0,
   );
+
   if (!hasWorkingHours) {
     return { ok: false, code: "no_working_hours" };
   }
@@ -59,6 +64,7 @@ export async function saveInstallSchedule(
   const config = scheduleConfigurationSchema.safeParse({
     schedule: parsedSchedule.data,
   });
+
   if (!config.success) {
     logger.error({ error: config.error }, "Invalid schedule configuration");
     return { ok: false, code: "invalid_input" };
@@ -68,6 +74,7 @@ export async function saveInstallSchedule(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
@@ -80,6 +87,7 @@ export async function saveInstallSchedule(
     config.data,
     source,
   );
+
   logger.debug({ organizationId }, "Saved install schedule");
   return { ok: true };
 }

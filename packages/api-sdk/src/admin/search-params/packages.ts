@@ -28,12 +28,14 @@ export const packagesSearchParams = {
 
 export const packagesSearchParamsCache =
   createSearchParamsCache(packagesSearchParams);
+
 export const packagesSearchParamsSerializer =
   createSerializer(packagesSearchParams);
 
 export type PackagesSearchParams = Partial<
   inferParserType<typeof packagesSearchParams>
 >;
+
 export const packagesSearchParamsLoader = createLoader(packagesSearchParams);
 export const packagesSearchParamsSchema =
   createStandardSchemaV1(packagesSearchParams);

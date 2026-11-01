@@ -97,6 +97,7 @@ export async function PUT(
       { error, optionId: id },
       "Invalid service option update model format",
     );
+
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
@@ -143,6 +144,7 @@ export async function PUT(
       },
       "Failed to update service option",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -217,6 +219,7 @@ export async function DELETE(
       },
       "Failed to delete service option",
     );
+
     return NextResponse.json(
       {
         success: false,

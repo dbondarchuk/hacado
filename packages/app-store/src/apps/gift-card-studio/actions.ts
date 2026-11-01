@@ -58,6 +58,7 @@ export async function getDesigns(
     { appId, query, result: result.items.length, total: result.total },
     "Designs got",
   );
+
   return result;
 }
 
@@ -201,6 +202,7 @@ export async function getPurchasedGiftCards(
     { appId, query, result: result.items.length, total: result.total },
     "Purchased gift cards got",
   );
+
   return result;
 }
 
@@ -217,6 +219,7 @@ export async function getPurchasedGiftCardById(appId: string, id: string) {
     { appId, id, code: result?.giftCardCode },
     "Purchased gift card got",
   );
+
   return result;
 }
 
@@ -236,6 +239,7 @@ export async function createPurchasedGiftCard(
     { appId, purchase, resultId: result._id },
     "Purchased gift card created",
   );
+
   return result;
 }
 
@@ -312,6 +316,7 @@ export async function regenerateGiftCardAssets(
     { appId, id, assetType, result },
     "Gift card assets scheduled for regeneration",
   );
+
   return result;
 }
 
@@ -344,6 +349,7 @@ export async function markGiftCardStudioPurchasesRead(appId: string) {
       { appId, error: error?.message || error?.toString() },
       "Error marking gift card studio purchases as read",
     );
+
     throw error;
   }
 }
@@ -369,5 +375,6 @@ export async function resendEmail(
     { appId, id, participantType, result },
     `Email ${participantType} resent`,
   );
+
   return result;
 }

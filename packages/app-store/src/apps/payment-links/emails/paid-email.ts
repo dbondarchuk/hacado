@@ -41,6 +41,7 @@ export const buildPaymentPaidEmailNotifications = async (
     context.appointmentUrl && context.appointmentLabel?.trim()
       ? `[${context.appointmentLabel.trim()}](${context.appointmentUrl})`
       : appointmentText;
+
   const notifications: EmailNotificationRequest[] = [];
 
   for (const recipient of recipients) {

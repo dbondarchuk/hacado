@@ -87,6 +87,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         canvas: { ...state.design.canvas, ...canvas },
       },
     }));
+
     get().pushHistory();
   },
 
@@ -97,6 +98,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         elements: [...state.design.elements, element],
       },
     }));
+
     get().pushHistory();
   },
 
@@ -109,6 +111,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         ),
       },
     }));
+
     get().pushHistory();
   },
 
@@ -122,6 +125,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       },
       selectedElements: state.selectedElements.filter((selId) => selId !== id),
     }));
+
     get().pushHistory();
   },
 
@@ -157,6 +161,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         },
       };
     });
+
     get().pushHistory();
   },
 
@@ -176,6 +181,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         },
       };
     });
+
     get().pushHistory();
   },
 
@@ -195,6 +201,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         },
       };
     });
+
     get().pushHistory();
   },
 
@@ -218,12 +225,14 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       ids.forEach((id) => {
         const el = state.design.elements.find((e) => e.id === id);
         if (!el) return;
+
         if (el.type === "group") {
           const groupEl = el as any;
           groupsToRemove.push(id);
           groupEl.children?.forEach((childId: string) => {
             const child = state.design.elements.find((e) => e.id === childId);
             if (!child) return;
+
             flattenedIds.push(childId);
             absoluteElements.push({
               id: childId,
@@ -252,6 +261,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       absoluteElements.forEach(({ id, absX, absY }) => {
         const el = state.design.elements.find((e) => e.id === id);
         if (!el) return;
+
         minX = Math.min(minX, absX);
         minY = Math.min(minY, absY);
         maxX = Math.max(maxX, absX + el.size.width);
@@ -282,6 +292,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
               position: { x: abs.absX - minX, y: abs.absY - minY },
             };
           }
+
           return el;
         });
 
@@ -293,6 +304,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         selectedElements: [groupId],
       };
     });
+
     get().pushHistory();
   },
 
@@ -322,6 +334,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
               rotation: (el.rotation + groupElement.rotation) % 360,
             };
           }
+
           return el;
         })
         .filter((el) => el.id !== groupId);
@@ -334,6 +347,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         selectedElements: groupElement.children,
       };
     });
+
     get().pushHistory();
   },
 
@@ -343,6 +357,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       const groups = state.design.elements.filter(
         (el) => el.type === "group",
       ) as any[];
+
       const parentGroup = groups.find((g) => g.children?.includes(id));
 
       // If element is in a group, select the group instead
@@ -356,6 +371,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
             : [...state.selectedElements, targetId],
         };
       }
+
       return { selectedElements: [targetId] };
     });
   },
@@ -397,6 +413,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
           y: state.clipboard.position.y + 20,
         },
       };
+
       get().addElement(newElement);
       set({ selectedElements: [newElement.id] });
     }
@@ -407,6 +424,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     const elements = state.design.elements.filter((el) =>
       state.selectedElements.includes(el.id),
     );
+
     if (elements.length > 0) {
       set({ clipboardMultiple: elements });
     }
@@ -425,9 +443,11 @@ export const useEditorStore = create<EditorState>((set, get) => ({
             y: element.position.y + 20,
           },
         };
+
         get().addElement(newElement);
         newIds.push(newElement.id);
       });
+
       set({ selectedElements: newIds });
     }
   },
@@ -456,6 +476,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
           design: state.history[state.historyIndex - 1],
         };
       }
+
       return state;
     });
   },
@@ -468,6 +489,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
           design: state.history[state.historyIndex + 1],
         };
       }
+
       return state;
     });
   },

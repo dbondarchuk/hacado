@@ -23,6 +23,7 @@ export const AppointmentCalendar: React.FC<{
   const [schedule, setSchedule] = React.useState<Record<string, DaySchedule>>(
     {},
   );
+
   const [loading, setLoading] = React.useState(false);
 
   const appointmentDateTime = appointment.dateTime;
@@ -82,6 +83,7 @@ export const AppointmentCalendar: React.FC<{
             : app.status === "pending"
               ? "secondary"
               : "primary";
+
           return {
             start: start.toJSDate(),
             end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),

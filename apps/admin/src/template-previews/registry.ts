@@ -22,7 +22,9 @@ const pageBuilderPreviewProvider: TemplatePreviewProvider = {
       pageBuilderEditorTemplates[
         key as keyof typeof pageBuilderEditorTemplates
       ];
+
     if (!template || isLayoutTemplate(template)) return null;
+
     return template.getBlock(t);
   },
   resolveBlocks: (key: string, t: I18nFn<undefined, undefined>) => {
@@ -30,7 +32,9 @@ const pageBuilderPreviewProvider: TemplatePreviewProvider = {
       pageBuilderEditorTemplates[
         key as keyof typeof pageBuilderEditorTemplates
       ];
+
     if (!template || !isLayoutTemplate(template)) return null;
+
     return template.getBlocks(t);
   },
 };
@@ -59,10 +63,12 @@ export function resolveTemplatePreviewBlocks(
 ): TEditorBlock[] | null {
   const provider = resolveTemplatePreviewProvider(key);
   if (!provider) return null;
+
   if (provider.resolveBlocks) {
     const blocks = provider.resolveBlocks(key, t);
     if (blocks) return blocks;
   }
+
   const block = provider.resolveBlock(key, t);
   return block ? [block] : null;
 }

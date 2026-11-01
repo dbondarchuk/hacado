@@ -31,15 +31,18 @@ interface GroupElementProps {
 function resolvePaintCss(paint: Paint | undefined, fallback: string): string {
   if (!paint || paint.type === "none") return "transparent";
   if (paint.type === "color") return paint.color || fallback;
+
   if (paint.type === "gradient" && paint.gradient) {
     const { type, colors, angle } = paint.gradient;
     return type === "linear"
       ? `linear-gradient(${angle ?? 0}deg, ${colors.join(", ")})`
       : `radial-gradient(circle, ${colors.join(", ")})`;
   }
+
   if (paint.type === "image" && paint.image?.src) {
     return `url(${paint.image.src})`;
   }
+
   return fallback;
 }
 
@@ -52,6 +55,7 @@ function ChildContent({ child }: { child: Element }) {
       center: "center",
       right: "flex-end",
     };
+
     return (
       <div
         className="w-full h-full flex items-center px-2 whitespace-pre-wrap overflow-hidden"
@@ -114,18 +118,22 @@ function ChildContent({ child }: { child: Element }) {
       (el.styles.fill
         ? { type: "color" as const, color: el.styles.fill }
         : undefined);
+
     const strokePaint =
       el.styles.strokePaint ??
       (el.styles.stroke
         ? { type: "color" as const, color: el.styles.stroke }
         : undefined);
+
     const fillCss = resolvePaintCss(fillPaint, "transparent");
     const isGradientOrImage =
       fillPaint?.type === "gradient" || fillPaint?.type === "image";
+
     const strokeColor =
       strokePaint?.type === "color"
         ? strokePaint.color
         : el.styles.stroke || undefined;
+
     const strokeWidth = el.styles.strokeWidth || 1;
 
     if (el.shapeType === "line") {
@@ -139,6 +147,7 @@ function ChildContent({ child }: { child: Element }) {
         />
       );
     }
+
     return (
       <div
         style={{
@@ -188,6 +197,7 @@ export function GroupElementRenderer({
     (e: React.PointerEvent) => {
       if (mode === "preview") return;
       if (e.pointerType === "mouse" && e.button !== 0) return;
+
       e.stopPropagation();
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 
@@ -202,6 +212,7 @@ export function GroupElementRenderer({
 
       const onMove = (ev: PointerEvent) => {
         if (ev.pointerId !== pointerId) return;
+
         ev.preventDefault();
         const dx = (ev.clientX - moveLast.x) / zoom;
         const dy = (ev.clientY - moveLast.y) / zoom;
@@ -210,7 +221,9 @@ export function GroupElementRenderer({
         const el = useEditorStore
           .getState()
           .design.elements.find((x) => x.id === element.id);
+
         if (!el) return;
+
         updateElement(element.id, {
           position: { x: el.position.x + dx, y: el.position.y + dy },
         });
@@ -218,6 +231,7 @@ export function GroupElementRenderer({
 
       const onUp = (ev: PointerEvent) => {
         if (ev.pointerId !== pointerId) return;
+
         useEditorStore.getState().pushHistory();
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onUp);
@@ -241,6 +255,7 @@ export function GroupElementRenderer({
   const handleResizePointerDown = useCallback(
     (e: React.PointerEvent) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
+
       e.stopPropagation();
       e.preventDefault();
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -269,6 +284,7 @@ export function GroupElementRenderer({
 
       const onMove = (ev: PointerEvent) => {
         if (ev.pointerId !== pointerId) return;
+
         ev.preventDefault();
         const dw = (ev.clientX - startX) / zoom;
         const dh = (ev.clientY - startY) / zoom;
@@ -289,6 +305,7 @@ export function GroupElementRenderer({
               height: Math.max(4, snap.h * scaleY),
             },
           };
+
           if (!snap.fontSizeLocked && snap.styles) {
             const fontScale = Math.min(scaleX, scaleY);
             updates.styles = {
@@ -296,12 +313,14 @@ export function GroupElementRenderer({
               fontSize: Math.max(6, Math.round(snap.fontSize * fontScale)),
             };
           }
+
           updateElement(snap.id, updates);
         });
       };
 
       const onUp = (ev: PointerEvent) => {
         if (ev.pointerId !== pointerId) return;
+
         useEditorStore.getState().pushHistory();
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onUp);
@@ -324,31 +343,38 @@ export function GroupElementRenderer({
   const handleRotatePointerDown = useCallback(
     (e: React.PointerEvent) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
+
       e.stopPropagation();
       e.preventDefault();
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       const pointerId = e.pointerId;
       const rect = wrapperRef.current?.getBoundingClientRect();
       if (!rect) return;
+
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const startAngle =
         Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
+
       const origRotation = element.rotation;
 
       const onMove = (ev: PointerEvent) => {
         if (ev.pointerId !== pointerId) return;
+
         ev.preventDefault();
         const currentAngle =
           Math.atan2(ev.clientY - centerY, ev.clientX - centerX) *
           (180 / Math.PI);
+
         const raw = (origRotation + currentAngle - startAngle + 360) % 360;
         updateElement(element.id, {
           rotation: snapRotationToCardinals(raw, ev.altKey),
         });
       };
+
       const onUp = (ev: PointerEvent) => {
         if (ev.pointerId !== pointerId) return;
+
         useEditorStore.getState().pushHistory();
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onUp);
@@ -359,6 +385,7 @@ export function GroupElementRenderer({
           /* */
         }
       };
+
       window.addEventListener("pointermove", onMove);
       window.addEventListener("pointerup", onUp);
       window.addEventListener("pointercancel", onUp);

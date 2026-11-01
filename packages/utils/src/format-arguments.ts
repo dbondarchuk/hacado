@@ -116,7 +116,6 @@ function processObject(
   if (obj === null || obj === undefined) {
     return obj;
   }
-
   if (Array.isArray(obj)) {
     return obj.map((item) =>
       processObject(item, locale, currency, countryFallback, timeZone),
@@ -132,6 +131,7 @@ function processObject(
         result[key] = address
           ? processObject(address, locale, currency, countryFallback, timeZone)
           : processObject(value, locale, currency, countryFallback, timeZone);
+
         continue;
       }
 
@@ -148,6 +148,7 @@ function processObject(
         const dateTime = isDate(value)
           ? DateTime.fromJSDate(value).setZone(timeZone)
           : (value as DateTime).setZone(timeZone);
+
         const smsDate = formatSmsDate(dateTime, locale);
 
         // Replace the original value with formatted object containing original

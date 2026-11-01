@@ -29,6 +29,7 @@ function pickBestValueProductId(
   products: SmsTopupProductOffer[],
 ): string | null {
   if (products.length === 0) return null;
+
   const ranked = products.filter(
     (p) => p.credits != null && p.credits > 0 && p.priceAmount > 0,
   );
@@ -51,6 +52,7 @@ function pickBestValueProductId(
       best = product;
     }
   }
+
   return best.productId;
 }
 
@@ -68,6 +70,7 @@ function savingsPercentByProductId(
 
   const pricePerCredit = (p: SmsTopupProductOffer) =>
     p.priceAmount / (p.credits as number);
+
   const maxPricePerCredit = Math.max(...valid.map(pricePerCredit));
   if (maxPricePerCredit <= 0) {
     return map;
@@ -106,6 +109,7 @@ export function SmsTopupPurchaseDialog({
 
   useEffect(() => {
     if (!purchaseSmsTopup) return;
+
     setOpen(true);
     setPurchaseSmsTopup(false);
   }, [purchaseSmsTopup, setPurchaseSmsTopup]);
@@ -131,6 +135,7 @@ export function SmsTopupPurchaseDialog({
 
   useEffect(() => {
     if (!open || !canPurchase) return;
+
     const fn = async () => {
       setLoading(true);
       try {
@@ -159,11 +164,13 @@ export function SmsTopupPurchaseDialog({
         setLoading(false);
       }
     };
+
     void fn();
   }, [open, canPurchase, t]);
 
   const onContinue = async () => {
     if (!selectedProductId) return;
+
     setCheckoutId(selectedProductId);
     const result = await createSmsTopupCheckoutSession({
       productId: selectedProductId,
@@ -236,6 +243,7 @@ export function SmsTopupPurchaseDialog({
                         count: p.credits,
                       })
                     : null);
+
                 return (
                   <div key={p.productId} className="relative overflow-visible">
                     {isBestValue ? (

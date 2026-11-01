@@ -17,6 +17,7 @@ export function usePurchasesTableFilters() {
     "designId",
     searchParams.designId,
   );
+
   const [customerIdFilter, setCustomerIdFilter] = useQueryState(
     "customerId",
     searchParams.customerId,

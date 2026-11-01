@@ -45,6 +45,7 @@ export const CabinetModifyLayout = ({
   useEffect(() => {
     scrollToTopRef.current = !!scrollToTop;
   }, [scrollToTop]);
+
   const t = useI18n("translation");
   const tc = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
@@ -63,6 +64,7 @@ export const CabinetModifyLayout = ({
     .filter((s) => {
       if (!paymentInformation?.intent?._id && s === "payment") return false;
       if (type === "cancel" && s === "calendar") return false;
+
       return true;
     })
     .map((s) => ({

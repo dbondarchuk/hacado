@@ -14,6 +14,7 @@ export const flexBasisStyle = {
   defaultValue: 100,
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `flex-basis: ${value}%;`;
   },
   component: ({ value, onChange }) => (

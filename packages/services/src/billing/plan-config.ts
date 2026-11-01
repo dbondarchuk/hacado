@@ -19,6 +19,7 @@ function normalizePlanSlug(slug: string): BillingPlanTier | null {
   ) {
     return slug;
   }
+
   return LEGACY_PLAN_SLUG_ALIASES[slug] ?? null;
 }
 
@@ -36,12 +37,14 @@ export function getPolarBillingPlansFromEnv(): PolarBillingPlanDef[] {
           `Invalid POLAR_BILLING_PLANS entry "${part}" (expected slug:productId)`,
         );
       }
+
       const slug = normalizePlanSlug(rawSlug);
       if (!slug) {
         throw new Error(
           `Invalid POLAR_BILLING_PLANS slug "${rawSlug}" (expected free, solo or studio)`,
         );
       }
+
       return { slug, productId };
     });
   }
@@ -54,6 +57,7 @@ export function getBillingPlanProductIdMap(): Map<string, BillingPlanTier> {
   for (const plan of getPolarBillingPlansFromEnv()) {
     map.set(plan.productId, plan.slug);
   }
+
   return map;
 }
 

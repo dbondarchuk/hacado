@@ -112,6 +112,7 @@ export const insertBlock = (editor: PlateEditor, type: string) => {
     const block = editor.api.block();
 
     if (!block) return;
+
     if (type in insertBlockMap) {
       insertBlockMap[type](editor, type);
     } else {
@@ -120,6 +121,7 @@ export const insertBlock = (editor: PlateEditor, type: string) => {
         select: true,
       });
     }
+
     if (getBlockType(block[0]) !== type) {
       editor.tf.removeNodes({ previousEmptyBlock: true });
     }
@@ -170,9 +172,11 @@ export const setBlockType = (
       if (node[IndentListPlugin.key]) {
         editor.tf.unsetNodes([IndentListPlugin.key, "indent"], { at: path });
       }
+
       if (type in setBlockMap) {
         return setBlockMap[type](editor, type, entry);
       }
+
       if (node.type !== type) {
         editor.tf.setNodes({ type }, { at: path });
       }

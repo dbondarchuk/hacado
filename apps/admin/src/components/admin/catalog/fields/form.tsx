@@ -189,10 +189,12 @@ export const ServiceFieldForm: React.FC<{
     control: form.control,
     name: "data.options",
   });
+
   const selectOptionsState = form.getFieldState(
     "data.options",
     optionsFormState,
   );
+
   const selectOptionsIds = selectOptionsFields.map((x) => x.id);
 
   const fieldType = form.watch("type");

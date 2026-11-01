@@ -41,6 +41,7 @@ const globalKeywords = [
     isKeyword: false,
   },
 ] as const satisfies CSSValueOption<string>[];
+
 type BaseRawNumberInputWithUnitsAndKeywordsProps = Pick<
   RawNumberInputWithUnitsProps,
   | "icon"
@@ -107,15 +108,18 @@ export const RawNumberInputWithUnitsAndKeywords = <T extends string>({
 
   const [isCustomValue, setIsCustomValue] = useState(() => {
     if (value === null || value === undefined) return false;
+
     if (typeof value === "string") {
       if (hasKeywords) {
         // Check if the value is a keyword from our options
         const isKeyword = keywords.some((option) => option.value === value);
         return !isKeyword;
       }
+
       // If no keywords, treat all strings as keywords (auto, inherit, etc.)
       return false;
     }
+
     return true; // Numeric values are always custom
   });
 

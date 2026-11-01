@@ -68,6 +68,7 @@ export const getMember = cache(async () => {
   const member = await servicesContainer.teamService.getMemberById(
     session.user.memberId,
   );
+
   if (!member) {
     throw new Error("Member not found");
   }
@@ -95,6 +96,7 @@ export const getOrganizationId = cache(async () => {
 export const getOrganizationFullDomain = cache(async () => {
   const { organizationSlug, organizationDomain } =
     await getOrganizationIdAndSlug();
+
   const domain = organizationDomain?.trim();
   return domain || `${organizationSlug}.${process.env.PUBLIC_DOMAIN}`;
 });

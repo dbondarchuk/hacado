@@ -4,5 +4,6 @@ export function isSmsLinkShorteningEnabled(
   if (!value) {
     return false;
   }
+
   return value === "true" || value === "1";
 }

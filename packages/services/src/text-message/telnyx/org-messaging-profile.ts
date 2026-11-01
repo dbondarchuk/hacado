@@ -22,6 +22,7 @@ export async function ensureOrganizationMessagingProfile(input: {
   const logger = getLoggerFactory("SmsRegistration")(
     "ensureOrganizationMessagingProfile",
   );
+
   const name = orgMessagingProfileName(input.businessName);
   const webhookUrl = messagingWebhookUrl();
   const existingId = input.record.telnyxMessagingProfileId?.trim();
@@ -95,6 +96,7 @@ export async function ensureOrganizationMessagingProfile(input: {
     webhook_api_version: "2",
     enabled: true,
   });
+
   const profileId = created.data?.id?.trim();
   if (!profileId) {
     logger.error(
@@ -178,6 +180,7 @@ export async function findUnassignedTollFreeNumber(input: {
   const logger = getLoggerFactory("SmsRegistration")(
     "findUnassignedTollFreeNumber",
   );
+
   const pool = new Set(await input.store.listPoolNumbers());
 
   logger.debug(
@@ -200,10 +203,12 @@ export async function findUnassignedTollFreeNumber(input: {
     scanned += 1;
     const phoneNumber = row.phone_number?.trim();
     if (!phoneNumber) continue;
+
     if (pool.has(phoneNumber)) {
       skippedPool += 1;
       continue;
     }
+
     if (row.messaging_profile_id) {
       skippedAssignedProfile += 1;
       continue;
@@ -256,6 +261,7 @@ export async function releaseDedicatedNumberForOrganization(input: {
   const logger = getLoggerFactory("SmsRegistration")(
     "releaseDedicatedNumberForOrganization",
   );
+
   const store = input.store ?? new SmsRegistrationStore();
   const assigned = await store.getAssignedProfileNumber(input.organizationId);
 

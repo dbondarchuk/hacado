@@ -54,6 +54,7 @@ export const ResizableImage = forwardRef<HTMLImageElement, ResizableImageProps>(
       x: initialX,
       y: initialY,
     });
+
     const debouncedObjectPosition = useDebounce(objectPosition, 200);
 
     useEffect(() => {
@@ -99,6 +100,7 @@ export const ResizableImage = forwardRef<HTMLImageElement, ResizableImageProps>(
             dragStartObjectPosRef.current.x - (deltaX / rect.width) * 100,
           ),
         );
+
         const newY = Math.max(
           0,
           Math.min(

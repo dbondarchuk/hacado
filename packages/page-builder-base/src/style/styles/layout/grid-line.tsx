@@ -39,6 +39,7 @@ export const createGridLineStyle = <TName extends string>({
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `${cssProperty}: ${value};`;
   },
   component: ({ value, onChange }) => {

@@ -9,6 +9,7 @@ import { DateTime } from "luxon";
 function greetingKey(hour: number): AdminKeys {
   if (hour < 12) return "dashboard.greeting.morning";
   if (hour < 17) return "dashboard.greeting.afternoon";
+
   return "dashboard.greeting.evening";
 }
 
@@ -18,6 +19,7 @@ export async function DashboardGreeting({ subtitle }: { subtitle: string }) {
   const firstName =
     session?.user?.name?.trim().split(/\s+/)[0] ||
     t("dashboard.greeting.fallbackName");
+
   const key = greetingKey(DateTime.now().hour);
 
   return (

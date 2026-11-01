@@ -40,11 +40,13 @@ export default async function ServicesPage(props: Params) {
     getSession(),
     getServicesContainer(),
   ]);
+
   const canCreate = hasPermission(session.user, "service", "create");
   const { total: serviceCount } =
     await servicesContainer.catalogService.getServices({
       limit: 0,
     });
+
   const canAddMore =
     canCreate && sessionCanCreateMoreServices(session, serviceCount);
 

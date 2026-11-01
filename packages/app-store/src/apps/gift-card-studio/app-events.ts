@@ -24,6 +24,7 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
       recordActivity: (envelope) => {
         const { design } =
           envelope.payload as GiftCardStudioDesignCreatedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -46,6 +47,7 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
       recordActivity: (envelope) => {
         const { design } =
           envelope.payload as GiftCardStudioDesignUpdatedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -89,6 +91,7 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
       recordActivity: (envelope) => {
         const { purchase } =
           envelope.payload as GiftCardStudioPurchaseCreatedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -158,12 +161,14 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
 
         const admins =
           await services.teamService.getOrganizationAdminContacts();
+
         if (!admins.length) {
           return null;
         }
 
         const organization =
           await services.organizationService.getOrganization();
+
         const organizationLabel =
           organization?.name?.trim() || organization?.slug || "";
 

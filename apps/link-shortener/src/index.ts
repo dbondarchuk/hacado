@@ -19,6 +19,7 @@ const getAdminBaseUrl = () => {
   if (!process.env.ADMIN_DOMAIN?.trim()) {
     return "https://app.hacado.com";
   }
+
   return getAdminUrl();
 };
 
@@ -37,15 +38,18 @@ const sendNotFound = (
     "Content-Type": "text/html; charset=utf-8",
     "Cache-Control": "no-store",
   };
+
   if (method === "HEAD") {
     res.writeHead(404, headers);
     res.end();
     return;
   }
+
   res.writeHead(404, {
     ...headers,
     "Content-Length": Buffer.byteLength(html),
   });
+
   res.end(html);
 };
 
@@ -65,6 +69,7 @@ async function startServer(): Promise<void> {
   const port = process.env.PORT || 5557;
   const marketingUrl =
     process.env.MARKETING_URL?.trim() || "https://hacado.com";
+
   const adminUrl = getAdminBaseUrl();
   const notFoundPage = renderNotFoundHtml(marketingUrl, adminUrl);
   const server = http.createServer(async (req, res) => {

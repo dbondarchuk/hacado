@@ -73,6 +73,7 @@ export const StyleCategoryComponent = <T extends BaseStyleDictionary>({
   const getCategoryLabel = (category: StyleCategory) => {
     const categoryLabel =
       `pageBuilder.styles.categories.${category}` as BuilderKeys;
+
     return t.has(categoryLabel) ? t(categoryLabel) : category;
   };
 
@@ -101,6 +102,7 @@ export const StyleCategoryComponent = <T extends BaseStyleDictionary>({
     if (activeStylesCount > previousCount) {
       setIsOpen(true);
     }
+
     previousActiveCountRef.current = activeStylesCount;
   }, [activeStylesCount]);
 

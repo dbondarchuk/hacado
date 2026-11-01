@@ -108,6 +108,7 @@ export async function requestMemberPhoneOtp(
   if (rateCount === 1) {
     await redis.expire(rateKey(normalized), MEMBER_PHONE_OTP_TTL_SECONDS);
   }
+
   if (rateCount > MEMBER_PHONE_OTP_MAX_REQUESTS) {
     throw new MemberPhoneOtpError("rate_limited");
   }
@@ -188,6 +189,7 @@ export async function verifyMemberPhoneOtp(
       "EX",
       ttl > 0 ? ttl : MEMBER_PHONE_OTP_TTL_SECONDS,
     );
+
     throw new MemberPhoneOtpError("invalid_code");
   }
 

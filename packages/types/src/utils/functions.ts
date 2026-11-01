@@ -75,6 +75,7 @@ export function debounce<Args extends any[], F extends (...args: Args) => any>(
         callback && callback(result);
         return resolve(result);
       }
+
       promises.push({ resolve, reject });
     });
   };
@@ -83,6 +84,7 @@ export function debounce<Args extends any[], F extends (...args: Args) => any>(
     if (timeoutId !== undefined) {
       clearTimeout(timeoutId);
     }
+
     promises.forEach(({ reject }) => reject(reason));
     promises = [];
   };

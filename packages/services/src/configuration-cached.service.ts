@@ -117,6 +117,7 @@ export class CachedConfigurationService extends ConfigurationService {
           async (key) => [key, await this.cachedGetConfiguration(key)] as const,
         ),
       );
+
       return Object.fromEntries(entries) as Pick<Configuration, K>;
     },
   );

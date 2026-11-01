@@ -173,6 +173,7 @@ function getCaretCoordinates(
     var el = documentElement.querySelector(
       "#input-textarea-caret-position-mirror-div",
     );
+
     if (el) el?.parentNode?.removeChild(el);
   }
 
@@ -204,6 +205,7 @@ function getCaretCoordinates(
           parseInt(computed.paddingBottom) +
           parseInt(computed.borderTopWidth) +
           parseInt(computed.borderBottomWidth);
+
         var targetHeight = outerHeight + parseInt(computed.lineHeight);
         if (height > targetHeight) {
           style.lineHeight = height - outerHeight + "px";
@@ -329,6 +331,7 @@ export const TextareaMentions = React.forwardRef<
         const currentWord = getCurrentWord(textarea, trigger);
         const isDropdownHidden =
           dropdown.classList.contains("hidden") || dropdown.offsetHeight < 10;
+
         if (currentWord.startsWith(trigger) && !isDropdownHidden) {
           // FIXME: handle Escape
           if (
@@ -358,6 +361,7 @@ export const TextareaMentions = React.forwardRef<
           e.target instanceof HTMLSpanElement
             ? e.target.innerText
             : e.target.value;
+
         const textarea = textareaRef.current;
         const dropdown = dropdownRef.current;
 
@@ -367,6 +371,7 @@ export const TextareaMentions = React.forwardRef<
             textarea.selectionEnd || 0,
             documentElement,
           );
+
           const currentWord = getCurrentWord(textarea, trigger);
           setTextValue?.(text);
           if (currentWord.startsWith(trigger)) {

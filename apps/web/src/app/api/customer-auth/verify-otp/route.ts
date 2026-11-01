@@ -32,10 +32,12 @@ export async function POST(request: NextRequest) {
       id: result.id,
       smsConsent,
     });
+
     response.headers.append(
       "Set-Cookie",
       authService.getSessionCookieHeader(result.token),
     );
+
     logger.info({ customerId: result.id }, "OTP verified");
     return response;
   } catch (error) {
@@ -46,6 +48,7 @@ export async function POST(request: NextRequest) {
         { status: error.status },
       );
     }
+
     throw error;
   }
 }

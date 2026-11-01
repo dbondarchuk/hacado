@@ -21,6 +21,7 @@ export const columns: ColumnDef<AppointmentOption>[] = [
       const t = useI18n("admin");
       const { user } = useAuth();
       if (!hasPermission(user, "service", "delete")) return null;
+
       return (
         <Checkbox
           checked={table.getIsAllPageRowsSelected()}
@@ -33,6 +34,7 @@ export const columns: ColumnDef<AppointmentOption>[] = [
       const t = useI18n("admin");
       const { user } = useAuth();
       if (!hasPermission(user, "service", "delete")) return null;
+
       return (
         <Checkbox
           checked={row.getIsSelected()}
@@ -49,6 +51,7 @@ export const columns: ColumnDef<AppointmentOption>[] = [
       const { user } = useAuth();
       const canUpdate = hasPermission(user, "service", "update");
       if (!canUpdate) return row.original.name;
+
       return (
         <Link
           href={`/dashboard/catalog/services/${row.original._id}`}

@@ -96,6 +96,7 @@ function formatHoursProse(schedule?: ScheduleConfiguration): string {
     "Saturday",
     "Sunday",
   ];
+
   const parts = schedule.schedule
     .slice()
     .sort((a, b) => a.weekDay - b.weekDay)
@@ -107,6 +108,7 @@ function formatHoursProse(schedule?: ScheduleConfiguration): string {
     });
 
   if (!parts.length) return "";
+
   return `Hours: ${parts.join("; ")}.`;
 }
 
@@ -116,6 +118,7 @@ function formatSocialProse(social?: SocialConfiguration): string {
     .filter(Boolean);
 
   if (!urls.length) return "";
+
   return `Social: ${urls.join(", ")}.`;
 }
 
@@ -264,6 +267,7 @@ export async function buildLlmsFullTxt(
       if (offer.kind === "package") {
         parts.push("", "Package");
       }
+
       const summary = formatOfferSummary(offer);
       if (summary) parts.push("", summary);
       if (
@@ -273,6 +277,7 @@ export async function buildLlmsFullTxt(
       ) {
         parts.push("", `Specialists: ${offer.specialistNames.join(", ")}`);
       }
+
       if (offer.kind === "package" && offer.included.length) {
         parts.push(
           "",
@@ -284,6 +289,7 @@ export async function buildLlmsFullTxt(
           ),
         );
       }
+
       parts.push("");
     }
   }
@@ -297,6 +303,7 @@ export async function buildLlmsFullTxt(
       if (page.description?.trim()) {
         parts.push("", page.description.trim());
       }
+
       const body = fullPage?.content ? blocksToPlainText(fullPage.content) : "";
       if (body) parts.push("", body);
       parts.push("");

@@ -85,12 +85,14 @@ export const ResendPaymentLinkDialog = ({
     open && channel === "sms" ? payment.customerId : undefined,
     open && channel === "sms" ? smsTo : undefined,
   );
+
   const smsBlocked =
     channel === "sms" &&
     !(
       smsConsentStatus === "consented" ||
       (smsConsentStatus === "missing" && smsConsent)
     );
+
   const destinations =
     channel === "email" ? emailDestinations : phoneDestinations;
 
@@ -113,6 +115,7 @@ export const ResendPaymentLinkDialog = ({
             [customer.email, ...(customer.knownEmails ?? [])].filter(Boolean),
           ),
         ] as string[];
+
         const phones = [
           ...new Set(
             [customer.phone, ...(customer.knownPhones ?? [])].filter(Boolean),
@@ -124,8 +127,10 @@ export const ResendPaymentLinkDialog = ({
 
         const preferredChannel =
           emails.length > 0 ? "email" : phones.length > 0 ? "sms" : "email";
+
         const preferredDestinations =
           preferredChannel === "email" ? emails : phones;
+
         const preferredTo =
           (preferredChannel === "email"
             ? "sentToEmail" in payment

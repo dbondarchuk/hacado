@@ -28,6 +28,7 @@ export const BlogPostCommentCountServerWrapper = async ({
 
   const format =
     props?.format ?? BlogPostCommentCountPropsDefaults.props.format;
+
   const post = args?.post;
   const config = args?.blogCommentsConfig;
 

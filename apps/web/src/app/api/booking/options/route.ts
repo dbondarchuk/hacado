@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
     getCustomerSessionFromRequest(),
     sessionCanUseFeature("packages"),
   ]);
+
   let response = await servicesContainer.bookingService.getAppointmentOptions({
     customerId: canUsePackages ? session?.customerId : undefined,
   });
@@ -65,9 +66,11 @@ export async function GET(request: NextRequest) {
             const children = filterCatalog(node.children);
             return children.length ? { ...node, children } : null;
           }
+
           if (node.type === "package") {
             return canUsePackages ? node : null;
           }
+
           return node;
         })
         .filter((node): node is NonNullable<typeof node> => node !== null);

@@ -20,6 +20,7 @@ export function CustomersTableAction() {
     setPage,
     setSearchQuery,
   } = useCustomersTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const { user } = useAuth();
   const canDelete = hasPermission(user, "customer", "delete");

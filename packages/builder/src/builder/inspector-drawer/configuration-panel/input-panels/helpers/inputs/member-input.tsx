@@ -63,6 +63,7 @@ export const MemberInput: React.FC<Props> = ({
             {...rest}
             onItemSelect={(v) => {
               if (!v) return;
+
               setValue(v);
               onChange(v);
             }}

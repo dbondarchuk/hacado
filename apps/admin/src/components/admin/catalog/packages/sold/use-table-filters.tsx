@@ -11,15 +11,18 @@ export function useSoldPackagesTableFilters() {
       .withOptions({ shallow: false, throttleMs: 1000 })
       .withDefault(""),
   );
+
   const [page, setPage] = useQueryState("page", soldPackagesSearchParams.page);
   const [customerIdFilter, setCustomerIdFilter] = useQueryState(
     "customerId",
     soldPackagesSearchParams.customerId.withOptions({ shallow: false }),
   );
+
   const [packageIdFilter, setPackageIdFilter] = useQueryState(
     "packageId",
     soldPackagesSearchParams.packageId.withOptions({ shallow: false }),
   );
+
   const [statusFilter, setStatusFilter] = useQueryState(
     "status",
     soldPackagesSearchParams.status.withOptions({ shallow: false }),

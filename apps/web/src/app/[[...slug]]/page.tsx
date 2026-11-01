@@ -153,6 +153,7 @@ const getSource = cache(async (slug?: string, preview = false) => {
       { originalSlug: slug },
       "No slug provided, defaulting to home",
     );
+
     slug = "home";
   }
 
@@ -190,6 +191,7 @@ const getSource = cache(async (slug?: string, preview = false) => {
       },
       "Page not found or not published",
     );
+
     throw new NotFoundError("Page not found");
   }
 
@@ -230,6 +232,7 @@ export async function generateMetadata(
         { slug: params.slug },
         "Skipping metadata for non-page route",
       );
+
       notFound();
     }
 
@@ -246,9 +249,11 @@ export async function generateMetadata(
       const servicesContainer = await getServicesContainer();
       const { brand } =
         await servicesContainer.configurationService.getConfigurations("brand");
+
       const fallbackTitle =
         takeover.claim.slug.charAt(0).toUpperCase() +
         takeover.claim.slug.slice(1);
+
       const { title, description, keywords } = resolvePublicPageSeoFields(
         takeover.chrome,
         brand,
@@ -293,6 +298,7 @@ export async function generateMetadata(
 
     const ogImageUrl =
       featuredImage || `${websiteUrl.replace(/\/$/, "")}/api/og/${slugPath}`;
+
     const appMetadataParts = await collectAppPageMetadata(
       websiteUrl,
       page,
@@ -340,6 +346,7 @@ export async function generateMetadata(
 
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
+
     const errorMessage = error instanceof Error ? error.message : String(error);
 
     loggerFn(
@@ -374,6 +381,7 @@ async function renderPublicPageTakeover(args: {
   const header = match.chrome?.headerId
     ? await servicesContainer.pagesService.getPageHeader(match.chrome.headerId)
     : undefined;
+
   const footer = match.chrome?.footerId
     ? await servicesContainer.pagesService.getPageFooter(match.chrome.footerId)
     : undefined;
@@ -561,6 +569,7 @@ export default async function Page(props: Props) {
     if (appointmentId) {
       const appointment =
         await servicesContainer.bookingService.getAppointment(appointmentId);
+
       if (
         appointment &&
         DateTime.fromJSDate(appointment.createdAt).diffNow().toMillis() <
@@ -666,6 +675,7 @@ export default async function Page(props: Props) {
 
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
+
     const errorMessage = error instanceof Error ? error.message : String(error);
 
     loggerFn(

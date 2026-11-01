@@ -214,6 +214,7 @@ export const useFloatingLinkInsert = ({
       const value = encodeUrlIfNeeded(
         usesAbsoluteUrl ? page.url : `/${page.slug}`,
       );
+
       setOption("url", value);
       setOption("updated", true);
       pageSelector.setIsOpen(false);
@@ -297,6 +298,7 @@ export const useFloatingLinkEdit = (
 
       return;
     }
+
     if (getOptions().mode === "edit") {
       api.floatingLink.hide();
     }
@@ -369,6 +371,7 @@ export const useFloatingLinkEnter = () => {
     "*",
     (e) => {
       if (e.key !== "Enter") return;
+
       if (submitFloatingLink(editor)) {
         e.preventDefault();
       }
@@ -403,6 +406,7 @@ export const useFloatingLinkEscape = () => {
 
         return;
       }
+
       if (mode === "insert") {
         editor.tf.focus({ at: editor.selection! });
       }

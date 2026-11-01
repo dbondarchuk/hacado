@@ -36,6 +36,7 @@ export function migrateContainerSlot(
   const props = (data as { props?: { children?: unknown[] } }).props;
   const style = ((data as { style?: Record<string, unknown> }).style ??
     {}) as Record<string, unknown>;
+
   return {
     id: container.id ?? generateId(),
     style: { ...style },
@@ -46,12 +47,14 @@ export function migrateContainerSlot(
 /** Migrates legacy `{ children }` slots and optional single Container wrapper. */
 export function migrateSlotValue(raw: unknown): EmbeddedSlotData {
   if (isEmbeddedSlot(raw)) return raw;
+
   if (raw && typeof raw === "object" && "children" in raw) {
     const slot = raw as {
       id?: string;
       style?: Record<string, unknown>;
       children?: unknown[];
     };
+
     const children = slot.children ?? [];
     if (
       children.length === 1 &&
@@ -60,12 +63,14 @@ export function migrateSlotValue(raw: unknown): EmbeddedSlotData {
     ) {
       return migrateContainerSlot(children[0] as TEditorBlock);
     }
+
     return {
       id: slot.id ?? generateId(),
       style: { ...(slot.style ?? {}) },
       children: [...children],
     };
   }
+
   return createEmptySlot();
 }
 
@@ -77,5 +82,6 @@ export function migratePropsSlots(
   for (const key of keys) {
     if (key in next) next[key] = migrateSlotValue(next[key]);
   }
+
   return next;
 }

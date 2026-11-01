@@ -110,6 +110,7 @@ export class BullMQJobService extends BaseBullMQClient implements IJobService {
         { error, jobRequest, repeat },
         "Failed to upsert job scheduler",
       );
+
       throw error;
     }
   }
@@ -131,6 +132,7 @@ export class BullMQJobService extends BaseBullMQClient implements IJobService {
         { error, schedulerId: id },
         "Failed to remove job scheduler",
       );
+
       throw error;
     }
   }
@@ -177,6 +179,7 @@ export class BullMQJobService extends BaseBullMQClient implements IJobService {
         { error, deduplicationId },
         "Failed to get deduplicated job",
       );
+
       throw error;
     }
   }

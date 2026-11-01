@@ -17,6 +17,7 @@ export const fillStyle = {
   defaultValue: "currentColor",
   renderToCSS: (value: string | null | undefined) => {
     if (!value) return null;
+
     return `fill: ${getColorStyle(value)};`;
   },
   component: ({

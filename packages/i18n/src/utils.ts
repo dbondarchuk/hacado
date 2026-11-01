@@ -39,6 +39,7 @@ export const mergeObjects = <T extends object, U extends object>(
       if (!mergeArrays) {
         if (override)
           (result as any)[key] = deepClone ? deepCloneValue(value) : value;
+
         continue;
       }
 
@@ -49,6 +50,7 @@ export const mergeObjects = <T extends object, U extends object>(
       const finalArr = uniqueArrayItems
         ? Array.from(new Set(combined))
         : combined;
+
       (result as any)[key] = deepClone ? deepCloneValue(finalArr) : finalArr;
       continue;
     }
@@ -71,12 +73,15 @@ function deepCloneValue<T>(value: T): T {
   if (Array.isArray(value)) {
     return value.map((v) => deepCloneValue(v)) as unknown as T;
   }
+
   if (isPlainObject(value)) {
     const cloned: Record<string, any> = {};
     for (const [k, v] of Object.entries(value)) {
       cloned[k] = deepCloneValue(v);
     }
+
     return cloned as T;
   }
+
   return value;
 }

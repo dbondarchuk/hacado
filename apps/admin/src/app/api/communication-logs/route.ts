@@ -14,6 +14,7 @@ export async function GET(request: NextRequest) {
     getServicesContainer(),
     getUser(),
   ]);
+
   logger.debug(
     {
       url: request.url,

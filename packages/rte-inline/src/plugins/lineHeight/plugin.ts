@@ -44,6 +44,7 @@ export const lineHeightPlugin: MarkPlugin = {
     if (marks.lineHeight && marks.lineHeight !== "inherit") {
       styles.lineHeight = marks.lineHeight;
     }
+
     return styles;
   },
 };

@@ -14,6 +14,7 @@ export const pageTagSchema = zNonEmptyString(
   64,
   "validation.page.tag.max",
 );
+
 const notAllowedSlugs = [
   "admin",
   "assets",

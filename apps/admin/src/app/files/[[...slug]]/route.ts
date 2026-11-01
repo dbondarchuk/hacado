@@ -28,6 +28,7 @@ function streamFile(
           ),
         ),
       );
+
       downloadStream.on("end", () => controller.close());
       downloadStream.on("error", (error: NodeJS.ErrnoException) =>
         controller.error(error),
@@ -65,10 +66,12 @@ export async function GET(
   const { stream, contentLength } = result;
   const contentType =
     fileNameToMimeType(filePath) || "application/octet-stream";
+
   logger.debug(
     { filePath, contentLength, contentType },
     "File found, streaming it.",
   );
+
   const inline = request.nextUrl.searchParams.has("inline");
 
   const fileName = path.basename(filePath);

@@ -37,6 +37,7 @@ export const CellAction: React.FC<CellActionProps> = ({
   const [open, setOpen] = useState(false);
   const [openCommunicationDialogOpen, setOpenCommunicationDialogOpen] =
     useState(false);
+
   const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
     waitlistAdminNamespace,
   );

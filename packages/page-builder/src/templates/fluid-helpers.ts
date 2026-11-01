@@ -115,6 +115,7 @@ export function imageBackgroundStyle(
     fullBleed = false,
     backgroundColor = "0 0% 0%",
   } = options || {};
+
   return {
     ...(fullBleed ? fullBleedHeroStyle : heroSectionStyle),
     backgroundColor: [{ value: backgroundColor }],
@@ -233,10 +234,12 @@ export function responsiveDisplayFontSize(desktopRem: number) {
     1.95,
     Math.max(1.55, Math.round(desktopRem * mobileScale * 100) / 100),
   );
+
   const tablet = Math.min(
     2.85,
     Math.max(2.05, Math.round(desktopRem * tabletScale * 100) / 100),
   );
+
   return [
     { value: { value: mobile, unit: "rem" as const } },
     {
@@ -260,6 +263,7 @@ export function typographyStylePatch(options: CopyBlockOptions) {
     letterSpacing,
     lineHeight,
   } = options;
+
   return {
     ...(titleFontSize
       ? { fontSize: responsiveDisplayFontSize(titleFontSize.value) }
@@ -372,9 +376,11 @@ export function primaryButton(
   const label = t(labelKey);
   const inlineText = (btn as any).props?.children?.[0]?.data?.props
     ?.children?.[0];
+
   if (inlineText?.data?.props) {
     inlineText.data.props.text = label;
   }
+
   return {
     type: "Button",
     id: generateId(),
@@ -399,6 +405,7 @@ export function heroCopyBlocks(
     textAlign: options.textAlign,
     lightText: options.lightText,
   });
+
   const button = primaryButton(t);
   return { heading, text, button };
 }
@@ -588,6 +595,7 @@ export function stackedColumnOverrides(
       rowEnd: row + rowSpan,
       zIndex: 0,
     };
+
     mobile[id] = {
       colStart: 1,
       colEnd: FLUID_MOBILE_COLUMNS + 1,
@@ -596,5 +604,6 @@ export function stackedColumnOverrides(
       zIndex: 0,
     };
   });
+
   return { tablet, mobile };
 }

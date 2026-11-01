@@ -82,6 +82,7 @@ function ServiceTemplateDialog({
 
   useEffect(() => {
     if (!open) return;
+
     setSearch("");
     setPickCategory(null);
     setPickProfession(null);
@@ -99,6 +100,7 @@ function ServiceTemplateDialog({
   const query = search.trim();
   const matchedProfessions = useMemo(() => {
     if (!query) return allProfessions;
+
     return allProfessions.filter((prof) =>
       professionMatchesSearch(tAny, prof.categoryId, prof.professionId, query),
     );
@@ -106,6 +108,7 @@ function ServiceTemplateDialog({
 
   const shownProfessions = useMemo(() => {
     if (query) return matchedProfessions.slice(0, 6);
+
     if (preferredCategoryId) {
       const preferred = allProfessions.filter(
         (prof) => prof.categoryId === preferredCategoryId,
@@ -160,6 +163,7 @@ function ServiceTemplateDialog({
                   prof.categoryId,
                   prof.professionId,
                 );
+
                 return (
                   <button
                     key={`${prof.categoryId}:${prof.professionId}`}
@@ -236,6 +240,7 @@ function ServiceTemplateDialog({
                         svc.id,
                       ),
                     ).slice(0, 256);
+
                     const description = tAny(
                       catalogServiceDescriptionKey(
                         pickCategory,
@@ -243,6 +248,7 @@ function ServiceTemplateDialog({
                         svc.id,
                       ),
                     ).slice(0, 1024);
+
                     onPickTemplate({
                       name,
                       description,
@@ -255,6 +261,7 @@ function ServiceTemplateDialog({
                       professionId: pickProfession,
                       serviceTemplateId: svc.id,
                     });
+
                     onOpenChange(false);
                     setPickCategory(null);
                     setPickProfession(null);
@@ -324,6 +331,7 @@ export function StepService() {
       typeof getSessionPlanTier
     >[0]["user"],
   });
+
   const canAddMore = canCreateMoreServices(planTier, p.installServices.length);
   const [serviceSubmitting, setServiceSubmitting] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
@@ -337,12 +345,15 @@ export function StepService() {
       if (row.name.trim().length >= 2 && row.description.trim().length >= 2) {
         continue;
       }
+
       const oid = row.optionId;
       if (hydratedOptionIds.current.has(oid)) continue;
+
       hydratedOptionIds.current.add(oid);
       void (async () => {
         const res = await getInstallServiceOptionSnapshot(oid);
         if (!res.ok) return;
+
         setP((prev) => ({
           ...prev,
           installServices: prev.installServices.map((r) =>
@@ -392,6 +403,7 @@ export function StepService() {
 
   const addCustomRow = () => {
     if (!canAddMore) return;
+
     setP((prev) => ({
       ...prev,
       installServices: [
@@ -408,6 +420,7 @@ export function StepService() {
         },
       ],
     }));
+
     setAddDialogOpen(false);
   };
 
@@ -466,6 +479,7 @@ export function StepService() {
         } else {
           toast.error(t("wizard.errors.service"));
         }
+
         return;
       }
 
@@ -542,6 +556,7 @@ export function StepService() {
         preferredCategoryId={p.businessCategory}
         onPickTemplate={(draft) => {
           if (!canAddMore) return;
+
           setP((prev) => ({
             ...prev,
             installServices: [

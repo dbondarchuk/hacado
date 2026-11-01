@@ -42,6 +42,7 @@ export async function GET(
       },
       "Failed to get app login URL",
     );
+
     return NextResponse.json(
       {
         success: false,

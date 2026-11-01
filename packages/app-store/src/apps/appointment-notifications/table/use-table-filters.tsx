@@ -26,6 +26,7 @@ export function useAppointmentNotificationsTableFilters() {
       .withOptions({ shallow: false })
       .withDefault(searchParams.type.defaultValue),
   );
+
   const resetFilters = useCallback(() => {
     setSearchQuery(null);
     setChannelFilter(null);

@@ -48,11 +48,14 @@ export const getInstalledApps = async (name: string) => {
       getSession(),
       getOwnerMemberIds(),
     ]);
+
     if (!session) {
       throw new Error("Unauthorized");
     }
+
     const installed =
       await servicesContainer.connectedAppsService.getAppsByApp(name);
+
     const result = filterConnectedAppsForInstallQuota(
       session.user as SessionUser,
       installed.map(withCatalogTarget),
@@ -76,6 +79,7 @@ export const getInstalledApps = async (name: string) => {
       },
       "Failed to get installed apps",
     );
+
     throw error;
   }
 };
@@ -142,6 +146,7 @@ export const installComplexApp = async (name: string) => {
       },
       "Failed to install complex app",
     );
+
     throw error;
   }
 };
@@ -188,6 +193,7 @@ export const setAppStatus = async (
       },
       "Failed to set app status",
     );
+
     throw error;
   }
 };
@@ -211,6 +217,7 @@ export const setDefaultAppByScope = async (
     getActor(),
     getSession(),
   ]);
+
   if (!session?.user) {
     throw new Error("Unauthorized");
   }
@@ -238,6 +245,7 @@ export const setDefaultAppByScope = async (
       { appId, scopes: uniqueScopes },
       "Setting calendar source app",
     );
+
     const user = await servicesContainer.teamService.getMemberById(
       session.user.memberId,
     );
@@ -273,12 +281,14 @@ export const setDefaultAppByScope = async (
       { appId, scopes: uniqueScopes },
       "Setting meeting URL provider app",
     );
+
     const actor = await getActor();
     await servicesContainer.teamService.updateMemberProfile(
       session.user.memberId,
       { meetingUrlProviderAppId: appId },
       actor,
     );
+
     actionLogger.debug(
       { appId, scopes: uniqueScopes },
       "Meeting URL provider app set",
@@ -294,17 +304,21 @@ export const setDefaultAppByScope = async (
       { appId, scopes: uniqueScopes },
       "Setting booking provider app",
     );
+
     const currentBooking =
       await servicesContainer.configurationService.getConfiguration("booking");
+
     const nextBooking: BookingConfiguration = {
       ...(currentBooking as BookingConfiguration),
     };
+
     let hasBookingChanges = false;
 
     if (uniqueScopes.includes("schedule")) {
       nextBooking.scheduleAppId = appId;
       hasBookingChanges = true;
     }
+
     if (uniqueScopes.includes("availability-provider")) {
       nextBooking.availabilityProviderAppId = appId;
       hasBookingChanges = true;
@@ -315,6 +329,7 @@ export const setDefaultAppByScope = async (
         { appId, scopes: uniqueScopes },
         "Setting booking provider app",
       );
+
       await servicesContainer.configurationService.setConfiguration(
         "booking",
         nextBooking,
@@ -337,6 +352,7 @@ export const setDefaultAppByScope = async (
       { appId, scopes: uniqueScopes },
       "Setting default app by scope",
     );
+
     const currentDefaultApps =
       await servicesContainer.configurationService.getConfiguration(
         "defaultApps",
@@ -349,6 +365,7 @@ export const setDefaultAppByScope = async (
     for (const scope of defaultScopes) {
       const field = DEFAULT_SCOPE_TO_CONFIG_FIELD[scope];
       if (!field) continue;
+
       nextDefaultApps[field] = appId;
     }
 
@@ -365,5 +382,6 @@ export const setDefaultAppByScope = async (
     { appId, scopes: uniqueScopes },
     "App install targets applied",
   );
+
   return { success: true };
 };

@@ -24,6 +24,7 @@ export const textTransformStyle = {
   defaultValue: "none",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `text-transform: ${value};`;
   },
   component: ({ value, onChange }) => {

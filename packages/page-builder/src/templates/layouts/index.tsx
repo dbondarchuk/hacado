@@ -35,6 +35,7 @@ export {
   composeTerms,
   resolveServices,
 } from "./sections";
+
 export * from "./theme";
 export * from "./types";
 
@@ -67,6 +68,7 @@ function composeForKind(
               matchServiceImage(pack.id, selectedService.name),
           }
         : undefined;
+
       return composeService(pack, t, ctx, selected);
     }
     case "about":

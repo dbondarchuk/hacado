@@ -36,6 +36,7 @@ export async function GET(
 
   const payments =
     await servicesContainer.giftCardsService.getGiftCardPayments(id);
+
   logger.debug(
     { giftCardId: id, count: payments.length },
     "Gift card payments retrieved",

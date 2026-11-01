@@ -32,6 +32,7 @@ export function FluidLayoutHelpBar({
 
   const modKey = useMemo(() => {
     if (typeof navigator === "undefined") return "Ctrl";
+
     return navigator.userAgent.toLowerCase().includes("mac") ? "⌘" : "Ctrl";
   }, []);
 

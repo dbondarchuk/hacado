@@ -87,6 +87,7 @@ export const AppointmentDetails = ({
     (payment) =>
       payment.method === "in-person-card" && payment.source === "synced",
   );
+
   const syncedProvider =
     syncedPayment?.method === "in-person-card" && syncedPayment.appName
       ? syncedPayment.appName.charAt(0).toUpperCase() +
@@ -133,6 +134,7 @@ export const AppointmentDetails = ({
 
   const onNoteSubmit = async (data: NoteFormSchema) => {
     if (!canUpdate) return;
+
     try {
       setLoading(true);
       await toastPromise(

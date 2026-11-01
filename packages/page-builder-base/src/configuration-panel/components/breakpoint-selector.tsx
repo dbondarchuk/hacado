@@ -58,7 +58,6 @@ const hasConflictingBreakpoints = (
     ) {
       return existingValue >= newValue; // Allow only if min < max
     }
-
     // If existing is max-width and new is min-width
     if (
       maxWidthBreakpoints.includes(existing) &&
@@ -188,9 +187,11 @@ export const BreakpointSelector: React.FC<BreakpointSelectorProps> = ({
                         bp,
                         current,
                       );
+
                       const filtered = current.filter(
                         (b) => !conflicting.includes(b),
                       );
+
                       const newBreakpoints = [...filtered, bp];
                       onBreakpointsChange(newBreakpoints);
                     } else {
@@ -229,6 +230,7 @@ export const BreakpointSelector: React.FC<BreakpointSelectorProps> = ({
                         if (current.length >= 2) {
                           return "Maximum 2 breakpoints allowed (one min-width, one max-width)";
                         }
+
                         if (current.length === 1) {
                           const existing = current[0];
                           const minWidthBreakpoints = [
@@ -238,6 +240,7 @@ export const BreakpointSelector: React.FC<BreakpointSelectorProps> = ({
                             "xl",
                             "2xl",
                           ];
+
                           const maxWidthBreakpoints = [
                             "max-sm",
                             "max-md",
@@ -252,6 +255,7 @@ export const BreakpointSelector: React.FC<BreakpointSelectorProps> = ({
                             return "Select a min-width breakpoint larger than the current max-width";
                           }
                         }
+
                         return "Select another breakpoint to create a range";
                       })()
                     : undefined

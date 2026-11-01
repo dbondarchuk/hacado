@@ -22,6 +22,7 @@ export const getWeeklyBusyEventsRequestSchema = z.object({
 export type GetWeeklyBusyEventsRequest = z.infer<
   typeof getWeeklyBusyEventsRequestSchema
 >;
+
 export const GetWeeklyBusyEventsRequestType = "get-weekly-busy-events" as const;
 
 export const DefaultRequestType = "default" as const;

@@ -18,6 +18,7 @@ export function AddonsTableAction() {
     setPage,
     setSearchQuery,
   } = useAddonsTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const { user } = useAuth();
   const canDelete = hasPermission(user, "service", "delete");

@@ -78,6 +78,7 @@ export const AppointmentRescheduleDialog: React.FC<
 
   const [appointment, setAppointment] =
     React.useState<Appointment>(propAppointment);
+
   const uses12HourFormat = use12HourFormat();
 
   const form = useForm<FormValues>({
@@ -135,6 +136,7 @@ export const AppointmentRescheduleDialog: React.FC<
         setIsPastDueDialogOpen(true);
         return;
       }
+
       console.error(error);
     } finally {
       setLoading(false);
@@ -149,6 +151,7 @@ export const AppointmentRescheduleDialog: React.FC<
 
     return calendarEvents.some((app) => {
       if ((app as Appointment)._id === appointment._id) return false;
+
       const appStart = DateTime.fromJSDate(app.dateTime);
       const appEnd = appStart.plus({ minutes: app.totalDuration });
 

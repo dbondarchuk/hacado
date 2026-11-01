@@ -12,6 +12,7 @@ type FixedWidths = [
   number | null | undefined,
   number | null | undefined,
 ];
+
 type ColumnsLayoutInputProps = {
   defaultValue: FixedWidths | null | undefined;
   columnsCount?: number;
@@ -30,6 +31,7 @@ export const ColumnWidthsInput = ({
     if (defaultValue) {
       return defaultValue;
     }
+
     return [null, null, null];
   });
 
@@ -56,6 +58,7 @@ export const ColumnWidthsInput = ({
       />
     );
   }
+
   return (
     <div className="flex flex-col gap-2">
       <TextDimensionInput

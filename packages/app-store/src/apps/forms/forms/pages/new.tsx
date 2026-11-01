@@ -25,6 +25,7 @@ export const FormsNewPage = ({ appId }: { appId: string }) => {
           isArchived: ____,
           ...formData
         } = data;
+
         setForm(formData);
       } catch (error) {
         console.error("Error fetching form:", error);

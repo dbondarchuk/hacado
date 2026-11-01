@@ -104,6 +104,7 @@ async function isValidFaviconBuffer(
       height: viewBox?.height,
       isSvg: true,
     });
+
     return validation.ok ? { ok: true, isSvg: true } : { ok: false };
   }
 
@@ -114,6 +115,7 @@ async function isValidFaviconBuffer(
       height: metadata.height,
       isSvg: false,
     });
+
     return validation.ok ? { ok: true, isSvg: false } : { ok: false };
   } catch {
     return { ok: false };
@@ -127,6 +129,7 @@ export async function resolveSiteIconSource(): Promise<SiteIconSource> {
     const servicesContainer = await getServicesContainer();
     const brand =
       await servicesContainer.configurationService.getConfiguration("brand");
+
     const title = brand?.title?.trim() || "H";
     const favicon = brand?.favicon?.trim();
 
@@ -156,6 +159,7 @@ export async function resolveSiteIconSource(): Promise<SiteIconSource> {
       loaded.mimeType,
       favicon,
     );
+
     if (!valid.ok) {
       return {
         organizationId,

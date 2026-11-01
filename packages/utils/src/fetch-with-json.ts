@@ -65,6 +65,7 @@ export function responseWithJsonBody(
   response.json = async <T = any>(options?: JsonParseOptions) => {
     return parseJSON<T>(bodyText, options);
   };
+
   return response as FetchWithJsonResponse;
 }
 
@@ -88,5 +89,6 @@ export async function fetchWithJson(
     const text = await response.text();
     return parseJSON<T>(text, options);
   };
+
   return response as FetchWithJsonResponse;
 }

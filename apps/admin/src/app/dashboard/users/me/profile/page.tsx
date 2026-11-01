@@ -33,6 +33,7 @@ export default async function Page() {
     servicesContainer.teamService.getMemberById(session.user.memberId),
     servicesContainer.configurationService.getConfiguration("booking"),
   ]);
+
   if (!user) {
     redirect("/auth/signin");
   }

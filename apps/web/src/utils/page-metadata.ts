@@ -13,10 +13,12 @@ function mergeContentEntries(
   const merged = new Map<string, string>();
   for (const entries of batches) {
     if (!entries) continue;
+
     for (const entry of entries) {
       merged.set(entry.type, entry.value);
     }
   }
+
   return merged;
 }
 
@@ -44,6 +46,7 @@ export function deepMergeMetadata(
 
   for (const patch of patches) {
     if (!patch) continue;
+
     result = mergeMetadataValue(result, patch) as AppPageMetadata;
   }
 
@@ -52,7 +55,6 @@ export function deepMergeMetadata(
 
 function mergeMetadataValue(base: unknown, patch: unknown): unknown {
   if (patch === undefined) return base;
-
   if (Array.isArray(base) && Array.isArray(patch)) {
     return [...base, ...patch];
   }
@@ -61,8 +63,10 @@ function mergeMetadataValue(base: unknown, patch: unknown): unknown {
     const out: Record<string, unknown> = { ...base };
     for (const [key, value] of Object.entries(patch)) {
       if (value === undefined) continue;
+
       out[key] = key in out ? mergeMetadataValue(out[key], value) : value;
     }
+
     return out;
   }
 
@@ -83,6 +87,7 @@ export async function collectSiteBodies(
         if (typeof service.provideSiteBodies !== "function") {
           return undefined;
         }
+
         return service.provideSiteBodies(appData, { websiteUrl });
       },
       { ignoreErrors: true },
@@ -136,6 +141,7 @@ export async function collectAppPageMetadata(
         if (typeof service.providePageMetadata !== "function") {
           return undefined;
         }
+
         return service.providePageMetadata(appData, {
           websiteUrl,
           page,

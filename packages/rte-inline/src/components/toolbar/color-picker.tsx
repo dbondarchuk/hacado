@@ -154,6 +154,7 @@ export const ColorPickerButton = ({
       if (options?.rememberCustom && isCustomHexColor(next)) {
         setRecentColors(rememberRecentColor(next));
       }
+
       onChange(next);
     },
     [onChange],
@@ -198,6 +199,7 @@ export const ColorPickerButton = ({
             disabled={!sketchColor || sketchColor === currentColor}
             onClick={() => {
               if (!sketchColor) return;
+
               applyColor(sketchColor, { rememberCustom: true });
             }}
           >

@@ -15,6 +15,7 @@ export const BlogCommentContainerPropsSchema = z.object({
 export type BlogCommentContainerProps = z.infer<
   typeof BlogCommentContainerPropsSchema
 >;
+
 export type BlogCommentContainerReaderProps = BaseReaderBlockProps<any> &
   BlogCommentContainerProps;
 

@@ -93,17 +93,20 @@ const createOrUpdateAppointmentRequestIntent = async (
 
   const bookingConfig =
     await servicesContainer.configurationService.getConfiguration("booking");
+
   const tips = resolveBookingTips(
     bookingConfig.payments,
     option.tipsMode,
     option.tipPresets,
   );
+
   const tipsVisible = isBookingTipsVisible(
     tips,
     amount,
     amountTotal,
     amountPaid,
   );
+
   const tipAmountRaw =
     typeof tipAmountRequest === "number" && Number.isFinite(tipAmountRequest)
       ? tipAmountRequest
@@ -260,6 +263,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
   const logger = getLoggerFactory("PaymentsUtils")(
     "createOrUpdateModifyAppointmentRequestIntent",
   );
+
   const servicesContainer = await getServicesContainer();
 
   logger.debug({ intentId }, "Creating or updating intent");
@@ -322,6 +326,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
       { modifyAppointmentRequestResult },
       "Failed to get modify appointment request",
     );
+
     return NextResponse.json(modifyAppointmentRequestResult.error, {
       status: 400,
     });
@@ -334,6 +339,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
       { modifyAppointmentRequestResult },
       "Modify appointment request not allowed",
     );
+
     return NextResponse.json(null);
   }
 
@@ -346,6 +352,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
       { modifyAppointmentRequestResult },
       "Modify appointment request not required to pay",
     );
+
     return NextResponse.json(null);
   }
 
@@ -361,6 +368,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
       { modifyAppointmentRequestResult },
       "Payment amount is not set or is 0",
     );
+
     return NextResponse.json(null);
   }
 
@@ -374,6 +382,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
     await servicesContainer.configurationService.getConfiguration(
       "defaultApps",
     );
+
   const paymentAppId = defaultApps?.paymentAppId;
 
   if (!canUsePayments || !paymentAppId) {
@@ -381,6 +390,7 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
       { modifyAppointmentRequestResult },
       "Payment required but online payments are not available",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -504,6 +514,7 @@ export const createOrUpdateIntent = async (
         { status: 401 },
       );
     }
+
     throw error;
   }
 };

@@ -17,8 +17,10 @@ export type {
 
 export const myCabinetAdminNamespace =
   `app_${MY_CABINET_APP_NAME}_admin` as const;
+
 export type MyCabinetAdminNamespace = typeof myCabinetAdminNamespace;
 
 export const myCabinetPublicNamespace =
   `app_${MY_CABINET_APP_NAME}_public` as const;
+
 export type MyCabinetPublicNamespace = typeof myCabinetPublicNamespace;

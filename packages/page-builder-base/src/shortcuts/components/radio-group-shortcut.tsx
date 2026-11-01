@@ -21,6 +21,7 @@ export const RadioGroupShortcut = <T extends BaseStyleDictionary>({
         const selectedOption = shortcut.options.find(
           (opt) => opt.value === value,
         );
+
         if (selectedOption) {
           applyShortcut(selectedOption);
         }

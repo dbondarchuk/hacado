@@ -49,6 +49,7 @@ export function getLocaleChain(locale: string): Language[] {
     if ((languages as readonly string[]).includes(current)) {
       chain.push(current as Language);
     }
+
     current = localeParents[current as Language] ?? null;
     if (!current && !seen.has(fallbackLanguage)) {
       current = fallbackLanguage;

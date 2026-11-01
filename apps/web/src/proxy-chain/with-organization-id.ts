@@ -32,6 +32,7 @@ function responseWhenOrganizationNotFound(
   if (request.nextUrl.pathname === ORG_NOT_FOUND_PATH) {
     return next(request, event);
   }
+
   return rewriteToOrganizationNotFoundPage(request);
 }
 
@@ -53,6 +54,7 @@ function responseWhenSubscriptionInactive(
   if (request.nextUrl.pathname === ORG_NOT_FOUND_PATH) {
     return next(request, event);
   }
+
   return rewriteToOrganizationNotFoundPage(request);
 }
 
@@ -89,6 +91,7 @@ export const withOrganizationId: MiddlewareProxy = (next) => {
       slug = process.env.ORGANIZATION_SLUG;
       const organization =
         await new StaticOrganizationService().getOrganizationBySlug(slug);
+
       if (!organization) {
         logger.debug({ slug }, "Organization not found by slug: hardcoded");
         return responseWhenOrganizationNotFound(request, next, event);
@@ -111,6 +114,7 @@ export const withOrganizationId: MiddlewareProxy = (next) => {
           { hostname, isPublicDomainHostname },
           "Organization not found by hostname",
         );
+
         return responseWhenOrganizationNotFound(request, next, event);
       }
 
@@ -141,6 +145,7 @@ export const withOrganizationId: MiddlewareProxy = (next) => {
         { organizationId, slug, subscriptionStatus },
         "Subscription inactive",
       );
+
       return responseWhenSubscriptionInactive(request, next, event);
     }
 

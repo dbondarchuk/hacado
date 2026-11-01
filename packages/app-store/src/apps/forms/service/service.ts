@@ -190,6 +190,7 @@ export class FormsConnectedApp
         appData._id,
         appData.organizationId,
       );
+
       await repositoryService.install();
       logger.info({ appId: appData._id }, "Forms app installed successfully");
     } catch (error: any) {
@@ -197,6 +198,7 @@ export class FormsConnectedApp
         { appId: appData._id, error: error?.message || error?.toString() },
         "Error installing forms app",
       );
+
       throw error;
     }
   }
@@ -212,6 +214,7 @@ export class FormsConnectedApp
         appData._id,
         appData.organizationId,
       );
+
       await repositoryService.unInstall(appData._id);
       logger.info({ appId: appData._id }, "Forms app uninstalled successfully");
     } catch (error: any) {
@@ -219,8 +222,10 @@ export class FormsConnectedApp
         { appId: appData._id, error: error?.message || error?.toString() },
         "Error uninstalling forms app",
       );
+
       throw error;
     }
+
     return { success: true, code: "ok" };
   }
 
@@ -246,6 +251,7 @@ export class FormsConnectedApp
           { appId: appData._id, contentType },
           "Invalid content type",
         );
+
         return Response.json(
           {
             success: false,
@@ -265,6 +271,7 @@ export class FormsConnectedApp
         { appId: appData._id, slug },
         "Form data submission processed",
       );
+
       return formDataResult;
     }
 
@@ -295,6 +302,7 @@ export class FormsConnectedApp
       const customer = await this.props.services.customersService.getCustomer(
         data.customerId,
       );
+
       if (!customer) {
         logger.warn(
           { appId: appData._id, slug, customerId: data.customerId },
@@ -393,6 +401,7 @@ export class FormsConnectedApp
           { formId },
           "Customer identification required but not provided",
         );
+
         return Response.json(
           {
             success: false,
@@ -403,6 +412,7 @@ export class FormsConnectedApp
           { status: 400 },
         );
       }
+
       customer =
         await this.props.services.customersService.getCustomer(
           customerIdFromForm,
@@ -423,6 +433,7 @@ export class FormsConnectedApp
           { status: 400 },
         );
       }
+
       logger.debug(
         { formId, customerId: customer._id },
         "Customer validated for required form",
@@ -463,9 +474,11 @@ export class FormsConnectedApp
       const emailFields = form.fields
         .filter((field) => field.type === "email")
         .map((field) => field.name);
+
       const phoneFields = form.fields
         .filter((field) => field.type === "phone")
         .map((field) => field.name);
+
       const nameFields = form.fields
         .filter((field) => field.type === "name")
         .map((field) => field.name);
@@ -486,6 +499,7 @@ export class FormsConnectedApp
         await this.props.services.customersService.findCustomerBySearchFields(
           searches,
         );
+
       if (!customer) {
         logger.debug({ formId }, "Customer not found");
         if (
@@ -496,6 +510,7 @@ export class FormsConnectedApp
             { formId },
             "Creating customer from name and email/phone",
           );
+
           customer = await this.props.services.customersService.createCustomer(
             {
               name: result.data[nameFields[0]] as string,
@@ -554,16 +569,19 @@ export class FormsConnectedApp
         | boolean
         | string[]
         | null;
+
       const field = form.fields.find((field) => field.name === name)!;
       if (value instanceof File) {
         logger.debug(
           { formId, name, value: value.name },
           "Processing file answer",
         );
+
         const filename = `forms/${form._id}/${uuidv4()}-${value.name}`;
         const fileSource = customer?._id
           ? customerEventSource(customer._id)
           : systemEventSource;
+
         const asset = await this.props.services.assetsService.createAsset(
           {
             filename,
@@ -577,10 +595,12 @@ export class FormsConnectedApp
           value,
           fileSource,
         );
+
         logger.debug(
           { formId, name, value: value.name, assetId: asset._id },
           "File answer processed",
         );
+
         answerValue = asset.filename;
       }
 
@@ -614,6 +634,7 @@ export class FormsConnectedApp
       undefined,
       request,
     );
+
     await this.sendEmailNotification(appData, response, form, customer);
 
     return Response.json(
@@ -662,6 +683,7 @@ export class FormsConnectedApp
       appData._id,
       appData.organizationId,
     );
+
     const forms = await repository.getForms({
       search: input.query,
       limit: input.limit,
@@ -699,6 +721,7 @@ export class FormsConnectedApp
       const first = forwarded.split(",")[0]?.trim();
       if (first) return first;
     }
+
     return (
       request.headers.get("x-real-ip") ??
       request.headers.get("cf-connecting-ip") ??
@@ -721,6 +744,7 @@ export class FormsConnectedApp
     const isUnique = await repositoryService.checkFormNameUnique(
       data.form.name,
     );
+
     if (!isUnique) {
       logger.error({ name: data.form.name }, "Form name not unique");
       throw new ConnectedAppRequestError(
@@ -754,11 +778,13 @@ export class FormsConnectedApp
       data.form.name,
       data.id,
     );
+
     if (!isUnique) {
       logger.error(
         { name: data.form.name, id: data.id },
         "Form name not unique",
       );
+
       throw new ConnectedAppRequestError(
         "form_name_not_unique",
         { name: data.form.name, id: data.id },
@@ -829,6 +855,7 @@ export class FormsConnectedApp
       { forms: result.total, count: result.items.length },
       "Forms found",
     );
+
     return result;
   }
 
@@ -882,6 +909,7 @@ export class FormsConnectedApp
       { formResponses: result.total, count: result.items.length },
       "Form responses found",
     );
+
     return result;
   }
 
@@ -997,11 +1025,13 @@ export class FormsConnectedApp
       const customer = await this.props.services.customersService.getCustomer(
         data.update.customerId,
       );
+
       if (!customer) {
         logger.warn(
           { customerId: data.update.customerId },
           "Customer not found",
         );
+
         throw new ConnectedAppRequestError(
           "customer_not_found",
           { customerId: data.update.customerId },
@@ -1074,6 +1104,7 @@ export class FormsConnectedApp
     const logger = this.loggerFactory(
       "processDeleteSelectedFormResponsesRequest",
     );
+
     logger.debug(
       { appId: appData._id },
       "Processing delete selected form responses request",
@@ -1108,11 +1139,13 @@ export class FormsConnectedApp
       const customer = await this.props.services.customersService.getCustomer(
         data.customerId,
       );
+
       if (!customer) {
         logger.warn(
           { appId: appData._id, customerId: data.customerId },
           "Customer not found",
         );
+
         throw new ConnectedAppRequestError(
           "customer_not_found",
           { appId: appData._id, customerId: data.customerId },
@@ -1123,11 +1156,13 @@ export class FormsConnectedApp
     } else {
       const anyFormRequiresCustomer =
         await repositoryService.isAnyFormRequiresCustomer(data.ids);
+
       if (anyFormRequiresCustomer) {
         logger.warn(
           { appId: appData._id },
           "No customer id provided, but some forms require customer",
         );
+
         throw new ConnectedAppRequestError(
           "no_customer_id_provided",
           { appId: appData._id },
@@ -1224,10 +1259,12 @@ export class FormsConnectedApp
     if (memberId) {
       return { actor: "member", actorId: memberId };
     }
+
     const cid = formResponse.customerId ?? customer?._id;
     const base = cid
       ? { actor: "customer" as const, actorId: cid }
       : { actor: "customer" as const };
+
     if (!request) {
       return base;
     }
@@ -1271,6 +1308,7 @@ export class FormsConnectedApp
         { formId: data.formId },
         "Form is archived, cannot add responses",
       );
+
       throw new ConnectedAppRequestError(
         "form_archived",
         { formId: data.formId },
@@ -1339,6 +1377,7 @@ export class FormsConnectedApp
           { customerId: data.update.customerId },
           "Customer not found",
         );
+
         throw new ConnectedAppRequestError(
           "customer_not_found",
           { customerId: data.update.customerId },
@@ -1381,6 +1420,7 @@ export class FormsConnectedApp
         { formId: form._id, responseId: formResponse._id },
         "Email notification not enabled, skipping",
       );
+
       return;
     }
 
@@ -1400,17 +1440,20 @@ export class FormsConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, formId: form._id },
           "Organization not found",
         );
+
         throw new Error("Organization not found");
       }
 
       const member = await this.props.services.teamService.getMemberById(
         appData.memberId,
       );
+
       const recipientEmail =
         form.notifications.email ?? member?.email ?? config.general.email;
 
@@ -1419,6 +1462,7 @@ export class FormsConnectedApp
           { formId: form._id },
           "No recipient email configured, skipping",
         );
+
         return;
       }
 
@@ -1436,7 +1480,6 @@ export class FormsConnectedApp
             ? "{{checkboxText.yes}}"
             : "{{checkboxText.no}}";
         }
-
         if (fieldType === "multiSelect" && Array.isArray(value)) {
           return listFormat.format(value as string[]);
         }
@@ -1498,6 +1541,7 @@ export class FormsConnectedApp
         memberId: appData.memberId,
         customerId: formResponse.customerId,
       });
+
       logger.debug(
         { recipientEmail, formId: form._id },
         "Form response notification email sent",
@@ -1527,6 +1571,7 @@ export class FormsConnectedApp
         memberId,
         request,
       );
+
       await this.props.services.eventService.emit(
         FORM_RESPONSE_CREATED_EVENT_TYPE,
         {
@@ -1536,6 +1581,7 @@ export class FormsConnectedApp
         },
         source,
       );
+
       logger.debug(
         { formId: form._id, responseId: formResponse._id },
         "Form response hook enqueued",

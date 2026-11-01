@@ -18,6 +18,7 @@ export const PaymentsTable: React.FC<{ customerId?: string }> = async ({
   const customerIds = paymentsSearchParamsCache.get("customerId") || undefined;
   const appointmentIds =
     paymentsSearchParamsCache.get("appointmentId") || undefined;
+
   const type = paymentsSearchParamsCache.get("type") || undefined;
   const method = paymentsSearchParamsCache.get("method") || undefined;
   const status = paymentsSearchParamsCache.get("status") || undefined;

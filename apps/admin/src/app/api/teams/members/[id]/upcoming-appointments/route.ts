@@ -10,11 +10,13 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
     "AdminAPI/teams/members/[id]/upcoming-appointments",
     "GET",
   );
+
   if (!gate.ok) return gate.response;
 
   const { id } = await params;
   const services = await getTeamServices();
   const upcoming =
     await services.teamService.listUpcomingAppointmentsForMember(id);
+
   return NextResponse.json({ upcoming });
 }

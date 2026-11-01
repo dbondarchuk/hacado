@@ -40,9 +40,11 @@ export const PortalProvider: React.FC<PortalProviderProps> = ({ children }) => {
   const [stateDocument, setDocument] = useState<Document>(
     typeof document !== "undefined" ? document : ({} as Document),
   );
+
   const [viewportHintHost, setViewportHintHost] = useState<HTMLElement | null>(
     null,
   );
+
   const [overlayHost, setOverlayHost] = useState<HTMLElement | null>(null);
 
   const value: PortalContextType = useMemo(

@@ -17,6 +17,7 @@ export const hideStyle = {
   defaultValue: false,
   renderToCSS: (value, isEditor) => {
     if (!value) return null;
+
     return isEditor ? `opacity: 0.3;` : `display: none;`;
   },
   component: ({ value, onChange }) => {

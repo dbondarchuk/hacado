@@ -23,6 +23,7 @@ export const overflowWrapStyle = {
   defaultValue: "normal",
   renderToCSS: (value) => {
     if (!value || value === "normal") return null;
+
     return `overflow-wrap: ${value};`;
   },
   component: ({ value, onChange }) => {

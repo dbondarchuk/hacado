@@ -24,6 +24,7 @@ class MemoryRedis implements BookingProgressRedis {
     if (nx === "NX" && this.store.has(key)) {
       return null;
     }
+
     this.store.set(key, value);
     return "OK";
   }
@@ -33,6 +34,7 @@ class MemoryRedis implements BookingProgressRedis {
     for (const key of keys) {
       if (this.store.delete(key)) removed += 1;
     }
+
     return removed;
   }
 }
@@ -51,12 +53,15 @@ class IncrementStore {
     for (const [step, count] of Object.entries(delta.entered ?? {})) {
       current.entered[step] = (current.entered[step] ?? 0) + count;
     }
+
     for (const [step, count] of Object.entries(delta.stoppedAt ?? {})) {
       current.stoppedAt[step] = (current.stoppedAt[step] ?? 0) + count;
     }
+
     for (const [type, count] of Object.entries(delta.convertedTo ?? {})) {
       current.convertedTo[type] = (current.convertedTo[type] ?? 0) + count;
     }
+
     this.byDate.set(key, current);
   }
 
@@ -68,13 +73,16 @@ class IncrementStore {
       for (const [step, count] of Object.entries(metrics.entered)) {
         totals.entered[step] = (totals.entered[step] ?? 0) + count;
       }
+
       for (const [step, count] of Object.entries(metrics.stoppedAt)) {
         totals.stoppedAt[step] = (totals.stoppedAt[step] ?? 0) + count;
       }
+
       for (const [type, count] of Object.entries(metrics.convertedTo)) {
         totals.convertedTo[type] = (totals.convertedTo[type] ?? 0) + count;
       }
     }
+
     return totals;
   }
 }
@@ -88,6 +96,7 @@ function createHarness(options?: {
   const clock = options?.now ?? {
     current: new Date("2026-08-26T15:00:00.000Z"),
   };
+
   const tracker = new BookingProgressTracker({
     organizationId: "org_1",
     redis,
@@ -95,6 +104,7 @@ function createHarness(options?: {
     getTimeZone: async () => options?.timeZone ?? "UTC",
     now: () => clock.current,
   });
+
   return { redis, increments, tracker, clock };
 }
 
@@ -116,6 +126,7 @@ describe("BookingProgressTracker", () => {
       "AVAILABILITY_SELECTED",
       "FORM_FILLED",
     ]);
+
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",
     });
@@ -128,6 +139,7 @@ describe("BookingProgressTracker", () => {
       AVAILABILITY_SELECTED: 1,
       FORM_FILLED: 1,
     });
+
     assert.deepEqual(totals.stoppedAt, {});
     assert.deepEqual(totals.convertedTo, { appointment: 1 });
   });
@@ -143,6 +155,7 @@ describe("BookingProgressTracker", () => {
       "OTP_VERIFIED",
       "PAYMENT_CHECKED",
     ]);
+
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",
     });
@@ -162,6 +175,7 @@ describe("BookingProgressTracker", () => {
       "AVAILABILITY_SELECTED",
       "FORM_FILLED",
     ]);
+
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",
     });
@@ -209,6 +223,7 @@ describe("BookingProgressTracker", () => {
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",
     });
+
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",
     });
@@ -223,6 +238,7 @@ describe("BookingProgressTracker", () => {
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",
     });
+
     await tracker.trackStep("s1", "SERVICE_SELECTED");
     await tracker.trackStep("s1", "FORM_FILLED");
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
@@ -299,6 +315,7 @@ describe("BookingProgressTracker", () => {
       getTimeZone: async () => "UTC",
       now: () => clock.current,
     };
+
     const workerA = new BookingProgressTracker(deps);
     const workerB = new BookingProgressTracker(deps);
 
@@ -336,6 +353,7 @@ describe("BookingProgressTracker", () => {
       getTimeZone: async () => "UTC",
       now: () => clock.current,
     };
+
     const tracker = new BookingProgressTracker(deps);
     await tracker.trackStep("s1", "PAYMENT_CHECKED");
     clock.current = new Date(clock.current.getTime() + 31 * 60 * 1000);
@@ -350,6 +368,7 @@ describe("BookingProgressTracker", () => {
     const totals = increments.totals();
     const terminalCount =
       totals.completed + (totals.stoppedAt.PAYMENT_CHECKED ?? 0);
+
     assert.equal(terminalCount, 1);
     assert.equal(
       totals.completed === 1 || totals.stoppedAt.PAYMENT_CHECKED === 1,
@@ -363,6 +382,7 @@ describe("BookingProgressTracker", () => {
       timeZone: "America/New_York",
       now: clock,
     });
+
     await tracker.trackStep("s1", "SERVICE_SELECTED");
     await tracker.trackStep("s1", "BOOKING_CONVERTED", {
       convertedTo: "appointment",

@@ -14,6 +14,7 @@ export const backgroundVideoShortcut: ShortcutWithAssetSelector<{
       if (style && typeof style === "object" && style?.src) {
         return style.src || null;
       }
+
       return null;
     },
     set: {

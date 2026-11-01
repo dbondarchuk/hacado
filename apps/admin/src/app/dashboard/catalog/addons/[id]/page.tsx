@@ -26,6 +26,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: `${addon?.name} | ${t("catalog.addons.title")}`,
   };
 }
+
 export default async function EditAddonPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-addon");
   const t = await getI18nAsync("admin");

@@ -21,6 +21,7 @@ export const LinkConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as LinkProps["props"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     return (

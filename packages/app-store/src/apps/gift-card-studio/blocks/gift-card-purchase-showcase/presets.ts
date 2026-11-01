@@ -11,6 +11,7 @@ export function normalizeAmountPresets(
   for (const raw of source) {
     const amount = Number(raw);
     if (!Number.isFinite(amount) || amount <= 0 || seen.has(amount)) continue;
+
     seen.add(amount);
     presets.push(amount);
     if (presets.length >= MAX_AMOUNT_PRESETS) break;
@@ -21,6 +22,7 @@ export function normalizeAmountPresets(
 
 export function defaultPurchaseAmount(presets: number[]) {
   if (presets.includes(50)) return 50;
+
   return presets[0] ?? 50;
 }
 

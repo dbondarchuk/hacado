@@ -8,5 +8,6 @@ export const useCanUseFeature = (feature: SubscriptionFeature) => {
     subscriptionPlanTier?: BillingPlanTier | null;
     feesExempt?: boolean;
   };
+
   return user ? sessionCanUseFeature({ user }, feature) : false;
 };

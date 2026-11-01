@@ -174,6 +174,7 @@ const getAppointmentDuration = ({
     appointmentOption?.durationType === "fixed"
       ? (selectedStaff?.assignment.durationOverride ?? duration)
       : duration;
+
   if (!baseDuration && appointmentOption) {
     if (appointmentOption.durationType === "fixed") {
       baseDuration = appointmentOption.duration;
@@ -236,6 +237,7 @@ const getAppointmentBasePrice = ({
     } else {
       const pricePerHour =
         selectedStaff?.effectivePrice ?? appointmentOption.pricePerHour ?? 0;
+
       basePrice = (pricePerHour / 60) * (duration || 0);
     }
   }

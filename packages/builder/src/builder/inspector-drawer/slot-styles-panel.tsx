@@ -16,21 +16,25 @@ export function useSelectedSlotStyleHandlers() {
 
   const styles: Record<string, unknown> = (() => {
     if (!selectedSlot || !parentBlock) return {};
+
     const path = selectedSlot.styleProperty.startsWith("data.")
       ? selectedSlot.styleProperty
       : `data.${selectedSlot.styleProperty}`;
+
     return (resolve(parentBlock, path, true) as Record<string, unknown>) ?? {};
   })();
 
   const setStyles = useCallback(
     (next: Record<string, unknown>) => {
       if (!selectedSlot || !parentBlock?.data) return;
+
       const stylePath = selectedSlot.styleProperty.replace(/^props\./, "");
       const props = setPropsAtPath(
         parentBlock.data.props as Record<string, unknown>,
         stylePath,
         next,
       );
+
       dispatchAction({
         type: "set-block-data",
         value: {

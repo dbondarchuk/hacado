@@ -17,6 +17,7 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
     "AdminAPI/teams/members/[id]/deactivate",
     "POST",
   );
+
   if (!gate.ok) return gate.response;
 
   const { id } = await params;
@@ -37,5 +38,6 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
     actor,
     { force: parsed.data.force },
   );
+
   return NextResponse.json(result);
 }

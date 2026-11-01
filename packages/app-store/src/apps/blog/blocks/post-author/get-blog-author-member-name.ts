@@ -21,6 +21,7 @@ async function fetchBlogAuthorMemberName(
       await ServicesContainer(organizationId).teamService.getMemberById(
         memberId,
       );
+
     return member?.name ?? null;
   })();
 

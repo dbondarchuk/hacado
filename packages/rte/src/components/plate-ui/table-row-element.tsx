@@ -28,6 +28,7 @@ export const TableRowElement = withRef<typeof PlateElement>(
       BlockSelectionPlugin,
       "isSelectionAreaVisible",
     );
+
     const hasControls = !readOnly && !isSelectionAreaVisible;
 
     const { isDragging, previewRef, handleRef } = useDraggable({

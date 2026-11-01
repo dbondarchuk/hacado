@@ -75,6 +75,7 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
   const t = useI18n<SquarePublicNamespace, SquarePublicKeys>(
     squarePublicNamespace,
   );
+
   const config = useConfig();
   const currencyCode = useCurrency();
 
@@ -108,9 +109,11 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });
+
         bookingApi.trackPaymentFailed(intent.amount);
         return;
       }
+
       setIsPaying(true);
       try {
         const data = await appsApi.callAppApi<{

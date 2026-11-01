@@ -25,6 +25,7 @@ function useTooltipResponsiveContext() {
       "TooltipResponsive components must be used inside <TooltipResponsive>",
     );
   }
+
   return ctx;
 }
 

@@ -26,6 +26,7 @@ export const StickyBannerEditor = ({ props, style }: StickyBannerProps) => {
     currentBlock.id,
     "props.content",
   )?.[0];
+
   const showCloseButton = props?.showCloseButton ?? true;
   const position = props?.position ?? "bottom";
   const className = useClassName();

@@ -68,6 +68,7 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
     customerPackageId,
     packages,
   } = useScheduleContext();
+
   const t = useI18n("translation");
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
@@ -75,6 +76,7 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
   const purchasingPackage = packages?.find(
     (pkg) => pkg._id === purchasePackageId,
   );
+
   const hideLinePrices = !!purchasePackageId || !!customerPackageId;
   const servicePrice = selectedAppointmentOption
     ? selectedAppointmentOption.durationType === "fixed"
@@ -82,9 +84,11 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
       : (selectedMember?.effectivePrice ??
         selectedAppointmentOption.pricePerHour)
     : undefined;
+
   const serviceLabel = selectedAppointmentOption
     ? (purchasingPackage?.name ?? selectedAppointmentOption.name)
     : undefined;
+
   const servicePriceLabel =
     !selectedAppointmentOption || hideLinePrices
       ? undefined
@@ -95,11 +99,13 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
         : servicePrice
           ? currencyFormat(servicePrice)
           : undefined;
+
   const specialistName = selectedMember?.member.name
     ? selectedMember.member.name
     : isAnySpecialist
       ? t("booking.specialist.any.title")
       : undefined;
+
   const whenLabel = dateTime
     ? DateTime.fromJSDate(dateTime.date)
         .set({
@@ -115,8 +121,10 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
           minute: "2-digit",
         })
     : undefined;
+
   const giftCardsApplied =
     giftCards?.reduce((sum, giftCard) => sum + giftCard.appliedAmount, 0) || 0;
+
   const totalDue = Math.max(0, price - giftCardsApplied);
   const showTotals = !!basePrice;
 
@@ -145,6 +153,7 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
                   addon.staff,
                   selectedMember?.member.id,
                 );
+
                 return (
                   <SummaryRow
                     key={addon._id}

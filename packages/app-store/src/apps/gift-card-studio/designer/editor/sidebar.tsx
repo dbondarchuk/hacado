@@ -59,6 +59,7 @@ export function Sidebar() {
         fontFamily: "Roboto",
       },
     };
+
     addElement(element);
   };
 
@@ -86,6 +87,7 @@ export function Sidebar() {
         fontFamily: "Roboto",
       },
     };
+
     addElement(element);
   };
 
@@ -103,6 +105,7 @@ export function Sidebar() {
         objectFit: "contain",
       },
     };
+
     addElement(element);
   };
 
@@ -121,6 +124,7 @@ export function Sidebar() {
         strokeWidth: 1,
       },
     };
+
     addElement(element);
   };
 
@@ -144,6 +148,7 @@ export function Sidebar() {
         borderRadius: 0,
       },
     };
+
     addElement(element);
   };
 

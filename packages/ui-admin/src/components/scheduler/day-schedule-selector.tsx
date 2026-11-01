@@ -101,6 +101,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
     day: number;
     time: string;
   } | null>(null);
+
   const [selectionEnd, setSelectionEnd] = useState<{
     day: number;
     time: string;
@@ -117,6 +118,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
     width: 0,
     height: 0,
   });
+
   const [dragState, setDragState] = useState<DragState>(null);
   const [isUserInteracting, setIsUserInteracting] = useState(false);
   const [activeBlockId, setActiveBlockId] = useState<string | null>(null);
@@ -270,6 +272,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
         const cells = gridRef.current?.querySelectorAll(
           `.grid-cell-day-${day}`,
         );
+
         if (cells && cells.length > 0) {
           const cell = cells[0] as HTMLElement;
           const rect = cell.getBoundingClientRect();
@@ -279,6 +282,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
           };
         }
       }
+
       setCellDimensions(sizes);
 
       const timeCells = gridRef.current?.querySelectorAll(".time-cell");
@@ -323,6 +327,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
       const timeRowElement = containerRef.current.querySelector(
         `[data-time-index="${timeIndex}"]`,
       );
+
       if (timeRowElement) {
         // Scroll to the element with some offset
         containerRef.current.scrollTop =
@@ -365,6 +370,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
       if (!blocksByDay[block.day]) {
         blocksByDay[block.day] = [];
       }
+
       blocksByDay[block.day].push(block);
     });
 
@@ -452,6 +458,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
     const top =
       timeCellDimensions.height +
       startTimeIndex * cellDimensions[block.day].height;
+
     const height =
       (endTimeIndex - startTimeIndex) * cellDimensions[block.day].height;
 
@@ -491,6 +498,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
     const top =
       timeCellDimensions.height +
       actualStartIndex * cellDimensions[selectionStart.day].height;
+
     const height =
       (actualEndIndex - actualStartIndex + 1) *
       cellDimensions[selectionStart.day].height;
@@ -530,7 +538,6 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
   const handleCellMouseEnter = (day: number, time: string) => {
     if (disabled) return;
     if (!isSelecting || !selectionStart) return;
-
     // We only allow selection within the same day
     if (day !== selectionStart.day) return;
 
@@ -619,6 +626,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
 
     const clientX =
       "touches" in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+
     const clientY =
       "touches" in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
 
@@ -654,8 +662,10 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
 
     const clientX =
       "touches" in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+
     const clientY =
       "touches" in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
+
     const gridRect = gridRef.current.getBoundingClientRect();
 
     if (dragState.type === "resize-start" || dragState.type === "resize-end") {
@@ -667,10 +677,12 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
         (relativeY - timeCellDimensions.height) /
           cellDimensions[dragState.day].height,
       );
+
       const boundedTimeIndex = Math.max(
         0,
         Math.min(timeIndex, timeSlots.length - 1),
       );
+
       const newTime = timeSlots[boundedTimeIndex];
 
       // Update the block based on the resize
@@ -726,10 +738,12 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
           (relativeY - timeCellDimensions.height) /
             cellDimensions[dragState.day].height,
         );
+
         const boundedTimeIndex = Math.max(
           0,
           Math.min(timeIndex, timeSlots.length - 1),
         );
+
         const newStartTime = timeSlots[boundedTimeIndex];
 
         // Calculate the duration of the block
@@ -802,6 +816,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
       if (isSelecting) {
         handleCellMouseUp();
       }
+
       if (dragState) {
         handleMouseUp();
       }

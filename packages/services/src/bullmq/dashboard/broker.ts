@@ -62,8 +62,10 @@ class DashboardNotificationRealtimeBroker {
       { organizationId, clientId: client.id },
       "Unregistering client",
     );
+
     const set = this.subscribers.get(organizationId);
     if (!set) return;
+
     set.delete(client);
     if (set.size === 0) this.unsubscribeOrganization(organizationId);
     logger.info({ organizationId, clientId: client.id }, "Unregistered client");

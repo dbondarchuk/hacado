@@ -15,6 +15,7 @@ export async function assertPagePermission(
   required?: RequiredPermission,
 ): Promise<void> {
   if (!required) return;
+
   const user = await getUser();
   if (!meetsRequiredPermission(user, required)) {
     forbidden();

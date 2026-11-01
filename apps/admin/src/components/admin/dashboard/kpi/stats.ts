@@ -29,6 +29,7 @@ function pctChange(current: number, previous: number): number | null {
   if (previous === 0) {
     return current === 0 ? 0 : null;
   }
+
   return Math.round(((current - previous) / previous) * 100);
 }
 
@@ -122,6 +123,7 @@ async function getWeekDayCounts(
     const date = day.toISODate()!;
     days.push({ date, count: byDate.get(date) ?? 0 });
   }
+
   return days;
 }
 
@@ -216,6 +218,7 @@ export async function getDashboardCustomerWeekData(
       returningCustomers: point?.returningCustomers ?? 0,
     });
   }
+
   return days;
 }
 
@@ -259,6 +262,7 @@ export async function getDashboardStats(
 
   const avgBookingValue =
     thisWeek.count > 0 ? thisWeek.revenue / thisWeek.count : 0;
+
   const lastAvgBookingValue =
     lastWeek.count > 0 ? lastWeek.revenue / lastWeek.count : 0;
 

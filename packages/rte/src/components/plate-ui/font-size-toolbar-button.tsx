@@ -67,6 +67,7 @@ export function FontSizeToolbarButton() {
 
       return;
     }
+
     if (newSize !== toUnitLess(cursorFontSize)) {
       api.fontSize.setMark(`${newSize}px`);
     }

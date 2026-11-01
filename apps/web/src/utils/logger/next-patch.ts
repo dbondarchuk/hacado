@@ -18,6 +18,7 @@ function isNoisyNextError(args: IArguments): boolean {
     if (typeof arg === "string") {
       return NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(arg));
     }
+
     if (arg instanceof Error) {
       const digest = (arg as unknown as { digest?: unknown }).digest;
       return (
@@ -26,6 +27,7 @@ function isNoisyNextError(args: IArguments): boolean {
           NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(digest)))
       );
     }
+
     return false;
   });
 }
@@ -39,6 +41,7 @@ const getLogMethod = (nextMethod: string) => {
           // @ts-expect-error
           return logger.debug.apply(logger, arguments);
         }
+
         // @ts-expect-error
         return logger.error.apply(logger, arguments);
       case "warn":

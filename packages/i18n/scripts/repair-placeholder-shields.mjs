@@ -52,17 +52,20 @@ function unshieldTranslatableTokens(text, tokens) {
       return token === undefined ? `___PH_${index}___` : token;
     });
   } while (result !== previous);
+
   return result;
 }
 
 function repairValue(english, corrupted) {
   if (!PH_RE.test(corrupted)) return corrupted;
+
   const { tokens } = shieldTranslatableTokens(english);
   const repaired = unshieldTranslatableTokens(corrupted, tokens);
   if (PH_RE.test(repaired)) {
     // Fall back to English structure if markers remain unmatched.
     return english;
   }
+
   return repaired;
 }
 
@@ -70,9 +73,11 @@ function repairTree(enNode, localeNode) {
   let changed = 0;
   if (typeof enNode === "string" && typeof localeNode === "string") {
     if (!PH_RE.test(localeNode)) return { value: localeNode, changed: 0 };
+
     const next = repairValue(enNode, localeNode);
     return { value: next, changed: next === localeNode ? 0 : 1 };
   }
+
   if (
     enNode &&
     typeof enNode === "object" &&
@@ -84,19 +89,24 @@ function repairTree(enNode, localeNode) {
     const result = { ...localeNode };
     for (const key of Object.keys(enNode)) {
       if (!(key in result)) continue;
+
       const repaired = repairTree(enNode[key], result[key]);
       result[key] = repaired.value;
       changed += repaired.changed;
     }
+
     return { value: result, changed };
   }
+
   return { value: localeNode, changed: 0 };
 }
 
 function loadYaml(filePath) {
   if (!fs.existsSync(filePath)) return null;
+
   const raw = fs.readFileSync(filePath, "utf8");
   if (!raw.trim()) return null;
+
   return parseYaml(raw);
 }
 
@@ -115,24 +125,29 @@ function listPairedFiles(language) {
   if (fs.existsSync(enCore) && fs.existsSync(locCore)) {
     for (const f of fs.readdirSync(enCore)) {
       if (!/\.(yaml|yml)$/.test(f) || f.startsWith("_")) continue;
+
       const enPath = path.join(enCore, f);
       const locPath = path.join(locCore, f);
       if (fs.existsSync(locPath)) pairs.push({ enPath, locPath });
     }
   }
+
   if (fs.existsSync(APPS_DIR)) {
     for (const appName of fs.readdirSync(APPS_DIR)) {
       const enDir = path.join(APPS_DIR, appName, "translations", "en");
       const locDir = path.join(APPS_DIR, appName, "translations", language);
       if (!fs.existsSync(enDir) || !fs.existsSync(locDir)) continue;
+
       for (const f of fs.readdirSync(enDir)) {
         if (!/\.(yaml|yml)$/.test(f) || f.startsWith("_")) continue;
+
         const enPath = path.join(enDir, f);
         const locPath = path.join(locDir, f);
         if (fs.existsSync(locPath)) pairs.push({ enPath, locPath });
       }
     }
   }
+
   return pairs;
 }
 
@@ -141,14 +156,18 @@ function repairCache(language) {
     __dirname,
     `en-${language}.translation-cache.json`,
   );
+
   if (!fs.existsSync(cachePath)) return 0;
+
   const cache = JSON.parse(fs.readFileSync(cachePath, "utf8"));
   let changed = 0;
   for (const [key, value] of Object.entries(cache)) {
     if (typeof value !== "string" || !PH_RE.test(value)) continue;
+
     // Cache keys: en|<lang>|<provider>|<english source>
     const match = key.match(/^en\|[^|]+\|[^|]+\|(.*)$/s);
     if (!match) continue;
+
     const english = match[1];
     const repaired = repairValue(english, value);
     if (repaired !== value) {
@@ -156,9 +175,11 @@ function repairCache(language) {
       changed++;
     }
   }
+
   if (changed > 0) {
     fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2), "utf8");
   }
+
   return changed;
 }
 
@@ -175,6 +196,7 @@ for (const language of targets) {
     const enData = loadYaml(enPath);
     const locData = loadYaml(locPath);
     if (!enData || !locData) continue;
+
     const { value, changed } = repairTree(enData, locData);
     if (changed > 0) {
       writeYaml(locPath, value);

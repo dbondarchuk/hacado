@@ -60,6 +60,7 @@ export class TelnyxMessagingWebhookService {
         { error: error instanceof Error ? error.message : "invalid signature" },
         "Rejected Telnyx webhook",
       );
+
       return Response.json({ success: false }, { status: 400 });
     }
 

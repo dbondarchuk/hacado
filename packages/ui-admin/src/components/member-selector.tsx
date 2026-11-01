@@ -138,6 +138,7 @@ export const MemberSelector = React.forwardRef<
 
     React.useEffect(() => {
       if (!value || itemsCache[value]) return;
+
       let cancelled = false;
       void (async () => {
         const result = await teamsApi.getMembers({
@@ -146,13 +147,16 @@ export const MemberSelector = React.forwardRef<
           priorityId: [value],
           status: ["active"],
         });
+
         if (cancelled || !result.items[0]) return;
+
         const member = result.items[0];
         setItemsCache((prev) => ({
           ...prev,
           [member._id]: member,
         }));
       })();
+
       return () => {
         cancelled = true;
       };

@@ -60,6 +60,7 @@ export class SmsStore {
       createdAt: new Date(),
       ...(input.ip ? { ip: input.ip } : {}),
     };
+
     await db
       .collection<SmsConsentRecord>(SMS_CONSENTS_COLLECTION_NAME)
       .insertOne(record);
@@ -76,6 +77,7 @@ export class SmsStore {
       .sort({ createdAt: -1 })
       .limit(1)
       .next();
+
     return record?.consented === true;
   }
 
@@ -84,6 +86,7 @@ export class SmsStore {
     const record = await db
       .collection<SmsConsentRecord>(SMS_CONSENTS_COLLECTION_NAME)
       .findOne({ phone, consented: true });
+
     return Boolean(record);
   }
 
@@ -92,6 +95,7 @@ export class SmsStore {
     const record = await db
       .collection<SmsOptOutRecord>(SMS_OPT_OUTS_COLLECTION_NAME)
       .findOne({ phone });
+
     return Boolean(record);
   }
 
@@ -136,6 +140,7 @@ export class SmsStore {
         participantType: "customer",
         status: { $in: ["accepted", "delivered"] },
       });
+
     return Boolean(record);
   }
 
@@ -195,6 +200,7 @@ export class SmsStore {
         },
         { returnDocument: "after" },
       );
+
     return updated;
   }
 

@@ -61,6 +61,7 @@ export const SetStatusSelectedGiftCardsButton: React.FC<{
     status === "active"
       ? "catalog.giftCards.setStatusSelected.confirmTitleActive"
       : "catalog.giftCards.setStatusSelected.confirmTitleInactive";
+
   const buttonKey =
     status === "active"
       ? "catalog.giftCards.setStatusSelected.buttonActive"

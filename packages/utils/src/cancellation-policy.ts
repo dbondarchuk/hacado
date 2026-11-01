@@ -69,6 +69,7 @@ export function getPolicyForRequest<
     appointmentTime instanceof DateTime
       ? appointmentTime
       : DateTime.fromJSDate(appointmentTime);
+
   const requestDateTime =
     requestTime instanceof DateTime
       ? requestTime

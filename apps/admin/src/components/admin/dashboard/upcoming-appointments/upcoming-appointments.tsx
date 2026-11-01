@@ -19,9 +19,11 @@ function calendarHref(date: string, member?: string) {
     activeTab: "calendar",
     date,
   });
+
   if (member) {
     params.set("member", member);
   }
+
   return `/dashboard?${params.toString()}`;
 }
 
@@ -43,6 +45,7 @@ export const UpcomingAppointments: React.FC<{
   const servicesContainer = await getServicesContainer();
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");
+
   const nextAppointments =
     await servicesContainer.bookingService.getNextAppointments(
       DateTime.now().toJSDate(),
@@ -77,17 +80,21 @@ export const UpcomingAppointments: React.FC<{
             const start = DateTime.fromJSDate(appointment.dateTime, {
               zone: timeZone,
             });
+
             const end = start.plus({ minutes: appointment.totalDuration });
             const isToday = start.startOf("day").equals(todayStart);
             const customerName =
               appointment.customer?.name ?? appointment.fields.name;
+
             const customerAvatar = appointment.customer?.avatar;
             const timeRange = `${start.toFormat("HH:mm")}–${end.toFormat("HH:mm")}`;
             const dateFormat =
               start.year === todayStart.year ? "ccc, MMM d" : "ccc, MMM d yyyy";
+
             const timeLabel = isToday
               ? `${t("calendar.today")} · ${timeRange}`
               : `${start.toFormat(dateFormat, { locale })} · ${timeRange}`;
+
             const meta = [
               customerName,
               !memberId && appointment.member?.name

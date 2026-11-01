@@ -29,8 +29,10 @@ export const textShadowStyle = {
   },
   renderToCSS: (value) => {
     if (!value) return null;
+
     const { x, y, blur, color } = value;
     if (x === 0 && y === 0 && blur === 0) return null;
+
     return `text-shadow: ${x}px ${y}px ${blur}px ${getColorStyle(color)};`;
   },
   component: ({ value, onChange }) => {

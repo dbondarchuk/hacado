@@ -23,6 +23,7 @@ export const AppointmentsTable: React.FC<{ customerId?: string }> = async ({
   const packageIds = appointmentsSearchParamsCache.get("package");
   const customerPackageId =
     appointmentsSearchParamsCache.get("customerPackageId") || undefined;
+
   const user = await getUser();
   const memberIds = gateMemberIds(
     user,

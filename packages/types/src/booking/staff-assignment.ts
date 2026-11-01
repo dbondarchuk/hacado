@@ -40,8 +40,10 @@ export function normalizeAddonStaffOverrides(
   staff: AddonStaffOverride[] | undefined,
 ): AddonStaffOverride[] | undefined {
   if (!staff?.length) return staff;
+
   return staff.map((override) => {
     if (!override.unavailable) return override;
+
     return {
       memberId: override.memberId,
       unavailable: true,
@@ -54,6 +56,7 @@ export function effectiveStaffPrice(
   assignment: StaffAssignment | undefined,
 ): number | undefined {
   if (assignment?.priceOverride != null) return assignment.priceOverride;
+
   return basePrice ?? undefined;
 }
 
@@ -62,6 +65,7 @@ export function effectiveStaffDuration(
   assignment: StaffAssignment | undefined,
 ): number | undefined {
   if (assignment?.durationOverride != null) return assignment.durationOverride;
+
   return baseDuration ?? undefined;
 }
 
@@ -70,6 +74,7 @@ export function getAddonStaffOverride(
   memberId: string | undefined | null,
 ): AddonStaffOverride | undefined {
   if (!staff?.length || !memberId) return undefined;
+
   return staff.find((s) => s.memberId === memberId);
 }
 
@@ -89,6 +94,7 @@ export function isMemberAssignedToOption(
 ): boolean {
   if (!memberId) return true;
   if (!staff?.length) return false;
+
   return staff.some((s) => s.memberId === memberId);
 }
 
@@ -117,9 +123,11 @@ export function getUnassignedMemberIssues(args: {
     args.optionStaff,
     args.memberId,
   );
+
   const unassignedAddonNames = (args.addons || [])
     .filter((addon) => !isMemberAssignedToAddon(addon.staff, args.memberId))
     .map((addon) => addon.name);
+
   return {
     optionUnassigned,
     unassignedAddonNames,
@@ -134,6 +142,7 @@ export function effectiveAddonPrice(
 ): number | undefined {
   const override = getAddonStaffOverride(staff, memberId);
   if (override?.unavailable) return basePrice ?? undefined;
+
   return effectiveStaffPrice(basePrice, override);
 }
 
@@ -144,6 +153,7 @@ export function effectiveAddonDuration(
 ): number | undefined {
   const override = getAddonStaffOverride(staff, memberId);
   if (override?.unavailable) return baseDuration ?? undefined;
+
   return effectiveStaffDuration(baseDuration, override);
 }
 
@@ -152,10 +162,13 @@ export function minEffectivePrice(
   staff: StaffAssignment[] | undefined,
 ): number | undefined {
   if (!staff?.length) return basePrice ?? undefined;
+
   const prices = staff
     .map((s) => effectiveStaffPrice(basePrice, s))
     .filter((p): p is number => p != null);
+
   if (!prices.length) return basePrice ?? undefined;
+
   return Math.min(...prices);
 }
 
@@ -164,10 +177,13 @@ export function minEffectiveDuration(
   staff: StaffAssignment[] | undefined,
 ): number | undefined {
   if (!staff?.length) return baseDuration ?? undefined;
+
   const durations = staff
     .map((s) => effectiveStaffDuration(baseDuration, s))
     .filter((d): d is number => d != null);
+
   if (!durations.length) return baseDuration ?? undefined;
+
   return Math.min(...durations);
 }
 
@@ -200,12 +216,14 @@ export function getActiveStaffForAssignments(
   baseDuration: number | undefined | null,
 ): ActiveStaffOption[] {
   if (!staff?.length || !members?.length) return [];
+
   const membersById = new Map(members.map((m) => [m.id, m]));
 
   return staff
     .map((assignment): ActiveStaffOption | undefined => {
       const member = membersById.get(assignment.memberId);
       if (!member) return undefined;
+
       return {
         member,
         assignment,
@@ -226,6 +244,7 @@ export function getActiveStaffAcrossAssignments(
   members: PublicStaffMember[] | undefined,
 ): PublicStaffMember[] {
   if (!members?.length) return [];
+
   const membersById = new Map(members.map((m) => [m.id, m]));
   const seen = new Set<string>();
   const result: PublicStaffMember[] = [];
@@ -233,8 +252,10 @@ export function getActiveStaffAcrossAssignments(
   for (const staff of staffLists) {
     for (const assignment of staff || []) {
       if (seen.has(assignment.memberId)) continue;
+
       const member = membersById.get(assignment.memberId);
       if (!member) continue;
+
       seen.add(assignment.memberId);
       result.push(member);
     }
@@ -293,7 +314,6 @@ export function getStaffBookingTotals(args: {
       duration: totalDuration,
     };
   }
-
   if (args.isCustomerPackage) {
     return { price: addonsPrice, duration: totalDuration };
   }
@@ -304,6 +324,7 @@ export function getStaffBookingTotals(args: {
   } else {
     const pricePerHour =
       args.staff?.effectivePrice ?? args.optionPricePerHour ?? 0;
+
     basePrice = (pricePerHour / 60) * totalDuration;
   }
 

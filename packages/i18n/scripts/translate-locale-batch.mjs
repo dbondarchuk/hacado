@@ -27,17 +27,20 @@ const args = process.argv.slice(2);
 const provider =
   args.find((a) => a.startsWith("--provider="))?.slice("--provider=".length) ||
   DEFAULT_PROVIDER;
+
 const concurrency = Number(
   args
     .find((a) => a.startsWith("--concurrency="))
     ?.slice("--concurrency=".length) || 3,
 );
+
 const languages = args.filter((a) => !a.startsWith("--"));
 
 if (languages.length === 0) {
   console.error(
     "Usage: node scripts/translate-locale-batch.mjs <lang> [lang...] [--provider=google|mymemory] [--concurrency=N]",
   );
+
   process.exit(1);
 }
 
@@ -46,6 +49,7 @@ for (const language of languages) {
     console.error(
       `Refusing to batch-translate partial locale "${language}". Overlay keys must be curated.`,
     );
+
     process.exit(1);
   }
 }
@@ -66,11 +70,13 @@ function isEmptyRootObject(obj) {
 
 function loadSourceObject(filePath) {
   if (!fs.existsSync(filePath)) return null;
+
   const raw = fs.readFileSync(filePath, "utf8");
   if (!raw.trim()) return null;
   if (filePath.endsWith(".json")) {
     return JSON.parse(raw);
   }
+
   const doc = parseYaml(raw);
   if (
     doc != null &&
@@ -80,6 +86,7 @@ function loadSourceObject(filePath) {
   ) {
     return doc;
   }
+
   return null;
 }
 
@@ -87,18 +94,22 @@ function listEnFiles() {
   const files = [];
   for (const f of fs.readdirSync(path.join(LOCALES_DIR, "en"))) {
     if (!/\.(yaml|yml|json)$/.test(f) || f.startsWith("_")) continue;
+
     files.push({
       kind: "core",
       enPath: path.join(LOCALES_DIR, "en", f),
       relative: f,
     });
   }
+
   if (fs.existsSync(APPS_DIR)) {
     for (const appName of fs.readdirSync(APPS_DIR).sort()) {
       const enDir = path.join(APPS_DIR, appName, "translations", "en");
       if (!fs.existsSync(enDir)) continue;
+
       for (const f of fs.readdirSync(enDir)) {
         if (!/\.(yaml|yml|json)$/.test(f) || f.startsWith("_")) continue;
+
         files.push({
           kind: "app",
           appName,
@@ -108,6 +119,7 @@ function listEnFiles() {
       }
     }
   }
+
   return files;
 }
 
@@ -117,6 +129,7 @@ function collectStrings(node, out) {
     if (trimmed) out.add(trimmed);
     return;
   }
+
   if (node && typeof node === "object" && !Array.isArray(node)) {
     for (const value of Object.values(node)) {
       collectStrings(value, out);
@@ -128,15 +141,19 @@ function mapStrings(node, translateMap) {
   if (typeof node === "string") {
     const trimmed = node.trim();
     if (!trimmed) return node;
+
     return translateMap.get(trimmed) ?? node;
   }
+
   if (node && typeof node === "object" && !Array.isArray(node)) {
     const result = {};
     for (const [key, value] of Object.entries(node)) {
       result[key] = mapStrings(value, translateMap);
     }
+
     return result;
   }
+
   return node;
 }
 
@@ -174,6 +191,7 @@ function unshieldTranslatableTokens(text, tokens) {
       return token === undefined ? `___PH_${index}___` : token;
     });
   } while (result !== previous);
+
   return result;
 }
 
@@ -203,6 +221,7 @@ function currentGoogleClient() {
 function rotateGoogleClient() {
   rateGate.googleClientIndex =
     (rateGate.googleClientIndex + 1) % GOOGLE_CLIENTS.length;
+
   return currentGoogleClient();
 }
 
@@ -222,6 +241,7 @@ function tripRateLimit(status, attempt) {
   const backoff = rotatedFresh
     ? Math.min(RETRY_WAIT_MS, 5_000 * attempt)
     : RETRY_WAIT_MS * attempt;
+
   rateGate.coolUntil = Math.max(rateGate.coolUntil, Date.now() + backoff);
   rateGate.minIntervalMs = Math.min(rateGate.minIntervalMs + 25, 600);
   console.log(
@@ -239,18 +259,22 @@ async function retryingFetch(buildUrl, parseResponse) {
         tripRateLimit(response.status, attempt);
         continue;
       }
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
+
       const json = await response.json();
       return parseResponse(json);
     } catch (error) {
       if (attempt === MAX_RETRIES) throw error;
+
       const backoff = RETRY_WAIT_MS * attempt;
       console.log(`\nRetry ${attempt}/${MAX_RETRIES}: ${error.message}`);
       await sleep(backoff);
     }
   }
+
   throw new Error("Translation request failed after retries.");
 }
 
@@ -262,10 +286,13 @@ async function fetchFromGoogle(text, language) {
       if (!Array.isArray(data) || !Array.isArray(data[0])) {
         throw new Error("Bad response shape");
       }
+
       const translated = data[0]
         .map((row) => (Array.isArray(row) ? row[0] : ""))
         .join("");
+
       if (!translated) throw new Error("Empty translation");
+
       return translated;
     },
   );
@@ -278,6 +305,7 @@ async function fetchFromMyMemory(text, language) {
     if (typeof translated !== "string" || !translated) {
       throw new Error("Empty translation");
     }
+
     return translated;
   });
 }
@@ -307,6 +335,7 @@ async function translateOne(text, language, cache, cachePath) {
       provider === "mymemory"
         ? await fetchFromMyMemory(chunk, targetLang)
         : await fetchFromGoogle(chunk, targetLang);
+
     translated += part;
   }
 
@@ -329,6 +358,7 @@ async function mapPool(items, limit, worker) {
   await Promise.all(
     Array.from({ length: Math.min(limit, items.length) }, () => run()),
   );
+
   return results;
 }
 
@@ -340,6 +370,7 @@ function localeOutPath(file, language) {
       file.relative.replace(/\.json$/, ".yaml"),
     );
   }
+
   const stem = file.relative.replace(/\.(json|yaml|yml)$/, "");
   return path.join(
     APPS_DIR,
@@ -364,6 +395,7 @@ function buildTranslateMap(strings, language, cache) {
   for (const text of strings) {
     translateMap.set(text, cache[`en|${language}|${provider}|${text}`] ?? text);
   }
+
   return translateMap;
 }
 
@@ -384,6 +416,7 @@ const parsedFiles = [];
 for (const file of enFiles) {
   const data = loadSourceObject(file.enPath);
   if (!data) continue;
+
   parsedFiles.push({ file, data });
   collectStrings(data, uniqueStrings);
 }
@@ -397,6 +430,7 @@ for (const language of languages) {
     __dirname,
     `en-${language}.translation-cache.json`,
   );
+
   const cache = loadCache(cachePath);
   const strings = [...uniqueStrings];
   const pending = strings.filter(
@@ -425,11 +459,13 @@ for (const language of languages) {
       flushLocaleFiles(parsedFiles, language, strings, cache);
       throw error;
     }
+
     done++;
     if (done % 25 === 0 || done === pending.length) {
       process.stdout.write(`\rTranslated ${done}/${pending.length}`);
       saveCache(cachePath, cache);
     }
+
     if (done % FLUSH_EVERY === 0 || done === pending.length) {
       try {
         flushLocaleFiles(parsedFiles, language, strings, cache);
@@ -439,6 +475,7 @@ for (const language of languages) {
       }
     }
   });
+
   if (pending.length > 0) {
     process.stdout.write("\n");
     saveCache(cachePath, cache);

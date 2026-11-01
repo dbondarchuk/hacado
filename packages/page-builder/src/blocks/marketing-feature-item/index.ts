@@ -5,4 +5,5 @@ export {
   MarketingFeatureItemPropsDefaults,
   MarketingFeatureItemPropsSchema,
 } from "./schema";
+
 export { MarketingFeatureItemToolbar } from "./toolbar";

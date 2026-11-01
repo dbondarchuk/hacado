@@ -159,6 +159,7 @@ export async function POST(request: NextRequest) {
         { limitBytes: error.limitBytes },
         "Asset total size limit reached",
       );
+
       return NextResponse.json(
         {
           success: false,
@@ -177,6 +178,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to upload asset",
     );
+
     return NextResponse.json(
       {
         success: false,

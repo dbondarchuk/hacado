@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAllTemplates } from "../../../../dashboard/templates/utils";
 
 export const dynamic = "force-dynamic";
+
 export async function GET(
   request: NextRequest,
   { params }: RouteContext<"/api/templates/templates/[type]">,

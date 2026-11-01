@@ -346,6 +346,7 @@ function isLightHex(hex: string) {
           .map((c) => c + c)
           .join("")
       : raw;
+
   const r = parseInt(full.slice(0, 2), 16);
   const g = parseInt(full.slice(2, 4), 16);
   const b = parseInt(full.slice(4, 6), 16);
@@ -442,7 +443,9 @@ export function packIdFromLayoutTemplateKey(
   const match = /^Layout_(.+)_(home|booking|service|about|terms)$/.exec(
     templateKey,
   );
+
   if (!match) return null;
+
   const id = match[1] as WebsitePackId;
   return id in PACK_THEMES ? id : null;
 }

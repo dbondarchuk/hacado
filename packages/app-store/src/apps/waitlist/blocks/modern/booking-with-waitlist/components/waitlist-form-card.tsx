@@ -122,6 +122,7 @@ export const WaitlistFormCard: React.FC = () => {
         ...rest,
         ...(waitlistSmsConsentKind(smsText) ? { smsConsent } : {}),
       } as AppointmentFields);
+
       setWaitlistTimes({ asSoonAsPossible, dates });
     }
   }, [values, smsKind, previousValues, previousSmsKind]);

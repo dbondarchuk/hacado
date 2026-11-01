@@ -192,6 +192,7 @@ export const getTemplateTemplates = async (type: CommunicationChannel) => {
     await result.json<
       { id: string; name: string; type: CommunicationChannel }[]
     >();
+
   console.debug("Template templates retrieved successfully", {
     type,
   });

@@ -9,8 +9,10 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/synced-payments/confirm/matched")(
     "POST",
   );
+
   const auth = await requirePermission("syncedPayment", "manage", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
 
@@ -20,6 +22,7 @@ export async function POST(request: NextRequest) {
   const endParam = body?.end;
   const start =
     typeof startParam === "string" ? new Date(startParam) : undefined;
+
   const end = typeof endParam === "string" ? new Date(endParam) : undefined;
   const externalId =
     typeof body?.externalId === "string" ? body.externalId : undefined;
@@ -47,6 +50,7 @@ export async function POST(request: NextRequest) {
       { error: error?.message || error?.toString() },
       "Failed to confirm all matched synced payments",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -31,10 +31,12 @@ export function AcceptInvitationForm({
       const res = await authClient.organization.acceptInvitation({
         invitationId: invitation.id,
       });
+
       if (res.error) {
         toast.error(res.error.message || t("team.acceptInvitation.error"));
         return;
       }
+
       toast.success(t("team.acceptInvitation.success"));
       router.push("/dashboard");
     } finally {

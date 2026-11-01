@@ -46,7 +46,6 @@ export function getInboundSmsKeywordReply(
   if (keyword === "stop") {
     return getStopSms(language);
   }
-
   if (keyword === "start") {
     return getStartSms(language);
   }

@@ -154,6 +154,7 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
         (event, manager) => {
           const targetContext = event.operation.target?.data
             .context as DndContext;
+
           if (!targetContext) {
             // We don't want to reset the active over block if we are dragging over a block that is not a sortable block
             return;
@@ -175,15 +176,18 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
                 collisionData?.direction === "left"
                   ? "before"
                   : "after";
+
               modifier = collisionPosition === "after" ? 1 : 0;
             } else {
               const position =
                 dragOperation.shape?.current.center ??
                 dragOperation.position.current;
+
               const target = event.operation.target;
               const isBelowTarget =
                 target?.shape &&
                 Math.round(position.y) > Math.round(target.shape.center.y);
+
               modifier = isBelowTarget ? 1 : 0;
             }
           }
@@ -224,7 +228,6 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
 
       const activeId = event.operation.source?.id as string;
       if (!activeId) return;
-
       if (!activeOverBlock) return;
 
       // Handle block template drop
@@ -266,6 +269,7 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
                 index: activeOverBlock.index,
               },
             });
+
             return;
           }
         }

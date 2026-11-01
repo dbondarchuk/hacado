@@ -75,11 +75,13 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
           const aAllDay =
             aStart <= dayStart &&
             DateTime.fromJSDate(a.end).setZone(timeZone) >= nextDayStart;
+
           const bAllDay =
             bStart <= dayStart &&
             DateTime.fromJSDate(b.end).setZone(timeZone) >= nextDayStart;
 
           if (aAllDay !== bAllDay) return aAllDay ? -1 : 1;
+
           return aStart.toMillis() - bStart.toMillis();
         });
 
@@ -228,9 +230,11 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                       const eventDate = DateTime.fromJSDate(
                         event.start,
                       ).setZone(timeZone);
+
                       const endDate = DateTime.fromJSDate(event.end).setZone(
                         timeZone,
                       );
+
                       const dayStart = rangeDate.startOf("day");
                       const nextDayStart = dayStart.plus({ days: 1 });
                       const isAllDay =
@@ -310,6 +314,7 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
               const dateKey = rangeDate.toFormat("yyyy-MM-dd");
               allExpanded[dateKey] = true;
             });
+
             setExpandedDates(allExpanded);
           }}
         >

@@ -55,6 +55,7 @@ function mergeOverlappingPeriods(periods: Period[]): Period[] {
   const sorted = [...periods].sort(
     (a, b) => a.startAt.toMillis() - b.startAt.toMillis(),
   );
+
   const merged: Period[] = [sorted[0]];
 
   for (let i = 1; i < sorted.length; i++) {
@@ -97,6 +98,7 @@ function getSlotStartTimes(
       const dt = start
         .setZone(timeZone)
         .set({ hour, minute, second: 0, millisecond: 0 });
+
       if (dt >= start && dt < end) {
         result.push(dt);
         seen.add(dt.toMillis());
@@ -110,6 +112,7 @@ function getSlotStartTimes(
         if (cursor.minute % 5 === 0 && !seen.has(cursor.toMillis())) {
           result.push(cursor);
         }
+
         cursor = cursor.plus({ minutes: 1 });
       }
     }
@@ -134,6 +137,7 @@ function getSlotStartTimes(
     ) {
       result.push(cursor);
     }
+
     cursor = cursor.plus({ minutes: 1 });
   }
 
@@ -270,6 +274,7 @@ export function getAvailableTimeSlotsWithPriority({
           const anyOtherServiceCanFitBefore =
             allServiceDurations &&
             allServiceDurations.some((s) => s <= gapBeforeSlot);
+
           const anyOtherServiceCanFitAfter =
             allServiceDurations &&
             allServiceDurations.some((s) => s <= gapAfterSlot);
@@ -311,6 +316,7 @@ export function getAvailableTimeSlotsWithPriority({
                   t.hour === slotStart.hour && t.minute === slotStart.minute,
               );
             }
+
             const step = slotStartAt === "every-hour" ? 60 : slotStartAt;
             return slotStart.minute % step === 0;
           })();
@@ -320,6 +326,7 @@ export function getAvailableTimeSlotsWithPriority({
           if (slotMatchesCustom) priority += 3;
           if (hasBreakBefore && !isToShiftStart && !anyOtherServiceCanFitBefore)
             priority += 1;
+
           if (hasBreakAfter && !isToShiftEnd && !anyOtherServiceCanFitAfter)
             priority += 1;
 
@@ -330,6 +337,7 @@ export function getAvailableTimeSlotsWithPriority({
             !isToShiftEnd
           )
             priority += 1;
+
           if (lowerPriorityIfNoFollowingBooking && !anyOtherServiceCanFit)
             priority -= 1;
 
@@ -354,8 +362,10 @@ export function getAvailableTimeSlotsWithPriority({
                 if (gapMinutes > 60) return isAtShiftEdge ? 1 : 2;
                 if (gapMinutes > 30) return isAtShiftEdge ? 0 : 1;
               }
+
               return 0;
             };
+
             // Prefer later starts: if no other service fits, prefer slot with lesser gap after
             if (preferLaterStarts && isFirstGap) {
               // Add priority bonus inversely proportional to gap after (smaller gap = higher bonus)

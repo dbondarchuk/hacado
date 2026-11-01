@@ -29,6 +29,7 @@ const canvasToPngBlob = (canvas: HTMLCanvasElement) =>
         resolve(blob);
         return;
       }
+
       reject(new Error("Failed to create PNG"));
     }, "image/png");
   });
@@ -41,6 +42,7 @@ const pngFileFromCanvas = (canvas: HTMLCanvasElement, filename: string) => {
   for (let i = 0; i < binary.length; i += 1) {
     bytes[i] = binary.charCodeAt(i);
   }
+
   return new File([bytes], filename, { type: "image/png" });
 };
 
@@ -126,6 +128,7 @@ export const PageQrCodeDialog = ({
           resolved = result.url;
         }
       }
+
       if (!cancelled) {
         setUrl(resolved);
         setLoading(false);
@@ -151,6 +154,7 @@ export const PageQrCodeDialog = ({
           "image/png": canvasToPngBlob(canvas),
         }),
       ]);
+
       toast.info(t("pages.toasts.qrCodeCopied"));
     } catch {
       toast.error(t("pages.toasts.qrCodeCopyError"));

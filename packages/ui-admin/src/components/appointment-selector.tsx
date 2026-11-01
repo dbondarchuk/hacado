@@ -100,6 +100,7 @@ export const AppointmentSelector = React.forwardRef<
       if (!value || itemsCache[value]) {
         return;
       }
+
       appointmentsApi
         .getAppointment(value)
         .then((appointment) => {

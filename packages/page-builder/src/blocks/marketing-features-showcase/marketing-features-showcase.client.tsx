@@ -26,12 +26,14 @@ function chunk<T>(arr: T[], size: number): T[][] {
   for (let i = 0; i < arr.length; i += size) {
     out.push(arr.slice(i, i + size));
   }
+
   return out;
 }
 
 function columnsForWidth(w: number) {
   if (w >= 1024) return 4;
   if (w >= 640) return 2;
+
   return 1;
 }
 
@@ -63,6 +65,7 @@ export function MarketingFeaturesShowcaseClient({
             expandedIndex !== null &&
             expandedIndex >= rowStartIndex &&
             expandedIndex <= rowEndIndex;
+
           const expandedFeature =
             shouldShowExpanded && expandedIndex !== null
               ? features[expandedIndex]

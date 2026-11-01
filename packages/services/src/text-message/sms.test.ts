@@ -29,8 +29,10 @@ import {
 
 const confirmedEn =
   "{{config.name}}: {{#customerName}}Hi {{customerName}}, your{{/customerName}}{{^customerName}}Your{{/customerName}} {{service.name}} is confirmed for {{dateTime.sms}}.";
+
 const confirmedUk =
   "{{config.name}}: {{#customerName}}Привіт, {{customerName}}, ваш{{/customerName}}{{^customerName}}Ваш{{/customerName}} {{service.name}} підтверджено на {{dateTime.sms}}.";
+
 const reminderEn =
   "This is a reminder for {{service.name}} {{#dateTime.isTomorrow}}tomorrow, {{/dateTime.isTomorrow}}{{^dateTime.isTomorrow}}on {{/dateTime.isTomorrow}}{{dateTime.sms}}.";
 
@@ -88,6 +90,7 @@ describe("built-in SMS copy and segments", () => {
       },
       true,
     );
+
     assert.equal(countSmsSegments(ukrainian) >= 1, true);
     assert.equal(/[А-яІіЇїЄє]/.test(ukrainian), true);
   });
@@ -139,6 +142,7 @@ describe("platform compliance footer", () => {
       first,
       new RegExp(SMS_RATES_SENTENCE.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
     );
+
     assert.equal(first.trimEnd().endsWith(SMS_STOP_FOOTER), true);
     assert.ok(
       first.indexOf(SMS_RATES_SENTENCE) < first.indexOf(SMS_STOP_FOOTER),
@@ -184,6 +188,7 @@ describe("SMS consent", () => {
       { consented: true, createdAt: new Date("2026-10-01") },
       { consented: false, createdAt: new Date("2026-10-17") },
     ];
+
     assert.equal(latestConsentAllowsSms(records), false);
     assert.deepEqual(
       canSendCustomerSms({
@@ -201,14 +206,17 @@ describe("SMS consent", () => {
       appointmentSkipsSmsConsent(new Date("2026-10-25T14:59:59.000Z"), cutoff),
       true,
     );
+
     assert.equal(
       appointmentSkipsSmsConsent(new Date("2026-10-25T15:00:00.000Z"), cutoff),
       false,
     );
+
     assert.equal(
       appointmentSkipsSmsConsent(new Date("2026-10-25T16:00:00.000Z"), cutoff),
       false,
     );
+
     assert.equal(
       appointmentSkipsSmsConsent(
         new Date("2026-10-24T23:00:00.000Z"),
@@ -216,6 +224,7 @@ describe("SMS consent", () => {
       ),
       true,
     );
+
     assert.equal(
       appointmentSkipsSmsConsent(
         new Date("2026-10-25T00:00:00.000Z"),
@@ -223,6 +232,7 @@ describe("SMS consent", () => {
       ),
       false,
     );
+
     assert.equal(appointmentSkipsSmsConsent(new Date(), undefined), false);
     assert.equal(appointmentSkipsSmsConsent(new Date(), ""), false);
     assert.equal(appointmentSkipsSmsConsent(new Date(), "not-a-date"), false);
@@ -308,6 +318,7 @@ describe("Textbelt link stripping", () => {
   it("leaves a text without a link unchanged", () => {
     const body =
       "Ada Salon: Hi Jessica, you were removed from the waitlist for Cut.";
+
     assert.deepEqual(prepareTextbeltSmsBody(body), {
       send: true,
       message: body,
@@ -357,6 +368,7 @@ describe("SMS provider", () => {
         createDefaultTextMessageSender().constructor.name,
         "TextBeltService",
       );
+
       process.env.SMS_PROVIDER = "telnyx";
       assert.equal(
         createDefaultTextMessageSender().constructor.name,
@@ -452,6 +464,7 @@ describe("platform SMS route", () => {
       appendSharedPoolSuffix("Your cut is confirmed."),
       "Your cut is confirmed. Sent via Hacado",
     );
+
     assert.equal(
       appendSharedPoolSuffix("Your cut is confirmed. Sent via Hacado"),
       "Your cut is confirmed. Sent via Hacado",
@@ -514,6 +527,7 @@ describe("toll-free verification body", () => {
       entityType: "SOLE_PROPRIETOR",
       doingBusinessAs: "Ada Salon",
     });
+
     assert.ok(body);
 
     assert.equal(body.entityType, "SOLE_PROPRIETOR");
@@ -524,10 +538,12 @@ describe("toll-free verification body", () => {
     assert.deepEqual(body.optInWorkflowImageURLs, [
       { url: "https://cdn.example/opt-in.png" },
     ]);
+
     assert.deepEqual(body.phoneNumbers, [
       { phoneNumber: "+18005550100" },
       { phoneNumber: "+18005550101" },
     ]);
+
     assert.equal(body.businessCity, "Austin");
     assert.equal(body.privacyPolicyURL, "https://ada.example/privacy");
     assert.equal(body.termsAndConditionURL, "https://ada.example/terms");
@@ -551,6 +567,7 @@ describe("toll-free verification body", () => {
       legalName: longName,
       doingBusinessAs: longName,
     });
+
     assert.ok(body);
     assert.ok(body.additionalInformation.length <= 500);
   });
@@ -561,6 +578,7 @@ describe("toll-free verification body", () => {
       entityType: "PRIVATE_PROFIT",
       businessRegistrationNumber: "12-3456789",
     });
+
     assert.ok(body);
 
     assert.equal(body.businessRegistrationNumber, "12-3456789");
@@ -588,6 +606,7 @@ describe("verification webhook", () => {
       mapTelnyxVerificationStatus("Waiting For Customer"),
       "rejected",
     );
+
     assert.equal(mapTelnyxVerificationStatus("In Progress"), "pending");
   });
 

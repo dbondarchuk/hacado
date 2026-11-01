@@ -108,12 +108,14 @@ export const FormFieldEditor: React.FC<{
     "data" in field && "maxLength" in field.data
       ? field.data?.maxLength
       : undefined;
+
   const fieldType = field.type;
 
   useEffect(() => {
     if (fieldType === "oneLine" || fieldType === "multiLine") {
       const maxLength =
         fieldType === "oneLine" ? defaultOneLineLength : defaultMultiLineLength;
+
       if (
         (fieldType === "oneLine" && fieldMaxLength == defaultMultiLineLength) ||
         (fieldType === "multiLine" && fieldMaxLength == defaultOneLineLength)

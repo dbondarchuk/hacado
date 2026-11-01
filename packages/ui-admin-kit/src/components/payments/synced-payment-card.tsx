@@ -100,10 +100,12 @@ export const SyncedPaymentCard = ({
       ? tAll(app.displayName)
       : app.displayName
     : payment.appName.charAt(0).toUpperCase() + payment.appName.slice(1);
+
   const ProviderLogo = app?.Logo ?? CreditCard;
 
   const paymentAmount =
     payment.paymentAmount ?? payment.amount - (payment.inferredTip ?? 0);
+
   const tip = payment.inferredTip ?? 0;
   const showBreakdown =
     payment.appointmentId != null || payment.paymentAmount != null || tip > 0;
@@ -111,6 +113,7 @@ export const SyncedPaymentCard = ({
   const otherSuggestions = (payment.suggestions || []).filter(
     (suggestion) => suggestion.appointmentId !== payment.appointmentId,
   );
+
   const customer = payment.customer ?? payment.appointment?.customer;
 
   const formatDateTime = (value: Date | string) =>
@@ -127,37 +130,47 @@ export const SyncedPaymentCard = ({
 
   const showConfirm =
     !!onConfirm && !!payment.appointmentId && payment.status === "matched";
+
   const showAssignPrimary =
     !!onAssignOther &&
     !payment.appointmentId &&
     payment.status !== "rejected" &&
     payment.status !== "confirmed";
+
   const showRecord =
     !!onRecord &&
     !payment.appointmentId &&
     payment.status !== "rejected" &&
     payment.status !== "ignored" &&
     payment.status !== "confirmed";
+
   const showEdit =
     !!onEditAmounts && !!payment.appointmentId && payment.status !== "rejected";
+
   const showRejectBtn =
     !!onReject && !!payment.appointmentId && payment.status !== "rejected";
+
   const showPrimaryActions =
     showConfirm || showAssignPrimary || showEdit || showRejectBtn;
+
   const showReassign =
     !!onAssignOther && !!payment.appointmentId && payment.status !== "rejected";
+
   const showUnassign =
     !!onUnassign &&
     !!payment.appointmentId &&
     payment.status !== "rejected" &&
     payment.status !== "ignored";
+
   const showUnrecord =
     !!onUnrecord &&
     !payment.appointmentId &&
     !!payment.customerId &&
     payment.status === "confirmed";
+
   const showIgnore =
     payment.status !== "ignored" && payment.status !== "rejected" && !!onIgnore;
+
   const showSuggestions =
     !!onAssignSuggestion && otherSuggestions.length > 0 && !showUnrecord;
 

@@ -40,6 +40,7 @@ export const AppointmentsSettingsForm: React.FC<{
     }),
     [values],
   );
+
   const form = useForm<BookingConfiguration>({
     resolver: zodResolver(
       bookingConfigurationSchema,
@@ -61,6 +62,7 @@ export const AppointmentsSettingsForm: React.FC<{
             ...data,
             payments: { requireDeposit: false, tipsMode: "off" },
           };
+
       await toastPromise(
         configurationApi.setConfiguration("booking", payload),
         {
@@ -68,6 +70,7 @@ export const AppointmentsSettingsForm: React.FC<{
           error: t("settings.appointments.form.toasts.requestError"),
         },
       );
+
       router.refresh();
     } catch (error: any) {
       console.error(error);

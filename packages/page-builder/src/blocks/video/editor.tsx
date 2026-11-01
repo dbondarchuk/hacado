@@ -20,6 +20,7 @@ export const VideoEditor = ({ props }: VideoProps) => {
     ...(currentBlock.data?.props ?? {}),
     ...(props ?? {}),
   };
+
   const updatedProps = {
     ...baseProps,
     src: template(baseProps.src ?? "", args, true),

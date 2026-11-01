@@ -48,6 +48,7 @@ function formatLucideIconLabel(iconName: string): string {
 export function PropertiesPanel() {
   const { selectedElements, design, updateElement, bringToFront, sendToBack } =
     useEditorStore();
+
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
@@ -77,7 +78,6 @@ export function PropertiesPanel() {
       </div>
     );
   }
-
   if (!selectedElement) {
     return (
       <div className="flex-1 border-b border-border p-4 overflow-auto h-full">
@@ -99,8 +99,10 @@ export function PropertiesPanel() {
                   useEditorStore
                     .getState()
                     .setCanvas({ background: undefined });
+
                   return;
                 }
+
                 const newBg: any = { type: value };
                 if (value === "color") {
                   newBg.color = "#ffffff";
@@ -115,6 +117,7 @@ export function PropertiesPanel() {
                 } else {
                   return;
                 }
+
                 useEditorStore.getState().setCanvas({ background: newBg });
               }}
             >
@@ -203,6 +206,7 @@ export function PropertiesPanel() {
                     const colors = [
                       ...(grad?.colors || ["#ffffff", "#000000"]),
                     ];
+
                     colors[0] = e.target.value;
                     useEditorStore.getState().setCanvas({
                       background: {
@@ -229,6 +233,7 @@ export function PropertiesPanel() {
                     const colors = [
                       ...(grad?.colors || ["#ffffff", "#000000"]),
                     ];
+
                     colors[1] = e.target.value;
                     useEditorStore.getState().setCanvas({
                       background: {
@@ -543,6 +548,7 @@ export function PropertiesPanel() {
               onChange(undefined);
               return;
             }
+
             if (v === "color") onChange({ type: "color", color: "#cccccc" });
             else if (v === "gradient")
               onChange({
@@ -715,6 +721,7 @@ export function PropertiesPanel() {
       (element.styles.fill
         ? { type: "color", color: element.styles.fill }
         : undefined);
+
     const strokePaint: Paint | undefined =
       element.styles.strokePaint ??
       (element.styles.stroke
@@ -729,6 +736,7 @@ export function PropertiesPanel() {
           fill: p?.type === "color" ? p.color : undefined,
         },
       });
+
     const updateStroke = (p: Paint | undefined) =>
       updateElement(element.id, {
         styles: {
@@ -884,6 +892,7 @@ export function PropertiesPanel() {
               filteredIcons.splice(valueIndex, 1);
               filteredIcons.unshift(currentIcon);
             }
+
             if (search) {
               const q = search.toLowerCase();
               filteredIcons = filteredIcons.filter(
@@ -892,6 +901,7 @@ export function PropertiesPanel() {
                   formatLucideIconLabel(iconName).toLowerCase().includes(q),
               );
             }
+
             const items: IComboboxItem[] = filteredIcons
               .slice((page - 1) * limit, page * limit)
               .map((iconName) => ({
@@ -903,6 +913,7 @@ export function PropertiesPanel() {
                   </div>
                 ),
               }));
+
             return {
               items,
               hasMore: page * limit < filteredIcons.length,
@@ -947,6 +958,7 @@ export function PropertiesPanel() {
           onChange={(e) => {
             const v = Number(e.target.value);
             if (!Number.isFinite(v) || v < 0) return;
+
             updateElement(element.id, {
               styles: { ...element.styles, strokeWidth: v },
             });

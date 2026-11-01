@@ -49,12 +49,14 @@ export function AccordionProvider({
 
   useEffect(() => {
     if (didInit.current || initialOpenItemIds.length === 0) return;
+
     didInit.current = true;
     setOpenItemIds(initialOpenItemIds);
   }, [initialOpenItemIds]);
 
   useEffect(() => {
     if (allowMultipleOpen || openItemIds.length <= 1) return;
+
     setOpenItemIds((current) => current.slice(0, 1));
   }, [allowMultipleOpen, openItemIds.length]);
 

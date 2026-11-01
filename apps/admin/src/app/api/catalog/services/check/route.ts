@@ -66,6 +66,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to check service option name uniqueness",
     );
+
     return NextResponse.json(
       {
         success: false,

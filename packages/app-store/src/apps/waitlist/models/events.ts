@@ -3,6 +3,7 @@ import type { WaitlistEntry } from "./waitlist";
 
 export const WAITLIST_ENTRY_CREATED_EVENT_TYPE =
   "waitlist.entry.created" as const;
+
 export type WaitlistEntryCreatedEvent = {
   type: typeof WAITLIST_ENTRY_CREATED_EVENT_TYPE;
   payload: {

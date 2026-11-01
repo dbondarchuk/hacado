@@ -67,6 +67,7 @@ export function computeFluidAlignmentGuides(
       label: "Center",
     });
   }
+
   if (Math.abs(activeEdges.centerY - gridCenterY) < SNAP_THRESHOLD) {
     pushGuide(guides, {
       type: "row",
@@ -74,38 +75,48 @@ export function computeFluidAlignmentGuides(
       label: "Center",
     });
   }
+
   if (Math.abs(activeEdges.left - 1) < SNAP_THRESHOLD) {
     pushGuide(guides, { type: "column", position: 1 });
   }
+
   if (Math.abs(activeEdges.right - (columnCount + 1)) < SNAP_THRESHOLD) {
     pushGuide(guides, { type: "column", position: columnCount + 1 });
   }
+
   if (Math.abs(activeEdges.top - 1) < SNAP_THRESHOLD) {
     pushGuide(guides, { type: "row", position: 1 });
   }
+
   if (Math.abs(activeEdges.bottom - (gridRowCount + 1)) < SNAP_THRESHOLD) {
     pushGuide(guides, { type: "row", position: gridRowCount + 1 });
   }
 
   for (const [id, other] of Object.entries(others)) {
     if (id === activeId) continue;
+
     const otherEdges = placementEdges(other);
 
     if (Math.abs(activeEdges.left - otherEdges.left) < SNAP_THRESHOLD) {
       pushGuide(guides, { type: "column", position: otherEdges.left });
     }
+
     if (Math.abs(activeEdges.right - otherEdges.right) < SNAP_THRESHOLD) {
       pushGuide(guides, { type: "column", position: otherEdges.right });
     }
+
     if (Math.abs(activeEdges.centerX - otherEdges.centerX) < SNAP_THRESHOLD) {
       pushGuide(guides, { type: "column", position: otherEdges.centerX });
     }
+
     if (Math.abs(activeEdges.top - otherEdges.top) < SNAP_THRESHOLD) {
       pushGuide(guides, { type: "row", position: otherEdges.top });
     }
+
     if (Math.abs(activeEdges.bottom - otherEdges.bottom) < SNAP_THRESHOLD) {
       pushGuide(guides, { type: "row", position: otherEdges.bottom });
     }
+
     if (Math.abs(activeEdges.centerY - otherEdges.centerY) < SNAP_THRESHOLD) {
       pushGuide(guides, { type: "row", position: otherEdges.centerY });
     }
@@ -158,6 +169,7 @@ export function snapFluidPlacement(
 
   for (const [id, other] of Object.entries(others)) {
     if (id === activeId) continue;
+
     const otherEdges = placementEdges(other);
 
     if (Math.abs(left - otherEdges.left) < SNAP_THRESHOLD) {
@@ -208,6 +220,7 @@ export function snapRotationToCardinals(
       Math.abs(normalized - target),
       360 - Math.abs(normalized - target),
     );
+
     if (diff <= ROTATION_SNAP_THRESHOLD_DEG) {
       return target;
     }

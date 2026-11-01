@@ -45,6 +45,7 @@ function pickPaymentApp(
 ): ConnectedApp | undefined {
   const matches = apps.filter((a) => a.name === name);
   if (!matches.length) return undefined;
+
   return (
     matches.find((a) => a.status === "connected") ??
     matches.find((a) => a.status === "pending") ??
@@ -66,6 +67,7 @@ export function StepPayments() {
       typeof getSessionPlanTier
     >[0]["user"],
   };
+
   const planTier = getSessionPlanTier(sessionUser);
   const canAcceptPayments = sessionCanUseFeature(sessionUser, "payments");
 
@@ -74,6 +76,7 @@ export function StepPayments() {
 
     setP((prev) => {
       if (!prev.acceptPayments && !prev.depositEnabled) return prev;
+
       return {
         ...prev,
         acceptPayments: false,
@@ -86,14 +89,17 @@ export function StepPayments() {
     () => pickPaymentApp(paymentApps, PAYPAL_APP_NAME),
     [paymentApps],
   );
+
   const squareApp = useMemo(
     () => pickPaymentApp(paymentApps, SQUARE_APP_NAME),
     [paymentApps],
   );
+
   const stripeApp = useMemo(
     () => pickPaymentApp(paymentApps, STRIPE_APP_NAME),
     [paymentApps],
   );
+
   const paypalConnected = paypalApp?.status === "connected";
   const squareConnected = squareApp?.status === "connected";
   const stripeConnected = stripeApp?.status === "connected";
@@ -108,6 +114,7 @@ export function StepPayments() {
       toast.error(t("wizard.payments.paymentAppRequired"));
       return;
     }
+
     const r = await saveInstallPreferences({
       inviteMode: p.inviteMode,
       inviteCalendarWriterAppId: p.inviteCalendarWriterAppId,
@@ -130,10 +137,12 @@ export function StepPayments() {
       depositPercent: p.depositPercent,
       websitePackId: p.websitePackId,
     });
+
     if (!r.ok) {
       toast.error(t("wizard.integrations.saveError"));
       return;
     }
+
     setStep(7);
     setP((prev) => ({ ...prev, step: 7 }));
   };
@@ -152,6 +161,7 @@ export function StepPayments() {
       (appName !== PAYPAL_APP_NAME && paypalSlotTaken) ||
       (appName !== SQUARE_APP_NAME && squareSlotTaken) ||
       (appName !== STRIPE_APP_NAME && stripeSlotTaken);
+
     const blockConnectOrUpdate = otherSlotTaken && !thisSlotTaken;
     return (
       <Card>
@@ -265,6 +275,7 @@ export function StepPayments() {
           disabled={!canAcceptPayments}
           onCheckedChange={(c) => {
             if (!canAcceptPayments) return;
+
             setP((prev) => ({ ...prev, acceptPayments: Boolean(c) }));
           }}
         />

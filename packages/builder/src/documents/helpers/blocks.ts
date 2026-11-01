@@ -12,6 +12,7 @@ const findChildrenProps = (
   parentProps: string[],
 ): { children: any; property: string }[] => {
   if (!obj || typeof obj !== "object") return [];
+
   const result: { children: any; property: string }[] = [];
   for (const prop of Object.keys(obj)) {
     if (prop === "children" && Array.isArray(obj[prop]))
@@ -50,6 +51,7 @@ const findChildrenProps = (
 
 const findChildrenProp = (obj: any): any[] => {
   if (!obj || typeof obj !== "object") return [];
+
   const result = [];
   for (const prop of Object.keys(obj)) {
     if (prop === "children" && Array.isArray(obj[prop])) result.push(obj);
@@ -102,6 +104,7 @@ export const insertBlockInLevel = (
       ? resolve(block, property, true) ||
         resolve(block, `data.${property}`, true)
       : findChildrenProp(block)[0];
+
   if (!resolved) return;
 
   if (Array.isArray(resolved)) {
@@ -110,6 +113,7 @@ export const insertBlockInLevel = (
     } else {
       resolved.splice(index, 0, newBlock);
     }
+
     return;
   }
 
@@ -148,6 +152,7 @@ export const moveBlockInLevel = (
         prop.children[index + 1] = value;
         prop.children[index] = a;
       }
+
       break;
     }
   }
@@ -205,6 +210,7 @@ export const moveBlockToIndexInLevel = (
       const value = prop.children[index];
       const newIndexValue =
         newIndex === "last" ? prop.children.length : newIndex;
+
       const toIndex = newIndexValue > index ? newIndexValue - 1 : newIndexValue;
       prop.children.splice(index, 1);
 
@@ -221,8 +227,10 @@ export const moveBlockToIndexInLevel = (
 
 const regenerateIds = (block: any) => {
   if (!block || typeof block !== "object") return;
+
   if ("id" in block && "type" in block && "data" in block)
     block.id = generateId();
+
   for (const value of Object.values(block)) {
     regenerateIds(value);
   }
@@ -274,6 +282,7 @@ const recursiveFindBlock = (
 
   for (const child of childrenProps || []) {
     if (!child || !("id" in child)) continue;
+
     const result = recursiveFindBlock(child, blockId);
     if (result) return result;
   }
@@ -296,12 +305,15 @@ const recursiveFindPreviousBlockId = (
 
   for (const child of childrenProps || []) {
     if (!child || !("id" in child)) continue;
+
     const result = recursiveFindPreviousBlockId(
       child,
       blockId,
       currentPreviousBlockId,
     );
+
     if (result) return currentPreviousBlockId;
+
     currentPreviousBlockId = child.id;
   }
 
@@ -359,8 +371,10 @@ const recursiveFindBlockHierarchy = (
   const childrenProps = findChildrenProps(block.data, []).flatMap(
     (x) => x.children,
   );
+
   for (const child of childrenProps || []) {
     if (!child || !("id" in child)) continue;
+
     const result = recursiveFindBlockHierarchy(child, blockId);
     if (result) return [block, ...result];
   }
@@ -387,6 +401,7 @@ const recursiveFindParentBlock = (
     let index = 0;
     for (const child of children || []) {
       if (!child || !("id" in child)) continue;
+
       const result = recursiveFindParentBlock(
         child,
         blockId,
@@ -394,7 +409,9 @@ const recursiveFindParentBlock = (
         property,
         index,
       );
+
       if (result) return result;
+
       index++;
     }
   }
@@ -448,7 +465,6 @@ export function getMoveBlockOutTarget(
 
   const parentInGrandparent = findParentBlock(document, parent.block.id);
   if (!parentInGrandparent?.block.id) return null;
-
   // Parent is already the document root - nowhere to lift to.
   if (parent.block.id === document.id) return null;
 

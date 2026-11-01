@@ -51,6 +51,7 @@ export async function PUT(
       payment.appointmentId,
       logger,
     );
+
     if (!auth.ok) return auth.response;
   }
 
@@ -128,6 +129,7 @@ export async function DELETE(
       payment.appointmentId,
       logger,
     );
+
     if (!auth.ok) return auth.response;
   }
 

@@ -16,6 +16,7 @@ export function StrikethroughToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("strikethrough")) return null;
+
   return (
     <DropdownMenuCheckboxItem
       checked={

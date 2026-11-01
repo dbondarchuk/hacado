@@ -233,6 +233,7 @@ export const DurationInput: React.FC<DurationInputProps> = ({
         ) {
           hoursRef.current.focus();
         }
+
         break;
       case "ArrowLeft":
         if (
@@ -256,6 +257,7 @@ export const DurationInput: React.FC<DurationInputProps> = ({
         ) {
           weeksRef.current.focus();
         }
+
         break;
       case "ArrowUp":
         e.preventDefault();
@@ -268,6 +270,7 @@ export const DurationInput: React.FC<DurationInputProps> = ({
         } else {
           incrementValue(e.currentTarget.value, 60, onMinutesChange);
         }
+
         break;
       case "ArrowDown":
         e.preventDefault();
@@ -280,6 +283,7 @@ export const DurationInput: React.FC<DurationInputProps> = ({
         } else {
           decrementValue(e.currentTarget.value, 60, onMinutesChange);
         }
+
         break;
       case "Backspace":
         if (
@@ -312,20 +316,25 @@ export const DurationInput: React.FC<DurationInputProps> = ({
   const secondPartName = type !== "minutes-seconds" ? "minutes" : "seconds";
   const firstPartLabel =
     type !== "minutes-seconds" ? t("common.hours") : t("common.minutes");
+
   const firstPartShortLabel =
     type !== "minutes-seconds" ? t("durationInput.hr") : t("durationInput.min");
+
   const secondPartLabel =
     type !== "minutes-seconds" ? t("common.minutes") : t("common.seconds");
+
   const secondPartShortLabel =
     type !== "minutes-seconds"
       ? t("durationInput.min")
       : t("durationInput.sec");
+
   const weeksShortLabel = t("durationInput.weeksShort");
   const daysShortLabel = t("durationInput.daysShort");
   const firstPartCompactLabel =
     type !== "minutes-seconds"
       ? t("durationInput.hrShort")
       : t("durationInput.minShort");
+
   const secondPartCompactLabel =
     type !== "minutes-seconds"
       ? t("durationInput.minShort")
@@ -352,6 +361,7 @@ export const DurationInput: React.FC<DurationInputProps> = ({
       const fullLabels = row.querySelectorAll<HTMLElement>(
         "[data-duration-label='full']",
       );
+
       const shortLabels = row.querySelectorAll<HTMLElement>(
         "[data-duration-label='short']",
       );
@@ -359,6 +369,7 @@ export const DurationInput: React.FC<DurationInputProps> = ({
       inputs.forEach((input) => {
         input.style.width = "3rem";
       });
+
       fullLabels.forEach((label) => label.classList.remove("hidden"));
       shortLabels.forEach((label) => label.classList.add("hidden"));
 
@@ -367,12 +378,15 @@ export const DurationInput: React.FC<DurationInputProps> = ({
       inputs.forEach((input) => {
         input.style.width = nextCompact ? "2rem" : "3rem";
       });
+
       fullLabels.forEach((label) =>
         label.classList.toggle("hidden", nextCompact),
       );
+
       shortLabels.forEach((label) =>
         label.classList.toggle("hidden", !nextCompact),
       );
+
       setCompact((current) =>
         current === nextCompact ? current : nextCompact,
       );

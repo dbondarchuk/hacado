@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
   const { error, success, data } = sendCommunicationRequestSchema.safeParse(
     await request.json(),
   );
+
   if (!success || !data || error) {
     logger.error(
       {
@@ -35,6 +36,7 @@ export async function POST(request: NextRequest) {
       },
       "Error parsing communication request",
     );
+
     return NextResponse.json(
       {
         error: "bad_data",
@@ -66,6 +68,7 @@ export async function POST(request: NextRequest) {
         },
         "Customer not found",
       );
+
       return NextResponse.json(
         {
           error: "customer_not_found",
@@ -155,6 +158,7 @@ export async function POST(request: NextRequest) {
         customerId,
         memberId: member._id,
       });
+
       break;
     }
   }

@@ -16,6 +16,7 @@ export function UnderlineToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("underline")) return null;
+
   return (
     <ToolbarButton
       size="sm"

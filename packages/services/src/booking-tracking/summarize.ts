@@ -62,6 +62,7 @@ export function summarizeBookingProgress(
     string,
     { total: number; abandoned: number; converted: number }
   >();
+
   for (const doc of docs) {
     const key = groupingKey(doc.date, timeGrouping, timeZone);
     const current = buckets.get(key) ?? {
@@ -69,6 +70,7 @@ export function summarizeBookingProgress(
       abandoned: 0,
       converted: 0,
     };
+
     current.total += doc.metrics.started ?? 0;
     current.converted += doc.metrics.completed ?? 0;
     current.abandoned += sumRecordValues(doc.metrics.stoppedAt);
@@ -108,6 +110,7 @@ export function groupingKey(
   const dt = DateTime.fromJSDate(date, { zone: "utc" }).setZone(
     timeZone || "UTC",
   );
+
   switch (timeGrouping) {
     case "week":
       return dt.startOf("week").toFormat("yyyy-MM-dd");

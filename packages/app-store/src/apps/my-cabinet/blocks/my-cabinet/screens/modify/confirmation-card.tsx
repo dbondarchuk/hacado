@@ -17,8 +17,10 @@ export const ConfirmationCard: React.FC = () => {
   const tc = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
+
   const { appointment, type, newDateTime, dateTime } =
     useCabinetModifyContext();
+
   const defaultTimeZone = useTimeZone();
   const locale = useLocale();
 
@@ -27,6 +29,7 @@ export const ConfirmationCard: React.FC = () => {
   let timeZone: TimeZone | undefined = timeZones.find((tz) => {
     const timeZoneName =
       dateTime?.timeZone || appointment.timeZone || defaultTimeZone;
+
     return timeZoneName === tz.name || tz.group.includes(timeZoneName);
   });
 

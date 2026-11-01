@@ -66,6 +66,7 @@ export function SimpleTimePicker({
     () => (min ? DateTime.fromJSDate(min).setZone(timeZone) : undefined),
     [min, timeZone],
   );
+
   const maxDate = useMemo(
     () => (max ? DateTime.fromJSDate(max).setZone(timeZone) : undefined),
     [max, timeZone],
@@ -74,6 +75,7 @@ export function SimpleTimePicker({
   const [hour, setHour] = useState(
     use12HourFormat ? +value.toFormat("hh") : value.hour,
   );
+
   const [minute, setMinute] = useState(value.minute);
   const [second, setSecond] = useState(value.second);
 
@@ -114,6 +116,7 @@ export function SimpleTimePicker({
       }),
     [value, min, max, use12HourFormat, ampm],
   );
+
   const minutes: SimpleTimeOption[] = useMemo(() => {
     const anchorDate = value.set({ hour: _hourIn24h });
     return Array.from({ length: 60 }, (_, i) => {
@@ -145,6 +148,7 @@ export function SimpleTimePicker({
     const _min = minDate
       ? minDate.set({ second: 0, millisecond: 0 })
       : undefined;
+
     const _max = maxDate
       ? maxDate.set({ second: 0, millisecond: 0 })
       : undefined;
@@ -161,6 +165,7 @@ export function SimpleTimePicker({
       };
     });
   }, [value, minute, min, max, _hourIn24h]);
+
   const ampmOptions = useMemo(() => {
     const startD = value.startOf("day");
     const endD = value.endOf("day");
@@ -191,8 +196,10 @@ export function SimpleTimePicker({
         secondRef.current?.scrollIntoView({ behavior: "auto" });
       }
     }, 1);
+
     return () => clearTimeout(timeoutId);
   }, [open]);
+
   const onHourChange = useCallback(
     (v: SimpleTimeOption) => {
       if (minDate) {
@@ -205,11 +212,13 @@ export function SimpleTimePicker({
           second,
           ampm,
         });
+
         if (newTime < minDate) {
           setMinute(minDate.minute);
           setSecond(minDate.second);
         }
       }
+
       if (maxDate) {
         let newTime = buildTime({
           use12HourFormat,
@@ -220,11 +229,13 @@ export function SimpleTimePicker({
           second,
           ampm,
         });
+
         if (newTime > maxDate) {
           setMinute(maxDate.minute);
           setSecond(maxDate.second);
         }
       }
+
       setHour(v.value);
     },
     [setHour, use12HourFormat, value, formatStr, minute, second, ampm],
@@ -242,10 +253,12 @@ export function SimpleTimePicker({
           second,
           ampm,
         });
+
         if (newTime < minDate) {
           setSecond(minDate.second);
         }
       }
+
       if (maxDate) {
         let newTime = buildTime({
           use12HourFormat,
@@ -256,10 +269,12 @@ export function SimpleTimePicker({
           second,
           ampm,
         });
+
         if (newTime > maxDate) {
           setSecond(newTime.second);
         }
       }
+
       setMinute(v.value);
     },
     [setMinute, use12HourFormat, value, formatStr, hour, second, ampm],
@@ -277,6 +292,7 @@ export function SimpleTimePicker({
           second,
           ampm: v.value,
         });
+
         if (newTime < minDate) {
           const minH = minDate.hour % 12;
           setHour(minH === 0 ? 12 : minH);
@@ -284,6 +300,7 @@ export function SimpleTimePicker({
           setSecond(minDate.second);
         }
       }
+
       if (maxDate) {
         let newTime = buildTime({
           use12HourFormat,
@@ -294,6 +311,7 @@ export function SimpleTimePicker({
           second,
           ampm: v.value,
         });
+
         if (newTime > maxDate) {
           const maxH = maxDate.hour % 12;
           setHour(maxH === 0 ? 12 : maxH);
@@ -301,6 +319,7 @@ export function SimpleTimePicker({
           setSecond(maxDate.second);
         }
       }
+
       setAmpm(v.value);
     },
     [
@@ -320,6 +339,7 @@ export function SimpleTimePicker({
     () => (showSeconds ? ":ss" : ""),
     [showSeconds],
   );
+
   const display = useMemo(() => {
     return value.toFormat(
       use12HourFormat ? `hh:mm${secondsFormat} a` : `HH:mm${secondsFormat}`,
@@ -485,18 +505,22 @@ function buildTime(options: BuildTimeOptions) {
       dateStrRaw.slice(0, 11) +
       hour.toString().padStart(2, "0") +
       dateStrRaw.slice(13);
+
     dateStr =
       dateStr.slice(0, 14) +
       minute.toString().padStart(2, "0") +
       dateStr.slice(16);
+
     dateStr =
       dateStr.slice(0, 17) +
       second.toString().padStart(2, "0") +
       dateStr.slice(19);
+
     dateStr =
       dateStr.slice(0, 24) +
       (ampm == AM_VALUE ? "AM" : "PM") +
       dateStr.slice(26);
+
     date = DateTime.fromFormat(dateStr, formatStr);
   } else {
     date = value.set({
@@ -506,5 +530,6 @@ function buildTime(options: BuildTimeOptions) {
       millisecond: 0,
     });
   }
+
   return date;
 }

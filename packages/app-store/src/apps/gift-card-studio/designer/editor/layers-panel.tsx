@@ -34,6 +34,7 @@ export function LayersPanel({ allowGrouping = true }: LayersPanelProps = {}) {
     groupElements,
     ungroupElements,
   } = useEditorStore();
+
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
@@ -42,8 +43,10 @@ export function LayersPanel({ allowGrouping = true }: LayersPanelProps = {}) {
     const isSelected = selectedElements.includes(element.id);
     const isRequired =
       element.type === "text" && (element as TextElement).required;
+
     const textElement =
       element.type === "text" ? (element as TextElement) : null;
+
     const isGroup = element.type === "group";
 
     const label =
@@ -148,6 +151,7 @@ export function LayersPanel({ allowGrouping = true }: LayersPanelProps = {}) {
           element.children.map((childId: string) => {
             const child = design.elements.find((el) => el.id === childId);
             if (!child) return null;
+
             return renderElement(child, indent + 1);
           })}
       </div>
@@ -160,6 +164,7 @@ export function LayersPanel({ allowGrouping = true }: LayersPanelProps = {}) {
       (parent) =>
         parent.type === "group" && (parent as any).children?.includes(el.id),
     );
+
     return !isChild;
   });
 

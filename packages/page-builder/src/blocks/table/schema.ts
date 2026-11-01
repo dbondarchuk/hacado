@@ -74,9 +74,11 @@ function normalizeTableProps(props: Record<string, unknown>) {
     const cells = (props.cellBlocks as TEditorBlock[]).map(
       migrateContainerSlot,
     );
+
     const { cellBlocks: _removed, ...rest } = props;
     next = { ...rest, cells };
   }
+
   const cells = coerceArray<unknown>(next.cells);
   if (cells.length > 0 || next.cells !== undefined) {
     return {
@@ -85,12 +87,14 @@ function normalizeTableProps(props: Record<string, unknown>) {
         if (cell && typeof cell === "object" && "type" in cell) {
           return migrateContainerSlot(cell as TEditorBlock);
         }
+
         return cell;
       }),
       colspan: coerceArray<number>(next.colspan),
       rowspan: coerceArray<number>(next.rowspan),
     };
   }
+
   return next;
 }
 

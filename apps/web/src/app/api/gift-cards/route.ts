@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
     { giftCards: result.giftCards },
     "Gift cards applied successfully",
   );
+
   return NextResponse.json(
     { success: true, giftCards } satisfies ApplyGiftCardsSuccessResponse,
     { status: 200 },

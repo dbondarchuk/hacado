@@ -146,6 +146,7 @@ export class PaymentLinksConnectedApp
 
     const { data, success, error } =
       paymentLinksSettingsSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid Payment Links settings");
       throw new ConnectedAppRequestError(
@@ -196,6 +197,7 @@ export class PaymentLinksConnectedApp
     try {
       const { configurationService, templatesService, pagesService } =
         this.props.services;
+
       const { language } = await configurationService.getConfiguration("brand");
 
       let emailTemplateId: string | undefined;
@@ -216,6 +218,7 @@ export class PaymentLinksConnectedApp
           { appId: appData._id, baseName },
           "Could not generate unique template name after 10 attempts",
         );
+
         return null;
       };
 
@@ -228,6 +231,7 @@ export class PaymentLinksConnectedApp
             { appId: appData._id, id, language },
             "No source template found for language",
           );
+
           continue;
         }
 
@@ -256,6 +260,7 @@ export class PaymentLinksConnectedApp
         headers.items.find(
           (item) => resolvePageHeaderPosition(item) !== "fixed",
         ) ?? headers.items[0];
+
       const footers = await pagesService.getPageFooters({ limit: 1 });
       const headerId = preferredHeader?._id;
       const footerId = footers.items[0]?._id;
@@ -302,6 +307,7 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, error },
         "Failed to seed Payment Links on install",
       );
+
       throw error;
     }
 
@@ -521,6 +527,7 @@ export class PaymentLinksConnectedApp
 
       const emailTemplate =
         await this.props.services.templatesService.getTemplate(templateId);
+
       if (!emailTemplate || emailTemplate.type !== "email") {
         logger.error(
           { paymentId: payment._id, appId: appData._id, templateId },
@@ -695,6 +702,7 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, envelope },
         "Skipping event (not payment link)",
       );
+
       return;
     }
 
@@ -717,6 +725,7 @@ export class PaymentLinksConnectedApp
         { sourceId: request.sourceId, intentId: intent._id },
         "Payment link payment not found, checking by intent id",
       );
+
       payment = await this.getPaymentByIntentId(intent._id);
     }
 
@@ -725,6 +734,7 @@ export class PaymentLinksConnectedApp
         { sourceId: request.sourceId, intentId: intent._id },
         "Payment link payment not found for paid intent",
       );
+
       return;
     }
 
@@ -733,6 +743,7 @@ export class PaymentLinksConnectedApp
         { paymentId: payment._id, status: payment.status },
         "Payment already settled, skipping",
       );
+
       return;
     }
 
@@ -745,6 +756,7 @@ export class PaymentLinksConnectedApp
       typeof request.tipAmount === "number" && request.tipAmount > 0
         ? request.tipAmount
         : undefined;
+
     const paidAmount =
       typeof intent.amount === "number" && intent.amount > 0
         ? intent.amount
@@ -771,6 +783,7 @@ export class PaymentLinksConnectedApp
         { paymentId: payment._id, intentId: intent._id },
         "Payment already marked paid by another path",
       );
+
       return;
     }
 
@@ -795,15 +808,12 @@ export class PaymentLinksConnectedApp
     if (request.method === "GET" && slug[0] === "public" && slug[1]) {
       return this.handlePublicLoad(appData, slug[1], request);
     }
-
     if (request.method === "POST" && action === "verify-contact") {
       return this.handleVerifyContact(appData, request);
     }
-
     if (request.method === "POST" && action === "intent") {
       return this.handleIntent(appData, request);
     }
-
     if (request.method === "POST" && action === "complete") {
       return this.handleComplete(appData, request);
     }
@@ -839,6 +849,7 @@ export class PaymentLinksConnectedApp
     const settings = (appData.data ?? {}) as PaymentLinksSettings;
     const expired =
       !!payment.expiresAt && payment.expiresAt.getTime() < Date.now();
+
     const verification = settings.verification ?? "none";
     const verified = await this.isVerified(
       appData,
@@ -894,6 +905,7 @@ export class PaymentLinksConnectedApp
     const body = await request.json();
     const publicId =
       typeof body?.publicId === "string" ? body.publicId : undefined;
+
     const email = normalizeEmail(body?.email);
     const phone = normalizePhone(body?.phone);
 
@@ -907,6 +919,7 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, publicId, email, phone },
         "Invalid body",
       );
+
       return Response.json(
         { success: false, code: "invalid_body" },
         { status: 400 },
@@ -919,6 +932,7 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, publicId, email, phone },
         "Verification not required",
       );
+
       return Response.json(
         { success: false, code: "verification_not_required" },
         { status: 400 },
@@ -938,6 +952,7 @@ export class PaymentLinksConnectedApp
       { appId: appData._id, publicId, payment },
       "Payment link found",
     );
+
     const customer = await this.props.services.customersService.getCustomer(
       payment.customerId,
     );
@@ -987,8 +1002,10 @@ export class PaymentLinksConnectedApp
     const body = await request.json();
     const publicId =
       typeof body?.publicId === "string" ? body.publicId : undefined;
+
     const tipAmountRaw =
       typeof body?.tipAmount === "number" ? body.tipAmount : 0;
+
     const tipAmount =
       Number.isFinite(tipAmountRaw) && tipAmountRaw > 0
         ? Math.round(tipAmountRaw * 100) / 100
@@ -1016,6 +1033,7 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, publicId, status: payment.status },
         "Payment link not pending",
       );
+
       return Response.json(
         { success: false, code: "not_payable", status: payment.status },
         { status: 400 },
@@ -1051,12 +1069,14 @@ export class PaymentLinksConnectedApp
 
     const organization =
       await this.props.services.organizationService.getOrganization();
+
     const planTier = resolvePlanTierFromOrganization(organization);
     if (!canUseFeature(planTier, "payments")) {
       logger.warn(
         { appId: appData._id, publicId },
         "Subscription upgrade required",
       );
+
       return Response.json(
         { success: false, code: "subscription_upgrade_required" },
         { status: 402 },
@@ -1131,6 +1151,7 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, publicId, intentId: intentResult._id },
         "Updating payment intent id",
       );
+
       await this.props.services.paymentsService.updatePayment(
         payment._id,
         { intentId: intentResult._id } as Partial<PaymentLinkPayment>,
@@ -1170,6 +1191,7 @@ export class PaymentLinksConnectedApp
     const body = await request.json();
     const publicId =
       typeof body?.publicId === "string" ? body.publicId : undefined;
+
     const intentId =
       typeof body?.intentId === "string" ? body.intentId : undefined;
 
@@ -1192,11 +1214,13 @@ export class PaymentLinksConnectedApp
 
     const intent =
       await this.props.services.paymentsService.getIntent(intentId);
+
     if (!intent || intent.status !== "paid") {
       logger.debug(
         { appId: appData._id, publicId, intentId, intent },
         "Intent not paid",
       );
+
       return Response.json(
         { success: false, code: "intent_not_paid" },
         { status: 400 },
@@ -1213,10 +1237,12 @@ export class PaymentLinksConnectedApp
         tipAmount?: number;
         amount?: number;
       };
+
       const tipAmount =
         typeof request.tipAmount === "number" && request.tipAmount > 0
           ? request.tipAmount
           : undefined;
+
       const paidAmount =
         typeof intent.amount === "number" && intent.amount > 0
           ? intent.amount
@@ -1277,6 +1303,7 @@ export class PaymentLinksConnectedApp
       request.headers.get("cookie"),
       CUSTOMER_SESSION_COOKIE,
     );
+
     const session =
       await this.props.services.customerAuthService.authorizeSession(
         sessionToken,
@@ -1344,9 +1371,11 @@ export class PaymentLinksConnectedApp
     if (typeof update.tipAmount === "number") {
       $set.tipAmount = update.tipAmount;
     }
+
     if (update.externalId !== undefined) {
       $set.externalId = update.externalId;
     }
+
     if (update.fees !== undefined) {
       $set.fees = update.fees;
     }

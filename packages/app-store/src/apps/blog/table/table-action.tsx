@@ -27,6 +27,7 @@ export const BlogTableAction: React.FC<{ appId: string }> = ({ appId }) => {
     setPage,
     setSearchQuery,
   } = useBlogTableFilters();
+
   const t = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
 
   return (

@@ -68,6 +68,7 @@ export const WaitlistFormCard: React.FC = () => {
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const minDate = useMemo(
     () => LuxonDateTime.now().startOf("day").toJSDate(),
     [],
@@ -81,6 +82,7 @@ export const WaitlistFormCard: React.FC = () => {
     waitlistTimes,
     waitlistAppId,
   } = useScheduleContext();
+
   const smsText = useWaitlistSmsText(waitlistAppId);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -105,6 +107,7 @@ export const WaitlistFormCard: React.FC = () => {
     propsFields?.smsConsent,
     values.smsConsent,
   );
+
   const previousValues = usePrevious(values, values);
   const smsKind = waitlistSmsConsentKind(smsText) ?? "";
   const previousSmsKind = usePrevious(smsKind, smsKind);
@@ -112,6 +115,7 @@ export const WaitlistFormCard: React.FC = () => {
     if (deepEqual(values, previousValues) && smsKind === previousSmsKind) {
       return;
     }
+
     {
       const { asSoonAsPossible, dates, smsConsent, ...rest } = values;
 
@@ -119,6 +123,7 @@ export const WaitlistFormCard: React.FC = () => {
         ...rest,
         ...(waitlistSmsConsentKind(smsText) ? { smsConsent } : {}),
       } as AppointmentFields);
+
       setWaitlistTimes({ asSoonAsPossible, dates });
     }
   }, [values, smsKind, previousValues, previousSmsKind]);

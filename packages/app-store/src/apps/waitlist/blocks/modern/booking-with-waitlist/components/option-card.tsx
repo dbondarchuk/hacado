@@ -103,6 +103,7 @@ export const AppointmentOptionCard: React.FC = () => {
       }),
     [catalog, excludePackages, visibleOptions, packages],
   );
+
   const { nodes: currentCatalogNodes, group: currentCatalogGroup } =
     React.useMemo(
       () => catalogNodesAtPath(filteredCatalog, catalogPath),
@@ -134,21 +135,25 @@ export const AppointmentOptionCard: React.FC = () => {
   ) => {
     const baseOptionDuration =
       option.durationType === "fixed" ? option.duration : null;
+
     const baseOptionPrice =
       option.durationType === "fixed" ? option.price : option.pricePerHour;
 
     const memberAssignment = selectedMemberId
       ? option.staff?.find((s) => s.memberId === selectedMemberId)
       : undefined;
+
     const activeAssignments = (option.staff || []).filter((s) =>
       activeMemberIds.has(s.memberId),
     );
+
     const isFromPricing = !selectedMemberId && activeAssignments.length > 1;
 
     const currentDuration = selectedMemberId
       ? (effectiveStaffDuration(baseOptionDuration, memberAssignment) ??
         baseOptionDuration)
       : minEffectiveDuration(baseOptionDuration, activeAssignments);
+
     const currentPrice = selectedMemberId
       ? (effectiveStaffPrice(baseOptionPrice, memberAssignment) ??
         baseOptionPrice)
@@ -312,12 +317,14 @@ export const AppointmentOptionCard: React.FC = () => {
           phone: session.phone || fields.phone,
           smsConsent: session.smsConsent === true,
         });
+
         await refreshBookingOptions?.();
         return;
       }
     } catch {
       // fall through to OTP
     }
+
     setOtpReturnStep("packages");
     setOtpDialogOpen(true);
   };
@@ -328,6 +335,7 @@ export const AppointmentOptionCard: React.FC = () => {
       setPackagesError(false);
       return;
     }
+
     let cancelled = false;
     setPackagesLoading(true);
     setPackagesError(false);
@@ -335,6 +343,7 @@ export const AppointmentOptionCard: React.FC = () => {
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
+
         setMyPackages(
           (response.items ?? []).filter(
             (pkg) => pkg.status !== "pending" && pkg.remainingCredits > 0,
@@ -343,6 +352,7 @@ export const AppointmentOptionCard: React.FC = () => {
       })
       .catch((error) => {
         if (cancelled) return;
+
         setMyPackages([]);
         setPackagesError(
           !(error instanceof ClientApiError && error.status === 403),
@@ -351,6 +361,7 @@ export const AppointmentOptionCard: React.FC = () => {
       .finally(() => {
         if (!cancelled) setPackagesLoading(false);
       });
+
     return () => {
       cancelled = true;
     };
@@ -365,9 +376,11 @@ export const AppointmentOptionCard: React.FC = () => {
         appointmentOptions.some((option) => option._id === item.serviceId)
       );
     });
+
     const option = redeemableItem
       ? appointmentOptions.find((item) => item._id === redeemableItem.serviceId)
       : undefined;
+
     if (!option) {
       setPackagesError(true);
       return;
@@ -382,6 +395,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setSelectedAppointmentOption(option);
     const nextDuration =
       option.durationType === "fixed" ? option.duration : option.durationMin;
+
     setDuration(nextDuration);
 
     const staff = getActiveStaffForAssignments(
@@ -390,6 +404,7 @@ export const AppointmentOptionCard: React.FC = () => {
       option.durationType === "fixed" ? option.price : option.pricePerHour,
       option.durationType === "fixed" ? option.duration : undefined,
     );
+
     const memberId = staff.length === 1 ? staff[0].member.id : null;
     setSelectedMemberId(memberId);
 
@@ -527,16 +542,20 @@ export const AppointmentOptionCard: React.FC = () => {
                   </button>
                 );
               }
+
               if (node.type === "package") {
                 const pkg = packages?.find(
                   (item) => item._id === node.packageId,
                 );
+
                 if (!pkg) return null;
+
                 const isSelected = purchasePackageId === pkg._id;
                 const included = summarizePackageItems(
                   pkg.items,
                   appointmentOptions,
                 );
+
                 return (
                   <button
                     key={node.id}
@@ -551,7 +570,9 @@ export const AppointmentOptionCard: React.FC = () => {
                       const option = appointmentOptions.find(
                         (item) => item._id === pkg.items[0]?.serviceId,
                       );
+
                       if (!option) return;
+
                       setFlow("booking");
                       setPurchasePackageId(pkg._id);
                       onClick(option);
@@ -613,10 +634,13 @@ export const AppointmentOptionCard: React.FC = () => {
                   </button>
                 );
               }
+
               const option = visibleOptions.find(
                 (item) => item._id === node.serviceId,
               );
+
               if (!option) return null;
+
               return renderServiceOption(option, {
                 key: node.id,
                 isSelected:

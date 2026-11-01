@@ -48,6 +48,7 @@ export function useFormById(
               ? new Error(res.message as string)
               : new Error("Failed to load form"),
         });
+
         return;
       }
 

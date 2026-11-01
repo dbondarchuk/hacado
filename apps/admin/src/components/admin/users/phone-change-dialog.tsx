@@ -69,6 +69,7 @@ export const PhoneChangeDialog = ({
       toast.error(t("users.profile.phoneChange.toasts.error"));
       return;
     }
+
     setPendingPhone(data.phone);
     setStep("otp");
   };
@@ -88,8 +89,10 @@ export const PhoneChangeDialog = ({
         } else {
           toast.error(t("users.profile.phoneChange.toasts.error"));
         }
+
         return;
       }
+
       toast.success(t("users.profile.phoneChange.toasts.success"));
       onOpenChange(false);
       router.refresh();

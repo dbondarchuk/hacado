@@ -33,8 +33,10 @@ export function getSessionPlanTier(session: {
   const tier = (
     session.user as { subscriptionPlanTier?: BillingPlanTier | null }
   ).subscriptionPlanTier;
+
   if (tier) return tier;
   if (session.user.feesExempt) return BillingPlanTier.Studio;
+
   return null;
 }
 
@@ -96,6 +98,7 @@ export function filterNavItemsForPlanTier<T extends NavItemWithPlanTier>(
       const nextChildren = item.children
         ? filterNavItemsForPlanTier(item.children, planTier)
         : undefined;
+
       const nextItems = item.items
         ? filterNavItemsForPlanTier(item.items, planTier)
         : undefined;
@@ -104,6 +107,7 @@ export function filterNavItemsForPlanTier<T extends NavItemWithPlanTier>(
         if (nextChildren.length === 0) {
           return null;
         }
+
         return { ...item, children: nextChildren };
       }
 
@@ -111,6 +115,7 @@ export function filterNavItemsForPlanTier<T extends NavItemWithPlanTier>(
         if (nextItems.length === 0 && !item.href) {
           return null;
         }
+
         return { ...item, items: nextItems };
       }
 

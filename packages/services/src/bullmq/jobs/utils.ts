@@ -24,11 +24,9 @@ export function serializeJobData<T>(value: T): T {
   if (Array.isArray(value)) {
     return value.map(serializeJobData) as any;
   }
-
   if (value instanceof Date) {
     return value.toISOString() as any;
   }
-
   if (DateTime.isDateTime(value)) {
     return value.toISO() as any;
   }
@@ -38,6 +36,7 @@ export function serializeJobData<T>(value: T): T {
     for (const [k, v] of Object.entries(value)) {
       result[k] = serializeJobData(v);
     }
+
     return result;
   }
 
@@ -51,7 +50,6 @@ export function reviveJobData<T>(value: T): T {
   if (Array.isArray(value)) {
     return value.map((v) => reviveJobData(v)) as any;
   }
-
   if (
     value &&
     typeof value === "string" &&
@@ -59,7 +57,6 @@ export function reviveJobData<T>(value: T): T {
   ) {
     return new Date(value) as any;
   }
-
   if (value && value instanceof Date) {
     return value;
   }
@@ -69,6 +66,7 @@ export function reviveJobData<T>(value: T): T {
     for (const [k, v] of Object.entries(value)) {
       result[k] = reviveJobData(v);
     }
+
     return result;
   }
 

@@ -46,6 +46,7 @@ export function getPreviewDelayMs(
       return entry.delayMs ?? 3000;
     }
   }
+
   return 3000;
 }
 
@@ -58,6 +59,7 @@ export function findPreviewProvider(
       return provider;
     }
   }
+
   return null;
 }
 

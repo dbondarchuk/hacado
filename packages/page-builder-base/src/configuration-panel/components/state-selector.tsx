@@ -49,6 +49,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
   const [newState, setNewState] = useState<State>("hover");
   const [newTargetType, setNewTargetType] =
     useState<StateTarget["type"]>("self");
+
   const [newParentLevel, setNewParentLevel] = useState<number>(1);
   const [newSelector, setNewSelector] = useState<string>("");
   const [newStateType, setNewStateType] = useState<"block" | "selector">(
@@ -117,6 +118,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
                 s.target?.data?.stateType === stateTarget.data?.stateType))
           ),
       ) || [];
+
     onStatesChange(newStates);
   };
 
@@ -129,6 +131,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
       if (isViewState(stateWithParent.state)) {
         return getStateCssSelector(stateWithParent.state);
       }
+
       return `:${t(`pageBuilder.styles.states.${stateWithParent.state}` as BuilderKeys)}`;
     })().toLocaleLowerCase();
 
@@ -145,6 +148,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
       else if (level === 2) parentLabel = "Grandparent";
       else if (level === 3) parentLabel = "Great-grandparent";
       else parentLabel = `${level}th Parent`;
+
       return `${parentLabel}${stateLabel}`;
     }
 
@@ -169,6 +173,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
     if (isSelectorTarget(stateWithParent)) {
       return `${stateWithParent.state}-selector-${stateWithParent.target?.data?.stateType}-${stateWithParent.target?.data?.selector}`;
     }
+
     return `${stateWithParent.state}-unknown`;
   };
 

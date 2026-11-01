@@ -76,6 +76,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
   const t = useI18n<PaymentLinksPublicNamespace, PaymentLinksPublicKeys>(
     paymentLinksPublicNamespace,
   );
+
   const currencyFormat = useCurrencyFormat();
 
   const publicIdParam = searchParams?.id;
@@ -89,15 +90,19 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     enabled: false,
     presets: [],
   });
+
   const [verification, setVerification] = useState<
     "none" | "contact-match" | "otp"
   >("none");
+
   const [collectPayment, setCollectPayment] = useState<CollectPayment | null>(
     null,
   );
+
   const [contactChannel, setContactChannel] = useState<"email" | "phone">(
     "email",
   );
+
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [contactEmailTouched, setContactEmailTouched] = useState(false);
@@ -113,11 +118,9 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     if (!tipsConfig.enabled || !payment) {
       return 0;
     }
-
     if (tipMode === "none") {
       return 0;
     }
-
     if (tipMode === "preset" && tipPresetPercent != null) {
       return roundMoney((payment.amount * tipPresetPercent) / 100);
     }
@@ -281,6 +284,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
             ? t("verification.contactMatch.mismatch")
             : t("verification.contactMatch.error"),
         );
+
         return;
       }
 
@@ -349,13 +353,11 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       </div>
     );
   }
-
   if (view === "missing") {
     return (
       <StatusBlock title={t("page.title")} description={t("page.missingId")} />
     );
   }
-
   if (view === "error") {
     return (
       <StatusBlock title={t("page.title")} description={t("page.loadError")} />
@@ -390,6 +392,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     const contactValid = contactChannel === "email" ? emailValid : phoneValid;
     const showEmailError =
       contactEmailTouched && contactEmail.length > 0 && !emailValid;
+
     const showPhoneError =
       contactPhoneTouched && contactPhone.length > 0 && !phoneValid;
 
@@ -400,9 +403,11 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       } else {
         setContactPhoneTouched(true);
       }
+
       if (!contactValid || busy) {
         return;
       }
+
       void onVerifyContact();
     };
 

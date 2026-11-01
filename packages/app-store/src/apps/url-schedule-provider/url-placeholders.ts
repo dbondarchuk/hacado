@@ -54,6 +54,7 @@ export function buildHeadersWithPlaceholders(
 
   for (const header of configuredHeaders) {
     if (!header.key || !header.value) continue;
+
     headers[applyHeaderPlaceholders(header.key, values)] =
       applyHeaderPlaceholders(header.value, values);
   }

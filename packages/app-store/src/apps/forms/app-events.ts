@@ -13,6 +13,7 @@ export const FORMS_APP_EVENTS: AppEventConfig = {
       recordActivity: (envelope) => {
         const { form, formResponse } =
           envelope.payload as FormResponseCreatedPayload;
+
         return {
           eventId: envelope.id,
           eventType: envelope.type,
@@ -34,6 +35,7 @@ export const FORMS_APP_EVENTS: AppEventConfig = {
         if (envelope.source.actor !== "customer") {
           return null;
         }
+
         const { formResponse } = envelope.payload as FormResponseCreatedPayload;
         return {
           type: "form-response-created",

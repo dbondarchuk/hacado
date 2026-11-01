@@ -16,6 +16,7 @@ async function readableToBuffer(readable: Readable): Promise<Buffer> {
   for await (const chunk of readable) {
     chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
   }
+
   return Buffer.concat(chunks);
 }
 
@@ -90,6 +91,7 @@ export class ResendService implements IMailSender {
             const result = await this.storageService.getFile(
               attachment.storageFilename,
             );
+
             if (!result) {
               throw new Error("Attachment not found");
             }
@@ -103,6 +105,7 @@ export class ResendService implements IMailSender {
             };
           }),
         );
+
         attachments.push(...fileAttachments);
       }
 
@@ -110,11 +113,13 @@ export class ResendService implements IMailSender {
         target === "customer" && this.configuration.customerEmail
           ? this.configuration.customerEmail
           : this.configuration.email;
+
       const fromDisplayName =
         fromName ||
         (target === "customer" && this.configuration.customerFromName
           ? this.configuration.customerFromName
           : this.configuration.fromName);
+
       const from = `${fromDisplayName} <${fromEmail}>`;
       const to = Array.isArray(email.to) ? email.to : [email.to];
       const cc = email.cc

@@ -22,6 +22,7 @@ export const paddingStyle = {
   },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return renderFourSideValuesCss(value, "padding");
   },
   component: ({ value, onChange }) => (

@@ -65,6 +65,7 @@ export const PaymentsTab: React.FC<TabProps> = ({ form, disabled }) => {
                   form.setValue("depositPercentage", 50, {
                     shouldValidate: true,
                   });
+
                   form.setValue("paymentType", "percentage", {
                     shouldValidate: true,
                   });
@@ -73,9 +74,11 @@ export const PaymentsTab: React.FC<TabProps> = ({ form, disabled }) => {
                   form.setValue("paymentType", undefined as any, {
                     shouldValidate: true,
                   });
+
                   form.setValue("depositAmount", undefined as any, {
                     shouldValidate: true,
                   });
+
                   form.setValue("depositPercentage", undefined as any, {
                     shouldValidate: true,
                   });
@@ -102,6 +105,7 @@ export const PaymentsTab: React.FC<TabProps> = ({ form, disabled }) => {
                             form.setValue("depositPercentage", 50, {
                               shouldValidate: true,
                             });
+
                             form.setValue("paymentType", "percentage", {
                               shouldValidate: true,
                             });
@@ -109,9 +113,11 @@ export const PaymentsTab: React.FC<TabProps> = ({ form, disabled }) => {
                             form.setValue("paymentType", undefined as any, {
                               shouldValidate: true,
                             });
+
                             form.setValue("depositAmount", undefined as any, {
                               shouldValidate: true,
                             });
+
                             form.setValue(
                               "depositPercentage",
                               undefined as any,

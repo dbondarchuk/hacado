@@ -53,6 +53,7 @@ const views = [
   "communications",
   "history",
 ] as const;
+
 type View = (typeof views)[number];
 
 export const AppointmentViewProvider: React.FC<{
@@ -76,6 +77,7 @@ export const AppointmentViewButtons: React.FC = () => {
   const { appointment, setAppointment, key, setKey } = React.useContext(
     AppointmentViewContext,
   );
+
   const canUpdate = canUpdateAppointment(user, appointment.memberId);
   const reschedule = ({
     dateTime,

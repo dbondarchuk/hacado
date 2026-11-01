@@ -46,11 +46,13 @@ export const WaitlistReviewCard: React.FC = () => {
       ? (selectedMember?.effectivePrice ?? selectedAppointmentOption.price)
       : (selectedMember?.effectivePrice ??
         selectedAppointmentOption.pricePerHour);
+
   const serviceDuration =
     selectedAppointmentOption.durationType === "fixed"
       ? (selectedMember?.effectiveDuration ??
         selectedAppointmentOption.duration)
       : undefined;
+
   return (
     <div className="space-y-6 review-card card-container">
       <div className="mb-6">
@@ -147,11 +149,13 @@ export const WaitlistReviewCard: React.FC = () => {
                 addon.staff,
                 selectedMember?.member.id,
               );
+
               const duration = effectiveAddonDuration(
                 addon.duration,
                 addon.staff,
                 selectedMember?.member.id,
               );
+
               return (
                 <div
                   key={addon._id}

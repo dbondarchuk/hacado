@@ -33,6 +33,7 @@ export const ResponseNewPage = ({ appId }: { appId: string }) => {
       setLoading(false);
       return;
     }
+
     setLoading(true);
     getFormById(appId, formIdParam)
       .then((f) => setForm(f))
@@ -57,7 +58,6 @@ export const ResponseNewPage = ({ appId }: { appId: string }) => {
   if (loading) {
     return null;
   }
-
   if (!formIdParam) {
     return (
       <div className="w-full h-full space-y-8">
@@ -81,7 +81,6 @@ export const ResponseNewPage = ({ appId }: { appId: string }) => {
       </div>
     );
   }
-
   if (!form) {
     return (
       <div className="w-full h-full space-y-8">

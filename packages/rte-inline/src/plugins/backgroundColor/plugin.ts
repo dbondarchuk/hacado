@@ -47,6 +47,7 @@ export const backgroundColorPlugin: MarkPlugin = {
     if (marks.backgroundColor && marks.backgroundColor !== "inherit") {
       styles.backgroundColor = marks.backgroundColor;
     }
+
     return styles;
   },
 };

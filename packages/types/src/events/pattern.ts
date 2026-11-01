@@ -6,11 +6,13 @@ export function eventPatternMatches(
   if (pattern === "*") {
     return true;
   }
+
   const regex = new RegExp(
     `^${pattern
       .split("*")
       .map((segment) => segment.replace(/[.+?^${}()|[\]\\]/g, "\\$&"))
       .join(".*")}$`,
   );
+
   return regex.test(eventType);
 }

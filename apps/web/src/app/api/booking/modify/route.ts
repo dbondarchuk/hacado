@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
         { status: 401 },
       );
     }
+
     throw error;
   }
 
@@ -79,6 +80,7 @@ export async function POST(request: NextRequest) {
       },
       "Appointment cancel or reschedule information request failed",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -50,6 +50,7 @@ function toWebRequest(req: IncomingMessage, body: Buffer): Request {
           if (value) {
             acc[key] = Array.isArray(value) ? value.join(", ") : value;
           }
+
           return acc;
         },
         {} as Record<string, string>,
@@ -78,6 +79,7 @@ function setCorsHeaders(res: ServerResponse): void {
     "Access-Control-Allow-Methods",
     "OPTIONS, GET, POST, PUT, DELETE, PATCH, PROPFIND, REPORT, PROPPATCH, MKCOL, MOVE, COPY, LOCK, UNLOCK",
   );
+
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Authorization, Content-Type, Depth, Prefer, If-Match, If-None-Match",
@@ -145,6 +147,7 @@ async function handlePlatformTelnyxVerificationWebhook(
       );
     },
   );
+
   return webhook.processWebhook(request);
 }
 
@@ -257,6 +260,7 @@ async function startServer(): Promise<void> {
           },
           "Successfully processed request",
         );
+
         return;
       }
 

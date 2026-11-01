@@ -9,5 +9,6 @@ export async function GET() {
     const status = result.code === "unauthorized" ? 401 : 400;
     return NextResponse.json({ success: false, code: result.code }, { status });
   }
+
   return NextResponse.json({ success: true, url: result.url });
 }

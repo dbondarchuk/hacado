@@ -35,7 +35,6 @@ export const filterStyle = {
   defaultValue: "none",
   renderToCSS: (value) => {
     if (!value || value === "none") return null;
-
     if (typeof value === "string") {
       return `filter: ${value};`;
     }
@@ -49,6 +48,7 @@ export const filterStyle = {
             func.function,
             func.values[0],
           );
+
           return `${func.function}(${rendered})`;
         })
         .join(" ");

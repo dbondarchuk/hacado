@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/catalog/addons")("POST");
   const auth = await requirePermission("service", "create", logger);
   if (!auth.ok) return auth.response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const body = await request.json();
@@ -74,11 +75,13 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
+
   try {
     const result = await servicesContainer.catalogService.createAddon(
       data,
       actor,
     );
+
     return NextResponse.json(result, { status: 201 });
   } catch (error: any) {
     logger.error(

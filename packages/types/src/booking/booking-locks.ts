@@ -24,6 +24,7 @@ export function applyBookingLocks<
       (option) => option._id === serviceId,
     );
   }
+
   if (memberId) {
     filteredOptions = filteredOptions.filter((option) =>
       option.staff?.some((assignment) => assignment.memberId === memberId),

@@ -25,10 +25,13 @@ export const assetsSearchParams = {
 
 export const assetsSearchParamsCache =
   createSearchParamsCache(assetsSearchParams);
+
 export const serializeAssetsSearchParams = createSerializer(assetsSearchParams);
 export const assetsSearchParamsSchema =
   createStandardSchemaV1(assetsSearchParams);
+
 export type AssetsSearchParams = Partial<
   inferParserType<typeof assetsSearchParams>
 >;
+
 export const assetsSearchParamsLoader = createLoader(assetsSearchParams);

@@ -13,6 +13,7 @@ import { BlogRepositoryService } from "./repository-service";
 function toAbsoluteWebsiteUrl(websiteUrl: string, pathOrUrl: string): string {
   const trimmed = pathOrUrl.trim();
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
+
   const base = websiteUrl.replace(/\/$/, "");
   const path = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
   return `${base}${path}`;
@@ -26,6 +27,7 @@ async function getPostAuthorName(
     const member = await props.services.teamService.getMemberById(
       post.author.memberId,
     );
+
     return member?.name;
   }
 
@@ -42,7 +44,6 @@ export async function provideBlogPageSeoArguments(
 
   const slug = params.slug;
   if (!slug) return undefined;
-
   if (!pageUsesBlogApp(page, appData._id)) return undefined;
 
   const repository = new BlogRepositoryService(
@@ -51,6 +52,7 @@ export async function provideBlogPageSeoArguments(
     props.getDbConnection,
     props.services,
   );
+
   const post = await repository.getBlogPost(undefined, slug);
   if (!post || !post.isPublished) return undefined;
 
@@ -61,6 +63,7 @@ export async function provideBlogPageSeoArguments(
   if (post.featuredImage?.trim()) {
     const organization =
       await props.services.organizationService.getOrganization();
+
     if (organization) {
       postFeaturedImage = toAbsoluteWebsiteUrl(
         getWebsiteUrl(organization),

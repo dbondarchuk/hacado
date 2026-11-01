@@ -68,6 +68,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/catalog/services")("POST");
   const auth = await requirePermission("service", "create", logger);
   if (!auth.ok) return auth.response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   logger.debug(
@@ -135,6 +136,7 @@ export async function POST(request: NextRequest) {
         { status: 402 },
       );
     }
+
     logger.error(
       {
         optionName: data.name,
@@ -142,6 +144,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to create service option",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -64,6 +64,7 @@ export const TableElement = withHOC(
       BlockSelectionPlugin,
       "isSelectionAreaVisible",
     );
+
     const hasControls = !readOnly && !isSelectionAreaVisible;
     const selected = useSelected();
     const {

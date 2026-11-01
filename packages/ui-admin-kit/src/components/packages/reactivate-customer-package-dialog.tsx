@@ -49,6 +49,7 @@ export const ReactivateCustomerPackageDialog: React.FC<
           error: t("catalog.packages.form.toasts.requestError"),
         },
       );
+
       setOpen(false);
       router.refresh();
     } finally {

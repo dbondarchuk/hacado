@@ -19,6 +19,7 @@ export async function PATCH(
   const logger = getLoggerFactory("AdminAPI/appointments/[id]/reschedule")(
     "PATCH",
   );
+
   const { id } = await params;
   const auth = await requireCanUpdateAppointment(id, logger);
   if (!auth.ok) return auth.response;
@@ -37,6 +38,7 @@ export async function PATCH(
 
   const blockedResponse =
     await getSubscriptionBlockingResponseForAppointmentWriteActions();
+
   if (blockedResponse) {
     return blockedResponse;
   }

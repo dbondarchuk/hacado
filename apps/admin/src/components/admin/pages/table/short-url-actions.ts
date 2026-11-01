@@ -13,6 +13,7 @@ export async function getShortPageUrl(
   if (!isSmsLinkShorteningEnabled()) {
     return { ok: false };
   }
+
   if (!pageSlug || pageSlug.includes("/") || pageSlug.includes("..")) {
     logger.warn({ pageSlug }, "Rejected invalid page slug for short url");
     return { ok: false };

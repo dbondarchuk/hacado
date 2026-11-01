@@ -35,11 +35,13 @@ function seriesOf(packId: WebsitePackId): "A" | "B" | "C" | "D" {
   if (packId.endsWith("_d")) return "D";
   if (packId.endsWith("_c")) return "C";
   if (packId.endsWith("_b")) return "B";
+
   return "A";
 }
 
 function pageLabel(kind: PageLayoutKind): string {
   if (kind === "booking") return "book";
+
   return kind;
 }
 

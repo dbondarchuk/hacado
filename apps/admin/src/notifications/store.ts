@@ -49,6 +49,7 @@ export const useActivityFeedStore = create<ActivityFeedStore>((set, get) => ({
         if (existingPreview) {
           return acc;
         }
+
         return [...acc, preview];
       }, [] as ActivityFeedPreview[])
       .sort(

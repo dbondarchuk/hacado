@@ -110,6 +110,7 @@ const defaultPexelsType = (
   allowVideos: boolean,
 ): PexelsMediaType => {
   if (allowVideos && !allowImages) return "video";
+
   return "photo";
 };
 
@@ -130,6 +131,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
   const showUnsplash = !onlyAssets && allowImages && mediaSources.unsplash;
   const showPexels =
     !onlyAssets && mediaSources.pexels && (allowImages || allowVideos);
+
   const showStockSources = showUnsplash || showPexels;
   const pexelsNeedsTypeToggle = showPexels && allowImages && allowVideos;
 
@@ -157,6 +159,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
   const [unsplashPhotos, setUnsplashPhotos] = React.useState<UnsplashPhoto[]>(
     [],
   );
+
   const [pexelsItems, setPexelsItems] = React.useState<PexelsMedia[]>([]);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
@@ -240,6 +243,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
           } else {
             setAssets((prev) => [...prev, ...result.items]);
           }
+
           setHasMore(result.hasMore);
         } else if (source === "unsplash") {
           const result = await loadUnsplash(page, debouncedSearch);
@@ -248,6 +252,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
           } else {
             setUnsplashPhotos((prev) => [...prev, ...result.items]);
           }
+
           setHasMore(result.hasMore);
         } else {
           const result = await loadPexels(page, debouncedSearch, pexelsType);
@@ -256,8 +261,10 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
           } else {
             setPexelsItems((prev) => [...prev, ...result.items]);
           }
+
           setHasMore(result.hasMore);
         }
+
         setInitialLoad(false);
       } catch (error) {
         console.error("Failed to fetch items:", error);
@@ -327,12 +334,14 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
     if (source === "pexels") {
       if (!selectedPexels) return;
+
       onSelected(pexelsMediaToUploadedFile(selectedPexels));
       close();
       return;
     }
 
     if (!selected) return;
+
     onSelected(selected);
     close();
   };
@@ -392,6 +401,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
     await uploadFile(
       fileToUpload.map((file) => ({ file, description: addTo?.description })),
     );
+
     setFileToUpload([]);
   };
 

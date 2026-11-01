@@ -44,6 +44,7 @@ export function applyInstallCalendarSnapshot(
   if (apps === undefined || apps === null) {
     return;
   }
+
   const map = new Map(apps.map((a) => [a.name, a]));
   const isConnected = (name: string) => map.get(name)?.status === "connected";
   merged.googleCal = isConnected(GOOGLE_CALENDAR_APP_NAME);
@@ -55,6 +56,7 @@ export function applyInstallCalendarSnapshot(
 function normalizeInstallSchedule(raw: unknown): Schedule {
   const parsed = shiftsSchema.safeParse(raw);
   if (parsed.success) return parsed.data;
+
   return getDefaultInstallSchedule();
 }
 
@@ -106,19 +108,24 @@ export function sanitizePersisted(
     if (s.primaryColorHex && HEX_COLOR.test(s.primaryColorHex)) {
       fromDb.primaryColorHex = s.primaryColorHex;
     }
+
     if (s.secondaryColorHex && HEX_COLOR.test(s.secondaryColorHex)) {
       fromDb.secondaryColorHex = s.secondaryColorHex;
     }
+
     if (s.primaryFont && fontAllow.has(s.primaryFont)) {
       fromDb.primaryFont = s.primaryFont;
     }
+
     if (s.secondaryFont && fontAllow.has(s.secondaryFont)) {
       fromDb.secondaryFont = s.secondaryFont;
     }
+
     if (typeof s.installLogo === "string" && s.installLogo.length > 0) {
       fromDb.installLogo = s.installLogo;
     }
   }
+
   if (serverPreferences) {
     const s = serverPreferences;
     if (
@@ -129,56 +136,73 @@ export function sanitizePersisted(
     ) {
       fromDb.inviteMode = s.inviteMode;
     }
+
     if (typeof s.inviteCalendarWriterAppId === "string") {
       fromDb.inviteCalendarWriterAppId = s.inviteCalendarWriterAppId;
     }
+
     if (typeof s.optCustomerEmailNotifications === "boolean") {
       fromDb.optCustomerEmailNotifications = s.optCustomerEmailNotifications;
     }
+
     if (typeof s.optCustomerPackageEmailNotifications === "boolean") {
       fromDb.optCustomerPackageEmailNotifications =
         s.optCustomerPackageEmailNotifications;
     }
+
     if (typeof s.optCustomerTextMessageNotifications === "boolean") {
       fromDb.optCustomerTextMessageNotifications =
         s.optCustomerTextMessageNotifications;
     }
+
     if (typeof s.optAppointmentNotifications === "boolean") {
       fromDb.optAppointmentNotifications = s.optAppointmentNotifications;
     }
+
     if (typeof s.optWaitlist === "boolean") {
       fromDb.optWaitlist = s.optWaitlist;
     }
+
     if (typeof s.optWaitlistNotifications === "boolean") {
       fromDb.optWaitlistNotifications = s.optWaitlistNotifications;
     }
+
     if (typeof s.optBlog === "boolean") {
       fromDb.optBlog = s.optBlog;
     }
+
     if (typeof s.optForms === "boolean") {
       fromDb.optForms = s.optForms;
     }
+
     if (typeof s.optGiftCardStudio === "boolean") {
       fromDb.optGiftCardStudio = s.optGiftCardStudio;
     }
+
     if (typeof s.optMyCabinet === "boolean") {
       fromDb.optMyCabinet = s.optMyCabinet;
     }
+
     if (typeof s.acceptPayments === "boolean") {
       fromDb.acceptPayments = s.acceptPayments;
     }
+
     if (typeof s.autoConfirmBookings === "boolean") {
       fromDb.autoConfirmBookings = s.autoConfirmBookings;
     }
+
     if (typeof s.depositEnabled === "boolean") {
       fromDb.depositEnabled = s.depositEnabled;
     }
+
     if (typeof s.depositPercent === "string" && s.depositPercent.trim()) {
       fromDb.depositPercent = s.depositPercent.trim();
     }
+
     if (typeof s.allowCancelReschedule === "boolean") {
       fromDb.allowCancelReschedule = s.allowCancelReschedule;
     }
+
     if (typeof s.websitePackId === "string" && s.websitePackId.trim()) {
       fromDb.websitePackId = s.websitePackId.trim();
     }
@@ -198,6 +222,7 @@ export function sanitizePersisted(
 
   const serverRows =
     serverServices && serverServices.length > 0 ? serverServices : null;
+
   const partialServices = Array.isArray(
     (partialMerged as Partial<PersistedState>).installServices,
   )
@@ -277,6 +302,7 @@ export function sanitizePersisted(
     merged.professionId,
     merged.serviceTemplateId,
   );
+
   if (!tmpl && prof?.services[0]) {
     merged.serviceTemplateId = prof.services[0].id;
     tmpl = prof.services[0];
@@ -285,6 +311,7 @@ export function sanitizePersisted(
   const addonIds = (tmpl?.addons ?? []).map((a) => a.id);
   const rawSel = (partialMerged as Partial<PersistedState>)
     .serviceSelectedAddonIds;
+
   const allowed = new Set(addonIds);
   if (rawSel === undefined) {
     merged.serviceSelectedAddonIds = [];
@@ -295,24 +322,31 @@ export function sanitizePersisted(
   if (!HEX_COLOR.test(merged.primaryColorHex)) {
     merged.primaryColorHex = base.primaryColorHex;
   }
+
   if (!HEX_COLOR.test(merged.secondaryColorHex)) {
     merged.secondaryColorHex = base.secondaryColorHex;
   }
+
   if (!fontAllow.has(merged.primaryFont)) {
     merged.primaryFont = base.primaryFont;
   }
+
   if (!fontAllow.has(merged.secondaryFont)) {
     merged.secondaryFont = base.secondaryFont;
   }
+
   if (typeof merged.installLogo !== "string") {
     merged.installLogo = "";
   }
+
   if (typeof merged.websitePackId !== "string") {
     merged.websitePackId = "";
   }
+
   if (typeof merged.catalogPreferredPackId !== "string") {
     merged.catalogPreferredPackId = "";
   }
+
   if (!merged.catalogPreferredPackId.trim() && merged.websitePackId.trim()) {
     // Older localStorage snapshots only had websitePackId.
     merged.catalogPreferredPackId = merged.websitePackId.trim();
@@ -329,9 +363,11 @@ export function sanitizePersisted(
   ) {
     merged.inviteMode = base.inviteMode;
   }
+
   if (typeof merged.inviteCalendarWriterAppId !== "string") {
     merged.inviteCalendarWriterAppId = "";
   }
+
   const old = partialMerged as any;
   if (old.optReminders || old.optFollowups) {
     merged.optAppointmentNotifications = true;

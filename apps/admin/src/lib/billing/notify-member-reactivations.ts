@@ -12,9 +12,11 @@ export async function notifyOwnerOfMemberReactivations(
   const members = await services.teamService.getMembers({
     includeInactive: true,
   });
+
   const restored = members.filter((m) =>
     result.reactivatedMemberIds.includes(String(m._id)),
   );
+
   const owner = members.find((m) => m.role === "owner");
   if (!owner?.email) return;
 

@@ -33,6 +33,7 @@ function loadSmsPreviewArgs() {
           typeof record.websiteUrl === "string"
             ? record.websiteUrl.replace(/\/$/, "")
             : "https://example.hacado.me";
+
         const optionName =
           typeof record.service?.name === "string"
             ? record.service.name
@@ -87,6 +88,7 @@ export function useSmsPreviewArgs() {
 export function smsPreviewLanguage(args?: Record<string, unknown>): Language {
   const language = (args?.config as { language?: string } | undefined)
     ?.language;
+
   if (language && previewLanguages.has(language)) {
     return language as Language;
   }
@@ -97,6 +99,7 @@ export function smsPreviewLanguage(args?: Record<string, unknown>): Language {
 function withSmsFooter(body: string, shared = false) {
   const trimmed = body.trim();
   if (!trimmed) return undefined;
+
   const text = shared ? appendSharedPoolSuffix(trimmed) : trimmed;
   if (text.endsWith(PLATFORM_SMS_FOOTER)) return text;
 
@@ -206,6 +209,7 @@ export function SmsMessagePreview({
       .getTemplate(customId)
       .then((stored) => {
         if (!active) return;
+
         if (!args) {
           setPreview({ status: "loading" });
           return;
@@ -238,7 +242,6 @@ export function SmsMessagePreview({
   if (!customId) {
     return <SmsExample text={fallback} className={className} />;
   }
-
   if (preview.status === "failed") {
     return (
       <p className={cn("text-sm text-destructive overflow-hidden", className)}>
@@ -256,7 +259,6 @@ export function SmsMessagePreview({
       </p>
     );
   }
-
   if (preview.status === "ready") {
     return <SmsExample text={preview.text} className={className} />;
   }

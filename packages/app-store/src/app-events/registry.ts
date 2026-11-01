@@ -40,10 +40,12 @@ export function getAppNamesSubscribedToEventType(eventType: string): string[] {
   const names: string[] = [];
   for (const [appName, app] of Object.entries(AvailableApps)) {
     if (!app.subscribeTo?.length) continue;
+
     if (app.subscribeTo.some((p) => eventPatternMatches(p, eventType))) {
       names.push(appName);
     }
   }
+
   for (const [id, patterns] of Object.entries(
     BUILT_IN_APP_EVENT_SUBSCRIPTIONS,
   )) {
@@ -51,5 +53,6 @@ export function getAppNamesSubscribedToEventType(eventType: string): string[] {
       names.push(id);
     }
   }
+
   return names;
 }

@@ -64,12 +64,15 @@ export const createAsset = async (
   if (options?.description) {
     formData.append("description", options.description);
   }
+
   if (options?.appointmentId) {
     formData.append("appointmentId", options.appointmentId);
   }
+
   if (options?.customerId) {
     formData.append("customerId", options.customerId);
   }
+
   if (options?.bucket) {
     formData.append("bucket", options.bucket);
   }

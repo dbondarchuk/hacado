@@ -29,6 +29,7 @@ function pickBestValueProductId(
   products: UserSeatProductOffer[],
 ): string | null {
   if (products.length === 0) return null;
+
   const ranked = products.filter((p) => p.usersAmount > 0 && p.priceAmount > 0);
 
   if (ranked.length === 0) {
@@ -46,6 +47,7 @@ function pickBestValueProductId(
       best = product;
     }
   }
+
   return best.productId;
 }
 
@@ -61,6 +63,7 @@ function savingsPercentByProductId(
 
   const pricePerSeat = (p: UserSeatProductOffer) =>
     p.priceAmount / p.usersAmount;
+
   const maxPricePerSeat = Math.max(...valid.map(pricePerSeat));
   if (maxPricePerSeat <= 0) {
     return map;
@@ -104,6 +107,7 @@ export function PurchaseSeatsDialog({
 
   useEffect(() => {
     if (!purchaseSeats) return;
+
     setOpen(true);
     setPurchaseSeats(false);
   }, [purchaseSeats, setPurchaseSeats]);
@@ -129,6 +133,7 @@ export function PurchaseSeatsDialog({
 
   useEffect(() => {
     if (!open || !canPurchase) return;
+
     const fn = async () => {
       setLoading(true);
       try {
@@ -156,11 +161,13 @@ export function PurchaseSeatsDialog({
         setLoading(false);
       }
     };
+
     void fn();
   }, [open, canPurchase, t]);
 
   const onContinue = async () => {
     if (!selectedProductId) return;
+
     setCheckoutId(selectedProductId);
     const result = await createUserSeatCheckoutSession({
       productId: selectedProductId,
@@ -226,6 +233,7 @@ export function PurchaseSeatsDialog({
                   t("team.seatsPurchase.seatsLine", {
                     count: p.usersAmount,
                   });
+
                 return (
                   <div key={p.productId} className="relative overflow-visible">
                     {isBestValue ? (

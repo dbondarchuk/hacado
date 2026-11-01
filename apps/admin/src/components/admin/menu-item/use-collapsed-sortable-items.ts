@@ -8,6 +8,7 @@ export function useCollapsedSortableItems(
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(() =>
     defaultCollapsed ? new Set(ids) : new Set(),
   );
+
   const knownIdsRef = useRef<Set<string>>(new Set(ids));
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export function useCollapsedSortableItems(
     for (const id of ids) {
       if (!known.has(id)) added.push(id);
     }
+
     knownIdsRef.current = nextKnown;
 
     setCollapsedIds((prev) => {
@@ -24,9 +26,11 @@ export function useCollapsedSortableItems(
       for (const id of ids) {
         if (prev.has(id)) next.add(id);
       }
+
       if (defaultCollapsed) {
         for (const id of added) next.add(id);
       }
+
       return next;
     });
   }, [ids, defaultCollapsed]);
@@ -43,6 +47,7 @@ export function useCollapsedSortableItems(
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
+
       return next;
     });
   }, []);

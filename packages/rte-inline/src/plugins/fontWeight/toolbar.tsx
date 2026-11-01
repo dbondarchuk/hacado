@@ -54,6 +54,7 @@ export function FontWeightToolbarButton() {
   );
 
   if (context.disabledFeatures?.includes("fontWeight")) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

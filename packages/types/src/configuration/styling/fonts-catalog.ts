@@ -11,6 +11,7 @@ export const fontsOptions = allFonts.items.reduce(
       subsets: font.subsets,
       category: font.category,
     };
+
     return acc;
   },
   {} as Record<

@@ -166,6 +166,7 @@ export function ExportToolbarButton({ children, ...props }: DropdownMenuProps) {
       x: 0,
       y: 0,
     });
+
     const pdfBase64 = await pdfDoc.saveAsBase64({ dataUri: true });
 
     await downloadFile(pdfBase64, "plate.pdf");

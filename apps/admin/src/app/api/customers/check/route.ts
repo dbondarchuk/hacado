@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/customers/check")("GET");
   const auth = await requirePermission("customer", "read", logger);
   if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {
@@ -29,6 +30,7 @@ export async function GET(request: NextRequest) {
       { emails, phones },
       "Missing required emails or phones parameters",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -77,6 +79,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to check customer email and phone uniqueness",
     );
+
     return NextResponse.json(
       {
         success: false,

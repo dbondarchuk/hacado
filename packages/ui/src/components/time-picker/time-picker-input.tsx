@@ -78,6 +78,7 @@ const TimePickerInput = React.forwardRef<
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Tab") return;
+
       e.preventDefault();
       if (e.key === "ArrowRight") onRightFocus?.();
       if (e.key === "ArrowLeft") onLeftFocus?.();
@@ -88,6 +89,7 @@ const TimePickerInput = React.forwardRef<
         const tempDate = new Date(date);
         setDate(setDateByType(tempDate, newValue, picker, period));
       }
+
       if (e.key >= "0" && e.key <= "9") {
         if (picker === "12hours") setPrevIntKey(e.key);
 

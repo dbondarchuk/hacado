@@ -200,5 +200,6 @@ export function getExpiresAtDateFormat(design: Design): string {
     (e): e is TextElement =>
       e.type === "text" && (e as TextElement).fieldKey === "expiresAt",
   );
+
   return el?.dateFormat ?? DEFAULT_EXPIRES_AT_DATE_FORMAT;
 }

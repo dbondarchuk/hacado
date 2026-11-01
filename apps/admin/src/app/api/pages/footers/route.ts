@@ -112,6 +112,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to create page footer",
     );
+
     return NextResponse.json(
       {
         success: false,

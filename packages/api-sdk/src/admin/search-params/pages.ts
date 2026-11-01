@@ -26,8 +26,10 @@ export const pagesSearchParams = {
 
 export const pagesSearchParamsCache =
   createSearchParamsCache(pagesSearchParams);
+
 export const pagesSearchParamsSchema =
   createStandardSchemaV1(pagesSearchParams);
+
 export const pagesSearchParamsSerializer = createSerializer(pagesSearchParams);
 
 export const pagesSearchParamsLoader = createLoader(pagesSearchParams);
@@ -49,9 +51,11 @@ export const pageHeadersSearchParams = {
 export const pageHeadersSearchParamsCache = createSearchParamsCache(
   pageHeadersSearchParams,
 );
+
 export const pageHeadersSearchParamsSchema = createStandardSchemaV1(
   pageHeadersSearchParams,
 );
+
 export const pageHeadersSearchParamsSerializer = createSerializer(
   pageHeadersSearchParams,
 );
@@ -59,6 +63,7 @@ export const pageHeadersSearchParamsSerializer = createSerializer(
 export const pageHeadersSearchParamsLoader = createLoader(
   pageHeadersSearchParams,
 );
+
 export type PageHeadersSearchParams = Partial<
   inferParserType<typeof pageHeadersSearchParams>
 >;
@@ -77,9 +82,11 @@ export const pageFootersSearchParams = {
 export const pageFootersSearchParamsCache = createSearchParamsCache(
   pageFootersSearchParams,
 );
+
 export const pageFootersSearchParamsSchema = createStandardSchemaV1(
   pageFootersSearchParams,
 );
+
 export const pageFootersSearchParamsSerializer = createSerializer(
   pageFootersSearchParams,
 );
@@ -87,6 +94,7 @@ export const pageFootersSearchParamsSerializer = createSerializer(
 export const pageFootersSearchParamsLoader = createLoader(
   pageFootersSearchParams,
 );
+
 export type PageFootersSearchParams = Partial<
   inferParserType<typeof pageFootersSearchParams>
 >;

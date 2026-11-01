@@ -66,6 +66,7 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
   const calendarName = form.getValues("calendarName");
   React.useEffect(() => {
     if (!calendarName) return;
+
     setCalendars(Array.from(new Set(calendars || []).add(calendarName)));
     form.setValue("calendarName", calendarName);
   }, [calendarName]);
@@ -91,6 +92,7 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
           serverUrl: form.getValues("serverUrl"),
         }),
       );
+
       console.error(error);
     } finally {
       setFetchingCalendars(false);

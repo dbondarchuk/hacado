@@ -67,6 +67,7 @@ const CopyButton = ({ value, label }: { value: string; label: string }) => {
   const t = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
+
   const [copied, setCopied] = useState(false);
 
   const handleCopy = (e: React.MouseEvent) => {
@@ -113,6 +114,7 @@ const StatusBadge = ({ status }: { status?: AppointmentStatus }) => {
   );
 
   if (!status) return null;
+
   const cls = STATUS_STYLES[status] ?? "bg-muted text-muted-foreground";
   return (
     <span
@@ -137,6 +139,7 @@ const AppointmentItem = ({
   const t = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
+
   const i18n = useI18n("translation");
   const locale = useLocale();
   const formatCurrency = useCurrencyFormat();
@@ -144,16 +147,19 @@ const AppointmentItem = ({
 
   const serviceName =
     item.service?.name ?? t("block.appointments.appointmentFallback");
+
   const dt = DateTime.fromJSDate(item.dateTime).setZone(timeZone);
   const dateLabel = dt.setLocale(locale).toFormat("EEE, MMM d, yyyy");
   const timeLabel = dt.toLocaleString(DateTime.TIME_SIMPLE, { locale });
   const endTimeLabel = DateTime.fromJSDate(item.endAt)
     .setZone(timeZone)
     .toLocaleString(DateTime.TIME_SIMPLE, { locale });
+
   const durationLabel = i18n(
     "common.formats.durationHourMin",
     durationToTime(item.totalDuration),
   );
+
   const coveredByPackage = isAppointmentCoveredByPackage(item);
   const priceLabel =
     !coveredByPackage && item.totalPrice != null
@@ -162,12 +168,14 @@ const AppointmentItem = ({
 
   const amountLeftToPay = useMemo(() => {
     if (coveredByPackage || item.totalPrice == null) return null;
+
     const paid = (item.payments ?? [])
       .filter((p) => p.type === "deposit" || p.type === "payment")
       .reduce((sum, p) => {
         const refunded = p.refunds?.reduce((r, ref) => r + ref.amount, 0) ?? 0;
         return sum + p.amount - refunded;
       }, 0);
+
     const left = item.totalPrice - paid;
     return left > 0 ? left : null;
   }, [coveredByPackage, item.totalPrice, item.payments]);
@@ -388,6 +396,7 @@ const AppointmentItemSkeletons = ({ length }: { length: number }) => {
       <Skeleton className="w-full h-[68px]" />
     </div>
   ));
+
   return <>{skeletons}</>;
 };
 
@@ -398,12 +407,14 @@ export const AppointmentsScreen = ({
   const t = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
+
   const i18n = useI18n("translation");
   const {
     customer: customerProfile,
     timezone,
     setTimeZone,
   } = useCustomerProfile();
+
   const onSessionExpired = useOnSessionExpired();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -432,7 +443,9 @@ export const AppointmentsScreen = ({
             getPastAppointmentsAction(appId, 1, 10),
             getMyPackagesAction(),
           ]);
+
         if (!mounted) return;
+
         setUpcomingCount(summaryRes.upcomingCount ?? 0);
         setPastCount(summaryRes.pastCount ?? 0);
         setUpcoming(upcomingRes.items ?? []);
@@ -440,6 +453,7 @@ export const AppointmentsScreen = ({
         setPackages(
           (packagesRes.items ?? []).filter((pkg) => pkg.status !== "pending"),
         );
+
         setPastPage(1);
         setHasPastNextPage(!!pastRes.hasNextPage);
       } catch (error) {
@@ -447,11 +461,13 @@ export const AppointmentsScreen = ({
           onSessionExpired();
           return;
         }
+
         if (mounted) toast.error(t("block.appointments.loadError"));
       } finally {
         if (mounted) setIsLoading(false);
       }
     };
+
     load();
     return () => {
       mounted = false;
@@ -464,6 +480,7 @@ export const AppointmentsScreen = ({
       setIsWaitlistLoading(false);
       return;
     }
+
     let mounted = true;
     setIsWaitlistLoading(true);
     const loadWaitlist = async () => {
@@ -475,11 +492,13 @@ export const AppointmentsScreen = ({
           onSessionExpired();
           return;
         }
+
         if (mounted) toast.error(t("block.waitlist.loadError"));
       } finally {
         if (mounted) setIsWaitlistLoading(false);
       }
     };
+
     void loadWaitlist();
     return () => {
       mounted = false;
@@ -488,6 +507,7 @@ export const AppointmentsScreen = ({
 
   const dismissWaitlistEntry = async (id: string) => {
     if (!waitlistAppId) return;
+
     try {
       await dismissCustomerWaitlistEntryAction(waitlistAppId, { id });
       setWaitlistEntries((items) => items.filter((item) => item._id !== id));
@@ -497,12 +517,14 @@ export const AppointmentsScreen = ({
         onSessionExpired();
         return;
       }
+
       toast.error(t("block.waitlist.dismissError"));
     }
   };
 
   const dismissAllWaitlistEntries = async () => {
     if (!waitlistAppId) return;
+
     try {
       await dismissCustomerWaitlistEntryAction(waitlistAppId, { all: true });
       setWaitlistEntries([]);
@@ -512,6 +534,7 @@ export const AppointmentsScreen = ({
         onSessionExpired();
         return;
       }
+
       toast.error(t("block.waitlist.dismissError"));
     }
   };
@@ -528,6 +551,7 @@ export const AppointmentsScreen = ({
         onSessionExpired();
         return;
       }
+
       toast.error(t("block.appointments.loadError"));
     } finally {
       setIsPastPageLoading(false);
@@ -671,9 +695,11 @@ export const AppointmentsScreen = ({
                       const bands = date.time
                         .map((band) => t(`block.waitlist.${band}`))
                         .join(", ");
+
                       return `${date.date}${bands ? ` · ${bands}` : ""}`;
                     })
                     .join("; ");
+
               return (
                 <div
                   key={entry._id}

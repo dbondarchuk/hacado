@@ -175,6 +175,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!selectedId) return;
+
     const timeoutId = setTimeout(() => {
       elements.current.get(selectedId)?.scrollIntoView({
         behavior: "smooth",
@@ -195,6 +196,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
           overlayHost,
           document.defaultView,
         );
+
         setHoveredBlock((prev) => {
           if (
             !prev ||
@@ -205,6 +207,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
           ) {
             return next;
           }
+
           return prev;
         });
       }
@@ -218,6 +221,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
           overlayHost,
           document.defaultView,
         );
+
         setSelectedBlock((prev) => {
           if (
             !prev ||
@@ -228,6 +232,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
           ) {
             return next;
           }
+
           return prev;
         });
       }
@@ -366,6 +371,7 @@ export function useBlockEditor(
       ),
     [childrenBlockIds],
   );
+
   const parentBlockDefinition = useBlockDefinition(parentBlockId);
   const blocks = useBlocks();
   const blocksDefinitions = useBlocksDefinitions();
@@ -388,6 +394,7 @@ export function useBlockEditor(
     element: ref,
     accept: (draggable) => {
       if (!draggable.type || isOverlay) return false;
+
       const type = draggable.type as string;
       const dragBlockDefinition = blocksDefinitions.find(
         (b) => b.type === type,
@@ -408,7 +415,6 @@ export function useBlockEditor(
         !matchesRule(parentBlockDefinition, allowedParents)
       )
         return false;
-
       // Direct fluid children (e.g. button) expose the fluid parent in DnD context.
       // Reject nestable drags on the shell so inner targets handle insertion.
       if (
@@ -446,6 +452,7 @@ export function useBlockEditor(
 
   useEffect(() => {
     if (!register || !ref) return;
+
     ref.dataset.blockId = id; // needed for global hover detection
     ref.dataset.blockType = blockType ?? "";
     ref.dataset.blockParentId = parentBlockId ?? "";
@@ -460,6 +467,7 @@ export function useBlockEditor(
       handleRef,
       disable?.resize ? undefined : onResize,
     );
+
     return cleanup;
   }, [
     id,
@@ -524,6 +532,7 @@ const OverlayLayer = () => {
     selectedBlockElement,
     hoveredBlockElement,
   } = ctx;
+
   const disable = useBlockDisableOptions(selectedId);
 
   // Frame-synced DOM writes so overlays track iframe scroll without React lag.
@@ -542,6 +551,7 @@ const OverlayLayer = () => {
           ),
         );
       }
+
       if (
         hoveredBlockElement &&
         hoveredBoxRef.current &&
@@ -556,6 +566,7 @@ const OverlayLayer = () => {
           ),
         );
       }
+
       raf = requestAnimationFrame(tick);
     };
 
@@ -596,12 +607,15 @@ const OverlayLayer = () => {
         if (dir.includes("e")) {
           newW = Math.max(50, startW + (ev.clientX - startX));
         }
+
         if (dir.includes("s")) {
           newH = Math.max(30, startH + (ev.clientY - startY));
         }
+
         if (dir.includes("w")) {
           newW = Math.max(50, startW - (ev.clientX - startX));
         }
+
         if (dir.includes("n")) {
           newH = Math.max(30, startH - (ev.clientY - startY));
         }

@@ -29,15 +29,18 @@ export const deleteAppointmentNotification = async (
     { appId, appointmentNotificationId },
     "Deleting appointment notification",
   );
+
   try {
     const result = await appsApi.processRequest(appId, {
       type: "delete-appointment-notifications",
       ids: [appointmentNotificationId],
     } as RequestAction);
+
     actionLogger.debug(
       { appId, appointmentNotificationId },
       "Appointment notification deleted",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -48,6 +51,7 @@ export const deleteAppointmentNotification = async (
       },
       "Failed to delete appointment notification",
     );
+
     throw error;
   }
 };
@@ -61,15 +65,18 @@ export const deleteSelectedAppointmentNotifications = async (
     { appId, ids, count: ids.length },
     "Deleting selected appointment notifications",
   );
+
   try {
     const result = await appsApi.processRequest(appId, {
       type: "delete-appointment-notifications",
       ids: ids,
     } as RequestAction);
+
     actionLogger.debug(
       { appId, ids, count: ids.length },
       "Selected appointment notifications deleted",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -81,6 +88,7 @@ export const deleteSelectedAppointmentNotifications = async (
       },
       "Failed to delete selected appointment notifications",
     );
+
     throw error;
   }
 };
@@ -94,15 +102,18 @@ export const getAppointmentNotifications = async (
     { appId, hasQuery: !!query },
     "Getting appointment notifications",
   );
+
   try {
     const result = (await appsApi.processRequest(appId, {
       type: "get-appointment-notifications",
       query,
     } as RequestAction)) as WithTotal<AppointmentNotification>;
+
     actionLogger.debug(
       { appId, hasQuery: !!query, total: result.total },
       "Appointment notifications retrieved",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -113,6 +124,7 @@ export const getAppointmentNotifications = async (
       },
       "Failed to get appointment notifications",
     );
+
     throw error;
   }
 };
@@ -125,10 +137,12 @@ export const getAppointmentNotification = async (appId: string, id: string) => {
       type: "get-appointment-notification",
       id,
     } as RequestAction)) as AppointmentNotification;
+
     actionLogger.debug(
       { appId, id, hasResult: !!result },
       "Appointment notification retrieved",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -139,6 +153,7 @@ export const getAppointmentNotification = async (appId: string, id: string) => {
       },
       "Failed to get appointment notification",
     );
+
     throw error;
   }
 };
@@ -150,6 +165,7 @@ export const getAppointmentNotificationsAppData = async (appId: string) => {
     const result = (await appsApi.processRequest(appId, {
       type: "get-app-data",
     } as RequestAction)) as AppointmentNotificationsAppData;
+
     actionLogger.debug({ appId, hasData: !!result }, "App data retrieved");
     return result;
   } catch (error) {
@@ -157,6 +173,7 @@ export const getAppointmentNotificationsAppData = async (appId: string) => {
       { appId, error: error instanceof Error ? error.message : String(error) },
       "Failed to get appointment notifications app data",
     );
+
     throw error;
   }
 };
@@ -170,11 +187,13 @@ export const setAppointmentNotificationsAppData = async (
     { appId, hasData: !!data },
     "Setting appointment notifications app data",
   );
+
   try {
     const result = await appsApi.processRequest(appId, {
       type: "set-app-data",
       data,
     } as RequestAction);
+
     actionLogger.debug({ appId, hasData: !!data }, "App data set");
     return result;
   } catch (error) {
@@ -186,6 +205,7 @@ export const setAppointmentNotificationsAppData = async (
       },
       "Failed to set app data",
     );
+
     throw error;
   }
 };
@@ -203,10 +223,12 @@ export const checkUniqueName = async (
       name,
       id,
     } as RequestAction)) as boolean;
+
     actionLogger.debug(
       { appId, name, id, isUnique: result },
       "Unique name check completed",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -218,6 +240,7 @@ export const checkUniqueName = async (
       },
       "Failed to check unique name",
     );
+
     throw error;
   }
 };
@@ -231,15 +254,18 @@ export const create = async (
     { appId, hasAppointmentNotification: !!appointmentNotification },
     "Creating appointment notification",
   );
+
   try {
     const result = await appsApi.processRequest(appId, {
       type: "create-appointment-notification",
       appointmentNotification,
     } as RequestAction);
+
     actionLogger.debug(
       { appId, hasAppointmentNotification: !!appointmentNotification },
       "Appointment notification created",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -250,6 +276,7 @@ export const create = async (
       },
       "Failed to create appointment notification",
     );
+
     throw error;
   }
 };
@@ -264,16 +291,19 @@ export const update = async (
     { appId, id, hasUpdate: !!update },
     "Updating appointment notification",
   );
+
   try {
     const result = await appsApi.processRequest(appId, {
       type: "update-appointment-notification",
       update,
       id,
     } as RequestAction);
+
     actionLogger.debug(
       { appId, id, hasUpdate: !!update },
       "Appointment notification updated",
     );
+
     return result;
   } catch (error) {
     actionLogger.error(
@@ -285,6 +315,7 @@ export const update = async (
       },
       "Failed to update appointment notification",
     );
+
     throw error;
   }
 };

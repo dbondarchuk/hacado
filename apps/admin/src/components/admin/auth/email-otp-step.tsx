@@ -48,9 +48,11 @@ export const EmailOtpStep = ({
 
   useEffect(() => {
     if (cooldown <= 0) return;
+
     const id = window.setInterval(() => {
       setCooldown((c) => Math.max(0, c - 1));
     }, 1000);
+
     return () => window.clearInterval(id);
   }, [cooldown]);
 
@@ -84,8 +86,10 @@ export const EmailOtpStep = ({
               ? t("auth.forgotPassword.error")
               : t("auth.emailOtp.errors.error"),
         );
+
         return false;
       }
+
       autoSendCompleted.add(emailKey);
       setSent(true);
       setCooldown(60);
@@ -94,6 +98,7 @@ export const EmailOtpStep = ({
           ? t("auth.forgotPassword.success")
           : t("auth.verification.success"),
       );
+
       return true;
     } catch (error) {
       console.error(error);
@@ -102,31 +107,38 @@ export const EmailOtpStep = ({
           ? t("auth.forgotPassword.error")
           : t("auth.emailOtp.errors.error"),
       );
+
       return false;
     } finally {
       if (opts?.fromAutoSend) {
         autoSendInFlight.delete(emailKey);
       }
+
       if (requiresCaptcha) {
         turnstile.reset();
       }
+
       setSending(false);
     }
   };
 
   useEffect(() => {
     if (!autoSend || !email) return;
+
     if (autoSendCompleted.has(emailKey) || autoSendInFlight.has(emailKey)) {
       if (autoSendCompleted.has(emailKey)) setSent(true);
       return;
     }
+
     if (requiresCaptcha && !turnstile.token) return;
+
     autoSendInFlight.add(emailKey);
     void sendCode({ fromAutoSend: true });
   }, [autoSend, emailKey, requiresCaptcha, turnstile.token]);
 
   const verify = async () => {
     if (otp.length !== 6) return;
+
     setVerifying(true);
     try {
       const response =
@@ -140,16 +152,19 @@ export const EmailOtpStep = ({
               email,
               otp,
             });
+
       if (response.error?.message) {
         toast.error(t("auth.emailOtp.errors.invalidCode"));
         return;
       }
+
       // Email-verification consumes the OTP; forget-password check does not, so
       // keep the "already sent" marker in case we return to this step.
       if (purpose === "email-verification") {
         autoSendCompleted.delete(emailKey);
         autoSendInFlight.delete(emailKey);
       }
+
       await onVerified(otp);
     } catch (error) {
       console.error(error);
@@ -182,6 +197,7 @@ export const EmailOtpStep = ({
             onChange={setOtp}
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
+
               e.preventDefault();
               if (otp.length === 6 && !verifying) void verify();
             }}

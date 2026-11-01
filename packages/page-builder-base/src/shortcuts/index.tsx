@@ -79,7 +79,6 @@ export const Shortcuts = <T extends BaseStyleDictionary>({
         />
       );
     }
-
     // Handle asset-selector type separately since it doesn't have options
     if (inputType === "asset-selector") {
       return (
@@ -90,7 +89,6 @@ export const Shortcuts = <T extends BaseStyleDictionary>({
         />
       );
     }
-
     // Handle color type separately since it doesn't have options
     if (inputType === "color") {
       return (
@@ -112,7 +110,6 @@ export const Shortcuts = <T extends BaseStyleDictionary>({
         />
       );
     }
-
     if (inputType === "toggle") {
       return (
         <ToggleShortcut
@@ -122,7 +119,6 @@ export const Shortcuts = <T extends BaseStyleDictionary>({
         />
       );
     }
-
     if (inputType === "button-group") {
       return (
         <ButtonGroupShortcut

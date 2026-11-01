@@ -26,6 +26,7 @@ export const PurchasesTableAction: React.FC<{
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const {
     designIdFilter,
     setDesignIdFilter,

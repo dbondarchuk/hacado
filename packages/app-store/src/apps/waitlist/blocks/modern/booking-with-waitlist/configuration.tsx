@@ -37,6 +37,7 @@ export const BookingWithWaitlistConfiguration = deepMemo(
         setData({ ...data, props: p as BookingWithWaitlistProps["props"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
     const tAdmin = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
       waitlistAdminNamespace,

@@ -26,6 +26,7 @@ export const BlogPostCommentFormPropsSchema = z.object({
 export type BlogPostCommentFormProps = Prettify<
   z.infer<typeof BlogPostCommentFormPropsSchema>
 >;
+
 export type BlogPostCommentFormReaderProps = BaseReaderBlockProps<any> &
   BlogPostCommentFormProps;
 

@@ -105,6 +105,7 @@ export const CustomerPackageSelector = React.forwardRef<
             page: 1,
             limit: 50,
           });
+
           const match = listed.items.find((pkg) => pkg._id === value);
           if (match) {
             packages = [match, ...packages];

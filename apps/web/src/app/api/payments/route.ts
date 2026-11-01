@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
       },
       "Error processing payment intent",
     );
+
     throw error;
   }
 }

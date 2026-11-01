@@ -48,6 +48,7 @@ export async function redirectIfFeatureUnavailable(
   if (!session) {
     redirect("/auth/signin");
   }
+
   if (!sessionCanUseFeature(session, feature)) {
     redirect(BRAND_SETTINGS_UPGRADE_URL);
   }

@@ -32,7 +32,6 @@ async function resolveContext(
       language,
     };
   }
-
   if (!session?.user?.id) {
     throw new MemberPhoneOtpError("invalid_phone");
   }
@@ -60,6 +59,7 @@ export async function requestMemberPhoneOtpAction(
     if (error instanceof MemberPhoneOtpError) {
       return { ok: false, code: error.code };
     }
+
     console.error(error);
     return { ok: false, code: "sms_failed" };
   }
@@ -78,6 +78,7 @@ export async function verifyMemberPhoneOtpAction(
     if (error instanceof MemberPhoneOtpError) {
       return { ok: false, code: error.code };
     }
+
     console.error(error);
     return { ok: false, code: "invalid_code" };
   }

@@ -24,6 +24,7 @@ const CancellationSection: React.FC<TabProps & { withDeposit: boolean }> = ({
   const t = useI18n("admin");
   const baseName =
     `cancellationPolicy.${withDeposit ? "withDeposit" : "withoutDeposit"}` as const;
+
   const {
     fields: policies,
     append: appendPolicy,

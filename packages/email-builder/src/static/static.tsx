@@ -26,5 +26,6 @@ export async function renderToStaticMarkup<T extends BaseZodDictionary>(
   const markup = juice(rendered, {
     preserveImportant: true,
   });
+
   return "<!DOCTYPE html>" + markup;
 }

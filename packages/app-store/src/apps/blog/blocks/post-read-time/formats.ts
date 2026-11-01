@@ -17,6 +17,7 @@ export const resolveFormatKey = (format: string): ReadTimeFormatKey => {
   if (READ_TIME_FORMAT_KEYS.includes(format as ReadTimeFormatKey)) {
     return format as ReadTimeFormatKey;
   }
+
   return DEFAULT_FORMAT_KEY;
 };
 

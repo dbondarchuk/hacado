@@ -8,6 +8,7 @@ import { BlogRepositoryService } from "./repository-service";
 
 function blogPathPrefixFromPageSlug(slug: string): string | null {
   if (slug === "[slug]") return "";
+
   const m = slug.match(/^(.*)\/\[slug\]$/);
   return m ? m[1] : null;
 }
@@ -17,6 +18,7 @@ function visitPageDocumentBlocks(
   visitor: (block: Record<string, unknown>) => void,
 ): void {
   if (!node || typeof node !== "object") return;
+
   const n = node as Record<string, unknown>;
   visitor(n);
   const data = n.data;
@@ -32,14 +34,18 @@ function visitPageDocumentBlocks(
 
 export function pageUsesBlogApp(page: Page, appId: string): boolean {
   if (!page.content) return false;
+
   let found = false;
   visitPageDocumentBlocks(page.content, (block) => {
     if (block.type !== "BlogPostContainer") return;
+
     const metadata = block.metadata;
     if (!metadata || typeof metadata !== "object") return;
+
     const blogAppId = (metadata as { blogAppId?: string }).blogAppId;
     if (blogAppId === appId) found = true;
   });
+
   return found;
 }
 
@@ -66,9 +72,11 @@ async function fetchAllPublishedBlogPosts(
       limit: batchSize,
       isPublished: true,
     });
+
     for (const p of items) {
       posts.push({ slug: p.slug, updatedAt: p.updatedAt });
     }
+
     offset += items.length;
     if (offset >= total || items.length === 0) break;
   }
@@ -86,7 +94,6 @@ export async function expandBlogPlaceholderPageSitemapItems(
 
   const pathPrefix = blogPathPrefixFromPageSlug(page.slug);
   if (pathPrefix === null) return undefined;
-
   if (!pageUsesBlogApp(page, appData._id)) return undefined;
 
   const repository = new BlogRepositoryService(
@@ -95,6 +102,7 @@ export async function expandBlogPlaceholderPageSitemapItems(
     props.getDbConnection,
     props.services,
   );
+
   const posts = await fetchAllPublishedBlogPosts(repository);
 
   return posts.map((post) => ({

@@ -23,6 +23,7 @@ export function useRTEContext(): RTEContextValue {
   if (!context) {
     throw new Error("useRTEContext must be used within RTEProvider");
   }
+
   return context;
 }
 
@@ -70,6 +71,7 @@ export function RTEProvider({
         if (currentNode === node) {
           return pos + offset;
         }
+
         pos += currentNode.textContent?.length || 0;
         currentNode = walker.nextNode();
       }
@@ -91,6 +93,7 @@ export function RTEProvider({
       range.startContainer,
       range.startOffset,
     );
+
     const end = getTextOffset(
       editorRef.current,
       range.endContainer,
@@ -143,6 +146,7 @@ export function RTEProvider({
         range.startContainer,
         range.startOffset,
       );
+
       const end = getTextOffset(
         editorRef.current,
         range.endContainer,
@@ -232,6 +236,7 @@ export function RTEProvider({
       range.startContainer,
       range.startOffset,
     );
+
     const end = getTextOffset(
       editorRef.current,
       range.endContainer,
@@ -252,8 +257,10 @@ export function RTEProvider({
         (sum, node) => sum + node.text.length,
         0,
       );
+
       const rangeStart =
         blockIndex === startPos.blockIndex ? startPos.offset : 0;
+
       const rangeEnd =
         blockIndex === endPos.blockIndex ? endPos.offset : blockLength;
 
@@ -314,6 +321,7 @@ export function RTEProvider({
       range.startContainer,
       range.startOffset,
     );
+
     const end = getTextOffset(
       editorRef.current,
       range.endContainer,
@@ -330,6 +338,7 @@ export function RTEProvider({
         root,
         NodeFilter.SHOW_TEXT,
       );
+
       let startSet = false;
       let endSet = false;
 
@@ -369,9 +378,11 @@ export function RTEProvider({
             savedSelectionRef.current.start,
             savedSelectionRef.current.end,
           );
+
           sel.removeAllRanges();
           sel.addRange(newRange);
         }
+
         resolve();
       }, 0);
     });

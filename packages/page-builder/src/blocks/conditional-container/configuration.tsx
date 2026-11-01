@@ -14,6 +14,7 @@ export const ConditionalContainerConfiguration = deepMemo(
         setData({ ...data, props: p as ConditionalContainerProps["props"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     return (

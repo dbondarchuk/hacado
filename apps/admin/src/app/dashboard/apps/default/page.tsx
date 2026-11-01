@@ -14,6 +14,7 @@ export default async function Page() {
   if (!canViewCompanyApps(user)) {
     redirect("/dashboard/apps");
   }
+
   const t = await getI18nAsync("admin");
   const servicesContainer = await getServicesContainer();
   logger.debug("Loading default page");

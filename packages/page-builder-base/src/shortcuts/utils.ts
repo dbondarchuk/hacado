@@ -32,6 +32,7 @@ export const applyShortcutOption = <T extends BaseStyleDictionary>(
 ) => {
   const { styles, onStylesChange, setData, data, props, onPropsChange } =
     options;
+
   const newStyles = { ...styles };
   const newProps = props ? { ...props } : undefined;
 
@@ -137,6 +138,7 @@ export const applyShortcutOption = <T extends BaseStyleDictionary>(
             newStyles[styleName] = filteredVariants;
           }
         }
+
         return;
       }
 
@@ -158,6 +160,7 @@ export const applyShortcutOption = <T extends BaseStyleDictionary>(
                 ? value(updatedVariants[existingVariantIndex].value)
                 : value,
           };
+
           newStyles[styleName] = updatedVariants;
         } else {
           // Add new variant
@@ -166,6 +169,7 @@ export const applyShortcutOption = <T extends BaseStyleDictionary>(
             state,
             value: typeof value === "function" ? value() : value,
           };
+
           newStyles[styleName] = [...(newStyles[styleName] || []), newVariant];
         }
       } else {
@@ -190,6 +194,7 @@ export const applyShortcutOption = <T extends BaseStyleDictionary>(
             ...variant,
             value: typeof value === "function" ? value(variant.value) : value,
           }));
+
           newStyles[styleName] = updatedVariants;
         } else {
           newStyles[styleName] = [
@@ -223,6 +228,7 @@ export const applyShortcutOption = <T extends BaseStyleDictionary>(
     if (newProps) {
       newData.props = newProps;
     }
+
     setData(newData);
   } else {
     // Handle different update patterns
@@ -267,17 +273,14 @@ export const getShortcutCurrentValue = <T extends BaseStyleDictionary>(
   props?: any,
 ): string | undefined => {
   if (!styles && !props) return undefined;
-
   // Handle number-with-unit type separately
   if (shortcut.inputType === "number-with-unit") {
     return undefined; // Number-with-unit doesn't use string values
   }
-
   // Handle asset-selector type separately
   if (shortcut.inputType === "asset-selector") {
     return undefined; // Asset-selector doesn't use predefined options
   }
-
   // Handle color type separately
   if (shortcut.inputType === "color") {
     return undefined; // Color doesn't use predefined options
@@ -353,6 +356,7 @@ export const getShortcutCurrentValue = <T extends BaseStyleDictionary>(
               0.5,
               (variantMatches / targetVariants.length) * 0.5,
             );
+
             totalScore += matchRatio + variantBonus;
           }
         } else if (targetVariants.length > 0) {
@@ -389,6 +393,7 @@ export const getShortcutCurrentValue = <T extends BaseStyleDictionary>(
                 Math.abs(currentValue),
                 Math.abs(target),
               );
+
               if (maxValue > 0) {
                 totalScore += Math.max(0, 1 - diff / maxValue); // Partial score based on similarity
               }

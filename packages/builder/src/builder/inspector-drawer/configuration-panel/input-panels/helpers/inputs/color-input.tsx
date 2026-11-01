@@ -43,6 +43,7 @@ export const ColorInput: React.FC<Props> = ({
         />
       );
     }
+
     return (
       <Button
         variant="ghost"

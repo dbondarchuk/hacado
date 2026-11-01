@@ -27,6 +27,7 @@ export const ResponseEditPage = ({ appId }: { appId: string }) => {
       setLoading(false);
       return;
     }
+
     const run = async () => {
       try {
         const resData = await getFormResponseById(appId, id);
@@ -41,6 +42,7 @@ export const ResponseEditPage = ({ appId }: { appId: string }) => {
         setLoading(false);
       }
     };
+
     run();
   }, [appId, id]);
 
@@ -51,7 +53,6 @@ export const ResponseEditPage = ({ appId }: { appId: string }) => {
       </div>
     );
   }
-
   if (!response || !form) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">

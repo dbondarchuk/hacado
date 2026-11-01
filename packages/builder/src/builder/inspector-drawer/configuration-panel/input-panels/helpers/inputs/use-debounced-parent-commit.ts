@@ -47,6 +47,7 @@ export function useDebouncedParentCommit<T>({
         commitRef.current(value);
         return;
       }
+
       latestRef.current = value;
       cancelTimer();
       timerRef.current = setTimeout(() => {

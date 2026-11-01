@@ -160,6 +160,7 @@ export const Schedule: React.FC<
     selectedAppointmentOption?.durationType === "fixed"
       ? selectedAppointmentOption?.price
       : selectedAppointmentOption?.pricePerHour;
+
   const optionBaseDuration =
     selectedAppointmentOption?.durationType === "fixed"
       ? selectedAppointmentOption?.duration
@@ -206,17 +207,20 @@ export const Schedule: React.FC<
   const [giftCards, setGiftCards] = React.useState<
     ApplyGiftCardsSuccessResponse["giftCards"]
   >([]);
+
   const [paymentInformation, setPaymentInformation] =
     React.useState<CollectPayment | null>();
 
   const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
     lockMemberId ?? null,
   );
+
   const [isAnySpecialist, setIsAnySpecialist] = React.useState(false);
 
   React.useEffect(() => {
     if (!selectedAppointmentOption) return;
     if (selectedAppointmentOption.durationType !== "flexible") return;
+
     setDuration(selectedAppointmentOption.durationMin);
   }, [selectedAppointmentOption?._id, setDuration]);
 
@@ -241,16 +245,20 @@ export const Schedule: React.FC<
   const [purchasePackageId, setPurchasePackageId] = React.useState<
     string | undefined
   >(lockPurchasePackageId);
+
   const [customerPackageId, setCustomerPackageId] = React.useState<
     string | undefined
   >(lockCustomerPackageId);
+
   const [packageBookingFlow, setPackageBookingFlow] = React.useState(
     !!lockCustomerPackageId,
   );
+
   const [otpVerified, setOtpVerified] = React.useState(false);
   const [otpReturnStep, setOtpReturnStep] = React.useState<
     "packages" | "review" | "payment"
   >("payment");
+
   const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
 
   const initialStep: StepType = getInitialBookingStep({
@@ -300,6 +308,7 @@ export const Schedule: React.FC<
         undefined,
       ).length,
     });
+
     if (nextStep !== currentStep) {
       suppressNextScrollRef.current = true;
       setCurrentStep(nextStep);
@@ -327,9 +336,11 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!selectedAddons.length || !selectedMemberId) return;
+
     const filtered = selectedAddons.filter((addon) =>
       isAddonAvailableForMember(addon.staff, selectedMemberId),
     );
+
     if (filtered.length !== selectedAddons.length) {
       setSelectedAddons(filtered);
     }
@@ -338,10 +349,12 @@ export const Schedule: React.FC<
 
   const addonsFields =
     selectedAddons?.flatMap((addon) => addon.fields || []) || [];
+
   const allFormFields = [
     ...(selectedAppointmentOption?.fields || []),
     ...addonsFields,
   ];
+
   const fieldsIdsRequired = [...allFormFields].reduce(
     (map, field) => ({
       ...map,
@@ -359,6 +372,7 @@ export const Schedule: React.FC<
 
   const [availabilityByMember, setAvailabilityByMember] =
     React.useState<AvailabilityByMember>({});
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<AppointmentFields>({
     name: "",
@@ -369,6 +383,7 @@ export const Schedule: React.FC<
   React.useEffect(() => {
     // Package verify fills email/phone after OTP; don't clear verification for that path.
     if (packageBookingFlow) return;
+
     setOtpVerified(false);
   }, [fields.email, fields.phone, packageBookingFlow]);
 
@@ -390,16 +405,19 @@ export const Schedule: React.FC<
         ? (selectedStaff?.effectiveDuration ??
           selectedAppointmentOption.duration)
         : duration;
+
     if (!baseDuration) {
       baseDuration =
         selectedAppointmentOption.durationType === "fixed"
           ? selectedAppointmentOption.duration
           : selectedAppointmentOption.durationMin;
     }
+
     if (!baseDuration) return undefined;
 
     const addonsDuration = (selectedAddons || []).reduce((sum, addon) => {
       if (!isAddonAvailableForMember(addon.staff, memberId)) return sum;
+
       return (
         sum +
         (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0)
@@ -444,6 +462,7 @@ export const Schedule: React.FC<
             );
 
             if (!canFulfillAddons) return null;
+
             const memberDuration = getTotalDurationForMember(memberId);
 
             if (!memberDuration) return null;
@@ -461,6 +480,7 @@ export const Schedule: React.FC<
           setAvailabilityByMember(
             demoAvailabilityByMember(requests.map((r) => r.memberId)),
           );
+
           return;
         }
 
@@ -468,12 +488,14 @@ export const Schedule: React.FC<
           memberIds: requests.map((r) => r.memberId),
           durations: requests.map((r) => r.duration),
         });
+
         setAvailabilityByMember(data);
         return;
       }
 
       const totalDuration =
         durationOverride ?? getTotalDurationForMember(resolvedMemberId);
+
       if (!totalDuration || !resolvedMemberId) return;
 
       if (isEditor) {
@@ -485,6 +507,7 @@ export const Schedule: React.FC<
         memberIds: [resolvedMemberId],
         durations: [totalDuration],
       });
+
       setAvailabilityByMember(data);
     } catch (e) {
       console.error(e);
@@ -564,6 +587,7 @@ export const Schedule: React.FC<
     paymentIntentIdOverride?: string,
   ): AppointmentRequest | null => {
     if (!dateTime || !duration || !selectedAppointmentOption?._id) return null;
+
     return {
       dateTime: LuxonDateTime.fromObject(
         {
@@ -620,6 +644,7 @@ export const Schedule: React.FC<
     const memberId =
       selectedMemberId ??
       (activeStaff.length === 1 ? activeStaff[0].member.id : null);
+
     if (!memberId && !(isAnySpecialist && activeStaff.length > 1)) return;
 
     didFetchInitialAvailability.current = true;
@@ -636,6 +661,7 @@ export const Schedule: React.FC<
     const option = lockServiceId
       ? appointmentOptions.find((item) => item._id === lockServiceId)
       : undefined;
+
     setCurrentStep(
       getInitialBookingStep({
         flowOrder,
@@ -651,6 +677,7 @@ export const Schedule: React.FC<
         ).length,
       }),
     );
+
     setSelectedAppointmentOption(option);
     setSelectedMemberId(lockMemberId ?? null);
     setIsAnySpecialist(false);
@@ -764,6 +791,7 @@ export const Schedule: React.FC<
           setCurrentStep("calendar");
           await fetchAvailability();
         }
+
         return;
       }
 

@@ -81,12 +81,14 @@ export async function applyPolarOrderPaidToSmsBalances(
           { productId },
           "Product is not a SMS top-up product; skipping",
         );
+
         return;
       }
 
       for (const benefit of product.benefits) {
         if (benefit.type !== "meter_credit") continue;
         if (benefit.properties.meterId !== meterId) continue;
+
         const units = Math.max(0, benefit.properties.units);
         logger.debug(
           { units },
@@ -108,6 +110,7 @@ export async function applyPolarOrderPaidToSmsBalances(
           },
           "Added SMS top-up credits from one-time order.paid",
         );
+
         return;
       }
 
@@ -130,6 +133,7 @@ export async function applyPolarOrderPaidToSmsBalances(
         { order },
         "Product is not a subscription cycle create or update; skipping",
       );
+
       return;
     }
 
@@ -141,11 +145,13 @@ export async function applyPolarOrderPaidToSmsBalances(
     for (const benefit of product.benefits) {
       if (benefit.type !== "meter_credit") continue;
       if (benefit.properties.meterId !== meterId) continue;
+
       const units = Math.max(0, benefit.properties.units);
       logger.debug(
         { units },
         "Setting included SMS credits from subscription order.paid (renewal or create)",
       );
+
       await billingService.setIncludedSmsCredits(units);
       logger.info(
         {
@@ -155,6 +161,7 @@ export async function applyPolarOrderPaidToSmsBalances(
         },
         "Set included SMS credits from subscription order.paid (renewal or create)",
       );
+
       return;
     }
   } catch (error) {

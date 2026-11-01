@@ -44,6 +44,7 @@ export const applyShortcut = <T extends BaseStyleDictionary>(
   const selectedOption = shortcut.options.find(
     (opt) => opt.value === optionValue,
   );
+
   if (!selectedOption) return;
 
   applyShortcutOption(selectedOption, {

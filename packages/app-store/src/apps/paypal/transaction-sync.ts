@@ -38,6 +38,7 @@ export function computeSyncWindow(now: Date): { start: Date; end: Date } {
   const start = new Date(
     end.getTime() - PAYPAL_TRANSACTION_SYNC_LOOKBACK_SECONDS * 1000,
   );
+
   return { start, end };
 }
 
@@ -61,6 +62,7 @@ export function extractCartSplit(
     if (!Number.isFinite(itemTotal) || itemTotal < 0) {
       return undefined;
     }
+
     cartTotal += itemTotal;
   }
 
@@ -75,7 +77,6 @@ export function extractCartSplit(
   if (tip < 0) {
     return undefined;
   }
-
   if (Math.abs(cartTotal + tip - amount) > 0.01) {
     return undefined;
   }
@@ -118,7 +119,6 @@ export function mapVerifiedCaptureToIngestInput(
   if (!captureId) {
     return null;
   }
-
   if (
     capture.status &&
     capture.status !== CaptureStatus.Completed &&
@@ -178,6 +178,7 @@ export async function runPaypalTransactionSync(
       },
       "Failed to list PayPal transactions",
     );
+
     throw new Error(
       `PayPal transaction list failed with status ${result.error.statusCode ?? "unknown"}`,
     );
@@ -193,6 +194,7 @@ export async function runPaypalTransactionSync(
       { id: detail.transaction_info?.transaction_id },
       "Processing PayPal transaction",
     );
+
     const captureId = getTransactionCaptureId(detail);
     if (!captureId) {
       logger.debug(
@@ -219,6 +221,7 @@ export async function runPaypalTransactionSync(
           ? "Skipping phantom PayPal transaction (capture not found)"
           : "Skipping PayPal transaction (capture lookup failed)",
       );
+
       continue;
     }
 

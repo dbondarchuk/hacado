@@ -28,6 +28,7 @@ async function setPendingMemberProfile(
         updatedAt: new Date(),
       },
     });
+
   return result.matchedCount > 0;
 }
 
@@ -73,6 +74,7 @@ async function takePendingMemberProfileByFilter(
 
   const pending = result?.pendingMemberProfile;
   if (!pending || typeof pending !== "object") return null;
+
   return pending;
 }
 
@@ -82,8 +84,8 @@ export async function takePendingMemberProfile(
 ): Promise<PendingMemberProfile | null> {
   const byUser = await takePendingMemberProfileByFilter({ _id: userId });
   if (byUser) return byUser;
-
   if (!email) return null;
+
   const normalized = email.trim().toLowerCase();
   return takePendingMemberProfileByFilter({
     $expr: { $eq: [{ $toLower: "$email" }, normalized] },

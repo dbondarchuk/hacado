@@ -30,6 +30,7 @@ export const AssetsTableAction: React.FC<{
     customerFilter,
     setCustomerFilter,
   } = useAssetsTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const t = useI18n("admin");
 

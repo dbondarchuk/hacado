@@ -35,7 +35,9 @@ export const TableConfiguration = deepMemo(
         (documentBlock?.data as TableProps | undefined) ??
         (liveBlock?.data as TableProps | undefined) ??
         data;
+
       if (!raw?.props) return data;
+
       return {
         ...raw,
         props: normalizeTableGridProps(raw.props),
@@ -45,6 +47,7 @@ export const TableConfiguration = deepMemo(
     const updateStyle = useCallback(
       (s: unknown) => {
         if (!liveBlock) return;
+
         setData({
           ...(liveBlock.data as TableProps),
           style: s as TableProps["style"],
@@ -56,6 +59,7 @@ export const TableConfiguration = deepMemo(
     const updateProps = useCallback(
       (nextProps: TableProps["props"]) => {
         if (!liveBlock) return;
+
         setData({
           ...(liveBlock.data as TableProps),
           props: normalizeTableGridProps(nextProps),
@@ -88,6 +92,7 @@ export const TableConfiguration = deepMemo(
           colCount,
           createEmptyTableCell,
         );
+
         updateProps({ ...p, ...next });
       },
       [p, updateProps],

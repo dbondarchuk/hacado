@@ -29,6 +29,7 @@ export default async function AcceptInvitationPage(props: {
       result.error === "missing"
         ? t("team.acceptInvitation.missing")
         : t("team.acceptInvitation.invalid");
+
     return (
       <AuthLayout
         title={t("team.acceptInvitation.title")}
@@ -54,6 +55,7 @@ export default async function AcceptInvitationPage(props: {
     userId: session.user.id,
     status: "active",
   });
+
   if (existingMember) {
     redirect("/dashboard");
   }

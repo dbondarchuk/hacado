@@ -46,6 +46,7 @@ export function gaSessionCookieName(measurementId: string): string {
   const suffix = measurementId.startsWith("G-")
     ? measurementId.slice(2)
     : measurementId;
+
   return `_ga_${suffix}`;
 }
 
@@ -61,6 +62,7 @@ export function getCookieFromRequest(
     const eq = trimmed.indexOf("=");
     if (eq <= 0) continue;
     if (trimmed.slice(0, eq) !== name) continue;
+
     return trimmed.slice(eq + 1);
   }
 

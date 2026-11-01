@@ -129,6 +129,7 @@ function buildFieldValueSchema(
         minSelected?: number;
         maxSelected?: number;
       };
+
       const options = data?.options?.map((o) => o.option) ?? [];
       let schema = zUniqueArray(
         z
@@ -156,6 +157,7 @@ function buildFieldValueSchema(
           ),
         }) as typeof schema;
       }
+
       if (data?.maxSelected != null) {
         schema = schema.refine((arr) => arr.length <= data.maxSelected!, {
           message: zErrorMessageWithParams(
@@ -199,7 +201,6 @@ function buildFieldValueSchema(
         .refine((file) => {
           if (field.required && !file) return false;
           if (!(file instanceof File)) return false;
-
           if (!field.data?.accept) return true;
 
           return field.data.accept.every((accept) =>
@@ -245,7 +246,9 @@ export function getFormResponseSchema(
     if (!field.required) {
       schema = schema.optional().nullable();
     }
+
     shape[field.name] = schema;
   }
+
   return z.object(shape);
 }

@@ -20,6 +20,7 @@ export const MyCabinetBlockPropsSchema = z.object({
 export type MyCabinetBlockProps = Prettify<
   z.infer<typeof MyCabinetBlockPropsSchema>
 >;
+
 export type MyCabinetBlockReaderProps = BaseReaderBlockProps<any> &
   MyCabinetBlockProps;
 

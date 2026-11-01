@@ -42,12 +42,14 @@ export const BlogPostContentConfiguration = deepMemo(
 
     const showShort =
       data.props?.showShort ?? BlogPostContentPropsDefaults.props.showShort;
+
     const maxParagraphs =
       !!data.props &&
       "maxParagraphs" in data.props &&
       !!data.props.maxParagraphs
         ? data.props.maxParagraphs
         : BlogPostShortContentProps.maxParagraphs;
+
     const showOnlyTextParagraphs =
       !!data.props &&
       "showOnlyTextParagraphs" in data.props &&

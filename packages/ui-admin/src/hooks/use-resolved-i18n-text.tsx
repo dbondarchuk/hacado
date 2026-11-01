@@ -15,6 +15,7 @@ function resolveArgs<T extends any>(
   args?: T,
 ): T {
   if (!args) return args as T;
+
   if (typeof args === "object") {
     if (Array.isArray(args)) {
       return args.map((arg) => resolveArgs(t, timeZone, locale, arg)) as T;
@@ -28,7 +29,6 @@ function resolveArgs<T extends any>(
             t.has(value as any) ? t(value as any) : value,
           ];
         }
-
         if (
           typeof value === "object" &&
           value &&
@@ -78,6 +78,7 @@ export function resolvedI18nText(
   if (typeof field === "string") {
     return t.has(field as any) ? t(field as any) : field;
   }
+
   if (
     typeof field === "object" &&
     !!field &&
@@ -88,10 +89,12 @@ export function resolvedI18nText(
       key: string;
       args?: Record<string, unknown>;
     };
+
     return t.has(key as any)
       ? t(key as any, resolveArgs(t, timeZone, locale, args))
       : key;
   }
+
   return "";
 }
 

@@ -84,17 +84,21 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
     appId: string;
     scopes: DefaultAppToInstallScope[];
   } | null>(null);
+
   const [selectedScopes, setSelectedScopes] = React.useState<
     DefaultAppToInstallScope[]
   >([]);
+
   const [settingDefault, setSettingDefault] = React.useState(false);
 
   const defaultScopes = useMemo(() => {
     const currentApp = AvailableApps[appType];
     if (!currentApp) return undefined;
+
     const intersecting = defaultAppToInstallScopes.filter((scope) =>
       currentApp.scope.includes(scope),
     );
+
     return filterInstallDefaultScopesForUser(
       intersecting,
       session?.user as SessionUser | undefined,
@@ -163,6 +167,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
 
   const onSetDefault = async () => {
     if (!pendingDefaultPrompt) return;
+
     try {
       setSettingDefault(true);
       await toastPromise(
@@ -190,6 +195,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
 
   const onDialogOpenChange = (open: boolean) => {
     if (open && installBlocked && !app) return;
+
     if (open) openDialog();
     else closeDialog();
   };

@@ -23,6 +23,7 @@ export const GiftCardPurchaseBlockPropsSchema = z.object({
 export type GiftCardPurchaseBlockProps = Prettify<
   z.infer<typeof GiftCardPurchaseBlockPropsSchema>
 >;
+
 export type GiftCardPurchaseBlockReaderProps = BaseReaderBlockProps<any> &
   GiftCardPurchaseBlockProps;
 

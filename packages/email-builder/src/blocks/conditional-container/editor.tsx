@@ -18,7 +18,6 @@ export const ConditionalContainerEditor = ({
       <div className="mb-2 text-muted-foreground text-xs w-full">
         {t.rich(
           "emailBuilder.blocks.conditionalContainer.ifConditionIsCorrectFormat",
-
           {
             condition:
               condition ||

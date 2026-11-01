@@ -61,6 +61,7 @@ export const ManageSyncedPaymentDialog = ({
   const [record, setRecord] = useState<HydratedSyncedPayment | null>(
     preloaded ?? null,
   );
+
   const [loading, setLoading] = useState(false);
   const [pending, setPending] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
@@ -84,6 +85,7 @@ export const ManageSyncedPaymentDialog = ({
         externalId,
         limit: 1,
       });
+
       const item = result.items[0] ?? null;
       setRecord(item);
       return item;
@@ -99,6 +101,7 @@ export const ManageSyncedPaymentDialog = ({
     if (!open) {
       return;
     }
+
     loadRecord();
   }, [open, loadRecord]);
 
@@ -121,9 +124,11 @@ export const ManageSyncedPaymentDialog = ({
         success: t("syncedPayments.toast.success"),
         error: t("syncedPayments.toast.error"),
       });
+
       if (reload) {
         await loadRecord();
       }
+
       onUpdated?.();
       if (closeOnSuccess) {
         setOpen(false);
@@ -139,6 +144,7 @@ export const ManageSyncedPaymentDialog = ({
     if (!record) {
       return;
     }
+
     return runAction(() =>
       record.appointmentId
         ? syncedPaymentsApi.reassignSyncedPayment(record._id, appointmentId)

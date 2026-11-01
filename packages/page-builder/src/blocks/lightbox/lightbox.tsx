@@ -24,10 +24,12 @@ export const Lightbox = ({
   const { isOpen, images, openId, onClose } = useContext(
     LightboxInternalContext,
   );
+
   const [api, setApi] = useState<CarouselApi>();
 
   useEffect(() => {
     if (!api || !isOpen || !openId || !images) return;
+
     const index = images.findIndex((item) => item.id === openId);
     if (index < 0) return;
 

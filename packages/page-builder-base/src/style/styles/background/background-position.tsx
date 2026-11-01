@@ -57,7 +57,6 @@ export const backgroundPositionStyle = {
   defaultValue: "center" as BackgroundPositionValue,
   renderToCSS: (value) => {
     if (!value) return null;
-
     // Handle predefined values
     if (typeof value === "string") {
       return `background-position: ${value};`;

@@ -34,6 +34,7 @@ export async function PATCH(
 
   const blockedResponse =
     await getSubscriptionBlockingResponseForAppointmentWriteActions();
+
   if (blockedResponse) {
     return blockedResponse;
   }

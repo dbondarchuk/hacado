@@ -15,7 +15,9 @@ export function trackWaitlistBookingUiStep(
       WAITLIST_UI_STEP_TRACKING["waitlist-form"],
       metadata,
     );
+
     return;
   }
+
   bookingApi.trackAdvanceFromUiStep(uiStep, metadata);
 }

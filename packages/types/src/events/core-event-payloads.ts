@@ -244,34 +244,42 @@ export type GiftCardDeletedPayload = { giftCardIds: string[] };
 export type AppointmentPackageCreatedPayload = {
   package: AppointmentPackage;
 };
+
 export type AppointmentPackageUpdatedPayload = {
   package: AppointmentPackage;
   previous: AppointmentPackage;
 };
+
 export type AppointmentPackageDeletedPayload = { packageIds: string[] };
 export type CustomerPackageIssuedPayload = {
   customerPackage: CustomerPackage;
 };
+
 export type CustomerPackageRedeemedPayload = {
   customerPackage: CustomerPackage;
   usage: AppointmentPackageUsage;
   appointmentId: string;
 };
+
 export type CustomerPackageRestoredPayload = {
   customerPackage: CustomerPackage;
   appointmentId: string;
   credits: number;
 };
+
 export type CustomerPackageAdjustedPayload = {
   customerPackage: CustomerPackage;
   request: PackageAdjustRequest;
 };
+
 export type CustomerPackageExhaustedPayload = {
   customerPackage: CustomerPackage;
 };
+
 export type CustomerPackageCancelledPayload = {
   customerPackage: CustomerPackage;
 };
+
 export type CustomerPackageExpiredPayload = {
   customerPackage: CustomerPackage;
 };
@@ -368,6 +376,7 @@ export type AssetUpdatedPayload = {
   asset: Asset;
   update: Partial<AssetUpdate>;
 };
+
 export type AssetDeletedPayload = { assetIds: string[] };
 
 export type MemberDeactivatedPayload = {

@@ -10,9 +10,11 @@ export async function checkOrganizationSlug(
   if (getOrganizationSlugIssue(slug)) {
     return false;
   }
+
   const existing = await new StaticOrganizationService().getOrganizationBySlug(
     slug,
   );
+
   if (!existing) return true;
   if (
     currentOrganizationId &&
@@ -20,5 +22,6 @@ export async function checkOrganizationSlug(
   ) {
     return true;
   }
+
   return false;
 }

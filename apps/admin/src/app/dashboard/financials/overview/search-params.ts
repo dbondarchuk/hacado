@@ -14,6 +14,7 @@ export const financialOverviewSearchParams = {
 export const financialOverviewSearchParamsCache = createSearchParamsCache(
   financialOverviewSearchParams,
 );
+
 export const serializeFinancialOverviewSearchParams = createSerializer(
   financialOverviewSearchParams,
 );

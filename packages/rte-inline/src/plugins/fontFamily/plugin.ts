@@ -44,6 +44,7 @@ export const fontFamilyPlugin: MarkPlugin = {
     if (marks.fontFamily && marks.fontFamily !== "inherit") {
       styles.fontFamily = marks.fontFamily;
     }
+
     return styles;
   },
 };

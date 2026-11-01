@@ -17,6 +17,7 @@ export const userSelectStyle = {
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value || value === "auto") return null;
+
     return `user-select: ${value};`;
   },
   component: ({ value, onChange }) => {

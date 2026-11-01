@@ -126,6 +126,7 @@ function historyActorFields(eventSource: EventSource): {
   if (eventSource.actor === "member") {
     return { by: "member", memberId: eventSource.actorId };
   }
+
   return { by: "customer" };
 }
 
@@ -202,6 +203,7 @@ export class BookingService extends BaseService implements IBookingService {
     const earliestBookable = DateTime.now().plus({
       hours: config.minHoursBeforeBooking || 0,
     });
+
     const defaultEnd = earliestBookable.plus({
       weeks: config.maxWeeksInFuture ?? 8,
     });
@@ -209,12 +211,14 @@ export class BookingService extends BaseService implements IBookingService {
     const requestedFrom = options?.from
       ? DateTime.fromJSDate(options.from)
       : earliestBookable;
+
     const requestedTo = options?.to
       ? DateTime.fromJSDate(options.to)
       : defaultEnd;
 
     let start =
       requestedFrom < earliestBookable ? earliestBookable : requestedFrom;
+
     let end = requestedTo > defaultEnd ? defaultEnd : requestedTo;
 
     if (start >= end) {
@@ -222,6 +226,7 @@ export class BookingService extends BaseService implements IBookingService {
         { duration, memberId, start, end },
         "Availability range is empty after minHoursBeforeBooking clamp",
       );
+
       return [];
     }
 
@@ -414,8 +419,10 @@ export class BookingService extends BaseService implements IBookingService {
       if (!catalogPackageId && customerPackageId) {
         const sold =
           await this.packagesService.getCustomerPackage(customerPackageId);
+
         catalogPackageId = sold?.packageId;
       }
+
       if (catalogPackageId) {
         const pkg = await this.packagesService.getPackage(catalogPackageId);
         if (pkg) {
@@ -445,6 +452,7 @@ export class BookingService extends BaseService implements IBookingService {
 
     let meetingInformation: AppointmentOnlineMeetingInformation | undefined =
       undefined;
+
     if (option?.isOnline) {
       const member = await this.teamService.getMemberById(resolvedMemberId);
       const meetingProviderAppId = member?.meetingUrlProviderAppId;
@@ -643,6 +651,7 @@ export class BookingService extends BaseService implements IBookingService {
         { appointmentId },
         "Something went wrong - updated appointment not found",
       );
+
       throw new Error("Something went wrong - updated appointment not found");
     }
 
@@ -1085,6 +1094,7 @@ export class BookingService extends BaseService implements IBookingService {
         m.appIds.forEach((appId) => {
           map[appId] = m.member;
         });
+
         return map;
       },
       {} as Record<string, OrganizationMember>,
@@ -1265,8 +1275,10 @@ export class BookingService extends BaseService implements IBookingService {
         { appointmentId: id },
         "Appointment not found for status change",
       );
+
       return;
     }
+
     const oldStatus = appointment.status;
 
     if (oldStatus === newStatus) {
@@ -1274,6 +1286,7 @@ export class BookingService extends BaseService implements IBookingService {
         { appointmentId: id, status: oldStatus },
         "Appointment status unchanged",
       );
+
       return;
     }
 
@@ -1448,6 +1461,7 @@ export class BookingService extends BaseService implements IBookingService {
         { appointmentId: id },
         "Appointment not found for rescheduling",
       );
+
       return;
     }
 
@@ -1640,6 +1654,7 @@ export class BookingService extends BaseService implements IBookingService {
     const config =
       propConfig ||
       (await this.configurationService.getConfiguration("booking"));
+
     const generalConfig =
       propGeneralConfig ||
       (await this.configurationService.getConfiguration("general"));
@@ -1737,6 +1752,7 @@ export class BookingService extends BaseService implements IBookingService {
           offset: 0,
           limit: 100,
         });
+
       customerPackageOptionIds = [
         ...new Set(
           customerPackages.flatMap((pkg) =>
@@ -1755,6 +1771,7 @@ export class BookingService extends BaseService implements IBookingService {
         ...customerPackageOptionIds,
       ]),
     ];
+
     const optionsChoices = optionIds
       .map((id) => options.items?.find(({ _id }) => id == _id))
       .filter((o) => !!o);
@@ -1772,6 +1789,7 @@ export class BookingService extends BaseService implements IBookingService {
     const bookableOptions = optionsChoices.filter((option) => {
       const basePrice =
         option.durationType === "fixed" ? option.price : option.pricePerHour;
+
       const baseDuration =
         option.durationType === "fixed" ? option.duration : undefined;
 
@@ -1825,6 +1843,7 @@ export class BookingService extends BaseService implements IBookingService {
       const hasActiveDiscounts = await this.catalogService.hasActiveDiscounts(
         new Date(),
       );
+
       if (hasActiveDiscounts) showPromoCode = true;
     }
 
@@ -1840,9 +1859,11 @@ export class BookingService extends BaseService implements IBookingService {
             const children = filterCatalog(node.children);
             return children.length ? { ...node, children } : null;
           }
+
           if (node.type === "service") {
             return bookableOptionIds.has(node.serviceId) ? node : null;
           }
+
           return publicPackageIds.has(node.packageId) ? node : null;
         })
         .filter((node): node is BookingCatalogNode => node !== null);
@@ -1885,6 +1906,7 @@ export class BookingService extends BaseService implements IBookingService {
             await this.appsService.getAppService<ICustomerAppointmentTextMessage>(
               connected._id,
             );
+
           const part = await service.getCustomerAppointmentTextOffer(app);
           offer.notifications ||= part.notifications;
           offer.reminders ||= part.reminders;
@@ -2116,6 +2138,7 @@ export class BookingService extends BaseService implements IBookingService {
       { organizationId: this.organizationId },
       "No owner member found, falling back to first admin user for memberId resolution",
     );
+
     const contacts = await this.teamService.getOrganizationAdminContacts();
     return contacts[0]?.memberId ?? "";
   }
@@ -2129,7 +2152,6 @@ export class BookingService extends BaseService implements IBookingService {
       if (!member) {
         return [];
       }
-
       if (
         !canUseMemberCalendarSources(member.role, {
           allowStaffCalendarSources: config.allowStaffCalendarSources,
@@ -2328,10 +2350,12 @@ export class BookingService extends BaseService implements IBookingService {
           if (status === "paid") {
             const pkg =
               await this.packagesService.getPackage(purchasePackageId);
+
             const tipAmount =
               typeof data?.tipAmount === "number" && data.tipAmount > 0
                 ? data.tipAmount
                 : undefined;
+
             const payment = await this.paymentsService.createPayment(
               {
                 appId,
@@ -2351,6 +2375,7 @@ export class BookingService extends BaseService implements IBookingService {
               },
               eventSource,
             );
+
             packagePaymentId = payment._id;
           } else {
             logger.warn(
@@ -2377,6 +2402,7 @@ export class BookingService extends BaseService implements IBookingService {
               source: eventSource,
               session,
             });
+
         redeemPackageId = issued._id;
       }
 
@@ -2385,6 +2411,7 @@ export class BookingService extends BaseService implements IBookingService {
         const optionStaffMemberIds = (option?.staff ?? []).map(
           (assignment) => assignment.memberId,
         );
+
         dbEvent.packageUsage = await this.packagesService.redeem({
           customerPackageId: redeemPackageId,
           appointmentId: id,
@@ -2431,6 +2458,7 @@ export class BookingService extends BaseService implements IBookingService {
             typeof data?.tipAmount === "number" && data.tipAmount > 0
               ? data.tipAmount
               : undefined;
+
           const serviceAmount = amount - (tipAmount ?? 0);
           const totalPrice = event.totalPrice ?? 0;
 

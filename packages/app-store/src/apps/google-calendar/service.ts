@@ -138,6 +138,7 @@ class GoogleCalendarConnectedApp
             { appId: appData._id, calendarId },
             "Retrieved selected calendar ID",
           );
+
           return calendarId;
 
         case "get-calendar-list":
@@ -147,6 +148,7 @@ class GoogleCalendarConnectedApp
             { appId: appData._id, calendarCount: calendarList?.length },
             "Successfully retrieved calendar list",
           );
+
           return calendarList;
 
         case "set-calendar":
@@ -158,6 +160,7 @@ class GoogleCalendarConnectedApp
             },
             "Setting calendar configuration",
           );
+
           await this.props.update({
             data: {
               ...(appData.data ?? {}),
@@ -168,6 +171,7 @@ class GoogleCalendarConnectedApp
               additional: data.calendar.name,
             },
           });
+
           logger.info(
             {
               appId: appData._id,
@@ -176,6 +180,7 @@ class GoogleCalendarConnectedApp
             },
             "Successfully set calendar configuration",
           );
+
           return;
 
         default:
@@ -183,6 +188,7 @@ class GoogleCalendarConnectedApp
             { appId: appData._id, type: request.type },
             "Processing default request",
           );
+
           return okStatus;
       }
     } catch (error: any) {
@@ -190,6 +196,7 @@ class GoogleCalendarConnectedApp
         { appId: appData._id, type: data.type, error },
         "Error processing Google Calendar request",
       );
+
       throw error;
     }
   }
@@ -216,6 +223,7 @@ class GoogleCalendarConnectedApp
         { appId, error },
         "Error generating Google Calendar login URL",
       );
+
       throw error;
     }
   }
@@ -257,6 +265,7 @@ class GoogleCalendarConnectedApp
           { appId },
           "Redirect request does not contain authorization code",
         );
+
         throw new ConnectedAppError(
           "app_google-calendar_admin.statusText.redirect_request_does_not_contain_authorization_code" satisfies GoogleCalendarAdminAllKeys,
         );
@@ -293,6 +302,7 @@ class GoogleCalendarConnectedApp
           { appId, requiredScopes, actualScopes: tokens.scope },
           "App was not given required scopes",
         );
+
         throw new ConnectedAppError(
           "app_google-calendar_admin.statusText.app_was_not_given_required_scopes" satisfies GoogleCalendarAdminAllKeys,
         );
@@ -865,6 +875,7 @@ class GoogleCalendarConnectedApp
         { start: start.toISO(), end: end.toISO(), top, calendarId, error },
         "Error fetching paginated events from Google Calendar",
       );
+
       throw error;
     }
   }
@@ -1014,6 +1025,7 @@ class GoogleCalendarConnectedApp
         { appId: appData._id, error },
         "Error creating Google OAuth client with credentials",
       );
+
       throw error;
     }
   }

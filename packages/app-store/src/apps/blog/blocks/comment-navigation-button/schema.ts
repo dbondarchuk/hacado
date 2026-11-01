@@ -19,6 +19,7 @@ export const BlogCommentNavigationButtonPropsSchema = z.object({
 export type BlogCommentNavigationButtonProps = z.infer<
   typeof BlogCommentNavigationButtonPropsSchema
 >;
+
 export type BlogCommentNavigationButtonReaderProps = BaseReaderBlockProps<any> &
   BlogCommentNavigationButtonProps;
 

@@ -48,6 +48,7 @@ export function PageIdentityBar({
     control: form.control,
     name: ["title", "slug"],
   });
+
   const hasIdentityError = Boolean(errors.title || errors.slug);
 
   React.useEffect(() => {

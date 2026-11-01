@@ -38,6 +38,7 @@ export const TextBeltAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<TextBeltAdminNamespace, TextBeltAdminKeys>(
     textBeltAdminNamespace,
   );
+
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<TextBeltConfiguration>({
       appId,

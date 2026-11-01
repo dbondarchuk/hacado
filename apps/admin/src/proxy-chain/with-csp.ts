@@ -18,6 +18,7 @@ export const withCsp: MiddlewareProxy = (next) => {
 
     const allowSameOriginFrame =
       request.nextUrl.pathname.startsWith("/install/preview");
+
     const contentSecurityPolicyHeaderValue = buildCsp(
       allowSameOriginFrame ? "'self'" : "'none'",
     );

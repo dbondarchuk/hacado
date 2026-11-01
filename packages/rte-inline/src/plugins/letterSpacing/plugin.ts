@@ -48,6 +48,7 @@ export const letterSpacingPlugin: MarkPlugin = {
       const spacingMap = { tight: "-0.025em", normal: "0em", wide: "0.05em" };
       styles.letterSpacing = spacingMap[marks.letterSpacing];
     }
+
     return styles;
   },
 };

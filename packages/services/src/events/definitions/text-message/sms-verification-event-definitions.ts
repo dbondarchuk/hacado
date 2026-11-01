@@ -31,6 +31,7 @@ const activity = (
 ) => {
   const { phoneNumber, reason } =
     envelope.payload as SmsVerificationStatusPayload;
+
   return {
     eventId: envelope.id,
     eventType: envelope.type,
@@ -85,6 +86,7 @@ async function adminEmails(
   const organization = await services.organizationService.getOrganization();
   const organizationLabel =
     organization?.name?.trim() || organization?.slug || "";
+
   const url = `${getAdminUrl()}${verificationUrl}`;
   const notifications: EmailNotificationRequest[] = [];
 

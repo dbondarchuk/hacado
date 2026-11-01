@@ -88,6 +88,7 @@ export const Appointments: React.FC<
   const [option, setOption] = React.useState<string | null>(
     lockServiceId ?? fromQuery,
   );
+
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
   const [purchasePackageId, setPurchasePackageId] = React.useState<string>();
   const [customerPackageId, setCustomerPackageId] = React.useState<string>();
@@ -99,6 +100,7 @@ export const Appointments: React.FC<
     email: "",
     phone: "",
   });
+
   const [myPackages, setMyPackages] = React.useState<CustomerPackage[]>([]);
   const [packagesLoading, setPackagesLoading] = React.useState(false);
   const [packagesError, setPackagesError] = React.useState(false);
@@ -120,6 +122,7 @@ export const Appointments: React.FC<
   const [specialistFirstMemberId, setSpecialistFirstMemberId] = React.useState<
     string | null
   >(lockMemberId ?? null);
+
   const [specialistFirstAny, setSpecialistFirstAny] = React.useState(false);
 
   const selected = options.find((m) => m._id === option);
@@ -161,12 +164,14 @@ export const Appointments: React.FC<
           phone: session.phone || "",
           smsConsent: session.smsConsent === true,
         });
+
         await refreshBookingOptions?.();
         return;
       }
     } catch {
       // fall through to OTP
     }
+
     setPackageOtpOpen(true);
   };
 
@@ -176,6 +181,7 @@ export const Appointments: React.FC<
       setPackagesError(false);
       return;
     }
+
     let cancelled = false;
     setPackagesLoading(true);
     setPackagesError(false);
@@ -183,6 +189,7 @@ export const Appointments: React.FC<
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
+
         setMyPackages(
           (response.items ?? []).filter(
             (pkg) => pkg.status !== "pending" && pkg.remainingCredits > 0,
@@ -191,6 +198,7 @@ export const Appointments: React.FC<
       })
       .catch((error) => {
         if (cancelled) return;
+
         setMyPackages([]);
         setPackagesError(
           !(error instanceof ClientApiError && error.status === 403),
@@ -199,6 +207,7 @@ export const Appointments: React.FC<
       .finally(() => {
         if (!cancelled) setPackagesLoading(false);
       });
+
     return () => {
       cancelled = true;
     };
@@ -213,6 +222,7 @@ export const Appointments: React.FC<
         options.some((choice) => choice._id === item.serviceId)
       );
     });
+
     const optionId = redeemableItem?.serviceId;
     if (!optionId) {
       setPackagesError(true);
@@ -286,7 +296,6 @@ export const Appointments: React.FC<
       />
     );
   }
-
   if (packageBookingFlow && otpVerified) {
     return (
       <div className="flex flex-col gap-4" id={id}>
@@ -342,7 +351,6 @@ export const Appointments: React.FC<
       </div>
     );
   }
-
   if (isSpecialistFirst && !specialistFirstMemberId && !specialistFirstAny) {
     return (
       <div className="flex flex-col gap-2" id={id}>
@@ -406,6 +414,7 @@ export const Appointments: React.FC<
             phone: result.phone || "",
             smsConsent: result.smsConsent === true,
           });
+
           await refreshBookingOptions?.();
         }}
       />

@@ -144,6 +144,7 @@ const InlineCombobox = ({
           at: insertPoint?.current ?? undefined,
         });
       }
+
       if (cause === "arrowLeft" || cause === "arrowRight") {
         editor.tf.move({
           distance: 1,

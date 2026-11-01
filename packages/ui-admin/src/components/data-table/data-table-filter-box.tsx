@@ -47,6 +47,7 @@ export function DataTableFilterBox<T extends boolean | string>({
   const t = useI18n("ui");
   const selectedValuesSet = React.useMemo(() => {
     if (!filterValue) return new Set<T>();
+
     return new Set(filterValue.filter((value) => value !== ""));
   }, [filterValue]);
 
@@ -57,6 +58,7 @@ export function DataTableFilterBox<T extends boolean | string>({
     } else {
       newSet.add(value);
     }
+
     setFilterValue(newSet.size ? Array.from(newSet) : null);
   };
 

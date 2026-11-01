@@ -30,6 +30,7 @@ export const BlogCommentDateDisplay = ({
       typeof createdAt === "string"
         ? DateTime.fromISO(createdAt)
         : DateTime.fromJSDate(new Date(createdAt));
+
     if (dateTime.isValid) {
       formatted = formatDate(dateTime, format);
     }

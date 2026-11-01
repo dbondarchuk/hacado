@@ -22,6 +22,7 @@ const isLinkProps = (
 ): props is ButtonProps["props"] & { type: "link" } => {
   return !props?.type || props?.type === "link";
 };
+
 const isActionProps = (
   props: ButtonProps["props"],
 ): props is ButtonProps["props"] & { type: "action" } => {
@@ -35,6 +36,7 @@ export const ButtonConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as ButtonProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as ButtonProps["style"] }),
       [setData, data],
@@ -45,6 +47,7 @@ export const ButtonConfiguration = deepMemo(
     const url = isLinkProps(data.props)
       ? (data.props?.url ?? ButtonDefaultUrl)
       : undefined;
+
     const target = isLinkProps(data.props)
       ? (data.props?.target ?? ButtonDefaultTarget)
       : undefined;
@@ -52,6 +55,7 @@ export const ButtonConfiguration = deepMemo(
     const action = isActionProps(data.props)
       ? (data.props.action ?? ButtonDefaultAction)
       : undefined;
+
     const actionData = isActionProps(data.props)
       ? data.props.actionData
       : undefined;

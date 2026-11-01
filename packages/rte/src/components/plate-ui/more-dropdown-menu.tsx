@@ -58,6 +58,7 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
               editor.tf.toggleMark(SuperscriptPlugin.key, {
                 remove: SubscriptPlugin.key,
               });
+
               editor.tf.focus();
             }}
           >
@@ -70,6 +71,7 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
               editor.tf.toggleMark(SubscriptPlugin.key, {
                 remove: SuperscriptPlugin.key,
               });
+
               editor.tf.focus();
             }}
           >

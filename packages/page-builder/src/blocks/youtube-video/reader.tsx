@@ -19,6 +19,7 @@ export const YouTubeVideoReader = ({
     ...YouTubeVideoPropsDefaults.props,
     ...(props ?? {}),
   };
+
   const safeStyle = style ?? {};
   const defaults = getDefaults({ props: safeProps, style: safeStyle }, false);
 

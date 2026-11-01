@@ -64,6 +64,7 @@ const TimePickerTag = ({ onAdd }: { onAdd: (value: string) => void }) => {
         className="w-full"
         onClick={() => {
           if (!date) return;
+
           onAdd(
             formatTime({
               hour: date.getHours(),

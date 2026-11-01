@@ -20,6 +20,7 @@ export const insetStyle = {
   },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return renderFourSideValuesCss(value);
   },
   component: ({ value, onChange }) => (

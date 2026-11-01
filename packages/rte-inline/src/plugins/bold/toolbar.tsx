@@ -19,6 +19,7 @@ export function BoldToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("bold")) return null;
+
   return (
     <ToolbarButton
       size="sm"

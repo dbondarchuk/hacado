@@ -39,6 +39,7 @@ export async function applyInstallPersonalization(
   const logger = getLoggerFactory("InstallActions")(
     "applyInstallPersonalization",
   );
+
   logger.debug({ input }, "Applying install personalization");
   const parsed = installPersonalizationInputSchema.safeParse(input);
   if (!parsed.success) {
@@ -50,10 +51,12 @@ export async function applyInstallPersonalization(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
   }
+
   if (!(session.user as { emailVerified?: boolean }).emailVerified) {
     logger.error({ userId: session.user.id }, "Email not verified");
     return { ok: false, code: "email_not_verified" };
@@ -64,6 +67,7 @@ export async function applyInstallPersonalization(
   const eventSource = await getActor();
   const existingStyling =
     (await services.configurationService.getConfiguration("styling")) ?? {};
+
   const otherColors = (existingStyling.colors ?? []).filter(
     (c) => c.type !== "primary" && c.type !== "secondary",
   );
@@ -122,6 +126,7 @@ export async function applyInstallPersonalization(
     logo: logo ?? brand.logo,
     favicon,
   };
+
   await services.configurationService.setConfiguration(
     "brand",
     newBrand,
@@ -158,10 +163,12 @@ export async function applyInstallPackStyling(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
   }
+
   if (!(session.user as { emailVerified?: boolean }).emailVerified) {
     logger.error({ userId: session.user.id }, "Email not verified");
     return { ok: false, code: "email_not_verified" };
@@ -190,9 +197,11 @@ export async function applyInstallPackStyling(
 
   const primaryColorHex =
     packStyling.colors?.find((c) => c.type === "primary")?.value ?? "#2563eb";
+
   const secondaryColorHex =
     packStyling.colors?.find((c) => c.type === "secondary")?.value ??
     primaryColorHex;
+
   const primaryFont = packStyling.fonts?.primary ?? "Inter";
   const secondaryFont = packStyling.fonts?.secondary ?? "Playfair Display";
 

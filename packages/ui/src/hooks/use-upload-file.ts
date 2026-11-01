@@ -41,12 +41,15 @@ const uploadFilesWithProgress = ({
     xhr.upload.addEventListener("progress", (e) =>
       onProgress(Math.round((e.loaded / e.total) * 100)),
     );
+
     xhr.addEventListener("load", () =>
       resolve({ status: xhr.status, body: xhr.responseText }),
     );
+
     xhr.addEventListener("error", () =>
       reject(new Error("File upload failed")),
     );
+
     xhr.addEventListener("abort", () =>
       reject(new Error("File upload aborted")),
     );
@@ -75,6 +78,7 @@ export function useUploadFile({
   const [progress, setProgress] = React.useState<Map<string, number>>(
     new Map(),
   );
+
   const [isUploading, setIsUploading] = React.useState(false);
 
   async function uploadFile(files: { file: File; description?: string }[]) {
@@ -107,6 +111,7 @@ export function useUploadFile({
                 error?: unknown;
                 limitBytes?: number;
               };
+
               if (parsed.code === "asset_total_size_limit_reached") {
                 throw new AssetTotalSizeLimitReachedError(
                   parsed.limitBytes ?? FREE_TIER_LIMITS.assetsTotalSize,
@@ -118,6 +123,7 @@ export function useUploadFile({
             } catch {
               // Ignore JSON parse errors and fall back to generic message below.
             }
+
             throw new Error(`${response.status}: ${response.body}`);
           }
 

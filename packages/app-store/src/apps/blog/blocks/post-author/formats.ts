@@ -21,6 +21,7 @@ export const resolveFormatKey = (format: string): AuthorFormatKey => {
   if (AUTHOR_FORMAT_KEYS.includes(format as AuthorFormatKey)) {
     return format as AuthorFormatKey;
   }
+
   return DEFAULT_FORMAT_KEY;
 };
 

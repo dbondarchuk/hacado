@@ -33,6 +33,7 @@ export const boxShadowStyle = {
   },
   renderToCSS: (value) => {
     if (!value) return null;
+
     const { x, y, blur, spread, color, inset } = value;
     const insetStr = inset ? "inset " : "";
     return `box-shadow: ${insetStr}${x}px ${y}px ${blur}px ${spread}px ${getColorStyle(color)};`;

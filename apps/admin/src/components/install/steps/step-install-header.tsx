@@ -20,9 +20,11 @@ const FLOW_STEP_NUMS = [1, 3, 4, 5, 6, 7, 8] as const;
 
 function flowIndexForStep(stepNum: number): number {
   if (stepNum === 2) return FLOW_STEP_NUMS.indexOf(3);
+
   const idx = FLOW_STEP_NUMS.indexOf(
     stepNum as (typeof FLOW_STEP_NUMS)[number],
   );
+
   return idx >= 0 ? idx : 0;
 }
 
@@ -79,6 +81,7 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
     if (stepNum === 6) return "payments";
     if (stepNum === 7) return "website";
     if (stepNum === 8) return "done";
+
     return "business";
   }, [stepNum]);
 

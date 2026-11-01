@@ -45,6 +45,7 @@ export const decrypt = <T extends string | null | undefined>(data: T): T => {
     Buffer.from(key),
     Buffer.from(inputIV, "hex"),
   );
+
   let decrypted = decipher.update(encrypted, "hex", "utf-8");
   decrypted += decipher.final("utf-8");
 

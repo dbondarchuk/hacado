@@ -28,6 +28,7 @@ export class BullMQEventWorker extends BaseBullMQClient {
       this.processEvent.bind(this),
       { concurrency: this.config.queues.events.concurrency },
     );
+
     this.setupWorkerEventListeners(worker, this.config.queues.events.name);
   }
 
@@ -78,6 +79,7 @@ export class BullMQEventWorker extends BaseBullMQClient {
     const eventsStats = await this.getQueueStats(
       this.config.queues.events.name,
     );
+
     return { events: eventsStats };
   }
 
@@ -90,6 +92,7 @@ export class BullMQEventWorker extends BaseBullMQClient {
         await worker.waitUntilReady();
         logger.info({ worker: name }, "Worker started");
       }
+
       logger.info("BullMQ event worker started successfully");
     } catch (error) {
       logger.error({ error }, "Failed to start BullMQ event worker");
@@ -147,6 +150,7 @@ export class BullMQEventWorker extends BaseBullMQClient {
         const keepAlive = () => {
           setTimeout(keepAlive, 1000);
         };
+
         keepAlive();
       });
     } catch (error) {

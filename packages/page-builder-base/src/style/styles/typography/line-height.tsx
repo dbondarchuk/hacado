@@ -15,6 +15,7 @@ export const lineHeightStyle = {
   defaultValue: { value: 1.125, unit: "" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `line-height: ${renderRawNumberWithUnitCss(value)};`;
   },
   component: ({ value, onChange }) => (

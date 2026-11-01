@@ -42,6 +42,7 @@ export async function GET(
       },
       "Failed to get page header",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -78,6 +79,7 @@ export async function PUT(
       { error, pageHeaderId: id },
       "Invalid page header update model format",
     );
+
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
@@ -114,6 +116,7 @@ export async function PUT(
       },
       "Failed to update page header",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -185,6 +188,7 @@ export async function DELETE(
       },
       "Failed to delete page header",
     );
+
     return NextResponse.json(
       {
         success: false,

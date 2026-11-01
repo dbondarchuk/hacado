@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
     "create",
     logger,
   );
+
   if (!ok) return response;
 
   const servicesContainer = await getServicesContainer();

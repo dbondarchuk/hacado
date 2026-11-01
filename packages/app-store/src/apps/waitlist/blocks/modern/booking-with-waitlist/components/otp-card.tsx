@@ -96,6 +96,7 @@ export const OtpCard: React.FC = () => {
               setCurrentStep(
                 otpReturnStep === "packages" ? "option" : "review",
               );
+
               return;
             }
 

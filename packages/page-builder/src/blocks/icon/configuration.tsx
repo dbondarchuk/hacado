@@ -28,6 +28,7 @@ export const IconConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as IconProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as IconProps["style"] }),
       [setData, data],

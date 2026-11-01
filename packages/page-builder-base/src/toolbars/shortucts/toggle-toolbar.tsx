@@ -35,6 +35,7 @@ export const createToggleToolbarItem = <T extends BaseStyleDictionary>(
     const selectedOption = shortcut.options.find(
       (opt: any) => opt.value === optionValue,
     );
+
     if (!selectedOption) return;
 
     applyShortcutOption(selectedOption, {

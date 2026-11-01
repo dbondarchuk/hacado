@@ -32,11 +32,13 @@ export type TeamUpcomingAppointment = {
 
 async function readErrorCode(error: unknown): Promise<string | undefined> {
   if (!(error instanceof AdminApiError)) return undefined;
+
   try {
     const body = (await error.response.clone().json()) as {
       code?: string;
       error?: string;
     };
+
     return body.code ?? body.error;
   } catch {
     return undefined;
@@ -49,6 +51,7 @@ export const getMembers = async (params: TeamsSearchParams = {}) => {
     `/teams/members${teamsSearchParamsSerializer(params)}`,
     { method: "GET" },
   );
+
   const data = await response.json<WithTotal<TeamMemberListModel>>();
   console.debug("Team members retrieved successfully", { data });
   return data;
@@ -64,6 +67,7 @@ export const inviteMember = async (input: {
       method: "POST",
       body: JSON.stringify(input),
     });
+
     await response.json();
     return { ok: true };
   } catch (error) {
@@ -81,6 +85,7 @@ export const listInvitations = async (): Promise<
     const response = await fetchAdminApi("/teams/invitations", {
       method: "GET",
     });
+
     const data = await response.json<{ invitations: TeamInvitation[] }>();
     return { ok: true, invitations: data.invitations ?? [] };
   } catch (error) {
@@ -97,6 +102,7 @@ export const cancelInvitation = async (
     const response = await fetchAdminApi(`/teams/invitations/${invitationId}`, {
       method: "DELETE",
     });
+
     await response.json();
     return { ok: true };
   } catch (error) {
@@ -118,6 +124,7 @@ export const updateMemberRole = async (input: {
         body: JSON.stringify({ role: input.role }),
       },
     );
+
     await response.json();
     return { ok: true };
   } catch (error) {
@@ -138,6 +145,7 @@ export const getMemberUpcomingAppointments = async (
       `/teams/members/${memberId}/upcoming-appointments`,
       { method: "GET" },
     );
+
     const data = await response.json<{ upcoming: TeamUpcomingAppointment[] }>();
     return { ok: true, upcoming: data.upcoming ?? [] };
   } catch (error) {
@@ -159,6 +167,7 @@ export const deactivateMember = async (input: {
         body: JSON.stringify({ force: input.force }),
       },
     );
+
     return await response.json<DeactivateMemberResult>();
   } catch (error) {
     const code = (await readErrorCode(error)) ?? "unauthorized";
@@ -179,6 +188,7 @@ export const getInactiveMemberAppointmentWarnings = async (): Promise<{
     const response = await fetchAdminApi("/teams/inactive-warnings", {
       method: "GET",
     });
+
     return await response.json();
   } catch {
     return { ok: false, warnings: [] };
@@ -190,6 +200,7 @@ export const getMemberProfile = async (memberId: string) => {
   const response = await fetchAdminApi(`/teams/members/${memberId}/profile`, {
     method: "GET",
   });
+
   return await response.json<OrganizationMember>();
 };
 
@@ -202,5 +213,6 @@ export const updateMemberProfile = async (
     method: "PATCH",
     body: JSON.stringify(profile),
   });
+
   return await response.json<OrganizationMember>();
 };

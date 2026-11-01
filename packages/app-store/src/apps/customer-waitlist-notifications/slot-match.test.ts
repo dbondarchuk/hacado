@@ -75,6 +75,7 @@ describe("slot-match", () => {
       }),
       45,
     );
+
     assert.equal(
       appointmentOptionDurationMinutes({
         durationType: "flexible",
@@ -158,6 +159,7 @@ describe("freed window starts", () => {
       },
       "UTC",
     );
+
     assert.deepEqual(
       matching.map((d) => d.toISOString()),
       ["2026-08-27T12:00:00.000Z"],
@@ -173,6 +175,7 @@ describe("freed window starts", () => {
       { asSoonAsPossible: true },
       "UTC",
     );
+
     assert.equal(matching.length > 1, true);
   });
 
@@ -188,6 +191,7 @@ describe("freed window starts", () => {
       includesSlotStart([slot], new Date("2026-08-27T10:00:00.000Z")),
       true,
     );
+
     assert.equal(
       includesSlotStart([slot], new Date("2026-08-27T10:30:00.000Z")),
       false,

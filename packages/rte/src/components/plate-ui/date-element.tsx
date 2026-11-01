@@ -33,6 +33,7 @@ export const DateElement = withRef<typeof PlateElement>(
             const isYesterday =
               new Date(today.setDate(today.getDate() - 1)).toDateString() ===
               elementDate.toDateString();
+
             const isTomorrow =
               new Date(today.setDate(today.getDate() + 2)).toDateString() ===
               elementDate.toDateString();

@@ -88,5 +88,6 @@ export const compareAppointmentCount = (
         );
     }
   }
+
   return true;
 };

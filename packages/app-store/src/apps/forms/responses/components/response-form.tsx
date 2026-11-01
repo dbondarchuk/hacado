@@ -127,6 +127,7 @@ export const ResponseForm: React.FC<{
             error: t("responses.edit.toast.error"),
           },
         );
+
         onSuccess?.();
       } else {
         await toastPromise(
@@ -139,6 +140,7 @@ export const ResponseForm: React.FC<{
             error: t("responses.new.toast.error"),
           },
         );
+
         onSuccess?.();
       }
 

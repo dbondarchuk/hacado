@@ -57,6 +57,7 @@ export const OtpCard: React.FC = () => {
 
   useEffect(() => {
     if (!resendAllowedAt) return;
+
     const id = setInterval(() => setCountdownNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, [resendAllowedAt]);
@@ -64,6 +65,7 @@ export const OtpCard: React.FC = () => {
   const resendSecondsLeft = resendAllowedAt
     ? Math.max(0, Math.ceil((resendAllowedAt - countdownNow) / 1000))
     : 0;
+
   const isResendBlocked = resendSecondsLeft > 0;
 
   const isRequestDisabled =
@@ -75,11 +77,13 @@ export const OtpCard: React.FC = () => {
   const requestOtp = async () => {
     if (authType === "email" && !emailValid) return;
     if (authType === "phone" && !phoneValid) return;
+
     setIsRequestOtpLoading(true);
     try {
       const response = await customerAuthApi.requestOtp(
         authType === "phone" ? { phone } : { email },
       );
+
       setIsOtpSent(true);
       setOtp("");
       setResendAllowedAt(
@@ -87,6 +91,7 @@ export const OtpCard: React.FC = () => {
           ? response.resendAfter
           : Date.now() + CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS * 1000,
       );
+
       setCountdownNow(Date.now());
       toast.success(t("modification.otp.sent"));
     } catch {
@@ -102,6 +107,7 @@ export const OtpCard: React.FC = () => {
       await customerAuthApi.verifyOtp(
         authType === "phone" ? { phone, otp } : { email, otp },
       );
+
       setIsOtpVerified(true);
       setStep("form");
     } catch {
@@ -117,6 +123,7 @@ export const OtpCard: React.FC = () => {
       onSubmit={(event) => {
         event.preventDefault();
         if (isRequestDisabled) return;
+
         void requestOtp();
       }}
     >

@@ -31,6 +31,7 @@ export const gridAutoFlowStyle = {
   defaultValue: "row",
   renderToCSS: (value) => {
     if (!value || value === "row") return null;
+
     return `grid-auto-flow: ${value};`;
   },
   component: ({ value, onChange }) => {

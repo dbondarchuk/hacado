@@ -227,6 +227,7 @@ export const createColorToolbarItem = <T extends BaseStyleDictionary>(
           ...variant,
           value,
         }));
+
         newStyles[shortcut.targetStyle] = updatedVariants;
       }
     } else {

@@ -19,6 +19,7 @@ export function weekToDateRange(week: WeekIdentifier): {
   const monday = DateTime.fromJSDate(getDateFromWeekIdentifier(week), {
     zone: "utc",
   }).startOf("day");
+
   const sunday = monday.plus({ days: 6 });
   return {
     startDate: monday.toISODate()!,
@@ -33,6 +34,7 @@ export function scheduleToExceptionDays(
   for (const day of schedule) {
     days[day.weekDay as ScheduleWeekDay] = day.shifts;
   }
+
   return days;
 }
 

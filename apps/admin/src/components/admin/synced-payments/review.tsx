@@ -61,11 +61,14 @@ export const SyncedPaymentsReview = () => {
   const [range, setRange] = useState<DateRange | undefined>();
   const [assignTarget, setAssignTarget] =
     useState<HydratedSyncedPayment | null>(null);
+
   const [editTarget, setEditTarget] = useState<HydratedSyncedPayment | null>(
     null,
   );
+
   const [recordTarget, setRecordTarget] =
     useState<HydratedSyncedPayment | null>(null);
+
   const [approvingAll, setApprovingAll] = useState(false);
   const [approveAllOpen, setApproveAllOpen] = useState(false);
 
@@ -80,6 +83,7 @@ export const SyncedPaymentsReview = () => {
         end: range?.end,
         externalId,
       });
+
       setItems(result.items);
       setTotal(result.total);
     } catch {
@@ -335,6 +339,7 @@ export const SyncedPaymentsReview = () => {
           if (!assignTarget) {
             return;
           }
+
           const target = assignTarget;
           setAssignTarget(null);
           await runAction(target._id, () =>
@@ -367,6 +372,7 @@ export const SyncedPaymentsReview = () => {
           if (!recordTarget) {
             return;
           }
+
           const target = recordTarget;
           setRecordTarget(null);
           await runAction(target._id, () =>
@@ -381,6 +387,7 @@ export const SyncedPaymentsReview = () => {
           if (!open && approvingAll) {
             return;
           }
+
           setApproveAllOpen(open);
         }}
       >

@@ -78,7 +78,9 @@ export const MemberSelectorCompact: React.FC<MemberSelectorCompactProps> = ({
         priorityId: [value],
         status: ["active"],
       });
+
       if (cancelled || !result.items[0]) return;
+
       setSelected(result.items[0]);
     })();
 

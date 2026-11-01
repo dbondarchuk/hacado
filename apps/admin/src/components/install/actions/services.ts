@@ -32,6 +32,7 @@ function getFlexibleDurationBounds(baseMinutes: number): {
   const logger = getLoggerFactory("InstallActions")(
     "installFlexibleDurationBounds",
   );
+
   logger.debug({ baseMinutes }, "Calculating flexible duration bounds");
   const durationMin = Math.max(1, Math.floor(baseMinutes));
   const durationStep = 15;
@@ -39,13 +40,16 @@ function getFlexibleDurationBounds(baseMinutes: number): {
     Math.max(durationMin * 6, durationMin + 180),
     24 * 60,
   );
+
   if (durationMax < durationMin) {
     durationMax = durationMin;
   }
+
   logger.debug(
     { durationMin, durationMax, durationStep },
     "Calculated flexible duration bounds",
   );
+
   return { durationMin, durationMax, durationStep };
 }
 
@@ -77,6 +81,7 @@ export async function replaceServices(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   const memberId = (session?.user as { memberId?: string })?.memberId;
   if (!session?.user || !organizationId || !memberId) {
     logger.error({ session, organizationId, memberId }, "Unauthorized");
@@ -93,11 +98,13 @@ export async function replaceServices(
       { planTier, count: parsed.data.length, limit: FREE_TIER_LIMITS.services },
       "Service limit exceeded during install",
     );
+
     return { ok: false, code: "service_limit_reached" };
   }
 
   let booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
+
   if (!booking || Object.keys(booking).length === 0) {
     booking = getDefaultBookingConfiguration();
   }
@@ -176,16 +183,20 @@ export async function replaceServices(
         option,
         source,
       );
+
       newIds.push(created._id);
     } catch (e) {
       if (newIds.length)
         await services.catalogService.deleteServices(newIds, source);
+
       if (e instanceof ServiceLimitReachedError) {
         return { ok: false, code: "service_limit_reached" };
       }
+
       const msg = e instanceof Error ? e.message : "";
       if (msg.includes("Name already exists"))
         return { ok: false, code: "duplicate_name" };
+
       logger.error({ msg }, "Create failed");
       return { ok: false, code: "create_failed" };
     }
@@ -196,10 +207,12 @@ export async function replaceServices(
 
   const fresh =
     (await services.configurationService.getConfiguration("booking")) ?? null;
+
   const base =
     fresh && Object.keys(fresh).length > 0
       ? fresh
       : getDefaultBookingConfiguration();
+
   await services.configurationService.setConfiguration(
     "booking",
     {
@@ -208,10 +221,12 @@ export async function replaceServices(
     },
     source,
   );
+
   logger.debug(
     { organizationId, oldCount: oldIds.length, newCount: newIds.length },
     "Replaced services",
   );
+
   return { ok: true, optionIds: newIds };
 }
 
@@ -226,6 +241,7 @@ export async function createAddons(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
@@ -245,6 +261,7 @@ export async function createAddons(
     const created = await services.catalogService.createAddon(addon, source);
     ids.push(created._id);
   }
+
   logger.debug({ organizationId, createdCount: ids.length }, "Created addons");
   return { ok: true, ids };
 }
@@ -258,10 +275,12 @@ export async function replaceAddonsForOption(
     { optionId, count: addons.length },
     "Replacing addons for option",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
@@ -294,10 +313,12 @@ export async function replaceAddonsForOption(
     const created = await services.catalogService.createAddon(addon, source);
     ids.push(created._id);
   }
+
   logger.debug(
     { optionId, createdCount: ids.length },
     "Replaced addons for option",
   );
+
   return { ok: true, ids };
 }
 
@@ -307,10 +328,12 @@ export async function getInstallServicesSnapshot(): Promise<
   const logger = getLoggerFactory("InstallActions")(
     "getInstallServicesSnapshot",
   );
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return [];
@@ -319,6 +342,7 @@ export async function getInstallServicesSnapshot(): Promise<
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
+
   const ids = flattenCatalogServiceIds(booking?.catalog);
 
   const rows: InstallServiceServerSnapshot[] = [];
@@ -329,12 +353,15 @@ export async function getInstallServicesSnapshot(): Promise<
     const anyOption = option as Record<string, unknown>;
     const name =
       typeof anyOption.name === "string" ? anyOption.name.trim() : "";
+
     const description =
       typeof anyOption.description === "string"
         ? anyOption.description.trim()
         : "";
+
     const durationType: "fixed" | "flexible" =
       anyOption.durationType === "flexible" ? "flexible" : "fixed";
+
     const priceType = durationType === "flexible" ? "per_hour" : "fixed";
     let duration = 60;
     let price: number | undefined;
@@ -342,6 +369,7 @@ export async function getInstallServicesSnapshot(): Promise<
     if (durationType === "flexible") {
       duration =
         typeof anyOption.durationMin === "number" ? anyOption.durationMin : 60;
+
       pricePerHour =
         typeof anyOption.pricePerHour === "number"
           ? anyOption.pricePerHour
@@ -349,6 +377,7 @@ export async function getInstallServicesSnapshot(): Promise<
     } else {
       duration =
         typeof anyOption.duration === "number" ? anyOption.duration : 60;
+
       price = typeof anyOption.price === "number" ? anyOption.price : undefined;
     }
 
@@ -362,10 +391,12 @@ export async function getInstallServicesSnapshot(): Promise<
       ...(typeof pricePerHour === "number" ? { pricePerHour } : {}),
     });
   }
+
   logger.debug(
     { organizationId, count: rows.length },
     "Resolved services snapshot",
   );
+
   return rows;
 }
 
@@ -388,15 +419,18 @@ export async function getInstallServiceOptionSnapshot(
   const logger = getLoggerFactory("InstallActions")(
     "getInstallServiceOptionSnapshot",
   );
+
   logger.debug({ optionId }, "Resolving service option snapshot");
   if (!optionId || typeof optionId !== "string") {
     logger.error({ optionId }, "Invalid option id");
     return { ok: false, code: "invalid_input" };
   }
+
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
+
   if (!session?.user || !organizationId) {
     logger.error({ session, organizationId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
@@ -412,6 +446,7 @@ export async function getInstallServiceOptionSnapshot(
   const name = typeof option.name === "string" ? option.name : "";
   const description =
     typeof option.description === "string" ? option.description : "";
+
   const priceType = option.durationType === "flexible" ? "per_hour" : "fixed";
   let duration = 60;
   let price: number | undefined;
@@ -436,9 +471,11 @@ export async function getInstallServiceOptionSnapshot(
       ...(typeof pricePerHour === "number" ? { pricePerHour } : {}),
     },
   } as const;
+
   logger.debug(
     { optionId, organizationId },
     "Resolved service option snapshot",
   );
+
   return result;
 }

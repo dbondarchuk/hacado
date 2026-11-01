@@ -203,6 +203,7 @@ export class TextBeltWebhookService {
         { error: error?.message || error?.toString() },
         "Error processing TextBelt webhook",
       );
+
       throw error;
     }
   }

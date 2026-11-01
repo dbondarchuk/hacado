@@ -55,6 +55,7 @@ export const DeleteAppButton: React.FC<DeleteAppButtonProps> = ({
         let errorMessage = t(
           "common.disconnect.toast.error.defaultDescription",
         );
+
         if (result.error) {
           errorMessage = resolvedI18nText(result.error, tAll, timeZone, locale);
         }
@@ -62,6 +63,7 @@ export const DeleteAppButton: React.FC<DeleteAppButtonProps> = ({
         toast.error(t("common.disconnect.toast.error.title"), {
           description: errorMessage,
         });
+
         return;
       }
 

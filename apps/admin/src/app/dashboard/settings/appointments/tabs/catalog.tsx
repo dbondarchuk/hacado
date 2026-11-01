@@ -34,6 +34,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
     name: "catalog",
     keyName: "fields_id",
   });
+
   const catalog =
     (form.watch("catalog") as BookingCatalogNode[] | undefined) ?? [];
 
@@ -53,6 +54,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
   const sort = (activeId: string, overId: string) => {
     const next = moveCatalogNode(catalog, activeId, overId);
     if (next === catalog) return;
+
     setCatalog(next);
   };
 
@@ -119,6 +121,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
           {fields.map((field, index) => {
             const node =
               catalog[index] ?? (field as unknown as BookingCatalogNode);
+
             return (
               <CatalogNodeCard
                 key={field.fields_id}

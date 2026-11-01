@@ -75,6 +75,7 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
       confirmPassword: "",
     },
   });
+
   const newPassword = form.watch("newPassword");
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
@@ -88,6 +89,7 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
         } else {
           toast.error(t("users.profile.setPassword.toasts.error"));
         }
+
         return;
       }
 

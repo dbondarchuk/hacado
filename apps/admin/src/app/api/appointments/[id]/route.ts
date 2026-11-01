@@ -93,6 +93,7 @@ export async function PUT(
   const { data, success, error } = appointmentEventSchema.safeParse(
     JSON.parse(appointmentJson),
   );
+
   if (!success) {
     logger.warn({ error }, "Invalid appointment JSON");
     return NextResponse.json(
@@ -123,9 +124,11 @@ export async function PUT(
 
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");
+
   const option = await servicesContainer.catalogService.getService(
     data.serviceId,
   );
+
   if (!option) {
     logger.warn({ serviceId: data.serviceId }, "Service not found");
     return NextResponse.json(
@@ -153,6 +156,7 @@ export async function PUT(
     addons,
     memberId,
   });
+
   if (
     unassignedIssues.needsAcknowledgement &&
     !data.acknowledgeUnassignedMember
@@ -165,6 +169,7 @@ export async function PUT(
       },
       "Unassigned member acknowledgement required",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -186,6 +191,7 @@ export async function PUT(
     await servicesContainer.catalogService.getFieldsByNames(
       Object.keys(data.fields),
     );
+
   const fieldsLabels = selectedFields.reduce(
     (acc, field) => ({ ...acc, [field.name]: field.data?.label }),
     {} as Record<string, string>,
@@ -203,6 +209,7 @@ export async function PUT(
         (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0),
       0,
     ) ?? 0;
+
   const addonsPrice =
     addons?.reduce(
       (sum, addon) =>

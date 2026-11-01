@@ -78,6 +78,7 @@ export const FourSideValuesInput: React.FC<Props> = ({
       ...value,
       [internalName]: nValue,
     };
+
     setValue(v);
     onChange(v);
   };

@@ -25,6 +25,7 @@ export const objectFitStyle = {
   defaultValue: "cover",
   renderToCSS: (value: z.infer<typeof ObjectFitSchema> | null | undefined) => {
     if (!value) return null;
+
     return `object-fit: ${value};`;
   },
   component: ({

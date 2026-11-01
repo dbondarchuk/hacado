@@ -2,13 +2,16 @@
 
 export const GIFT_CARD_STUDIO_DESIGN_CREATED_EVENT_TYPE =
   "gift-card-studio.design.created" as const;
+
 export const GIFT_CARD_STUDIO_DESIGN_UPDATED_EVENT_TYPE =
   "gift-card-studio.design.updated" as const;
+
 export const GIFT_CARD_STUDIO_DESIGN_DELETED_EVENT_TYPE =
   "gift-card-studio.design.deleted" as const;
 
 export const GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE =
   "gift-card-studio.purchase.created" as const;
+
 export const GIFT_CARD_STUDIO_PURCHASE_DELETED_EVENT_TYPE =
   "gift-card-studio.purchase.deleted" as const;
 

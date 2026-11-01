@@ -41,12 +41,14 @@ export async function getWaitlistEntries(
       { appId, resultCount: result?.items?.length || 0 },
       "Successfully retrieved waitlist entries",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error getting waitlist entries",
     );
+
     throw error;
   }
 }
@@ -68,6 +70,7 @@ export async function getWaitlistEntry(appId: string, id: string) {
       { appId, error: error?.message || error?.toString() },
       "Error getting waitlist entry",
     );
+
     throw error;
   }
 }
@@ -86,6 +89,7 @@ export async function dismissWaitlistEntries(appId: string, ids: string[]) {
       { appId, waitlistEntryIds: ids },
       "Successfully dismissed waitlist entries",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
@@ -96,6 +100,7 @@ export async function dismissWaitlistEntries(appId: string, ids: string[]) {
       },
       "Error dismissing waitlist entries",
     );
+
     throw error;
   }
 }
@@ -112,6 +117,7 @@ export async function createWaitlistEntry(
       type: CreateWaitlistEntryActionType,
       entry,
     });
+
     logger.info({ appId, entry }, "Successfully created waitlist entry");
     return result;
   } catch (error: any) {
@@ -119,6 +125,7 @@ export async function createWaitlistEntry(
       { appId, entry, error: error?.message || error?.toString() },
       "Error creating waitlist entry",
     );
+
     throw error;
   }
 }
@@ -140,6 +147,7 @@ export async function getWaitlistSmsText(
       { appId, error: error?.message || error?.toString() },
       "Error loading waitlist SMS text offer",
     );
+
     throw error;
   }
 }

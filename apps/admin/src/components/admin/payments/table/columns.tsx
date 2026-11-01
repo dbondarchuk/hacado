@@ -108,6 +108,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
           </span>
         );
       }
+
       return t.has(methodKey) ? t(methodKey) : payment.method;
     },
   },

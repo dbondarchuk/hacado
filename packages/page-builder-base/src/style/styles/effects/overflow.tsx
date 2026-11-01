@@ -17,6 +17,7 @@ export const overflowStyle = {
   defaultValue: "visible",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `overflow: ${value};`;
   },
   component: ({ value, onChange }) => {

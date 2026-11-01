@@ -51,6 +51,7 @@ function FontPreviewThumb({ family }: { family: string }) {
       />
     );
   }
+
   return (
     <img
       src={`/fonts/preview/${getWebfontPreviewFilename(family)}`}
@@ -264,6 +265,7 @@ export const StylingTab: React.FC<{
               const rowType = form.watch(`styling.colors.${index}.type` as any);
               const allColors = (form.watch("styling.colors" as any) ||
                 []) as ColorOverrideSchema[];
+
               const hasMultipleTypes =
                 allColors.filter((c) => c.type === rowType).length > 1;
 

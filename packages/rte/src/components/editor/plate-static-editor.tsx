@@ -343,6 +343,7 @@ export const PlateStaticEditorFast = React.forwardRef<
     />
   );
 });
+
 PlateStaticEditorFast.displayName = "PlateStaticEditorFast";
 
 export const PlateStaticEditorPlate = React.forwardRef<
@@ -367,13 +368,16 @@ export const PlateStaticEditorPlate = React.forwardRef<
       if (!Array.isArray(v)) {
         return [v as Value];
       }
+
       const size =
         chunkTopLevelBlocks != null && chunkTopLevelBlocks > 0
           ? chunkTopLevelBlocks
           : 0;
+
       if (!size) {
         return [v as Value];
       }
+
       return chunkPlateValueByTopLevelBlocks(v as Value, size);
     }, [value, chunkTopLevelBlocks]);
 
@@ -423,6 +427,7 @@ export const PlateStaticEditorPlate = React.forwardRef<
     );
   },
 );
+
 PlateStaticEditorPlate.displayName = "PlateStaticEditorPlate";
 
 export const PlateStaticEditor = React.forwardRef<
@@ -441,4 +446,5 @@ export const PlateStaticEditor = React.forwardRef<
     />
   );
 });
+
 PlateStaticEditor.displayName = "PlateStaticEditor";

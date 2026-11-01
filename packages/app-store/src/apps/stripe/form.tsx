@@ -49,14 +49,17 @@ function StripePayButton({
     if (!stripe || !elements) {
       return;
     }
+
     setIsPaying(true);
     const { error: submitError } = await elements.submit();
     if (submitError) {
       setIsPaying(false);
       return;
     }
+
     const returnUrl =
       typeof window !== "undefined" ? window.location.href : undefined;
+
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -64,11 +67,13 @@ function StripePayButton({
       },
       redirect: "if_required",
     });
+
     if (error) {
       bookingApi.trackPaymentFailed(intentAmount);
       setIsPaying(false);
       return;
     }
+
     try {
       const data = await appsApi.callAppApi<{
         success?: boolean;
@@ -79,9 +84,11 @@ function StripePayButton({
         method: "POST",
         body: { paymentIntentId: intentId },
       });
+
       if (!data?.success) {
         throw new Error(data?.error ?? "payment_failed");
       }
+
       bookingApi.trackPaymentSucceeded(intentAmount);
       onSuccess();
     } catch (e) {
@@ -90,6 +97,7 @@ function StripePayButton({
       setIsPaying(false);
       return;
     }
+
     setIsPaying(false);
   };
 
@@ -120,6 +128,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
   const t = useI18n<StripePublicNamespace, StripePublicKeys>(
     stripePublicNamespace,
   );
+
   const [clientSecret, setClientSecret] = React.useState<string | null>(null);
   const [loadError, setLoadError] = React.useState<string | null>(null);
   /** Connect: platform publishable key + `stripeAccount` so the PI `client_secret` resolves. */
@@ -144,21 +153,26 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
           method: "POST",
           body: { paymentIntentId: intent._id },
         });
+
         if (cancelled) {
           return;
         }
+
         if (!res?.clientSecret) {
           setLoadError(res?.error ?? "missing_client_secret");
           return;
         }
+
         setClientSecret(res.clientSecret);
       } catch (e) {
         if (!cancelled) {
           setLoadError("create_intent_failed");
         }
+
         console.error(e);
       }
     })();
+
     return () => {
       cancelled = true;
     };
@@ -170,6 +184,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
     if (typeof window === "undefined" || returnFrom3dsRef.current) {
       return;
     }
+
     const p = new URLSearchParams(window.location.search);
     const redirectStatus = p.get("redirect_status");
     if (redirectStatus === "failed") {
@@ -177,12 +192,14 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
       bookingApi.trackPaymentFailed(intent.amount);
       return;
     }
+
     if (redirectStatus !== "succeeded") {
       return;
     }
     if (!p.get("payment_intent") || !intent._id) {
       return;
     }
+
     returnFrom3dsRef.current = true;
     void (async () => {
       try {
@@ -194,6 +211,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
           method: "POST",
           body: { paymentIntentId: intent._id },
         });
+
         if (data?.success) {
           bookingApi.trackPaymentSucceeded(intent.amount);
           onSubmit();

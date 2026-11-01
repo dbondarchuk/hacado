@@ -42,6 +42,7 @@ export const CommunicationLogPayloadDialog: React.FC<
   const [open, setOpen] = React.useState(false);
   const [payload, setPayload] =
     React.useState<CommunicationLogContentPayload | null>(null);
+
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {

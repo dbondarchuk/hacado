@@ -152,6 +152,7 @@ const manualPurchaseSchema = z
     if (data.paymentType !== "payment-link") {
       return;
     }
+
     if (!data.paymentLinkAppId) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -160,6 +161,7 @@ const manualPurchaseSchema = z
           "app_gift-card-studio_admin.validation.manualForm.paymentLinkAppId.required" satisfies GiftCardStudioAdminAllKeys,
       });
     }
+
     if (
       (data.channel === "email" || data.channel === "sms") &&
       (!data.to || data.to.trim().length === 0)
@@ -186,6 +188,7 @@ export const ManualPurchaseDialog: React.FC<{
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
   const tRoot = useI18n();
   const currencySymbol = useCurrencySymbol();
@@ -211,6 +214,7 @@ export const ManualPurchaseDialog: React.FC<{
     if (!open) {
       return;
     }
+
     void fetchSettings();
     void paymentsApi
       .listPaymentLinkApps()
@@ -284,12 +288,14 @@ export const ManualPurchaseDialog: React.FC<{
     sendingSms ? customerId : undefined,
     sendingSms ? smsTo : undefined,
   );
+
   const smsBlocked =
     sendingSms &&
     !(
       smsConsentStatus === "consented" ||
       (smsConsentStatus === "missing" && smsConsent)
     );
+
   const [customer, setCustomer] = useState<CustomerListModel | undefined>(
     undefined,
   );
@@ -319,6 +325,7 @@ export const ManualPurchaseDialog: React.FC<{
         setEmailDestinations(
           uniqueNonEmpty([customer.email, ...(customer.knownEmails ?? [])]),
         );
+
         setPhoneDestinations(
           uniqueNonEmpty([customer.phone, ...(customer.knownPhones ?? [])]),
         );
@@ -363,6 +370,7 @@ export const ManualPurchaseDialog: React.FC<{
       if (form.getValues("to")) {
         form.setValue("to", undefined);
       }
+
       return;
     }
 
@@ -419,6 +427,7 @@ export const ManualPurchaseDialog: React.FC<{
       setPreviewUrl(null);
       return;
     }
+
     setPreviewLoading(true);
     try {
       const result = await getPreviewImage(appId, previewPayloadDebounced);
@@ -472,6 +481,7 @@ export const ManualPurchaseDialog: React.FC<{
           error: t("purchases.manualForm.toast.error"),
         },
       );
+
       handleOpenChange(false);
       form.reset();
       setPreviewUrl(null);
@@ -489,6 +499,7 @@ export const ManualPurchaseDialog: React.FC<{
       setPreviewUrl(null);
       setSmsConsent(false);
     }
+
     onOpenChange(next);
   };
 
@@ -667,6 +678,7 @@ export const ManualPurchaseDialog: React.FC<{
                                   const Logo = AvailableApps[app.name]?.Logo;
                                   const displayName =
                                     AvailableApps[app.name]?.displayName;
+
                                   return (
                                     <SelectItem value={app._id} key={app._id}>
                                       <span className="flex items-center gap-2">

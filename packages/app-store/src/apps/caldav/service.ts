@@ -91,6 +91,7 @@ export default class CaldavConnectedApp
       success,
       error,
     } = caldavActionSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid request");
       throw new ConnectedAppRequestError(
@@ -280,6 +281,7 @@ export default class CaldavConnectedApp
         .map((calendar) => calendar.displayName)
         .map((name) => {
           if (!name || typeof name === "string") return name;
+
           return Object.keys(name)[0];
         })
         .filter((name) => !!name) as string[];
@@ -372,6 +374,7 @@ export default class CaldavConnectedApp
           const eventStr = dataStr.match(
             createGetRegex(VEVENT_OBJECT_KEY),
           )?.[0];
+
           if (!eventStr) return null;
 
           return parseIcsEvent(eventStr, { timezones });
@@ -713,6 +716,7 @@ export default class CaldavConnectedApp
         { serverUrl: config.serverUrl },
         "Attempting to login to CalDAV server",
       );
+
       await client.login();
 
       const calendarName = config?.calendarName;

@@ -16,6 +16,7 @@ export function ItalicToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("italic")) return null;
+
   return (
     <ToolbarButton
       size="sm"

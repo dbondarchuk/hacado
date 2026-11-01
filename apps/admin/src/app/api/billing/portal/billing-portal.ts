@@ -22,6 +22,7 @@ export async function createPolarBillingPortalSession(): Promise<
   const organizationId = (
     session.user as { organizationId?: string }
   ).organizationId?.trim();
+
   if (!organizationId) {
     logger.error({ userId: session.user.id }, "No organization id");
     return { ok: false, code: "no_org" };
@@ -61,12 +62,14 @@ export async function createPolarBillingPortalSession(): Promise<
       { url: portalSession.customerPortalUrl, organizationId },
       "Created Polar billing portal session",
     );
+
     return { ok: true, url: portalSession.customerPortalUrl };
   } catch (error) {
     logger.error(
       { error, organizationId },
       "Error creating Polar billing portal session",
     );
+
     return { ok: false, code: "polar_error" };
   }
 }

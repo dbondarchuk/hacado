@@ -33,6 +33,7 @@ export const RejectSelectedBlogCommentsButton: React.FC<{
     if (ids.length === 0) {
       return;
     }
+
     try {
       setIsLoading(true);
       await toastPromise(rejectSelectedBlogComments(appId, ids), {
@@ -41,6 +42,7 @@ export const RejectSelectedBlogCommentsButton: React.FC<{
         }),
         error: tAdmin("common.toasts.error"),
       });
+
       reload();
     } catch (error: unknown) {
       console.error(error);

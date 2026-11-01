@@ -21,6 +21,7 @@ export const AccordionConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as AccordionProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as AccordionProps["style"] }),
       [setData, data],

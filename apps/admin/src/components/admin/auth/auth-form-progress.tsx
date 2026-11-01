@@ -17,6 +17,7 @@ export const AuthFormProgress = ({
     0,
     steps.findIndex((s) => s.id === currentStepId),
   );
+
   const total = steps.length;
   const progressPercent = Math.round(((currentIndex + 1) / total) * 100);
   const currentLabel = steps[currentIndex]?.label ?? "";

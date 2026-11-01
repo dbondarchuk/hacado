@@ -46,6 +46,7 @@ export function useInstallWizard() {
       "useInstallWizard must be used within InstallWizardProvider",
     );
   }
+
   return ctx;
 }
 

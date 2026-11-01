@@ -98,6 +98,7 @@ export class FormsRepositoryService {
         organizationId: this.organizationId,
         appId: this.appId,
       });
+
     logger.debug({ formId, count }, "Form response count");
     return count;
   }
@@ -121,6 +122,7 @@ export class FormsRepositoryService {
       logger.warn({ id }, "Form not found");
       return false;
     }
+
     return true;
   }
 
@@ -129,6 +131,7 @@ export class FormsRepositoryService {
     isArchived: boolean,
   ): Promise<number> {
     if (ids.length === 0) return 0;
+
     const logger = this.loggerFactory("setFormsArchived");
     logger.debug({ ids, isArchived }, "Setting forms archived");
 
@@ -190,6 +193,7 @@ export class FormsRepositoryService {
 
   public async deleteForms(ids: string[]): Promise<number> {
     if (ids.length === 0) return 0;
+
     const logger = this.loggerFactory("deleteForms");
     logger.debug({ ids }, "Deleting forms");
 
@@ -438,6 +442,7 @@ export class FormsRepositoryService {
       ) {
         email = answer.value;
       }
+
       if (
         !phone &&
         answer.type === "phone" &&
@@ -445,6 +450,7 @@ export class FormsRepositoryService {
       ) {
         phone = answer.value;
       }
+
       if (!name && answer.type === "name" && typeof answer.value === "string") {
         name = answer.value;
       }
@@ -745,6 +751,7 @@ export class FormsRepositoryService {
     customerId?: string | null,
   ): Promise<number> {
     if (ids.length === 0) return 0;
+
     const logger = this.loggerFactory("updateFormResponsesCustomer");
     logger.debug(
       { ids, customerId },
@@ -756,6 +763,7 @@ export class FormsRepositoryService {
       customerId !== null
         ? { $set: { updatedAt: new Date(), customerId } }
         : { $set: { updatedAt: new Date() }, $unset: { customerId: "" } };
+
     const { modifiedCount } = await db
       .collection<FormResponseModel>(FORM_RESPONSES_COLLECTION_NAME)
       .updateMany(
@@ -771,11 +779,13 @@ export class FormsRepositoryService {
       { ids, customerId, modifiedCount },
       "Form responses customer updated",
     );
+
     return modifiedCount;
   }
 
   public async deleteFormResponses(ids: string[]): Promise<number> {
     if (ids.length === 0) return 0;
+
     const logger = this.loggerFactory("deleteFormResponses");
     logger.debug({ ids }, "Deleting form responses");
 
@@ -828,6 +838,7 @@ export class FormsRepositoryService {
     await db
       .collection(FORMS_COLLECTION_NAME)
       .deleteMany({ appId, organizationId: this.organizationId });
+
     await db
       .collection(FORM_RESPONSES_COLLECTION_NAME)
       .deleteMany({ appId, organizationId: this.organizationId });
@@ -871,6 +882,7 @@ export class FormsRepositoryService {
         logger.debug(`Forms index ${name} already exists`);
         continue;
       }
+
       logger.debug(`Creating forms index ${name}`);
       await formsCollection.createIndex(index, { name });
     }
@@ -879,6 +891,7 @@ export class FormsRepositoryService {
     const responsesCollection = await db.createCollection(
       FORM_RESPONSES_COLLECTION_NAME,
     );
+
     logger.debug("Form-responses collection created");
 
     const responsesIndexes: Record<string, Record<string, 1>> = {
@@ -908,6 +921,7 @@ export class FormsRepositoryService {
         logger.debug(`Form-responses index ${name} already exists`);
         continue;
       }
+
       logger.debug(`Creating form-responses index ${name}`);
       await responsesCollection.createIndex(index, { name });
     }

@@ -39,6 +39,7 @@ export const changeStatus = async (
       status,
       doNotNotifyCustomer,
     );
+
     if (res !== okStatus) throw new Error("Request failed");
   };
 
@@ -47,6 +48,7 @@ export const changeStatus = async (
       success: t("appointments.actionButton.changesSaved"),
       error: t("appointments.actionButton.requestError"),
     });
+
     refresh();
     onSuccess?.(status);
   } catch (error) {
@@ -54,6 +56,7 @@ export const changeStatus = async (
       onPastDue?.();
       return;
     }
+
     console.error(error);
   } finally {
     setIsLoading(false);
@@ -137,4 +140,5 @@ export const AppointmentActionButton = React.forwardRef<
     );
   },
 );
+
 AppointmentActionButton.displayName = "AppointmentActionButton";

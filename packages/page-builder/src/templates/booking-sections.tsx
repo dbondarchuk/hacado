@@ -38,11 +38,13 @@ export const bookingSectionEditorTemplates: TemplatesConfiguration = {
         ],
         1,
       );
+
       const booking = {
         type: "BookingModern" as const,
         id: generateId(),
         data: BookingPropsDefaults,
       };
+
       return sectionShell([splitColumns(copy, booking)]);
     },
   },

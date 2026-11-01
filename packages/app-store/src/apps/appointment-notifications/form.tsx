@@ -78,6 +78,7 @@ export const AppointmentNotificationForm: React.FC<{
     AppointmentNotificationsAdminNamespace,
     AppointmentNotificationsAdminKeys
   >(appointmentNotificationsAdminNamespace);
+
   const tAdmin = useI18n("admin");
   const uses12HourFormat = use12HourFormat();
 
@@ -291,6 +292,7 @@ export const AppointmentNotificationForm: React.FC<{
                           const dateTime = date
                             ? DateTime.fromJSDate(date)
                             : undefined;
+
                           field.onChange({
                             hour: dateTime?.hour,
                             minute: dateTime?.minute,
@@ -642,6 +644,7 @@ export const AppointmentNotificationForm: React.FC<{
                   }
                   onCheckedChange={(value) => {
                     if (value && smsEnabled === false) return;
+
                     field.onChange(value);
                   }}
                 >

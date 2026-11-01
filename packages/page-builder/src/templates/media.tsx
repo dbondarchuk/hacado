@@ -208,6 +208,7 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
       const images = GALLERY_IMAGES.map((src) =>
         galleryImage(src, t(`${prefix}.galleryGrid.imageAlt` as BaseAllKeys)),
       );
+
       return sectionShell([
         buildSectionIntro(t, {
           title: `${prefix}.galleryGrid.title` as BaseAllKeys,
@@ -258,6 +259,7 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
       const images = GALLERY_IMAGES.map((src) =>
         galleryImage(src, t(`${prefix}.galleryGrid.imageAlt` as BaseAllKeys)),
       );
+
       const carouselDefaults = CarouselPropsDefaults();
       return sectionShell([
         buildSectionIntro(t, {

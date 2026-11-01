@@ -34,14 +34,17 @@ export const PopupEditor = ({ props, style }: PopupProps) => {
     currentBlock.id,
     "props.subtitle",
   )?.[0];
+
   const contentId = useBlockChildrenBlockIds(
     currentBlock.id,
     "props.content",
   )?.[0];
+
   const buttonsId = useBlockChildrenBlockIds(
     currentBlock.id,
     "props.buttons",
   )?.[0];
+
   const noClose = props?.noClose;
   const className = useClassName();
   const base = currentBlock.base;

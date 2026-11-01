@@ -55,6 +55,7 @@ export const DraggableAboveNodes: RenderNodeWrapper = (props) => {
     if (path.length === 1 && !isType(editor, element, UNDRAGGABLE_KEYS)) {
       return true;
     }
+
     if (path.length === 3 && !isType(editor, element, UNDRAGGABLE_KEYS)) {
       const block = editor.api.some({
         at: path,
@@ -67,6 +68,7 @@ export const DraggableAboveNodes: RenderNodeWrapper = (props) => {
         return true;
       }
     }
+
     if (path.length === 4 && !isType(editor, element, UNDRAGGABLE_KEYS)) {
       const block = editor.api.some({
         at: path,
@@ -93,6 +95,7 @@ export const Draggable = withRef<"div", PlateRenderElementProps>(
     const { children, editor, element, path } = props;
     const blockSelectionApi =
       editor.getApi(BlockSelectionPlugin).blockSelection;
+
     const { isDragging, previewRef, handleRef } = useDraggable({
       element,
       onDropHandler: (_, { dragItem }) => {
@@ -170,6 +173,7 @@ const Gutter = React.forwardRef<
     BlockSelectionPlugin,
     "isSelectionAreaVisible",
   );
+
   const selected = useSelected();
 
   const isNodeType = (keys: string[] | string) => isType(editor, element, keys);

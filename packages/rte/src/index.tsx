@@ -8,4 +8,5 @@ export {
   plateValueToPlainTextBlocks,
   plateValueToPlainTextDescription,
 } from "./components/editor/plate-static-plain-text";
+
 export * from "./components/editor/settings";

@@ -9,12 +9,14 @@ export const dashboardNotificationHandler: EventHandler = {
     const logger = getLoggerFactory("Events/DashboardNotificationHandler")(
       "run",
     );
+
     const claimed = await claimEventHandler(
       redis,
       envelope.organizationId,
       envelope.id,
       "dashboard",
     );
+
     if (!claimed) {
       return;
     }
@@ -33,6 +35,7 @@ export const dashboardNotificationHandler: EventHandler = {
         services,
         getDbConnection,
       );
+
       if (notification) {
         await services.dashboardNotificationsService.publishNotification(
           notification,

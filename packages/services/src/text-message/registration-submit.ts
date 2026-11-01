@@ -118,6 +118,7 @@ const telnyxErrorDetails = (error: unknown) => {
     record.error && typeof record.error === "object"
       ? (record.error as Record<string, unknown>)
       : undefined;
+
   const messageCandidates = [
     typeof record.message === "string" ? record.message : undefined,
     typeof nested?.message === "string" ? nested.message : undefined,
@@ -185,6 +186,7 @@ async function findExistingTollFreeVerificationRequestId(input: {
       status: string;
       updatedAt?: string;
     }> = [];
+
     let listed = 0;
     let skippedVerified = 0;
 
@@ -225,6 +227,7 @@ async function findExistingTollFreeVerificationRequestId(input: {
     matches.sort((a, b) => {
       const byStatus =
         verificationRequestRank(a.status) - verificationRequestRank(b.status);
+
       if (byStatus !== 0) return byStatus;
 
       return (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "");
@@ -252,6 +255,7 @@ async function findExistingTollFreeVerificationRequestId(input: {
       },
       "Could not list Telnyx verification requests for number",
     );
+
     return undefined;
   }
 }
@@ -590,6 +594,7 @@ export async function processSmsVerificationJob(input: {
       { organizationId: input.organizationId },
       "Skipping SMS verification job; custom messaging is off",
     );
+
     return;
   }
 
@@ -601,6 +606,7 @@ export async function processSmsVerificationJob(input: {
       },
       "Skipping SMS verification job; already submitted",
     );
+
     return;
   }
 
@@ -609,6 +615,7 @@ export async function processSmsVerificationJob(input: {
       { organizationId: input.organizationId, country: input.country },
       "Skipping SMS verification job; country does not require verification",
     );
+
     return;
   }
 
@@ -645,6 +652,7 @@ export async function processSmsVerificationJob(input: {
       ...record,
       blockedReason: undefined,
     });
+
     return;
   }
 
@@ -659,6 +667,7 @@ export async function processSmsVerificationJob(input: {
       ...record,
       blockedReason: undefined,
     });
+
     return;
   }
 
@@ -689,6 +698,7 @@ export async function processSmsVerificationJob(input: {
       record: workingRecord,
       businessName: tradeName,
     });
+
     messagingProfileId = ensured.profileId;
     workingRecord = ensured.record;
   } catch (error) {
@@ -707,6 +717,7 @@ export async function processSmsVerificationJob(input: {
       scheduleJob: input.scheduleJob,
       reason: "messaging_profile_create_failed",
     });
+
     return;
   }
 
@@ -741,6 +752,7 @@ export async function processSmsVerificationJob(input: {
         scheduleJob: input.scheduleJob,
         reason: "could_not_acquire_number",
       });
+
       return;
     }
 
@@ -765,6 +777,7 @@ export async function processSmsVerificationJob(input: {
         reason: "number_not_ready",
         phoneNumber,
       });
+
       return;
     }
   } else {
@@ -794,6 +807,7 @@ export async function processSmsVerificationJob(input: {
         reason: "messaging_profile_not_ready",
         phoneNumber,
       });
+
       return;
     }
   }
@@ -832,6 +846,7 @@ export async function processSmsVerificationJob(input: {
       reason: "verification_body_incomplete",
       phoneNumber,
     });
+
     return;
   }
 
@@ -883,6 +898,7 @@ export async function processSmsVerificationJob(input: {
         phoneNumber,
         organizationId: input.organizationId,
       }));
+
     let usedCreate = !requestId;
     const result = requestId
       ? await client.messagingTollfree.verification.requests
@@ -898,6 +914,7 @@ export async function processSmsVerificationJob(input: {
               },
               "Telnyx verification update failed; falling back to create",
             );
+
             usedCreate = true;
             return client.messagingTollfree.verification.requests.create(body);
           })
@@ -950,6 +967,7 @@ export async function processSmsVerificationJob(input: {
         reason: "telnyx_not_provisioned",
         phoneNumber,
       });
+
       return;
     }
 
@@ -997,6 +1015,7 @@ async function requeueOrGiveUp(input: {
         `${input.record.legalName || "A business"} (${organizationId}) is still waiting for a dedicated toll-free number after ${attempts} attempts (${input.reason}${input.phoneNumber ? `, number ${input.phoneNumber}` : ""}).`,
       ),
     });
+
     return;
   }
 
@@ -1043,6 +1062,7 @@ async function ensureMessagingProfileReady(input: {
       let settings = await input.client.phoneNumbers.messaging.retrieve(
         input.phoneNumber,
       );
+
       let profileId = settings.data?.messaging_profile_id ?? null;
 
       if (profileId !== input.messagingProfileId) {
@@ -1061,6 +1081,7 @@ async function ensureMessagingProfileReady(input: {
           input.phoneNumber,
           { messaging_profile_id: input.messagingProfileId },
         );
+
         profileId = settings.data?.messaging_profile_id ?? null;
       }
 
@@ -1085,6 +1106,7 @@ async function ensureMessagingProfileReady(input: {
           },
           "Number is assigned to organization messaging profile",
         );
+
         return true;
       }
     } catch (error) {
@@ -1237,6 +1259,7 @@ async function acquireDedicatedNumber(input: {
         limit: 1,
       },
     });
+
     const phoneNumber = available.data?.[0]?.phone_number?.trim();
     logger.info(
       {
@@ -1252,6 +1275,7 @@ async function acquireDedicatedNumber(input: {
         { organizationId: input.organizationId },
         "No purchasable toll-free number available from Telnyx",
       );
+
       return null;
     }
 
@@ -1259,6 +1283,7 @@ async function acquireDedicatedNumber(input: {
       messaging_profile_id: input.messagingProfileId,
       phone_numbers: [{ phone_number: phoneNumber }],
     });
+
     const orderId = order.data?.id;
     const ordered = order.data?.phone_numbers?.[0];
 
@@ -1303,6 +1328,7 @@ async function acquireDedicatedNumber(input: {
           orderReady = true;
           break;
         }
+
         if (status === "failure") {
           return {
             phoneNumber: ordered.phone_number,
@@ -1351,6 +1377,7 @@ async function acquireDedicatedNumber(input: {
       },
       "Could not buy a toll-free number",
     );
+
     return null;
   }
 }

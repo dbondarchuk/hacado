@@ -110,6 +110,7 @@ export function FontFamilyToolbarButton() {
   );
 
   if (context.disabledFeatures?.includes("fontFamily")) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

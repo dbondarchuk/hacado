@@ -8,6 +8,7 @@ export async function DELETE(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/communication-logs/delete")(
     "DELETE",
   );
+
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {

@@ -9,10 +9,12 @@ const enSource = path.join(
   root,
   "apps/admin/src/components/install/data/_catalog-en-source.json",
 );
+
 const installEnYaml = path.join(
   root,
   "packages/i18n/src/locales/en/install.yaml",
 );
+
 const installUkYaml = path.join(
   root,
   "packages/i18n/src/locales/uk/install.yaml",
@@ -34,10 +36,12 @@ function loadInstallYaml(yamlPath) {
   if (!fs.existsSync(yamlPath)) {
     return {};
   }
+
   const raw = fs.readFileSync(yamlPath, "utf8");
   if (!raw.trim()) {
     return {};
   }
+
   try {
     const doc = parseYaml(raw);
     if (
@@ -51,6 +55,7 @@ function loadInstallYaml(yamlPath) {
   } catch {
     return {};
   }
+
   return {};
 }
 
@@ -79,12 +84,15 @@ function buildCatalogTree(en) {
         const tid = String(tag)
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "_");
+
         if (!tags[tid]) tags[tid] = titleCase(String(tag));
       }
+
       tree[catId][profId] = {
         label: prof.label,
         services: {},
       };
+
       for (const [svcId, svc] of Object.entries(prof.services || {})) {
         tree[catId][profId].services[svcId] = {
           name: svc.name,

@@ -31,6 +31,7 @@ export default async function Page() {
     planTier,
     BillingPlanTier.Studio,
   );
+
   const servicesContainer = await getServicesContainer();
   const booking =
     await servicesContainer.configurationService.getConfiguration("booking");

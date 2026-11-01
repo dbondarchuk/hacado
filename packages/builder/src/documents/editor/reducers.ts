@@ -33,15 +33,18 @@ function mergeEmbeddedSlotCellArrays(
       byId.set((item as { id: string }).id, item);
     }
   }
+
   return sourceValue.map((src) => {
     if (!src || typeof src !== "object" || !("id" in src)) {
       return src;
     }
+
     const id = (src as { id: string }).id;
     const tgt = byId.get(id);
     if (tgt && typeof tgt === "object") {
       return deepMerge(tgt, src);
     }
+
     return src;
   });
 }
@@ -115,6 +118,7 @@ function deepMerge(target: any, source: any): any {
             ) {
               return deepMerge(tgt, src);
             }
+
             return src ?? tgt;
           });
         } else {

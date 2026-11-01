@@ -53,6 +53,7 @@ export async function POST(
           paymentId: body.data.paymentId,
           price: body.data.price,
         });
+
     return NextResponse.json(result, { status: 201 });
   } catch (error: unknown) {
     if (error instanceof PackageError) {
@@ -61,6 +62,7 @@ export async function POST(
         { status: 400 },
       );
     }
+
     throw error;
   }
 }

@@ -19,6 +19,7 @@ export const justifyItemsStyle = {
   defaultValue: "stretch",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `justify-items: ${value};`;
   },
   component: ({ value, onChange }) => {

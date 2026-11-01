@@ -7,6 +7,7 @@ import {
 export const styles = getAllStylesWithAdditionalStyles({
   backgroundVideo: backgroundVideoStyle,
 });
+
 export const zStyles = getStylesSchema(styles);
 
 export const getDefaults = (

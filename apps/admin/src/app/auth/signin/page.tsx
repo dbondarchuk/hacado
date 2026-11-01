@@ -35,6 +35,7 @@ export default async function AuthenticationPage(props: {
     if (u.organizationInstalled) {
       redirect("/dashboard");
     }
+
     redirect(
       templatePackId
         ? preferredWebsitePackHref("/checkout", templatePackId)

@@ -44,6 +44,7 @@ function communicationLogTextPreview(
   if (normalized.length <= maxLength) {
     return normalized;
   }
+
   return normalized.slice(0, maxLength);
 }
 
@@ -77,6 +78,7 @@ export class CommunicationLogsService
       handledBy,
       status,
     } = log;
+
     const memberId = log.memberId;
     const logArgs = {
       channel,
@@ -101,6 +103,7 @@ export class CommunicationLogsService
       ...(html !== undefined ? { html } : {}),
       ...(data !== undefined ? { data } : {}),
     };
+
     const json = JSON.stringify(payload);
     const body = Buffer.from(json, "utf8");
 
@@ -272,6 +275,7 @@ export class CommunicationLogsService
       { logId },
       "Successfully parsed communication log content from S3",
     );
+
     try {
       return JSON.parse(raw.toString("utf8")) as CommunicationLogContentPayload;
     } catch (error) {
@@ -279,6 +283,7 @@ export class CommunicationLogsService
         { logId, error },
         "Failed to parse communication log payload",
       );
+
       logger.debug({ logId }, "Failed to parse communication log payload");
       return null;
     }
@@ -539,6 +544,7 @@ export class CommunicationLogsService
     const preview =
       doc.preview ??
       communicationLogTextPreview(typeof text === "string" ? text : "");
+
     const hasPayloadData =
       doc.hasPayloadData ?? communicationLogHasPayloadData(data);
 

@@ -15,12 +15,15 @@ export const searchPexelsMedia = async (
   if (searchParams.query) {
     params.set("query", searchParams.query);
   }
+
   if (searchParams.page != null) {
     params.set("page", String(searchParams.page));
   }
+
   if (searchParams.limit != null) {
     params.set("limit", String(searchParams.limit));
   }
+
   if (searchParams.type) {
     params.set("type", searchParams.type);
   }

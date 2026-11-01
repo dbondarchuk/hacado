@@ -54,5 +54,6 @@ export async function GET(request: NextRequest) {
     { params, result },
     "Discount name and code uniqueness check result",
   );
+
   return NextResponse.json(result, { status: 200 });
 }

@@ -18,6 +18,7 @@ const dateRangeOptions = [
   "nextMonth",
   "allTime",
 ] as const;
+
 type DateRangeOption = (typeof dateRangeOptions)[number];
 
 const getDateRange = (

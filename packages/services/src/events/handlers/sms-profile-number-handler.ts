@@ -14,6 +14,7 @@ import type { EventHandler } from "./types";
 
 const belowSolo = (tier: BillingPlanTier | null | undefined) => {
   if (!tier) return false;
+
   return !meetsMinimumPlanTier(tier, BillingPlanTier.Solo);
 };
 

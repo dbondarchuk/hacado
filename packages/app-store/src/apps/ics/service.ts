@@ -42,6 +42,7 @@ export default class IcsConnectedApp
 
     const { data, success, error } =
       icsLinkCalendarSourceSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid ICS calendar connection request");
       throw new ConnectedAppRequestError(
@@ -209,6 +210,7 @@ export default class IcsConnectedApp
           const endAt = event.end
             ? DateTime.fromJSDate(event.end.date)
             : DateTime.fromJSDate(event.start.date).plus({ years: 1 });
+
           return {
             startAt,
             endAt,

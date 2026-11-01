@@ -59,6 +59,7 @@ export const WeekSelector: FC<WeekSelectorProps> = ({
         : DateTime.now().startOf("day").minus({ years: 10 }),
     [minWeek],
   );
+
   const maxDate = useMemo(
     () =>
       maxWeek
@@ -159,6 +160,7 @@ export const WeekSelector: FC<WeekSelectorProps> = ({
       const start = DateTime.fromJSDate(
         getDateFromWeekIdentifier(week),
       ).startOf("week");
+
       const end = start.endOf("week");
 
       const days = eachOfInterval(start, end, "day");
@@ -210,6 +212,7 @@ export const WeekSelector: FC<WeekSelectorProps> = ({
     if (minDate && today < minDate) {
       dateToUse = minDate;
     }
+
     if (maxDate && today > maxDate) {
       dateToUse = maxDate;
     }
@@ -283,6 +286,7 @@ export const WeekSelector: FC<WeekSelectorProps> = ({
     t("calendar.sat"),
     t("calendar.sun"),
   ];
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>

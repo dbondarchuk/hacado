@@ -17,6 +17,7 @@ export const smsLegalCopy = (
 ): SmsLegalDocument => {
   const name =
     businessName.trim() || t("wizard.finish.pageDefaults.legalFallbackName");
+
   const args = { businessName: name, date };
   if (kind === "privacy") {
     return {

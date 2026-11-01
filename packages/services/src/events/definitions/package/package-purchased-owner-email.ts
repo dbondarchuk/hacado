@@ -33,6 +33,7 @@ export async function buildCustomerPackagePurchasedOwnerEmails(
   const organization = await services.organizationService.getOrganization();
   const organizationLabel =
     organization?.name?.trim() || organization?.slug || "";
+
   const layoutArgs = {
     config: organizationLabel ? { name: organizationLabel } : {},
   };
@@ -40,28 +41,34 @@ export async function buildCustomerPackagePurchasedOwnerEmails(
   const customer = await services.customersService.getCustomer(
     customerPackage.customerId,
   );
+
   const { general, brand } =
     await services.configurationService.getConfigurations("general", "brand");
+
   const price = formatAmountWithCurrency(
     customerPackage.price,
     brand.language,
     general.currency,
   );
+
   const customerName =
     customer?.name?.trim() ||
     customer?.email?.trim() ||
     customerPackage.customerId;
+
   const soldUrl = `${getAdminUrl()}${dashboardUrls.customer(customerPackage.customerId)}?tab=packages`;
 
   const notifications: EmailNotificationRequest[] = [];
   for (const admin of admins) {
     if (!admin.email) continue;
+
     const t = await getI18nAsync({ locale: admin.language });
     const interpolation = {
       packageName: customerPackage.name,
       customerName,
       price,
     };
+
     const subject = t(`${EMAIL_KEY_PREFIX}.subject`, interpolation);
     const body = await renderUserEmailTemplate(
       {

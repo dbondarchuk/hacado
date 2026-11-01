@@ -8,6 +8,7 @@ export const zColorCustom = z
   .regex(/^(\d+)\s+([\d.]+)%\s+([\d.]+)%$/, {
     message: "builder.pageBuilder.styleInputs.color.unknownType",
   });
+
 export const zTransparentColor = z.literal("transparent");
 export const zCurrentColor = z.literal("currentColor");
 const colorPresetVars = COLOR_NAMES.map((c) => `var(--value-${c}-color)`);
@@ -25,12 +26,14 @@ export const zColor = z.union(
     message: "builder.pageBuilder.styleInputs.color.unknownType",
   },
 );
+
 export const zColorNullable = zColor.optional().nullable();
 
 export const units = ["px", "rem", "%", "vh", "vw"] as const;
 export const zUnit = z.enum(units, {
   message: "builder.pageBuilder.styleInputs.unit.unknownType",
 });
+
 export type Unit = z.infer<typeof zUnit>;
 
 /** CSS unitless multiplier (e.g. `line-height: 1.1`). */
@@ -41,11 +44,13 @@ export const unitsWithUnitless = [UNITLESS_UNIT, ...units] as const;
 export const zUnitOrUnitless = z.union([z.literal(UNITLESS_UNIT), zUnit], {
   message: "builder.pageBuilder.styleInputs.unit.unknownType",
 });
+
 export type UnitOrUnitless = z.infer<typeof zUnitOrUnitless>;
 
 export const zFontFamily = z.enum(FONT_FAMILY_NAMES, {
   message: "builder.pageBuilder.styleInputs.fontFamily.unknownType",
 });
+
 export type FontFamily = z.infer<typeof zFontFamily>;
 
 export const zNumberValueWithUnit = z.object({
@@ -120,6 +125,7 @@ export const perCornerKeys = [
   "bottomRight",
   "bottomLeft",
 ] as const;
+
 export type PerCornerKey = (typeof perCornerKeys)[number];
 
 export const zPerSide = <T extends z.ZodType>(item: T) =>
@@ -206,6 +212,7 @@ export const collapseSidesToAll = <T>(
     const slot = value[key];
     if (slot != null) return slot;
   }
+
   return fallback;
 };
 
@@ -217,6 +224,7 @@ export const collapseCornersToAll = <T>(
     const slot = value[key];
     if (slot != null) return slot;
   }
+
   return fallback;
 };
 
@@ -253,6 +261,7 @@ export const states = [
   ...pseudoElementStates,
   ...viewStates,
 ] as const;
+
 export const zState = z.enum(states);
 export type State = z.infer<typeof zState>;
 
@@ -269,6 +278,7 @@ export const getStateCssSelector = (state: State): string => {
   if (state === "default") return "";
   if (isViewState(state)) return `[data-parent-0-${state}="true"]`;
   if (isPseudoElementState(state)) return `::${state}`;
+
   return `:${state}`;
 };
 
@@ -364,6 +374,7 @@ export function convertParentLevelToStateTarget(
   if (parentLevel === 0) {
     return { type: "self", data: undefined };
   }
+
   return {
     type: "parent",
     data: { level: parentLevel },
@@ -380,5 +391,6 @@ export function convertStateTargetToParentLevel(
   if (stateTarget.type === "parent" && stateTarget.data?.level) {
     return stateTarget.data.level;
   }
+
   return 0; // Default to self for selector type
 }

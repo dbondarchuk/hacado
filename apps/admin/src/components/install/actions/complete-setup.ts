@@ -65,6 +65,7 @@ function sanitizeInstallPreferencesForPlanTier(
   planTier: BillingPlanTier | null,
 ): InstallPreferences {
   if (planTier !== BillingPlanTier.Free) return prefs;
+
   return {
     ...prefs,
     acceptPayments: false,
@@ -85,17 +86,20 @@ function buildInstallPaymentsConfiguration(
   if (!prefs.acceptPayments) {
     return { requireDeposit: false };
   }
+
   if (prefs.depositEnabled) {
     let depositPercentage = Math.round(Number.parseFloat(prefs.depositPercent));
     if (!Number.isFinite(depositPercentage)) {
       depositPercentage = 25;
     }
+
     depositPercentage = Math.min(100, Math.max(10, depositPercentage));
     return {
       requireDeposit: true,
       depositPercentage,
     };
   }
+
   return {
     requireDeposit: false,
   };
@@ -111,6 +115,7 @@ async function ensureInstallBookingPaymentsDefaultAppsAndCancellations(
 
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
+
   if (!booking || Object.keys(booking).length === 0) {
     logger.error({}, "Booking configuration missing for install payment prefs");
     return { ok: false, code: "no_booking" };
@@ -123,13 +128,16 @@ async function ensureInstallBookingPaymentsDefaultAppsAndCancellations(
     const paymentApp = (
       await services.connectedAppsService.getAppsByScope("payment")
     ).find((a) => a.status === "connected");
+
     if (!paymentApp) {
       logger.error(
         {},
         "Accept payments enabled but payment app is not connected",
       );
+
       return { ok: false, code: "payment_app_required" };
     }
+
     paymentAppId = paymentApp._id;
   }
 
@@ -150,6 +158,7 @@ async function ensureInstallBookingPaymentsDefaultAppsAndCancellations(
       { error: parsed.error },
       "Booking configuration invalid after applying install payment prefs",
     );
+
     return { ok: false, code: "booking_config_invalid" };
   }
 
@@ -163,6 +172,7 @@ async function ensureInstallBookingPaymentsDefaultAppsAndCancellations(
     const existing =
       (await services.configurationService.getConfiguration("defaultApps")) ??
       {};
+
     await services.configurationService.setConfiguration(
       "defaultApps",
       {
@@ -171,6 +181,7 @@ async function ensureInstallBookingPaymentsDefaultAppsAndCancellations(
       },
       systemEventSource,
     );
+
     logger.debug({ paymentAppId }, "Set default payment app from install");
   }
 
@@ -191,10 +202,12 @@ async function ensureInstalledApp(
     appName,
     memberId,
   );
+
   await services.connectedAppsService.updateApp(appId, {
     status: "connected",
     statusText: "apps.common.statusText.installed",
   });
+
   logger.debug({ appName, appId }, "Installed app");
   return services.connectedAppsService.getApp(appId);
 }
@@ -208,30 +221,37 @@ async function ensureTemplateByName(
     { name: template.name, type: template.type },
     "Ensuring template by name",
   );
+
   const existing = await services.templatesService.getTemplates({
     search: template.name,
     type: [template.type],
     limit: 50,
     offset: 0,
   });
+
   const exact = existing.items.find(
     (item) => item.name === template.name && item.type === template.type,
   );
+
   if (exact) {
     logger.debug(
       { templateId: exact._id, name: template.name },
       "Template already exists",
     );
+
     return exact._id;
   }
+
   const created = await services.templatesService.createTemplate(
     template,
     systemEventSource,
   );
+
   logger.debug(
     { templateId: created._id, name: template.name },
     "Template created",
   );
+
   return created._id;
 }
 
@@ -242,6 +262,7 @@ async function ensureInstallCustomerOtpTemplates(
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallCustomerOtpTemplates",
   );
+
   const templateSourceLang =
     language in (BuiltInTemplateTemplates["customer-otp-email"] ?? {})
       ? language
@@ -250,6 +271,7 @@ async function ensureInstallCustomerOtpTemplates(
   const emailSource =
     BuiltInTemplateTemplates["customer-otp-email"]?.[templateSourceLang] ??
     BuiltInTemplateTemplates["customer-otp-email"]?.en;
+
   const textSource =
     BuiltInTemplateTemplates["customer-otp-text"]?.[templateSourceLang] ??
     BuiltInTemplateTemplates["customer-otp-text"]?.en;
@@ -288,6 +310,7 @@ async function ensureInstallCustomerNotificationTemplates(
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallCustomerNotificationTemplates",
   );
+
   logger.debug(
     {
       language,
@@ -297,6 +320,7 @@ async function ensureInstallCustomerNotificationTemplates(
     },
     "Ensuring customer notification templates",
   );
+
   const templateSourceLang =
     language in (BuiltInTemplateTemplates["appointment-created-email"] ?? {})
       ? language
@@ -308,6 +332,7 @@ async function ensureInstallCustomerNotificationTemplates(
         CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
       )
     )[0];
+
     if (emailApp) {
       const map: Record<string, string> = {};
       const emailTemplateIds = [
@@ -323,7 +348,9 @@ async function ensureInstallCustomerNotificationTemplates(
         const source =
           BuiltInTemplateTemplates[templateId]?.[templateSourceLang] ??
           BuiltInTemplateTemplates[templateId]?.en;
+
         if (!source) continue;
+
         map[templateId] = await ensureTemplateByName(services, source);
       }
 
@@ -338,6 +365,7 @@ async function ensureInstallCustomerNotificationTemplates(
           { appId: emailApp._id },
           "Configuring customer email notifications",
         );
+
         await services.connectedAppsService.processRequest(
           emailApp._id,
           {
@@ -353,6 +381,7 @@ async function ensureInstallCustomerNotificationTemplates(
           null as unknown as ApiRequest,
           user,
         );
+
         logger.debug(
           { appId: emailApp._id },
           "Configured customer email notifications",
@@ -367,6 +396,7 @@ async function ensureInstallCustomerNotificationTemplates(
         CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
       )
     )[0];
+
     if (smsApp) {
       const map: Record<string, string> = {};
       const smsTemplateIds = [
@@ -382,7 +412,9 @@ async function ensureInstallCustomerNotificationTemplates(
         const source =
           BuiltInTemplateTemplates[templateId]?.[templateSourceLang] ??
           BuiltInTemplateTemplates[templateId]?.en;
+
         if (!source) continue;
+
         map[templateId] = await ensureTemplateByName(services, source);
       }
 
@@ -397,6 +429,7 @@ async function ensureInstallCustomerNotificationTemplates(
           { appId: smsApp._id },
           "Configuring customer text notifications",
         );
+
         await services.connectedAppsService.processRequest(
           smsApp._id,
           {
@@ -420,6 +453,7 @@ async function ensureInstallCustomerNotificationTemplates(
           null as unknown as ApiRequest,
           user,
         );
+
         logger.debug(
           { appId: smsApp._id },
           "Configured customer text notifications",
@@ -438,6 +472,7 @@ async function ensureInstallAppointmentNotificationDefaults(
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallAppointmentNotificationDefaults",
   );
+
   logger.debug(
     {
       language,
@@ -466,6 +501,7 @@ async function ensureInstallAppointmentNotificationDefaults(
     AppointmentNotificationsTemplates["appointment-reminder-email"]?.[
       language
     ] ?? AppointmentNotificationsTemplates["appointment-reminder-email"]?.en;
+
   if (!templateSource) return;
 
   const templateId = await ensureTemplateByName(services, templateSource);
@@ -483,6 +519,7 @@ async function ensureInstallAppointmentNotificationDefaults(
     null as unknown as ApiRequest,
     user,
   )) as boolean;
+
   if (!isUnique) return;
 
   logger.debug({ appId: app._id }, "Creating appointment notification default");
@@ -506,6 +543,7 @@ async function ensureInstallAppointmentNotificationDefaults(
     null as unknown as ApiRequest,
     user,
   );
+
   logger.debug(
     { appId: app._id, templateId, defaultName },
     "Created appointment notification default",
@@ -519,8 +557,10 @@ async function ensureInstallUserCalendarSources(
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallUserCalendarSources",
   );
+
   const apps =
     await services.connectedAppsService.getAppsByScope("calendar-read");
+
   const connectedCalendarApps = apps.filter((a) => a.status === "connected");
   if (!connectedCalendarApps.length) {
     logger.debug("No connected calendar apps; leaving member calendarSources");
@@ -551,6 +591,7 @@ async function ensureInstallUserCalendarSources(
     },
     systemEventSource,
   );
+
   logger.debug(
     { addedAppIds: toAdd.map((x) => x.appId) },
     "Merged connected calendar apps into member calendarSources",
@@ -563,8 +604,10 @@ async function ensureDefaultInstallSchedule(
   const logger = getLoggerFactory("InstallActions")(
     "ensureDefaultInstallSchedule",
   );
+
   const existing =
     (await services.configurationService.getConfiguration("schedule")) ?? null;
+
   const hasWorkingHours = existing?.schedule?.some(
     (day) => day.shifts?.length > 0,
   );
@@ -579,6 +622,7 @@ async function ensureDefaultInstallSchedule(
     getDefaultScheduleConfiguration(),
     systemEventSource,
   );
+
   logger.debug("Applied default schedule configuration");
 }
 
@@ -708,6 +752,7 @@ async function ensureInstallDefaultConfigurations(
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallDefaultConfigurations",
   );
+
   await ensureInstallDefaultScripts(services);
   await ensureInstallDefaultSocial(services);
   await ensureInstallDefaultStyling(services);
@@ -726,6 +771,7 @@ export async function runCompleteInstallSetupSteps(args: {
   const logger = getLoggerFactory("InstallActions")(
     "runCompleteInstallSetupSteps",
   );
+
   const {
     services,
     user,
@@ -734,6 +780,7 @@ export async function runCompleteInstallSetupSteps(args: {
     businessName,
     hasAddress,
   } = args;
+
   const memberId = user.memberId;
 
   const org = await services.organizationService.getOrganization();
@@ -766,29 +813,37 @@ export async function runCompleteInstallSetupSteps(args: {
       { appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME },
       "Adding customer email notification app",
     );
+
     installSet.add(CUSTOMER_EMAIL_NOTIFICATION_APP_NAME);
   }
+
   if (prefs.optCustomerPackageEmailNotifications) {
     logger.debug(
       { appName: CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME },
       "Adding customer package email notification app",
     );
+
     installSet.add(CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME);
   }
+
   if (prefs.optCustomerTextMessageNotifications) {
     logger.debug(
       { appName: CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME },
       "Adding customer text message notification app",
     );
+
     installSet.add(CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME);
   }
+
   if (prefs.optAppointmentNotifications) {
     logger.debug(
       { appName: APPOINTMENT_NOTIFICATIONS_APP_NAME },
       "Adding appointment notifications app",
     );
+
     installSet.add(APPOINTMENT_NOTIFICATIONS_APP_NAME);
   }
+
   if (prefs.optWaitlist) {
     logger.debug({ appName: WAITLIST_APP_NAME }, "Adding waitlist app");
     installSet.add(WAITLIST_APP_NAME);
@@ -797,42 +852,52 @@ export async function runCompleteInstallSetupSteps(args: {
         { appName: CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME },
         "Adding customer waitlist notifications app",
       );
+
       installSet.add(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME);
     }
   }
+
   if (prefs.optBlog) {
     logger.debug({ appName: BLOG_APP_NAME }, "Adding blog app");
     installSet.add(BLOG_APP_NAME);
   }
+
   if (prefs.optForms) {
     logger.debug({ appName: FORMS_APP_NAME }, "Adding forms app");
     installSet.add(FORMS_APP_NAME);
   }
+
   if (prefs.optGiftCardStudio) {
     logger.debug(
       { appName: GIFT_CARD_STUDIO_APP_NAME },
       "Adding gift card studio app",
     );
+
     installSet.add(GIFT_CARD_STUDIO_APP_NAME);
   }
+
   if (prefs.optMyCabinet) {
     logger.debug({ appName: MY_CABINET_APP_NAME }, "Adding My Cabinet app");
     installSet.add(MY_CABINET_APP_NAME);
   }
+
   if (prefs.inviteMode === "email") {
     logger.debug(
       { appName: EMAIL_NOTIFICATION_APP_NAME },
       "Adding email notification app",
     );
+
     installSet.add(EMAIL_NOTIFICATION_APP_NAME);
   }
 
   for (const name of installSet) {
     if (!AvailableApps[name]) continue;
+
     if (!canInstallApp(planTier, name)) {
       logger.debug({ appName: name, planTier }, "Skipping app install on plan");
       continue;
     }
+
     logger.debug({ appName: name }, "Ensuring app is installed");
     await ensureInstalledApp(services, memberId, name);
   }
@@ -842,6 +907,7 @@ export async function runCompleteInstallSetupSteps(args: {
       { inviteCalendarWriterAppId: prefs.inviteCalendarWriterAppId },
       "Ensuring calendar writer app is installed",
     );
+
     const targetId = prefs.inviteCalendarWriterAppId?.trim();
     if (!targetId) {
       return { ok: false, code: "calendar_writer_target_required" };
@@ -857,6 +923,7 @@ export async function runCompleteInstallSetupSteps(args: {
       { targetAppName: targetApp.name },
       "Ensuring calendar writer app is installed",
     );
+
     const appMeta = AvailableApps[targetApp.name];
     if (!appMeta?.scope.includes("calendar-write")) {
       return { ok: false, code: "calendar_writer_target_invalid" };
@@ -866,6 +933,7 @@ export async function runCompleteInstallSetupSteps(args: {
       { appName: CALENDAR_WRITER_APP_NAME },
       "Ensuring calendar writer app is installed",
     );
+
     const writer = await ensureInstalledApp(
       services,
       memberId,
@@ -896,6 +964,7 @@ export async function runCompleteInstallSetupSteps(args: {
       services,
       prefs,
     );
+
   if (!bookingPaymentResult.ok) {
     return bookingPaymentResult;
   }
@@ -913,6 +982,7 @@ export async function runCompleteInstallSetupSteps(args: {
     { language, businessName },
     "Ensuring install customer notification templates",
   );
+
   await ensureInstallAppointmentNotificationDefaults(
     services,
     language,

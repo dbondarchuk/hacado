@@ -23,11 +23,9 @@ export const getLogoUrl = (props: OnlineMeetingProps["props"]): string => {
   if (props?.type === "teams") {
     return `${adminUrl}/logos/microsoft_teams.svg`;
   }
-
   if (props?.type === "zoom") {
     return `${adminUrl}/logos/zoom.svg`;
   }
-
   if (props?.type === "google_meet") {
     return `${adminUrl}/logos/google_meet.svg`;
   }

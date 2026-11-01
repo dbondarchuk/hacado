@@ -48,6 +48,7 @@ export const DraggableBlockItem = memo(
 
     const templateBlock = useMemo(() => {
       if (!isTemplate || !template || !isSectionTemplate(template)) return null;
+
       return template.getBlock(t);
     }, [template, isTemplate, t]);
 

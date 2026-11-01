@@ -67,5 +67,6 @@ export async function POST(request: NextRequest) {
     { enabled: config.data.enabled },
     "Text messaging settings saved",
   );
+
   return NextResponse.json({ success: true });
 }

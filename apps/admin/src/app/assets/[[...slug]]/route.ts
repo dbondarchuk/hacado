@@ -25,6 +25,7 @@ function streamFile(
           ),
         ),
       );
+
       downloadStream.on("end", () => controller.close());
       downloadStream.on("error", (error: NodeJS.ErrnoException) =>
         controller.error(error),

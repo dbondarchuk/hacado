@@ -105,6 +105,7 @@ export default async function NewAppointmentPage(props: Props) {
       await servicesContainer.packagesService.getCustomerPackage(
         from.customerPackageId,
       );
+
     if (soldPackage?.items[0]?.serviceId) {
       from = { ...from, optionId: soldPackage.items[0].serviceId };
     }

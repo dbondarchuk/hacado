@@ -41,6 +41,7 @@ export const AddonsCard: React.FC = () => {
         isAddonAvailableForMember(addon.staff, staff.member.id),
       );
     }
+
     return isAddonAvailableForMember(addon.staff, selectedMemberId);
   });
 
@@ -73,11 +74,13 @@ export const AddonsCard: React.FC = () => {
             addon.staff,
             selectedMemberId,
           );
+
           const duration = effectiveAddonDuration(
             addon.duration,
             addon.staff,
             selectedMemberId,
           );
+
           return (
             <Card
               key={addon._id}

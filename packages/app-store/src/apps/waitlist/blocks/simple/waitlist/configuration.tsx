@@ -33,6 +33,7 @@ export const WaitlistConfiguration = deepMemo(
       (m: Record<string, any>) => onMetadataChange(m),
       [onMetadataChange],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as WaitlistProps["style"] }),
       [setData, data],

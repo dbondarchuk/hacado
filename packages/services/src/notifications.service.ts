@@ -109,6 +109,7 @@ export class NotificationService implements INotificationService {
   public async sendEmail(props: EmailNotificationRequest): Promise<void> {
     const { email, handledBy, participantType, appointmentId, customerId } =
       props;
+
     const logger = this.loggerFactory("sendEmail");
     const memberId = props.memberId;
     const defaultAppsConfiguration =
@@ -133,6 +134,7 @@ export class NotificationService implements INotificationService {
       if (participantType === "customer") {
         const generalConfiguration =
           await this.configurationService.getConfiguration("general");
+
         fromName = generalConfiguration?.name;
       }
 
@@ -211,6 +213,7 @@ export class NotificationService implements INotificationService {
       dontRequireConsent,
       idempotencyKey,
     } = props;
+
     const logger = this.loggerFactory("sendTextMessage");
     const trimmedPhone = normalizeToE164(phone);
     if (!trimmedPhone) {
@@ -302,6 +305,7 @@ export class NotificationService implements INotificationService {
 
     const defaultAppsConfiguration =
       await this.configurationService.getConfiguration("defaultApps");
+
     const textMessageSenderAppId =
       defaultAppsConfiguration?.textMessageSenderAppId;
 
@@ -317,6 +321,7 @@ export class NotificationService implements INotificationService {
         { textMessageSenderAppId },
         "Using app-based text message sender app",
       );
+
       const { app, service } =
         await this.connectedAppService.getAppService<ITextMessageSenderApp>(
           textMessageSenderAppId,
@@ -339,6 +344,7 @@ export class NotificationService implements INotificationService {
 
       const access =
         await this.textMessageConfigurationService.getSmsMessagingAccess();
+
       const dedicated = access.customVerified
         ? await this.registrationStore.getAssignedProfileNumber(
             this.organizationId,
@@ -389,6 +395,7 @@ export class NotificationService implements INotificationService {
 
       const availableTotal =
         await this.billingService.getCurrentSmsBalanceTotal();
+
       if (availableTotal !== null && availableTotal < 1) {
         logger.warn(
           { organizationId: this.organizationId, appointmentId },
@@ -501,6 +508,7 @@ export class NotificationService implements INotificationService {
           data: webhookData?.data,
           textId: response.textId,
         });
+
         return response;
       };
     }

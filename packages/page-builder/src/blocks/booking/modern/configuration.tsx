@@ -22,6 +22,7 @@ export const BookingConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as BookingProps["props"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     const updateStyle = useCallback(

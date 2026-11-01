@@ -69,6 +69,7 @@ function getDecorateEditor(): SlateEditor {
       ],
     });
   }
+
   return decorateEditor;
 }
 
@@ -92,12 +93,14 @@ export function renderHighlightedCodeLineSegments(
     type: BaseCodeLinePlugin.key,
     children: [{ text }],
   };
+
   const langKey = lang === "plain" ? "" : lang;
   const block = {
     type: BaseCodeBlockPlugin.key,
     lang: langKey || undefined,
     children: [line],
   };
+
   editor.children = [block] as typeof editor.children;
 
   const lineNode = editor.children[0]?.children?.[0];
@@ -126,6 +129,7 @@ export function renderHighlightedCodeLineSegments(
     if (pos < s) {
       out.push(text.slice(pos, s));
     }
+
     out.push(
       <span
         key={`${segmentKeyPrefix}-t-${k++}`}
@@ -139,10 +143,13 @@ export function renderHighlightedCodeLineSegments(
         {text.slice(s, e)}
       </span>,
     );
+
     pos = e;
   }
+
   if (pos < text.length) {
     out.push(text.slice(pos));
   }
+
   return out;
 }

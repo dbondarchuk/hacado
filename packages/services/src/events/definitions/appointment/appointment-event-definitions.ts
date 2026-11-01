@@ -56,8 +56,10 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
       if (envelope.source.actor !== "customer") {
         return null;
       }
+
       const pendingAppointments =
         await services.bookingService.getPendingAppointmentsCount(new Date());
+
       const duration = durationToTime(payload.appointment.totalDuration);
       return {
         type: "appointment-created",
@@ -118,6 +120,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
       const payload = envelope.payload as AppointmentRescheduledPayload;
       const pendingAppointments =
         await services.bookingService.getPendingAppointmentsCount(new Date());
+
       return {
         type: "appointment-updated",
         badges: pendingAppointmentsBadges(pendingAppointments.totalCount),
@@ -175,6 +178,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
       const payload = envelope.payload as AppointmentStatusChangedPayload;
       const pendingAppointments =
         await services.bookingService.getPendingAppointmentsCount(new Date());
+
       const isCanceledByCustomer = payload.newStatus === "canceled";
       return {
         type: "appointment-status-changed",
@@ -232,6 +236,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
       const payload = envelope.payload as AppointmentSlotRescheduledPayload;
       const pendingAppointments =
         await services.bookingService.getPendingAppointmentsCount(new Date());
+
       return {
         type: "appointment-rescheduled",
         badges: pendingAppointmentsBadges(pendingAppointments.totalCount),

@@ -127,6 +127,7 @@ export const PackageForm: React.FC<{
           const created = await packagesApi.createPackage(payload);
           router.replace(`/dashboard/catalog/packages/${created._id}`);
         }
+
         router.refresh();
       };
 

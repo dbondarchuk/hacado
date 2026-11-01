@@ -54,6 +54,7 @@ export async function isMemberPhoneAvailable(
   const pendingFilter: Record<string, unknown> = {
     "pendingMemberProfile.phone": normalized,
   };
+
   if (context.excludeUserId) {
     pendingFilter._id = { $ne: context.excludeUserId };
   }

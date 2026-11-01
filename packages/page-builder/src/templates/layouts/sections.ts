@@ -90,6 +90,7 @@ export function resolveServices(
       imageUrl: service.imageUrl || matchServiceImage(pack.id, service.name),
     }));
   }
+
   return pack.demoServices.map((demo) => {
     const name = t(demo.nameKey);
     return {
@@ -390,6 +391,7 @@ function buildSplitHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           { textAlign: "left" },
         )
       : null;
+
   // Stacked secondary photo for editorial / playful splits (coach, pet, home).
   const stackImage =
     pack.media.items[1] != null
@@ -399,6 +401,7 @@ function buildSplitHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           14,
         )
       : null;
+
   const imageBlock: TEditorBlock = {
     type: "Image",
     id: imageId,
@@ -418,16 +421,20 @@ function buildSplitHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
       },
     },
   };
+
   const mediaColumn = stackImage
     ? compositeContainer([imageBlock, stackImage], 1)
     : imageBlock;
+
   const copyKids = pullQuote
     ? [heading, pullQuote, text, button]
     : [heading, text, button];
+
   const copy = compositeContainer(copyKids, 1, {
     alignItems: [{ value: "flex-start" }],
     justifyContent: [{ value: "center" }],
   });
+
   return sectionShell([splitColumns(copy, mediaColumn)], {
     minHeight: [{ value: { value: 28, unit: "rem" } }],
     padding: [
@@ -621,6 +628,7 @@ function buildLeftOverlayHero(
     ),
     entranceAnimation(0.1, 0.7),
   );
+
   return fluidSection(
     [panel],
     {
@@ -658,6 +666,7 @@ function buildLeftOverlayHero(
 
 const HERO_VIDEO_POSTER =
   "https://images.unsplash.com/photo-1468931467769-06a09c69aad3?auto=format&fit=crop&w=1920&q=80";
+
 const HERO_VIDEO_SRC =
   "https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4";
 
@@ -684,6 +693,7 @@ function buildVideoHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
         [button.id]: buttonPlacement(2, 11),
       }
     : centeredCopyPlacements(heading.id, text.id, button.id);
+
   const overrides = muted
     ? {
         tablet: {
@@ -839,6 +849,7 @@ function buildGalleryFirstHero(
   const text = paragraphFromText(t(k(pack.id, "home", "heroSubtitle")), {
     textAlign: "left",
   });
+
   const primary = buttonFromLabel(t(k(pack.id, "home", "bookCta")));
   const copyChildren: TEditorBlock[] = [];
   const city = pack.theme.city;
@@ -847,11 +858,13 @@ function buildGalleryFirstHero(
     const eyebrow = paragraphFromText(city.toUpperCase(), {
       textAlign: "left",
     });
+
     eyebrow.data.style = {
       ...eyebrow.data.style,
       fontSize: [{ value: { value: 0.875, unit: "rem" } }],
       color: [{ value: COLORS["muted-foreground"].value }],
     };
+
     copyChildren.push(eyebrow);
   }
 
@@ -862,6 +875,7 @@ function buildGalleryFirstHero(
     "/services",
     "outline",
   );
+
   copyChildren.push(
     flexRow([primary, secondary], {
       gapRem: 0.75,
@@ -883,11 +897,13 @@ function buildGalleryFirstHero(
     maxWidth: [{ value: { value: 48, unit: "rem" } }],
     width: [{ value: { value: 100, unit: "%" } }],
   });
+
   const images = pack.media.items
     .slice(0, 8)
     .map((item) =>
       galleryImage(item.src, t(k(pack.id, "home", "heroTitle")), 20),
     );
+
   const carouselDefaults = CarouselPropsDefaults();
   const filmstrip = {
     type: "Carousel" as const,
@@ -953,9 +969,11 @@ function withBannerMessage(block: TEditorBlock, message: string): TEditorBlock {
   const text = block.data?.props?.children?.find(
     (child: TEditorBlock) => child.type === "InlineText",
   );
+
   if (text?.data?.props) {
     text.data.props.text = message;
   }
+
   return block;
 }
 
@@ -967,6 +985,7 @@ function withCtaCopy(
 ): TEditorBlock {
   const children = block.data?.props?.children as TEditorBlock[] | undefined;
   if (!children?.length) return block;
+
   const heading = children.find((c) => c.type === "Heading");
   const text = children.find((c) => c.type === "Text");
   const buttonHost = children.find((c) => c.type === "Container");
@@ -977,6 +996,7 @@ function withCtaCopy(
   if (heading) {
     const inline =
       heading.data?.props?.children?.[0]?.data?.props?.children?.[0];
+
     if (inline?.data?.props) inline.data.props.text = title;
     heading.data.style = {
       ...heading.data.style,
@@ -996,6 +1016,7 @@ function withCtaCopy(
   if (button) {
     const inlineText =
       button.data?.props?.children?.[0]?.data?.props?.children?.[0];
+
     if (inlineText?.data?.props) inlineText.data.props.text = ctaLabel;
     if (button.data?.props) button.data.props.url = "/book";
 
@@ -1023,6 +1044,7 @@ function buildAnnouncementSplitHero(
       justifyContent: [{ value: "center" }],
     },
   );
+
   return [banner, buildSplitHero(pack, t)];
 }
 
@@ -1097,10 +1119,12 @@ function buildZigzag(
       ],
       0.75,
     );
+
     return index % 2 === 0
       ? splitColumns(image, copy)
       : splitColumns(copy, image);
   });
+
   return sectionShell([
     buildSectionIntro(t, {
       title: k(pack.id, "home", "servicesTitle"),
@@ -1194,6 +1218,7 @@ function buildFeatureList(
       },
     ),
   );
+
   const list = compositeContainer(
     [
       headingFromText(t(k(pack.id, "home", "servicesTitle")), {
@@ -1204,11 +1229,13 @@ function buildFeatureList(
     ],
     1,
   );
+
   const image = galleryImage(
     pack.media.items[0]?.src || pack.media.generic,
     t(k(pack.id, "home", "servicesTitle")),
     24,
   );
+
   return sectionShell([splitColumns(list, image)]);
 }
 
@@ -1216,6 +1243,7 @@ function buildGallery(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const images = pack.media.items.map((item) =>
     galleryImage(item.src, t(k(pack.id, "home", "galleryTitle")), 14),
   );
+
   return sectionShell(
     [
       buildSectionIntro(t, {
@@ -1333,6 +1361,7 @@ function buildGalleryCarousel(
     .map((item) =>
       galleryImage(item.src, t(k(pack.id, "home", "galleryTitle")), 18),
     );
+
   const carouselDefaults = CarouselPropsDefaults();
   return sectionShell([
     buildSectionIntro(t, {
@@ -1388,12 +1417,14 @@ function serviceFilmstripCard(service: ResolvedLayoutService): TEditorBlock {
     service.name,
     `/${service.pageSlug}`,
   );
+
   cover.data.style = {
     ...cover.data.style,
     height: [{ value: { value: 10, unit: "rem" } }],
     minHeight: [{ value: { value: 10, unit: "rem" } }],
     borderRadius: [{ value: { value: 0, unit: "px" } }],
   };
+
   return compositeContainer(
     [
       cover,
@@ -1450,6 +1481,7 @@ function buildCarousel(
   const cards = services
     .slice(0, 4)
     .map((service) => serviceFilmstripCard(service));
+
   const carouselDefaults = CarouselPropsDefaults();
   return sectionShell([
     buildSectionIntro(t, {
@@ -1499,8 +1531,10 @@ function buildBeforeAfterSection(
 ): TEditorBlock {
   const before =
     pack.media.before || pack.media.items[0]?.src || pack.media.generic;
+
   const after =
     pack.media.after || pack.media.items[1]?.src || pack.media.generic;
+
   return sectionShell([
     buildSectionIntro(t, {
       title: sk("beforeAfter", "title"),
@@ -1656,6 +1690,7 @@ function buildPricing(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
     boxShadow: boxShadowValue(16, 40, -12, COLORS.primary.value),
     transform: translateYRem(-0.5),
   });
+
   return sectionShell(
     [
       buildSectionIntro(t, {
@@ -1718,6 +1753,7 @@ function buildFeaturesShowcase(
       ),
     ]);
   }
+
   return compositeContainer([
     buildSectionIntro(t, {
       title: k(pack.id, "home", "servicesTitle"),
@@ -1749,6 +1785,7 @@ function buildCta(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
     t(k(pack.id, "home", "ctaBody")),
     t(k(pack.id, "home", "bookCta")),
   );
+
   // HTML: rounded primary band inside the page column — not a full-bleed shell.
   return sectionShell(
     [
@@ -1843,7 +1880,6 @@ function moodBandStyle(
   darkTheme = false,
 ): Record<string, unknown> {
   if (!mood) return {};
-
   // Dark pack themes use light foreground — never put light pastel bands under them.
   if (darkTheme || mood === "dark") {
     return index % 2 === 1
@@ -1856,7 +1892,6 @@ function moodBandStyle(
           color: [{ value: "0 0% 96%" }],
         };
   }
-
   if (mood === "muted") {
     return index % 2 === 1
       ? { backgroundColor: [{ value: COLORS.muted.value }] }
@@ -1867,12 +1902,14 @@ function moodBandStyle(
       ? { backgroundColor: [{ value: "33 100% 96%" }] }
       : { backgroundColor: [{ value: COLORS.background.value }] };
   }
+
   return index % 2 === 1 ? { backgroundColor: [{ value: "210 40% 98%" }] } : {};
 }
 
 function packUsesMotion(pack: WebsitePackDefinition): boolean {
   if (pack.motion === false) return false;
   if (pack.motion === true) return true;
+
   return Boolean(pack.mood);
 }
 
@@ -1976,11 +2013,13 @@ export function composeBooking(
     ],
     1,
   );
+
   const booking: TEditorBlock = {
     type: "BookingModern",
     id: generateId(),
     data: BookingPropsDefaults,
   };
+
   return [
     sectionShell([splitColumns(copy, booking)]),
     buildHowItWorks(pack, t),
@@ -2055,6 +2094,7 @@ export function composeService(
   if (!selected) {
     return [buildCta(pack, t)];
   }
+
   const image = serviceCoverImage(selected, selected.name, null, 22);
   const bullets = compositeContainer(
     [1, 2, 3].map((n) =>
@@ -2064,6 +2104,7 @@ export function composeService(
     ),
     0.35,
   );
+
   const copy = compositeContainer(
     [
       headingFromText(selected.name, { level: "h1", textAlign: "left" }),
@@ -2073,6 +2114,7 @@ export function composeService(
     ],
     1,
   );
+
   return [
     sectionShell([splitColumns(image, copy)]),
     buildServiceExtra(pack, t),
@@ -2098,6 +2140,7 @@ export function composeAbout(
       textAlign: "left",
     }),
   ]);
+
   return [
     intro,
     buildStats(pack, t),

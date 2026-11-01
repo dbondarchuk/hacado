@@ -34,6 +34,7 @@ const visibleSettingsLinks = (
   return (visible?.children ?? []).flatMap((section) => {
     const links = (section.items ?? []).filter((item) => item.href);
     if (links.length) return links;
+
     return section.href ? [section] : [];
   });
 };

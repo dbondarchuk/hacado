@@ -24,6 +24,7 @@ export const DesignNewPage = ({ appId }: { appId: string }) => {
   const [design, setDesign] = useState<DesignUpdateModel | undefined>(
     undefined,
   );
+
   const [loading, setLoading] = useState(!!fromId);
 
   useEffect(() => {

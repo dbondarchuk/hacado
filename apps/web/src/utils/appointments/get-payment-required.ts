@@ -114,6 +114,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
     const pkg = await servicesContainer.packagesService.getPackage(
       appointmentRequest.purchasePackageId,
     );
+
     if (!pkg || pkg.status !== "active") {
       logger.warn(
         {
@@ -377,6 +378,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
             },
             "Option amount is greater than total price, setting to total price",
           );
+
           amount = billableTotal;
           percentage = 100;
         } else {
@@ -461,6 +463,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
           },
           "Amount is greater than total price, setting to total price",
         );
+
         totalAmount = billableTotal;
         percentage = 100;
       }
@@ -550,6 +553,7 @@ const getCustomerCompletedAppointments = async (
   customerId?: string,
 ) => {
   if (!customerId) return 0;
+
   const result = await servicesContainer.bookingService.getAppointments({
     customerId: customerId,
     limit: 0,

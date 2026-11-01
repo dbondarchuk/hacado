@@ -70,6 +70,7 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
         const parentStylesheets = document.querySelectorAll(
           'link[rel="stylesheet"], style',
         );
+
         parentStylesheets.forEach((stylesheet) => {
           if (stylesheet.tagName === "LINK") {
             const link = iframeDoc.createElement("link");
@@ -142,6 +143,7 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
             ${cssVars.join("\n")}
           }
         `;
+
           iframeHead.appendChild(cssVarsStyle);
         }
 
@@ -149,6 +151,7 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
         const tailwindScript = document.querySelector(
           'script[src*="tailwindcss"]',
         );
+
         if (tailwindScript) {
           const script = iframeDoc.createElement("script");
           script.src = (tailwindScript as HTMLScriptElement).src;

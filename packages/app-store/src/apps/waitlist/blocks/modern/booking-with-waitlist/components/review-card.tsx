@@ -89,6 +89,7 @@ export const ReviewCard: React.FC = () => {
       dateTime.timeZone === tz.name || tz.group.includes(dateTime.timeZone)
     );
   });
+
   if (!timeZone) {
     const defaultZone = DateTime.now().zoneName;
     timeZone = timeZones.find((tz) => {
@@ -108,10 +109,12 @@ export const ReviewCard: React.FC = () => {
   const [eligiblePackages, setEligiblePackages] = useState<CustomerPackage[]>(
     [],
   );
+
   const [needsPackageVerify, setNeedsPackageVerify] = useState(false);
 
   const totalGiftCardsApplied =
     giftCards?.reduce((sum, giftCard) => sum + giftCard.appliedAmount, 0) || 0;
+
   const hasGiftCardApplied = totalGiftCardsApplied > 0;
   const totalAfterGiftCards = Math.max(0, price - totalGiftCardsApplied);
 
@@ -201,6 +204,7 @@ export const ReviewCard: React.FC = () => {
   const removeGiftCard = async (code: string) => {
     const newGiftCards =
       giftCards?.filter((giftCard) => giftCard.code !== code) || [];
+
     setGiftCards(newGiftCards);
 
     if (!!newGiftCards.length) {
@@ -251,12 +255,15 @@ export const ReviewCard: React.FC = () => {
       setNeedsPackageVerify(false);
       return;
     }
+
     if (!hasActiveCustomerPackages) {
       setEligiblePackages([]);
       setNeedsPackageVerify(false);
       return;
     }
+
     if (!selectedAppointmentOption?._id || !selectedMemberId) return;
+
     customerAuthApi
       .getEligiblePackages({
         serviceId: selectedAppointmentOption._id,
@@ -287,18 +294,22 @@ export const ReviewCard: React.FC = () => {
       ? (selectedMember?.effectivePrice ?? selectedAppointmentOption.price)
       : (selectedMember?.effectivePrice ??
         selectedAppointmentOption.pricePerHour);
+
   const serviceDuration =
     selectedAppointmentOption.durationType === "fixed"
       ? (selectedMember?.effectiveDuration ??
         selectedAppointmentOption.duration)
       : undefined;
+
   const purchasingPackage = packages?.find(
     (pkg) => pkg._id === purchasePackageId,
   );
+
   const purchasingIncluded = summarizePackageItems(
     purchasingPackage?.items,
     appointmentOptions,
   );
+
   return (
     <div className="space-y-6 review-card card-container">
       <div className="mb-6">
@@ -496,7 +507,9 @@ export const ReviewCard: React.FC = () => {
               const lockedPkg = eligiblePackages.find(
                 (pkg) => pkg._id === customerPackageId,
               );
+
               if (!lockedPkg) return null;
+
               return `${lockedPkg.name} (${i18n("booking.package.remaining", {
                 remaining: lockedPkg.remainingCredits,
               })})`;
@@ -614,11 +627,13 @@ export const ReviewCard: React.FC = () => {
                 addon.staff,
                 selectedMember?.member.id,
               );
+
               const duration = effectiveAddonDuration(
                 addon.duration,
                 addon.staff,
                 selectedMember?.member.id,
               );
+
               return (
                 <div
                   key={addon._id}

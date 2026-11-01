@@ -7,6 +7,7 @@ import { ForeachContainerProps } from "./schema";
 
 const parseOptionalCount = (value: string) => {
   if (value === "") return undefined;
+
   const parsed = Number.parseInt(value, 10);
   return Number.isNaN(parsed) ? undefined : parsed;
 };

@@ -47,6 +47,7 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
   const parentInGrandparent = useBlockParentData(
     parentData?.parentBlockId ?? null,
   );
+
   const canMoveOut =
     blockId !== rootBlockId && !!parentInGrandparent?.parentBlockId;
 
@@ -106,6 +107,7 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
       e.stopPropagation();
       const target = getMoveBlockOutTarget(document, blockId);
       if (!target) return;
+
       dispatchAction({
         type: "move-block",
         value: {
@@ -192,13 +194,16 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
               const maxDisplayElements = isMobile
                 ? MOBILE_DISPLAY_LAST_ELEMENTS
                 : MAX_DISPLAY_LAST_ELEMENTS;
+
               const shouldShow = isMobile
                 ? index >= hierarchy.length - maxDisplayElements
                 : index === 0 || index >= hierarchy.length - maxDisplayElements;
+
               const isMiddleElement =
                 !shouldShow &&
                 index > 0 &&
                 index < hierarchy.length - maxDisplayElements;
+
               const isLastMiddleElement =
                 isMiddleElement &&
                 !isMobile &&
@@ -219,7 +224,6 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
                   </React.Fragment>
                 );
               }
-
               if (isMiddleElement && !isLastMiddleElement) {
                 return null; // Skip middle elements except the last one
               }

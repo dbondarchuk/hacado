@@ -73,6 +73,7 @@ export const BookingWithWaitlistLayout = ({
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
+
   const tc = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
@@ -96,14 +97,12 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
-
       if (
         isCustomerPackageLocked &&
         (step === "option" || step === "specialist" || step === "addons")
       ) {
         return false;
       }
-
       if (
         step === "addons" &&
         (!selectedAppointmentOption?.addons?.length ||
@@ -112,7 +111,6 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
-
       if (
         step === "specialist" &&
         flowOrder !== "specialist-first" &&
@@ -286,6 +284,7 @@ export const BookingWithWaitlistLayout = ({
                           duration,
                         });
                       }
+
                       step.next.action(ctx);
                     }}
                     disabled={

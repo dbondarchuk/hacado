@@ -43,6 +43,7 @@ function statusTextKey(
   if (statusText && typeof statusText === "object" && "key" in statusText) {
     return statusText.key;
   }
+
   return undefined;
 }
 
@@ -71,6 +72,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<ResendAdminNamespace, ResendAdminKeys>(
     resendAdminNamespace,
   );
+
   const [isConnecting, setIsConnecting] = React.useState(false);
   const [app, setApp] = React.useState<ConnectedApp | undefined>(undefined);
   const [timer, setTimer] = React.useState<NodeJS.Timeout>();
@@ -124,6 +126,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
     if (!existingAppId) {
       return;
     }
+
     void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 

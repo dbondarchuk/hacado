@@ -53,6 +53,7 @@ export default class CustomerTextMessageNotificationConnectedApp
     const parsed = customerTextMessageNotificationConfigurationSchema.safeParse(
       appData.data ?? {},
     );
+
     const templates = parsed.success ? parsed.data.templates : {};
     const notifications = Object.values(templates).some((item) =>
       isSmsEnabled(item?.enabled),
@@ -137,6 +138,7 @@ export default class CustomerTextMessageNotificationConnectedApp
 
     const { data, success, error } =
       customerTextMessageNotificationConfigurationSchema.safeParse(request);
+
     if (!success) {
       logger.error({ error }, "Invalid request");
       throw new ConnectedAppRequestError(
@@ -240,6 +242,7 @@ export default class CustomerTextMessageNotificationConnectedApp
         },
         "Appointment status changed, not sending customer text message notification - do not notify customer",
       );
+
       return;
     }
 
@@ -297,6 +300,7 @@ export default class CustomerTextMessageNotificationConnectedApp
         },
         "Appointment rescheduled, not sending customer text message notification - do not notify customer",
       );
+
       return;
     }
 
@@ -378,6 +382,7 @@ export default class CustomerTextMessageNotificationConnectedApp
           { appId: appData._id, appointmentId: appointment._id, status },
           "Text message disabled for status, skipping",
         );
+
         return;
       }
 
@@ -416,14 +421,17 @@ export default class CustomerTextMessageNotificationConnectedApp
 
       const phone =
         appointment.fields?.phone ?? getPhoneField(appointment, phoneFields);
+
       if (!phone) {
         logger.warn(
           { appId: appData._id, appointmentId: appointment._id },
           "Can't find the phone field for appointment",
         );
+
         console.warn(
           `Can't find the phone field for appointment ${appointment._id}`,
         );
+
         return;
       }
 
@@ -434,11 +442,13 @@ export default class CustomerTextMessageNotificationConnectedApp
 
       const organization =
         await this.props.services.organizationService.getOrganization();
+
       if (!organization) {
         logger.error(
           { appId: appData._id, appointmentId: appointment._id },
           "Organization not found",
         );
+
         return;
       }
 
@@ -497,13 +507,16 @@ export default class CustomerTextMessageNotificationConnectedApp
         const stored = templateId
           ? await this.props.services.templatesService.getTemplate(templateId)
           : null;
+
         if (!stored || stored.type !== "text-message") {
           logger.warn(
             { appId: appData._id, appointmentId: appointment._id, templateId },
             "Stored SMS template unavailable for unsupported country",
           );
+
           return;
         }
+
         templatedBody = templateSafeWithError(
           stored.value as string,
           args,
@@ -552,6 +565,7 @@ export default class CustomerTextMessageNotificationConnectedApp
         { appId: appData._id, appointmentId: appointment._id, status, error },
         "Error sending customer text message notification",
       );
+
       throw error;
     }
   }

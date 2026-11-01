@@ -20,6 +20,7 @@ function flattenFilters(children: React.ReactNode): React.ReactElement[] {
       const fragment = child as React.ReactElement<{
         children?: React.ReactNode;
       }>;
+
       result.push(...flattenFilters(fragment.props.children));
       return;
     }

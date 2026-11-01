@@ -26,6 +26,7 @@ export const TypewriterTextPropsSchema = z.object({
 export type TypewriterTextProps = Prettify<
   z.infer<typeof TypewriterTextPropsSchema>
 >;
+
 export type TypewriterTextReaderProps = BaseReaderBlockProps<any> &
   TypewriterTextProps;
 

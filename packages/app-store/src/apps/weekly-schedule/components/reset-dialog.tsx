@@ -53,6 +53,7 @@ export const ResetDialog: React.FC<ResetDialogProps> = ({
   const t = useI18n<WeeklyScheduleAdminNamespace, WeeklyScheduleAdminKeys>(
     weeklyScheduleAdminNamespace,
   );
+
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [removingSeries, setRemovingSeries] = React.useState(false);
@@ -84,6 +85,7 @@ export const ResetDialog: React.FC<ResetDialogProps> = ({
         </>
       );
     }
+
     return (
       <>
         <UndoDot />{" "}
@@ -142,6 +144,7 @@ export const ResetDialog: React.FC<ResetDialogProps> = ({
 
   const onConfirmRemoveSeries = async () => {
     if (!recurrence) return;
+
     try {
       setRemovingSeries(true);
       await toastPromise(

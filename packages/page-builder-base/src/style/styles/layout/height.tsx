@@ -20,6 +20,7 @@ export const heightStyle = {
   defaultValue: { value: 100, unit: "%" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `height: ${renderRawNumberWithUnitOrKeywordCss(value)};`;
   },
   component: ({ value, onChange }) => (

@@ -28,6 +28,7 @@ export const removeAllSchedulesActionSchema = z.object({
 export type RemoveAllSchedulesAction = z.infer<
   typeof removeAllSchedulesActionSchema
 >;
+
 export const RemoveAllSchedulesActionType = "remove-all-schedules" as const;
 
 export const setCompanyHolidaysActionSchema = z.object({
@@ -39,6 +40,7 @@ export const setCompanyHolidaysActionSchema = z.object({
 export type SetCompanyHolidaysAction = z.infer<
   typeof setCompanyHolidaysActionSchema
 >;
+
 export const SetCompanyHolidaysActionType = "set-company-holidays" as const;
 
 export const getWeeklyScheduleRequestSchema = z.object({
@@ -49,6 +51,7 @@ export const getWeeklyScheduleRequestSchema = z.object({
 export type GetWeeklyScheduleRequest = z.infer<
   typeof getWeeklyScheduleRequestSchema
 >;
+
 export const GetWeeklyScheduleRequestType = "get-weekly-schedule" as const;
 
 export const repeatScheduleActionSchema = z.object({
@@ -70,6 +73,7 @@ export const removeRecurringScheduleActionSchema = z.object({
 export type RemoveRecurringScheduleAction = z.infer<
   typeof removeRecurringScheduleActionSchema
 >;
+
 export const RemoveRecurringScheduleActionType =
   "remove-recurring-schedule" as const;
 

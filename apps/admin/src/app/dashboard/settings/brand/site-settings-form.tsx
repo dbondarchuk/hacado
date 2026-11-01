@@ -78,6 +78,7 @@ export const SiteSettingsForm: React.FC<{
 
             throw new Error(result.code);
           }
+
           return result;
         })(),
         {
@@ -91,6 +92,7 @@ export const SiteSettingsForm: React.FC<{
           },
         },
       );
+
       if (data.brand.language !== initialBrandLanguage && window?.location) {
         setTimeout(() => window.location.reload(), 1000);
       } else {

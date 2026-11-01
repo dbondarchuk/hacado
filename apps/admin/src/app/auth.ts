@@ -153,6 +153,7 @@ export const auth = betterAuth({
         ? ["http://localhost:3001"]
         : []),
     ];
+
     if (!request) {
       return defaultOrigins;
     }
@@ -271,6 +272,7 @@ export const auth = betterAuth({
           const path = typeof ctx.path === "string" ? ctx.path : "";
           const isOAuthSignup =
             path.includes("/callback/") || path.includes("/oauth2/callback/");
+
           if (!isOAuthSignup && path !== "/sign-up/email") return;
 
           await assertPublicSignupAllowed({
@@ -283,6 +285,7 @@ export const auth = betterAuth({
       update: {
         after: async (user) => {
           if (!user.email || !user.id) return;
+
           const db = await getDbConnection();
           await db
             .collection(MEMBERS_COLLECTION_NAME)
@@ -331,6 +334,7 @@ export const auth = betterAuth({
         const language = userId
           ? await getMemberLanguageForUser(userId)
           : ("en" as Language);
+
         const name = user?.name || email;
         const template =
           type === "forget-password"
@@ -338,6 +342,7 @@ export const auth = betterAuth({
             : type === "change-email"
               ? "emailOtpChangeEmail"
               : "emailOtpVerification";
+
         await sendEmail(template, email, language, { otp, name });
       },
     }),
@@ -352,6 +357,7 @@ export const auth = betterAuth({
         const org = await db
           .collection<OrganizationDbModel>("organizations")
           .findOne({ _id: organizationDoc.id });
+
         return membershipLimitFromAvailableUsers(resolveAvailableUsers(org));
       },
       schema: {
@@ -366,6 +372,7 @@ export const auth = betterAuth({
           data.inviter.user.id,
           data.organization.id,
         );
+
         await sendEmail("teamInvitation", data.email, language, {
           url,
           organizationName: data.organization.name,
@@ -382,6 +389,7 @@ export const auth = betterAuth({
             language: (member as { language?: Language }).language,
             image: (member as { image?: string | null }).image,
           });
+
           return {
             data: {
               ...member,
@@ -400,6 +408,7 @@ export const auth = betterAuth({
             language: (member as { language?: Language }).language,
             image: (member as { image?: string | null }).image,
           });
+
           const db = await getDbConnection();
           await db.collection(MEMBERS_COLLECTION_NAME).updateOne(
             {
@@ -412,12 +421,14 @@ export const auth = betterAuth({
           const teamService = ServicesContainer(
             member.organizationId,
           ).teamService;
+
           const created = await teamService.getMemberByUserId(user.id);
           if (created) {
             const memberId =
               typeof created._id === "string"
                 ? created._id
                 : String(created._id);
+
             await teamService.emitMemberCreated(
               created,
               memberEventSource(memberId),
@@ -439,6 +450,7 @@ export const auth = betterAuth({
                   : String(inviterMember._id),
               )
             : systemEventSource;
+
           await teamService.emitInvitationCreated(
             {
               invitationId: invitation.id,
@@ -457,6 +469,7 @@ export const auth = betterAuth({
           const actorMember = await teamService.getMemberByUserId(
             cancelledBy.id,
           );
+
           const source = actorMember
             ? memberEventSource(
                 typeof actorMember._id === "string"
@@ -464,6 +477,7 @@ export const auth = betterAuth({
                   : String(actorMember._id),
               )
             : systemEventSource;
+
           await teamService.emitInvitationCanceled(
             {
               invitationId: invitation.id,
@@ -482,11 +496,13 @@ export const auth = betterAuth({
               { $expr: { $eq: [{ $toLower: "$email" }, email] } },
               { projection: { _id: 1 } },
             );
+
           if (existingUser) {
             const userId = String(existingUser._id);
             const existingMembership = await db
               .collection(MEMBERS_COLLECTION_NAME)
               .findOne({ userId }, { projection: { _id: 1 } });
+
             if (existingMembership) {
               throw new APIError("BAD_REQUEST", {
                 message:
@@ -495,15 +511,18 @@ export const auth = betterAuth({
               });
             }
           }
+
           const orgDoc = await db
             .collection<OrganizationDbModel>("organizations")
             .findOne({ _id: org.id });
+
           const activeCount = await db
             .collection(MEMBERS_COLLECTION_NAME)
             .countDocuments({
               organizationId: org.id,
               status: "active",
             });
+
           if (
             !canInviteWithAvailableUsers(
               activeCount,
@@ -632,6 +651,7 @@ export const auth = betterAuth({
           calendarSources: [] as SessionUser["calendarSources"],
           meetingUrlProviderAppId: null as string | null,
         } as SessionUser;
+
         return {
           ...session,
           user: sessionUser,
@@ -643,6 +663,7 @@ export const auth = betterAuth({
         await db
           .collection(MEMBERS_COLLECTION_NAME)
           .updateOne({ _id: member._id as never }, { $set: { email } });
+
         member.email = email;
       }
 
@@ -702,4 +723,5 @@ export const auth = betterAuth({
 export type Session = Omit<typeof auth.$Infer.Session, "user"> & {
   user: SessionUser;
 };
+
 export type User = SessionUser;

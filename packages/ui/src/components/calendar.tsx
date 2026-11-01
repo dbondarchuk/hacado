@@ -117,8 +117,10 @@ function Calendar({
             const changeEvent = {
               target: { value },
             } as React.ChangeEvent<HTMLSelectElement>;
+
             onChange?.(changeEvent);
           };
+
           return (
             <Select
               value={value?.toString()}
@@ -155,6 +157,7 @@ function Calendar({
     />
   );
 }
+
 Calendar.displayName = "Calendar";
 
 function isSameCalendarMonth(a: Date, b: Date) {
@@ -173,6 +176,7 @@ export function useCalendarDisplayedMonth(
   React.useEffect(() => {
     const target = selected ?? firstAvailable;
     if (!target) return;
+
     setMonth((current) =>
       isSameCalendarMonth(current, target) ? current : target,
     );

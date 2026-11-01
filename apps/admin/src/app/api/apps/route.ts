@@ -43,6 +43,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to get apps",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -89,14 +90,12 @@ export async function POST(request: NextRequest) {
       { status: 404 },
     );
   }
-
   if (!canInstallApp(session.user as SessionUser, appDefinition)) {
     return NextResponse.json(
       { success: false, error: "Forbidden", code: "forbidden" },
       { status: 403 },
     );
   }
-
   if (!sessionCanInstallApp(session, data.type)) {
     return NextResponse.json(
       {
@@ -132,6 +131,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to create app",
     );
+
     return NextResponse.json(
       {
         success: false,

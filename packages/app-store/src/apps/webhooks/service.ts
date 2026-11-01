@@ -57,6 +57,7 @@ export class WebhooksConnectedApp implements IConnectedApp, IEventSubscriber {
         "Unsupported static request",
       );
     }
+
     return {
       eventTypes: await getWebhookSelectableEventTypes(this.props),
     };
@@ -127,6 +128,7 @@ export class WebhooksConnectedApp implements IConnectedApp, IEventSubscriber {
       { appId: appData._id },
       "Successfully uninstalled webhooks app",
     );
+
     return { success: true, code: "ok" };
   }
 
@@ -160,6 +162,7 @@ export class WebhooksConnectedApp implements IConnectedApp, IEventSubscriber {
         { appId: appData._id, type: envelope.type },
         "No webhooks configuration found",
       );
+
       return;
     }
 
@@ -169,6 +172,7 @@ export class WebhooksConnectedApp implements IConnectedApp, IEventSubscriber {
         { appId: appData._id, type: envelope.type },
         "Event type not selected for this webhook",
       );
+
       return;
     }
 

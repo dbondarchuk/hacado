@@ -43,6 +43,7 @@ export async function GET(request: NextRequest) {
   const usages = new Set(
     scopes.map((scope) => getAppScopeUsage(scope)).filter(Boolean),
   );
+
   const hasCompanyUsage = usages.has("company");
   const hasMemberUsage = usages.has("member");
 
@@ -71,6 +72,7 @@ export async function GET(request: NextRequest) {
           { userId: user.id, scopes },
           "Forbidden: company apps permission required",
         );
+
         return NextResponse.json(
           {
             success: false,
@@ -85,6 +87,7 @@ export async function GET(request: NextRequest) {
         { scope: scopes, count: installed.length },
         "Company-usage apps by scope (org-wide)",
       );
+
       return NextResponse.json(installed);
     }
 
@@ -94,6 +97,7 @@ export async function GET(request: NextRequest) {
         { scope: scopes, count: own.length },
         "Member-usage apps by scope (own installs)",
       );
+
       return NextResponse.json(own);
     }
 
@@ -118,6 +122,7 @@ export async function GET(request: NextRequest) {
       },
       "Failed to get apps by scope",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -25,13 +25,17 @@ type Props = {
 
 function isNavigatingControl(el: Element): boolean {
   if (el.closest("a[href]")) return true;
+
   const linkLike = el.closest("[role='link']");
   if (linkLike) return true;
+
   const button = el.closest("button, [role='button']");
   if (!button) return false;
+
   const formAction = button.getAttribute("formaction");
   if (formAction) return true;
   if (button.hasAttribute("data-href")) return true;
+
   return false;
 }
 
@@ -39,6 +43,7 @@ function blockNavigation(event: Event) {
   const target = event.target;
   if (!(target instanceof Element)) return;
   if (!isNavigatingControl(target)) return;
+
   event.preventDefault();
   event.stopPropagation();
 }

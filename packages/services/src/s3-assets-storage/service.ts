@@ -124,6 +124,7 @@ export class S3AssetsStorageService implements IAssetsStorage {
         },
         "Error saving file to S3",
       );
+
       throw new Error("Error saving file to S3");
     }
   }
@@ -146,6 +147,7 @@ export class S3AssetsStorageService implements IAssetsStorage {
           { filename, fileKey },
           "File does not exist, skipping deletion",
         );
+
         return;
       }
 
@@ -167,6 +169,7 @@ export class S3AssetsStorageService implements IAssetsStorage {
         },
         "Error deleting file from S3",
       );
+
       throw new Error("Error deleting file from S3");
     }
   }
@@ -198,6 +201,7 @@ export class S3AssetsStorageService implements IAssetsStorage {
             },
           }),
         );
+
         totalDeleted += batch.length;
       }
 
@@ -213,6 +217,7 @@ export class S3AssetsStorageService implements IAssetsStorage {
         },
         "Error deleting files from S3",
       );
+
       throw new Error("Error deleting files from S3");
     }
   }

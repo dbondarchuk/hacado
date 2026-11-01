@@ -43,6 +43,7 @@ export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
   const t = useI18n<WeeklyScheduleAdminNamespace, WeeklyScheduleAdminKeys>(
     weeklyScheduleAdminNamespace,
   );
+
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const resetToCompany = !!memberId;

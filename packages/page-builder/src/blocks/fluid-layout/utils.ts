@@ -15,10 +15,12 @@ export function clampPlacement(
     maxColumns,
     Math.max(1, Math.round(placement.colStart)),
   );
+
   const colEnd = Math.min(
     maxColumns + 1,
     Math.max(colStart + 1, Math.round(placement.colEnd)),
   );
+
   const rowStart = Math.max(1, Math.round(placement.rowStart));
   const rowEnd = Math.max(rowStart + 1, Math.round(placement.rowEnd));
   const next: FluidPlacement = {
@@ -28,9 +30,11 @@ export function clampPlacement(
     rowEnd,
     zIndex: placement.zIndex ?? 0,
   };
+
   if (placement.rotate != null) {
     next.rotate = placement.rotate;
   }
+
   return next;
 }
 
@@ -41,6 +45,7 @@ export function getMaxRowEnd(
   for (const placement of Object.values(placements)) {
     max = Math.max(max, placement.rowEnd);
   }
+
   return max;
 }
 
@@ -53,6 +58,7 @@ export function placementsForChildIds(
     const placement = placements[id];
     if (placement) next[id] = placement;
   }
+
   return next;
 }
 
@@ -193,12 +199,15 @@ export function bringForward(
 ): Record<string, FluidPlacement> {
   const current = placements[childId];
   if (!current) return placements;
+
   const zIndexes = Object.values(placements).map((p) => p.zIndex);
   const max = Math.max(...zIndexes, 0);
   if (current.zIndex >= max) return placements;
+
   const nextHigher = zIndexes
     .filter((z) => z > current.zIndex)
     .sort((a, b) => a - b)[0];
+
   return {
     ...placements,
     [childId]: { ...current, zIndex: nextHigher ?? current.zIndex + 1 },
@@ -211,12 +220,15 @@ export function sendBackward(
 ): Record<string, FluidPlacement> {
   const current = placements[childId];
   if (!current) return placements;
+
   const zIndexes = Object.values(placements).map((p) => p.zIndex);
   const min = Math.min(...zIndexes, 0);
   if (current.zIndex <= min) return placements;
+
   const nextLower = zIndexes
     .filter((z) => z < current.zIndex)
     .sort((a, b) => b - a)[0];
+
   return {
     ...placements,
     [childId]: { ...current, zIndex: nextLower ?? current.zIndex - 1 },
@@ -229,6 +241,7 @@ export function bringToFront(
 ): Record<string, FluidPlacement> {
   const current = placements[childId];
   if (!current) return placements;
+
   const max = Math.max(0, ...Object.values(placements).map((p) => p.zIndex));
   return {
     ...placements,
@@ -242,6 +255,7 @@ export function sendToBack(
 ): Record<string, FluidPlacement> {
   const current = placements[childId];
   if (!current) return placements;
+
   const min = Math.min(0, ...Object.values(placements).map((p) => p.zIndex));
   return {
     ...placements,
@@ -271,6 +285,7 @@ export function rotatePlacementByPointer(
     const { rotate: _rotate, ...rest } = placement;
     return rest as FluidPlacement;
   }
+
   return { ...placement, rotate: snapped };
 }
 
@@ -282,6 +297,7 @@ export function clearPlacementRotation(
   if (!current || current.rotate == null || current.rotate === 0) {
     return placements;
   }
+
   const { rotate: _rotate, ...rest } = current;
   return { ...placements, [childId]: rest };
 }
@@ -301,6 +317,7 @@ export function placementToRotateStyle(
 ): CSSProperties {
   const rotate = placement.rotate ?? 0;
   if (!rotate) return {};
+
   return {
     transform: `rotate(${rotate}deg)`,
     transformOrigin: "center center",

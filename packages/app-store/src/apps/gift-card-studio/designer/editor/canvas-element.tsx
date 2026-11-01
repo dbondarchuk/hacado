@@ -66,12 +66,14 @@ export function CanvasElement({
     height: 0,
     fontSize: 0,
   });
+
   const [isRotating, setIsRotating] = useState(false);
   const [rotateStart, setRotateStart] = useState({
     angle: 0,
     centerX: 0,
     centerY: 0,
   });
+
   const [isEditingText, setIsEditingText] = useState(false);
   const [isAltPressed, setIsAltPressed] = useState(false);
   const dragMoveLastRef = useRef({ x: 0, y: 0 });
@@ -79,6 +81,7 @@ export function CanvasElement({
 
   const { selectedElements, selectElement, updateElement, design } =
     useEditorStore();
+
   const isSelected = showSelection || selectedElements.includes(element.id);
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -111,6 +114,7 @@ export function CanvasElement({
 
   const handleDoubleClick = (e: React.MouseEvent) => {
     if (mode === "preview" || element.locked) return;
+
     if (element.type === "text") {
       e.stopPropagation();
       setIsEditingText(true);
@@ -128,6 +132,7 @@ export function CanvasElement({
 
     const textElement =
       element.type === "text" ? (element as TextElement) : null;
+
     setResizeStart({
       x: e.clientX,
       y: e.clientY,
@@ -178,6 +183,7 @@ export function CanvasElement({
               x: el.position.x + deltaX,
               y: el.position.y + deltaY,
             };
+
             const snappedPos = calculateSnappedPosition(
               { ...el, position: newPos },
               liveDesign.elements,
@@ -185,6 +191,7 @@ export function CanvasElement({
               liveDesign.canvas.height,
               isAltPressed,
             );
+
             updateElement(id, { position: snappedPos });
           }
         });
@@ -196,6 +203,7 @@ export function CanvasElement({
 
       const shapeElement =
         element.type === "shape" ? (element as ShapeElement) : null;
+
       const textElement =
         element.type === "text" ? (element as TextElement) : null;
 
@@ -212,18 +220,21 @@ export function CanvasElement({
         // apply them proportionally to every selected element's own size.
         const scaleX =
           Math.max(20, resizeStart.width + deltaX) / resizeStart.width;
+
         const scaleY =
           Math.max(20, resizeStart.height + deltaY) / resizeStart.height;
 
         selectedElements.forEach((id) => {
           const el = design.elements.find((e) => e.id === id);
           if (!el || el.locked) return;
+
           const updates: any = {
             size: {
               width: Math.max(20, el.size.width * scaleX),
               height: Math.max(20, el.size.height * scaleY),
             },
           };
+
           if (el.type === "text") {
             const te = el as TextElement;
             if (!te.styles.fontSizeLocked) {
@@ -237,6 +248,7 @@ export function CanvasElement({
               };
             }
           }
+
           updateElement(id, updates);
         });
       } else {
@@ -252,6 +264,7 @@ export function CanvasElement({
             newWidth / resizeStart.width,
             newHeight / resizeStart.height,
           );
+
           updates.styles = {
             ...textElement.styles,
             fontSize: Math.max(8, Math.round(resizeStart.fontSize * scale)),
@@ -267,6 +280,7 @@ export function CanvasElement({
           e.clientX - rotateStart.centerX,
         ) *
         (180 / Math.PI);
+
       const rawRotation = angle - rotateStart.angle;
       const newRotation = snapRotationToCardinals(rawRotation, e.altKey);
 
@@ -289,14 +303,17 @@ export function CanvasElement({
 
   const handlePointerUp = (e: PointerEvent) => {
     if (gesturePointerIdRef.current !== e.pointerId) return;
+
     gesturePointerIdRef.current = null;
 
     if (isDragging || isResizing || isRotating) {
       useEditorStore.getState().pushHistory();
     }
+
     if (isDragging) {
       onDragEnd?.();
     }
+
     setIsDragging(false);
     setIsResizing(false);
     setIsRotating(false);
@@ -594,15 +611,18 @@ function IconElementRenderer({
 function resolvePaintCss(paint: Paint | undefined, fallback: string): string {
   if (!paint || paint.type === "none") return "transparent";
   if (paint.type === "color") return paint.color || fallback;
+
   if (paint.type === "gradient" && paint.gradient) {
     const { type, colors, angle } = paint.gradient;
     return type === "linear"
       ? `linear-gradient(${angle ?? 0}deg, ${colors.join(", ")})`
       : `radial-gradient(circle, ${colors.join(", ")})`;
   }
+
   if (paint.type === "image" && paint.image?.src) {
     return `url(${paint.image.src})`;
   }
+
   return fallback;
 }
 
@@ -613,6 +633,7 @@ function ShapeElementRenderer({ element }: { element: ShapeElement }) {
   const fillPaint =
     styles.fillPaint ??
     (styles.fill ? { type: "color" as const, color: styles.fill } : undefined);
+
   const strokePaint =
     styles.strokePaint ??
     (styles.stroke
@@ -627,6 +648,7 @@ function ShapeElementRenderer({ element }: { element: ShapeElement }) {
     strokePaint?.type === "color"
       ? strokePaint.color
       : styles.stroke || undefined;
+
   const strokeWidth = styles.strokeWidth || 1;
 
   if (shapeType === "line") {

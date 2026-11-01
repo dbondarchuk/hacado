@@ -12,6 +12,7 @@ export default async function LegacySyncedPaymentsPage(props: Params) {
       value.forEach((item) => query.append(key, item));
     }
   }
+
   const suffix = query.toString() ? `?${query.toString()}` : "";
   redirect(`/dashboard/financials/inbox${suffix}`);
 }

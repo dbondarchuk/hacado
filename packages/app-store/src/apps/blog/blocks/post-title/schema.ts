@@ -14,6 +14,7 @@ export const BlogPostTitlePropsSchema = z.object({
 export type BlogPostTitleProps = Prettify<
   z.infer<typeof BlogPostTitlePropsSchema>
 >;
+
 export type BlogPostTitleReaderProps = BaseReaderBlockProps<any> &
   BlogPostTitleProps;
 

@@ -43,9 +43,11 @@ function meterCreditUnitsForMeter(
 ): number | null {
   const id = meterId.trim();
   if (!id || !product?.benefits?.length) return null;
+
   for (const benefit of product.benefits) {
     if (benefit.type !== "meter_credit") continue;
     if (benefit.properties.meterId !== id) continue;
+
     return Math.max(0, benefit.properties.units);
   }
 
@@ -73,6 +75,7 @@ export class PolarBillingService
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const row = await collection.findOne(
       { _id: this.organizationId },
       { projection: { _id: 1, smsBalance: 1, feesExempt: 1 } },
@@ -131,6 +134,7 @@ export class PolarBillingService
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     await collection.updateOne(
       { _id: this.organizationId },
       { $set: { "smsBalance.included": amount } },
@@ -224,6 +228,7 @@ export class PolarBillingService
         { amount },
         "Invalid amount; skipping SMS balance consumption",
       );
+
       return;
     }
 
@@ -247,6 +252,7 @@ export class PolarBillingService
           externalId?: string;
           metadata: Record<string, string>;
         }> = [];
+
         for (let i = 0; i < amount; i++) {
           const externalId = amount > 1 ? `${extBase}_${i}` : extBase;
           events.push({
@@ -259,6 +265,7 @@ export class PolarBillingService
             },
           });
         }
+
         await this.polar.ingestMeteredEvents(events);
       } catch (error) {
         logger.warn({ error }, "Polar SMS usage event ingest failed");
@@ -283,6 +290,7 @@ export class PolarBillingService
     addons: OrganizationBillingSeatAddonSubscription[] = [],
   ): OrganizationBillingSeatsBenefit | null {
     if (!org || org.feesExempt === true) return null;
+
     const included = Math.max(0, org.userSlots?.included ?? 1);
     const additional = Math.max(0, org.userSlots?.additional ?? 0);
     const available = Math.max(0, org.availableUsers ?? included + additional);
@@ -301,6 +309,7 @@ export class PolarBillingService
     const logger = this.loggerFactory("loadSeatAddonSubscriptions");
     const grants =
       org?.userSlotGrants?.filter((g) => g.source === "addon") ?? [];
+
     if (!grants.length || !this.polar.client) {
       return grants.map((g) => ({
         subscriptionId: g.polarSubscriptionId,
@@ -322,16 +331,19 @@ export class PolarBillingService
           status: null,
           nextCycleDate: null,
         };
+
         try {
           const subscription = await this.polar.getSubscriptionById(
             grant.polarSubscriptionId,
           );
+
           const price: BillingSubscriptionPrice = {
             amountCents: subscription.amount,
             currency: subscription.currency,
             recurringInterval:
               (subscription.recurringInterval as BillingInterval) ?? null,
           };
+
           return {
             ...base,
             name: subscription.product?.name ?? null,
@@ -344,6 +356,7 @@ export class PolarBillingService
             { error, subscriptionId: grant.polarSubscriptionId },
             "Could not load seat-addon subscription details",
           );
+
           return base;
         }
       }),
@@ -364,6 +377,7 @@ export class PolarBillingService
       const addons = feesExempt
         ? []
         : await this.loadSeatAddonSubscriptions(org);
+
       return {
         feesExempt,
         planTier: resolvePlanTierFromProductId(
@@ -392,6 +406,7 @@ export class PolarBillingService
       logger.debug(
         "No Polar client or subscription ID; skipping subscription details",
       );
+
       return empty();
     }
 
@@ -513,6 +528,7 @@ export class PolarBillingService
       const start = subscription.currentPeriodStart;
       const end = subscription.currentPeriodEnd;
       if (!start || !end) return null;
+
       return { start, end };
     } catch {
       return null;
@@ -524,16 +540,19 @@ export class PolarBillingService
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const org = await collection.findOne({ _id: this.organizationId });
     const grants = org?.userSlotGrants ?? [];
     const planGrant = grants.find((g) => g.source === "plan");
     const addonSum = grants
       .filter((g) => g.source === "addon")
       .reduce((sum, g) => sum + Math.max(0, g.usersAmount), 0);
+
     const included = Math.max(
       0,
       planGrant?.usersAmount ?? org?.userSlots?.included ?? 1,
     );
+
     const additional = Math.max(0, addonSum);
     const availableUsers = included + additional;
 
@@ -563,16 +582,19 @@ export class PolarBillingService
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const org = await collection.findOne({ _id: this.organizationId });
     let grants = [...(org?.userSlotGrants ?? [])].filter(
       (g) => g.source !== "plan",
     );
+
     const planSubId =
       options?.polarSubscriptionId ??
       org?.userSlotGrants?.find((g) => g.source === "plan")
         ?.polarSubscriptionId ??
       org?.polarSubscriptionId ??
       "plan";
+
     grants.push({
       polarSubscriptionId: planSubId,
       usersAmount: amount,
@@ -606,15 +628,18 @@ export class PolarBillingService
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const org = await collection.findOne({ _id: this.organizationId });
     const grants = [...(org?.userSlotGrants ?? [])].filter(
       (g) => g.polarSubscriptionId !== grant.polarSubscriptionId,
     );
+
     grants.push(grant);
     await collection.updateOne(
       { _id: this.organizationId },
       { $set: { userSlotGrants: grants } },
     );
+
     await this.recomputeAvailableUsers();
   }
 
@@ -623,14 +648,17 @@ export class PolarBillingService
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,
     );
+
     const org = await collection.findOne({ _id: this.organizationId });
     const grants = (org?.userSlotGrants ?? []).filter(
       (g) => g.polarSubscriptionId !== polarSubscriptionId,
     );
+
     await collection.updateOne(
       { _id: this.organizationId },
       { $set: { userSlotGrants: grants } },
     );
+
     await this.recomputeAvailableUsers();
   }
 }

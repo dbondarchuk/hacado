@@ -134,6 +134,7 @@ export async function POST(request: NextRequest) {
       },
       "Appointment event creation failed",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -162,6 +163,7 @@ export async function POST(request: NextRequest) {
           { paymentIntentId: reusablePaidIntent._id },
           "Using reusable paid payment intent that was not sent by the client",
         );
+
         paymentIntentId = reusablePaidIntent._id;
       } else {
         logger.warn("Payment required but no payment intent provided");
@@ -174,6 +176,7 @@ export async function POST(request: NextRequest) {
 
     const paymentIntent =
       await servicesContainer.paymentsService.getIntent(paymentIntentId);
+
     if (!paymentIntent) {
       logger.warn({ paymentIntentId }, "Payment intent not found");
       return NextResponse.json(
@@ -187,6 +190,7 @@ export async function POST(request: NextRequest) {
         { paymentIntentId, status: paymentIntent.status },
         "Payment not paid",
       );
+
       return NextResponse.json(
         { success: false, error: "payment_not_paid" },
         { status: 402 },
@@ -203,6 +207,7 @@ export async function POST(request: NextRequest) {
         },
         "Payment amount mismatch",
       );
+
       return NextResponse.json(
         { success: false, error: "payment_amount_dont_match" },
         { status: 402 },
@@ -221,6 +226,7 @@ export async function POST(request: NextRequest) {
         { paymentIntentId },
         "Payment intent is not paid. Removing it",
       );
+
       paymentIntentId = undefined;
     }
   }
@@ -315,6 +321,7 @@ export async function POST(request: NextRequest) {
       { error: e?.message || e?.toString() },
       "Error creating appointment event",
     );
+
     throw e;
   }
 }

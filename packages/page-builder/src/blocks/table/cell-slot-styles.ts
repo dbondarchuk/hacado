@@ -12,6 +12,7 @@ export function tableCellSlotStylesForSurface(
   style: Record<string, unknown> | undefined,
 ): Record<string, unknown> {
   if (!style) return {};
+
   const { display: _d, flexDirection: _f, ...rest } = style;
   return rest;
 }

@@ -16,6 +16,7 @@ export const backgroundSizeStyle = {
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `background-size: ${value};`;
   },
   component: ({ value, onChange }) => {

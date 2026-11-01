@@ -22,6 +22,7 @@ function memberSubtitle(member: MemberNameMember): string | null {
   const title = member.jobTitle?.trim();
   if (title) return title;
   if (member.name && member.email) return member.email;
+
   return null;
 }
 

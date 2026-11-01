@@ -98,9 +98,11 @@ export function InstallWizard({
 
   useEffect(() => {
     if (verified) return;
+
     const iv = setInterval(() => {
       void refetch();
     }, 4000);
+
     return () => clearInterval(iv);
   }, [refetch, verified]);
 
@@ -111,10 +113,12 @@ export function InstallWizard({
       const rememberedPack = isRememberedWebsitePack(preferredPack)
         ? preferredPack
         : null;
+
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<PersistedState> & {
           step?: WizardStep;
         };
+
         const { step: parsedStep, ...rest } = parsed;
         const sanitized = sanitizePersisted(
           rest,
@@ -124,10 +128,12 @@ export function InstallWizard({
           preferencesFromServer,
           scheduleFromServer,
         );
+
         if (rememberedPack) {
           sanitized.websitePackId = rememberedPack;
           sanitized.catalogPreferredPackId = rememberedPack;
         }
+
         setP(sanitized);
         if (initialVerified) {
           if (parsedStep !== undefined && parsedStep !== "verify") {
@@ -159,6 +165,7 @@ export function InstallWizard({
           preferencesFromServer,
           scheduleFromServer,
         );
+
         setP(sanitized);
         setStep(1);
       } else {
@@ -167,6 +174,7 @@ export function InstallWizard({
     } catch {
       setStep(initialVerified ? 1 : "verify");
     }
+
     setHydrated(true);
   }, [
     initialVerified,
@@ -179,6 +187,7 @@ export function InstallWizard({
 
   useEffect(() => {
     if (!hydrated) return;
+
     setP((prev) => {
       const next = { ...prev };
       applyInstallCalendarSnapshot(next, calendarAppsFromServer);
@@ -189,11 +198,13 @@ export function InstallWizard({
   useEffect(() => {
     if (!hydrated) return;
     if (!verified || step === "verify") return;
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...p, step }));
   }, [p, step, hydrated, verified]);
 
   useEffect(() => {
     if (!verified || step !== "verify") return;
+
     const raw = localStorage.getItem(STORAGE_KEY);
     let next: WizardStep = 1;
     try {
@@ -209,6 +220,7 @@ export function InstallWizard({
     } catch {
       /* ignore */
     }
+
     setStep(next);
     setP((prev) => ({ ...prev, step: next }));
   }, [verified, step]);
@@ -220,6 +232,7 @@ export function InstallWizard({
         setSlugCheck("idle");
         return;
       }
+
       setSlugCheck("checking");
       slugTimer.current = setTimeout(async () => {
         const ok = await checkOrganizationSlug(slug, organizationId);
@@ -231,11 +244,13 @@ export function InstallWizard({
 
   useEffect(() => {
     if (!hydrated || !verified || !p.slug) return;
+
     scheduleSlugCheck(p.slug);
   }, [hydrated, verified, organizationId, p.slug, scheduleSlugCheck]);
 
   useEffect(() => {
     if (!hydrated) return;
+
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [hydrated, step]);
 
@@ -246,7 +261,6 @@ export function InstallWizard({
       </div>
     );
   }
-
   if (!verified) {
     return <StepVerify email={email} />;
   }

@@ -31,6 +31,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
     isLoading,
     areAppointmentOptionsLoading,
   } = ctx;
+
   const t = useI18n("translation");
 
   return (
@@ -67,6 +68,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
                 duration,
               });
             }
+
             step.next.action(ctx);
           }}
           disabled={
@@ -86,6 +88,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
 const CompactBookingSummary = () => {
   const { selectedAppointmentOption, dateTime, duration, price, basePrice } =
     useScheduleContext();
+
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
   const t = useI18n("translation");
@@ -200,10 +203,12 @@ export const BookingLayout = ({
   const previousStep = usePrevious(step, step);
   useEffect(() => {
     if (!scrollToTopRef.current || previousStep === step) return;
+
     if (suppressNextScrollRef?.current) {
       suppressNextScrollRef.current = false;
       return;
     }
+
     topRef?.current?.scrollIntoView();
   }, [previousStep, step, suppressNextScrollRef]);
 
@@ -212,14 +217,12 @@ export const BookingLayout = ({
       if (!paymentInformation?.intent?._id && step === "payment") {
         return false;
       }
-
       if (
         ctx.isCustomerPackageLocked &&
         (step === "option" || step === "specialist" || step === "addons")
       ) {
         return false;
       }
-
       if (
         step === "addons" &&
         (!selectedAppointmentOption?.addons?.length ||
@@ -228,12 +231,10 @@ export const BookingLayout = ({
       ) {
         return false;
       }
-
       // OTP is a dialog, never a stepper step.
       if (step === "otp") {
         return false;
       }
-
       if (
         step === "option" &&
         shouldSkipLockedServiceStep(
@@ -243,7 +244,6 @@ export const BookingLayout = ({
       ) {
         return false;
       }
-
       if (
         step === "specialist" &&
         (ctx.lockMemberId ||
@@ -392,6 +392,7 @@ export const BookingLayout = ({
           if (otpReturnStep === "packages") {
             setPackageBookingFlow(true);
           }
+
           // Set fields before marking verified so contact updates don't clear OTP state.
           setFields({
             ...fields,
@@ -400,6 +401,7 @@ export const BookingLayout = ({
             phone: result.phone || fields.phone,
             smsConsent: result.smsConsent === true,
           });
+
           setOtpVerified(true);
 
           if (otpReturnStep === "packages" || otpReturnStep === "review") {
@@ -407,6 +409,7 @@ export const BookingLayout = ({
             if (otpReturnStep === "packages") {
               setCurrentStep("option");
             }
+
             return;
           }
 

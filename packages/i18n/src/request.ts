@@ -46,6 +46,7 @@ export const getConfig = (
         namespaceLoaders.builder(),
         namespaceLoaders.apps(),
       ]);
+
       messages.admin = admin.default;
       messages.builder = builder.default;
       messages.apps = apps.default;

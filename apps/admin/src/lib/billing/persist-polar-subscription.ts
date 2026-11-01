@@ -31,10 +31,13 @@ export function parseActivityRetentionDaysFromProductMetadata(
   metadata: Record<string, unknown> | null | undefined,
 ): number | null {
   if (!metadata) return null;
+
   const raw = metadata[ACTIVITY_RETENTION_DAYS_METADATA_KEY];
   if (raw === undefined || raw === null || raw === "") return null;
+
   const n = typeof raw === "number" ? raw : Number(raw);
   if (!Number.isFinite(n) || n <= 0) return null;
+
   return Math.trunc(n);
 }
 
@@ -43,6 +46,7 @@ export function organizationIdFromPolarSubscriptionMetadata(
 ): string | null {
   const raw = metadata.org ?? metadata.referenceId;
   if (raw === undefined || raw === null) return null;
+
   const s = String(raw).trim();
   return s || null;
 }
@@ -53,6 +57,7 @@ function parseBoolMeta(value: unknown): boolean {
     return value.toLowerCase() === "true" || value === "1";
   }
   if (typeof value === "number") return value !== 0;
+
   return false;
 }
 
@@ -63,6 +68,7 @@ async function syncUserSlotsFromSubscription(
   const logger = getLoggerFactory("PersistPolarSubscription")(
     "syncUserSlotsFromSubscription",
   );
+
   const polar = getPolarClient();
   const productId = subscription.productId?.trim();
   if (!productId || !polar.client) return;
@@ -76,10 +82,12 @@ async function syncUserSlotsFromSubscription(
 
     const metadata = (product as { metadata?: Record<string, unknown> })
       .metadata;
+
     const type = String(metadata?.type ?? "");
     const status = subscription.status;
     const isActive =
       status === "active" || status === "trialing" || status === "past_due";
+
     const billing = ServicesContainer(orgId).billingService;
 
     if (type === USER_SLOTS_PRODUCT_TYPE) {
@@ -119,6 +127,7 @@ async function syncUserSlotsFromSubscription(
         { orgId, productId, type },
         "Skipping user-slot sync for non-subscription product",
       );
+
       return;
     }
 
@@ -156,6 +165,7 @@ export async function persistPolarSubscriptionToOrganization(
       { subscription },
       "No org ID; skipping Polar subscription persist",
     );
+
     return;
   }
 
@@ -293,11 +303,13 @@ async function resolveProductMetadata(
   const logger = getLoggerFactory("PersistPolarSubscription")(
     "resolveProductMetadata",
   );
+
   logger.debug({ subscription }, "Resolving product metadata");
 
   const embedded = (
     subscription.product as { metadata?: Record<string, unknown> } | undefined
   )?.metadata;
+
   if (embedded && typeof embedded === "object" && String(embedded.type ?? "")) {
     logger.debug({ embedded }, "Embedded product metadata");
     return embedded;
@@ -314,6 +326,7 @@ async function resolveProductMetadata(
       string,
       unknown
     > | null;
+
     logger.debug({ productId, metadata }, "Resolved product metadata");
     return metadata;
   } catch {

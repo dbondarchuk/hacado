@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/catalog/fields/delete")("POST");
   const auth = await requirePermission("service", "delete", logger);
   if (!auth.ok) return auth.response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const body = await request.json();
@@ -53,6 +54,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to delete service fields",
     );
+
     return NextResponse.json(
       {
         success: false,

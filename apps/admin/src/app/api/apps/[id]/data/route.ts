@@ -55,6 +55,7 @@ export async function GET(
       },
       "Failed to get app data",
     );
+
     return NextResponse.json(
       {
         success: false,

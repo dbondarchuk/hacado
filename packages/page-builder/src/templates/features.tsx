@@ -40,6 +40,7 @@ function bentoTile(
   const children: ReturnType<
     typeof compositeContainer
   >["data"]["props"]["children"] = [];
+
   if (includeIcon) {
     children.push({
       type: "Icon",
@@ -56,10 +57,12 @@ function bentoTile(
       },
     });
   }
+
   children.push(
     titleHeading(t, titleKey, { level: "h3", textAlign: "left" }),
     bodyText(t, bodyKey, { textAlign: "left" }),
   );
+
   return compositeContainer(children, 0.75, {
     padding: [
       {
@@ -189,6 +192,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
           },
         },
       };
+
       const image2 = {
         type: "Image" as const,
         id: generateId(),
@@ -208,6 +212,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
           },
         },
       };
+
       const copy1 = compositeContainer([
         titleHeading(t, `${prefix}.zigzagFeature.row1Title` as BaseAllKeys, {
           level: "h3",
@@ -217,6 +222,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
           textAlign: "left",
         }),
       ]);
+
       const copy2 = compositeContainer([
         titleHeading(t, `${prefix}.zigzagFeature.row2Title` as BaseAllKeys, {
           level: "h3",
@@ -226,6 +232,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
           textAlign: "left",
         }),
       ]);
+
       return fluidSection(
         [image1, copy1, copy2, image2],
         {
@@ -290,11 +297,13 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
         `${prefix}.featureListWithImage.title` as BaseAllKeys,
         { level: "h2", textAlign: "left" },
       );
+
       const list = bodyText(
         t,
         `${prefix}.featureListWithImage.list` as BaseAllKeys,
         { textAlign: "left" },
       );
+
       const image = {
         type: "Image" as const,
         id: generateId(),
@@ -314,6 +323,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
           },
         },
       };
+
       return fluidSection(
         [heading, list, image],
         {

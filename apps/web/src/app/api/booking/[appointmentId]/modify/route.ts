@@ -27,6 +27,7 @@ const processRescheduleRequest = async (
   const logger = getLoggerFactory("API/event/[appointmentId]/modify")(
     "processRescheduleRequest",
   );
+
   const servicesContainer = await getServicesContainer();
   const appointmentId = information.id;
   const customerSource =
@@ -37,6 +38,7 @@ const processRescheduleRequest = async (
       },
       httpRequest,
     );
+
   logger.debug(
     {
       appointmentId,
@@ -149,6 +151,7 @@ const processRescheduleRequest = async (
 
     const paymentIntent =
       await servicesContainer.paymentsService.getIntent(paymentIntentId);
+
     if (!paymentIntent) {
       logger.warn({ paymentIntentId }, "Payment intent not found");
       return NextResponse.json(
@@ -162,6 +165,7 @@ const processRescheduleRequest = async (
         { paymentIntentId, status: paymentIntent.status },
         "Payment not paid",
       );
+
       return NextResponse.json(
         { success: false, error: "payment_not_paid" },
         { status: 402 },
@@ -177,6 +181,7 @@ const processRescheduleRequest = async (
         },
         "Payment amount mismatch",
       );
+
       return NextResponse.json(
         { success: false, error: "payment_amount_dont_match" },
         { status: 402 },
@@ -239,6 +244,7 @@ const processRescheduleRequest = async (
         { paymentIntentId },
         "Payment intent is not paid. Removing it",
       );
+
       paymentIntentId = undefined;
     }
   }
@@ -279,6 +285,7 @@ const processCancelRequest = async (
   const logger = getLoggerFactory("API/booking/[appointmentId]/modify")(
     "processCancelRequest",
   );
+
   const servicesContainer = await getServicesContainer();
   const appointmentId = information.id;
   const customerSource =
@@ -304,6 +311,7 @@ const processCancelRequest = async (
         await servicesContainer.paymentsService.getAppointmentPayments(
           appointmentId,
         );
+
       const paymentsToRefund = allPayments.filter(
         (payment) =>
           payment.status === "paid" &&
@@ -324,6 +332,7 @@ const processCancelRequest = async (
       for (const payment of paymentsToRefund) {
         const fees =
           payment.fees?.reduce((acc, fee) => acc + fee.amount, 0) ?? 0;
+
         const feesToDeduct = !information.refundFees ? fees : 0;
         const amountToRefund =
           information.refundPolicy === "fullRefund"
@@ -442,6 +451,7 @@ const processCancelRequest = async (
 
     const paymentIntent =
       await servicesContainer.paymentsService.getIntent(paymentIntentId);
+
     if (!paymentIntent) {
       logger.warn({ paymentIntentId }, "Payment intent not found");
       return NextResponse.json(
@@ -455,6 +465,7 @@ const processCancelRequest = async (
         { paymentIntentId, status: paymentIntent.status },
         "Payment not paid",
       );
+
       return NextResponse.json(
         { success: false, error: "payment_not_paid" },
         { status: 402 },
@@ -470,6 +481,7 @@ const processCancelRequest = async (
         },
         "Payment amount mismatch",
       );
+
       return NextResponse.json(
         { success: false, error: "payment_amount_dont_match" },
         { status: 402 },
@@ -532,6 +544,7 @@ const processCancelRequest = async (
         { paymentIntentId },
         "Payment intent is not paid. Removing it",
       );
+
       paymentIntentId = undefined;
     }
   }
@@ -621,6 +634,7 @@ export async function PUT(
         { status: 401 },
       );
     }
+
     throw error;
   }
 
@@ -643,6 +657,7 @@ export async function PUT(
       },
       "Appointment cancel or reschedule information request failed",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -674,7 +689,6 @@ export async function PUT(
       { status: 400 },
     );
   }
-
   if (information.id !== appointmentId) {
     return NextResponse.json(
       {

@@ -25,6 +25,7 @@ export function StepFinish() {
 
   const finalizeInstall = async () => {
     if (finalizing) return;
+
     setFinishTick(0);
     setFinishDone(false);
     setFinalizing(true);
@@ -70,6 +71,7 @@ export function StepFinish() {
       setFinalizingError(
         error instanceof Error ? error.message : "Unknown error",
       );
+
       toast.error(t("wizard.finish.finalizeError"));
       timers.forEach(clearTimeout);
       setFinalizing(false);

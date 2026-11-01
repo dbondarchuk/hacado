@@ -25,6 +25,7 @@ const concurrency = Number(
     .find((a) => a.startsWith("--concurrency="))
     ?.slice("--concurrency=".length) || 4,
 );
+
 const languages = args.filter((a) => !a.startsWith("--"));
 
 if (languages.length === 0) {
@@ -57,6 +58,7 @@ function currentGoogleClient() {
 function tripRateLimit(status, attempt) {
   rateGate.googleClientIndex =
     (rateGate.googleClientIndex + 1) % GOOGLE_CLIENTS.length;
+
   const backoff = Math.min(RETRY_WAIT_MS * attempt, 60_000);
   rateGate.coolUntil = Math.max(rateGate.coolUntil, Date.now() + backoff);
   console.log(
@@ -81,19 +83,26 @@ async function fetchFromGoogle(text, language) {
         tripRateLimit(response.status, attempt);
         continue;
       }
+
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
       const data = await response.json();
       if (!Array.isArray(data?.[0])) throw new Error("Bad response shape");
+
       const translated = data[0]
         .map((row) => (Array.isArray(row) ? row[0] : ""))
         .join("");
+
       if (!translated) throw new Error("Empty translation");
+
       return translated;
     } catch (error) {
       if (attempt === MAX_RETRIES) throw error;
+
       await sleep(RETRY_WAIT_MS * attempt);
     }
   }
+
   throw new Error("Translation failed");
 }
 
@@ -116,11 +125,13 @@ function shield(text) {
     tokens.push(match);
     return id;
   };
+
   let shielded = String(text)
     .replace(/\$\{[\s\S]*?\}/g, push)
     .replace(/\{\{[#^/!]?\s*[\s\S]*?\}\}/g, push)
     .replace(/\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]*)*/g, push)
     .replace(/<\/?[a-zA-Z][a-zA-Z0-9]*(?:\s[^>]*)?\s*\/?>/g, push);
+
   return { shielded, tokens };
 }
 
@@ -134,6 +145,7 @@ function unshield(text, tokens) {
       return token === undefined ? `___PH_${index}___` : token;
     });
   } while (result !== previous);
+
   return result;
 }
 
@@ -143,18 +155,22 @@ function shouldTranslate(text) {
   if (/^[a-z0-9]+(?:-[a-z0-9]+)+$/.test(trimmed)) return false;
   if (/^[@./]/.test(trimmed)) return false;
   if (/^https?:\/\//.test(trimmed) && !trimmed.includes(" ")) return false;
+
   return true;
 }
 
 async function translateLiteral(text, language, cache, cachePath) {
   if (!shouldTranslate(text)) return text;
+
   const key = `email-v2|en|${language}|${text}`;
   if (cache[key]) return cache[key];
+
   const { shielded, tokens } = shield(text);
   const translated = unshield(
     await fetchFromGoogle(shielded, language.split("-")[0]),
     tokens,
   );
+
   cache[key] = translated;
   return translated;
 }
@@ -165,7 +181,9 @@ function splitImports(source) {
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].startsWith("import ")) lastImport = i;
   }
+
   if (lastImport < 0) return { head: "", body: source };
+
   return {
     head: lines.slice(0, lastImport + 1).join("\n") + "\n",
     body: lines.slice(lastImport + 1).join("\n"),
@@ -181,6 +199,7 @@ function findLiterals(body) {
       i++;
       continue;
     }
+
     const quote = ch;
     let j = i + 1;
     let closed = false;
@@ -189,26 +208,34 @@ function findLiterals(body) {
         j += 2;
         continue;
       }
+
       if (quote === "`" && body[j] === "$" && body[j + 1] === "{") {
         let depth = 1;
         j += 2;
         while (j < body.length && depth > 0) {
           if (body[j] === "{") depth++;
           else if (body[j] === "}") depth--;
+
           j++;
         }
+
         continue;
       }
+
       if (body[j] === quote) {
         closed = true;
         break;
       }
+
       j++;
     }
+
     if (!closed) break;
+
     found.push({ start: i, end: j + 1, quote, raw: body.slice(i + 1, j) });
     i = j + 1;
   }
+
   return found;
 }
 
@@ -216,6 +243,7 @@ function unescapeLiteral(raw, quote) {
   if (quote === "`") {
     return raw.replace(/\\`/g, "`").replace(/\\\\/g, "\\");
   }
+
   return raw
     .replace(/\\n/g, "\n")
     .replace(/\\t/g, "\t")
@@ -229,6 +257,7 @@ function escapeLiteral(text, quote) {
     return text.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
   }
   if (quote === '"') return JSON.stringify(text).slice(1, -1);
+
   return text.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/\n/g, "\\n");
 }
 
@@ -245,15 +274,19 @@ async function translateBody(body, language, cache, cachePath) {
     ) {
       continue;
     }
+
     const value = unescapeLiteral(lit.raw, lit.quote);
     if (/^yyyy/.test(value)) continue;
+
     const translated = await translateLiteral(
       value,
       language,
       cache,
       cachePath,
     );
+
     if (translated === value) continue;
+
     const escaped = escapeLiteral(translated, lit.quote);
     result =
       result.slice(0, lit.start) +
@@ -262,6 +295,7 @@ async function translateBody(body, language, cache, cachePath) {
       lit.quote +
       result.slice(lit.end);
   }
+
   return result;
 }
 
@@ -282,6 +316,7 @@ function listJobs() {
     "packages/app-store/src/apps/text-message-resender/messages/translations/en.ts",
     "packages/app-store/src/apps/gift-card-studio/translations/en/invoice.ts",
   ];
+
   for (const rel of singleFiles) {
     jobs.push({
       src: path.join(ROOT, rel),
@@ -299,6 +334,7 @@ function listJobs() {
   const adminEn = path.join(ROOT, "apps/admin/src/i18n/email/en");
   for (const file of fs.readdirSync(adminEn)) {
     if (!file.endsWith(".ts") || file === "index.ts") continue;
+
     jobs.push({
       src: path.join(adminEn, file),
       dest: (language) =>
@@ -306,17 +342,20 @@ function listJobs() {
       rename: false,
     });
   }
+
   return jobs;
 }
 
 async function mapPool(items, limit, worker) {
   let next = 0;
+
   async function run() {
     while (next < items.length) {
       const index = next++;
       await worker(items[index], index);
     }
   }
+
   await Promise.all(
     Array.from({ length: Math.min(limit, items.length) }, () => run()),
   );
@@ -330,6 +369,7 @@ for (const language of languages) {
     __dirname,
     `en-${language}.emails.translation-cache.json`,
   );
+
   const cache = loadCache(cachePath);
   console.log(`\n=== emails → ${language} ===`);
   let done = 0;
@@ -342,6 +382,7 @@ for (const language of languages) {
       cache,
       cachePath,
     );
+
     let output = head + translatedBody;
     if (job.rename) output = renameExports(output, language);
     const outPath = job.dest(language);
@@ -351,6 +392,7 @@ for (const language of languages) {
     process.stdout.write(`\rWrote ${done}/${jobs.length}`);
     if (done % 3 === 0) saveCache(cachePath, cache);
   });
+
   saveCache(cachePath, cache);
   process.stdout.write("\n");
 }

@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to delete page headers",
     );
+
     return NextResponse.json(
       {
         success: false,

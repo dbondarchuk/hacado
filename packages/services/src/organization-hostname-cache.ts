@@ -63,6 +63,7 @@ async function lookupFromDatabase(
   logger.debug({ hostname }, "Looking up organization by domain in database");
   const organization =
     await organizationService.getOrganizationByDomain(normalized);
+
   if (organization) {
     logger.debug({ hostname }, "Organization found by domain in database");
     return toResolution(organization);

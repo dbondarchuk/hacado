@@ -30,6 +30,7 @@ export const CardWithAppointmentInformation: React.FC<
     },
     { zone: dateTime.timeZone },
   );
+
   const timeEndLuxon = date.plus({ minutes: duration });
 
   const timeEnd: Time = {
@@ -42,6 +43,7 @@ export const CardWithAppointmentInformation: React.FC<
       dateTime.timeZone === tz.name || tz.group.includes(dateTime.timeZone)
     );
   });
+
   if (!timeZone) {
     const defaultZone = Luxon.now().zoneName;
     timeZone = timeZones.find((tz) => {

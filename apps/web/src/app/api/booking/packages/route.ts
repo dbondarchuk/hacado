@@ -40,5 +40,6 @@ export async function GET() {
     { customerId: session.customerId, packages: res.items.length },
     "Packages API request processed successfully",
   );
+
   return NextResponse.json(res);
 }

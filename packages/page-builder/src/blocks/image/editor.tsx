@@ -72,6 +72,7 @@ export const ImageEditor = ({ props, style }: ImageProps) => {
   const basePosition = currentBlock.data?.style?.objectPosition?.find(
     (position) => !position.breakpoint?.length && !position.state?.length,
   )?.value;
+
   const position =
     basePosition &&
     typeof basePosition === "object" &&

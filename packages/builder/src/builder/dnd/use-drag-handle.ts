@@ -38,5 +38,6 @@ export function useDragHandle({ id, element }: UseDragHandleInput) {
     () => ({ handleRef, isDragging }),
     [handleRef, isDragging],
   );
+
   return result;
 }

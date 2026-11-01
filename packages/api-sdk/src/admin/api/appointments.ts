@@ -241,6 +241,7 @@ export const updateAppointment = async (
       formData.append(`file_${key}`, file);
       formData.append("fileField", key);
     });
+
     formData.append("confirmed", confirmed.toString());
     formData.append("doNotNotifyCustomer", doNotNotifyCustomer.toString());
 

@@ -55,6 +55,7 @@ export function InviteMemberButton({
           if (!result.ok) {
             throw new Error(result.code);
           }
+
           return result;
         })(),
         {
@@ -65,10 +66,12 @@ export function InviteMemberButton({
             if (err.message === "user_already_in_organization") {
               return t("team.inviteUserAlreadyInOrganization");
             }
+
             return t("common.toasts.error");
           },
         },
       );
+
       setEmail("");
       setRole("staff");
       setOpen(false);

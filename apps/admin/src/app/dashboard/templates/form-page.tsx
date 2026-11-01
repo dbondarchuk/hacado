@@ -92,6 +92,7 @@ export const TemplateFormPage: React.FC<
       const possibleTemplate = allTemplates.find(
         (template) => template.id === props.templateId,
       )?.template;
+
       if (!possibleTemplate) {
         notFound();
       }

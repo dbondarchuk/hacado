@@ -20,18 +20,23 @@ export const listSyncedPayments = async (params?: {
   if (params?.status?.length) {
     searchParams.set("status", params.status.join(","));
   }
+
   if (params?.externalId) {
     searchParams.set("externalId", params.externalId);
   }
+
   if (params?.limit != null) {
     searchParams.set("limit", String(params.limit));
   }
+
   if (params?.offset != null) {
     searchParams.set("offset", String(params.offset));
   }
+
   if (params?.start) {
     searchParams.set("start", params.start.toISOString());
   }
+
   if (params?.end) {
     searchParams.set("end", params.end.toISOString());
   }
@@ -74,6 +79,7 @@ const action = async (
     method: "POST",
     body: JSON.stringify(body ?? {}),
   });
+
   return response.json<SyncedPayment>();
 };
 

@@ -27,6 +27,7 @@ export const AssetSelectorShortcutToolbar = ({
       /^https?:\/\//i.test(asset.url)
         ? asset.url
         : `/assets/${asset.filename}`;
+
     shortcut.onValueChange(value);
     setIsOpen(false);
   };
@@ -91,6 +92,7 @@ export const createAssetSelectorToolbarItem = <T extends BaseStyleDictionary>(
               ...variant,
               value: setStyleValue(value, variant.value),
             }));
+
             newStyles[styleName] = updatedVariants;
           }
         }
@@ -113,6 +115,7 @@ export const createAssetSelectorToolbarItem = <T extends BaseStyleDictionary>(
             ...variant,
             value,
           }));
+
           newStyles[shortcut.targetStyle] = updatedVariants;
         }
       } else {

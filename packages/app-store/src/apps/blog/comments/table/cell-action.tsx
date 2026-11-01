@@ -45,6 +45,7 @@ export const CellAction: React.FC<{
           t("comments.table.toast.approved", { authorName: data.authorName }),
         error: t("comments.table.toast.error"),
       });
+
       reload();
     } finally {
       setLoading(false);
@@ -59,6 +60,7 @@ export const CellAction: React.FC<{
           t("comments.table.toast.rejected", { authorName: data.authorName }),
         error: t("comments.table.toast.error"),
       });
+
       reload();
     } finally {
       setLoading(false);
@@ -73,6 +75,7 @@ export const CellAction: React.FC<{
           t("comments.table.toast.deleted", { authorName: data.authorName }),
         error: t("comments.table.toast.error"),
       });
+
       setDeleteOpen(false);
       reload();
     } finally {

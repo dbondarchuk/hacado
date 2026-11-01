@@ -22,6 +22,7 @@ export function isHacadoCheckoutPaymentIntent(
   if (!metadata) {
     return false;
   }
+
   const orgId = metadata.organizationId;
   const hacadoIntentId = metadata.hacadoIntentId ?? undefined;
   return Boolean(orgId && hacadoIntentId);
@@ -32,10 +33,12 @@ export function feesFromStripeCharge(ch: Stripe.Charge): PaymentFee[] {
   if (bt == null || typeof bt === "string") {
     return [];
   }
+
   const feeCents = bt.fee;
   if (feeCents == null || feeCents <= 0) {
     return [];
   }
+
   return [{ type: "transaction", amount: feeCents / 100 }];
 }
 

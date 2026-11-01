@@ -57,6 +57,7 @@ function pickCalendarAppRow(
 ): ConnectedApp | undefined {
   const matches = apps.filter((a) => a.name === appName);
   if (!matches.length) return undefined;
+
   return (
     matches.find((a) => a.status === "connected") ??
     matches.find((a) => a.status === "pending") ??
@@ -85,6 +86,7 @@ function CalendarIntegrationCard({
   const blockNewConnect = Boolean(
     meta && "dontAllowMultiple" in meta && meta.dontAllowMultiple && connected,
   );
+
   const connectBlocked = !canConnect || blockNewConnect;
 
   const statusLabel = connected
@@ -233,6 +235,7 @@ export function StepIntegrations() {
       }
 
       if (Object.keys(updates).length === 0) return prev;
+
       return { ...prev, ...updates };
     });
   }, [planTier, setP]);
@@ -241,18 +244,22 @@ export function StepIntegrations() {
     () => pickCalendarAppRow(calendarApps, GOOGLE_CALENDAR_APP_NAME),
     [calendarApps],
   );
+
   const icsApp = useMemo(
     () => pickCalendarAppRow(calendarApps, ICS_APP_NAME),
     [calendarApps],
   );
+
   const outlookApp = useMemo(
     () => pickCalendarAppRow(calendarApps, OUTLOOK_APP_NAME),
     [calendarApps],
   );
+
   const caldavApp = useMemo(
     () => pickCalendarAppRow(calendarApps, CALDAV_APP_NAME),
     [calendarApps],
   );
+
   const writableCalendarApps = useMemo(
     () =>
       calendarApps.filter(
@@ -263,6 +270,7 @@ export function StepIntegrations() {
       ),
     [calendarApps],
   );
+
   const calendarWriterDisabled = writableCalendarApps.length === 0;
 
   const onContinue = async () => {
@@ -300,10 +308,12 @@ export function StepIntegrations() {
       depositPercent: p.depositPercent,
       websitePackId: p.websitePackId,
     });
+
     if (!r.ok) {
       toast.error(t("wizard.integrations.saveError"));
       return;
     }
+
     setStep(6);
     setP((prev) => ({ ...prev, step: 6 }));
   };
@@ -490,6 +500,7 @@ export function StepIntegrations() {
                 disabled={!allowed}
                 onCheckedChange={(c) => {
                   if (!allowed) return;
+
                   setP((prev) => ({ ...prev, [row.key]: Boolean(c) }));
                 }}
               />
@@ -524,6 +535,7 @@ export function StepIntegrations() {
               onCheckedChange={(c) => {
                 if (!canConnectApp(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME))
                   return;
+
                 setP((prev) => ({
                   ...prev,
                   optWaitlistNotifications: Boolean(c),

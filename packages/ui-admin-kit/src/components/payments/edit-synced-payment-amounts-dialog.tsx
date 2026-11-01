@@ -45,12 +45,16 @@ const resolveAmounts = (payment: HydratedSyncedPayment) => {
   const tip = payment.inferredTip ?? 0;
   const paymentAmount =
     payment.paymentAmount ?? round2((payment.amount ?? 0) - tip);
+
   const paymentType =
     payment.paymentType ?? payment.originalPaymentType ?? DEFAULT_PAYMENT_TYPE;
+
   const originalPaymentType =
     payment.originalPaymentType ?? payment.paymentType ?? DEFAULT_PAYMENT_TYPE;
+
   const hasOriginals =
     payment.originalAmount !== undefined && payment.originalTip !== undefined;
+
   return {
     paymentAmount,
     tip,
@@ -111,6 +115,7 @@ export const EditSyncedPaymentAmountsDialog = ({
         success: t("syncedPayments.toast.success"),
         error: t("syncedPayments.toast.error"),
       });
+
       onUpdated?.();
       onOpenChange(false);
     } catch (error) {

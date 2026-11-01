@@ -38,6 +38,7 @@ function errorMessage(
     not_verified: "auth.phoneOtp.errors.notVerified",
     invalid_phone: "auth.phoneOtp.errors.invalidPhone",
   };
+
   return t(map[code]);
 }
 
@@ -64,9 +65,11 @@ export const PhoneOtpStep = ({
 
   useEffect(() => {
     if (cooldown <= 0) return;
+
     const id = window.setInterval(() => {
       setCooldown((c) => Math.max(0, c - 1));
     }, 1000);
+
     return () => window.clearInterval(id);
   }, [cooldown]);
 
@@ -78,6 +81,7 @@ export const PhoneOtpStep = ({
         toast.error(errorMessage(t, result.code));
         return false;
       }
+
       autoSendCompleted.add(sendKey);
       setSent(true);
       setCooldown(result.cooldownSeconds ?? 60);
@@ -87,22 +91,26 @@ export const PhoneOtpStep = ({
       if (opts?.fromAutoSend) {
         autoSendInFlight.delete(sendKey);
       }
+
       setSending(false);
     }
   };
 
   useEffect(() => {
     if (!autoSend || !phone) return;
+
     if (autoSendCompleted.has(sendKey) || autoSendInFlight.has(sendKey)) {
       if (autoSendCompleted.has(sendKey)) setSent(true);
       return;
     }
+
     autoSendInFlight.add(sendKey);
     void sendCode({ fromAutoSend: true });
   }, [autoSend, sendKey]);
 
   const verify = async () => {
     if (otp.length !== 6) return;
+
     setVerifying(true);
     try {
       const result = await verifyMemberPhoneOtpAction(phone, otp, kind);
@@ -110,6 +118,7 @@ export const PhoneOtpStep = ({
         toast.error(errorMessage(t, result.code));
         return;
       }
+
       autoSendCompleted.delete(sendKey);
       autoSendInFlight.delete(sendKey);
       await onVerified(phone);
@@ -141,6 +150,7 @@ export const PhoneOtpStep = ({
             onChange={setOtp}
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
+
               e.preventDefault();
               if (otp.length === 6 && !verifying) void verify();
             }}

@@ -14,6 +14,7 @@ export const opacityStyle = {
   defaultValue: 100,
   renderToCSS: (value) => {
     if (value === null || typeof value === "undefined") return null;
+
     return `opacity: ${(value / 100).toFixed(2)};`;
   },
   component: ({ value, onChange }) => (

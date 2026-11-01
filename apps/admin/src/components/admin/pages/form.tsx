@@ -223,6 +223,7 @@ export const PageForm: React.FC<{
     "tags",
     "fullWidth",
   ]);
+
   const demoAppointment = useDemoArguments();
 
   const args = useMemo(
@@ -282,6 +283,7 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     const fetchHeader = async () => {
       if (!headerId) return;
+
       const data = await pageHeadersApi.getPageHeader(headerId);
       setHeader(data);
     };
@@ -297,6 +299,7 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     const fetchFooter = async () => {
       if (!footerId) return;
+
       const data = await pageFootersApi.getPageFooter(footerId);
       setFooter(data);
     };

@@ -84,6 +84,7 @@ export const FormCard: React.FC = () => {
         .set({ hour: timeObj.hour, minute: timeObj.minute })
         .setZone(timeZone, { keepLocalTime: true })
         .toJSDate();
+
       setFields({ dateTime });
       setSearchError(undefined);
     }

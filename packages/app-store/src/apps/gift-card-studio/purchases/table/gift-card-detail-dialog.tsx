@@ -45,6 +45,7 @@ export const GiftCardDetailDialog: React.FC<{
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
   const currencyFormat = useCurrencyFormat();
   const timeZone = useTimeZone();
@@ -81,18 +82,21 @@ export const GiftCardDetailDialog: React.FC<{
       "gift-card",
       "png",
     );
+
     const giftCardPdfFileName = getFileName(
       purchase.appId,
       purchase._id,
       "gift-card",
       "pdf",
     );
+
     const invoicePdfFileName = getFileName(
       purchase.appId,
       purchase._id,
       "invoice",
       "pdf",
     );
+
     return {
       giftCardImageUrl:
         purchase.cardGenerationStatus === "completed"

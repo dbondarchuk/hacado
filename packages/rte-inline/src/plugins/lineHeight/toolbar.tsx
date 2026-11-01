@@ -29,10 +29,12 @@ export function LineHeightToolbarButton() {
     await context.restoreSelection();
     const parsedValue =
       value === "inherit" ? "inherit" : Number.parseFloat(value);
+
     context.applyFormat("lineHeight", parsedValue);
   };
 
   if (context.disabledFeatures?.includes("lineHeight")) return null;
+
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>

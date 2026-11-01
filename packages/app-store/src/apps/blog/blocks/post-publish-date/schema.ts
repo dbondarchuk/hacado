@@ -19,6 +19,7 @@ export const BlogPostPublishDatePropsSchema = z.object({
 export type BlogPostPublishDateProps = Prettify<
   z.infer<typeof BlogPostPublishDatePropsSchema>
 >;
+
 export type BlogPostPublishDateReaderProps = BaseReaderBlockProps<any> &
   BlogPostPublishDateProps;
 

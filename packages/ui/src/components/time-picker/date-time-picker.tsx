@@ -261,16 +261,19 @@ export function DateTimePicker({
     "aria-invalid"?: boolean | "true" | "false";
     invalid?: boolean | "" | "true";
   };
+
   const fieldInvalid = isInvalidProp({
     "aria-invalid": ariaInvalid,
     invalid,
   });
+
   const locale = useLocale();
 
   const [open, setOpen] = useState(false);
   const [monthYearPicker, setMonthYearPicker] = useState<
     "month" | "year" | false
   >(false);
+
   const initDate = useMemo(
     () => DateTime.fromJSDate(value || new Date()).setZone(timeZone),
     [value, timeZone],
@@ -287,6 +290,7 @@ export function DateTimePicker({
     () => (min ? DateTime.fromJSDate(min).setZone(timeZone) : undefined),
     [min, timeZone],
   );
+
   const maxDate = useMemo(
     () => (max ? DateTime.fromJSDate(max).setZone(timeZone) : undefined),
     [max, timeZone],
@@ -297,11 +301,13 @@ export function DateTimePicker({
       const d = DateTime.fromJSDate(newDate).setZone(timeZone, {
         keepLocalTime: true,
       });
+
       let day = d.set({
         hour: date.hour,
         minute: date.minute,
         second: showSeconds ? date.second : 0,
       });
+
       if (minDate && d < minDate) {
         day = day.set({
           hour: minDate.hour,
@@ -309,6 +315,7 @@ export function DateTimePicker({
           second: showSeconds ? minDate.second : 0,
         });
       }
+
       if (maxDate && d > maxDate) {
         day = day.set({
           hour: maxDate.hour,
@@ -316,6 +323,7 @@ export function DateTimePicker({
           second: showSeconds ? maxDate.second : 0,
         });
       }
+
       setDate(day);
       if (commitOnChange) onChange?.(day.toJSDate());
     },
@@ -338,9 +346,11 @@ export function DateTimePicker({
     },
     [setMonth, setMonthYearPicker],
   );
+
   const onNextMonth = useCallback(() => {
     setMonth(month.plus({ months: 1 }));
   }, [month]);
+
   const onPrevMonth = useCallback(() => {
     setMonth(month.minus({ months: 1 }));
   }, [month]);
@@ -355,11 +365,13 @@ export function DateTimePicker({
 
   const displayValue = useMemo(() => {
     if (!open && !value) return value;
+
     return open ? date : initDate;
   }, [date, value, open]);
 
   const dislayFormat = useMemo(() => {
     if (!displayValue) return "Pick a date";
+
     const secondsFormat = showSeconds ? ":ss" : "";
 
     return displayValue.toFormat(
@@ -373,6 +385,7 @@ export function DateTimePicker({
       const d = DateTime.fromJSDate(date).setZone(timeZone, {
         keepLocalTime: true,
       });
+
       setDate(d);
       if (commitOnChange) onChange?.(d.toJSDate());
     },
@@ -613,8 +626,10 @@ function MonthYearPicker({
       if (maxDate && startY > maxDate) disabled = true;
       years.push({ value: i, label: i.toString(), disabled });
     }
+
     return years;
   }, [value]);
+
   const months = useMemo(() => {
     const months: TimeOption[] = [];
     for (let i = 1; i <= 12; i++) {
@@ -631,6 +646,7 @@ function MonthYearPicker({
         disabled,
       });
     }
+
     return months;
   }, [value, locale]);
 
@@ -640,6 +656,7 @@ function MonthYearPicker({
       if (minDate && newDate < minDate) {
         newDate = newDate.set({ month: minDate.month });
       }
+
       if (maxDate && newDate > maxDate) {
         newDate = newDate.set({ month: maxDate.month });
       }
@@ -654,6 +671,7 @@ function MonthYearPicker({
       yearRef.current?.scrollIntoView({ behavior: "auto", block: "center" });
     }
   }, [mode, value]);
+
   return (
     <div className={cn(className)}>
       <ScrollArea className="h-full">

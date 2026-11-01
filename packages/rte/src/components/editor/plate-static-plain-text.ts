@@ -50,13 +50,16 @@ function listStyleOnBlock(el: { [k: string]: unknown }): string | undefined {
 function isListBlock(el: Descendant): boolean {
   if (!Element.isElement(el)) return false;
   if (!listStyleOnBlock(el as { [k: string]: unknown })) return false;
+
   return el.type === BaseParagraphPlugin.key || HEADING_TYPE_SET.has(el.type);
 }
 
 function normalizeCodeBlockChild(child: Descendant): Descendant {
   if (!Text.isText(child)) return child;
+
   const leaf = child as TText & { type?: unknown; id?: unknown };
   if (leaf.type !== BaseCodeLinePlugin.key) return child;
+
   return {
     type: BaseCodeLinePlugin.key,
     children: [{ text: leaf.text }],
@@ -71,12 +74,15 @@ function phrasingText(nodes: Descendant[]): string {
       s += n.text;
       continue;
     }
+
     if (!Element.isElement(n)) continue;
+
     const el = n as {
       type: string;
       children?: Descendant[];
       [k: string]: unknown;
     };
+
     const ch = (el.children ?? []) as Descendant[];
 
     if (el.type === BaseMentionPlugin.key) {
@@ -85,12 +91,14 @@ function phrasingText(nodes: Descendant[]): string {
       s += phrasingText(ch);
       continue;
     }
+
     if (el.type === INLINE_EQUATION_KEY) {
       const tex = typeof el.texExpression === "string" ? el.texExpression : "";
       if (tex) s += tex;
       s += phrasingText(ch);
       continue;
     }
+
     if (el.type === BaseDatePlugin.key) {
       const dateStr = el.date as string | undefined;
       if (dateStr) {
@@ -103,21 +111,26 @@ function phrasingText(nodes: Descendant[]): string {
           });
         }
       }
+
       s += phrasingText(ch);
       continue;
     }
+
     if (el.type === BaseLinkPlugin.key) {
       s += phrasingText(ch);
       continue;
     }
+
     s += phrasingText(ch);
   }
+
   return s;
 }
 
 function captionText(el: Record<string, unknown>): string {
   const caption = el.caption as Descendant[] | undefined;
   if (!caption?.[0]) return "";
+
   return phrasingText([caption[0]] as Descendant[]).trim();
 }
 
@@ -137,6 +150,7 @@ function listItemPrefix(
   ) {
     return "- ";
   }
+
   const n = (listStart ?? 1) + index;
   return `${n}. `;
 }
@@ -144,17 +158,20 @@ function listItemPrefix(
 function indentPrefix(el: { [k: string]: unknown }): string {
   const raw = el.indent;
   if (typeof raw !== "number" || raw <= 0 || !Number.isFinite(raw)) return "";
+
   return "  ".repeat(raw);
 }
 
 /** Flatten a single block node into zero or more plain-text block strings. */
 function blockToPlainTextBlocks(node: Descendant): string[] {
   if (!Element.isElement(node)) return [];
+
   const el = node as {
     type: string;
     children?: Descendant[];
     [k: string]: unknown;
   };
+
   const ch = (el.children ?? []) as Descendant[];
 
   switch (el.type) {
@@ -174,10 +191,12 @@ function blockToPlainTextBlocks(node: Descendant): string[] {
           if (c.text) lines.push(c.text);
           continue;
         }
+
         if (Element.isElement(c)) {
           lines.push(...blockToPlainTextBlocks(c));
         }
       }
+
       return [lines.filter((l) => l.trim()).join("\n")];
     }
 
@@ -188,17 +207,21 @@ function blockToPlainTextBlocks(node: Descendant): string[] {
       const lines = ch.map((c) => {
         const normalized = normalizeCodeBlockChild(c);
         if (!Element.isElement(normalized)) return "";
+
         const lineEl = normalized as {
           type: string;
           children?: Descendant[];
           text?: unknown;
         };
+
         const fromChildren = phrasingText(
           (lineEl.children ?? []) as Descendant[],
         );
+
         const legacy = typeof lineEl.text === "string" ? lineEl.text : "";
         return fromChildren || legacy;
       });
+
       return [lines.join("\n")];
     }
 
@@ -222,6 +245,7 @@ function blockToPlainTextBlocks(node: Descendant): string[] {
     case EQUATION_KEY: {
       const tex =
         typeof el.texExpression === "string" ? el.texExpression.trim() : "";
+
       return tex ? [tex] : [];
     }
 
@@ -236,8 +260,10 @@ function blockToPlainTextBlocks(node: Descendant): string[] {
         if (!Element.isElement(row) || row.type !== BaseTableRowPlugin.key) {
           continue;
         }
+
         const cells = ((row as { children?: Descendant[] }).children ??
           []) as Descendant[];
+
         const cellTexts = cells
           .filter(
             (c) =>
@@ -251,8 +277,10 @@ function blockToPlainTextBlocks(node: Descendant): string[] {
                 []) as Descendant[],
             ).trim(),
           );
+
         rows.push(cellTexts.join(" | "));
       }
+
       return rows;
     }
 
@@ -278,28 +306,36 @@ function flattenRootBlocks(nodes: Descendant[]): string[] {
         group.push(nodes[i]!);
         i++;
       }
+
       const listStart = (() => {
         const first = group[0];
         if (!Element.isElement(first)) return undefined;
+
         const v = (first as Record<string, unknown>)[
           INDENT_LIST_KEYS.listStart
         ];
+
         return typeof v === "number" ? v : undefined;
       })();
 
       const lines = group.map((item, j) => {
         if (!Element.isElement(item)) return "";
+
         const itemEl = item as {
           type: string;
           children?: Descendant[];
           [k: string]: unknown;
         };
+
         const text = phrasingText(
           (itemEl.children ?? []) as Descendant[],
         ).trim();
+
         if (!text) return "";
+
         return `${indentPrefix(itemEl)}${listItemPrefix(lst, j, listStart)}${text}`;
       });
+
       out.push(lines.filter(Boolean).join("\n"));
       continue;
     }
@@ -307,6 +343,7 @@ function flattenRootBlocks(nodes: Descendant[]): string[] {
     out.push(...blockToPlainTextBlocks(n));
     i++;
   }
+
   return out;
 }
 
@@ -318,6 +355,7 @@ export function plateValueToPlainTextBlocks(
   value?: Value | Descendant[] | null,
 ): string[] {
   if (!Array.isArray(value)) return [];
+
   return flattenRootBlocks(value as Descendant[]);
 }
 
@@ -333,5 +371,6 @@ export function plateValueToPlainTextDescription(
     .map((b) => b.trim())
     .filter(Boolean)
     .slice(0, Math.max(0, max));
+
   return blocks.join(separator);
 }

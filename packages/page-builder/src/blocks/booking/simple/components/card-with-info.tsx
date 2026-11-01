@@ -38,6 +38,7 @@ export const CardWithAppointmentInformation: React.FC<
       dateTime.timeZone === tz.name || tz.group.includes(dateTime.timeZone)
     );
   });
+
   if (!timeZone) {
     const defaultZone = Luxon.now().zoneName;
     timeZone = timeZones.find((tz) => {

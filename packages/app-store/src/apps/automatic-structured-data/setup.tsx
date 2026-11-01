@@ -26,6 +26,7 @@ export const AutomaticStructuredDataAppSetup: React.FC<AppSetupProps> = ({
     AutomaticStructuredDataAdminNamespace,
     AutomaticStructuredDataAdminKeys
   >(automaticStructuredDataAdminNamespace);
+
   const { appStatus, isLoading, isValid, onSubmit } = useConnectedAppSetup<any>(
     {
       appId: existingAppId,

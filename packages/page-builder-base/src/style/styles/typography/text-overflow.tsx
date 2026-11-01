@@ -17,6 +17,7 @@ export const textOverflowStyle = {
   defaultValue: "clip",
   renderToCSS: (value) => {
     if (!value || value === "clip") return null;
+
     return `text-overflow: ${value};`;
   },
   component: ({ value, onChange }) => {

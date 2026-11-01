@@ -56,6 +56,7 @@ export const columns: ColumnDef<TeamMemberListModel>[] = [
             : role === "coordinator"
               ? "roles.coordinator"
               : "roles.staff";
+
       return t(key);
     },
     id: "role",
@@ -77,6 +78,7 @@ export const columns: ColumnDef<TeamMemberListModel>[] = [
           </Badge>
         );
       }
+
       return <Badge>{t("team.table.status.active")}</Badge>;
     },
     id: "status",

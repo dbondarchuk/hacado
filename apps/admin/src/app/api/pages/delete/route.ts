@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
       },
       "Failed to delete pages",
     );
+
     return NextResponse.json(
       {
         success: false,

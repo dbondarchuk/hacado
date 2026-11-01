@@ -15,6 +15,7 @@ export const VideoReader = ({ props, style, block }: VideoReaderProps) => {
     ...VideoPropsDefaults.props,
     ...(props ?? {}),
   };
+
   const safeStyle = style ?? {};
   const defaults = getDefaults({ props: safeProps, style: safeStyle }, false);
 

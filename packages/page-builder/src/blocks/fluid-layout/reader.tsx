@@ -39,18 +39,21 @@ export const FluidLayoutReader = ({
     overrides: placementOverrides,
     tier: "desktop",
   });
+
   const tabletPlacements = resolveEffectivePlacements({
     childIds,
     base: basePlacements,
     overrides: placementOverrides,
     tier: "tablet",
   });
+
   const mobilePlacements = resolveEffectivePlacements({
     childIds,
     base: basePlacements,
     overrides: placementOverrides,
     tier: "mobile",
   });
+
   const landscapePlacements = resolveEffectivePlacements({
     childIds,
     base: basePlacements,
@@ -62,10 +65,12 @@ export const FluidLayoutReader = ({
     placementsForChildIds(childIds, desktopPlacements),
     0,
   );
+
   const tabletRowCount = getGridRowCount(
     placementsForChildIds(childIds, tabletPlacements),
     0,
   );
+
   const mobileRowCount = getGridRowCount(
     placementsForChildIds(childIds, mobilePlacements),
     0,
@@ -78,6 +83,7 @@ export const FluidLayoutReader = ({
     .map((child) => {
       const placement = desktopPlacements[child.id];
       if (!placement) return "";
+
       return placementToChildCss(
         placement,
         `.${className}.fluid-layout-grid > [data-fluid-child="${child.id}"]`,
@@ -89,6 +95,7 @@ export const FluidLayoutReader = ({
     .map((child) => {
       const placement = tabletPlacements[child.id];
       if (!placement) return "";
+
       return placementToChildCss(
         placement,
         `.${className}.fluid-layout-grid > [data-fluid-child="${child.id}"]`,
@@ -100,6 +107,7 @@ export const FluidLayoutReader = ({
     .map((child) => {
       const placement = mobilePlacements[child.id];
       if (!placement) return "";
+
       return placementToChildCss(
         placement,
         `.${className}.fluid-layout-grid > [data-fluid-child="${child.id}"]`,
@@ -112,6 +120,7 @@ export const FluidLayoutReader = ({
     .map((child) => {
       const placement = landscapePlacements[child.id];
       if (!placement) return "";
+
       return placementToChildCss(
         placement,
         `.${className}.fluid-layout-grid > [data-fluid-child="${child.id}"]`,

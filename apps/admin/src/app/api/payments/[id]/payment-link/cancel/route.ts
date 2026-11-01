@@ -13,6 +13,7 @@ export async function POST(
   const logger = getLoggerFactory("AdminAPI/payments/[id]/payment-link/cancel")(
     "POST",
   );
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const session = await getSession();
@@ -39,6 +40,7 @@ export async function POST(
       { paymentId, method: payment.method, status: payment.status },
       "Payment is not a pending payment link",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -54,6 +56,7 @@ export async function POST(
       payment.appointmentId,
       logger,
     );
+
     if (!auth.ok) return auth.response;
   } else {
     const user = session?.user;

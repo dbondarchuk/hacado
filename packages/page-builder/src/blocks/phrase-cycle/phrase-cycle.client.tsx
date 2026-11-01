@@ -40,6 +40,7 @@ export const PhraseCycleClient = forwardRef<
       () => phrases.filter((phrase) => phrase.text.length > 0),
       [phrases],
     );
+
     const timeline = useMemo(
       () =>
         phraseCycleTimeline(
@@ -61,6 +62,7 @@ export const PhraseCycleClient = forwardRef<
         safePhrases.length,
       ],
     );
+
     const cycling = safePhrases.length > 1;
 
     return (

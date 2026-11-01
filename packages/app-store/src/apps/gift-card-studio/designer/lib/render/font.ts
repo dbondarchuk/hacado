@@ -22,6 +22,7 @@ const _getFontCache = () => {
     if (!globalWithMongo._fontCache) {
       globalWithMongo._fontCache = new Map<string, SatoriFont>();
     }
+
     _fontCache = globalWithMongo._fontCache;
   } else {
     // In production mode, it's best to not use a global variable.
@@ -33,6 +34,7 @@ const getFontCache = () => {
   if (!_fontCache) {
     _getFontCache();
   }
+
   return _fontCache;
 };
 
@@ -117,5 +119,6 @@ export async function loadGoogleFontForSatori(
     const satoriFont = await loadGoogleFont(fontFamily, w);
     result.push(satoriFont);
   }
+
   return result;
 }

@@ -14,7 +14,9 @@ function getSessionPlanTier(
     subscriptionPlanTier?: BillingPlanTier | null;
     feesExempt?: boolean;
   };
+
   if (user.feesExempt) return BillingPlanTier.Studio;
+
   return user.subscriptionPlanTier ?? null;
 }
 
@@ -58,6 +60,7 @@ export const withSubscriptionPlanGate: MiddlewareProxy = (next) => {
       headers: request.headers,
       query: { disableCookieCache: true },
     });
+
     if (!session) {
       return next(request, event);
     }

@@ -30,6 +30,7 @@ export const getWaitlistEntriesActionSchema = z.object({
 export type GetWaitlistEntriesAction = z.infer<
   typeof getWaitlistEntriesActionSchema
 >;
+
 export const GetWaitlistEntriesActionType = "get-waitlist-entries" as const;
 
 // Get waitlist entry action
@@ -41,6 +42,7 @@ export const getWaitlistEntryActionSchema = z.object({
 export type GetWaitlistEntryAction = z.infer<
   typeof getWaitlistEntryActionSchema
 >;
+
 export const GetWaitlistEntryActionType = "get-waitlist-entry" as const;
 
 // Dismiss waitlist entries action
@@ -52,6 +54,7 @@ export const dismissWaitlistEntriesActionSchema = z.object({
 export type DismissWaitlistEntriesAction = z.infer<
   typeof dismissWaitlistEntriesActionSchema
 >;
+
 export const DismissWaitlistEntriesActionType =
   "dismiss-waitlist-entries" as const;
 
@@ -64,6 +67,7 @@ export const setConfigurationActionSchema = z.object({
 export type SetConfigurationAction = z.infer<
   typeof setConfigurationActionSchema
 >;
+
 export const SetConfigurationActionType = "set-configuration" as const;
 
 // Create waitlist entry action
@@ -122,6 +126,7 @@ export const createWaitlistEntryRequestSchema = z
 export type CreateWaitlistEntryRequest = z.infer<
   typeof createWaitlistEntryRequestSchema
 >;
+
 export const createWaitlistEntryActionSchema = z.object({
   entry: createWaitlistEntryRequestSchema,
 });
@@ -129,6 +134,7 @@ export const createWaitlistEntryActionSchema = z.object({
 export type CreateWaitlistEntryAction = z.infer<
   typeof createWaitlistEntryActionSchema
 >;
+
 export const CreateWaitlistEntryActionType = "create-waitlist-entry" as const;
 
 export const getWaitlistSmsTextActionSchema = z.object({});
@@ -136,6 +142,7 @@ export const getWaitlistSmsTextActionSchema = z.object({});
 export type GetWaitlistSmsTextAction = z.infer<
   typeof getWaitlistSmsTextActionSchema
 >;
+
 export const GetWaitlistSmsTextActionType = "get-sms-text" as const;
 // Request action
 

@@ -118,12 +118,14 @@ export const checkDiscountNameAndCode = async (
     codes,
     id,
   });
+
   const response = await fetchAdminApi(`/discounts/check${serializedParams}`);
 
   const data = await response.json<{
     name: boolean;
     code: Record<string, boolean>;
   }>();
+
   console.debug("Discount name and code checked successfully", {
     name,
     codes,

@@ -15,6 +15,7 @@ export const RedirectConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as RedirectProps["props"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     return (

@@ -408,6 +408,7 @@ export class CatalogService extends BaseService implements ICatalogService {
       _id: id,
       organizationId: this.organizationId,
     });
+
     if (!field) {
       logger.warn({ fieldId: id }, "Field not found");
       return null;
@@ -1151,15 +1152,18 @@ export class CatalogService extends BaseService implements ICatalogService {
 
     const bookingConfiguration =
       await this.configurationService.getConfiguration<"booking">("booking");
+
     const catalogOptionIds = flattenCatalogServiceIds(
       bookingConfiguration?.catalog,
     );
+
     if (catalogOptionIds.includes(id)) {
       logger.debug({ serviceId: id }, "Service found in booking catalog");
 
       const remainingIds = catalogOptionIds.filter(
         (optionId) => optionId !== id,
       );
+
       await this.configurationService.setConfiguration(
         "booking",
         {
@@ -1206,9 +1210,11 @@ export class CatalogService extends BaseService implements ICatalogService {
 
     const bookingConfiguration =
       await this.configurationService.getConfiguration<"booking">("booking");
+
     const catalogOptionIds = flattenCatalogServiceIds(
       bookingConfiguration?.catalog,
     );
+
     if (catalogOptionIds.some((optionId) => ids.includes(optionId))) {
       logger.debug({ ids }, "Services found in booking catalog");
       const remainingIds = catalogOptionIds.filter(
@@ -1571,6 +1577,7 @@ export class CatalogService extends BaseService implements ICatalogService {
         { discount: update },
         "Discount name or code already exists",
       );
+
       throw new Error("Name or code already exists");
     }
 
@@ -1690,6 +1697,7 @@ export class CatalogService extends BaseService implements ICatalogService {
       nameFilter._id = {
         $ne: id,
       };
+
       codeFilter._id = {
         $ne: id,
       };
@@ -1769,6 +1777,7 @@ export class CatalogService extends BaseService implements ICatalogService {
         { request, discount },
         "Discount start date is in the future",
       );
+
       return null;
     }
 
@@ -1789,6 +1798,7 @@ export class CatalogService extends BaseService implements ICatalogService {
         { request, discount },
         "Discount appointment start date is in the future",
       );
+
       return null;
     }
 
@@ -1801,6 +1811,7 @@ export class CatalogService extends BaseService implements ICatalogService {
         { request, discount },
         "Discount appointment end date is in the past",
       );
+
       return null;
     }
 
@@ -1818,12 +1829,14 @@ export class CatalogService extends BaseService implements ICatalogService {
             const matchesPackage = limit.packages!.some(
               (pkg) => pkg.id === request.packageId,
             );
+
             if (!matchesPackage) {
               logger.debug(
                 { request, discount },
                 "Discount limit to package not found",
               );
             }
+
             return matchesPackage;
           }
 
@@ -1832,6 +1845,7 @@ export class CatalogService extends BaseService implements ICatalogService {
               { request, discount },
               "Discount limited to services cannot apply to package purchase",
             );
+
             return false;
           }
 
@@ -1848,6 +1862,7 @@ export class CatalogService extends BaseService implements ICatalogService {
               { request, discount },
               "Discount limit to option not found",
             );
+
             return false;
           }
 
@@ -1863,6 +1878,7 @@ export class CatalogService extends BaseService implements ICatalogService {
                 { request, discount },
                 "Discount limit to addon not found",
               );
+
               return false;
             }
           }
@@ -1875,6 +1891,7 @@ export class CatalogService extends BaseService implements ICatalogService {
             { request, discount },
             "Discount limited to packages cannot apply to service booking",
           );
+
           return false;
         }
 
@@ -1922,6 +1939,7 @@ export class CatalogService extends BaseService implements ICatalogService {
           { request, discount },
           "Discount max usage per customer reached",
         );
+
         return null;
       }
     }

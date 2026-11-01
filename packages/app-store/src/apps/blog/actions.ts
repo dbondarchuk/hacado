@@ -55,12 +55,14 @@ export async function getBlogPosts(
       { appId, resultCount: result?.items?.length || 0 },
       "Successfully retrieved blog posts",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error getting blog posts",
     );
+
     throw error;
   }
 }
@@ -83,6 +85,7 @@ export async function getBlogPost(appId: string, id?: string, slug?: string) {
       { appId, error: error?.message || error?.toString() },
       "Error getting blog post",
     );
+
     throw error;
   }
 }
@@ -104,6 +107,7 @@ export async function createBlogPost(appId: string, post: BlogPostUpdateModel) {
       { appId, error: error?.message || error?.toString() },
       "Error creating blog post",
     );
+
     throw error;
   }
 }
@@ -130,6 +134,7 @@ export async function updateBlogPost(
       { appId, error: error?.message || error?.toString() },
       "Error updating blog post",
     );
+
     throw error;
   }
 }
@@ -151,6 +156,7 @@ export async function deleteBlogPost(appId: string, id: string) {
       { appId, error: error?.message || error?.toString() },
       "Error deleting blog post",
     );
+
     throw error;
   }
 }
@@ -172,6 +178,7 @@ export async function deleteSelectedBlogPosts(appId: string, ids: string[]) {
       { appId, error: error?.message || error?.toString() },
       "Error deleting blog posts",
     );
+
     throw error;
   }
 }
@@ -193,12 +200,14 @@ export async function getBlogComments(
       { appId, resultCount: result?.items?.length || 0 },
       "Successfully retrieved blog comments",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error getting blog comments",
     );
+
     throw error;
   }
 }
@@ -208,6 +217,7 @@ export async function approveBlogComment(appId: string, id: string) {
     type: ApproveBlogCommentActionType,
     id,
   })) as BlogComment;
+
   return result;
 }
 
@@ -216,6 +226,7 @@ export async function rejectBlogComment(appId: string, id: string) {
     type: RejectBlogCommentActionType,
     id,
   })) as BlogComment;
+
   return result;
 }
 
@@ -269,12 +280,14 @@ export async function checkBlogPostSlugUnique(
       { appId, slug, id },
       "Successfully checked blog post slug uniqueness",
     );
+
     return result;
   } catch (error: any) {
     logger.error(
       { appId, error: error?.message || error?.toString() },
       "Error checking blog post slug uniqueness",
     );
+
     throw error;
   }
 }

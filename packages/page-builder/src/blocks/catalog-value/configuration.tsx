@@ -92,6 +92,7 @@ export const CatalogValueConfiguration = ({
 
   const property =
     data.props?.property ?? CatalogValuePropsDefaults.props.property;
+
   const properties = catalogProperties[source];
 
   const updateProps = useCallback(

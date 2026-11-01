@@ -244,6 +244,7 @@ export class TeamService extends BaseService implements ITeamService {
       { total: response.total, count: response.items.length },
       "Members listed",
     );
+
     return response;
   }
 
@@ -548,6 +549,7 @@ export class TeamService extends BaseService implements ITeamService {
       status: "inactive",
       includeInactive: true,
     });
+
     const results: Array<{
       memberId: string;
       memberName: string;
@@ -558,6 +560,7 @@ export class TeamService extends BaseService implements ITeamService {
       const upcoming = await this.listUpcomingAppointmentsForMember(
         normalizeMemberId(m._id),
       );
+
       if (upcoming.length) {
         results.push({
           memberId: normalizeMemberId(m._id),
@@ -597,6 +600,7 @@ export class TeamService extends BaseService implements ITeamService {
         { memberId, organizationId: this.organizationId },
         "Member not updated",
       );
+
       return null;
     }
 
@@ -703,6 +707,7 @@ export class TeamService extends BaseService implements ITeamService {
     const contacts: OrganizationAdminContact[] = [];
     for (const member of members) {
       if (!member.email) continue;
+
       contacts.push({
         memberId: normalizeMemberId(member._id),
         email: member.email,
@@ -719,6 +724,7 @@ export class TeamService extends BaseService implements ITeamService {
       },
       "Organization member contacts loaded",
     );
+
     return contacts;
   }
 
@@ -737,6 +743,7 @@ export class TeamService extends BaseService implements ITeamService {
         } catch {
           // ignore malformed active-sessions payload
         }
+
         await redis.del(activeKey);
       }
 

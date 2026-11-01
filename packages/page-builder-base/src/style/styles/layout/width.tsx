@@ -19,6 +19,7 @@ export const widthStyle = {
   defaultValue: { value: 100, unit: "%" },
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `width: ${renderRawNumberWithUnitOrKeywordCss(value)};`;
   },
   component: ({ value, onChange }) => (

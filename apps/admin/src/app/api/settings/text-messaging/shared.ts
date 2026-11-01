@@ -78,6 +78,7 @@ export async function storeOptInImage(input: {
       file,
       memberEventSource(input.memberId),
     );
+
     return `${base}/assets/${asset.filename}`;
   } catch (error) {
     input.logger.warn({ error }, "SMS opt-in screenshot was not stored");

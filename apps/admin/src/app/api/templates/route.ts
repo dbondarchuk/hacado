@@ -88,7 +88,6 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-
   if (data.type === "text-message" && !(await customTextTemplatesAllowed())) {
     return NextResponse.json(
       { error: "Forbidden", code: "forbidden", success: false },

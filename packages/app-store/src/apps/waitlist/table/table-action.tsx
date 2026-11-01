@@ -53,11 +53,13 @@ export const WaitlistTableAction: React.FC<{
     end,
     setEndValue,
   } = useWaitlistTableFilters();
+
   const { rowSelection } = useSelectedRowsStore();
   const { user } = useAuth();
   const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
     waitlistAdminNamespace,
   );
+
   const tUi = useI18n("ui");
 
   const showMemberFilter = canFilterByMember(user);

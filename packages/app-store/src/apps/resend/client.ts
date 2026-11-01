@@ -12,6 +12,7 @@ import { ResendAdminAllKeys } from "./translations/types";
 
 export const RESEND_OAUTH_AUTHORIZE_URL =
   "https://api.resend.com/oauth/authorize";
+
 export const RESEND_OAUTH_TOKEN_URL = "https://api.resend.com/oauth/token";
 export const RESEND_OAUTH_REVOKE_URL = "https://api.resend.com/oauth/revoke";
 export const RESEND_OAUTH_SCOPE = "emails:send";
@@ -31,6 +32,7 @@ export function generatePkcePair(): {
   const codeChallenge = base64url(
     createHash("sha256").update(codeVerifier).digest(),
   );
+
   return { codeVerifier, codeChallenge };
 }
 
@@ -45,6 +47,7 @@ export function getResendOAuthCredentials(): {
       "app_resend_admin.statusText.missing_oauth_config" satisfies ResendAdminAllKeys,
     );
   }
+
   return { clientId, clientSecret };
 }
 
@@ -104,6 +107,7 @@ export async function exchangeAuthorizationCode(params: {
       },
       "Authorization code exchange failed",
     );
+
     throw new ConnectedAppError(
       "app_resend_admin.statusText.oauth_error" satisfies ResendAdminAllKeys,
     );
@@ -159,6 +163,7 @@ export async function refreshResendTokens(params: {
       },
       "Refresh token exchange failed",
     );
+
     throw new ConnectedAppError(
       "app_resend_admin.statusText.oauth_error" satisfies ResendAdminAllKeys,
     );
@@ -208,6 +213,7 @@ export async function revokeResendToken(params: {
     } catch {
       errorBody = undefined;
     }
+
     logger.warn(
       { status: response.status, errorBody },
       "Token revoke returned non-OK status",
@@ -259,6 +265,7 @@ export class ResendOAuthClient {
         },
         "Using existing access token",
       );
+
       return decrypt(token.accessToken);
     }
 
@@ -270,6 +277,7 @@ export class ResendOAuthClient {
       },
       "Access token expired or near expiry; refreshing",
     );
+
     const tokens = await this.refreshToken();
     return tokens.accessToken;
   }

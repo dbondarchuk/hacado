@@ -95,6 +95,7 @@ export async function PUT(
       { error, addonId: id },
       "Invalid service addon update model format",
     );
+
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
@@ -122,6 +123,7 @@ export async function PUT(
       },
       "Failed to update service addon",
     );
+
     return NextResponse.json(
       {
         success: false,
@@ -184,6 +186,7 @@ export async function DELETE(
       },
       "Failed to delete service addon",
     );
+
     return NextResponse.json(
       {
         success: false,

@@ -43,9 +43,11 @@ export async function GET(request: NextRequest) {
             const children = filterCatalog(node.children);
             return children.length ? { ...node, children } : null;
           }
+
           if (node.type === "package") {
             return canUsePackages ? node : null;
           }
+
           return node;
         })
         .filter((node): node is NonNullable<typeof node> => node !== null);
@@ -121,6 +123,7 @@ export async function POST(request: NextRequest) {
 
   const existingBooking =
     await servicesContainer.configurationService.getConfiguration("booking");
+
   const booking =
     existingBooking && Object.keys(existingBooking).length > 0
       ? existingBooking
@@ -139,6 +142,7 @@ export async function POST(request: NextRequest) {
     ...catalog,
     { type: "service" as const, id: optionId, serviceId: optionId },
   ];
+
   const updatedBooking = bookingConfigurationSchema.parse({
     ...booking,
     catalog: nextCatalog,

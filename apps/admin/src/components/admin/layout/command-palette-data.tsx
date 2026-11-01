@@ -102,6 +102,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "appointment", "create"),
   );
+
   add(
     {
       id: "new-customer",
@@ -111,6 +112,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "customer", "create"),
   );
+
   add(
     {
       id: "new-page",
@@ -120,6 +122,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "page", "update"),
   );
+
   add(
     {
       id: "new-header",
@@ -129,6 +132,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "page", "update"),
   );
+
   add(
     {
       id: "new-footer",
@@ -138,6 +142,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "page", "update"),
   );
+
   add(
     {
       id: "new-template",
@@ -147,6 +152,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "communication", "readAll"),
   );
+
   add(
     {
       id: "new-option",
@@ -156,6 +162,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "service", "create"),
   );
+
   add(
     {
       id: "new-addon",
@@ -165,6 +172,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "service", "create"),
   );
+
   add(
     {
       id: "new-field",
@@ -174,6 +182,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "service", "create"),
   );
+
   add(
     {
       id: "new-discount",
@@ -183,6 +192,7 @@ export function buildCommandPaletteActions({
     },
     solo && hasPermission(user, "discount", "create"),
   );
+
   add(
     {
       id: "new-gift-card",
@@ -192,6 +202,7 @@ export function buildCommandPaletteActions({
     },
     solo && hasPermission(user, "giftCard", "create"),
   );
+
   add(
     {
       id: "new-package",
@@ -201,6 +212,7 @@ export function buildCommandPaletteActions({
     },
     solo && hasPermission(user, "package", "create"),
   );
+
   add(
     {
       id: "new-asset",
@@ -210,6 +222,7 @@ export function buildCommandPaletteActions({
     },
     hasPermission(user, "page", "update"),
   );
+
   add(
     {
       id: "add-payment",
@@ -220,6 +233,7 @@ export function buildCommandPaletteActions({
     },
     canUseFinancials && canViewFinancials(user),
   );
+
   add(
     {
       id: "approve-matched-payments",

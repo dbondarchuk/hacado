@@ -23,12 +23,15 @@ export async function emitSmsVerificationStatusChange(input: {
   if (input.firstSubmission && input.nextStatus === "pending") {
     await input.emit(SMS_VERIFICATION_CREATED_EVENT_TYPE, payload);
   }
+
   if (input.nextStatus === "pending" && input.previousStatus !== "pending") {
     await input.emit(SMS_VERIFICATION_PENDING_EVENT_TYPE, payload);
   }
+
   if (input.nextStatus === "rejected" && input.previousStatus !== "rejected") {
     await input.emit(SMS_VERIFICATION_FAILED_EVENT_TYPE, payload);
   }
+
   if (input.nextStatus === "verified" && input.previousStatus !== "verified") {
     await input.emit(SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE, payload);
   }

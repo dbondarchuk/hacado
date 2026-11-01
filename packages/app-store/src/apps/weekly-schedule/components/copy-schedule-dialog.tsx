@@ -57,6 +57,7 @@ export const CopyScheduleDialog: React.FC<CopyScheduleDialogProps> = ({
   const t = useI18n<WeeklyScheduleAdminNamespace, WeeklyScheduleAdminKeys>(
     weeklyScheduleAdminNamespace,
   );
+
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);

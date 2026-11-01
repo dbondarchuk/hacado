@@ -15,10 +15,12 @@ export const resolveBlogPostDisplayContent = (
 
   const showShort =
     props?.showShort ?? BlogPostContentPropsDefaults.props.showShort;
+
   const maxParagraphs =
     !!props && "maxParagraphs" in props && !!props.maxParagraphs
       ? props.maxParagraphs
       : BlogPostShortContentProps.maxParagraphs;
+
   const showOnlyTextParagraphs =
     !!props &&
     "showOnlyTextParagraphs" in props &&

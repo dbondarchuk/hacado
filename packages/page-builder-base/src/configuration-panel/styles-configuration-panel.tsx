@@ -55,6 +55,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
   const getCategoryLabel = (category: StyleCategory) => {
     const categoryLabel =
       `builder.pageBuilder.styles.categories.${category}` as AllKeys;
+
     return t.has(categoryLabel) ? t(categoryLabel) : category;
   };
 
@@ -66,6 +67,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
           if (!acc[style.category]) {
             acc[style.category] = [];
           }
+
           acc[style.category].push(style);
           return acc;
         },
@@ -101,6 +103,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
             )
           );
         }
+
         return true;
       }),
     [activeCategories, searchTerm],
@@ -118,6 +121,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
           },
         ],
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],
@@ -136,6 +140,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: newVariants,
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],
@@ -166,6 +171,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: newVariants,
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles, availableStyles],
@@ -189,6 +195,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: newVariants,
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],
@@ -208,6 +215,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: newVariants,
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],
@@ -223,6 +231,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: newVariants,
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],
@@ -245,6 +254,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: arrayMove(currentVariants, fromIndex, toIndex),
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],
@@ -263,6 +273,7 @@ export const StylesConfigurationPanel = <T extends BaseStyleDictionary>({
         ...styles,
         [styleName]: newVariants,
       };
+
       onStylesChange(newStyles);
     },
     [onStylesChange, styles],

@@ -193,6 +193,7 @@ export class PagesService extends BaseService implements IPagesService {
         },
         "Exact match found",
       );
+
       return { entry: exact, params: {} };
     }
 
@@ -209,6 +210,7 @@ export class PagesService extends BaseService implements IPagesService {
         },
         "Checking page",
       );
+
       if (!entry.slug.includes("[")) continue;
 
       const patternParts = entry.slug.split("/");
@@ -218,6 +220,7 @@ export class PagesService extends BaseService implements IPagesService {
           { rawSlug, patternParts, slugParts },
           "Pattern parts length mismatch",
         );
+
         continue;
       }
 
@@ -235,6 +238,7 @@ export class PagesService extends BaseService implements IPagesService {
             { rawSlug, patternSegment, slugSegment },
             "Pattern segment mismatch",
           );
+
           match = false;
           break;
         }
@@ -269,6 +273,7 @@ export class PagesService extends BaseService implements IPagesService {
       { rawSlug, pageSlug: matches[0]?.entry.slug },
       "Page match result",
     );
+
     return matches[0];
   }
 
@@ -310,6 +315,7 @@ export class PagesService extends BaseService implements IPagesService {
         { rawSlug, pageId: match.entry._id },
         "Matched page not found in database",
       );
+
       return null;
     }
 
@@ -614,6 +620,7 @@ export class PagesService extends BaseService implements IPagesService {
       logger.warn({ pageId: id }, "Page not found for deletion");
       return null;
     }
+
     if (page.slug === "home") {
       logger.error({ pageId: id, slug: page.slug }, "Cannot delete home page");
       throw new Error("Can not delete home page");
@@ -982,6 +989,7 @@ export class PagesService extends BaseService implements IPagesService {
       _id: id,
       organizationId: this.organizationId,
     });
+
     if (!pageHeader) {
       logger.warn({ pageHeaderId: id }, "Page header not found for deletion");
       return null;
@@ -1347,6 +1355,7 @@ export class PagesService extends BaseService implements IPagesService {
       _id: id,
       organizationId: this.organizationId,
     });
+
     if (!pageFooter) {
       logger.warn({ pageFooterId: id }, "Page footer not found for deletion");
       return null;

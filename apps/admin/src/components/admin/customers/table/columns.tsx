@@ -51,6 +51,7 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       ) {
         return null;
       }
+
       return (
         <Checkbox
           checked={table.getIsAllPageRowsSelected()}

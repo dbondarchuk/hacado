@@ -84,6 +84,7 @@ function getLastRefundDate(payment: PaymentExportRow): string {
     (max, date) => (date > max ? date : max),
     dates[0],
   );
+
   return latest.toISOString();
 }
 

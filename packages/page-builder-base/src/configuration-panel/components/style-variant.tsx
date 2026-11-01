@@ -91,10 +91,12 @@ export const StyleVariantComponent = <T extends BaseStyleDictionary>({
       const breakpointLabels = variant.breakpoint.map((bp) =>
         t(`builder.pageBuilder.styles.breakpoints.${bp}`),
       );
+
       parts.push(
         breakpointLabels.join(t("builder.pageBuilder.styles.breakpoints.and")),
       );
     }
+
     if (variant.state?.length) {
       const stateLabels = (variant.state as StateWithTarget[]).map(
         (stateWithParent) => {
@@ -106,6 +108,7 @@ export const StyleVariantComponent = <T extends BaseStyleDictionary>({
             ) {
               return getStateCssSelector(stateWithParent.state);
             }
+
             return `:${t(`builder.pageBuilder.styles.states.${stateWithParent.state}`)}`;
           })().toLocaleLowerCase();
 
@@ -118,6 +121,7 @@ export const StyleVariantComponent = <T extends BaseStyleDictionary>({
           if (isParentTarget(stateWithParent)) {
             const level = stateWithParent.target?.data
               ?.level as (typeof parentLevelKeys)[number];
+
             const parentLabel = t(
               `builder.pageBuilder.styles.states.parentLevels.${level}`,
             );
@@ -136,8 +140,10 @@ export const StyleVariantComponent = <T extends BaseStyleDictionary>({
           return stateLabel;
         },
       );
+
       parts.push(stateLabels.join(", "));
     }
+
     return parts.length > 0
       ? parts.join(" - ")
       : t("builder.pageBuilder.styles.base");

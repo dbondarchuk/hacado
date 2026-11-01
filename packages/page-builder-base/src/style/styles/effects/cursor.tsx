@@ -29,6 +29,7 @@ export const cursorStyle = {
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `cursor: ${value};`;
   },
   component: ({ value, onChange }) => {

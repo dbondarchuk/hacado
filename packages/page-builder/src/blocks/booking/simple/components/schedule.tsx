@@ -129,9 +129,11 @@ export const Schedule: React.FC<
     appointmentOption.durationType === "fixed"
       ? appointmentOption.duration
       : appointmentOption.durationMin;
+
   const [duration, setDuration] = React.useState<number | undefined>(
     appointmentOptionDuration,
   );
+
   const [otpVerified, setOtpVerified] = React.useState(!!initialOtpVerified);
   const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
 
@@ -158,6 +160,7 @@ export const Schedule: React.FC<
   const [giftCards, setGiftCards] = React.useState<
     ApplyGiftCardsSuccessResponse["giftCards"]
   >([]);
+
   const [paymentInformation, setPaymentInformation] =
     React.useState<CollectPayment | null>();
 
@@ -165,6 +168,7 @@ export const Schedule: React.FC<
     appointmentOption.durationType === "fixed"
       ? appointmentOption.price
       : appointmentOption.pricePerHour;
+
   const optionBaseDuration =
     appointmentOption.durationType === "fixed"
       ? appointmentOption.duration
@@ -188,6 +192,7 @@ export const Schedule: React.FC<
     preselectedMemberId ??
       (activeStaff.length === 1 ? activeStaff[0].member.id : null),
   );
+
   const [isAnySpecialist, setIsAnySpecialist] = React.useState(
     initialIsAnySpecialist,
   );
@@ -196,6 +201,7 @@ export const Schedule: React.FC<
     appointmentOption.durationType === "flexible"
       ? appointmentOption.durationMin
       : undefined;
+
   const fixedDuration =
     appointmentOption.durationType === "fixed"
       ? appointmentOption.duration
@@ -203,6 +209,7 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (flexibleDurationMin == null) return;
+
     setDuration(flexibleDurationMin);
   }, [appointmentOption._id, flexibleDurationMin, setDuration]);
 
@@ -246,9 +253,11 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!selectedAddons.length || !selectedMemberId) return;
+
     const filtered = selectedAddons.filter((addon) =>
       isAddonAvailableForMember(addon.staff, selectedMemberId),
     );
+
     if (filtered.length !== selectedAddons.length) {
       setSelectedAddons(filtered);
     }
@@ -257,6 +266,7 @@ export const Schedule: React.FC<
 
   const addonsFields =
     selectedAddons?.flatMap((addon) => addon.fields || []) || [];
+
   const allFormFields = [...(appointmentOption.fields || []), ...addonsFields];
   const fieldsIdsRequired = [...allFormFields].reduce(
     (map, field) => ({
@@ -275,6 +285,7 @@ export const Schedule: React.FC<
 
   const [availabilityByMember, setAvailabilityByMember] =
     React.useState<AvailabilityByMember>({});
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<AppointmentFields>(
     initialFields ?? {
@@ -286,6 +297,7 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (customerPackageId) return;
+
     setOtpVerified(false);
   }, [fields.email, fields.phone, customerPackageId]);
 
@@ -304,16 +316,19 @@ export const Schedule: React.FC<
       appointmentOption.durationType === "fixed"
         ? (selectedStaff?.effectiveDuration ?? appointmentOption.duration)
         : duration;
+
     if (!baseDuration) {
       baseDuration =
         appointmentOption.durationType === "fixed"
           ? appointmentOption.duration
           : appointmentOption.durationMin;
     }
+
     if (!baseDuration) return undefined;
 
     const addonsDuration = (selectedAddons || []).reduce((sum, addon) => {
       if (!isAddonAvailableForMember(addon.staff, memberId)) return sum;
+
       return (
         sum +
         (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0)
@@ -398,6 +413,7 @@ export const Schedule: React.FC<
         memberIds: [resolvedMemberId],
         durations: [totalDuration],
       });
+
       setAvailabilityByMember(data);
     } catch (e) {
       console.error(e);
@@ -444,6 +460,7 @@ export const Schedule: React.FC<
     paymentIntentIdOverride?: string,
   ): AppointmentRequest | null => {
     if (!dateTime || !duration) return null;
+
     return {
       dateTime: LuxonDateTime.fromObject(
         {
@@ -500,6 +517,7 @@ export const Schedule: React.FC<
         appliedAmount: perCard,
         amountLeft: 0,
       }));
+
       setGiftCards(giftCards);
       return giftCards;
     }
@@ -609,6 +627,7 @@ export const Schedule: React.FC<
           setStep("calendar");
           await fetchAvailability();
         }
+
         return;
       }
 
@@ -712,6 +731,7 @@ export const Schedule: React.FC<
               phone: result.phone || fields.phone,
               smsConsent: result.smsConsent === true,
             });
+
             const payment = await fetchPaymentInformation();
             setPaymentInformation(payment);
             if (!payment || payment.intent?.status === "paid") {

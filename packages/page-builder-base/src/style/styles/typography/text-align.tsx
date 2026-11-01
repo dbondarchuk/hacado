@@ -16,6 +16,7 @@ export const textAlignStyle = {
   defaultValue: "left",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `text-align: ${value};`;
   },
   component: ({ value, onChange }) => {

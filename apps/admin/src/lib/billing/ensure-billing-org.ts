@@ -25,6 +25,7 @@ export async function ensureBillingOrganizationForUser(): Promise<string> {
   const existing = (
     session.user as { organizationId?: string }
   ).organizationId?.trim();
+
   if (existing) {
     await ensureOwnerMemberForOrganization(existing, session.user.id, {
       name: session.user.name,
@@ -32,6 +33,7 @@ export async function ensureBillingOrganizationForUser(): Promise<string> {
       language: (session.user as { language?: Language }).language,
       image: session.user.image,
     });
+
     await setActiveOrganizationIfNeeded(existing, headersList);
     return existing;
   }
@@ -117,6 +119,7 @@ async function ensureOwnerMemberForOrganization(
   const authUser = await db
     .collection<User>("users")
     .findOne({ _id: userId }, { projection: { email: 1, image: 1 } });
+
   const email = authUser?.email?.toLowerCase();
   const pending = await takePendingMemberProfile(userId, email);
   const profile = {
@@ -137,6 +140,7 @@ async function ensureOwnerMemberForOrganization(
     if (!existing.phone && profile.phone) $set.phone = profile.phone;
     if (!existing.language && profile.language)
       $set.language = profile.language;
+
     if (!existing.email && profile.email) $set.email = profile.email;
     if (!existing.image && profile.image) $set.image = profile.image;
     if (Object.keys($set).length) {
@@ -144,6 +148,7 @@ async function ensureOwnerMemberForOrganization(
         .collection(MEMBERS_COLLECTION_NAME)
         .updateOne({ _id: existing._id as any }, { $set });
     }
+
     return;
   }
 

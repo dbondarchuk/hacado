@@ -25,6 +25,7 @@ export const alignContentStyle = {
   defaultValue: "stretch",
   renderToCSS: (value) => {
     if (!value) return null;
+
     return `align-content: ${value};`;
   },
   component: ({ value, onChange }) => {

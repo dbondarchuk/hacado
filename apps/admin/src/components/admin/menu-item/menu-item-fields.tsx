@@ -228,6 +228,7 @@ const AppearanceFields: React.FC<{
   const t = useI18n("admin");
   const isAppearanceOverride =
     prefix.endsWith(".scrolled") || prefix.endsWith(".mobile");
+
   const classNameNeedsDescription =
     type === "icon" ||
     type === "link" ||
@@ -620,10 +621,12 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
   const menuItems = useWatch({ control: form.control, name: "menu" }) as
     | { type?: string; showOnMobileHeader?: boolean }[]
     | undefined;
+
   const useDifferentMobileLabel = useWatch({
     control: form.control,
     name: `${name}.mobile.useDifferentLabel`,
   });
+
   const itemIndex = Number(name.match(/^menu\.(\d+)/)?.[1] ?? -1);
   const showMobileHeaderPin =
     Boolean(enableMobileHeaderPin) && type !== "submenu" && type !== "spacer";
@@ -684,6 +687,7 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
                     if (checked && menuItems) {
                       menuItems.forEach((_, index) => {
                         if (index === itemIndex) return;
+
                         form.setValue(
                           `menu.${index}.showOnMobileHeader`,
                           false,

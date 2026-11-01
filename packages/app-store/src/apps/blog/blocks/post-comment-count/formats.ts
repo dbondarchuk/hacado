@@ -13,6 +13,7 @@ export const resolveCommentCountFormatKey = (
   if (COMMENT_COUNT_FORMAT_KEYS.includes(format as CommentCountFormatKey)) {
     return format as CommentCountFormatKey;
   }
+
   return DEFAULT_FORMAT_KEY;
 };
 

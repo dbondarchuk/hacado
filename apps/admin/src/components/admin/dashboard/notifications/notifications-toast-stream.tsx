@@ -30,6 +30,7 @@ export function useHasDashboardNotifications(
     if (!key) {
       return false;
     }
+
     const count = badges[key];
     return typeof count === "number" && count > 0;
   });
@@ -44,9 +45,11 @@ export const DashboardNotificationsBadge: React.FC<{
   const keys = notificationKeys ?? [notificationsCountKey];
   const count = keys.reduce((sum, key) => {
     if (!key) return sum;
+
     const value = badges[key];
     return sum + (typeof value === "number" ? value : 0);
   }, 0);
+
   if (count <= 0) {
     return null;
   }
@@ -105,6 +108,7 @@ export const NotificationsToastStream: React.FC = () => {
     const dateQueryParam = lastDate.current
       ? `?date=${lastDate.current.toISOString()}`
       : "";
+
     // Create an EventSource to listen to SSE events
     const eventSource = new EventSource(
       `${BASE_ADMIN_API_URL}/notifications${dateQueryParam}`,

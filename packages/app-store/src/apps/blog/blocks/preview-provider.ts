@@ -71,11 +71,13 @@ export const BlogTemplatePreviewProvider: TemplatePreviewProvider = {
   resolveBlock: (key: string, t: I18nFn<undefined, undefined>) => {
     const template = blogTemplates[key as keyof typeof blogTemplates];
     if (!template || isLayoutTemplate(template)) return null;
+
     return template.getBlock(t);
   },
   resolveBlocks: (key: string, t: I18nFn<undefined, undefined>) => {
     const template = blogTemplates[key as keyof typeof blogTemplates];
     if (!template || !isLayoutTemplate(template)) return null;
+
     return template.getBlocks(t);
   },
   getPreviewArgs: getBlogTemplatePreviewArgs,

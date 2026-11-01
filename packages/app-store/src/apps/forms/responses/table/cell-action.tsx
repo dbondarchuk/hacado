@@ -47,6 +47,7 @@ export const CellAction: React.FC<CellActionProps> = ({ response, appId }) => {
   const [reassignCustomerId, setReassignCustomerId] = useState<
     string | undefined
   >(response.customerId ?? undefined);
+
   const t = useI18n<FormsAdminNamespace, FormsAdminKeys>(formsAdminNamespace);
   const tUi = useI18n("ui");
   const { reload } = useReload();
@@ -58,6 +59,7 @@ export const CellAction: React.FC<CellActionProps> = ({ response, appId }) => {
         success: t("responses.table.toast.delete"),
         error: t("responses.table.toast.deleteError"),
       });
+
       setDeleteOpen(false);
       reload();
     } catch (error: any) {
@@ -74,6 +76,7 @@ export const CellAction: React.FC<CellActionProps> = ({ response, appId }) => {
       const answersRecord = Object.fromEntries(
         response.answers.map((a) => [a.name, a.value]),
       );
+
       await toastPromise(
         reassignFormResponses(
           appId,
@@ -85,6 +88,7 @@ export const CellAction: React.FC<CellActionProps> = ({ response, appId }) => {
           error: t("responses.table.toast.reassignError"),
         },
       );
+
       setReassignOpen(false);
       reload();
     } catch (error: any) {

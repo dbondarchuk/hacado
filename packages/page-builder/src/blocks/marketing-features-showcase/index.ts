@@ -5,4 +5,5 @@ export {
   MarketingFeaturesShowcasePropsDefaults,
   MarketingFeaturesShowcasePropsSchema,
 } from "./schema";
+
 export { MarketingFeaturesShowcaseToolbar } from "./toolbar";

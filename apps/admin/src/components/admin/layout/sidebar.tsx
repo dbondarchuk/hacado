@@ -61,6 +61,7 @@ const collectHrefs = (menuItems: NavItemGroup[]): string[] => {
       }
     }
   }
+
   return hrefs;
 };
 
@@ -73,11 +74,14 @@ const getBestMatchingHref = (
   for (const href of hrefs) {
     const matches =
       path === href || (href !== "/" && path.startsWith(`${href}/`));
+
     if (!matches) continue;
+
     if (!best || href.length > best.length) {
       best = href;
     }
   }
+
   return best;
 };
 
@@ -147,6 +151,7 @@ export const AppSidebar: React.FC<SidebarProps> = ({
                 const childActive = !!item.items?.some((sub) =>
                   isHrefActive(sub.href),
                 );
+
                 const itemActive = isHrefActive(item.href) || childActive;
 
                 return (

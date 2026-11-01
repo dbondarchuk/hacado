@@ -226,6 +226,7 @@ export const autoformatIndentLists: AutoformatRule[] = [
       toggleIndentList(editor, {
         listStyleType: INDENT_LIST_KEYS.todo,
       });
+
       editor.tf.setNodes({
         checked: false,
         listStyleType: INDENT_LIST_KEYS.todo,
@@ -240,6 +241,7 @@ export const autoformatIndentLists: AutoformatRule[] = [
       toggleIndentList(editor, {
         listStyleType: INDENT_LIST_KEYS.todo,
       });
+
       editor.tf.setNodes({
         checked: true,
         listStyleType: INDENT_LIST_KEYS.todo,

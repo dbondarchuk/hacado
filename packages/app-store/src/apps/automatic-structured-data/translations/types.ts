@@ -11,5 +11,6 @@ export type {
 
 export const automaticStructuredDataAdminNamespace =
   `app_${AUTOMATIC_STRUCTURED_DATA_APP_NAME}_admin` as const;
+
 export type AutomaticStructuredDataAdminNamespace =
   typeof automaticStructuredDataAdminNamespace;

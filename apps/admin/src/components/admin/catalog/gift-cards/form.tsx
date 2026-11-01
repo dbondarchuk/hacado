@@ -127,6 +127,7 @@ export const GiftCardForm: React.FC<{
           if (data.paymentMethod !== "payment-link") {
             return;
           }
+
           if (!data.paymentLinkAppId) {
             ctx.addIssue({
               code: z.ZodIssueCode.custom,
@@ -135,6 +136,7 @@ export const GiftCardForm: React.FC<{
                 "validation.payments.paymentLinkAppId.required" satisfies BaseAllKeys,
             });
           }
+
           if (
             (data.channel === "email" || data.channel === "sms") &&
             (!data.to || data.to.trim().length === 0)
@@ -180,10 +182,12 @@ export const GiftCardForm: React.FC<{
   const smsTo = form.watch("to");
   const sendingSms =
     !initialData?._id && paymentMethod === "payment-link" && channel === "sms";
+
   const smsConsentStatus = useCustomerPhoneSmsConsent(
     sendingSms ? customerId : undefined,
     sendingSms ? smsTo : undefined,
   );
+
   const smsBlocked =
     sendingSms &&
     !(
@@ -200,6 +204,7 @@ export const GiftCardForm: React.FC<{
     if (!initialData?._id) {
       return false;
     }
+
     return !isPendingPaymentLink;
   }, [initialData?._id, isPendingPaymentLink]);
 
@@ -207,6 +212,7 @@ export const GiftCardForm: React.FC<{
     if (initialData?._id) {
       return;
     }
+
     void paymentsApi
       .listPaymentLinkApps()
       .then((result) => setPaymentLinkApps(result.items))
@@ -244,6 +250,7 @@ export const GiftCardForm: React.FC<{
         setEmailDestinations(
           uniqueNonEmpty([customer.email, ...(customer.knownEmails ?? [])]),
         );
+
         setPhoneDestinations(
           uniqueNonEmpty([customer.phone, ...(customer.knownPhones ?? [])]),
         );
@@ -282,6 +289,7 @@ export const GiftCardForm: React.FC<{
       if (form.getValues("to")) {
         form.setValue("to", undefined);
       }
+
       return;
     }
 
@@ -336,10 +344,12 @@ export const GiftCardForm: React.FC<{
                     const body = (await error.response.clone().json()) as {
                       code?: string;
                     };
+
                     code = body.code;
                   } catch {
                     // ignore parse errors
                   }
+
                   if (code) {
                     throw new Error(code);
                   }
@@ -368,6 +378,7 @@ export const GiftCardForm: React.FC<{
             router.push(
               `/dashboard/catalog/gift-cards?id=${result.payment._id}`,
             );
+
             return;
           }
 
@@ -724,8 +735,10 @@ export const GiftCardForm: React.FC<{
                                     {paymentLinkApps.map((app) => {
                                       const Logo =
                                         AvailableApps[app.name]?.Logo;
+
                                       const displayName =
                                         AvailableApps[app.name]?.displayName;
+
                                       return (
                                         <SelectItem
                                           value={app._id}

@@ -30,6 +30,7 @@ export const AccordionEditor = ({ props, style }: AccordionProps) => {
   const iconStyle = currentBlock.data?.props?.iconStyle;
   const allowMultipleOpen =
     currentBlock.data?.props?.allowMultipleOpen ?? false;
+
   const defaultOpenFirst = currentBlock.data?.props?.defaultOpenFirst ?? false;
   const childIds = useBlockChildrenBlockIds(currentBlock.id, "props");
   const children = (currentBlock.data?.props?.children ??

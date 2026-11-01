@@ -34,6 +34,7 @@ export async function getPublicInvitation(
   const expiresAt = invitation.expiresAt
     ? new Date(invitation.expiresAt as string | Date)
     : null;
+
   if (expiresAt && expiresAt < new Date()) {
     return { ok: false, error: "expired" };
   }

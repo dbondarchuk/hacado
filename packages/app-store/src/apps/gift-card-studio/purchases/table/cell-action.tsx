@@ -46,6 +46,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
+
   const [loading, setLoading] = useState(false);
   const { reload } = useReload();
   const isActive = purchase.status === "active";
@@ -67,6 +68,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
         }),
         error: tUi("common.toasts.error"),
       });
+
       reload();
     } catch (error: any) {
       console.error(error);
@@ -92,6 +94,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
           error: tUi("common.toasts.error"),
         },
       );
+
       reload();
     } catch (error: any) {
       console.error(error);
@@ -113,6 +116,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
           error: tUi("common.toasts.error"),
         },
       );
+
       reload();
     } catch (error: any) {
       console.error(error);
@@ -133,6 +137,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
           error: tUi("common.toasts.error"),
         },
       );
+
       reload();
     } catch (error: any) {
       console.error(error);
@@ -159,6 +164,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
   const canSendToCustomer =
     purchase.invoiceGenerationStatus === "completed" &&
     purchase.cardGenerationStatus === "completed";
+
   const canSendToRecipient = purchase.cardGenerationStatus === "completed";
 
   return (

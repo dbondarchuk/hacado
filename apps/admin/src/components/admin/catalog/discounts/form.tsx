@@ -204,6 +204,7 @@ const DiscountLimitCard: React.FC<{
                               field.onChange({
                                 ids: ids.map((id) => ({ id })),
                               });
+
                               field.onBlur();
                             }}
                             value={field.value?.ids?.map((v) => v.id) ?? []}
@@ -380,6 +381,7 @@ export const DiscountForm: React.FC<{
 
   const onAddCode = () => {
     if (codes && codes.length >= 10) return;
+
     form.setValue("codes", [...(codes ?? []), ""]);
     form.trigger("codes");
   };

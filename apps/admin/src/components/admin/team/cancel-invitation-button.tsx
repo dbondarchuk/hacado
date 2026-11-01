@@ -28,6 +28,7 @@ export function CancelInvitationButton({
             (async () => {
               const result = await teamsApi.cancelInvitation(invitationId);
               if (!result.ok) throw new Error(result.code);
+
               return result;
             })(),
             {
@@ -35,6 +36,7 @@ export function CancelInvitationButton({
               error: t("common.toasts.error"),
             },
           );
+
           router.refresh();
         } catch (error) {
           console.error(error);

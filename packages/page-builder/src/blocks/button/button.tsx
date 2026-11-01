@@ -22,6 +22,7 @@ export const Button = ({ children, type, ...props }: Props) => {
     const { action, actionData, ...rest } = props as ButtonProps["props"] & {
       type: "action";
     };
+
     const onClick = () => {
       if (action === "open-popup") {
         const popupId = actionData?.popupId;

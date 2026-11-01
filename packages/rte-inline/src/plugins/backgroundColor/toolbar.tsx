@@ -28,6 +28,7 @@ export function BackgroundColorToolbarButton() {
   };
 
   if (context.disabledFeatures?.includes("backgroundColor")) return null;
+
   return (
     <ColorPickerButton
       mark="backgroundColor"

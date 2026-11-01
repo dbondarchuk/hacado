@@ -44,6 +44,7 @@ export async function requireCanUpdateAppointment(
       },
       "Forbidden: cannot update another member's appointment",
     );
+
     return {
       ok: false as const,
       response: NextResponse.json(

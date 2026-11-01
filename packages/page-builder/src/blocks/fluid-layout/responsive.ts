@@ -41,6 +41,7 @@ export function getColumnCountForTier(tier: FluidPlacementTier): number {
   if (tier === "mobile" || tier === "mobileLandscape") {
     return FLUID_MOBILE_COLUMNS;
   }
+
   return FLUID_COLUMNS;
 }
 
@@ -52,6 +53,7 @@ export function scalePlacementToTablet(
     1,
     Math.ceil((placement.colEnd - placement.colStart) / 2),
   );
+
   const maxWidth = FLUID_TABLET_COLUMNS - colStart + 1;
   const clampedWidth = Math.min(width, maxWidth);
   const colEnd = colStart + clampedWidth;
@@ -71,6 +73,7 @@ function comparePlacementsForStack(
 ): number {
   if (a.rowStart !== b.rowStart) return a.rowStart - b.rowStart;
   if (a.colStart !== b.colStart) return a.colStart - b.colStart;
+
   return (a.zIndex ?? 0) - (b.zIndex ?? 0);
 }
 
@@ -84,6 +87,7 @@ export function computeMobileStackPlacements(
     if (!pa && !pb) return 0;
     if (!pa) return 1;
     if (!pb) return -1;
+
     return comparePlacementsForStack(pa, pb);
   });
 
@@ -92,6 +96,7 @@ export function computeMobileStackPlacements(
   for (const id of sorted) {
     const src = source[id];
     if (!src) continue;
+
     const height = Math.max(1, src.rowEnd - src.rowStart);
     const next: FluidPlacement = {
       colStart: 1,
@@ -100,12 +105,15 @@ export function computeMobileStackPlacements(
       rowEnd: row + height,
       zIndex: src.zIndex ?? 0,
     };
+
     if (src.rotate != null) {
       next.rotate = src.rotate;
     }
+
     result[id] = next;
     row += height;
   }
+
   return result;
 }
 
@@ -116,6 +124,7 @@ function clampPlacementsForTier(
 ): Record<string, FluidPlacement> {
   const maxColumns = getColumnCountForTier(tier);
   if (maxColumns === FLUID_COLUMNS) return placements;
+
   const result: Record<string, FluidPlacement> = {};
   for (const id of childIds) {
     const placement = placements[id];
@@ -123,6 +132,7 @@ function clampPlacementsForTier(
       result[id] = clampPlacement(placement, maxColumns);
     }
   }
+
   return result;
 }
 
@@ -139,11 +149,13 @@ function resolveTabletPlacements(
       result[id] = override;
       continue;
     }
+
     const desktop = base[id];
     if (desktop) {
       result[id] = scalePlacementToTablet(desktop);
     }
   }
+
   return result;
 }
 
@@ -158,6 +170,7 @@ function resolveMobilePlacements(
   for (const id of childIds) {
     result[id] = mobileOverrides[id] ?? stacked[id];
   }
+
   return result;
 }
 
@@ -172,6 +185,7 @@ function resolveMobileLandscapePlacements(
   for (const id of childIds) {
     result[id] = landscapeOverrides[id] ?? stacked[id] ?? mobileEffective[id];
   }
+
   return result;
 }
 
@@ -221,6 +235,7 @@ export function resolveEffectivePlacements({
     mobileEffective,
     overrides,
   );
+
   return clampPlacementsForTier(
     childIds,
     placementsForChildIds(childIds, landscapeEffective),
@@ -234,6 +249,7 @@ export function hasChildOverride(
   childId: string,
 ): boolean {
   if (tier === "desktop") return false;
+
   return !!overrides[tier]?.[childId];
 }
 
@@ -242,6 +258,7 @@ export function isTierCustom(
   tier: FluidPlacementTier,
 ): boolean {
   if (tier === "desktop") return false;
+
   const map = overrides[tier];
   return !!map && Object.keys(map).length > 0;
 }
@@ -252,6 +269,7 @@ export function clearChildPlacementOverride(
   childId: string,
 ): FluidPlacementOverrides {
   if (tier === "desktop") return overrides;
+
   const tierMap = overrides[tier];
   if (!tierMap?.[childId]) return overrides;
 
@@ -264,6 +282,7 @@ export function clearChildPlacementOverride(
   } else {
     next[tier] = nextTierMap;
   }
+
   return next;
 }
 
@@ -272,6 +291,7 @@ export function clearTierPlacementOverrides(
   tier: FluidPlacementTier,
 ): FluidPlacementOverrides {
   if (tier === "desktop") return overrides;
+
   const next = { ...overrides };
   delete next[tier];
   return next;
@@ -323,6 +343,7 @@ export function syncPlacementsAllTiers(
       if (placementOverrides === sourceOverrides) {
         placementOverrides = { ...sourceOverrides };
       }
+
       changed = true;
       if (Object.keys(cleaned).length === 0) {
         delete placementOverrides[tier];
@@ -350,6 +371,7 @@ export function placementToChildCss(
   const rotateCss = rotate
     ? `${childSelector} > .fluid-child-rotate { transform: rotate(${rotate}deg); transform-origin: center center; }`
     : "";
+
   return `
 ${childSelector} {
   grid-column: ${placement.colStart} / ${placement.colEnd};

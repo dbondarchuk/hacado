@@ -23,6 +23,7 @@ export function filterNavItemsForPermission<T extends NavItemWithPermission>(
       const nextChildren = item.children
         ? filterNavItemsForPermission(item.children, user)
         : undefined;
+
       const nextItems = item.items
         ? filterNavItemsForPermission(item.items, user)
         : undefined;
@@ -31,6 +32,7 @@ export function filterNavItemsForPermission<T extends NavItemWithPermission>(
         user,
         item.requiredPermission,
       );
+
       const hasVisibleDescendants =
         (nextChildren !== undefined && nextChildren.length > 0) ||
         (nextItems !== undefined && nextItems.length > 0);
@@ -43,6 +45,7 @@ export function filterNavItemsForPermission<T extends NavItemWithPermission>(
         if (nextChildren.length === 0) {
           return null;
         }
+
         return {
           ...item,
           ...(selfAllowed ? {} : { href: undefined }),
@@ -55,8 +58,10 @@ export function filterNavItemsForPermission<T extends NavItemWithPermission>(
           if (!selfAllowed || !item.href) {
             return null;
           }
+
           return { ...item, items: [] };
         }
+
         return {
           ...item,
           ...(selfAllowed ? {} : { href: undefined }),

@@ -22,6 +22,7 @@ export const objectPositionStyle = {
     value: z.infer<typeof ObjectPositionSchema> | null | undefined,
   ) => {
     if (!value) return null;
+
     return `object-position: ${value.x}% ${value.y}%;`;
   },
   component: ({

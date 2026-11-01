@@ -43,10 +43,12 @@ export const TableReader = ({
     p.colWidths as number[] | undefined,
     colCount,
   );
+
   const rowHeights = normalizedRowHeights(
     p.rowHeights as number[] | undefined,
     rowCount,
   );
+
   const covered = computeSpanCovered(rowCount, colCount, colspan, rowspan);
 
   const className = generateClassName();
@@ -58,12 +60,14 @@ export const TableReader = ({
     for (let c = 0; c < colCount; c++) {
       const i = r * colCount + c;
       if (covered.has(i)) continue;
+
       const cs = Math.min(Math.max(colspan[i] ?? 1, 1), colCount - c);
       const rs = Math.min(Math.max(rowspan[i] ?? 1, 1), rowCount - r);
       const cell = cells[i];
       const cellWidthPct = spannedColWidthPercent(colWidths, c, cs);
       const slot =
         cell && isEmbeddedSlot(cell) ? cell : isBlock(cell) ? null : null;
+
       const slotStyles = slot?.style ?? {};
       const { surface, inner } = splitTableCellSlotStyles(slotStyles);
       const slotChildren = slot?.children ?? (isBlock(cell) ? [cell] : []);
@@ -116,6 +120,7 @@ export const TableReader = ({
         </td>,
       );
     }
+
     bodyRows.push(
       <tr
         key={r}

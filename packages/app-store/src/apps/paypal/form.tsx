@@ -80,6 +80,7 @@ const ApplePaySection: React.FC<{
   const [isAvailable, setIsAvailable] = React.useState(false);
   const [applePayConfig, setApplePayConfig] =
     React.useState<PaypalApplePayConfig | null>(null);
+
   const currency = useCurrency();
   const orgConfig = useConfig();
 
@@ -128,6 +129,7 @@ const ApplePaySection: React.FC<{
           validationUrl: event.validationURL,
           displayName: (orgConfig as any).businessName ?? "Checkout",
         });
+
         session.completeMerchantValidation(merchantSession);
       } catch (err) {
         console.error("Apple Pay merchant validation failed", err);
@@ -195,6 +197,7 @@ const ApplePaySection: React.FC<{
         if (!sheetCompleted) {
           session.completePayment(ApplePaySession.STATUS_FAILURE);
         }
+
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });
@@ -240,12 +243,14 @@ const GooglePaySection: React.FC<{
   const [{ isResolved }] = usePayPalScriptReducer();
   const [googlePayConfig, setGooglePayConfig] =
     React.useState<PaypalGooglePayConfig | null>(null);
+
   const [isVisible, setIsVisible] = React.useState(false);
   const currency = useCurrency();
   const config = useConfig();
 
   React.useEffect(() => {
     if (!isResolved || !window.paypal?.Googlepay) return;
+
     window.paypal
       .Googlepay()
       .config()
@@ -314,6 +319,7 @@ const GooglePaySection: React.FC<{
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });
+
         return {
           transactionState: "ERROR",
           error: {

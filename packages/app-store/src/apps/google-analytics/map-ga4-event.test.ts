@@ -62,6 +62,7 @@ describe("gaPublicContextFromSource", () => {
       clientId: "1.2",
       sessionId: 99,
     });
+
     assert.deepEqual(gaPublicContextFromSource(source, "missing"), {});
   });
 });
@@ -156,6 +157,7 @@ describe("mapGa4Event", () => {
       "USD",
       { clientId: "1.2" },
     );
+
     assert.equal(waitlist?.clientId, "1.2");
 
     const form = mapGa4Event(
@@ -170,6 +172,7 @@ describe("mapGa4Event", () => {
       "USD",
       { clientId: "3.4" },
     );
+
     assert.equal(form?.clientId, "3.4");
   });
 

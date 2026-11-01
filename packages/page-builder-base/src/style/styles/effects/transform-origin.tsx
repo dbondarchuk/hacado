@@ -39,6 +39,7 @@ export const transformOriginStyle = {
   defaultValue: "center",
   renderToCSS: (value) => {
     if (!value || value === "center") return null;
+
     return `transform-origin: ${value};`;
   },
   component: ({ value, onChange }) => {

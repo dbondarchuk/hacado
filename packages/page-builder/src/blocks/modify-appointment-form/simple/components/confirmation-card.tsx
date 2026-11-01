@@ -28,6 +28,7 @@ const isPaymentBranch = (
     appointment.action === "paymentRequired"
   )
     return true;
+
   return false;
 };
 
@@ -48,6 +49,7 @@ const getPaymentAmount = (
     appointment.action === "paymentRequired"
   )
     return appointment.paymentAmount;
+
   return undefined;
 };
 
@@ -74,12 +76,14 @@ export const ConfirmationCard: React.FC = () => {
   const locale = useLocale();
   const paymentBranch =
     appointment?.allowed && appointment && isPaymentBranch(appointment);
+
   const paymentAmount = appointment ? getPaymentAmount(appointment) : undefined;
   const giftCardsRaw = contextGiftCards?.length
     ? contextGiftCards
     : appointment
       ? getGiftCardsFromAppointment(appointment)
       : [];
+
   const giftCards = (Array.isArray(giftCardsRaw) ? giftCardsRaw : []).map(
     (gc: { code: string; appliedAmount: number; amountLeft?: number }) => ({
       code: gc.code,
@@ -87,11 +91,13 @@ export const ConfirmationCard: React.FC = () => {
       amountLeft: gc.amountLeft ?? 0,
     }),
   );
+
   const showPaymentSection = paymentBranch && paymentAmount != null;
   const totalGiftCardsApplied = giftCards.reduce(
     (sum: number, gc: { appliedAmount: number }) => sum + gc.appliedAmount,
     0,
   );
+
   const totalAfterGiftCards = Math.max(
     0,
     (paymentAmount ?? 0) - totalGiftCardsApplied,
@@ -102,14 +108,17 @@ export const ConfirmationCard: React.FC = () => {
       setGiftCardError(i18n("booking.giftCard.codeRequired"));
       return;
     }
+
     if ((contextGiftCards?.length ?? 0) >= 2) return;
     if (paymentAmount == null) return;
+
     const newCodes = [
       ...(contextGiftCards
         ?.map((g) => g.code)
         .filter((c) => c !== giftCardCode) ?? []),
       giftCardCode,
     ];
+
     try {
       setIsLoadingGiftCards(true);
       await applyGiftCards(newCodes, paymentAmount);
@@ -129,12 +138,14 @@ export const ConfirmationCard: React.FC = () => {
       setGiftCardError(undefined);
       return;
     }
+
     try {
       setIsLoadingGiftCards(true);
       await applyGiftCards(
         newGiftCards.map((g) => g.code),
         paymentAmount ?? 0,
       );
+
       setGiftCardError(undefined);
     } catch {
       setGiftCardError(i18n("booking.giftCard.error", { code }));
@@ -144,6 +155,7 @@ export const ConfirmationCard: React.FC = () => {
   };
 
   if (!appointment?.allowed) return null;
+
   return (
     <div className="relative">
       <div className="mb-3 text-center">

@@ -32,6 +32,7 @@ export async function saveSignupMemberProfile(
   const available = await isMemberPhoneAvailable(phone, {
     excludeUserId: id,
   });
+
   if (!available) {
     return { ok: false, code: "phone_in_use" };
   }
@@ -43,6 +44,7 @@ export async function saveSignupMemberProfile(
     if (error instanceof MemberPhoneOtpError) {
       return { ok: false, code: error.code };
     }
+
     return { ok: false, code: "not_verified" };
   }
 
@@ -52,9 +54,11 @@ export async function saveSignupMemberProfile(
     await savePendingMemberProfile(id, pending);
     return { ok: true };
   }
+
   if (email) {
     await savePendingMemberProfileByEmail(email, pending);
     return { ok: true };
   }
+
   return { ok: false, code: "unauthorized" };
 }

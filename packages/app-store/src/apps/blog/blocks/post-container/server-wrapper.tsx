@@ -37,6 +37,7 @@ export const BlogPostContainerServerWrapper = async ({
   const logger = (await import("@hacado/logger")).getLoggerFactory(
     "BlogPostContainerServerWrapper",
   )("render");
+
   logger.info(
     { slug: args?.slug, hasPost: !!(args?._item ?? args?.post) },
     "Rendering blog post container",
@@ -59,6 +60,7 @@ export const BlogPostContainerServerWrapper = async ({
   // Generate postLink by replacing [slug] with actual slug
   const generatePostLink = (slug: string | undefined): string | null => {
     if (!slug) return null;
+
     return postUrl.replace("[slug]", slug);
   };
 
@@ -69,6 +71,7 @@ export const BlogPostContainerServerWrapper = async ({
       { title: post.title, id: post._id, slug: post.slug, postLink },
       "Post already exists",
     );
+
     return (
       <BlogPostContainerComponent
         args={containerArgs}
@@ -166,6 +169,7 @@ export const BlogPostContainerServerWrapper = async ({
       organizationId,
       appId,
     );
+
     containerArgs.blogCommentsConfig = blogCommentsConfig;
   }
 

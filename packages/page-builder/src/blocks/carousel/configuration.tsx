@@ -30,10 +30,12 @@ export const CarouselConfiguration = deepMemo(
       (p: unknown) => setData({ ...data, props: p as CarouselProps["props"] }),
       [setData, data],
     );
+
     const updateStyle = useCallback(
       (s: unknown) => setData({ ...data, style: s as CarouselProps["style"] }),
       [setData, data],
     );
+
     const t = useI18n("builder");
 
     return (

@@ -37,17 +37,20 @@ const args = process.argv.slice(2);
 const provider =
   args.find((a) => a.startsWith("--provider="))?.slice("--provider=".length) ||
   DEFAULT_PROVIDER;
+
 const concurrency = Number(
   args
     .find((a) => a.startsWith("--concurrency="))
     ?.slice("--concurrency=".length) || 4,
 );
+
 const languages = args.filter((a) => !a.startsWith("--"));
 
 if (languages.length === 0) {
   console.error(
     "Usage: node scripts/translate-templates-batch.mjs <lang> [lang...] [--concurrency=N]",
   );
+
   process.exit(1);
 }
 
@@ -56,6 +59,7 @@ for (const language of languages) {
     console.error(
       `Refusing to batch-translate partial locale "${language}". Use base locales (fr, es).`,
     );
+
     process.exit(1);
   }
 }
@@ -69,6 +73,7 @@ function listEnTemplateFiles() {
   for (const root of TEMPLATE_ROOTS) {
     const enDir = path.join(root, "en");
     if (!fs.existsSync(enDir)) continue;
+
     const walk = (dir) => {
       for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, entry.name);
@@ -82,8 +87,10 @@ function listEnTemplateFiles() {
         }
       }
     };
+
     walk(enDir);
   }
+
   return files;
 }
 
@@ -119,6 +126,7 @@ function unshieldTranslatableTokens(text, tokens) {
       return token === undefined ? `___PH_${index}___` : token;
     });
   } while (result !== previous);
+
   return result;
 }
 
@@ -136,6 +144,7 @@ function currentGoogleClient() {
 function tripRateLimit(status, attempt) {
   rateGate.googleClientIndex =
     (rateGate.googleClientIndex + 1) % GOOGLE_CLIENTS.length;
+
   const backoff = Math.min(RETRY_WAIT_MS * attempt, 60_000);
   rateGate.coolUntil = Math.max(rateGate.coolUntil, Date.now() + backoff);
   rateGate.minIntervalMs = Math.min(rateGate.minIntervalMs + 25, 600);
@@ -161,21 +170,28 @@ async function fetchFromGoogle(text, language) {
         tripRateLimit(response.status, attempt);
         continue;
       }
+
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
       const data = await response.json();
       if (!Array.isArray(data) || !Array.isArray(data[0])) {
         throw new Error("Bad response shape");
       }
+
       const translated = data[0]
         .map((row) => (Array.isArray(row) ? row[0] : ""))
         .join("");
+
       if (!translated) throw new Error("Empty translation");
+
       return translated;
     } catch (error) {
       if (attempt === MAX_RETRIES) throw error;
+
       await sleep(RETRY_WAIT_MS * attempt);
     }
   }
+
   throw new Error("Translation failed");
 }
 
@@ -203,6 +219,7 @@ async function translateText(text, language, cache, cachePath) {
     await fetchFromGoogle(shielded, language.split("-")[0]),
     tokens,
   );
+
   cache[cacheKey] = translated;
   return translated;
 }
@@ -246,6 +263,7 @@ async function translateTemplateSource(source, language, cache, cachePath) {
       ) {
         continue;
       }
+
       const unescaped = inner
         .replace(/\\n/g, "\n")
         .replace(/\\t/g, "\t")
@@ -253,12 +271,14 @@ async function translateTemplateSource(source, language, cache, cachePath) {
         .replace(/\\"/g, '"')
         .replace(/\\'/g, "'")
         .replace(/\\\\/g, "\\");
+
       const translated = await translateText(
         unescaped,
         language,
         cache,
         cachePath,
       );
+
       let escaped;
       if (quote === "`") {
         escaped = translated
@@ -273,6 +293,7 @@ async function translateTemplateSource(source, language, cache, cachePath) {
           .replace(/'/g, "\\'")
           .replace(/\n/g, "\\n");
       }
+
       const replacement = `${prefix}${quote}${escaped}${quote}${suffix}`;
       result =
         result.slice(0, match.index) +
@@ -287,15 +308,18 @@ async function translateTemplateSource(source, language, cache, cachePath) {
 async function mapPool(items, limit, worker) {
   const results = new Array(items.length);
   let nextIndex = 0;
+
   async function run() {
     while (nextIndex < items.length) {
       const index = nextIndex++;
       results[index] = await worker(items[index], index);
     }
   }
+
   await Promise.all(
     Array.from({ length: Math.min(limit, items.length) }, () => run()),
   );
+
   return results;
 }
 
@@ -307,6 +331,7 @@ for (const language of languages) {
     __dirname,
     `en-${language}.templates.translation-cache.json`,
   );
+
   const cache = loadCache(cachePath);
   console.log(`\n=== templates → ${language} ===`);
 
@@ -319,6 +344,7 @@ for (const language of languages) {
       cache,
       cachePath,
     );
+
     const outPath = path.join(file.root, language, file.relative);
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, translated, "utf8");
@@ -328,6 +354,7 @@ for (const language of languages) {
       saveCache(cachePath, cache);
     }
   });
+
   process.stdout.write("\n");
   saveCache(cachePath, cache);
   console.log(`Done ${language}.`);

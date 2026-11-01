@@ -37,6 +37,7 @@ export const AddNewTemplateButton: React.FC = () => {
   const [availableTemplates, setAvailableTemplates] = React.useState<
     { id: string; name: string; type: CommunicationChannel }[]
   >([]);
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const router = useRouter();

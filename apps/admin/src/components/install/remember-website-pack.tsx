@@ -9,6 +9,7 @@ export function RememberWebsitePack({ packId }: { packId?: string | null }) {
   useEffect(() => {
     const id = packId?.trim();
     if (!id || !(WEBSITE_PACK_IDS as string[]).includes(id)) return;
+
     rememberPreferredWebsitePack(id);
   }, [packId]);
 

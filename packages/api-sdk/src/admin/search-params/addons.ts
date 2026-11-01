@@ -22,8 +22,10 @@ export const addonsSearchParams = {
 
 export const addonsSearchParamsCache =
   createSearchParamsCache(addonsSearchParams);
+
 export const addonsSearchParamsSchema =
   createStandardSchemaV1(addonsSearchParams);
+
 export const addonsSearchParamsSerializer =
   createSerializer(addonsSearchParams);
 

@@ -140,6 +140,7 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
         const customer = await customersApi.createCustomer(data);
         onCreated(customer._id);
       };
+
       await toastPromise(fn(), {
         success: t("customers.toasts.customerCreated"),
         error: t("common.toasts.error"),

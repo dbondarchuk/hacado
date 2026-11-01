@@ -34,7 +34,6 @@ export const backdropFilterStyle = {
   defaultValue: "none",
   renderToCSS: (value) => {
     if (!value || value === "none") return null;
-
     if (typeof value === "string") {
       return `backdrop-filter: ${value};`;
     }
@@ -48,6 +47,7 @@ export const backdropFilterStyle = {
             func.function,
             func.values[0],
           );
+
           return `${func.function}(${rendered})`;
         })
         .join(" ");

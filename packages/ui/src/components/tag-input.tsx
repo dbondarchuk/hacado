@@ -100,6 +100,7 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>((props, ref) => {
           EArray.flatMap((x) => x),
         ),
       ]);
+
       onChange(Array.from(newDataPoints));
       setPendingDataPoint("");
     }

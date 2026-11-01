@@ -189,6 +189,7 @@ const SelectField: React.FC<PublicFieldProps<"select">> = ({
   const t = useI18n<FormsPublicNamespace, FormsPublicKeys>(
     formsPublicNamespace,
   );
+
   const options = getOptions(fieldDef);
   return (
     <FormItem
@@ -250,6 +251,7 @@ const RadioField: React.FC<PublicFieldProps<"radio">> = ({
   const t = useI18n<FormsPublicNamespace, FormsPublicKeys>(
     formsPublicNamespace,
   );
+
   const options = getOptions(fieldDef);
   return (
     <FormItem
@@ -328,8 +330,10 @@ const MultiSelectField: React.FC<PublicFieldProps<"multiSelect">> = ({
     const next = arr.includes(option)
       ? arr.filter((x) => x !== option)
       : [...arr, option];
+
     field.onChange(next);
   };
+
   const maxSelected = (fieldDef.data as { maxSelected?: number })?.maxSelected;
   return (
     <FormItem
@@ -352,6 +356,7 @@ const MultiSelectField: React.FC<PublicFieldProps<"multiSelect">> = ({
             const isDisabled =
               disabled ||
               (!isChecked && !!maxSelected && arr.length >= maxSelected);
+
             return (
               <div key={o.option} className="flex items-center gap-2">
                 <Checkbox

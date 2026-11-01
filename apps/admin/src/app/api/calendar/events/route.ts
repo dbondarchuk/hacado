@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
   const endStr = searchParams.get("end");
   const includeClosed =
     searchParams.get("includeClosed")?.toLowerCase() === "true";
+
   const memberId = resolveCalendarMemberId(user, searchParams.get("member"));
 
   if (!startStr || !endStr) {
@@ -43,6 +44,7 @@ export async function GET(request: NextRequest) {
       { startStr, endStr, startValid: start.isValid, endValid: end.isValid },
       "Invalid date format provided",
     );
+
     return NextResponse.json(
       { error: "Start and End must be dates in ISO format" },
       { status: 400 },

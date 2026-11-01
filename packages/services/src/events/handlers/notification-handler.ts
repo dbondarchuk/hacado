@@ -19,6 +19,7 @@ export const notificationHandler: EventHandler = {
         envelope.id,
         "email",
       );
+
       if (claimed) {
         try {
           const emails = await def.emailNotifications(
@@ -26,6 +27,7 @@ export const notificationHandler: EventHandler = {
             services,
             getDbConnection,
           );
+
           if (emails && emails.length > 0) {
             await Promise.all(
               emails.map((email) =>
@@ -46,6 +48,7 @@ export const notificationHandler: EventHandler = {
         envelope.id,
         "sms",
       );
+
       if (claimed) {
         try {
           const smses = await def.smsNotifications(
@@ -53,6 +56,7 @@ export const notificationHandler: EventHandler = {
             services,
             getDbConnection,
           );
+
           if (smses && smses.length > 0) {
             await Promise.all(
               smses.map((sms) =>

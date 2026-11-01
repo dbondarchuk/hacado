@@ -53,6 +53,7 @@ export const AdjustPackageCreditsDialog: React.FC<
     if (!item || !itemId) {
       return { minUsed: 0, maxUsed: pkg.totalCredits };
     }
+
     const itemRemaining = pkg.remainingByItem[itemId] ?? 0;
     return {
       minUsed: Math.max(0, pkg.usedCredits - (item.credits - itemRemaining)),
@@ -77,6 +78,7 @@ export const AdjustPackageCreditsDialog: React.FC<
 
   const onSaveUsed = async () => {
     if (!itemId || used === pkg.usedCredits) return;
+
     const delta = pkg.usedCredits - used;
     setLoading(true);
     try {
@@ -91,6 +93,7 @@ export const AdjustPackageCreditsDialog: React.FC<
           error: t("catalog.packages.form.toasts.requestError"),
         },
       );
+
       setOpen(false);
       router.refresh();
     } finally {
@@ -146,6 +149,7 @@ export const AdjustPackageCreditsDialog: React.FC<
                     setUsed(minUsed);
                     return;
                   }
+
                   setUsedClamped(e.target.valueAsNumber);
                 }}
               />

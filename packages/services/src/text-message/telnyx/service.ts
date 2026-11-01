@@ -43,6 +43,7 @@ export class TelnyxService implements ITextMessageSender {
         { organizationId, phone: maskify(message.phone) },
         sender.reason,
       );
+
       return { success: true, skipped: true, error: sender.reason };
     }
 
@@ -89,12 +90,14 @@ export class TelnyxService implements ITextMessageSender {
         },
         "Telnyx request failed",
       );
+
       throw new SmsTransientError("Telnyx request failed");
     }
 
     const payload = (await response
       .json()
       .catch(() => ({}))) as TelnyxMessageResponse;
+
     const telnyxError = payload.errors?.[0];
     const errorCode = telnyxError?.code;
 

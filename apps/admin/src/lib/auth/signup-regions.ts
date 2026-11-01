@@ -77,5 +77,6 @@ export const PUBLIC_SIGNUP_COUNTRY_CODES = new Set([
 
 export function isAllowedSignupCountry(countryCode: string | null): boolean {
   if (!countryCode) return false;
+
   return PUBLIC_SIGNUP_COUNTRY_CODES.has(countryCode.toUpperCase());
 }

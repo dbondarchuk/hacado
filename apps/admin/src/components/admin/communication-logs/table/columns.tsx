@@ -260,6 +260,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
     cell: ({ row }) => {
       const t = useI18n("admin");
       if (!row.original.hasPayloadData) return null;
+
       return (
         <div className="flex flex-col gap-1">
           <CommunicationLogPayloadDialog
