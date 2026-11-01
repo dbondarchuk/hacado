@@ -125,6 +125,9 @@ export const readVerificationWebhook = (
 const capitalize = (value: string) =>
   value.replace(/^\p{L}/u, (letter) => letter.toUpperCase());
 
+const truncateTelnyxField = (value: string, max: number) =>
+  value.length <= max ? value : `${value.slice(0, Math.max(0, max - 1))}…`;
+
 export type TollFreeVerificationBody = {
   additionalInformation: string;
   businessAddr1: string;
@@ -202,8 +205,13 @@ export const buildTollFreeVerificationBody = (input: {
   const website = input.website.trim();
   const privacyPolicyUrl = input.privacyPolicyUrl.trim();
   const termsAndConditionUrl = input.termsAndConditionUrl.trim();
+  // Telnyx caps additionalInformation at 500 characters.
+  const additionalInformation = truncateTelnyxField(
+    `This toll-free number is exclusive to ${tradeName} and is not shared with other businesses or Hacado customers. Only transactional appointment texts for ${tradeName} customers; no marketing. Messages identify ${tradeName} and include Reply STOP / HELP (support@hacado.com).`,
+    500,
+  );
   const body: TollFreeVerificationBody = {
-    additionalInformation: `This toll-free number is assigned exclusively to ${tradeName} and is not shared with any other business, brand, or Hacado customer. Messages sent from this number are strictly transactional appointment communications between ${tradeName} and their registered customers. No marketing, promotional, or cold outreach messaging is permitted or transmitted. Every message clearly identifies the sender brand (${tradeName}) and includes standard opt-out instructions (Reply STOP to cancel) and support details (Reply HELP for help or email support@hacado.com). Privacy policy: ${privacyPolicyUrl}. Terms: ${termsAndConditionUrl}.`,
+    additionalInformation,
     businessAddr1: input.streetAddress.trim(),
     businessCity: capitalize(input.city.trim()),
     businessContactEmail: input.contactEmail.trim(),

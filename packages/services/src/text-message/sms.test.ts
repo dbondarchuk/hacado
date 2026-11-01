@@ -537,11 +537,22 @@ describe("toll-free verification body", () => {
     assert.match(body.useCaseSummary, /not shared/i);
     assert.match(body.useCaseSummary, /https:\/\/ada\.example/);
     assert.match(body.additionalInformation, /Ada Salon/);
-    assert.match(body.additionalInformation, /exclusively/);
+    assert.match(body.additionalInformation, /exclusive/i);
     assert.match(body.additionalInformation, /not shared/i);
     assert.match(body.additionalInformation, /support@hacado\.com/);
-    assert.match(body.additionalInformation, /https:\/\/ada\.example\/privacy/);
-    assert.match(body.additionalInformation, /https:\/\/ada\.example\/terms/);
+    assert.ok(body.additionalInformation.length <= 500);
+  });
+
+  it("keeps additionalInformation within Telnyx's 500-character limit", () => {
+    const longName = "A".repeat(200);
+    const body = buildTollFreeVerificationBody({
+      ...base,
+      entityType: "PRIVATE_PROFIT",
+      legalName: longName,
+      doingBusinessAs: longName,
+    });
+    assert.ok(body);
+    assert.ok(body.additionalInformation.length <= 500);
   });
 
   it("includes an EIN for a company", () => {
