@@ -34,13 +34,26 @@ const statusLabel: Record<
   | "communications.status.sent"
   | "communications.status.received"
   | "communications.status.failed"
+  | "communications.status.skipped"
+  | "communications.status.noConsent"
+  | "communications.status.optedOut"
 > = {
   preparing: "communications.status.preparing",
   sending: "communications.status.sending",
   sent: "communications.status.sent",
   received: "communications.status.received",
   failed: "communications.status.failed",
+  skipped: "communications.status.skipped",
+  noConsent: "communications.status.noConsent",
+  optedOut: "communications.status.optedOut",
 };
+
+const statusesWithReason = new Set<CommunicationLogStatus>([
+  "failed",
+  "skipped",
+  "noConsent",
+  "optedOut",
+]);
 
 const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
   entry,
@@ -175,13 +188,13 @@ const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
               </TooltipResponsive>
             </Badge>
           )}
+          {statusesWithReason.has(entry.status) && reason && (
+            <Badge variant="outline" className="text-sm overflow-hidden">
+              <span className="truncate">{reason}</span>
+            </Badge>
+          )}
           {entry.status === "failed" && (
             <>
-              {reason && (
-                <Badge variant="outline" className="text-sm overflow-hidden">
-                  <span className="truncate">{reason}</span>
-                </Badge>
-              )}
               <Badge variant="secondary" className="text-sm">
                 {entry.retryable
                   ? tAdmin("communications.retryable")

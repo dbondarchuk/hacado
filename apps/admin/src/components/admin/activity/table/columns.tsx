@@ -74,7 +74,9 @@ export const columns: ColumnDef<ActivityListItem>[] = [
       "admin",
     ),
     cell: ({ row }) => (
-      <span className="font-mono">{row.original.eventType}</span>
+      <span className="font-mono bg-muted px-1 py-0.5">
+        {row.original.eventType}
+      </span>
     ),
     sortingFn: tableSortNoopFunction,
   },

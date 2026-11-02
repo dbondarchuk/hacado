@@ -32,6 +32,9 @@ export const communicationLogStatuses = [
   "sent",
   "received",
   "failed",
+  "skipped",
+  "noConsent",
+  "optedOut",
 ] as const;
 
 export type CommunicationLogStatus = (typeof communicationLogStatuses)[number];

@@ -142,10 +142,10 @@ platformEvents:
       description: "{amount} from {provider} · {status}"
     confirmed:
       title: Synced payment confirmed
-      description: "{amount}"
+      description: "{amount} from {provider}"
     rejected:
       title: Synced payment rejected
-      description: "{amount}"
+      description: "{amount} from {provider}"
     assigned:
       title: Synced payment assigned
       description: "{amount} assigned to appointment"
@@ -160,7 +160,7 @@ platformEvents:
       description: "{amount} unlinked from customer"
     ignored:
       title: Synced payment ignored
-      description: "{amount}"
+      description: "{amount} from {provider}"
     amountsUpdated:
       title: Synced payment amounts updated
       description: "Payment {paymentAmount}, tip {tip}"
@@ -3739,6 +3739,9 @@ communications:
     failed: Failed
     failedWithRetries: "Failed: {done}/{max} retries"
     failedFinal: Failed.
+    skipped: Skipped
+    noConsent: No consent
+    optedOut: Opted out
   reason:
     optedOut: Customer opted out
     noConsent: Customer has not agreed to texts

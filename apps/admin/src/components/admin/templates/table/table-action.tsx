@@ -36,7 +36,7 @@ export function TemplatesTableAction() {
         filterKey="type"
         title={t("templates.table.filters.type")}
         options={communicationChannels
-          .filter((channel) => allowTextTemplates || channel !== "text-message")
+          // .filter((channel) => allowTextTemplates || channel !== "text-message")
           .map((channel) => ({
             value: channel,
             label: t(`common.labels.channel.${channel}`),

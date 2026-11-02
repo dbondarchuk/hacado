@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { useTimeZone } from "@hacado/ui/context";
+import { useCurrency, useTimeZone } from "@hacado/ui/context";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
 import { Unplug } from "lucide-react";
@@ -35,6 +35,7 @@ export const DeleteAppButton: React.FC<DeleteAppButtonProps> = ({
   const t = useI18n("apps");
   const tAll = useI18n();
   const timeZone = useTimeZone();
+  const currency = useCurrency();
   const locale = useLocale();
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -57,7 +58,13 @@ export const DeleteAppButton: React.FC<DeleteAppButtonProps> = ({
         );
 
         if (result.error) {
-          errorMessage = resolvedI18nText(result.error, tAll, timeZone, locale);
+          errorMessage = resolvedI18nText(
+            result.error,
+            tAll,
+            timeZone,
+            locale,
+            currency,
+          );
         }
 
         toast.error(t("common.disconnect.toast.error.title"), {

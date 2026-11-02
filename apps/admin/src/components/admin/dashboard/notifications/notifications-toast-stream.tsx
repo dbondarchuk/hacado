@@ -17,7 +17,7 @@ import { resolvedI18nText } from "@hacado/ui-admin/hooks";
 import { applyDashboardBadgeUpdate } from "@hacado/ui-admin/notifications";
 import { Badge } from "@hacado/ui/badge";
 import { cn } from "@hacado/ui/cn";
-import { useTimeZone } from "@hacado/ui/context";
+import { useCurrency, useTimeZone } from "@hacado/ui/context";
 import { toast } from "@hacado/ui/sonner";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -71,6 +71,7 @@ export const NotificationsToastStream: React.FC = () => {
 
   const timeZone = useTimeZone();
   const locale = useLocale();
+  const currency = useCurrency();
   const router = useRouter();
   const t = useI18n();
 
@@ -155,27 +156,32 @@ export const NotificationsToastStream: React.FC = () => {
             ? toast[data.toast.type]
             : toast;
 
-        method(resolvedI18nText(data.toast.title, t, timeZone, locale), {
-          description: resolvedI18nText(
-            data.toast.message,
-            t,
-            timeZone,
-            locale,
-          ),
-          action: data.toast.action
-            ? {
-                label: resolvedI18nText(
-                  data.toast.action.label,
-                  t,
-                  timeZone,
-                  locale,
-                ),
-                onClick: () => {
-                  router.push(data.toast!.action!.href);
-                },
-              }
-            : undefined,
-        });
+        method(
+          resolvedI18nText(data.toast.title, t, timeZone, locale, currency),
+          {
+            description: resolvedI18nText(
+              data.toast.message,
+              t,
+              timeZone,
+              locale,
+              currency,
+            ),
+            action: data.toast.action
+              ? {
+                  label: resolvedI18nText(
+                    data.toast.action.label,
+                    t,
+                    timeZone,
+                    locale,
+                    currency,
+                  ),
+                  onClick: () => {
+                    router.push(data.toast!.action!.href);
+                  },
+                }
+              : undefined,
+          },
+        );
       }
     };
 

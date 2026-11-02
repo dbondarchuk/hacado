@@ -142,10 +142,10 @@ platformEvents:
       description: "{amount} de {provider} · {status}"
     confirmed:
       title: Pago sincronizado confirmado
-      description: "{amount}"
+      description: "{amount} de {provider}"
     rejected:
       title: Pago sincronizado rechazado
-      description: "{amount}"
+      description: "{amount} de {provider}"
     assigned:
       title: Pago sincronizado asignado
       description: "{amount} asignado a la cita"
@@ -160,7 +160,7 @@ platformEvents:
       description: "{amount} desvinculado del cliente"
     ignored:
       title: Pago sincronizado ignorado
-      description: "{amount}"
+      description: "{amount} de {provider}"
     amountsUpdated:
       title: Montos de pago sincronizados actualizados
       description: Pago {paymentAmount}, propina {tip}
@@ -3482,6 +3482,9 @@ communications:
     failed: Fallido
     failedWithRetries: "Fallido: {done}/{max} reintentos"
     failedFinal: Fallido.
+    skipped: Omitido
+    noConsent: Sin consentimiento
+    optedOut: Dado de baja
   reason:
     optedOut: El cliente rechazó los mensajes
     noConsent: El cliente no aceptó los textos
@@ -4337,4 +4340,3 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
-

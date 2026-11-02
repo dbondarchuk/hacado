@@ -118,7 +118,13 @@ export const columns: ColumnDef<CommunicationLog>[] = [
       const t = useI18n();
       const tAdmin = useI18n("admin");
       const { status, reason } = row.original;
-      if (status !== "failed" || !reason) return null;
+      const showReason =
+        status === "failed" ||
+        status === "skipped" ||
+        status === "noConsent" ||
+        status === "optedOut";
+
+      if (!showReason || !reason) return null;
 
       const text =
         typeof reason === "string"

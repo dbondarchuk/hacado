@@ -142,10 +142,10 @@ platformEvents:
       description: "{amount} de {provider} · {status}"
     confirmed:
       title: Paiement synchronisé confirmé
-      description: "{amount}"
+      description: "{amount} de {provider}"
     rejected:
       title: Paiement synchronisé rejeté
-      description: "{amount}"
+      description: "{amount} de {provider}"
     assigned:
       title: Paiement synchronisé attribué
       description: "{amount} affecté à un rendez-vous"
@@ -160,7 +160,7 @@ platformEvents:
       description: "{amount} dissocié du client"
     ignored:
       title: Paiement synchronisé ignoré
-      description: "{amount}"
+      description: "{amount} de {provider}"
     amountsUpdated:
       title: Montants des paiements synchronisés mis à jour
       description: Paiement {paymentAmount}, pourboire {tip}
@@ -3482,6 +3482,9 @@ communications:
     failed: Échec
     failedWithRetries: "Échec : {done}/{max} tentatives"
     failedFinal: Échec.
+    skipped: Ignoré
+    noConsent: Sans consentement
+    optedOut: Désabonné
   reason:
     optedOut: Le client s'est désabonné
     noConsent: Le client n'a pas accepté les textos
@@ -4337,4 +4340,3 @@ smsConsent:
   attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
-

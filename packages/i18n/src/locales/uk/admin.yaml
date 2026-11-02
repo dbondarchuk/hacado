@@ -142,10 +142,10 @@ platformEvents:
       description: "{amount} від {provider} · {status}"
     confirmed:
       title: Синхронізований платіж підтверджено
-      description: "{сума}"
+      description: "{amount} від {provider}"
     rejected:
       title: Синхронізований платіж відхилено
-      description: "{сума}"
+      description: "{amount} від {provider}"
     assigned:
       title: Синхронізований платіж призначено
       description: "{amount} призначено до запису"
@@ -160,17 +160,17 @@ platformEvents:
       description: "{amount} відв’язано від клієнта"
     ignored:
       title: Синхронізований платіж проігноровано
-      description: "{сума}"
+      description: "{amount} від {provider}"
     amountsUpdated:
       title: Суми синхронізованого платежу оновлено
       description: Платіж {paymentAmount}, чайові {tip}
   giftCard:
     created:
       title: Подарункову карту видано
-      description: "{код}"
+      description: "{code}"
     updated:
       title: Подарункову карту оновлено
-      description: "{код}"
+      description: "{code}"
     statusChanged:
       title: Змінено статус карток
       description: "{count, plural, =1 {# карта} few {# карти} other {# карт}} → {status}"
@@ -212,40 +212,40 @@ platformEvents:
   field:
     created:
       title: Поле створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Поле оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Поля видалено
       description: "{count, plural, =1 {# поле} few {# поля} other {# полів}}"
   addon:
     created:
       title: Додаток створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Додаток оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Додатки видалено
       description: "{count, plural, =1 {# додаток} few {# додатки} other {# додатків}}"
   appointmentOption:
     created:
       title: Послугу створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Послугу оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Послуги видалено
       description: "{count, plural, =1 {# послуга} few {# послуги} other {# послуг}}"
   discount:
     created:
       title: Знижку створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Знижку оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Знижки видалено
       description: "{count, plural, =1 {# знижка} few {# знижки} other {# знижок}}"
@@ -255,10 +255,10 @@ platformEvents:
   template:
     created:
       title: Шаблон створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Шаблон оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Шаблони видалено
       description: "{count, plural, =1 {# шаблон} few {# шаблони} other {# шаблонів}}"
@@ -275,27 +275,27 @@ platformEvents:
   pageHeader:
     created:
       title: Шапку створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Шапку оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Шапки видалено
       description: "{count, plural, =1 {# шапка} few {# шапки} other {# шапок}}"
   pageFooter:
     created:
       title: Підвал створено
-      description: "{ім'я}"
+      description: "{name}"
     updated:
       title: Підвал оновлено
-      description: "{ім'я}"
+      description: "{name}"
     deleted:
       title: Підвали видалено
       description: "{count, plural, =1 {# підвал} few {# підвали} other {# підвалів}}"
   settings:
     updated:
       title: Налаштування оновлено
-      description: "{ключ}"
+      description: "{key}"
   schedule:
     changed:
       title: Розклад оновлено
@@ -3480,6 +3480,9 @@ communications:
     failed: Не вдалося
     failedWithRetries: "Не вдалося: {done}/{max} повторів"
     failedFinal: Не вдалося.
+    skipped: Пропущено
+    noConsent: Без згоди
+    optedOut: Відписано
   reason:
     optedOut: Клієнт відмовився від повідомлень
     noConsent: Клієнт не погодився на текстові повідомлення
@@ -4335,4 +4338,3 @@ memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
-

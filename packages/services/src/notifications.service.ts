@@ -87,6 +87,19 @@ const permanentFailureCounts = (attempt?: { made: number; max: number }) => ({
   retriesLeft: 0,
 });
 
+const notSentStatusForReason = (
+  reason: string,
+): "noConsent" | "optedOut" | "skipped" => {
+  if (reason === "no consent") {
+    return "noConsent";
+  }
+  if (reason === "opted out") {
+    return "optedOut";
+  }
+
+  return "skipped";
+};
+
 export class NotificationService implements INotificationService {
   protected readonly loggerFactory = getLoggerFactory("NotificationService");
 
@@ -222,7 +235,7 @@ export class NotificationService implements INotificationService {
         "SMS skipped: invalid phone",
       );
 
-      await this.recordFailed({
+      await this.recordNotSent({
         logId: props.communicationLogId,
         reason: "invalid phone",
         attempt: props.deliveryAttempt,
@@ -242,7 +255,7 @@ export class NotificationService implements INotificationService {
         "SMS skipped: text messaging is off",
       );
 
-      await this.recordFailed({
+      await this.recordNotSent({
         logId: props.communicationLogId,
         reason: "sms disabled",
         attempt: props.deliveryAttempt,
@@ -273,7 +286,7 @@ export class NotificationService implements INotificationService {
         "SMS skipped",
       );
 
-      await this.recordFailed({
+      await this.recordNotSent({
         logId: props.communicationLogId,
         reason: consent.reason,
         attempt: props.deliveryAttempt,
@@ -382,7 +395,7 @@ export class NotificationService implements INotificationService {
           "SMS skipped",
         );
 
-        await this.recordFailed({
+        await this.recordNotSent({
           logId: props.communicationLogId,
           reason: route.reason,
           attempt: props.deliveryAttempt,
@@ -402,7 +415,7 @@ export class NotificationService implements INotificationService {
           "SMS skipped: credits exhausted",
         );
 
-        await this.recordFailed({
+        await this.recordNotSent({
           logId: props.communicationLogId,
           reason: "credits exhausted",
           attempt: props.deliveryAttempt,
@@ -422,7 +435,7 @@ export class NotificationService implements INotificationService {
           "SMS skipped: platform limit",
         );
 
-        await this.recordFailed({
+        await this.recordNotSent({
           logId: props.communicationLogId,
           reason: limit,
           attempt: props.deliveryAttempt,
@@ -454,7 +467,7 @@ export class NotificationService implements INotificationService {
             "SMS skipped",
           );
 
-          await this.recordFailed({
+          await this.recordNotSent({
             logId: props.communicationLogId,
             reason: prepared.reason,
             attempt: props.deliveryAttempt,
@@ -627,6 +640,44 @@ export class NotificationService implements INotificationService {
       });
     } catch (error) {
       this.loggerFactory("recordSent").error(
+        { error, logId: input.logId },
+        "Failed to update communication log",
+      );
+    }
+  }
+
+  private async recordNotSent(input: {
+    logId?: string;
+    reason: string;
+    attempt?: { made: number; max: number };
+  }) {
+    const logger = this.loggerFactory("recordNotSent");
+    logger.debug({ input }, "Recording not sent");
+
+    if (!input.logId) {
+      logger.debug("No log ID provided, skipping recordNotSent");
+      return;
+    }
+
+    try {
+      const reason = smsFailureReason(input.reason);
+      const status = notSentStatusForReason(input.reason);
+      const attempt = permanentFailureCounts(input.attempt);
+
+      logger.debug({ reason, status, attempt }, "Updating communication log");
+
+      await this.communicationLogService.update(input.logId, {
+        status,
+        reason,
+        ...attempt,
+      });
+
+      logger.debug(
+        { logId: input.logId, status, reason, attempt },
+        "Recorded not sent",
+      );
+    } catch (error) {
+      this.loggerFactory("recordNotSent").error(
         { error, logId: input.logId },
         "Failed to update communication log",
       );

@@ -1,17 +1,24 @@
 "use client";
 
-import { I18nFn, useI18n, useLocale } from "@hacado/i18n/client";
-import { DATE_TIME_FORMATS, DateTimeFormat } from "@hacado/types/utils";
-import { useTimeZone } from "@hacado/ui/context";
+import { I18nFn, Language, useI18n, useLocale } from "@hacado/i18n/client";
+import {
+  Currency,
+  DATE_TIME_FORMATS,
+  DateTimeFormat,
+} from "@hacado/types/utils";
+import { useCurrency, useTimeZone } from "@hacado/ui/context";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
 import { DateTime } from "luxon";
 
 const T_PREFIX = "t_";
 const DT_PREFIX = "dt_";
+const AMOUNT_PREFIX = "$_";
 
 function resolveArgs<T extends any>(
   t: I18nFn<undefined, undefined>,
   timeZone: string,
   locale: string,
+  currency: Currency,
   args?: T,
 ): T {
   if (!args) return args as T;
@@ -27,6 +34,12 @@ function resolveArgs<T extends any>(
           return [
             key.substring(T_PREFIX.length),
             t.has(value as any) ? t(value as any) : value,
+          ];
+        }
+        if (typeof value === "number" && key.startsWith(AMOUNT_PREFIX)) {
+          return [
+            key.substring(AMOUNT_PREFIX.length),
+            formatAmountWithCurrency(value, locale as Language, currency),
           ];
         }
         if (
@@ -71,6 +84,7 @@ export function resolvedI18nText(
   t: I18nFn<undefined, undefined>,
   timeZone: string,
   locale: string,
+  currency: Currency,
 ): string {
   if (field === undefined || field === null) {
     return "";
@@ -91,7 +105,7 @@ export function resolvedI18nText(
     };
 
     return t.has(key as any)
-      ? t(key as any, resolveArgs(t, timeZone, locale, args))
+      ? t(key as any, resolveArgs(t, timeZone, locale, currency, args))
       : key;
   }
 
@@ -102,7 +116,9 @@ export function useResolvedI18nText(field: Field): string {
   const t = useI18n();
   const timeZone = useTimeZone();
   const locale = useLocale();
-  return resolvedI18nText(field, t, timeZone, locale);
+  const currency = useCurrency();
+
+  return resolvedI18nText(field, t, timeZone, locale, currency);
 }
 
 export const ResolvedI18nText = ({ text }: { text: Field }) => {

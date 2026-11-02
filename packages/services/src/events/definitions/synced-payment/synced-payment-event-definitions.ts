@@ -1,5 +1,6 @@
 import type { BaseAllKeys } from "@hacado/i18n/keys";
 
+import { AvailableApps } from "@hacado/app-store";
 import type {
   EventDefinition,
   SyncedPaymentAmountsUpdatedPayload,
@@ -21,8 +22,6 @@ import {
   SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
   SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
 } from "@hacado/types/events";
-
-import { AvailableApps } from "@hacado/app-store";
 import { dashboardUrls } from "../links";
 
 export const SYNCED_PAYMENTS_REVIEW_BADGE_KEY = "synced_payments_review";
@@ -57,9 +56,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           description: {
             key: "admin.platformEvents.syncedPayment.ingested.description" satisfies BaseAllKeys,
             args: {
-              amount: syncedPayment.amount,
-              provider: syncedPayment.appName,
-              status: syncedPayment.status,
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+              t_status:
+                `admin.syncedPayments.status.${syncedPayment.status}` satisfies BaseAllKeys,
             },
           },
           source: envelope.source,
@@ -88,7 +90,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             message: {
               key: `${keyPrefix}.message` satisfies BaseAllKeys,
               args: {
-                amount: syncedPayment.amount,
+                $_amount: syncedPayment.amount,
                 t_provider:
                   AvailableApps[syncedPayment.appName]?.displayName ??
                   syncedPayment.appName,
@@ -126,7 +128,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           },
           description: {
             key: "admin.platformEvents.syncedPayment.confirmed.description" satisfies BaseAllKeys,
-            args: { amount: syncedPayment.amount },
+            args: {
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+            },
           },
           source: envelope.source,
           noExpiry: true,
@@ -154,7 +161,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           },
           description: {
             key: "admin.platformEvents.syncedPayment.rejected.description" satisfies BaseAllKeys,
-            args: { amount: syncedPayment.amount },
+            args: {
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+            },
           },
           source: envelope.source,
           noExpiry: true,
@@ -187,7 +199,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
               ? "admin.platformEvents.syncedPayment.reassigned.description"
               : "admin.platformEvents.syncedPayment.assigned.description") satisfies BaseAllKeys,
             args: {
-              amount: syncedPayment.amount,
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+              t_status:
+                `admin.syncedPayments.status.${syncedPayment.status}` satisfies BaseAllKeys,
               appointmentId: syncedPayment.appointmentId,
             },
           },
@@ -219,7 +236,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           },
           description: {
             key: "admin.platformEvents.syncedPayment.unassigned.description" satisfies BaseAllKeys,
-            args: { amount: syncedPayment.amount },
+            args: {
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+            },
           },
           source: envelope.source,
           noExpiry: true,
@@ -247,7 +269,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           },
           description: {
             key: "admin.platformEvents.syncedPayment.unrecorded.description" satisfies BaseAllKeys,
-            args: { amount: syncedPayment.amount },
+            args: {
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+            },
           },
           source: envelope.source,
           noExpiry: true,
@@ -275,7 +302,12 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           },
           description: {
             key: "admin.platformEvents.syncedPayment.ignored.description" satisfies BaseAllKeys,
-            args: { amount: syncedPayment.amount },
+            args: {
+              $_amount: syncedPayment.amount,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
+            },
           },
           source: envelope.source,
           noExpiry: true,
@@ -304,10 +336,13 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           description: {
             key: "admin.platformEvents.syncedPayment.amountsUpdated.description" satisfies BaseAllKeys,
             args: {
-              paymentAmount: syncedPayment.paymentAmount,
-              tip: syncedPayment.inferredTip ?? 0,
-              previousPaymentAmount,
-              previousTip,
+              $_paymentAmount: syncedPayment.paymentAmount,
+              $_tip: syncedPayment.inferredTip ?? 0,
+              $_previousPaymentAmount: previousPaymentAmount,
+              $_previousTip: previousTip,
+              t_provider:
+                AvailableApps[syncedPayment.appName]?.displayName ??
+                syncedPayment.appName,
             },
           },
           source: envelope.source,
