@@ -195,7 +195,16 @@ export const NotificationsToastStream: React.FC = () => {
     return () => {
       eventSource.close();
     };
-  }, [t, setBadges, addPreviews, router, memberId.current, timeZone]);
+  }, [
+    t,
+    setBadges,
+    addPreviews,
+    router,
+    memberId.current,
+    timeZone,
+    currency,
+    locale,
+  ]);
 
   return null;
 };

@@ -68,6 +68,11 @@ function withFilledArgs<
   return missingI18nArgsAsEmpty(raw, args);
 }
 
+/**
+ * Wraps an i18n function to fill in missing ICU placeholder arguments with an empty string.
+ * @param t - The i18n function to wrap.
+ * @returns The wrapped i18n function.
+ */
 export function wrapI18nFn<
   T extends I18nNamespaces | undefined,
   CustomKeys extends string | undefined = undefined,
