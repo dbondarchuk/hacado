@@ -61,7 +61,7 @@ function resolveArgs<T extends any>(
           ];
         }
 
-        return [key, resolveArgs(t, timeZone, locale, value)];
+        return [key, resolveArgs(t, timeZone, locale, currency, value)];
       }),
     ) as T;
   }
@@ -104,8 +104,10 @@ export function resolvedI18nText(
       args?: Record<string, unknown>;
     };
 
+    // Always pass an args object so missing ICU placeholders become ""
+    // (via wrapI18nFn) instead of falling back to the raw key.
     return t.has(key as any)
-      ? t(key as any, resolveArgs(t, timeZone, locale, currency, args))
+      ? t(key as any, resolveArgs(t, timeZone, locale, currency, args) ?? {})
       : key;
   }
 

@@ -1,6 +1,8 @@
 import { getLocale as getLocaleNext, getTranslations } from "next-intl/server";
+import { wrapI18nFn } from "./missing-args";
 import { I18nFn, I18nNamespaces, Language } from "./types-core";
 
+export { missingI18nArgsAsEmpty, wrapI18nFn } from "./missing-args";
 export * from "./types-core";
 export * from "./utils";
 
@@ -20,6 +22,11 @@ type GetI18nAsyncArgsFn = ((
   ) => Promise<I18nFn<T, CustomKeys>>) &
   ((args?: undefined | Options) => Promise<I18nFn<undefined>>);
 
-export const getI18nAsync = getTranslations as GetI18nAsyncArgsFn;
+export const getI18nAsync = (async (args?: unknown) =>
+  wrapI18nFn(
+    await (getTranslations as (args?: unknown) => Promise<I18nFn<undefined>>)(
+      args,
+    ),
+  )) as GetI18nAsyncArgsFn;
 
 export const getLocale = getLocaleNext;
