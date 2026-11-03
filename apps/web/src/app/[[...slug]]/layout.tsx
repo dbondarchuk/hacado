@@ -11,7 +11,6 @@ import {
   getPlanTier,
   getServicesContainer,
   getWebsiteUrl,
-  sessionCanUseFeature,
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import type { Resource } from "@hacado/types/configuration/resources";
@@ -28,26 +27,10 @@ import { isFreeTier } from "@hacado/utils/subscription";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
-import NextScript from "next/script";
 import { Suspense } from "react";
 import { ToastFromQuery } from "./toast-from-query";
 
 import "../globals.css";
-
-const ScriptRenderer = ({
-  resource,
-  id,
-}: {
-  resource: Resource;
-  id: string | number;
-}) => {
-  switch (resource.source) {
-    case "inline":
-      return <NextScript id={id.toString()}>{resource.value}</NextScript>;
-    case "remote":
-      return <NextScript src={resource.url}></NextScript>;
-  }
-};
 
 const CssRenderer = ({
   resource,
@@ -98,11 +81,10 @@ export default async function RootLayout({
   }
 
   const servicesContainer = await getServicesContainer();
-  const { general, brand, scripts, styling } =
+  const { general, brand, styling } =
     await servicesContainer.configurationService.getConfigurations(
       "general",
       "brand",
-      "scripts",
       "styling",
     );
 
@@ -110,7 +92,7 @@ export default async function RootLayout({
   const websiteUrl = await getWebsiteUrl();
 
   logger.debug(
-    { hasGeneral: !!general, hasScripts: !!scripts, hasStyling: !!styling },
+    { hasGeneral: !!general, hasStyling: !!styling },
     "Retrieved configurations",
   );
 
@@ -132,7 +114,6 @@ export default async function RootLayout({
       websiteUrl,
     );
 
-  const canUseScripts = await sessionCanUseFeature("scripts");
   const planTier = await getPlanTier();
   const isFreeSubscription = await isFreeTier(planTier);
 
@@ -175,12 +156,9 @@ export default async function RootLayout({
               script={script}
               id={`app-layout-header-${index}`}
               key={script.id || index}
+              mount="head"
             />
           ))}
-          {!!canUseScripts &&
-            scripts?.header?.map((resource, index) => (
-              <ScriptRenderer resource={resource} id={index} key={index} />
-            ))}
           {styling?.css?.map((resource, index) => (
             <CssRenderer resource={resource} id={index} key={index} />
           ))}
@@ -214,12 +192,9 @@ export default async function RootLayout({
                   script={script}
                   id={`app-layout-footer-${index}`}
                   key={script.id || index}
+                  mount="body"
                 />
               ))}
-              {!!canUseScripts &&
-                scripts?.footer?.map((resource, index) => (
-                  <ScriptRenderer resource={resource} id={index} key={index} />
-                ))}
               <Toaster />
               <SonnerToaster />
               <Suspense>

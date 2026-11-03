@@ -1,0 +1,64 @@
+app:
+  displayName: Scripts personalizados
+  description: Añade JavaScript de terceros o personalizado al encabezado o pie de tu sitio. Activa o desactiva cada script, elige carga async o defer, y opcionalmente limítalo a páginas concretas.
+statusText:
+  successfully_set_up: Scripts personalizados está listo
+  error_processing_configuration: No se pudieron guardar los ajustes de Scripts personalizados
+navigation:
+  main:
+    title: Scripts personalizados
+    description: Administra scripts personalizados para tu sitio web
+    label: Scripts personalizados
+setup:
+  update: Guardar <app></app>
+settings:
+  addScript: Añadir script
+  empty: Aún no hay scripts. Añade un script de encabezado o pie para empezar.
+  name:
+    label: Nombre
+    placeholder: Nombre del script
+    untitled: Script sin título
+  enabled:
+    label: Activado
+    description: Incluye este script en tu sitio web cuando esté activado.
+  runOnEveryPage:
+    label: Ejecutar en cada navegación de página
+    description: Vuelve a ejecutarse tras cambios de página sin recargar, no solo con una actualización completa. Actívalo para seguimiento de vistas o scripts que deban correr en cada visita.
+  placement:
+    label: Ubicación
+    header: Encabezado
+    footer: Pie de página
+  source:
+    label: Origen
+    inline: En línea
+    remote: Remoto
+  url:
+    label: URL
+    placeholder: https://example.com/script.js
+  value:
+    label: Script
+  strategy:
+    label: Carga
+    async: Async
+    defer: Defer
+    description: Async descarga en paralelo y se ejecuta en cuanto está listo. Defer descarga en paralelo y se ejecuta después de analizar la página.
+  pages:
+    label: Páginas
+    description: Déjalo vacío para ejecutarlo en todas las páginas. Añade páginas para limitar el script solo a esas.
+    add: Añadir página
+    allPages: Todas las páginas
+    remove: Quitar
+  remove: Quitar script
+  deleteConfirmTitle: ¿Quitar este script?
+  deleteConfirmDescription: Este script se eliminará de tu sitio después de guardar.
+  cancel: Cancelar
+  delete: Quitar
+  moveScript: Mover script
+  toasts:
+    saved: Tus cambios se guardaron.
+    error: Hubo un problema con tu solicitud.
+validation:
+  name:
+    required: El nombre es obligatorio
+    maxLength: El nombre puede tener como máximo 128 caracteres
+    unique: Los nombres de los scripts deben ser únicos

@@ -181,6 +181,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
       if (renderEvent) {
         return renderEvent(event);
       }
+
       if (!event.id || !managedEvents) {
         return null;
       }

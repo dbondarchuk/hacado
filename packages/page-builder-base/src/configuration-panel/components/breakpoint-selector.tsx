@@ -58,6 +58,7 @@ const hasConflictingBreakpoints = (
     ) {
       return existingValue >= newValue; // Allow only if min < max
     }
+
     // If existing is max-width and new is min-width
     if (
       maxWidthBreakpoints.includes(existing) &&

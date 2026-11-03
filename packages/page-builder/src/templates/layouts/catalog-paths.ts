@@ -219,6 +219,7 @@ export function rewriteCatalogInternalPath(
   ) {
     return `${base}/book`;
   }
+
   if (pathname === "/about") return `${base}/about`;
   if (
     pathname === "/terms" ||
@@ -227,9 +228,11 @@ export function rewriteCatalogInternalPath(
   ) {
     return `${base}/terms`;
   }
+
   if (pathname.startsWith("/service/")) {
     return `${base}${pathname}`;
   }
+
   if (
     pathname === "/cancel" ||
     pathname.startsWith("/cancel/") ||

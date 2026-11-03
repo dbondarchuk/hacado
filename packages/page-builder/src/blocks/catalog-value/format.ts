@@ -42,6 +42,7 @@ export function formatDuration(
   if (hours > 0 && mins > 0) {
     return `${hours} ${hourWord(hours, style)} ${mins} ${minuteWord(mins, style)}`;
   }
+
   if (hours > 0) return `${hours} ${hourWord(hours, style)}`;
 
   return `${mins} ${minuteWord(mins, style)}`;

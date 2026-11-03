@@ -128,6 +128,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
       if (isPseudoElementState(stateWithParent.state)) {
         return getStateCssSelector(stateWithParent.state);
       }
+
       if (isViewState(stateWithParent.state)) {
         return getStateCssSelector(stateWithParent.state);
       }
@@ -167,9 +168,11 @@ export const StateSelector: React.FC<StateSelectorProps> = ({
     if (isSelfTarget(stateWithParent)) {
       return `${stateWithParent.state}-self`;
     }
+
     if (isParentTarget(stateWithParent)) {
       return `${stateWithParent.state}-parent-${stateWithParent.target?.data?.level}`;
     }
+
     if (isSelectorTarget(stateWithParent)) {
       return `${stateWithParent.state}-selector-${stateWithParent.target?.data?.stateType}-${stateWithParent.target?.data?.selector}`;
     }

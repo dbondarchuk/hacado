@@ -179,14 +179,18 @@ export function scopesForHref(href: string): CommandSearchScope[] {
   if (path.includes("/dashboard/gift-card-studio/purchases")) {
     return ["gift-card-studio", "gift-card-purchases"];
   }
+
   if (path.includes("/dashboard/gift-card-studio/settings")) {
     return ["gift-card-studio"];
   }
+
   if (path.includes("/dashboard/gift-card-studio")) {
     return ["gift-card-studio", "gift-card-designs"];
   }
+
   if (path.includes("/dashboard/blog/comments"))
     return ["blog", "blog-comments"];
+
   if (path.includes("/dashboard/blog")) return ["blog", "blog-posts"];
   if (path.includes("/dashboard/forms")) return ["forms"];
   if (path.includes("/dashboard/waitlist")) return ["waitlist"];

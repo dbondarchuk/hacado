@@ -23,6 +23,7 @@ const isPaymentBranch = (
   if (!appointment?.allowed) return false;
   if (appointment.type === "cancel" && appointment.action === "payment")
     return true;
+
   if (
     appointment.type === "reschedule" &&
     appointment.action === "paymentRequired"
@@ -44,6 +45,7 @@ const getPaymentAmount = (
   if (!appointment?.allowed) return undefined;
   if (appointment.type === "cancel" && appointment.action === "payment")
     return appointment.paymentAmount;
+
   if (
     appointment.type === "reschedule" &&
     appointment.action === "paymentRequired"

@@ -42,6 +42,8 @@ export function zUniqueArray<ArrSchema extends z.ZodArray>(
   schema: ArrSchema,
   uniqueBy: (item: ArrSchema["_output"][number]) => unknown,
   errorMessage?: string,
+  /** Appended after the item index, e.g. `["name"]` → error on `items[i].name`. */
+  errorPath: ReadonlyArray<PropertyKey> = [],
 ): ArrSchema {
   return schema.superRefine((items, ctx) => {
     const seen = new Set<unknown>();
@@ -52,7 +54,7 @@ export function zUniqueArray<ArrSchema extends z.ZodArray>(
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: errorMessage || `Unique property validation failed`,
-          path: [index],
+          path: [index, ...errorPath],
         });
       } else {
         seen.add(val);

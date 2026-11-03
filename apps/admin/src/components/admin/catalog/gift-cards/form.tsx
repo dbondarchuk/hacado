@@ -424,6 +424,7 @@ export const GiftCardForm: React.FC<{
           if (err instanceof Error && err.message === "payment_app_required") {
             return t("payment.toasts.paymentAppRequired");
           }
+
           if (err instanceof Error && err.message === "sms_consent_required") {
             return t("catalog.giftCards.form.toasts.smsConsentRequired");
           }

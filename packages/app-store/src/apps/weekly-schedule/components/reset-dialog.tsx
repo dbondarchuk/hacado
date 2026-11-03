@@ -78,6 +78,7 @@ export const ResetDialog: React.FC<ResetDialogProps> = ({
         ),
       );
     }
+
     if (recurrenceOnly) {
       return (
         <>

@@ -255,6 +255,7 @@ const PurchaseCard = ({
       </p>
     );
   }
+
   if (isSuccess) {
     return (
       <div className="py-8 text-center">
@@ -273,6 +274,7 @@ const PurchaseCard = ({
       </div>
     );
   }
+
   if (currentStep === "payment") {
     return (
       <div className="space-y-6">

@@ -20,6 +20,7 @@ export const activityHandler: EventHandler = {
     if (def?.recordActivity === undefined || def.recordActivity === false) {
       return;
     }
+
     if (typeof def.recordActivity !== "function") {
       return;
     }

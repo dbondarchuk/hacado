@@ -626,35 +626,6 @@ async function ensureDefaultInstallSchedule(
   logger.debug("Applied default schedule configuration");
 }
 
-async function ensureInstallDefaultScripts(
-  services: ReturnType<typeof ServicesContainer>,
-): Promise<void> {
-  const logger = getLoggerFactory("InstallActions")(
-    "ensureInstallDefaultScripts",
-  );
-
-  const existing =
-    Object.keys(
-      (await services.configurationService.getConfiguration("scripts")) ?? {},
-    ).length > 0;
-
-  if (existing) {
-    logger.debug("Scripts already installed; skipping default");
-    return;
-  }
-
-  await services.configurationService.setConfiguration(
-    "scripts",
-    {
-      header: [],
-      footer: [],
-    },
-    systemEventSource,
-  );
-
-  logger.debug("Applied default scripts configuration");
-}
-
 async function ensureInstallDefaultSocial(
   services: ReturnType<typeof ServicesContainer>,
 ): Promise<void> {
@@ -753,7 +724,6 @@ async function ensureInstallDefaultConfigurations(
     "ensureInstallDefaultConfigurations",
   );
 
-  await ensureInstallDefaultScripts(services);
   await ensureInstallDefaultSocial(services);
   await ensureInstallDefaultStyling(services);
   await ensureInstallDefaultApps(services);

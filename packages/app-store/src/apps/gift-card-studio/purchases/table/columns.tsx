@@ -67,6 +67,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
           </span>
         );
       }
+
       if (purchase.cardGenerationStatus !== "completed") {
         return (
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -125,6 +126,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
           </span>
         );
       }
+
       if (purchase.invoiceGenerationStatus !== "completed") {
         return (
           <div className="flex items-center gap-2 text-muted-foreground">

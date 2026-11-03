@@ -214,6 +214,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     if (intent.status !== "paid") {
       return false;
     }
+
     if (
       getIntentBaseAmount(intent) !== amount ||
       intent.appId !== appId ||

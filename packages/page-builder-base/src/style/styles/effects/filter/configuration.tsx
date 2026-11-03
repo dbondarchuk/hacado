@@ -49,9 +49,11 @@ const getNumberOptions = (func: string) => {
   if (isFilterFunctionUnitless(func)) {
     return [0, 0.5, 0.75, 1, 1.25, 1.5, 2];
   }
+
   if (isFilterFunctionPercentage(func)) {
     return [0, 25, 50, 75, 100];
   }
+
   if (func === "hue-rotate") {
     return [0, 45, 90, 180, 270, 360];
   }

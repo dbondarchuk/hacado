@@ -314,6 +314,7 @@ export function getStaffBookingTotals(args: {
       duration: totalDuration,
     };
   }
+
   if (args.isCustomerPackage) {
     return { price: addonsPrice, duration: totalDuration };
   }

@@ -261,6 +261,7 @@ export function InstallWizard({
       </div>
     );
   }
+
   if (!verified) {
     return <StepVerify email={email} />;
   }

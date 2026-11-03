@@ -160,6 +160,7 @@ function getExceptionDayShifts(
   if (Object.prototype.hasOwnProperty.call(days, weekDay)) {
     return days[weekDay];
   }
+
   if (Object.prototype.hasOwnProperty.call(days, String(weekDay))) {
     return days[String(weekDay)];
   }
@@ -202,6 +203,7 @@ export function resolveDaySchedule(
   if (companyDay !== undefined) {
     return { shifts: companyDay, source: "company" };
   }
+
   if (input.appDay !== undefined) {
     return { shifts: input.appDay, source: "app" };
   }

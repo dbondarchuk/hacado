@@ -415,6 +415,7 @@ export function useBlockEditor(
         !matchesRule(parentBlockDefinition, allowedParents)
       )
         return false;
+
       // Direct fluid children (e.g. button) expose the fluid parent in DnD context.
       // Reject nestable drags on the shell so inner targets handle insertion.
       if (

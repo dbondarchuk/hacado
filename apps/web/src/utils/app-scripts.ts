@@ -6,6 +6,8 @@ import type {
 } from "@hacado/types/apps";
 import type { Page } from "@hacado/types/pages";
 
+export { isJsScriptContribution } from "./is-js-script-contribution";
+
 async function invokeScriptProvider(
   callback: (
     appData: ConnectedAppData,
@@ -76,16 +78,4 @@ export function collectPageFooterScripts(
       routeParams,
     });
   });
-}
-
-export function isJsScriptContribution(script: ScriptContribution): boolean {
-  if (!script.type) return true;
-
-  const normalized = script.type.toLowerCase();
-
-  return (
-    normalized === "text/javascript" ||
-    normalized === "application/javascript" ||
-    normalized === "module"
-  );
 }

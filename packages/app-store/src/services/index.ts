@@ -15,6 +15,8 @@ import { CALENDAR_WRITER_APP_NAME } from "../apps/calendar-writer/const";
 import { CalendarWriterConnectedApp } from "../apps/calendar-writer/service";
 import { CARDDAV_APP_NAME } from "../apps/carddav/const";
 import CarddavConnectedApp from "../apps/carddav/service";
+import { CUSTOM_SCRIPTS_APP_NAME } from "../apps/custom-scripts/const";
+import { CustomScriptsConnectedApp } from "../apps/custom-scripts/service";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-email-notification/const";
 import CustomerEmailNotificationConnectedApp from "../apps/customer-email-notification/service";
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-package-email-notification/const";
@@ -128,6 +130,7 @@ export const AvailableAppServices: Record<
     new AutomaticStructuredDataConnectedApp(props),
   [AUTOMATIC_AI_DISCOVERY_APP_NAME]: (props) =>
     new AutomaticAiDiscoveryConnectedApp(props),
+  [CUSTOM_SCRIPTS_APP_NAME]: (props) => new CustomScriptsConnectedApp(props),
 };
 
 export { AvailableApps as ServiceAvailableApps } from "../apps";

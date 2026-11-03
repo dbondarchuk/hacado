@@ -4,6 +4,15 @@ import type { ConnectedAppData } from "./connected-app.data";
 export type ScriptContribution = {
   type?: string;
   id?: string;
+  /** When set on a remote JS script, rendered as a native `<script async>`. */
+  async?: boolean;
+  /** When set on a remote JS script, rendered as a native `<script defer>`. */
+  defer?: boolean;
+  /**
+   * Re-execute on every client-side page navigation (soft nav), not only on
+   * full document loads. Default false.
+   */
+  runOnEveryPage?: boolean;
 } & ({ source: "inline"; value: string } | { source: "remote"; url: string });
 
 export type LayoutScriptProviderContext = {

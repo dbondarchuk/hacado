@@ -38,9 +38,11 @@ export async function unlinkSocialAccount(
   if (!socialAccount) {
     return { ok: false, code: "not_linked" };
   }
+
   if (!hasCredential) {
     return { ok: false, code: "no_credential" };
   }
+
   if ((accounts?.length ?? 0) <= 1) {
     return { ok: false, code: "last_account" };
   }

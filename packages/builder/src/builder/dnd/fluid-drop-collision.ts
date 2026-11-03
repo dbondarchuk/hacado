@@ -103,6 +103,7 @@ function resolvePreferNestedDrop(
     // Ctrl/Cmd: nest into blocks inside fluid, but still allow fluid grid drops.
     return !targetIsFluidRoot;
   }
+
   if (isDragSourceOutsideFluid(activeDrag, indexes)) {
     return false;
   }

@@ -259,6 +259,7 @@ export const getModifyAppointmentInformationRequestResult = async (
         customerId: appointment.customerId,
       };
     }
+
     if (policy.action === "allowed") {
       return {
         information: {
@@ -270,6 +271,7 @@ export const getModifyAppointmentInformationRequestResult = async (
         customerId: appointment.customerId,
       };
     }
+
     if (hasDeposit && policy.action === "forfeitDeposit") {
       return {
         information: {
@@ -543,6 +545,7 @@ export const getModifyAppointmentInformationRequestResult = async (
         customerId: appointment.customerId,
       };
     }
+
     if (policy.action === "allowed") {
       return {
         information: {

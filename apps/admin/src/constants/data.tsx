@@ -12,7 +12,6 @@ import {
   CalendarRange,
   ChartArea,
   CircleDollarSign,
-  Code2,
   Gift,
   Globe,
   Grid2X2Plus,
@@ -231,15 +230,6 @@ export const navItems: NavItemGroup[] = [
         icon: <Paintbrush />,
         requiredPermission: { resource: "page", action: "read" },
         items: [
-          {
-            id: "appearence-scripts",
-            title: "admin.navigation.scripts",
-            href: "/dashboard/appearence/scripts",
-            icon: <Code2 />,
-            label: "admin.navigation.scripts",
-            minimumPlanTier: BillingPlanTier.Solo,
-            requiredPermission: { resource: "settings", action: "update" },
-          },
           {
             id: "appearance-page-headers",
             title: "admin.navigation.pageHeaders",

@@ -131,6 +131,7 @@ function getPreferredTranslationFilenamesInDir(dirPath) {
     if (f.startsWith(".") || f.endsWith(".generated.ts")) {
       continue;
     }
+
     if (!/\.(json|yaml|yml)$/.test(f)) {
       continue;
     }
@@ -245,6 +246,7 @@ function getStorageWriteTargetForPath(filePath, filename) {
     if (yamlHasData) {
       return { path: filePath, format: "yaml" };
     }
+
     if (fs.existsSync(jsonPath)) {
       return { path: jsonPath, format: "json" };
     }

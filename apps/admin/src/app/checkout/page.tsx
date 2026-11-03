@@ -47,10 +47,13 @@ function formatPriceParts(
     const interval = product.recurringInterval;
     if (interval === "month")
       return { amount, period: t("checkout.pricePerMonth") };
+
     if (interval === "year")
       return { amount, period: t("checkout.pricePerYear") };
+
     if (interval === "week")
       return { amount, period: t("checkout.pricePerWeek") };
+
     if (interval === "day")
       return { amount, period: t("checkout.pricePerDay") };
   }

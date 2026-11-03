@@ -327,6 +327,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       if (!giftCard) {
         continue;
       }
+
       if (!(await this.canSetGiftCardStatus(giftCard, status, logger))) {
         continue;
       }

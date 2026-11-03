@@ -93,6 +93,7 @@ const notSentStatusForReason = (
   if (reason === "no consent") {
     return "noConsent";
   }
+
   if (reason === "opted out") {
     return "optedOut";
   }

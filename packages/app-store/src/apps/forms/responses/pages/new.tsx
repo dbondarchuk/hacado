@@ -58,6 +58,7 @@ export const ResponseNewPage = ({ appId }: { appId: string }) => {
   if (loading) {
     return null;
   }
+
   if (!formIdParam) {
     return (
       <div className="w-full h-full space-y-8">
@@ -81,6 +82,7 @@ export const ResponseNewPage = ({ appId }: { appId: string }) => {
       </div>
     );
   }
+
   if (!form) {
     return (
       <div className="w-full h-full space-y-8">

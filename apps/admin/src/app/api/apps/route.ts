@@ -90,12 +90,14 @@ export async function POST(request: NextRequest) {
       { status: 404 },
     );
   }
+
   if (!canInstallApp(session.user as SessionUser, appDefinition)) {
     return NextResponse.json(
       { success: false, error: "Forbidden", code: "forbidden" },
       { status: 403 },
     );
   }
+
   if (!sessionCanInstallApp(session, data.type)) {
     return NextResponse.json(
       {

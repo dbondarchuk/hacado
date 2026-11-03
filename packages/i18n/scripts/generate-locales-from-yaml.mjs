@@ -160,6 +160,7 @@ function objectToTypeScriptValue(value, indent) {
   if (typeof value === "string") {
     return JSON.stringify(value);
   }
+
   if (typeof value === "number" || typeof value === "boolean") {
     return String(value);
   }

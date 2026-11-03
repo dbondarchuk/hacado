@@ -1,0 +1,64 @@
+app:
+  displayName: Scripts personnalisés
+  description: Ajoutez du JavaScript tiers ou personnalisé à l’en-tête ou au pied de page de votre site. Activez ou désactivez chaque script, choisissez le chargement async ou defer, et limitez éventuellement un script à certaines pages.
+statusText:
+  successfully_set_up: Scripts personnalisés est prêt
+  error_processing_configuration: Impossible d’enregistrer les paramètres de Scripts personnalisés
+navigation:
+  main:
+    title: Scripts personnalisés
+    description: Gérez les scripts personnalisés de votre site
+    label: Scripts personnalisés
+setup:
+  update: Enregistrer <app></app>
+settings:
+  addScript: Ajouter un script
+  empty: Aucun script pour le moment. Ajoutez un script d’en-tête ou de pied de page pour commencer.
+  name:
+    label: Nom
+    placeholder: Nom du script
+    untitled: Script sans titre
+  enabled:
+    label: Activé
+    description: Inclut ce script sur votre site lorsqu’il est activé.
+  runOnEveryPage:
+    label: Exécuter à chaque navigation de page
+    description: Réexécute après les changements de page sans rechargement, pas seulement lors d’un rafraîchissement complet. Activez pour le suivi des pages vues ou les scripts qui doivent tourner à chaque visite.
+  placement:
+    label: Emplacement
+    header: En-tête
+    footer: Pied de page
+  source:
+    label: Source
+    inline: En ligne
+    remote: Distant
+  url:
+    label: URL
+    placeholder: https://example.com/script.js
+  value:
+    label: Script
+  strategy:
+    label: Chargement
+    async: Async
+    defer: Defer
+    description: Async télécharge en parallèle et s’exécute dès qu’il est prêt. Defer télécharge en parallèle et s’exécute après l’analyse de la page.
+  pages:
+    label: Pages
+    description: Laissez vide pour l’exécuter sur toutes les pages. Ajoutez des pages pour limiter ce script à celles-ci uniquement.
+    add: Ajouter une page
+    allPages: Toutes les pages
+    remove: Retirer
+  remove: Retirer le script
+  deleteConfirmTitle: Retirer ce script ?
+  deleteConfirmDescription: Ce script sera retiré de votre site après l’enregistrement.
+  cancel: Annuler
+  delete: Retirer
+  moveScript: Déplacer le script
+  toasts:
+    saved: Vos modifications ont été enregistrées.
+    error: Un problème est survenu avec votre demande.
+validation:
+  name:
+    required: Le nom est obligatoire
+    maxLength: Le nom peut contenir au maximum 128 caractères
+    unique: Les noms des scripts doivent être uniques

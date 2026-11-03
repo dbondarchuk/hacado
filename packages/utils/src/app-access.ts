@@ -114,6 +114,7 @@ export function canAccessConnectedApp(
   if (app.target === "company") {
     return canUseApps(user);
   }
+
   if (!hasPermission(user, "app", "useUser")) return false;
   if (app.memberId === user.memberId) return true;
   if (!canViewOtherMembersApps(user)) return false;

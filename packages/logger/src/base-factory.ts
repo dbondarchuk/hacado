@@ -109,5 +109,6 @@ export const getBaseLoggerFactory = ({
     //   return { "level-label": logger.levels.labels[level] };
     // },
   });
+
   return logger;
 };

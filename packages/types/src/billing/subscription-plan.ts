@@ -69,7 +69,6 @@ export type SubscriptionFeature =
   | "customDomain"
   | "sms"
   | "waitlist"
-  | "scripts"
   | "payments";
 
 export const FREE_TIER_DISABLED_FEATURES: ReadonlySet<SubscriptionFeature> =
@@ -80,7 +79,6 @@ export const FREE_TIER_DISABLED_FEATURES: ReadonlySet<SubscriptionFeature> =
     "packages",
     "customDomain",
     "waitlist",
-    "scripts",
     "payments",
   ]);
 

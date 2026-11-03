@@ -224,6 +224,7 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
                   </React.Fragment>
                 );
               }
+
               if (isMiddleElement && !isLastMiddleElement) {
                 return null; // Skip middle elements except the last one
               }

@@ -22,9 +22,11 @@ async function loadTargetAndAuthorize(memberId: string, user: SessionUser) {
       ),
     };
   }
+
   if (user.memberId === member._id) {
     return { ok: true as const, member, services };
   }
+
   if (
     !canUpdateTeamMemberProfile(user, {
       memberId: member._id,

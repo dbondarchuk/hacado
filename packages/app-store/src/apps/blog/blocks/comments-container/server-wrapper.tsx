@@ -57,6 +57,7 @@ export const BlogCommentsContainerServerWrapper = async ({
       </div>
     );
   }
+
   if (!commentsEnabled) {
     return (
       <BlogCommentsContainerComponent

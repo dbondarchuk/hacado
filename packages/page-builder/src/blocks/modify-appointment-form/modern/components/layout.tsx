@@ -62,6 +62,7 @@ export const ModifyAppointmentFormLayout = ({
       if (!paymentInformation?.intent?._id && step === "payment") {
         return false;
       }
+
       if (type === "cancel" && step === "calendar") {
         return false;
       }

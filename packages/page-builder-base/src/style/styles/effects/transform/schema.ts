@@ -145,6 +145,7 @@ export const getDefaultFunctionValues = (
       unit: "px" as const,
     }));
   }
+
   if (func.includes("scale")) {
     return Array.from({ length: count }, () => 1);
   }

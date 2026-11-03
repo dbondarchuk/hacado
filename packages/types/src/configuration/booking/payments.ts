@@ -150,6 +150,7 @@ export function isBookingTipsVisible(
   if (!tips || tips.mode === "off") {
     return false;
   }
+
   if (tips.mode === "on") {
     return true;
   }

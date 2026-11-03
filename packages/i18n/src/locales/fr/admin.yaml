@@ -468,7 +468,6 @@ navigation:
   general: Général
   brand: Marque
   social: Sociale
-  scripts: Scripts
   communications: Communications
   templates: Modèles
   logs: Journaux
@@ -3345,15 +3344,6 @@ settings:
     title: Calendrier par défaut
     description: Définissez votre horaire de base
     form:
-      toasts:
-        changesSaved: Vos modifications ont été enregistrées.
-        requestError: Il y a eu un problème avec votre demande.
-  scripts:
-    title: Scripts
-    description: Ajouter des scripts tiers supplémentaires au site Web
-    form:
-      headerScripts: Scripts d'en-tête
-      footerScripts: Scripts de pied de page
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.

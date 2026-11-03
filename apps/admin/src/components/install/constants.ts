@@ -69,6 +69,7 @@ export function readPreferredWebsitePack(): string | null {
     ) {
       return parsed.catalogPreferredPackId.trim();
     }
+
     if (
       typeof parsed.websitePackId === "string" &&
       parsed.websitePackId.trim()

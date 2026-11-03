@@ -368,6 +368,7 @@ function scopesForQuickLink(id: string): CommandSearchScope[] | undefined {
   if (id === "gift-card-studio-manual-purchase") {
     return ["gift-card-studio", "gift-card-purchases"];
   }
+
   if (id === "gift-card-studio-new-design") {
     return ["gift-card-studio", "gift-card-designs"];
   }
@@ -378,9 +379,11 @@ function scopesForQuickLink(id: string): CommandSearchScope[] | undefined {
 function keywordsForQuickLink(id: string) {
   if (id === "gift-card-studio-new-design")
     return "new design create gift card";
+
   if (id === "gift-card-studio-manual-purchase") {
     return "manual purchase new gift card";
   }
+
   if (id === "blog-write-post") return "new blog post";
 
   return undefined;

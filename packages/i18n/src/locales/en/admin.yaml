@@ -471,7 +471,6 @@ navigation:
   general: General
   brand: Brand
   social: Social
-  scripts: Scripts
   communications: Communications
   templates: Templates
   logs: Logs
@@ -3594,15 +3593,6 @@ settings:
     title: Default schedule
     description: Set your base schedule
     form:
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-  scripts:
-    title: Scripts
-    description: Add additional third-party scripts to the website
-    form:
-      headerScripts: Header scripts
-      footerScripts: Footer scripts
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.

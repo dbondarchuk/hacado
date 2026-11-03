@@ -573,9 +573,11 @@ export class GiftCardStudioConnectedApp
     if (slug[0] === "preview" && request.method === "POST") {
       return this.handlePreviewRequest(appData, request);
     }
+
     if (slug[0] === "intent" && request.method === "POST") {
       return this.handleIntentRequest(appData, request);
     }
+
     if (slug[0] === "purchase" && request.method === "POST") {
       return this.handlePurchaseRequest(appData, request);
     }
@@ -1122,6 +1124,7 @@ export class GiftCardStudioConnectedApp
         "Amount purchased is too low",
       );
     }
+
     if (purchase.amountPurchased > maxAmount) {
       throw new ConnectedAppRequestError(
         "amount_purchased_too_high",

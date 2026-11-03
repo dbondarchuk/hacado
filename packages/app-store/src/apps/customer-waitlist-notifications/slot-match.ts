@@ -11,6 +11,7 @@ export function hourBandForHour(hour: number): WaitlistTime {
   if (hour < AFTERNOON_START_HOUR) {
     return "morning";
   }
+
   if (hour < EVENING_START_HOUR) {
     return "afternoon";
   }
@@ -133,6 +134,7 @@ export function waitlistEntryMatchesSlot(
   if (entry.asSoonAsPossible) {
     return true;
   }
+
   if (!entry.dates?.length) {
     return false;
   }

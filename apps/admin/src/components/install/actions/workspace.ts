@@ -82,6 +82,7 @@ export async function createWorkspace(
   if (slugIssue === "too_short" || slugIssue === "invalid") {
     return { ok: false, code: "slug_invalid" };
   }
+
   if (slugIssue === "reserved") {
     return { ok: false, code: "slug_reserved" };
   }

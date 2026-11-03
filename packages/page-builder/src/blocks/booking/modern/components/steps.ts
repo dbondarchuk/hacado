@@ -195,6 +195,7 @@ const canGoToStepBeforeAddons = (ctx: ScheduleContextProps) => {
   ) {
     return true;
   }
+
   if (
     ctx.flowOrder === "specialist-first" &&
     shouldSkipLockedServiceStep(

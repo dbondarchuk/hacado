@@ -557,6 +557,7 @@ export function CanvasWorkspace({
         backgroundColor: canvasTheme === "dark" ? "#1a1a1a" : "#ffffff",
       };
     }
+
     if (bg.type === "color") {
       return { backgroundColor: bg.color || "#ffffff" };
     }

@@ -117,6 +117,7 @@ export function useUploadFile({
                   parsed.limitBytes ?? FREE_TIER_LIMITS.assetsTotalSize,
                 );
               }
+
               if (parsed.message) {
                 throw new Error(parsed.message);
               }

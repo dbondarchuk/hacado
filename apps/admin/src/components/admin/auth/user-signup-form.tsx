@@ -353,6 +353,7 @@ export const UserSignupForm = ({
       />,
     );
   }
+
   if (step === "phone") {
     return withProgress(
       <Form {...phoneForm}>
@@ -387,6 +388,7 @@ export const UserSignupForm = ({
       </Form>,
     );
   }
+
   if (step === "phone-otp") {
     return withProgress(
       <PhoneOtpStep
@@ -398,6 +400,7 @@ export const UserSignupForm = ({
       />,
     );
   }
+
   if (step === "credentials") {
     return withProgress(
       <>

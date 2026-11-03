@@ -91,9 +91,11 @@ function getPaddingBefore(
   if (index === 0) {
     return 0;
   }
+
   if (columnsCount === 2) {
     return columnsGap / 2;
   }
+
   if (index === 1) {
     return columnsGap / 3;
   }
@@ -116,6 +118,7 @@ function getPaddingAfter(
   if (index === 0) {
     return (2 * columnsGap) / 3;
   }
+
   if (index === 1) {
     return columnsGap / 3;
   }

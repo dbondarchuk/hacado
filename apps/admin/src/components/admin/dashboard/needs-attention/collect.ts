@@ -250,6 +250,7 @@ async function collectAppItems(
     if (appHasNeedsAttentionScope(app.name)) {
       continue;
     }
+
     if (app.status !== "failed") {
       continue;
     }

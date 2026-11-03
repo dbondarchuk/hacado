@@ -96,6 +96,7 @@ export async function POST(request: NextRequest) {
         { status: 409 },
       );
     }
+
     if (serialized.includes("NO_AVAILABLE_USER_SLOTS")) {
       return NextResponse.json(
         {

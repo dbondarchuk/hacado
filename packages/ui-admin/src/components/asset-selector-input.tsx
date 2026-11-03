@@ -92,6 +92,7 @@ export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
     if (!imageConstraints?.square && imageConstraints?.minSize == null) {
       return true;
     }
+
     if (
       isSvgFaviconSource({
         url: candidate.url,

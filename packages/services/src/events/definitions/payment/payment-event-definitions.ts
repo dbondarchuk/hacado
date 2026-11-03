@@ -97,6 +97,7 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             link: dashboardUrls.payment(payment),
           };
         }
+
         if (update.status === "cancelled") {
           return {
             eventId: envelope.id,
@@ -113,6 +114,7 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             link: dashboardUrls.payment(payment),
           };
         }
+
         if (
           ("sentToEmail" in update && update.sentToEmail) ||
           ("sentToPhone" in update && update.sentToPhone)

@@ -277,10 +277,12 @@ export const getShortcutCurrentValue = <T extends BaseStyleDictionary>(
   if (shortcut.inputType === "number-with-unit") {
     return undefined; // Number-with-unit doesn't use string values
   }
+
   // Handle asset-selector type separately
   if (shortcut.inputType === "asset-selector") {
     return undefined; // Asset-selector doesn't use predefined options
   }
+
   // Handle color type separately
   if (shortcut.inputType === "color") {
     return undefined; // Color doesn't use predefined options

@@ -72,6 +72,7 @@ function statusTextKey(statusText: ConnectedAppData["statusText"]): string {
   if (typeof statusText === "string") {
     return statusText;
   }
+
   if (statusText && typeof statusText === "object" && "key" in statusText) {
     return String(statusText.key);
   }
@@ -287,6 +288,7 @@ class GoogleAnalyticsConnectedApp
           "app_google-analytics_admin.statusText.redirect_request_does_not_contain_app_id" satisfies GoogleAnalyticsAdminAllKeys,
         );
       }
+
       if (!code) {
         throw new ConnectedAppError(
           "app_google-analytics_admin.statusText.redirect_request_does_not_contain_authorization_code" satisfies GoogleAnalyticsAdminAllKeys,
@@ -305,6 +307,7 @@ class GoogleAnalyticsConnectedApp
           "app_google-analytics_admin.statusText.app_was_not_authorized_properly" satisfies GoogleAnalyticsAdminAllKeys,
         );
       }
+
       if (!requiredScopes.every((s) => !!tokens.scope?.includes(s))) {
         throw new ConnectedAppError(
           "app_google-analytics_admin.statusText.app_was_not_given_required_scopes" satisfies GoogleAnalyticsAdminAllKeys,

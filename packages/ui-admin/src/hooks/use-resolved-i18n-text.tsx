@@ -36,12 +36,14 @@ function resolveArgs<T extends any>(
             t.has(value as any) ? t(value as any) : value,
           ];
         }
+
         if (typeof value === "number" && key.startsWith(AMOUNT_PREFIX)) {
           return [
             key.substring(AMOUNT_PREFIX.length),
             formatAmountWithCurrency(value, locale as Language, currency),
           ];
         }
+
         if (
           typeof value === "object" &&
           value &&
@@ -89,6 +91,7 @@ export function resolvedI18nText(
   if (field === undefined || field === null) {
     return "";
   }
+
   if (typeof field === "string") {
     return t.has(field as any) ? t(field as any) : field;
   }

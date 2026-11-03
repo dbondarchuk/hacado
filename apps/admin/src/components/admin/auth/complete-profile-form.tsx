@@ -98,6 +98,7 @@ export function CompleteProfileForm({
       />,
     );
   }
+
   if (step === "phone") {
     return withProgress(
       <CompleteProfilePhoneStep

@@ -130,6 +130,7 @@ export const BlogPostForm: React.FC<{
     if (initialData?._id) {
       return;
     }
+
     if (initialData?.author) {
       return;
     }
@@ -156,6 +157,7 @@ export const BlogPostForm: React.FC<{
     if (!initialData || initialData._id) {
       return;
     }
+
     if (!initialData.author) {
       return;
     }

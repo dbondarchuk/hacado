@@ -357,6 +357,7 @@ export const Appointments: React.FC<
       />
     );
   }
+
   if (!isOnlyWaitlist && packageBookingFlow && otpVerified) {
     return (
       <div className="flex flex-col gap-4" id={id}>
@@ -412,6 +413,7 @@ export const Appointments: React.FC<
       </div>
     );
   }
+
   if (isSpecialistFirst && !specialistFirstMemberId && !specialistFirstAny) {
     return (
       <div className="flex flex-col gap-2" id={id}>

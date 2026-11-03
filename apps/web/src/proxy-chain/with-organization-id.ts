@@ -29,6 +29,7 @@ function responseWhenOrganizationNotFound(
       { status: 404 },
     );
   }
+
   if (request.nextUrl.pathname === ORG_NOT_FOUND_PATH) {
     return next(request, event);
   }
@@ -51,6 +52,7 @@ function responseWhenSubscriptionInactive(
       { status: 402 },
     );
   }
+
   if (request.nextUrl.pathname === ORG_NOT_FOUND_PATH) {
     return next(request, event);
   }

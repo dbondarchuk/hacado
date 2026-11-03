@@ -276,6 +276,7 @@ export const FormBlockComponent = ({
       </>
     );
   }
+
   if (submitStatus === "success" && !isEditor) {
     return (
       <>

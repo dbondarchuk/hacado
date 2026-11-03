@@ -468,7 +468,6 @@ navigation:
   general: Загальні
   brand: Бренд
   social: Соціальні мережі
-  scripts: Скрипти
   communications: Комунікації
   templates: Шаблони
   logs: Журнал комунікацій
@@ -3343,15 +3342,6 @@ settings:
     title: Розклад за замовчуванням
     description: Встановити ваш базовий розклад
     form:
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-  scripts:
-    title: Скрипти
-    description: Додати додаткові сторонні скрипти до веб-сайту
-    form:
-      headerScripts: Скрипти заголовка
-      footerScripts: Скрипти підвалу
       toasts:
         changesSaved: Ваші зміни були збережені.
         requestError: Виникла проблема з вашим запитом.

@@ -76,6 +76,7 @@ return isAddonAvailableForMember(addon.staff, selectedMemberId);
         valid(`if (!user) {
   return null;
 }
+
 if (!user.companyId) {
   return null;
 }
@@ -203,7 +204,6 @@ await invalidateCache();
           `if (!user) {
   return null;
 }
-
 if (!user.companyId) {
   return null;
 }
@@ -212,13 +212,14 @@ const company = await getCompany(user.companyId);
           `if (!user) {
   return null;
 }
+
 if (!user.companyId) {
   return null;
 }
 
 const company = await getCompany(user.companyId);
 `,
-          ["unexpectedBlankLine", "expectedBlankLine"],
+          ["expectedBlankLine", "expectedBlankLine"],
         ),
         invalid(
           `if (!user) return null;

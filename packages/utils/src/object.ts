@@ -60,6 +60,7 @@ const recursiveDestructAndReplace = (
   if (!obj || typeof obj !== "object") {
     return obj;
   }
+
   if (Array.isArray(obj)) {
     return obj.map((o: any, i: number): any =>
       recursiveDestructAndReplace(o, property, newValue, `${currentPath}.${i}`),

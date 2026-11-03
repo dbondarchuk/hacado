@@ -88,6 +88,7 @@ export function StepBusiness() {
   const validateStep1 = () => {
     if (!p.businessName.trim() || p.businessName.trim().length < 2)
       return false;
+
     if (!p.industry) return false;
     if (slugIssue || slugCheck !== "available") return false;
     if (!p.timeZone) return false;

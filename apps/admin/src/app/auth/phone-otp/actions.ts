@@ -32,6 +32,7 @@ async function resolveContext(
       language,
     };
   }
+
   if (!session?.user?.id) {
     throw new MemberPhoneOtpError("invalid_phone");
   }

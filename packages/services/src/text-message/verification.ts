@@ -53,6 +53,7 @@ export const resolvePlatformSmsRoute = (input: {
   if (!input.platformCountry || unverifiedProvider === "textbelt") {
     return { kind: "textbelt" };
   }
+
   if (!input.poolNumber) {
     return { kind: "skip", reason: "sms number not ready" };
   }
@@ -73,6 +74,7 @@ export const mapTelnyxVerificationStatus = (
   if (normalized === "rejected" || normalized === "waiting for customer") {
     return "rejected";
   }
+
   if (
     normalized === "in progress" ||
     normalized === "waiting for vendor" ||

@@ -100,6 +100,7 @@ export async function validateCustomDomainDns(
     if (expectedIp && aRecords.includes(expectedIp)) {
       return { ok: true };
     }
+
     if (
       expectedCname &&
       cnameRecords.some(

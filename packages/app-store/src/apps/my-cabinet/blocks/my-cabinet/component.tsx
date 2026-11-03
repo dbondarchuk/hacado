@@ -38,6 +38,7 @@ const parseHash = (hash: string): HashState => {
       customerPackageId: appointmentId?.trim() || undefined,
     };
   }
+
   if (
     (action === "cancel" || action === "reschedule") &&
     appointmentId &&

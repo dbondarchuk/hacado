@@ -196,6 +196,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
     if (redirectStatus !== "succeeded") {
       return;
     }
+
     if (!p.get("payment_intent") || !intent._id) {
       return;
     }

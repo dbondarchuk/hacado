@@ -63,6 +63,7 @@ export const FormBlockEditorWrapper = ({
       </>
     );
   }
+
   if (status === "loading") {
     return (
       <>
@@ -86,6 +87,7 @@ export const FormBlockEditorWrapper = ({
       </>
     );
   }
+
   if (status === "success" && form) {
     return (
       <>

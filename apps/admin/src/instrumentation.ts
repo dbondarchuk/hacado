@@ -40,6 +40,7 @@ export const onRequestError: Instrumentation.onRequestError = async (
   if (process.env.NEXT_RUNTIME !== "nodejs") {
     return;
   }
+
   // Expected navigation / 404 control flow — not actionable app failures.
   if (isNextControlFlowError(err)) {
     return;

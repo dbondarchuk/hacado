@@ -299,15 +299,18 @@ export class WaitlistConnectedApp
     ) {
       return this.getCustomerWaitlistEntries(appData, request);
     }
+
     if (
       request.method.toUpperCase() === "POST" &&
       action === "dismiss-customer-waitlist-entry"
     ) {
       return this.dismissCustomerWaitlistEntry(appData, request);
     }
+
     if (request.method.toUpperCase() === "GET" && action === "waitlist-offer") {
       return this.getWaitlistOfferPrefill(appData, request);
     }
+
     if (request.method.toUpperCase() === "GET" && action === "sms-text") {
       return Response.json(await this.getCustomerWaitlistTextOffer());
     }
@@ -487,6 +490,7 @@ export class WaitlistConnectedApp
     if (typeof data?.waitlistId === "string" && data.waitlistId) {
       return data.waitlistId;
     }
+
     if (typeof data?.waitlistToken === "string" && data.waitlistToken) {
       return verifyWaitlistOfferToken(data.waitlistToken)?.entryId;
     }

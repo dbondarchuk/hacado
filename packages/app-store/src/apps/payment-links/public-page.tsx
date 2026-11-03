@@ -118,9 +118,11 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     if (!tipsConfig.enabled || !payment) {
       return 0;
     }
+
     if (tipMode === "none") {
       return 0;
     }
+
     if (tipMode === "preset" && tipPresetPercent != null) {
       return roundMoney((payment.amount * tipPresetPercent) / 100);
     }
@@ -353,11 +355,13 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       </div>
     );
   }
+
   if (view === "missing") {
     return (
       <StatusBlock title={t("page.title")} description={t("page.missingId")} />
     );
   }
+
   if (view === "error") {
     return (
       <StatusBlock title={t("page.title")} description={t("page.loadError")} />

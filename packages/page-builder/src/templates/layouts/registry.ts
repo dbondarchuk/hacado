@@ -851,13 +851,16 @@ export function suggestWebsitePackId(
     cat.includes("wellness")
   )
     return "spa";
+
   if (cat.includes("coach")) return "coach";
   if (cat.includes("fit")) return "fitness";
   if (cat.includes("photo") || cat.includes("creative")) return "photography";
   if (cat.includes("medic") || cat.includes("clinic") || cat.includes("health"))
     return "clinic";
+
   if (cat.includes("pet") || cat.includes("dog") || cat.includes("groom"))
     return "pet";
+
   if (cat.includes("home") || cat.includes("clean") || cat.includes("handyman"))
     return "home_services";
 

@@ -219,6 +219,7 @@ export const UserForgotPasswordForm = ({
       </>,
     );
   }
+
   if (step === "password" && email && otp) {
     return withProgress(
       <>

@@ -45,6 +45,7 @@ export async function organizationHasInstallBillingAccess(
   if (org.feesExempt === true) return true;
   if (isPolarSubscriptionStatusAllowed(org.polarSubscriptionStatus))
     return true;
+
   if (!options?.reconcileWithPolar) return false;
 
   try {

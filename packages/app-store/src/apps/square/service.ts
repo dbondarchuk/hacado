@@ -220,6 +220,7 @@ class SquareConnectedApp
           "app_square_admin.statusText.redirect_missing_app_id" satisfies SquareAdminAllKeys,
         );
       }
+
       if (!code) {
         throw new ConnectedAppError(
           "app_square_admin.statusText.redirect_missing_code" satisfies SquareAdminAllKeys,
@@ -417,6 +418,7 @@ class SquareConnectedApp
         "app_square_admin.statusText.missing_oauth_config" satisfies SquareAdminAllKeys,
       );
     }
+
     if (!appData.data?.locationId) {
       throw new ConnectedAppError(
         "app_square_admin.statusText.app_not_configured" satisfies SquareAdminAllKeys,
@@ -680,6 +682,7 @@ class SquareConnectedApp
     if (!intent) {
       return Response.json({ error: "intent_not_found" }, { status: 400 });
     }
+
     if (!appData.data?.locationId) {
       return Response.json({ error: "square_not_configured" }, { status: 400 });
     }

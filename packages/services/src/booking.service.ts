@@ -2152,6 +2152,7 @@ export class BookingService extends BaseService implements IBookingService {
       if (!member) {
         return [];
       }
+
       if (
         !canUseMemberCalendarSources(member.role, {
           allowStaffCalendarSources: config.allowStaffCalendarSources,

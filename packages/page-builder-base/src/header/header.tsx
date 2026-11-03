@@ -26,6 +26,7 @@ function toBackgroundCss(
       ? "hsl(var(--value-background-color) / 0.9)"
       : "hsl(var(--value-background-color))";
   }
+
   if (color === "transparent") {
     return "transparent";
   }
@@ -34,6 +35,7 @@ function toBackgroundCss(
   if (!base || !withBlur || color === "currentColor") {
     return base;
   }
+
   if (base.startsWith("hsl(") && !base.includes("/")) {
     return base.replace(/\)$/, " / 0.9)");
   }

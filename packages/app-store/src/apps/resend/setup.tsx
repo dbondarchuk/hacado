@@ -40,6 +40,7 @@ function statusTextKey(
   if (typeof statusText === "string") {
     return statusText;
   }
+
   if (statusText && typeof statusText === "object" && "key" in statusText) {
     return statusText.key;
   }

@@ -468,7 +468,6 @@ navigation:
   general: General
   brand: Marca
   social: Social
-  scripts: Guiones
   communications: Comunicaciones
   templates: Plantillas
   logs: Registros
@@ -3345,15 +3344,6 @@ settings:
     title: Horario predeterminado
     description: Establece tu horario base
     form:
-      toasts:
-        changesSaved: Tus cambios fueron guardados.
-        requestError: Hubo un problema con tu solicitud.
-  scripts:
-    title: Guiones
-    description: Agregar scripts de terceros adicionales al sitio web
-    form:
-      headerScripts: Guiones de encabezado
-      footerScripts: Guiones de pie de página
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.

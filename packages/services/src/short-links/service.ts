@@ -146,9 +146,11 @@ function resolveCollisions(
     if (writeError.code !== 11000) {
       return null;
     }
+
     if (isUrlIndexDuplicate(writeError.errmsg)) {
       continue;
     }
+
     if (!isCodeIndexDuplicate(writeError.errmsg)) {
       return null;
     }

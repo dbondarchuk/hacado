@@ -312,12 +312,15 @@ export function canUsePackageForAppointment(
   if (status === "cancelled") {
     return { ok: false, code: "customer_package_cancelled" };
   }
+
   if (status === "pending") {
     return { ok: false, code: "customer_package_inactive" };
   }
+
   if (status === "expired") {
     return { ok: false, code: "customer_package_expired" };
   }
+
   if (status === "exhausted") {
     return { ok: false, code: "customer_package_exhausted" };
   }

@@ -12,6 +12,7 @@ export function resolveSmsCreditThresholdKind(
   if (newBalance === 0 && previousBalance > 0) {
     return "exhausted";
   }
+
   if (newBalance === 10 && previousBalance > 10) {
     return "at10";
   }

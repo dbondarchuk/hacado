@@ -21,6 +21,7 @@ export function useClipboard(document?: Document, pollInterval = 1000) {
       if (isFirefox) {
         return false;
       }
+
       // Clipboard paste might not be supported in some browsers
       if (!IS_CLIPBOARD_PASTE_SUPPORTED) {
         return false;

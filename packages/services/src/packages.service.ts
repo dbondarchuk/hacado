@@ -869,6 +869,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     ) {
       return null;
     }
+
     if (resolveCustomerPackageStatus(existing) !== "expired") {
       return null;
     }

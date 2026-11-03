@@ -230,6 +230,7 @@ export const WeekSelector: FC<WeekSelectorProps> = ({
       if (minDate && newDate < minDate) {
         return minDate.set({ year });
       }
+
       if (maxDate && newDate > maxDate) {
         return maxDate.set({ year });
       }
@@ -249,6 +250,7 @@ export const WeekSelector: FC<WeekSelectorProps> = ({
       if (minDate && newDate < minDate && newDate.year === minDate.year) {
         return newDate.set({ month: minDate.month });
       }
+
       if (maxDate && newDate > maxDate && newDate.year === maxDate.year) {
         return newDate.set({ month: maxDate.month });
       }

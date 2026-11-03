@@ -242,6 +242,7 @@ export function SmsMessagePreview({
   if (!customId) {
     return <SmsExample text={fallback} className={className} />;
   }
+
   if (preview.status === "failed") {
     return (
       <p className={cn("text-sm text-destructive overflow-hidden", className)}>
@@ -259,6 +260,7 @@ export function SmsMessagePreview({
       </p>
     );
   }
+
   if (preview.status === "ready") {
     return <SmsExample text={preview.text} className={className} />;
   }

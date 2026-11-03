@@ -15,6 +15,8 @@ import { CalendarWriterApp } from "./apps/calendar-writer/app";
 import { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 import { CarddavApp } from "./apps/carddav/app";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
+import { CustomScriptsApp } from "./apps/custom-scripts/app";
+import { CUSTOM_SCRIPTS_APP_NAME } from "./apps/custom-scripts/const";
 import { CustomerEmailNotificationApp } from "./apps/customer-email-notification/app";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
 import { CustomerPackageEmailNotificationApp } from "./apps/customer-package-email-notification/app";
@@ -116,6 +118,7 @@ export const AvailableApps: Record<string, App> = {
   [MY_CABINET_APP_NAME]: MyCabinetApp,
   [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataApp,
   [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryApp,
+  [CUSTOM_SCRIPTS_APP_NAME]: CustomScriptsApp,
 };
 
 export { BLOG_APP_NAME } from "./apps/blog/const";
@@ -142,6 +145,7 @@ export { STRIPE_APP_NAME } from "./apps/stripe/const";
 export { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
 export { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
 export { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
+export { CUSTOM_SCRIPTS_APP_NAME } from "./apps/custom-scripts/const";
 export { FORMS_APP_NAME } from "./apps/forms/const";
 export { GIFT_CARD_STUDIO_APP_NAME } from "./apps/gift-card-studio/const";
 export { RESEND_APP_NAME } from "./apps/resend/const";

@@ -1480,6 +1480,7 @@ export class FormsConnectedApp
             ? "{{checkboxText.yes}}"
             : "{{checkboxText.no}}";
         }
+
         if (fieldType === "multiSelect" && Array.isArray(value)) {
           return listFormat.format(value as string[]);
         }

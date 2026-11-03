@@ -250,6 +250,7 @@ export class BlogConnectedApp
       if (request.method.toUpperCase() === "POST") {
         return this.processCreateBlogCommentAppCall(appData, request);
       }
+
       if (request.method.toUpperCase() === "GET") {
         return this.processGetBlogCommentsAppCall(appData, request);
       }

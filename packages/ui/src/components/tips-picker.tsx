@@ -153,6 +153,7 @@ export function computeTipAmount(args: {
   if (args.tipMode === "none") {
     return 0;
   }
+
   if (args.tipMode === "preset" && args.tipPresetPercent) {
     return roundTipMoney((args.baseAmount * args.tipPresetPercent) / 100);
   }

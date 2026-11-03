@@ -79,6 +79,7 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
     if (!block?.data) {
       return null;
     }
+
     if (!schema)
       return (
         <div

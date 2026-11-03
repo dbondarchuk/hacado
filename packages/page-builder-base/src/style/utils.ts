@@ -33,6 +33,7 @@ export function isStyleAllowed(
   if (support.blockedStyles?.includes(styleName)) {
     return false;
   }
+
   if (support.allowedStyles && support.allowedStyles.length > 0) {
     return support.allowedStyles.includes(styleName);
   }
@@ -120,6 +121,7 @@ export const renderRawNumberWithUnitOrKeywordCss = <T extends string>(
   if (value === null || typeof value === "undefined") {
     return "inherit";
   }
+
   if (typeof value === "object" && value !== null) {
     return renderRawNumberWithUnitCss(value) ?? "inherit";
   }

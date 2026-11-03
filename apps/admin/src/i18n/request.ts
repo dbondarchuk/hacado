@@ -16,6 +16,7 @@ const config = getConfig(
         includeInstall: true,
       };
     }
+
     if (headersList.get("x-locale")) {
       return {
         locale: headersList.get("x-locale") as string,

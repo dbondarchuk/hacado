@@ -631,6 +631,7 @@ export default async function Page(props: Props) {
             script={script}
             id={`app-page-header-${index}`}
             key={script.id || `header-${index}`}
+            mount="body"
           />
         ))}
         <Styling styling={styling} />
@@ -664,6 +665,7 @@ export default async function Page(props: Props) {
             script={script}
             id={`app-page-footer-${index}`}
             key={script.id || `footer-${index}`}
+            mount="body"
           />
         ))}
       </>

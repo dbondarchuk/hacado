@@ -808,12 +808,15 @@ export class PaymentLinksConnectedApp
     if (request.method === "GET" && slug[0] === "public" && slug[1]) {
       return this.handlePublicLoad(appData, slug[1], request);
     }
+
     if (request.method === "POST" && action === "verify-contact") {
       return this.handleVerifyContact(appData, request);
     }
+
     if (request.method === "POST" && action === "intent") {
       return this.handleIntent(appData, request);
     }
+
     if (request.method === "POST" && action === "complete") {
       return this.handleComplete(appData, request);
     }

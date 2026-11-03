@@ -52,6 +52,7 @@ export const TipPresetsField: React.FC<TipPresetsFieldProps> = ({
       if (prev.length === presets.length) {
         return prev;
       }
+
       if (presets.length > prev.length) {
         return [
           ...prev,

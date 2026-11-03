@@ -50,6 +50,7 @@ const pngFileFromDataUrl = (dataUrl: string) => {
   ) {
     return null;
   }
+
   if (!PNG_MAGIC.every((byte, index) => buffer[index] === byte)) return null;
 
   return new File([new Uint8Array(buffer)], "sms-opt-in.png", {

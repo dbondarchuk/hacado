@@ -53,6 +53,7 @@ export const ResponseEditPage = ({ appId }: { appId: string }) => {
       </div>
     );
   }
+
   if (!response || !form) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">

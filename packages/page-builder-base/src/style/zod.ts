@@ -388,6 +388,7 @@ export function convertStateTargetToParentLevel(
   if (stateTarget.type === "self") {
     return 0;
   }
+
   if (stateTarget.type === "parent" && stateTarget.data?.level) {
     return stateTarget.data.level;
   }

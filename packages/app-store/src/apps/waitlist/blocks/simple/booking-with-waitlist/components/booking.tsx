@@ -68,6 +68,7 @@ export const BookingWithWaitlist: React.FC<
       </div>
     );
   }
+
   if (!response)
     return (
       <div className={className} id={id} {...props}>

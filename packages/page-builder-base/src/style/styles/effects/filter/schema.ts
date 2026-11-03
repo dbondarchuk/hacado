@@ -148,12 +148,15 @@ export const getDefaultFunctionValues = (
   if (isFilterFunctionWithUnits(func)) {
     return [{ value: 4, unit: "px" as const }];
   }
+
   if (isFilterFunctionUnitless(func)) {
     return [1];
   }
+
   if (isFilterFunctionPercentage(func)) {
     return [100];
   }
+
   if (func === "hue-rotate") {
     return [0];
   }

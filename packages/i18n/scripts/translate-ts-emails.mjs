@@ -256,6 +256,7 @@ function escapeLiteral(text, quote) {
   if (quote === "`") {
     return text.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
   }
+
   if (quote === '"') return JSON.stringify(text).slice(1, -1);
 
   return text.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/\n/g, "\\n");

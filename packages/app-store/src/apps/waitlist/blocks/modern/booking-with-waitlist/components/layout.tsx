@@ -244,12 +244,14 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
+
       if (
         ctx.isCustomerPackageLocked &&
         (step === "option" || step === "specialist" || step === "addons")
       ) {
         return false;
       }
+
       if (
         step === "addons" &&
         (!selectedAppointmentOption?.addons?.length ||
@@ -258,9 +260,11 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
+
       if (step === "otp") {
         return false;
       }
+
       if (
         step === "option" &&
         shouldSkipLockedServiceStep(
@@ -270,6 +274,7 @@ export const BookingWithWaitlistLayout = ({
       ) {
         return false;
       }
+
       if (
         step === "specialist" &&
         (ctx.lockMemberId ||

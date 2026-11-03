@@ -77,6 +77,7 @@ export function extractCartSplit(
   if (tip < 0) {
     return undefined;
   }
+
   if (Math.abs(cartTotal + tip - amount) > 0.01) {
     return undefined;
   }
@@ -119,6 +120,7 @@ export function mapVerifiedCaptureToIngestInput(
   if (!captureId) {
     return null;
   }
+
   if (
     capture.status &&
     capture.status !== CaptureStatus.Completed &&

@@ -1,0 +1,64 @@
+app:
+  displayName: Custom Scripts
+  description: Add third-party or custom JavaScript to your website header or footer. Enable or disable each script, choose async or defer loading, and optionally limit a script to specific pages.
+statusText:
+  successfully_set_up: Custom Scripts is ready
+  error_processing_configuration: Could not save Custom Scripts settings
+navigation:
+  main:
+    title: Custom Scripts
+    description: Manage custom scripts for your website
+    label: Custom Scripts
+setup:
+  update: Save <app></app>
+settings:
+  addScript: Add script
+  empty: No scripts yet. Add a header or footer script to get started.
+  name:
+    label: Name
+    placeholder: Script name
+    untitled: Untitled script
+  enabled:
+    label: Enabled
+    description: Include this script on your website when it is turned on.
+  runOnEveryPage:
+    label: Run on every page navigation
+    description: Re-execute after soft page changes in the app, not only on a full refresh. Turn on for page-view tracking or scripts that must run on each visit.
+  placement:
+    label: Placement
+    header: Header
+    footer: Footer
+  source:
+    label: Source
+    inline: Inline
+    remote: Remote
+  url:
+    label: URL
+    placeholder: https://example.com/script.js
+  value:
+    label: Script
+  strategy:
+    label: Loading
+    async: Async
+    defer: Defer
+    description: Async downloads in parallel and runs as soon as ready. Defer downloads in parallel and runs after the page is parsed.
+  pages:
+    label: Pages
+    description: Leave empty to run on every page. Add pages to limit this script to those pages only.
+    add: Add page
+    allPages: All pages
+    remove: Remove
+  remove: Remove script
+  deleteConfirmTitle: Remove this script?
+  deleteConfirmDescription: This script will be removed from your website after you save.
+  cancel: Cancel
+  delete: Remove
+  moveScript: Move script
+  toasts:
+    saved: Your changes were saved.
+    error: There was a problem with your request.
+validation:
+  name:
+    required: Name is required
+    maxLength: Name must be at most 128 characters
+    unique: Script names must be unique

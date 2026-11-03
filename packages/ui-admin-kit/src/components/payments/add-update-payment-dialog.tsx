@@ -364,6 +364,7 @@ export const AddUpdatePaymentDialog = ({
           : []),
       ];
     }
+
     if (originalMethod === "gift-card") {
       return giftCardPaymentMethod;
     }

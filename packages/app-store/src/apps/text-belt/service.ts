@@ -38,6 +38,7 @@ const scrambleKey = (key: string) => {
       .map((c, i) => (i < key.length - 2 ? "*" : c))
       .join("");
   }
+
   if (key.length < 12) {
     return key
       .split("")

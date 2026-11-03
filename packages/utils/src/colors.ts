@@ -169,6 +169,7 @@ export const getCalendarEventColorStyles = (
       borderLeftColor: PENDING_AMBER,
     };
   }
+
   if (isClosed) {
     return {
       ...tint,

@@ -345,6 +345,7 @@ export default class UrlScheduleProviderConnectedApp
         ) {
           throw new Error(`Invalid date format: ${dateStr}`);
         }
+
         // Validate day schedule structure
         if (!Array.isArray(daySchedule)) {
           throw new Error(`Day schedule must be an array for date: ${dateStr}`);
@@ -356,11 +357,13 @@ export default class UrlScheduleProviderConnectedApp
               `Shift ${index} must be an object for date: ${dateStr}`,
             );
           }
+
           if (!shift.start || typeof shift.start !== "string") {
             throw new Error(
               `Shift ${index} must have a start time for date: ${dateStr}`,
             );
           }
+
           if (!shift.end || typeof shift.end !== "string") {
             throw new Error(
               `Shift ${index} must have an end time for date: ${dateStr}`,
@@ -374,6 +377,7 @@ export default class UrlScheduleProviderConnectedApp
               `Invalid start time format: ${shift.start} for date: ${dateStr}`,
             );
           }
+
           if (!timeRegex.test(shift.end)) {
             throw new Error(
               `Invalid end time format: ${shift.end} for date: ${dateStr}`,

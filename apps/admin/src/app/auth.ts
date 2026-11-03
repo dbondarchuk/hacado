@@ -535,6 +535,7 @@ export const auth = betterAuth({
               code: "NO_AVAILABLE_USER_SLOTS",
             });
           }
+
           if (invitation.role === "owner") {
             throw new APIError("BAD_REQUEST", {
               message: "Cannot invite another owner",

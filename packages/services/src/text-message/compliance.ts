@@ -32,12 +32,15 @@ export const classifyInboundSmsKeyword = (
   if (!command) {
     return null;
   }
+
   if ((SMS_OPT_OUT_KEYWORDS as readonly string[]).includes(command)) {
     return "stop";
   }
+
   if ((SMS_OPT_IN_KEYWORDS as readonly string[]).includes(command)) {
     return "start";
   }
+
   if (command === "HELP") {
     return "help";
   }
@@ -72,6 +75,7 @@ export const canSendCustomerSms = (input: {
   if (input.optedOut) {
     return { ok: false, reason: "opted out" };
   }
+
   if (input.requireConsent && !input.latestConsent) {
     return { ok: false, reason: "no consent" };
   }

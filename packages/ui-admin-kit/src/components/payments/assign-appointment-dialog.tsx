@@ -94,9 +94,11 @@ function formatPaymentOffset(
   if (days > 0 && hours > 0) {
     return t(`${keyBase}.daysHours` as AdminKeys, { days, hours });
   }
+
   if (days > 0) {
     return t(`${keyBase}.daysOnly` as AdminKeys, { days });
   }
+
   if (hours > 0) {
     return t(`${keyBase}.hoursOnly` as AdminKeys, { hours });
   }
@@ -165,6 +167,7 @@ export const AssignAppointmentDialog = ({
         if (value === null) {
           return DEFAULT_STATUS;
         }
+
         if (typeof value === "function") {
           return value(current) ?? DEFAULT_STATUS;
         }

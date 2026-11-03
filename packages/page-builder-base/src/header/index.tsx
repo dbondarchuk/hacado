@@ -273,6 +273,7 @@ export const Header: React.FC<HeaderProps> = ({
         </React.Fragment>
       );
     }
+
     if (isSidebar) {
       return (
         <Accordion type="single" collapsible key={index}>

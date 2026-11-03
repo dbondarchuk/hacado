@@ -14,6 +14,8 @@ import { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 import { CalendarWriterTranslations } from "./apps/calendar-writer/translations";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
 import { CarddavTranslations } from "./apps/carddav/translations";
+import { CUSTOM_SCRIPTS_APP_NAME } from "./apps/custom-scripts/const";
+import { CustomScriptsTranslations } from "./apps/custom-scripts/translations";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
 import { CustomerEmailNotificationTranslations } from "./apps/customer-email-notification/translations";
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
@@ -121,4 +123,5 @@ export const AppsTranslations: Record<
   [MY_CABINET_APP_NAME]: MyCabinetTranslations,
   [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataTranslations,
   [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryTranslations,
+  [CUSTOM_SCRIPTS_APP_NAME]: CustomScriptsTranslations,
 };

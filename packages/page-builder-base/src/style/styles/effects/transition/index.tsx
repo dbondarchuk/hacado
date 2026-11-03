@@ -15,6 +15,7 @@ export const transitionStyle = {
     if (typeof value === "string") {
       return `transition: ${value};`;
     }
+
     if (value.properties.length === 0 || value.properties.includes("none"))
       return null;
 

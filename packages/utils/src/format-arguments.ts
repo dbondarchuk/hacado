@@ -116,6 +116,7 @@ function processObject(
   if (obj === null || obj === undefined) {
     return obj;
   }
+
   if (Array.isArray(obj)) {
     return obj.map((item) =>
       processObject(item, locale, currency, countryFallback, timeZone),

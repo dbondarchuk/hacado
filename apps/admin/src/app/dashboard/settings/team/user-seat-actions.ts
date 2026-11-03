@@ -137,6 +137,7 @@ export async function createUserSeatCheckoutSession(
   if (org?.feesExempt === true) {
     return { ok: false, code: "additional_users_not_allowed" };
   }
+
   if (!org?.allowAdditionalUsers) {
     return { ok: false, code: "additional_users_not_allowed" };
   }

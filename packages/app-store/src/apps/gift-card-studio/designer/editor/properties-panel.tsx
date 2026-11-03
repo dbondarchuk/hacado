@@ -78,6 +78,7 @@ export function PropertiesPanel() {
       </div>
     );
   }
+
   if (!selectedElement) {
     return (
       <div className="flex-1 border-b border-border p-4 overflow-auto h-full">

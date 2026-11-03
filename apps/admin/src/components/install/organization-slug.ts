@@ -472,9 +472,11 @@ export function getOrganizationSlugIssue(slug: string): OrganizationSlugIssue {
   if (!slug || slug.length < ORGANIZATION_SLUG_MIN_LENGTH) {
     return "too_short";
   }
+
   if (!ORGANIZATION_SLUG_REGEX.test(slug)) {
     return "invalid";
   }
+
   if (isOrganizationSlugBlocked(slug)) {
     return "reserved";
   }

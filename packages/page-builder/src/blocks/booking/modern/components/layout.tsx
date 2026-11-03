@@ -217,12 +217,14 @@ export const BookingLayout = ({
       if (!paymentInformation?.intent?._id && step === "payment") {
         return false;
       }
+
       if (
         ctx.isCustomerPackageLocked &&
         (step === "option" || step === "specialist" || step === "addons")
       ) {
         return false;
       }
+
       if (
         step === "addons" &&
         (!selectedAppointmentOption?.addons?.length ||
@@ -231,10 +233,12 @@ export const BookingLayout = ({
       ) {
         return false;
       }
+
       // OTP is a dialog, never a stepper step.
       if (step === "otp") {
         return false;
       }
+
       if (
         step === "option" &&
         shouldSkipLockedServiceStep(
@@ -244,6 +248,7 @@ export const BookingLayout = ({
       ) {
         return false;
       }
+
       if (
         step === "specialist" &&
         (ctx.lockMemberId ||

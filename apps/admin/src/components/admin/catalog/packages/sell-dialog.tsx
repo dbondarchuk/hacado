@@ -394,6 +394,7 @@ export const SellPackageDialog: React.FC<{
             ) {
               return t("payment.toasts.paymentAppRequired");
             }
+
             if (
               err instanceof Error &&
               err.message === "sms_consent_required"

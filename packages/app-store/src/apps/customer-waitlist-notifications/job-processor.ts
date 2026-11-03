@@ -178,6 +178,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
     if (!isClosedAppointmentStatus(payload.newStatus)) {
       return Promise.resolve();
     }
+
     if (payload.oldStatus && isClosedAppointmentStatus(payload.oldStatus)) {
       return Promise.resolve();
     }
@@ -391,6 +392,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
         if (includesSlotStart(entry.slotOpenedNotifiedStarts, candidate)) {
           continue;
         }
+
         if (
           await repo.customerHasNotifiedSlotStart({
             customerId: entry.customerId,

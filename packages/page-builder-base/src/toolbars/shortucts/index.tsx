@@ -55,6 +55,7 @@ export const createShortcutsToolbarItems = <T extends BaseStyleDictionary>(
         setData,
       );
     }
+
     // Handle asset-selector type separately
     if (shortcut.inputType === "asset-selector") {
       return createAssetSelectorToolbarItem(
@@ -63,6 +64,7 @@ export const createShortcutsToolbarItems = <T extends BaseStyleDictionary>(
         setData,
       );
     }
+
     // Handle color type separately
     if (shortcut.inputType === "color") {
       return createColorToolbarItem(
@@ -71,6 +73,7 @@ export const createShortcutsToolbarItems = <T extends BaseStyleDictionary>(
         setData,
       );
     }
+
     if (shortcut.inputType === "toggle") {
       return createToggleToolbarItem(shortcut, data, setData);
     }

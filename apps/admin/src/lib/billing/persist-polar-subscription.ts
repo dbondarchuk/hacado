@@ -56,6 +56,7 @@ function parseBoolMeta(value: unknown): boolean {
   if (typeof value === "string") {
     return value.toLowerCase() === "true" || value === "1";
   }
+
   if (typeof value === "number") return value !== 0;
 
   return false;

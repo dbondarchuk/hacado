@@ -73,6 +73,7 @@ function stringifyInlineText(text: unknown): string {
   if (text == null) return "";
   if (typeof text === "number" || typeof text === "boolean")
     return String(text);
+
   if (typeof text === "string" || Array.isArray(text)) {
     return richTextToString(text as string | RichTextValue).trim();
   }

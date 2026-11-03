@@ -201,18 +201,22 @@ export class MyCabinetConnectedApp
     if (request.method === "GET" && action === "cabinet/appointments") {
       return this.getAppointments(appData, request);
     }
+
     if (request.method === "GET" && action === "cabinet/appointments/summary") {
       return this.getAppointmentsSummary(appData, request);
     }
+
     if (
       request.method === "GET" &&
       action === "cabinet/appointments/upcoming"
     ) {
       return this.getUpcomingAppointments(appData, request);
     }
+
     if (request.method === "GET" && action === "cabinet/appointments/past") {
       return this.getPastAppointments(appData, request);
     }
+
     if (request.method === "GET" && action === "cabinet/me") {
       return this.getCustomerMe(appData, request);
     }

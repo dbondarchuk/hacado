@@ -90,6 +90,7 @@ export const AppStore: React.FC<AppStoreProps> = ({}) => {
           )
         )
           return false;
+
         if (search.length === 0) return true;
 
         const s = search.toLocaleLowerCase();

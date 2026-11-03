@@ -77,9 +77,11 @@ export function validateFaviconDimensions(input: {
   ) {
     return { ok: false, code: "unreadable" };
   }
+
   if (input.width !== input.height) {
     return { ok: false, code: "not_square" };
   }
+
   if (input.width < FAVICON_MIN_SIZE) {
     return { ok: false, code: "too_small" };
   }

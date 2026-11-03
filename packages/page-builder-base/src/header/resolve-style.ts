@@ -59,9 +59,11 @@ export function pickHeaderAppearanceValue<T>(
   if (!isScrolled) {
     return atRest;
   }
+
   if (mobileScrolled !== undefined) {
     return mobileScrolled;
   }
+
   if (mobile === undefined && scrolled !== undefined) {
     return scrolled;
   }
@@ -169,6 +171,7 @@ function hasMenuLabel(value: unknown) {
   if (typeof value === "string") {
     return value.trim().length > 0;
   }
+
   if (Array.isArray(value)) {
     return value.length > 0;
   }
@@ -193,6 +196,7 @@ function applyMenuItemAppearanceOverride<T extends MenuItemWithSubMenu>(
     if (value === undefined) {
       continue;
     }
+
     if (key === "useDifferentLabel" || key === "label") {
       continue;
     }

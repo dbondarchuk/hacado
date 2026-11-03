@@ -8,6 +8,7 @@ export const resolveAuthorName = (
   if (!author) {
     return null;
   }
+
   if (author.type === "member") {
     return membersById?.get(author.memberId) ?? null;
   }
@@ -30,6 +31,7 @@ export const resolveAuthorNameFromPostAsync = async (
   if (!author) {
     return null;
   }
+
   if (author.type === "member") {
     return getBlogAuthorMemberName(organizationId, author.memberId);
   }

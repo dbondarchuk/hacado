@@ -689,6 +689,7 @@ export async function PUT(
       { status: 400 },
     );
   }
+
   if (information.id !== appointmentId) {
     return NextResponse.json(
       {

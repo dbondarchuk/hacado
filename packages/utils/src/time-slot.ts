@@ -644,6 +644,7 @@ function _checkPrimitiveValue(
   ) {
     throw new TimeSlotsFinderError(`Slot duration must be at least 1 minute`);
   }
+
   if (
     configuration.slotStart === "custom" &&
     !configuration.customSlots?.length
@@ -652,6 +653,7 @@ function _checkPrimitiveValue(
       `Custom slots are required when type is custom`,
     );
   }
+
   if (
     configuration.slotStart !== "every-hour" &&
     configuration.slotStart !== "custom" &&
@@ -661,6 +663,7 @@ function _checkPrimitiveValue(
       `Slot start minute step must be contained between 1 and 30`,
     );
   }
+
   if (
     !_nullOrGreaterThanOrEqualTo(0, configuration.minAvailableTimeBeforeSlot)
   ) {
@@ -668,6 +671,7 @@ function _checkPrimitiveValue(
       `Time before a slot must be at least 0 minutes`,
     );
   }
+
   if (
     !_nullOrGreaterThanOrEqualTo(0, configuration.minAvailableTimeAfterSlot)
   ) {
@@ -675,11 +679,13 @@ function _checkPrimitiveValue(
       `Time after a slot must be at least 0 minutes`,
     );
   }
+
   if (!_nullOrGreaterThanOrEqualTo(0, configuration.minTimeBeforeFirstSlot)) {
     throw new TimeSlotsFinderError(
       `The number of minutes before first slot must be 0 or more`,
     );
   }
+
   if (!_nullOrGreaterThanOrEqualTo(1, configuration.maxDaysBeforeLastSlot)) {
     throw new TimeSlotsFinderError(
       `The number of days before latest slot must be at least 1`,

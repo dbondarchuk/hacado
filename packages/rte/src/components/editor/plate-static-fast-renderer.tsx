@@ -257,6 +257,7 @@ function renderPhrasing(
         </React.Fragment>
       );
     }
+
     if (!Element.isElement(child)) return null;
 
     const el = child as {
@@ -427,6 +428,7 @@ function lineHeightBlockStyle(el: {
   if (typeof lh === "number" && Number.isFinite(lh) && lh > 0) {
     return { lineHeight: lh };
   }
+
   if (typeof lh === "string" && lh.length > 0) {
     return { lineHeight: lh };
   }
@@ -464,6 +466,7 @@ function renderBlockContainerChildren(
         </span>
       );
     }
+
     if (Element.isElement(c)) {
       return renderBlock(c, k, ctx);
     }
@@ -973,6 +976,7 @@ function renderRootBlocks(
                 </React.Fragment>
               );
             }
+
             if (lst === "fire") {
               return (
                 <React.Fragment key={j}>

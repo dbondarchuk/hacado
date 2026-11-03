@@ -42,6 +42,7 @@ function translateFieldError(
   if (tValidation.has(body as ValidationKeys)) {
     return tValidation(body as ValidationKeys, params);
   }
+
   if (t.has(body as AllKeys)) {
     return t(body as AllKeys, params);
   }

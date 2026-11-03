@@ -155,6 +155,7 @@ const ChartTooltipContent = React.forwardRef<
           </div>
         );
       }
+
       if (!value) {
         return null;
       }

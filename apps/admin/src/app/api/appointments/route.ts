@@ -350,6 +350,7 @@ export async function POST(request: NextRequest) {
         { status: 402 },
       );
     }
+
     if (error instanceof PackageError) {
       return NextResponse.json(
         {

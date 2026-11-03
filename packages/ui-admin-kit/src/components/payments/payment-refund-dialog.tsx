@@ -40,6 +40,7 @@ export function canRefundPayment(payment: Payment | PaymentSummary): boolean {
   if (!isRefundableStatus) {
     return false;
   }
+
   if (payment.method === "gift-card") {
     return true;
   }

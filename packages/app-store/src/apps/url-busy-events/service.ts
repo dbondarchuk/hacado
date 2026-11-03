@@ -292,6 +292,7 @@ export default class UrlBusyEventsConnectedApp
         if (isNaN(startAt.getTime()) || isNaN(endAt.getTime())) {
           throw new Error(`Invalid date format`);
         }
+
         // Validate date order
         if (startAt >= endAt) {
           throw new Error(`startAt must be before endAt`);

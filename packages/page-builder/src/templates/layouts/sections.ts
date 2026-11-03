@@ -1892,11 +1892,13 @@ function moodBandStyle(
           color: [{ value: "0 0% 96%" }],
         };
   }
+
   if (mood === "muted") {
     return index % 2 === 1
       ? { backgroundColor: [{ value: COLORS.muted.value }] }
       : {};
   }
+
   if (mood === "bold") {
     return index % 2 === 1
       ? { backgroundColor: [{ value: "33 100% 96%" }] }

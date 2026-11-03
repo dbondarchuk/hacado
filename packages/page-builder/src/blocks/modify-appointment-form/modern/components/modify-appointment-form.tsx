@@ -258,6 +258,7 @@ export const ModifyAppointmentForm: React.FC<
       !appointment.memberId
     )
       return;
+
     if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
     setIsLoading(true);
@@ -289,6 +290,7 @@ export const ModifyAppointmentForm: React.FC<
       if (!type) {
         throw new Error("Type is required");
       }
+
       if (type === "reschedule" && !newDateTime) {
         throw new Error("Date time is required");
       }
