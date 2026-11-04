@@ -83,7 +83,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     );
   }
 
-  public async getDemoEmailArguments(): Promise<DemoArguments> {
+  public async getDemoArguments(): Promise<DemoArguments> {
     return demoPackageEmailArguments;
   }
 

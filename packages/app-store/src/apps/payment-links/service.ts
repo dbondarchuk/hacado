@@ -10,9 +10,11 @@ import {
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   CreatePaymentLinkRequest,
+  DemoArguments,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
+  IDemoArgumentsProvider,
   IEventSubscriber,
   IPaymentLinkProvider,
   IPaymentProcessor,
@@ -46,6 +48,7 @@ import {
 import { resolvePageHeaderPosition } from "@hacado/types/pages";
 import { TemplateTemplatesList } from "@hacado/types/templates";
 import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { demoAppointment } from "@hacado/utils/fixtures";
 import { getArguments } from "@hacado/utils/get-arguments";
 import {
   appendSharedPoolSuffix,
@@ -59,6 +62,7 @@ import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { PAYMENT_LINK_VERIFIED_COOKIE } from "./const";
+import { demoPaymentLink } from "./demo-arguments";
 import { getPaymentLinkSms } from "./messages";
 import { PaymentLinksSettings, paymentLinksSettingsSchema } from "./models";
 import {
@@ -96,6 +100,7 @@ export class PaymentLinksConnectedApp
     IPaymentLinkProvider,
     IPublicPageProvider,
     ICommunicationTemplatesProvider,
+    IDemoArgumentsProvider,
     IEventSubscriber
 {
   protected readonly loggerFactory: LoggerFactory;
@@ -105,6 +110,36 @@ export class PaymentLinksConnectedApp
       "PaymentLinksConnectedApp",
       props.organizationId,
     );
+  }
+
+  public async getDemoArguments(): Promise<DemoArguments> {
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+
+    const websiteUrl = organization
+      ? getWebsiteUrl(organization)
+      : "https://example.com";
+
+    const { brand, general } =
+      await this.props.services.configurationService.getConfigurations(
+        "brand",
+        "general",
+      );
+
+    const amountFormatted = formatAmountWithCurrency(
+      demoPaymentLink.amount,
+      brand.language,
+      general.currency,
+    );
+
+    return {
+      payment: {
+        ...demoPaymentLink,
+        amountFormatted,
+      },
+      paymentLinkUrl: `${websiteUrl}/payment?id=${demoPaymentLink.publicId}`,
+      customerName: smsCustomerName(demoAppointment.customer?.name),
+    };
   }
 
   public async getCommunicationTemplates(

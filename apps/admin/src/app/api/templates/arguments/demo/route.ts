@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
       IDemoArgumentsProvider,
       DemoArguments
     >("demo-arguments-provider", async (app, service) => {
-      return (await service.getDemoEmailArguments?.(app)) ?? {};
+      return (await service.getDemoArguments?.(app)) ?? {};
     });
 
   const demoEmailArguments = demoEmailArgumentsArray

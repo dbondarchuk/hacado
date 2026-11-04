@@ -25,6 +25,7 @@ export const PaymentLinksApp: App<
     "payment-link",
     "public-page-provider",
     "communication-templates-provider",
+    "demo-arguments-provider",
     "event-subscriber",
   ],
   subscribeTo: [PAYMENT_INTENT_PAID_EVENT_TYPE],

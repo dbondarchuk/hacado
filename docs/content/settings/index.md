@@ -19,7 +19,7 @@ Open **Settings** in the side menu, or go to **Dashboard → Settings**. You lan
 | **Appointments**                          | Booking rules, deposits, cancellations, reschedules                                         | [Appointments](./settings/appointments)       |
 | **Customer access**                       | How customers receive their one-time sign-in code                                           | [Customer access](./settings/customer-access) |
 | **Text messaging**                        | Opt-in texts on booking and waitlist forms. Every plan. Custom templates are Solo and above | [Text messaging](./settings/text-messaging)   |
-| **Templates**                             | Email and text wording for customer messages                                                | Under **Communications** in the side menu     |
+| **Templates**                             | Email and text wording for customer messages                                                | [Templates](/docs/communications/templates)   |
 | **Logs**                                  | Sent and received message history                                                           | Under **Communications**                      |
 | **Installed apps / Store / Default apps** | Connect calendars, payments, email, and more                                                | **[Apps](/docs/apps/overview)**               |
 

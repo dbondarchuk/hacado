@@ -35,6 +35,7 @@ Update an existing page when the topic already has one. Add a page only when not
 | Checklist after setup           | `docs/content/first-steps/`     | `/docs/first-steps/...` (`index.md` is the section landing)     |
 | Catalog definitions             | `docs/content/catalog/`         | `/docs/catalog/...` (three levels: section → entity → task)     |
 | Settings                        | `docs/content/settings/`        | `/docs/settings` (`index.md` is the overview; sidebar title is "Settings") |
+| Communications                  | `docs/content/communications/`  | `/docs/communications` (templates, then logs) |
 | An optional integration         | `docs/content/apps/`            | `/docs/apps/<slug>` (flat; groups are separators, not folders)  |
 
 ### Catalog section

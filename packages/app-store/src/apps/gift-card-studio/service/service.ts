@@ -130,7 +130,7 @@ export class GiftCardStudioConnectedApp
 {
   protected readonly loggerFactory: LoggerFactory;
 
-  public async getDemoEmailArguments(): Promise<DemoArguments> {
+  public async getDemoArguments(): Promise<DemoArguments> {
     return { giftCard: demoPurchasedGiftCard };
   }
 

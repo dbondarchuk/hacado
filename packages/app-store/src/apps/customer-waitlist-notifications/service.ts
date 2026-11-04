@@ -446,7 +446,7 @@ export class CustomerWaitlistNotificationsConnectedApp
     return CustomerWaitlistNotificationsTemplates;
   }
 
-  public async getDemoEmailArguments(
+  public async getDemoArguments(
     appData: ConnectedAppData,
   ): Promise<DemoArguments> {
     const organization =

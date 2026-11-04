@@ -81,4 +81,5 @@ On Solo and above, a connected texting app can use custom templates without the 
 ## Related
 
 - [Customer access](./customer-access) — send sign-in codes by SMS once texts are on
+- [Text message templates](/docs/communications/templates/text-messages) — write the wording apps send
 - [Apps](/docs/apps/overview) — customer text notification apps

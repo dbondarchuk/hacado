@@ -430,7 +430,7 @@ export class WaitlistConnectedApp
     ];
   }
 
-  public async getDemoEmailArguments(): Promise<DemoArguments> {
+  public async getDemoArguments(): Promise<DemoArguments> {
     return {
       waitlistEntry: demoWaitlistEntry,
     };

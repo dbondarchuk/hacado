@@ -26,6 +26,10 @@ const meta: MetaRecord = {
     title: "Settings",
     theme: sectionTheme,
   },
+  communications: {
+    title: "Communications",
+    theme: sectionTheme,
+  },
   website: {
     title: "Website",
     theme: sectionTheme,
