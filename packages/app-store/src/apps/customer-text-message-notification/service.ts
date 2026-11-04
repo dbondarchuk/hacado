@@ -502,7 +502,7 @@ export default class CustomerTextMessageNotificationConnectedApp
             : allowCustom
               ? builtIn
               : appendSharedPoolSuffix(builtIn);
-      } else {
+      } else if (allowCustom) {
         const templateId = templateConfig?.templateId;
         const stored = templateId
           ? await this.props.services.templatesService.getTemplate(templateId)
@@ -522,6 +522,13 @@ export default class CustomerTextMessageNotificationConnectedApp
           args,
           true,
         );
+      } else {
+        logger.warn(
+          { appId: appData._id, appointmentId: appointment._id },
+          "Custom text templates are not available for this plan",
+        );
+
+        return;
       }
 
       logger.debug(

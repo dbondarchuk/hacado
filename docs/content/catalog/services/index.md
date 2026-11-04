@@ -22,4 +22,4 @@ For a lighter first-time pass, see [Set up your services](/docs/first-steps/set-
 
 ### Good to know
 
-Saving a new service does not make it bookable by itself. After create, Hacado asks whether to add it to booking availability. You can also manage that later under [Services and packages](/docs/daily-use/appointment-settings-services-packages).
+Saving a new service does not make it bookable by itself. After create, Hacado asks whether to add it to booking availability. You can also manage that later under [Services and packages](/docs/settings/appointments-services-and-packages).

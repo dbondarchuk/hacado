@@ -1,0 +1,134 @@
+---
+description: Invite teammates on the Studio plan, set roles, and see what a downgrade does to seats.
+---
+
+# Team settings
+
+<PlanRequirement plan="Studio">
+  Free and Solo do not include **Team**. Those plans have a single owner and no member list. Upgrade under **Settings → Brand → General**.
+</PlanRequirement>
+
+**Settings → Team** is where an owner or admin invites people, sets what they can do, and sees how many seats the plan is using.
+
+## Before you start
+
+- Your workspace is on the **Studio** plan (or higher).
+- You are signed in as **Owner** or **Admin**. **Coordinator** and **Staff** do not see **Team** in Settings.
+
+## Open Team
+
+1. Open **Settings** in the side menu.
+2. Click **Team**. You can also open the **Team** card on the [Settings hub](./settings).
+
+The line under the title shows seats in use, for example **2 of 3 seats used**. Each active member uses one seat. The owner uses a seat too.
+
+![Team page with the seat count, Invite member, and the member table](/img/daily-use/settings/team.png)
+
+The table lists **Name**, **Title**, **Email**, **Role**, **Status**, and **Joined**.
+
+## Invite a member
+
+You need a free seat. While a seat is free, **Invite member** is on the page.
+
+1. Click **Invite member**.
+2. Enter the person's email address.
+3. Open **Role** and choose **Admin**, **Coordinator**, or **Staff**.
+
+![Invite member dialog with Admin, Coordinator, and Staff](/img/daily-use/settings/team-invite-roles.png)
+
+4. Click **Send invitation**.
+
+**Send invitation** stays off until the email field has an address.
+
+The person gets a link to join. Until they accept, **Pending invitations** lists the email, the role, and **Cancel**.
+
+You cannot invite someone who already belongs to another Hacado workspace. Use a different email.
+
+### When every seat is used
+
+**Invite member** is replaced:
+
+- **Purchase seats** when the plan allows extra seats. Extra seats are billed with the subscription. After checkout, the seat line updates (it can take a moment).
+- **Upgrade to Studio** when the current plan cannot add seats.
+
+Billing for the plan itself stays on [Brand → General](./brand).
+
+## Roles
+
+There are four roles. An invitation can assign **Admin**, **Coordinator**, or **Staff**. **Owner** is not in that list. There is one owner, and Team cannot change the owner's role or turn the owner off.
+
+| Role | What they can do |
+| ---- | ---------------- |
+| **Owner** | Runs the workspace, including billing, settings, team, catalog, appointments, and deleting the business. |
+| **Admin** | Same day-to-day access as the owner, including billing, settings, inviting people, and changing roles. Cannot delete the business. |
+| **Coordinator** | Manages everyone's appointments and schedules, customers, discounts, and gift cards. Can sell packages, edit pages, and review synced payments. Can read the catalog, team, and settings. Cannot invite people, change roles, or edit settings. |
+| **Staff** | Creates appointments and updates the ones they are allowed to change. Sees the appointment list. Reads their own schedule. Can add and look up customers, read discounts, gift cards, and packages, take a gift card payment, and sell a package. Can install apps for their own use. Cannot change settings, billing, team roles, other people's schedules, or reassign, approve, or cancel for the whole team. |
+
+Filter the table by role when you need one group.
+
+![Role filter with Owner, Admin, Coordinator, and Staff](/img/daily-use/settings/team-role-filter.png)
+
+### Change a role
+
+1. On an active member who is not the owner, open the row menu (**⋯**).
+2. Click **Set role: Admin**, **Set role: Coordinator**, or **Set role: Staff**. The current role is left off the menu.
+
+![Row menu with Edit profile, Set role, and Deactivate](/img/daily-use/settings/team-row-menu.png)
+
+The member keeps their seat. The new role applies the next time they use the workspace.
+
+### Edit a profile
+
+1. Open the row menu (**⋯**).
+2. Click **Edit profile**.
+
+Use the profile for a job title and, for video visits, the **Meeting URL provider**. See [Creating a new service](/docs/catalog/services/creating-a-new-service).
+
+## Deactivate a member
+
+Deactivating signs that person out and frees their seat. Past appointments stay on the calendar.
+
+1. Open the row menu (**⋯**) on an active member who is not the owner.
+2. Click **Deactivate**.
+
+If they have upcoming appointments, Hacado asks you to choose:
+
+- **Reassign appointments** — opens Appointments filtered to that person so you can move the visits first.
+- **Deactivate anyway** — turns them off and leaves those visits on their name.
+
+Their status becomes **Inactive (removed)**. They do not come back on their own if you later add seats. Invite them again when you want them back, and you need a free seat to do that.
+
+The owner has no **Deactivate** action.
+
+## Find a member
+
+1. Open **Status** and choose **Inactive** to see people who are off. **Active** is selected by default, so a deactivated person disappears from the list until you change it.
+
+![Status filter with Active, Inactive, and Reset filters](/img/daily-use/settings/team-status-filter.png)
+
+2. Use **Search** to match a name.
+3. Click **Select date range** to limit the list by **Joined**.
+4. Click **Reset filters** to clear Role, Status, and the date range.
+
+## When the plan no longer covers the team
+
+This runs when you downgrade, or when purchased seats drop, and the number of **active** members is higher than the seats you have left.
+
+Hacado turns off the newest members who are not the owner, one by one, until the active count fits the seats. The owner stays active. Those people are signed out. Their status becomes **Inactive (plan downgrade)**.
+
+Upcoming appointments stay assigned to them. A banner on the dashboard says inactive members still have visits that need to be reassigned.
+
+### When seats come back
+
+If you upgrade or buy seats so there is room again, Hacado turns **Inactive (plan downgrade)** members back on, oldest first, until the free seats are filled.
+
+**Inactive (removed)** members stay off. A downgrade does not reactivate someone you deactivated yourself.
+
+## What happens next
+
+- Plan and extra seats: [Brand → General](./brand).
+- Who can book, and whether staff may connect a calendar: [Appointment settings](./appointments).
+
+### Good to know
+
+Staff can connect calendar sources for busy times only when **Appointment settings → Main** allows it.

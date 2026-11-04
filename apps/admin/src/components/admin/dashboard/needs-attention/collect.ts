@@ -137,7 +137,10 @@ async function collectCoreItems(
 
     const customerAuth = normalizeCustomerAuthConfiguration(storedCustomerAuth);
 
-    if (registration?.status === "rejected") {
+    const messagingAccess =
+      await services.textMessageConfigurationService.getSmsMessagingAccess();
+
+    if (registration?.status === "rejected" && messagingAccess.canCustomize) {
       const fingerprint = registration.rejectionReason || "rejected";
       items.push({
         id: "sms-verification",

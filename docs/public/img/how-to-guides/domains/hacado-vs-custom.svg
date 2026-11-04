@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="300" viewBox="0 0 880 300" role="img" aria-labelledby="title desc">
+  <title id="title">Hacado address versus your own domain</title>
+  <desc id="desc">Every workspace starts with a free Hacado address. A custom domain is optional branding you buy separately.</desc>
+  <rect width="880" height="300" fill="#f8fafc" rx="16"/>
+  <rect x="40" y="36" width="380" height="228" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="230" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Included with Hacado</text>
+  <rect x="70" y="96" width="320" height="56" rx="8" fill="#f1f5f9"/>
+  <text x="230" y="130" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" fill="#0f172a">yourname.hacado.me</text>
+  <text x="70" y="186" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&#8226; Ready as soon as you finish setup</text>
+  <text x="70" y="210" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&#8226; Free &#8212; no domain purchase needed</text>
+  <text x="70" y="234" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&#8226; Fine to share with clients forever</text>
+  <rect x="460" y="36" width="380" height="228" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="650" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Your own domain (optional)</text>
+  <rect x="490" y="96" width="320" height="56" rx="8" fill="#ecfdf5"/>
+  <text x="650" y="130" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" fill="#065f46">www.yourbusiness.com</text>
+  <text x="490" y="186" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&#8226; You buy the name from a registrar</text>
+  <text x="490" y="210" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&#8226; Then point DNS at Hacado</text>
+  <text x="490" y="234" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&#8226; Same booking site, your brand name</text>
+</svg>

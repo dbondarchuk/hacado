@@ -38,7 +38,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01" 1, "cv11" 1;
+  font-feature-settings:
+    "ss01" 1,
+    "cv11" 1;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -218,8 +220,11 @@ a {
 
 .hero {
   padding: 5.5rem 1.5rem 3.5rem;
-  background:
-    radial-gradient(ellipse at top left, var(--accent), transparent 46%),
+  background: radial-gradient(
+      ellipse at top left,
+      var(--accent),
+      transparent 46%
+    ),
     var(--muted);
 }
 
@@ -350,6 +355,8 @@ article img {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--muted);
+  place-self: center;
+  text-align: center;
 }
 
 .plan-requirement {

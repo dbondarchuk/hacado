@@ -35,7 +35,7 @@ Use **Brand** for what visitors see on your booking website.
 - **Default site language** - the language clients read first.
 - **Meta description** and **keywords** - a short description and a few words for search engines.
 
-Further down, **Your Hacado address** shows your public booking link. Use the copy button to save it. Custom domains are optional - see [Connect your own web address](/docs/daily-use/connect-domain).
+Further down, **Your Hacado address** shows your public booking link. Use the copy button to save it. Custom domains are optional - see [Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain).
 
 ![Your Hacado address with copy and connect custom domain](/img/first-steps/settings-brand-address.png)
 
@@ -63,4 +63,5 @@ You will use these colours and fonts when you edit website pages so the look sta
 ## Next steps
 
 - [Set up your services](./set-up-your-services)
-- [Change settings](/docs/daily-use/settings) - fuller reference for all settings areas
+- [Settings overview](/docs/settings) - fuller reference for all settings areas
+- [Brand settings](/docs/settings/brand)

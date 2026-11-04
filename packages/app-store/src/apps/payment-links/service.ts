@@ -600,16 +600,16 @@ export class PaymentLinksConnectedApp
     }
 
     let body: string;
+    const allowCustom = (
+      await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+    ).allowCustomTemplates;
+
     if (isPlatformSmsCountry(request.to)) {
       const builtIn = template(
         getPaymentLinkSms(args.config.language),
         args,
         true,
       );
-
-      const allowCustom = (
-        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
-      ).allowCustomTemplates;
 
       const stored =
         allowCustom && settings.smsTemplateId
@@ -624,7 +624,7 @@ export class PaymentLinksConnectedApp
           : allowCustom
             ? builtIn
             : appendSharedPoolSuffix(builtIn);
-    } else if (settings.smsTemplateId) {
+    } else if (allowCustom && settings.smsTemplateId) {
       const smsTemplate =
         await this.props.services.templatesService.getTemplate(
           settings.smsTemplateId,

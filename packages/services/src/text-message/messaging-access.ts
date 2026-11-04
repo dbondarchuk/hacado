@@ -64,6 +64,7 @@ export async function readSmsMessagingAccess(
       detailsVerified &&
       Boolean(dedicated?.phoneNumber),
     allowCustomTemplates:
-      !platformBusiness || detailsVerified || hasTextMessageSenderApp,
+      canCustomize &&
+      (!platformBusiness || detailsVerified || hasTextMessageSenderApp),
   };
 }

@@ -34,4 +34,4 @@ The list updates to matching rows. Clear the box when you want every package aga
 
 ### Good to know
 
-Saving a package does not put it on your public booking page by itself. Manage availability under [Services and packages](/docs/daily-use/appointment-settings-services-packages).
+Saving a package does not put it on your public booking page by itself. Manage availability under [Services and packages](/docs/settings/appointments-services-and-packages).

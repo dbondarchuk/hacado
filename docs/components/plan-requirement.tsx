@@ -19,7 +19,7 @@ export function PlanRequirement({ plan, children }: PlanRequirementProps) {
           <p>
             Upgrade under{" "}
             <strong>Settings → Brand → General</strong>. See{" "}
-            <Link href="/docs/daily-use/settings">Change settings</Link>.
+            <Link href="/docs/settings">Settings</Link>.
           </p>
         )}
       </div>

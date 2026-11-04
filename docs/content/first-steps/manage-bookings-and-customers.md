@@ -56,6 +56,6 @@ You now know the core loop: clients book on your site, you manage visits in **Ap
 
 For deeper preferences - cancellation rules, reminder timing, template wording - see:
 
-- [Change settings](/docs/daily-use/settings)
-- [Connect your own web address](/docs/daily-use/connect-domain)
+- [Settings overview](/docs/settings)
+- [Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain)
 - [Apps overview](/docs/apps/overview)

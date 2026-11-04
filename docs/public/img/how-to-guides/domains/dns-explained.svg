@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="280" viewBox="0 0 880 280" role="img" aria-labelledby="title desc">
+  <title id="title">What DNS does</title>
+  <desc id="desc">DNS is the phone book of the internet. It maps a domain name to the server that should answer.</desc>
+  <rect width="880" height="280" fill="#f8fafc" rx="16"/>
+  <rect x="48" y="56" width="200" height="100" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="148" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">Visitor types</text>
+  <text x="148" y="126" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#1d4ed8">www.site.com</text>
+  <path d="M260 106 H320" stroke="#94a3b8" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="330" y="56" width="220" height="100" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="440" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">DNS looks up</text>
+  <text x="440" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#475569">&quot;Where does this go?&quot;</text>
+  <path d="M560 106 H620" stroke="#94a3b8" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="630" y="56" width="200" height="100" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="730" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">Arrives at</text>
+  <text x="730" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#065f46">Your Hacado site</text>
+  <rect x="48" y="188" width="784" height="56" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="440" y="222" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#1e3a8a">You edit DNS records so the lookup points at Hacado &#8212; then Connect in Hacado checks that it works.</text>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+</svg>

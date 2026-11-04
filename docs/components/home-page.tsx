@@ -20,15 +20,21 @@ const guides = [
   },
   {
     kicker: "03",
-    title: "Using your workspace",
-    body: "Where settings live, and how to connect a web address you already own.",
-    href: "/docs/daily-use/settings",
+    title: "Settings",
+    body: "Brand, team, booking rules, customer access, and text messaging.",
+    href: "/docs/settings",
   },
   {
     kicker: "04",
     title: "Apps",
     body: "Calendars, payments, email, texts, and the extra tools on your site.",
     href: "/docs/apps/overview",
+  },
+  {
+    kicker: "05",
+    title: "How-to guides",
+    body: "Step-by-step help for tasks like buying a domain and connecting it to Hacado.",
+    href: "/docs/how-to-guides",
   },
 ];
 

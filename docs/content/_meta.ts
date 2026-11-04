@@ -22,8 +22,8 @@ const meta: MetaRecord = {
     title: "Customers",
     theme: sectionTheme,
   },
-  "daily-use": {
-    title: "Using your workspace",
+  settings: {
+    title: "Settings",
     theme: sectionTheme,
   },
   website: {
@@ -32,6 +32,10 @@ const meta: MetaRecord = {
   },
   apps: {
     title: "Apps",
+    theme: sectionTheme,
+  },
+  "how-to-guides": {
+    title: "How-to guides",
     theme: sectionTheme,
   },
 };

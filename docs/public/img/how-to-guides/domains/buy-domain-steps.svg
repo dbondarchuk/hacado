@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="220" viewBox="0 0 880 220" role="img" aria-labelledby="title desc">
+  <title id="title">Steps to buy a domain</title>
+  <desc id="desc">Search for a name, check it is available, pay yearly, then open DNS settings.</desc>
+  <rect width="880" height="220" fill="#f8fafc" rx="16"/>
+  <g font-family="system-ui,sans-serif">
+    <circle cx="110" cy="88" r="28" fill="#0f172a"/>
+    <text x="110" y="94" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">1</text>
+    <text x="110" y="148" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">Search a name</text>
+    <text x="110" y="170" text-anchor="middle" font-size="12" fill="#64748b">yourbusiness.com</text>
+    <path d="M160 88 H230" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="290" cy="88" r="28" fill="#0f172a"/>
+    <text x="290" y="94" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">2</text>
+    <text x="290" y="148" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">See if free</text>
+    <text x="290" y="170" text-anchor="middle" font-size="12" fill="#64748b">Available = you can buy</text>
+    <path d="M340 88 H410" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="470" cy="88" r="28" fill="#0f172a"/>
+    <text x="470" y="94" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">3</text>
+    <text x="470" y="148" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">Checkout</text>
+    <text x="470" y="170" text-anchor="middle" font-size="12" fill="#64748b">Usually billed yearly</text>
+    <path d="M520 88 H590" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="650" cy="88" r="28" fill="#0f172a"/>
+    <text x="650" y="94" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">4</text>
+    <text x="650" y="148" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">Open DNS</text>
+    <text x="650" y="170" text-anchor="middle" font-size="12" fill="#64748b">Manage DNS / Zone</text>
+    <path d="M700 88 H770" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="810" cy="88" r="28" fill="#dc2626"/>
+    <text x="810" y="94" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">5</text>
+    <text x="810" y="148" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">Connect</text>
+    <text x="810" y="170" text-anchor="middle" font-size="12" fill="#64748b">Back in Hacado</text>
+  </g>
+</svg>

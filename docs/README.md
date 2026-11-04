@@ -21,6 +21,4 @@ The dev server uses port `3003`.
 - Images and the favicon live in `public/`.
 - The homepage is `app/page.tsx`.
 
-Existing public URLs such as `/docs/apps/google-calendar` stay in place. `/docs/daily-use/first-steps-after-setup` redirects to `/docs/first-steps`.
-
 `patches/nextra-theme-docs+4.6.1.patch` fixes a Nextra 4.6.1 bug where the docs layout drops its `children` prop before validating props, which otherwise crashes every guide page.

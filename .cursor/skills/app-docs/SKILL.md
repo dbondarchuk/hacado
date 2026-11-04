@@ -34,7 +34,7 @@ Update an existing page when the topic already has one. Add a page only when not
 | Account, plan, first-time setup | `docs/content/getting-started/` | `/docs/getting-started/...`                                     |
 | Checklist after setup           | `docs/content/first-steps/`     | `/docs/first-steps/...` (`index.md` is the section landing)     |
 | Catalog definitions             | `docs/content/catalog/`         | `/docs/catalog/...` (three levels: section → entity → task)     |
-| Settings and custom domain      | `docs/content/daily-use/`       | `/docs/daily-use/...` (sidebar title is "Using your workspace") |
+| Settings                        | `docs/content/settings/`        | `/docs/settings` (`index.md` is the overview; sidebar title is "Settings") |
 | An optional integration         | `docs/content/apps/`            | `/docs/apps/<slug>` (flat; groups are separators, not folders)  |
 
 ### Catalog section
@@ -53,7 +53,7 @@ Solo+ Catalog pages (discounts, gift cards, packages, sold packages) use `.mdx` 
 
 Do not create a new top-level section unless the user asks. Register a new section in `docs/content/_meta.ts` with the existing `sectionTheme` (`timestamp: false`, `typesetting: "article"`).
 
-`/docs` redirects to `/docs/getting-started/introduction`. `/docs/daily-use/first-steps-after-setup` redirects to `/docs/first-steps`. Keep those URLs working.
+Link to the current page path. Settings pages live under `/docs/settings`. Do not add Next.js redirects for old paths.
 
 The homepage is `docs/app/page.tsx`, not a content file.
 
@@ -101,6 +101,8 @@ Use this for getting started, first steps, and daily use.
 
 - [Next page](./next-page)
 ```
+
+On an `index.md` or `index.mdx`, Nextra’s page URL is the folder path with no trailing slash, so `./brand` from `docs/content/settings/index.md` goes to `/docs/brand`. Repeat the section folder: `[Brand](./settings/brand)`. Nested indexes do the same with their own folder: from `docs/content/catalog/services/index.md`, use `./services/creating-a-new-service`. Sibling links on any other page can stay `./sibling`.
 
 ### App page
 

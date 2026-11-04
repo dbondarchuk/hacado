@@ -12,7 +12,7 @@ Open **Appointments → Catalog** in the side menu.
 
 Items you create in Catalog are definitions. Creating a service or package does not by itself put it on your public booking page. For services, Hacado may ask after you save whether to add the service to booking availability. You can also choose what is bookable later under **Settings → Appointments → Services and packages**.
 
-See [Services and packages (coming soon)](/docs/daily-use/appointment-settings-services-packages).
+See [Services and packages](/docs/settings/appointments-services-and-packages).
 
 ## What lives in Catalog
 

@@ -303,7 +303,6 @@ export const navItems: NavItemGroup[] = [
             icon: <MessageSquare />,
             label: "admin.navigation.textMessaging",
             description: "admin.settings.textMessaging.description",
-            minimumPlanTier: BillingPlanTier.Solo,
             requiredPermission: { resource: "settings", action: "update" },
           },
         ],

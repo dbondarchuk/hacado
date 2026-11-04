@@ -85,7 +85,7 @@ Full create-time detail for each control is in [Creating a new service](./creati
 
 Hacado keeps you on the service page and confirms that your changes were saved.
 
-Updating a service does not change whether it appears on the booking page. Manage that under [Services and packages](/docs/daily-use/appointment-settings-services-packages). The post-create availability dialog appears only when you first create a service.
+Updating a service does not change whether it appears on the booking page. Manage that under [Services and packages](/docs/settings/appointments-services-and-packages). The post-create availability dialog appears only when you first create a service.
 
 ### Good to know
 

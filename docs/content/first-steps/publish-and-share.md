@@ -43,7 +43,7 @@ If something looks unfinished on the live link, return to **Website → Pages** 
 
 You can keep your Hacado web address or point a domain you own at your site. That is optional for launch day.
 
-When you are ready, follow **[Connect your own web address](/docs/daily-use/connect-domain)**.
+When you are ready, follow **[Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain)**.
 
 ## Share your link
 
@@ -58,4 +58,4 @@ Once you are happy with the live site, put your booking link where clients alrea
 ## Next steps
 
 - [Test the customer experience](./test-the-customer-experience)
-- [Connect your own web address](/docs/daily-use/connect-domain)
+- [Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain)

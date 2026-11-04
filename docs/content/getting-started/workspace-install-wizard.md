@@ -136,5 +136,5 @@ Stop when you see **Your Hacado is ready**.
 ## What happens next
 
 - [First steps](/docs/first-steps)
-- [Settings](/docs/daily-use/settings)
+- [Settings](/docs/settings)
 - [Apps](/docs/apps/overview)

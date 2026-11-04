@@ -4,13 +4,11 @@ import {
   getSession,
 } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { getI18nAsync } from "@hacado/i18n/server";
 import {
   requiresSmsVerification,
   SmsRegistrationStore,
 } from "@hacado/services/text-message";
-import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
@@ -26,19 +24,17 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const t = await getI18nAsync("admin");
   const session = await getSession();
-  if (
-    !meetsMinimumPlanTier(getSessionPlanTier(session), BillingPlanTier.Solo)
-  ) {
-    redirect("/dashboard");
-  }
+  if (!session?.user) redirect("/");
 
   const services = await getServicesContainer();
   const organizationId = await getOrganizationId();
-  const [general, textMessaging, registration] = await Promise.all([
-    services.configurationService.getConfiguration("general"),
-    services.configurationService.getConfiguration("textMessaging"),
-    new SmsRegistrationStore().get(organizationId),
-  ]);
+  const [general, textMessaging, registration, messagingAccess] =
+    await Promise.all([
+      services.configurationService.getConfiguration("general"),
+      services.configurationService.getConfiguration("textMessaging"),
+      new SmsRegistrationStore().get(organizationId),
+      services.textMessageConfigurationService.getSmsMessagingAccess(),
+    ]);
 
   const verificationStatus = registration?.status;
   const verificationCopy =
@@ -91,7 +87,8 @@ export default async function Page() {
             termsPageId: textMessaging?.termsPageId || termsPage?._id,
           }}
         />
-        {requiresSmsVerification(general.country) ? (
+        {messagingAccess.canCustomize &&
+        requiresSmsVerification(general.country) ? (
           <section className="flex flex-col items-start gap-3 rounded-lg border p-4 text-sm sm:flex-row sm:items-center sm:justify-between">
             <p>{verificationCopy.prompt}</p>
             <Link

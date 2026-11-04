@@ -30,8 +30,9 @@ export type SmsMessagingAccess = {
   /** Connected `defaultApps.textMessageSenderAppId` is set. */
   hasTextMessageSenderApp: boolean;
   /**
-   * Non-US/Canada businesses, US/Canada businesses with verified details, or
-   * businesses that send through their own connected texting app.
+   * Solo and above. Non-US/Canada businesses, US/Canada businesses with
+   * verified details, or businesses that send through their own connected
+   * texting app. Free never gets custom templates.
    */
   allowCustomTemplates: boolean;
 };

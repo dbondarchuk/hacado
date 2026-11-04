@@ -14,7 +14,7 @@ The Free plan includes one service. When you already have one, **Add New**, **Ad
 
 Saving a service only stores it in Catalog. Clients cannot book it until it is on **Settings → Appointments → Services and packages**.
 
-After you create a service, Hacado asks **Add this service to booking availability?** Choose **Add to available services** to make it bookable now, or **Not now** to leave it in Catalog only. You can change that list later under [Services and packages](/docs/daily-use/appointment-settings-services-packages).
+After you create a service, Hacado asks **Add this service to booking availability?** Choose **Add to available services** to make it bookable now, or **Not now** to leave it in Catalog only. You can change that list later under [Services and packages](/docs/settings/appointments-services-and-packages).
 
 ![Add this service to booking availability dialog](/img/catalog/services/availability-dialog.png)
 

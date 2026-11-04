@@ -20,8 +20,10 @@ const footer = (
       <nav className="docs-footer-links" aria-label="Footer">
         <a href="/docs/getting-started/introduction">Introduction</a>
         <a href="/docs/first-steps">First steps</a>
-        <a href="/docs/daily-use/settings">Settings</a>
-        <a href="/docs/daily-use/connect-domain">Your web address</a>
+        <a href="/docs/settings">Settings</a>
+        <a href="/docs/how-to-guides/domains/connect-your-own-domain">
+          Your domain
+        </a>
         <a href="/docs/apps/overview">Apps</a>
         <a href="https://hacado.com">Hacado</a>
       </nav>

@@ -12,13 +12,13 @@ Each customer has contact details, optional notes and rules (deposit, online boo
 
 ## What you can do here
 
-- [Listing customers](./listing-customers) - search, open a profile, merge duplicates, or delete.
-- [Creating a customer](./creating-a-customer) - add someone manually before they book.
-- [How customers are created](./how-customers-are-created) - manual vs automatic from bookings, and which fields match an existing profile.
-- [Working with a customer](./working-with-a-customer) - Details fields and every tab on a profile.
+- [Listing customers](./customers/listing-customers) - search, open a profile, merge duplicates, or delete.
+- [Creating a customer](./customers/creating-a-customer) - add someone manually before they book.
+- [How customers are created](./customers/how-customers-are-created) - manual vs automatic from bookings, and which fields match an existing profile.
+- [Working with a customer](./customers/working-with-a-customer) - Details fields and every tab on a profile.
 
 ### Good to know
 
-- Online bookings create or update a customer automatically from **Name**, **Email**, and **Phone**. See [How customers are created](./how-customers-are-created).
+- Online bookings create or update a customer automatically from **Name**, **Email**, and **Phone**. See [How customers are created](./customers/how-customers-are-created).
 - **Also known as** stores alternate names, emails, and phones so a returning client still lands on the same profile.
 - Payments and Packages tabs need a plan that includes those features (Solo+ for packages; payments when payment features are on your plan).

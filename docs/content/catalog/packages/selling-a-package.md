@@ -35,4 +35,4 @@ Hacado issues the customer package and records payment (or a pending payment lin
 
 ### Good to know
 
-**Sell** only appears for **Active** packages. Public online purchase still depends on listing the package under [Services and packages](/docs/daily-use/appointment-settings-services-packages).
+**Sell** only appears for **Active** packages. Public online purchase still depends on listing the package under [Services and packages](/docs/settings/appointments-services-and-packages).

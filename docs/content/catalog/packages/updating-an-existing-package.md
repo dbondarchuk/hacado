@@ -42,7 +42,7 @@ Full create-time detail is in [Creating a new package](./creating-a-new-package)
 
 Hacado keeps you on the package page and confirms that your changes were saved.
 
-Updating a package does not change whether it appears for public purchase. Manage that under [Services and packages](/docs/daily-use/appointment-settings-services-packages).
+Updating a package does not change whether it appears for public purchase. Manage that under [Services and packages](/docs/settings/appointments-services-and-packages).
 
 ### Good to know
 

@@ -720,16 +720,16 @@ export class CustomerWaitlistNotificationsJobProcessor {
 
     if (isSmsEnabled(config.slotOpenedSmsEnabled) && entry.phone) {
       let smsBody: string | undefined;
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
+
       if (isPlatformSmsCountry(entry.phone)) {
         const builtIn = template(
           getWaitlistSmsBodies(args.config.language).slotOpened,
           args,
           true,
         );
-
-        const allowCustom = (
-          await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
-        ).allowCustomTemplates;
 
         const stored =
           allowCustom && config.slotOpenedSmsTemplateId
@@ -744,7 +744,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
             : allowCustom
               ? builtIn
               : appendSharedPoolSuffix(builtIn);
-      } else if (config.slotOpenedSmsTemplateId) {
+      } else if (allowCustom && config.slotOpenedSmsTemplateId) {
         const stored = await this.props.services.templatesService.getTemplate(
           config.slotOpenedSmsTemplateId,
         );
@@ -834,16 +834,16 @@ export class CustomerWaitlistNotificationsJobProcessor {
     );
 
     let smsBody: string | undefined;
+    const allowCustom = (
+      await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+    ).allowCustomTemplates;
+
     if (isPlatformSmsCountry(entry.phone)) {
       const builtIn = template(
         getWaitlistSmsBodies(args.config.language).leaveConfirm,
         args,
         true,
       );
-
-      const allowCustom = (
-        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
-      ).allowCustomTemplates;
 
       const stored =
         allowCustom && config.leaveWaitlistSmsTemplateId
@@ -858,7 +858,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
           : allowCustom
             ? builtIn
             : appendSharedPoolSuffix(builtIn);
-    } else if (config.leaveWaitlistSmsTemplateId) {
+    } else if (allowCustom && config.leaveWaitlistSmsTemplateId) {
       const stored = await this.props.services.templatesService.getTemplate(
         config.leaveWaitlistSmsTemplateId,
       );

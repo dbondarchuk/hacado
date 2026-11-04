@@ -231,7 +231,7 @@ export default class TextMessageAutoReplyConnectedApp
           message = appendSharedPoolSuffix(
             template(getAutoReplySms(config.brand.language), args, true),
           );
-        } else if (replyText && (!platformCountry || allowCustom)) {
+        } else if (replyText && allowCustom) {
           try {
             message = template(replyText, args, true);
           } catch (error) {
@@ -248,7 +248,7 @@ export default class TextMessageAutoReplyConnectedApp
             args,
             true,
           );
-        } else if (appData.data?.autoReplyTemplateId) {
+        } else if (allowCustom && appData.data?.autoReplyTemplateId) {
           const autoReplyTemplate =
             await this.props.services.templatesService.getTemplate(
               appData.data.autoReplyTemplateId,

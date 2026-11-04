@@ -61,4 +61,4 @@ Remaining credits stay as they are after reactivate.
 
 ### Good to know
 
-Public package definitions and booking availability stay under [Packages](/docs/catalog/packages) and [Services and packages](/docs/daily-use/appointment-settings-services-packages). Sold package actions only change one customer’s purchase.
+Public package definitions and booking availability stay under [Packages](/docs/catalog/packages) and [Services and packages](/docs/settings/appointments-services-and-packages). Sold package actions only change one customer’s purchase.

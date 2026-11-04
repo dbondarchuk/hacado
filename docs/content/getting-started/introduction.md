@@ -12,13 +12,14 @@ If you are new, read [What is Hacado?](./what-is-hacado) first, then follow [Sig
 
 ## After setup
 
-Continue with **[First steps](/docs/first-steps)** to go live after setup, then **[Changing settings](/docs/daily-use/settings)** for preferences, **[Connecting your web address](/docs/daily-use/connect-domain)** when you own a domain name, and **[Apps](/docs/apps/overview)** for calendars, messaging, payments, and extra website tools.
+Continue with **[First steps](/docs/first-steps)** to go live after setup, then **[Settings](/docs/settings)** for preferences, **[Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain)** when you want a custom web address, and **[Apps](/docs/apps/overview)** for calendars, messaging, payments, and extra website tools.
 
 ## How this site is organized
 
 - **Getting started** - account, plan, first-time setup
 - **First Steps** - checklist to go live after setup
-- **Using your workspace** - settings, connecting your domain
+- **Settings** - Brand, Team, Appointments, and the other settings areas
 - **Apps** - each optional connection explained in plain language
+- **How-to guides** - longer walkthroughs (for example buying and connecting a domain)
 
 If you cannot find something, check back later or contact Hacado support the way you usually do.

@@ -310,7 +310,7 @@ Right after create, Hacado asks **Add this service to booking availability?**
 
 2. Click **Add to available services** to make it bookable now, or **Not now** to leave it in Catalog only.
 
-You can change availability later under [Services and packages](/docs/daily-use/appointment-settings-services-packages).
+You can change availability later under [Services and packages](/docs/settings/appointments-services-and-packages).
 
 ### Good to know
 

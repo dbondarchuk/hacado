@@ -10,15 +10,15 @@ This guide is your checklist. Work through the steps below in order. Start with 
 
 ## Your checklist
 
-1. **[Get to know your dashboard](./dashboard)** - learn the side menu and the Overview, Calendar, and Pending Appointments tabs.
-2. **[Complete your business profile](./complete-your-business-profile)** - confirm your name, logo, colours, and contact details.
-3. **[Set up your services](./set-up-your-services)** - make sure what clients can book matches what you really offer.
-4. **[Set your availability](./set-your-availability)** - define when clients can book you.
-5. **[Build your website](./build-your-website)** - tidy up the starter pages the wizard created.
-6. **[Connect essentials](./connect-essentials)** - finish calendar, payment, and notification links you may have skipped.
-7. **[Publish and share](./publish-and-share)** - turn pages live and copy your booking link.
-8. **[Test the customer experience](./test-the-customer-experience)** - book yourself once to prove everything works.
-9. **[Manage bookings and customers](./manage-bookings-and-customers)** - learn where incoming bookings and client info live.
+1. **[Get to know your dashboard](./first-steps/dashboard)** - learn the side menu and the Overview, Calendar, and Pending Appointments tabs.
+2. **[Complete your business profile](./first-steps/complete-your-business-profile)** - confirm your name, logo, colours, and contact details.
+3. **[Set up your services](./first-steps/set-up-your-services)** - make sure what clients can book matches what you really offer.
+4. **[Set your availability](./first-steps/set-your-availability)** - define when clients can book you.
+5. **[Build your website](./first-steps/build-your-website)** - tidy up the starter pages the wizard created.
+6. **[Connect essentials](./first-steps/connect-essentials)** - finish calendar, payment, and notification links you may have skipped.
+7. **[Publish and share](./first-steps/publish-and-share)** - turn pages live and copy your booking link.
+8. **[Test the customer experience](./first-steps/test-the-customer-experience)** - book yourself once to prove everything works.
+9. **[Manage bookings and customers](./first-steps/manage-bookings-and-customers)** - learn where incoming bookings and client info live.
 
 ## Two sides of Hacado
 
@@ -27,7 +27,7 @@ This guide is your checklist. Work through the steps below in order. Start with 
 | **Your dashboard** | You set up services, hours, your website, messages, and billing. |
 | **Your booking website** | Clients see your pages and book time with you. |
 
-Your booking website has its own Hacado web address. You can find and copy it under **Settings → Brand**. You can also use your own web address later - see [Connect your own web address](/docs/daily-use/connect-domain).
+Your booking website has its own Hacado web address. You can find and copy it under **Settings → Brand**. You can also use your own web address later - see [Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain).
 
 ## Before you begin
 
@@ -41,4 +41,4 @@ If you have not done those yet, start in **[Getting started](/docs/getting-start
 
 ## What to do next
 
-Start with **[Get to know your dashboard](./dashboard)**, then follow the checklist above in order.
+Start with **[Get to know your dashboard](./first-steps/dashboard)**, then follow the checklist above in order.
