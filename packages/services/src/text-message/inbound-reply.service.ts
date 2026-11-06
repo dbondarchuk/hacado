@@ -146,7 +146,7 @@ export class InboundTextMessageService {
         );
 
         // data.data is set when forwarding a customer reply to a member, so a
-        // reply carrying it is from the member — not a new customer message.
+        // reply carrying it is from the member - not a new customer message.
         result = {
           handledBy: "admin.text-message-reply.handledBy" satisfies BaseAllKeys,
           participantType: reply.data.data?.length ? "member" : "customer",

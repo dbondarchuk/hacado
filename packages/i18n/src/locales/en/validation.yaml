@@ -425,7 +425,7 @@ configuration:
       max: Keywords must be at most 1024 characters long
     domain:
       invalid: Domain must be a valid domain name
-      dnsNotConfigured: DNS is not set correctly for this domain. Check your A, CNAME, or ALIAS records and try again — changes can take a few minutes to propagate.
+      dnsNotConfigured: DNS is not set correctly for this domain. Check your A, CNAME, or ALIAS records and try again - changes can take a few minutes to propagate.
     language:
       invalid: Invalid language
   resources:
@@ -629,4 +629,3 @@ package:
       required: Payment method is required
     price:
       min: Sale price must be at least 0
-

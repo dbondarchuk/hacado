@@ -1,5 +1,5 @@
 ---
-description: Use every customer tab — Details, Appointments, Payments, Packages, Files, and Communications.
+description: Use every customer tab - Details, Appointments, Payments, Packages, Files, and Communications.
 ---
 
 # Working with a customer
@@ -8,14 +8,14 @@ Open a customer from the [list](./listing-customers) to manage their profile. Th
 
 ![Customer profile tabs on Details](/img/customers/details.png)
 
-| Tab | What it is for |
-| --- | --- |
-| **Details** | Contact fields, deposit, notes, photo, online booking, SMS consent, also known as |
-| **Appointments** | Every appointment for this customer |
-| **Payments** | Payments linked to this customer (when payments are on your plan) |
-| **Packages** | Sold packages they own (Solo+) |
-| **Files** | Photos and documents stored on this customer |
-| **Communications** | Emails and texts sent or received for this customer |
+| Tab                | What it is for                                                                    |
+| ------------------ | --------------------------------------------------------------------------------- |
+| **Details**        | Contact fields, deposit, notes, photo, online booking, SMS consent, also known as |
+| **Appointments**   | Every appointment for this customer                                               |
+| **Payments**       | Payments linked to this customer (when payments are on your plan)                 |
+| **Packages**       | Sold packages they own (Solo+)                                                    |
+| **Files**          | Photos and documents stored on this customer                                      |
+| **Communications** | Emails and texts sent or received for this customer                               |
 
 Connected apps can add extra tabs. Those appear after **Communications** when the app is installed.
 

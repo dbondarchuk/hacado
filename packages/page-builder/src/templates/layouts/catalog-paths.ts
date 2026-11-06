@@ -163,7 +163,7 @@ export function isCatalogInternalPath(pathname: string): boolean {
   if (pathname.startsWith("/_next")) return false;
   if (pathname.startsWith("/api")) return false;
   if (pathname.startsWith("/auth")) return false;
-  // Index / block / full screenshot routes — not in-site page links.
+  // Index / block / full screenshot routes - not in-site page links.
   if (
     pathname === CATALOG_URL_PREFIX ||
     pathname.startsWith(`${CATALOG_URL_PREFIX}/full/`) ||

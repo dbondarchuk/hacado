@@ -10,7 +10,7 @@ You do **not** need a custom domain to take bookings. Every workspace already ha
 
 ## What is a domain?
 
-A **domain** (or domain name) is the easy-to-remember address of a website — the words people type into a browser instead of a long technical number.
+A **domain** (or domain name) is the easy-to-remember address of a website - the words people type into a browser instead of a long technical number.
 
 Think of it like a street address for a shop. The street address is for humans; behind the scenes, the postal system knows which building that is. On the internet, the domain is for humans; **DNS** (explained below) knows which computer should answer.
 
@@ -32,7 +32,7 @@ The part after the last dot (`.com`, `.me`, `.co.uk`, …) is called a **top-lev
 | **Registrar**            | The company that sells and renews domain names (GoDaddy, Namecheap, Porkbun, Cloudflare, and many others). Hacado does **not** sell domains. We recommend Porkbun as easieast and most trusted registar |
 | **DNS**                  | The internet’s “phone book” that maps a domain to a server.                                                                                                                                             |
 | **DNS record**           | One row in that phone book (A, CNAME, ALIAS, …).                                                                                                                                                        |
-| **Apex / root / `@`**    | The bare domain with no `www` — for example `yourbusiness.com`. Many panels use **`@`** as the host name for that.                                                                                      |
+| **Apex / root / `@`**    | The bare domain with no `www` - for example `yourbusiness.com`. Many panels use **`@`** as the host name for that.                                                                                      |
 | **Subdomain**            | A prefix such as `www` or `book` → `www.yourbusiness.com`, `book.yourbusiness.com`.                                                                                                                     |
 | **Propagation**          | Waiting time after you change DNS before the whole internet sees the new answer (minutes to a day).                                                                                                     |
 
@@ -87,7 +87,7 @@ Hacado does not sell domain names. Pick any reputable registrar. The screens loo
 - Prefer short, easy to spell, close to your business name.
 - Avoid hyphens and numbers if clients will hear the address out loud.
 - `.com` is familiar; other endings are fine if they fit your brand.
-- You do not need to buy “privacy protection” add-ons to use the domain with Hacado — follow the registrar’s defaults if you are unsure.
+- You do not need to buy “privacy protection” add-ons to use the domain with Hacado - follow the registrar’s defaults if you are unsure.
 
 Keep the registrar login somewhere safe. You will need it whenever DNS or renewal changes.
 
@@ -99,7 +99,7 @@ After you own the domain:
 2. Open the list of your domains and select the one you will use with Hacado.
 3. Look for **DNS**, **Manage DNS**, **DNS records**, or **Advanced DNS**.
 
-You should see a table of existing records (often with types like **A**, **CNAME**, **MX** for email, **TXT**). Leave email (**MX**) records alone unless a guide tells you to change them — this article only changes records for the **website hostname** you connect.
+You should see a table of existing records (often with types like **A**, **CNAME**, **MX** for email, **TXT**). Leave email (**MX**) records alone unless a guide tells you to change them - this article only changes records for the **website hostname** you connect.
 
 ![DNS maps a typed name to your Hacado site](/img/how-to-guides/domains/dns-explained.svg)
 
@@ -125,13 +125,13 @@ Hacado shows copy buttons next to the real values for your workspace. Typically 
 | --------------------- | ----------------------------------- | -------------------------------------------------------------------------------------- |
 | **A**                 | Apex (`@`) or a subdomain           | An **IP address** shown in the dialog (copy it)                                        |
 | **CNAME**             | Often `www` or another subdomain    | Your Hacado hostname (for example `yourname.hacado.me`)                                |
-| **ALIAS** / **ANAME** | Apex when the registrar supports it | The same Hacado hostname — useful because many providers **cannot** put a CNAME on `@` |
+| **ALIAS** / **ANAME** | Apex when the registrar supports it | The same Hacado hostname - useful because many providers **cannot** put a CNAME on `@` |
 
 Always copy from **your** dialog. Do not reuse IP addresses or hostnames from someone else’s screenshot or an old email.
 
 ![Domain field filled with www.example style hostname](/img/how-to-guides/domains/domain-dialog-filled.png)
 
-In the **Domain** field, enter only the hostname clients will use — for example:
+In the **Domain** field, enter only the hostname clients will use - for example:
 
 - `www.yourbusiness.com`
 - `yourbusiness.com`
@@ -154,9 +154,9 @@ At the registrar DNS screen:
 
 ### Important rules
 
-- **One clear answer per name.** Do not keep an old **A** record and a new **CNAME** for the same host — browsers get confused.
+- **One clear answer per name.** Do not keep an old **A** record and a new **CNAME** for the same host - browsers get confused.
 - If the panel asks for **TTL**, the default is fine.
-- Some panels want the host as `@` or blank for the apex, and `www` for the www subdomain — not the full `www.yourbusiness.com` in the host column.
+- Some panels want the host as `@` or blank for the apex, and `www` for the www subdomain - not the full `www.yourbusiness.com` in the host column.
 - If you use both `yourbusiness.com` and `www.yourbusiness.com`, you may need two records (or a redirect product from the registrar). Connect the hostname you actually type in Hacado.
 
 ### Example: connect `www`
@@ -178,7 +178,7 @@ At the registrar DNS screen:
 2. In the **Connect custom domain** dialog, enter the same hostname.
 3. Click **Connect**.
 
-Hacado **validates DNS** when you connect. If records are wrong or not visible yet, you see an error such as DNS not configured — fix the records and try again.
+Hacado **validates DNS** when you connect. If records are wrong or not visible yet, you see an error such as DNS not configured - fix the records and try again.
 
 DNS changes can take anywhere from a few minutes to about a day. Waiting and retrying is normal.
 
@@ -197,7 +197,7 @@ If it fails, wait longer, re-check the record type/host/value against the Hacado
 
 Back under **Settings → Brand → Your Hacado address**:
 
-- **Disconnect custom domain** removes the mapping inside Hacado. It does **not** cancel or delete the domain at the registrar — you still own the name until you let it expire or transfer it.
+- **Disconnect custom domain** removes the mapping inside Hacado. It does **not** cancel or delete the domain at the registrar - you still own the name until you let it expire or transfer it.
 - To use a different hostname, disconnect (if needed), update DNS for the new name, and run **Connect** again.
 
 ## Troubleshooting
@@ -212,6 +212,6 @@ Back under **Settings → Brand → Your Hacado address**:
 
 ## Related
 
-- [Brand settings](/docs/settings/brand) — where Connect custom domain lives
+- [Brand settings](/docs/settings/brand) - where Connect custom domain lives
 - [Settings overview](/docs/settings)
-- [Publish and share](/docs/first-steps/publish-and-share) — sharing your booking link before you own a domain
+- [Publish and share](/docs/first-steps/publish-and-share) - sharing your booking link before you own a domain

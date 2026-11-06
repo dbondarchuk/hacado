@@ -1,5 +1,5 @@
 ---
-description: The card around an email — backdrop, canvas, width, font, and preview text.
+description: The card around an email - backdrop, canvas, width, font, and preview text.
 ---
 
 # Email layout

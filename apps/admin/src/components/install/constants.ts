@@ -7,7 +7,7 @@ import type { PersistedState } from "./types";
 
 export const STORAGE_KEY = "hacado-install-v1";
 
-/** Catalog “Use this template” preference — survives signup → checkout → install. */
+/** Catalog “Use this template” preference - survives signup → checkout → install. */
 export const PREFERRED_WEBSITE_PACK_KEY = "hacado-preferred-website-pack";
 
 /** Query param for direct links, e.g. `/auth/signup?template=nails_c`. */

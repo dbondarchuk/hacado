@@ -41,7 +41,7 @@ export const onRequestError: Instrumentation.onRequestError = async (
     return;
   }
 
-  // Expected navigation / 404 control flow — not actionable app failures.
+  // Expected navigation / 404 control flow - not actionable app failures.
   if (isNextControlFlowError(err)) {
     return;
   }

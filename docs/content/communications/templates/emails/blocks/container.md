@@ -1,5 +1,5 @@
 ---
-description: Container block — a box that groups other blocks and can have a border.
+description: Container block - a box that groups other blocks and can have a border.
 ---
 
 # Container
@@ -10,12 +10,12 @@ description: Container block — a box that groups other blocks and can have a b
 
 ![Container background, border, corner radius, and padding](/img/communications/email-block-container.png)
 
-| Field | What it changes |
-| --- | --- |
-| **Background color** | Fill of the box. |
-| **Border color** | Line around the box. |
-| **Border radius** | How round the corners are. |
-| **Padding** | Space between the border and the blocks inside. |
+| Field                | What it changes                                 |
+| -------------------- | ----------------------------------------------- |
+| **Background color** | Fill of the box.                                |
+| **Border color**     | Line around the box.                            |
+| **Border radius**    | How round the corners are.                      |
+| **Padding**          | Space between the border and the blocks inside. |
 
 Select a block inside the container and use **Move out** on the toolbar when it should sit beside the container instead of inside it.
 

@@ -9,20 +9,20 @@ import "./globals.css";
 
 export const dynamic = "force-dynamic";
 
-/** Body and UI — Manrope. */
+/** Body and UI - Manrope. */
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });
 
-/** Headings — Playfair Display. */
+/** Headings - Playfair Display. */
 const playfair = Playfair_Display({
   subsets: ["latin", "cyrillic"],
   style: ["normal", "italic"],
   variable: "--font-display",
 });
 
-/** Labels and mono — DM Mono. */
+/** Labels and mono - DM Mono. */
 const dmMono = DM_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],

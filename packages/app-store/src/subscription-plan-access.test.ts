@@ -22,10 +22,7 @@ describe("app subscription plan access", () => {
     assert.equal(canInstallApp("free", "blog"), false);
     assert.equal(canInstallApp("free", "google-calendar"), true);
     assert.equal(canInstallApp("free", "text-belt"), false);
-    assert.equal(
-      canInstallApp("free", "customer-text-message-notification"),
-      true,
-    );
+    assert.equal(canInstallApp("free", "customer-appointment-updates"), true);
 
     assert.equal(canProcessApp("free", "waitlist"), false);
     assert.equal(canInstallApp("solo", "stripe"), true);

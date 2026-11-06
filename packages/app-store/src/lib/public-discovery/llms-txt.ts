@@ -51,7 +51,7 @@ function formatIndustryProse(general: GeneralConfiguration): string {
     return `Business category: ${category}`;
   }
 
-  return `Business category: ${category} — ${titleFromKebab(def.id)}`;
+  return `Business category: ${category} - ${titleFromKebab(def.id)}`;
 }
 
 function formatTeamProse(members: PublicCatalogMember[]): string {
@@ -60,9 +60,9 @@ function formatTeamProse(members: PublicCatalogMember[]): string {
   const parts = members.map((member) => {
     const title = member.jobTitle?.trim();
     const bio = member.bio?.trim();
-    if (title && bio) return `${member.name} (${title}) — ${bio}`;
+    if (title && bio) return `${member.name} (${title}) - ${bio}`;
     if (title) return `${member.name} (${title})`;
-    if (bio) return `${member.name} — ${bio}`;
+    if (bio) return `${member.name} - ${bio}`;
 
     return member.name;
   });

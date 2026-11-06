@@ -1,14 +1,14 @@
 # Hacado marketing site
 
-Content and scripts that generate page-builder JSON and seed it into an organization. Not a Vite/React app — the live site is the seeded pages on Hacado.
+Content and scripts that generate page-builder JSON and seed it into an organization. Not a Vite/React app - the live site is the seeded pages on Hacado.
 
 ## Layout
 
-- `src/content/` — copy and data
-- `src/blocks/` — page-builder block factories (`core`, `primitives`, `layout`, `media`, `heroes`, `widgets`)
-- `src/pages/` — page trees (`home`, `features`, `use-cases`, `compare`, `seo`, `site`, `chrome`)
-- `scripts/` — `generate` / `seed` CLI (writes gitignored `scripts/structure/`)
-- `public/assets/` — images/videos uploaded on seed
+- `src/content/` - copy and data
+- `src/blocks/` - page-builder block factories (`core`, `primitives`, `layout`, `media`, `heroes`, `widgets`)
+- `src/pages/` - page trees (`home`, `features`, `use-cases`, `compare`, `seo`, `site`, `chrome`)
+- `scripts/` - `generate` / `seed` CLI (writes gitignored `scripts/structure/`)
+- `public/assets/` - images/videos uploaded on seed
 
 ## Scripts
 

@@ -466,7 +466,7 @@ function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   );
 }
 
-/** Full-bleed editorial overlay — dark packs get denser scrim + display tracking. */
+/** Full-bleed editorial overlay - dark packs get denser scrim + display tracking. */
 function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t);
   const dark = pack.mood === "dark";
@@ -839,7 +839,7 @@ function galleryImage(src: string, alt: string, heightRem = 12): TEditorBlock {
   };
 }
 
-/** Typography-first + horizontal filmstrip — matches Series D HTML galleryFirst. */
+/** Typography-first + horizontal filmstrip - matches Series D HTML galleryFirst. */
 function buildGalleryFirstHero(
   pack: WebsitePackDefinition,
   t: TFn,
@@ -884,7 +884,7 @@ function buildGalleryFirstHero(
     }),
   );
 
-  // Display titles use negative tracking — keep the block from blowing past
+  // Display titles use negative tracking - keep the block from blowing past
   // the viewport on narrow screens even when a long word won't wrap.
   heading.data.style = {
     ...heading.data.style,
@@ -1786,7 +1786,7 @@ function buildCta(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
     t(k(pack.id, "home", "bookCta")),
   );
 
-  // HTML: rounded primary band inside the page column — not a full-bleed shell.
+  // HTML: rounded primary band inside the page column - not a full-bleed shell.
   return sectionShell(
     [
       withBlockStyle(cta, {
@@ -1880,7 +1880,7 @@ function moodBandStyle(
   darkTheme = false,
 ): Record<string, unknown> {
   if (!mood) return {};
-  // Dark pack themes use light foreground — never put light pastel bands under them.
+  // Dark pack themes use light foreground - never put light pastel bands under them.
   if (darkTheme || mood === "dark") {
     return index % 2 === 1
       ? {

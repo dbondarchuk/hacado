@@ -22,7 +22,7 @@ export function extractIcuArgNames(message: string): string[] {
  * Copy args and set any missing placeholders to `""` so older stored args
  * still render the string.
  *
- * Must return a plain object — next-intl's prepareTranslationValues copies
+ * Must return a plain object - next-intl's prepareTranslationValues copies
  * own keys into a new object, so a Proxy would be stripped.
  */
 export function missingI18nArgsAsEmpty(

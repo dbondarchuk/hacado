@@ -1,4 +1,4 @@
----
+﻿---
 description: Find, update, clone, and delete the email and text templates your apps send.
 ---
 
@@ -12,11 +12,11 @@ Open **Communications → Templates**.
 
 ## What the list shows
 
-| Column | What it is |
-| --- | --- |
-| **Name** | The name you gave the template. Click it to edit. |
-| **Type** | **Email** or **Text message**. |
-| **Updated at** | When it was last saved. |
+| Column         | What it is                                        |
+| -------------- | ------------------------------------------------- |
+| **Name**       | The name you gave the template. Click it to edit. |
+| **Type**       | **Email** or **Text message**.                    |
+| **Updated at** | When it was last saved.                           |
 
 Search matches the name. **Type** filters the list to **Email** or **Text message**. **Delete selected** removes the checked rows. It stays off until at least one row is checked.
 
@@ -34,22 +34,22 @@ Open the **⋯** menu on a row.
 
 Saving a template only stores the wording. The app that sends the message has its own setting for which template to use. Typical places:
 
-| Who sends it | Where you pick the template |
-| --- | --- |
-| Appointment emails and texts (request, confirmed, declined, canceled, no-show, rescheduled) | The customer notification app for that channel |
-| Appointment reminders | Appointment notifications |
-| Waitlist emails and texts | Waitlist apps |
-| Package emails | Package email notifications |
-| Gift card emails | Gift card studio |
-| Payment link email or text | Payment links |
-| Sign-in code | Customer access, once that channel is on |
+| Who sends it                                                                                | Where you pick the template              |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Appointment emails and texts (request, confirmed, declined, canceled, no-show, rescheduled) | Customer Appointment Updates             |
+| Appointment reminders                                                                       | Appointment Reminders                   |
+| Waitlist emails and texts                                                                   | Waitlist apps                            |
+| Package emails                                                                              | Package email notifications              |
+| Gift card emails                                                                            | Gift card studio                         |
+| Payment link email or text                                                                  | Payment links                            |
+| Sign-in code                                                                                | Customer access, once that channel is on |
 
 Core starters cover the appointment and sign-in messages that ship with Hacado. Extra starters show up in **Add new template** only after the matching app is installed. See [Create a template](./templates/creating-a-template).
 
 ## Which kind to write
 
-- [Text messages](./templates/text-messages) — short transactional texts. Solo and above, and verified custom texting in the United States and Canada.
-- [Emails](./templates/emails) — the visual email editor and a page for each block.
+- [Text messages](./templates/text-messages) - short transactional texts. Solo and above, and verified custom texting in the United States and Canada.
+- [Emails](./templates/emails) - the visual email editor and a page for each block.
 
 ### Good to know
 

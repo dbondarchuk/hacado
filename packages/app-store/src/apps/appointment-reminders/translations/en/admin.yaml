@@ -1,0 +1,188 @@
+title: Appointment Reminders
+app:
+  displayName: Appointment Reminders
+  description: Send a reminder before a visit or a follow-up after it ends. Each rule has its own timing and can go by email, text, or both. This does not send the message that goes out the moment a booking is created or changed.
+navigation:
+  main:
+    title: Appointment Reminders
+    description: Send a reminder before a visit or a follow-up after it ends. Each rule has its own timing and can go by email, text, or both. This does not send the message that goes out the moment a booking is created or changed.
+  new:
+    title: New reminder or follow-up
+    description: Create a new reminder or follow-up
+  edit:
+    title: Edit reminder or follow-up
+    description: Update this reminder or follow-up
+form:
+  name:
+    label: Name
+    placeholder: Reminder or follow-up name
+    description: A descriptive name for this reminder or follow-up
+    validation:
+      unique: Reminder or follow-up name must be unique
+  type:
+    label: Type
+    description: Choose when this message is sent, before the appointment starts or after it ends.
+    searchLabel: Select type
+  appointmentCount:
+    label: Specific number of appointments
+    description: Only send this message when the customer has a specific number of appointments.
+    examples:
+      equalTo: "When this is the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} appointment"
+      lessThan: "Before the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} appointment"
+      lessThanOrEqualTo: "Up to the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} appointment"
+      greaterThan: "For the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} and next appointments"
+      greaterThanOrEqualTo: "For the customer's {count, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} and next appointments"
+    type:
+      label: Appointment count type
+      description: Determines if customer needs to have a specific number of appointments
+      placeholder: Select appointment count type
+      types:
+        none: All appointments
+        lessThan: Less than
+        equalTo: Equal to
+        greaterThan: Greater than
+        lessThanOrEqualTo: Less than or equal to
+        greaterThanOrEqualTo: Greater than or equal to
+    count:
+      label: Appointment count
+      description: Send this message after this many customer appointments
+      placeholder: Appointment count
+  weeksBefore:
+    label: Weeks
+    description: How many weeks before the appointment to send the reminder
+  daysBefore:
+    label: Days
+    description: How many days before the appointment to send the reminder
+  hoursBefore:
+    label: Hours
+    description: How many hours before the appointment to send the reminder
+  minutesBefore:
+    label: Minutes
+    description: How many minutes before the appointment to send the reminder
+  weeksAfter:
+    label: Weeks
+    description: How many weeks after the appointment to send the follow-up
+  daysAfter:
+    label: Days
+    description: How many days after the appointment to send the follow-up
+  hoursAfter:
+    label: Hours
+    description: How many hours after the appointment to send the follow-up
+  minutesAfter:
+    label: Minutes
+    description: How many minutes after the appointment to send the follow-up
+  time:
+    label: Time
+    description: At what time of the day to send the message
+  schedule:
+    label: When to send
+    startsNow: "If the appointment starts now ({now}), this sends on {when}."
+    endsNow: "If the appointment ends now ({now}), this sends on {when}."
+  delivery:
+    label: How to send
+  channel:
+    required: At least one channel is required. Turn on email, text message, or both.
+  email:
+    label: Email
+    description: Send this message to the customer by email.
+    templateLabel: Email template
+    templateDescription: Required. This is the email the customer receives.
+  textMessage:
+    label: Text message
+    description: Send this message by text at the time you set.
+    verify: To send custom text message follow-ups, verify your business details. That enables custom templates.
+    verifyAction: Verify your business details
+    smsDisabled: Text messages need text messaging turned on. While it is off, this option stays unavailable.
+    smsDisabledAction: Turn on text messaging
+  save: Save
+  update: Update
+  cancel: Cancel
+triggers:
+  timeBefore: Time before appointment start
+  atTimeBefore: At time before appointment start
+  timeAfter: Time after appointment end
+  atTimeAfter: At time after appointment end
+channels:
+  email: Email
+  text-message: Text message
+table:
+  columns:
+    name: Name
+    type: Type
+    channel: Channel
+    updatedAt: Updated at
+    actions: Actions
+  actions:
+    label: Actions
+    edit: Edit
+    delete: Delete
+    clone: Clone
+    add: Add
+  delete:
+    title: Delete reminder or follow-up
+    description: Are you sure you want to delete this reminder or follow-up? This action cannot be undone.
+    confirm: Delete
+    cancel: Cancel
+  deleteSelected:
+    label: Delete selected {count, plural, =1 {reminder or follow-up} other {# reminders or follow-ups}}
+    description: Are you sure you want to delete {count, plural, =1 {the selected reminder or follow-up} other {# selected reminders or follow-ups}}? This action cannot be undone.
+    confirm: Delete {count, plural, =1 {selected reminder or follow-up} other {# selected reminders or follow-ups}}
+  all: All
+  search: Search reminders and follow-ups...
+statusText:
+  successfully_set_up: Successfully set up
+  error_processing_configuration: Error processing reminders and follow-ups configuration
+  email_app_not_configured: Email sender default app is not configured
+  appointment_reminder_created: Reminder or follow-up created successfully
+  appointment_reminder_updated: Reminder or follow-up updated successfully
+  appointment_reminder_deleted: Reminder or follow-up deleted successfully
+  appointment_reminders_deleted: "{count, plural, =1 {Reminder or follow-up} other {# reminders or follow-ups}} deleted successfully"
+  error_creating_appointment_reminder: Error creating reminder or follow-up
+  error_updating_appointment_reminder: Error updating reminder or follow-up
+  error_deleting_appointment_reminder: Error deleting reminder or follow-up
+  error_deleting_appointment_reminders: Error deleting reminders or follow-ups
+  error_loading_appointment_reminders: There was an error while loading reminders and follow-ups
+  error_loading_appointment_reminder: Failed to load the reminder or follow-up
+handler: Reminder or follow-up - {appointmentReminderName}
+validation:
+  form:
+    name:
+      required: Reminder or follow-up name must be at least 2 characters long
+      min: Reminder or follow-up name must be at least 2 characters long
+      max: Reminder or follow-up name must be at most 256 characters long
+    weeks:
+      min: Min amount of weeks is 0
+      max: Max amount of weeks is 10
+    days:
+      min: Min amount of days is 0
+      max: Max amount of days is 31
+    hours:
+      min: Min amount of hours is 0
+      max: Max amount of hours is 120
+    minutes:
+      min: Min amount of minutes is 0
+      max: Max amount of minutes is 600
+    time:
+      hour:
+        min: Hour should be between 0 and 23
+        max: Hour should be between 0 and 23
+      minute:
+        min: Minute should be between 0 and 59
+        max: Minute should be between 0 and 59
+    channel:
+      required: At least one channel is required. Turn on email, text message, or both.
+    templateId:
+      required: Template is required
+    atTimeBefore:
+      days:
+        min: Message should be sent at least 1 day before the appointment
+      minutes:
+        min: Message should be sent at least 1 minute before the appointment
+    atTimeAfter:
+      days:
+        min: Message should be sent at least 1 day after the appointment
+      minutes:
+        min: Message should be sent at least 1 minute after the appointment
+    appointmentCount:
+      min: Minimum number of appointments is 1
+      type: Appointment count type is required

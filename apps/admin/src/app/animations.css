@@ -7,7 +7,7 @@
   }
 }
 
-/* Matches Series D HTML `.reveal` — opacity + slight rise. */
+/* Matches Series D HTML `.reveal` - opacity + slight rise. */
 @keyframes reveal {
   from {
     opacity: 0;

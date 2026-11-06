@@ -8,7 +8,7 @@ description: Where customer emails and texts are written, and where sent message
 
 Open **Communications** in the side menu.
 
-- **[Templates](./communications/templates)** — the wording for emails and text messages. Apps that notify customers pick one of these templates.
-- **[Logs](./communications/logs)** — messages that were sent or received. The same messages also show on a customer and on an appointment.
+- **[Templates](./communications/templates)** - the wording for emails and text messages. Apps that notify customers pick one of these templates.
+- **[Logs](./communications/logs)** - messages that were sent or received. The same messages also show on a customer and on an appointment.
 
 Templates do not send themselves. After you save a template, open the app that should use it (appointment emails, reminders, waitlist, packages, gift cards, payment links, and similar) and select that template there.

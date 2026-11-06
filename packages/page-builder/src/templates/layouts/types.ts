@@ -142,7 +142,7 @@ export type WebsitePackDefinition = {
   mood?: PackMood;
   /** Staggered entrance animations on home sections (default true for mood packs). */
   motion?: boolean;
-  /** Suggested colors/fonts from HTML mockups — preview & install base. */
+  /** Suggested colors/fonts from HTML mockups - preview & install base. */
   theme: PackTheme;
 };
 

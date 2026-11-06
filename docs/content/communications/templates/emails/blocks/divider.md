@@ -1,5 +1,5 @@
 ---
-description: Divider block — a horizontal line, its color, and its thickness.
+description: Divider block - a horizontal line, its color, and its thickness.
 ---
 
 # Divider
@@ -10,12 +10,12 @@ description: Divider block — a horizontal line, its color, and its thickness.
 
 ![Divider color, height, background, and padding](/img/communications/email-block-divider.png)
 
-| Field | What it changes |
-| --- | --- |
-| **Color** | The line color. |
-| **Height** | How thick the line is. |
+| Field                | What it changes                  |
+| -------------------- | -------------------------------- |
+| **Color**            | The line color.                  |
+| **Height**           | How thick the line is.           |
 | **Background color** | Fill of the row behind the line. |
-| **Padding** | Space above and below the line. |
+| **Padding**          | Space above and below the line.  |
 
 ## Related
 

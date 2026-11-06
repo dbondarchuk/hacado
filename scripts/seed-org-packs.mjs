@@ -117,7 +117,7 @@ async function loadComposeModule() {
   const composePath = path.join(__dirname, ".pack-compose.mjs");
   if (!fs.existsSync(composePath)) {
     throw new Error(
-      "Missing .pack-compose.mjs — call ensurePackComposeBundle() before using packs.",
+      "Missing .pack-compose.mjs - call ensurePackComposeBundle() before using packs.",
     );
   }
   cachedCompose = await import(

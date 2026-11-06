@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const contentType = "image/png";
 
 /**
- * Must not call headers()/cookies() — Next invokes this from generateStaticParams
+ * Must not call headers()/cookies() - Next invokes this from generateStaticParams
  * at build time. Tenant-specific data is resolved in the AppleIcon handler instead.
  */
 export function generateImageMetadata() {

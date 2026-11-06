@@ -25,8 +25,8 @@ Open **Settings** in the side menu, or go to **Dashboard → Settings**. You lan
 
 Related (not on the Settings hub, but next to booking):
 
-- **[Default schedule](./settings/schedule)** — weekly hours under **Appointments → Schedule** in the side menu
-- **[Services and packages](./settings/appointments-services-and-packages)** — which Catalog items clients can book (tab inside Appointment settings)
+- **[Default schedule](./settings/schedule)** - weekly hours under **Appointments → Schedule** in the side menu
+- **[Services and packages](./settings/appointments-services-and-packages)** - which Catalog items clients can book (tab inside Appointment settings)
 
 ## How to save changes
 

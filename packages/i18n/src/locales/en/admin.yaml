@@ -3090,7 +3090,7 @@ settings:
           - the hostname for your Hacado site.
         connectDialogDnsAlias:
           If your DNS provider supports ALIAS or ANAME records, you can use
-          one of those pointing to <value></value> instead — useful for the apex (@)
+          one of those pointing to <value></value> instead - useful for the apex (@)
           where CNAME often cannot be used.
         domainLabel: Domain
         connectButton: Connect

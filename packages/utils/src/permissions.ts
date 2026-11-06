@@ -181,14 +181,23 @@ export function subscriptionAllowsMultipleUsers(
 }
 
 /** Role-only check for async event paths where a full SessionUser is unavailable. */
-export function roleCanProcessOtherMembersAppointments(
+export function roleHasPermission<R extends TeamPermissionResource>(
   role: UserRole | string | null | undefined,
+  resource: R,
+  action: TeamPermissionAction<R>,
 ): boolean {
   if (!isUserRole(role)) return false;
 
+  return hasPermission({ role } as SessionUser, resource, action);
+}
+
+/** Role-only check for async event paths where a full SessionUser is unavailable. */
+export function roleCanProcessOtherMembersAppointments(
+  role: UserRole | string | null | undefined,
+): boolean {
   return (
-    hasPermission({ role } as SessionUser, "appointment", "readAll") &&
-    hasPermission({ role } as SessionUser, "appointment", "updateAll")
+    roleHasPermission(role, "appointment", "readAll") &&
+    roleHasPermission(role, "appointment", "updateAll")
   );
 }
 

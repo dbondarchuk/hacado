@@ -102,7 +102,7 @@ function NavigationScriptExecutor({
 
       const existing = document.getElementById(scriptId);
 
-      // Strict Mode remount for the same navigation — keep the existing node.
+      // Strict Mode remount for the same navigation - keep the existing node.
       if (pending.runKey === runKey && existing) {
         return scheduleRemoval(existing);
       }

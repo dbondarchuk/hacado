@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Paper, ink, cream, tan, sage — same palette as the marketing site */
+    /* Paper, ink, cream, tan, sage - same palette as the marketing site */
     --background: 0 0% 100%;
     --foreground: 60 4.9% 12%;
     --card: 0 0% 100%;

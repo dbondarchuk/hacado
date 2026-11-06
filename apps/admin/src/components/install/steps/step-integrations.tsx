@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { authClient } from "@/app/auth-client";
 import { AddOrUpdateAppButton } from "@/components/admin/apps/add-or-update-app-dialog";
@@ -9,14 +9,13 @@ import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import {
-  APPOINTMENT_NOTIFICATIONS_APP_NAME,
+  APPOINTMENT_REMINDERS_APP_NAME,
   AvailableApps,
   BLOG_APP_NAME,
   CALDAV_APP_NAME,
   canInstallApp,
-  CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
+  CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
   CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
-  CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME,
   FORMS_APP_NAME,
   GIFT_CARD_STUDIO_APP_NAME,
@@ -164,22 +163,23 @@ function CalendarIntegrationCard({
   );
 }
 
+// Email and text prefs both configure Customer Appointment Updates; install is once.
 const OPTIONAL_INTEGRATIONS = [
   {
     key: "optCustomerEmailNotifications" as const,
-    appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
+    appName: CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
+  },
+  {
+    key: "optCustomerTextMessageNotifications" as const,
+    appName: CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
   },
   {
     key: "optCustomerPackageEmailNotifications" as const,
     appName: CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
   },
   {
-    key: "optCustomerTextMessageNotifications" as const,
-    appName: CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
-  },
-  {
     key: "optAppointmentNotifications" as const,
-    appName: APPOINTMENT_NOTIFICATIONS_APP_NAME,
+    appName: APPOINTMENT_REMINDERS_APP_NAME,
   },
   {
     key: "optWaitlist" as const,
@@ -431,9 +431,15 @@ export function StepIntegrations() {
         {[
           {
             key: "optCustomerEmailNotifications" as const,
-            appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
+            appName: CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
             label: t("wizard.integrations.customerEmailNotifications"),
             desc: t("wizard.integrations.customerEmailNotificationsDesc"),
+          },
+          {
+            key: "optCustomerTextMessageNotifications" as const,
+            appName: CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
+            label: t("wizard.integrations.customerTextNotifications"),
+            desc: t("wizard.integrations.customerTextNotificationsDesc"),
           },
           {
             key: "optCustomerPackageEmailNotifications" as const,
@@ -444,14 +450,8 @@ export function StepIntegrations() {
             ),
           },
           {
-            key: "optCustomerTextMessageNotifications" as const,
-            appName: CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
-            label: t("wizard.integrations.customerTextNotifications"),
-            desc: t("wizard.integrations.customerTextNotificationsDesc"),
-          },
-          {
             key: "optAppointmentNotifications" as const,
-            appName: APPOINTMENT_NOTIFICATIONS_APP_NAME,
+            appName: APPOINTMENT_REMINDERS_APP_NAME,
             label: t("wizard.integrations.appointmentNotifications"),
             desc: t("wizard.integrations.appointmentNotificationsDesc"),
           },

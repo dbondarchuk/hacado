@@ -7,7 +7,6 @@ import { BlogAppSetup } from "./apps/blog/setup";
 import { CaldavAppSetup } from "./apps/caldav/setup";
 import { CalendarWriterAppSetup } from "./apps/calendar-writer/setup";
 import { CarddavAppSetup } from "./apps/carddav/setup";
-import { EmailNotificationAppSetup } from "./apps/email-notification/setup";
 import { GoogleAnalyticsAppSetup } from "./apps/google-analytics/setup";
 import { GoogleAppSetup } from "./apps/google-calendar/setup";
 import { IcsAppSetup } from "./apps/ics/setup";
@@ -23,7 +22,6 @@ import { StripeAppSetup } from "./apps/stripe/setup";
 import { TextBeltAppSetup } from "./apps/text-belt/setup";
 import { TextMessageAutoReplyAppSetup } from "./apps/text-message-auto-reply/setup";
 import { TextMessageForwardingAppSetup } from "./apps/text-message-forwarding/setup";
-import { TextMessageNotificationAppSetup } from "./apps/text-message-notification/setup";
 import { UrlBusyEventsAppSetup } from "./apps/url-busy-events/setup";
 import { UrlScheduleProviderAppSetup } from "./apps/url-schedule-provider/setup";
 import { WebhooksAppSetup } from "./apps/webhooks/setup";
@@ -36,7 +34,6 @@ import { BLOG_APP_NAME } from "./apps/blog/const";
 import { CALDAV_APP_NAME } from "./apps/caldav/const";
 import { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
-import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 import { GOOGLE_ANALYTICS_APP_NAME } from "./apps/google-analytics/const";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { ICS_APP_NAME } from "./apps/ics/const";
@@ -52,7 +49,6 @@ import { STRIPE_APP_NAME } from "./apps/stripe/const";
 import { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
 import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
-import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
 import { WEBHOOKS_APP_NAME } from "./apps/webhooks/const";
@@ -62,9 +58,6 @@ export const AppSetups: Record<string, BasicAppSetup> = {
   [CALDAV_APP_NAME]: (props) => <CaldavAppSetup {...props} />,
   [CARDDAV_APP_NAME]: (props) => <CarddavAppSetup {...props} />,
   [CALENDAR_WRITER_APP_NAME]: (props) => <CalendarWriterAppSetup {...props} />,
-  [EMAIL_NOTIFICATION_APP_NAME]: (props) => (
-    <EmailNotificationAppSetup {...props} />
-  ),
   [GOOGLE_CALENDAR_APP_NAME]: (props) => <GoogleAppSetup {...props} />,
   [GOOGLE_ANALYTICS_APP_NAME]: (props) => (
     <GoogleAnalyticsAppSetup {...props} />
@@ -81,9 +74,6 @@ export const AppSetups: Record<string, BasicAppSetup> = {
   [TEXTBELT_APP_NAME]: (props) => <TextBeltAppSetup {...props} />,
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: (props) => (
     <TextMessageAutoReplyAppSetup {...props} />
-  ),
-  [TEXT_MESSAGE_NOTIFICATION_APP_NAME]: (props) => (
-    <TextMessageNotificationAppSetup {...props} />
   ),
   [TEXT_MESSAGE_FORWARDING_APP_NAME]: (props) => (
     <TextMessageForwardingAppSetup {...props} />

@@ -203,7 +203,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/** Unofficial Google Translate client IDs — rotate on 429 in case quotas are per-client. */
+/** Unofficial Google Translate client IDs - rotate on 429 in case quotas are per-client. */
 const GOOGLE_CLIENTS = ["dict-chrome-ex", "te", "webapp", "t", "gtx"];
 
 /** Shared across workers so a 429 pauses everyone, not just one request. */

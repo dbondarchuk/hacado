@@ -17,7 +17,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Website templates — Hacado",
+  title: "Website templates - Hacado",
   description:
     "Explore ready-made booking website templates for salons, spas, studios, and more.",
   robots: { index: true, follow: true },

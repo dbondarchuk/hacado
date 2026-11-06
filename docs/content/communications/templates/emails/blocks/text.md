@@ -1,5 +1,5 @@
 ---
-description: Text block — a paragraph, its formatting toolbar, and its style fields.
+description: Text block - a paragraph, its formatting toolbar, and its style fields.
 ---
 
 # Text
@@ -16,12 +16,12 @@ Click the paragraph on the canvas. A small editor opens on the block: undo, redo
 
 **Inspect** does not have a separate content box. You edit the words on the canvas. The panel sets:
 
-| Field | What it changes |
-| --- | --- |
-| **Text color** | Color of the paragraph. |
-| **Background color** | Fill behind the paragraph. |
-| **Font family** | Typeface. **Inherit** follows the email layout. |
-| **Padding** | Space inside the block. The four sliders are top, right, bottom, and left. |
+| Field                | What it changes                                                            |
+| -------------------- | -------------------------------------------------------------------------- |
+| **Text color**       | Color of the paragraph.                                                    |
+| **Background color** | Fill behind the paragraph.                                                 |
+| **Font family**      | Typeface. **Inherit** follows the email layout.                            |
+| **Padding**          | Space inside the block. The four sliders are top, right, bottom, and left. |
 
 Type `{{` in the paragraph to insert a placeholder.
 

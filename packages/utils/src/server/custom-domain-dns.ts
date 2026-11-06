@@ -11,7 +11,7 @@ export type ValidateCustomDomainDnsOptions = {
   domain: string;
   /** Expected A-record IP from CUSTOM_DOMAIN_A_RECORD_IP */
   expectedARecordIp?: string;
-  /** Platform host, e.g. slug.PUBLIC_DOMAIN — CNAME / ALIAS target */
+  /** Platform host, e.g. slug.PUBLIC_DOMAIN - CNAME / ALIAS target */
   expectedCnameHost?: string;
   resolver?: CustomDomainDnsResolver;
   timeoutMs?: number;
@@ -19,7 +19,7 @@ export type ValidateCustomDomainDnsOptions = {
 
 export type ValidateCustomDomainDnsResult = {
   ok: boolean;
-  /** True when neither expected IP nor platform host was configured — check skipped */
+  /** True when neither expected IP nor platform host was configured - check skipped */
   skipped?: boolean;
 };
 

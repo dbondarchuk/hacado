@@ -241,8 +241,8 @@ wizard:
     customerPackageEmailNotificationsDesc: Envíe correos electrónicos a los clientes cuando los paquetes se compren, se agoten, se cancelen o caduquen.
     customerTextNotifications: Notificaciones de mensajes de texto del cliente
     customerTextNotificationsDesc: Enviar confirmación de reserva y actualizaciones a los clientes por SMS.
-    appointmentNotifications: Recordatorios y seguimientos de citas.
-    appointmentNotificationsDesc: Envíe recordatorios y seguimientos a los clientes por correo electrónico y SMS.
+    appointmentNotifications: Recordatorios y seguimientos de citas
+    appointmentNotificationsDesc: Envíe Recordatorios y seguimientos de citas a los clientes por correo electrónico y SMS.
     waitlist: Lista de espera
     waitlistDesc: Permita que los clientes se unan a una lista de espera para horarios no disponibles.
     waitlistNotifications: Notificaciones de lista de espera de clientes

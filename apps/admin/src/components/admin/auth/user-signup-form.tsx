@@ -71,7 +71,7 @@ export const UserSignupForm = ({
   } | null;
   turnstileSiteKey: string;
   enabledSocialProviders?: SocialAuthProvider[];
-  /** Catalog pack from `?template=` — preserved through sign-in link and post-auth redirect. */
+  /** Catalog pack from `?template=` - preserved through sign-in link and post-auth redirect. */
   preferredWebsitePackId?: string;
 }) => {
   const profileSchema = useMemo(

@@ -2928,7 +2928,7 @@ settings:
         connectDialogDnsTitle: Спочатку налаштуйте DNS
         connectDialogDnsARecord: У панелі DNS створіть A-запис для @ (кореня) або вашого піддомену зі значенням <value></value>.
         connectDialogDnsCname: Або додайте CNAME на <value></value> - це ім’я хоста вашого сайту в Hacado.
-        connectDialogDnsAlias: Якщо ваш DNS-провайдер підтримує записи ALIAS або ANAME, можете додати такий запис на <value></value> замість CNAME — зручно для кореня (@), де CNAME часто недоступний.
+        connectDialogDnsAlias: Якщо ваш DNS-провайдер підтримує записи ALIAS або ANAME, можете додати такий запис на <value></value> замість CNAME - зручно для кореня (@), де CNAME часто недоступний.
         domainLabel: Домен
         connectButton: Підключити
         connectButtonValidating: Перевірка...

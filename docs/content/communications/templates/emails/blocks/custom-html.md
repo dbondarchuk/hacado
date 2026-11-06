@@ -1,5 +1,5 @@
 ---
-description: Custom HTML block — paste HTML or open the HTML editor.
+description: Custom HTML block - paste HTML or open the HTML editor.
 ---
 
 # Custom HTML
@@ -12,9 +12,9 @@ description: Custom HTML block — paste HTML or open the HTML editor.
 
 ![HTML editor. Apply writes the markup back. Cancel closes it.](/img/communications/email-block-html-editor.png)
 
-| Field | What it changes |
-| --- | --- |
-| **HTML** | The markup. It is required. |
+| Field           | What it changes                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| **HTML**        | The markup. It is required.                                                               |
 | **Open editor** | Opens a larger HTML editor. **Apply** writes it back. **Cancel** closes without applying. |
 
 HTML in email is easy to break in some inboxes. Prefer the other blocks when they can do the job.

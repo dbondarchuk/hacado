@@ -29,20 +29,20 @@ Ask for the depth only when the request does not imply one. Default to **exhaust
 
 Update an existing page when the topic already has one. Add a page only when nothing covers it.
 
-| Topic                           | Folder                          | Public URL                                                      |
-| ------------------------------- | ------------------------------- | --------------------------------------------------------------- |
-| Account, plan, first-time setup | `docs/content/getting-started/` | `/docs/getting-started/...`                                     |
-| Checklist after setup           | `docs/content/first-steps/`     | `/docs/first-steps/...` (`index.md` is the section landing)     |
-| Catalog definitions             | `docs/content/catalog/`         | `/docs/catalog/...` (three levels: section → entity → task)     |
+| Topic                           | Folder                          | Public URL                                                                 |
+| ------------------------------- | ------------------------------- | -------------------------------------------------------------------------- |
+| Account, plan, first-time setup | `docs/content/getting-started/` | `/docs/getting-started/...`                                                |
+| Checklist after setup           | `docs/content/first-steps/`     | `/docs/first-steps/...` (`index.md` is the section landing)                |
+| Catalog definitions             | `docs/content/catalog/`         | `/docs/catalog/...` (three levels: section → entity → task)                |
 | Settings                        | `docs/content/settings/`        | `/docs/settings` (`index.md` is the overview; sidebar title is "Settings") |
-| Communications                  | `docs/content/communications/`  | `/docs/communications` (templates, then logs) |
-| An optional integration         | `docs/content/apps/`            | `/docs/apps/<slug>` (flat; groups are separators, not folders)  |
+| Communications                  | `docs/content/communications/`  | `/docs/communications` (templates, then logs)                              |
+| An optional integration         | `docs/content/apps/`            | `/docs/apps/<slug>` (flat; groups are separators, not folders)             |
 
 ### Catalog section
 
 Catalog uses nested folders: `docs/content/catalog/<entity>/` with an entity hub `index.md` and task pages named as actions (`creating-a-new-service.md`, `updating-an-existing-service.md`, `listing-services.md`, `deleting-a-service.md`, `good-to-know.md`, `field-types.md`). Sidebar labels use the human titles.
 
-Depth for Catalog is **exhaustive**: before writing an entity, inventory every tab, switch, radio, dialog, row menu, and empty state in the live admin UI. Document and screenshot every branch the reader can click or toggle—not only the happy path. Prefer tight crops of each control state.
+Depth for Catalog is **exhaustive**: before writing an entity, inventory every tab, switch, radio, dialog, row menu, and empty state in the live admin UI. Document and screenshot every branch the reader can click or toggle-not only the happy path. Prefer tight crops of each control state.
 
 Solo+ Catalog pages (discounts, gift cards, packages, sold packages) use `.mdx` and start with:
 

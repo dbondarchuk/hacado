@@ -197,7 +197,7 @@ class GoogleAnalyticsConnectedApp
             stream.streamId,
           );
 
-          const label = `${stream.propertyName} — ${stream.streamName}`;
+          const label = `${stream.propertyName} - ${stream.streamName}`;
           await this.props.update({
             data: {
               ...(appData.data ?? {}),
@@ -868,7 +868,7 @@ class GoogleAnalyticsConnectedApp
     logger.debug({ redirectUri }, "Creating Google OAuth client");
 
     // Use analyticsadmin's AuthPlus.OAuth2 so the client type matches analyticsadmin({ auth }).
-    // Pass an options object — positional args drop redirectUri when clientId is undefined.
+    // Pass an options object - positional args drop redirectUri when clientId is undefined.
     return new googleAuth.OAuth2({
       clientId,
       clientSecret,
@@ -887,7 +887,7 @@ class GoogleAnalyticsConnectedApp
       const client = this.getOAuthClient();
       const token = appData.token as GoogleOAuthTokens | undefined;
 
-      // `{ ...undefined }` is still a truthy object — check the source tokens.
+      // `{ ...undefined }` is still a truthy object - check the source tokens.
       if (!token?.access_token || !token?.refresh_token) {
         logger.error({ appId: appData._id }, "App is not authorized");
         throw new Error("App is not authorized");

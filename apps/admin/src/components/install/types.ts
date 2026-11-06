@@ -100,7 +100,7 @@ export type PersistedState = {
   /** Website pack chosen on the Website install step. */
   websitePackId: string;
   /**
-   * Pack remembered from catalog “Use this template” — used as Suggested on the
+   * Pack remembered from catalog “Use this template” - used as Suggested on the
    * website step (selection may still differ via `websitePackId`).
    */
   catalogPreferredPackId: string;

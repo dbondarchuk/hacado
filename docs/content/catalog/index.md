@@ -1,5 +1,5 @@
 ---
-description: Overview of Catalog — fields, add-ons, services, discounts, gift cards, and packages.
+description: Overview of Catalog - fields, add-ons, services, discounts, gift cards, and packages.
 ---
 
 # Catalog
@@ -16,15 +16,15 @@ See [Services and packages](/docs/settings/appointments-services-and-packages).
 
 ## What lives in Catalog
 
-| Area | What it is | Plan |
-| --- | --- | --- |
-| [Fields](/docs/catalog/fields) | Questions and inputs on booking forms | All plans |
-| [Add-ons](/docs/catalog/addons) | Optional extras attached to services | All plans |
-| [Services](/docs/catalog/services) | What clients book | Free: one service; more on Solo+ |
-| [Discounts](/docs/catalog/discounts) | Promos and percentage or fixed discounts | Solo+ |
-| [Gift cards](/docs/catalog/gift-cards) | Sellable gift card balances | Solo+ |
-| [Packages](/docs/catalog/packages) | Multi-session bundles | Solo+ |
-| [Sold packages](/docs/catalog/sold-packages) | Packages customers already purchased | Solo+ |
+| Area                                         | What it is                               | Plan                             |
+| -------------------------------------------- | ---------------------------------------- | -------------------------------- |
+| [Fields](/docs/catalog/fields)               | Questions and inputs on booking forms    | All plans                        |
+| [Add-ons](/docs/catalog/addons)              | Optional extras attached to services     | All plans                        |
+| [Services](/docs/catalog/services)           | What clients book                        | Free: one service; more on Solo+ |
+| [Discounts](/docs/catalog/discounts)         | Promos and percentage or fixed discounts | Solo+                            |
+| [Gift cards](/docs/catalog/gift-cards)       | Sellable gift card balances              | Solo+                            |
+| [Packages](/docs/catalog/packages)           | Multi-session bundles                    | Solo+                            |
+| [Sold packages](/docs/catalog/sold-packages) | Packages customers already purchased     | Solo+                            |
 
 ## Where to start
 

@@ -29,7 +29,7 @@
  *   flags: --s3-region= --s3-access-key= --s3-secret-key= --s3-bucket=
  *          --s3-endpoint= --s3-force-path-style
  *
- * Redis (env / flags) — required to invalidate page-route cache:
+ * Redis (env / flags) - required to invalidate page-route cache:
  *   REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_USERNAME, REDIS_PASSWORD
  *   flags: --redis-host= --redis-port= --redis-db=
  *          --redis-username= --redis-password=

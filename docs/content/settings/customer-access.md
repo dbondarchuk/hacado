@@ -13,7 +13,7 @@ Open **Settings** in the side menu, then **Customer access**. Or use the **Custo
 ## Email
 
 1. Turn **Email** on to send the code to the customer’s email address.
-2. Choose an **Email template** (required). This is the message that contains the code — for example **Customer OTP Email**.
+2. Choose an **Email template** (required). This is the message that contains the code - for example **Customer OTP Email**.
 
 At least one channel (email or phone) must stay on.
 
@@ -29,6 +29,6 @@ Click **Save** at the bottom after you change channels or the email template.
 
 ## Related
 
-- [Text messaging](./text-messaging) — turn on SMS opt-in and legal pages
-- [Require customer verification](./appointments) — Main tab switch that asks for a code before pay/confirm
-- Communications → **Templates** — edit email wording
+- [Text messaging](./text-messaging) - turn on SMS opt-in and legal pages
+- [Require customer verification](./appointments) - Main tab switch that asks for a code before pay/confirm
+- Communications → **Templates** - edit email wording

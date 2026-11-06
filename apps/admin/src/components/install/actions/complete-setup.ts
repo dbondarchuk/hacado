@@ -1,24 +1,23 @@
 "use server";
 
 import {
-  APPOINTMENT_NOTIFICATIONS_APP_NAME,
+  APPOINTMENT_REMINDERS_APP_NAME,
   AUTOMATIC_AI_DISCOVERY_APP_NAME,
   AUTOMATIC_STRUCTURED_DATA_APP_NAME,
   AvailableApps,
   BLOG_APP_NAME,
   CALENDAR_WRITER_APP_NAME,
   canInstallApp,
-  CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
+  CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
   CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
-  CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME,
-  EMAIL_NOTIFICATION_APP_NAME,
   FORMS_APP_NAME,
   GIFT_CARD_STUDIO_APP_NAME,
+  MY_APPOINTMENT_NOTIFICATIONS_APP_NAME,
   MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
 } from "@hacado/app-store";
-import { AppointmentNotificationsTemplates } from "@hacado/app-store/exports";
+import { AppointmentRemindersTemplates } from "@hacado/app-store/exports";
 import { languages } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
@@ -301,6 +300,33 @@ async function ensureInstallCustomerOtpTemplates(
   );
 }
 
+const installAppointmentUpdateEventKeys = [
+  "pending",
+  "confirmed",
+  "declined",
+  "canceled",
+  "noShow",
+  "rescheduled",
+] as const;
+
+const installEmailTemplateByEventKey = {
+  pending: "appointment-created-email",
+  confirmed: "appointment-confirmed-email",
+  declined: "appointment-declined-email",
+  canceled: "appointment-canceled-email",
+  noShow: "appointment-no-show-email",
+  rescheduled: "appointment-rescheduled-email",
+} as const;
+
+const installSmsTemplateByEventKey = {
+  pending: "appointment-created-text-message",
+  confirmed: "appointment-confirmed-text-message",
+  declined: "appointment-declined-text-message",
+  canceled: "appointment-canceled-text-message",
+  noShow: "appointment-no-show-text-message",
+  rescheduled: "appointment-rescheduled-text-message",
+} as const;
+
 async function ensureInstallCustomerNotificationTemplates(
   services: ReturnType<typeof ServicesContainer>,
   language: (typeof languages)[number],
@@ -311,166 +337,152 @@ async function ensureInstallCustomerNotificationTemplates(
     "ensureInstallCustomerNotificationTemplates",
   );
 
+  const emailOpt = prefs.optCustomerEmailNotifications;
+  const smsOpt = prefs.optCustomerTextMessageNotifications;
+
   logger.debug(
     {
       language,
-      optCustomerEmailNotifications: prefs.optCustomerEmailNotifications,
-      optCustomerTextMessageNotifications:
-        prefs.optCustomerTextMessageNotifications,
+      optCustomerEmailNotifications: emailOpt,
+      optCustomerTextMessageNotifications: smsOpt,
     },
     "Ensuring customer notification templates",
   );
+
+  if (!emailOpt && !smsOpt) return;
+
+  const app = (
+    await services.connectedAppsService.getAppsByApp(
+      CUSTOMER_APPOINTMENT_UPDATES_APP_NAME,
+    )
+  )[0];
+
+  if (!app) {
+    logger.debug("Customer appointment updates app missing; skipping");
+    return;
+  }
 
   const templateSourceLang =
     language in (BuiltInTemplateTemplates["appointment-created-email"] ?? {})
       ? language
       : "en";
 
-  if (prefs.optCustomerEmailNotifications) {
-    const emailApp = (
-      await services.connectedAppsService.getAppsByApp(
-        CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
-      )
-    )[0];
+  const emailMap: Record<string, string> = {};
+  const smsMap: Record<string, string> = {};
 
-    if (emailApp) {
-      const map: Record<string, string> = {};
-      const emailTemplateIds = [
-        "appointment-created-email",
-        "appointment-confirmed-email",
-        "appointment-declined-email",
-        "appointment-canceled-email",
-        "appointment-no-show-email",
-        "appointment-rescheduled-email",
-      ] as const;
+  if (emailOpt) {
+    for (const templateId of Object.values(installEmailTemplateByEventKey)) {
+      const source =
+        BuiltInTemplateTemplates[templateId]?.[templateSourceLang] ??
+        BuiltInTemplateTemplates[templateId]?.en;
 
-      for (const templateId of emailTemplateIds) {
-        const source =
-          BuiltInTemplateTemplates[templateId]?.[templateSourceLang] ??
-          BuiltInTemplateTemplates[templateId]?.en;
+      if (!source) continue;
 
-        if (!source) continue;
-
-        map[templateId] = await ensureTemplateByName(services, source);
-      }
-
-      if (
-        map["appointment-created-email"] &&
-        map["appointment-confirmed-email"] &&
-        map["appointment-declined-email"] &&
-        map["appointment-canceled-email"] &&
-        map["appointment-rescheduled-email"]
-      ) {
-        logger.debug(
-          { appId: emailApp._id },
-          "Configuring customer email notifications",
-        );
-
-        await services.connectedAppsService.processRequest(
-          emailApp._id,
-          {
-            event: { templateId: map["appointment-confirmed-email"] },
-            templates: {
-              pending: { templateId: map["appointment-created-email"] },
-              confirmed: { templateId: map["appointment-confirmed-email"] },
-              declined: { templateId: map["appointment-declined-email"] },
-              canceled: { templateId: map["appointment-canceled-email"] },
-              rescheduled: { templateId: map["appointment-rescheduled-email"] },
-            },
-          },
-          null as unknown as ApiRequest,
-          user,
-        );
-
-        logger.debug(
-          { appId: emailApp._id },
-          "Configured customer email notifications",
-        );
-      }
+      emailMap[templateId] = await ensureTemplateByName(services, source);
     }
   }
 
-  if (prefs.optCustomerTextMessageNotifications) {
-    const smsApp = (
-      await services.connectedAppsService.getAppsByApp(
-        CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
-      )
-    )[0];
+  const emailReady =
+    emailOpt &&
+    Boolean(
+      emailMap["appointment-created-email"] &&
+        emailMap["appointment-confirmed-email"] &&
+        emailMap["appointment-declined-email"] &&
+        emailMap["appointment-canceled-email"] &&
+        emailMap["appointment-rescheduled-email"],
+    );
 
-    if (smsApp) {
-      const map: Record<string, string> = {};
-      const smsTemplateIds = [
-        "appointment-created-text-message",
-        "appointment-confirmed-text-message",
-        "appointment-declined-text-message",
-        "appointment-canceled-text-message",
-        "appointment-no-show-text-message",
-        "appointment-rescheduled-text-message",
-      ] as const;
+  if (emailOpt && !emailReady) {
+    logger.warn(
+      { appId: app._id },
+      "Missing required email templates for customer appointment updates",
+    );
+  }
 
-      for (const templateId of smsTemplateIds) {
-        const source =
-          BuiltInTemplateTemplates[templateId]?.[templateSourceLang] ??
-          BuiltInTemplateTemplates[templateId]?.en;
+  if (smsOpt) {
+    for (const templateId of Object.values(installSmsTemplateByEventKey)) {
+      const source =
+        BuiltInTemplateTemplates[templateId]?.[templateSourceLang] ??
+        BuiltInTemplateTemplates[templateId]?.en;
 
-        if (!source) continue;
+      if (!source) continue;
 
-        map[templateId] = await ensureTemplateByName(services, source);
-      }
-
-      if (
-        map["appointment-created-text-message"] &&
-        map["appointment-confirmed-text-message"] &&
-        map["appointment-declined-text-message"] &&
-        map["appointment-canceled-text-message"] &&
-        map["appointment-rescheduled-text-message"]
-      ) {
-        logger.debug(
-          { appId: smsApp._id },
-          "Configuring customer text notifications",
-        );
-
-        await services.connectedAppsService.processRequest(
-          smsApp._id,
-          {
-            sendNewRequestNotifications: true,
-            templates: {
-              pending: { templateId: map["appointment-created-text-message"] },
-              confirmed: {
-                templateId: map["appointment-confirmed-text-message"],
-              },
-              declined: {
-                templateId: map["appointment-declined-text-message"],
-              },
-              canceled: {
-                templateId: map["appointment-canceled-text-message"],
-              },
-              rescheduled: {
-                templateId: map["appointment-rescheduled-text-message"],
-              },
-            },
-          },
-          null as unknown as ApiRequest,
-          user,
-        );
-
-        logger.debug(
-          { appId: smsApp._id },
-          "Configured customer text notifications",
-        );
-      }
+      smsMap[templateId] = await ensureTemplateByName(services, source);
     }
   }
+
+  if (!emailReady && !smsOpt) return;
+
+  const events: Record<
+    (typeof installAppointmentUpdateEventKeys)[number],
+    {
+      enabled: true;
+      emailEnabled: boolean;
+      textEnabled: boolean;
+      emailTemplateId?: string;
+      textTemplateId?: string;
+    }
+  > = {} as Record<
+    (typeof installAppointmentUpdateEventKeys)[number],
+    {
+      enabled: true;
+      emailEnabled: boolean;
+      textEnabled: boolean;
+      emailTemplateId?: string;
+      textTemplateId?: string;
+    }
+  >;
+
+  for (const eventKey of installAppointmentUpdateEventKeys) {
+    const emailTemplateId = emailReady
+      ? emailMap[installEmailTemplateByEventKey[eventKey]]
+      : undefined;
+
+    const textTemplateId = smsOpt
+      ? smsMap[installSmsTemplateByEventKey[eventKey]]
+      : undefined;
+
+    events[eventKey] = {
+      enabled: true,
+      emailEnabled: emailReady,
+      textEnabled: !!smsOpt,
+      ...(emailReady && emailTemplateId ? { emailTemplateId } : {}),
+      ...(smsOpt && textTemplateId ? { textTemplateId } : {}),
+    };
+  }
+
+  const request: {
+    events: typeof events;
+    event?: { enabled: true; templateId: string };
+  } = { events };
+
+  if (emailReady && emailMap["appointment-confirmed-email"]) {
+    request.event = {
+      enabled: true,
+      templateId: emailMap["appointment-confirmed-email"],
+    };
+  }
+
+  logger.debug({ appId: app._id }, "Configuring customer appointment updates");
+
+  await services.connectedAppsService.processRequest(
+    app._id,
+    request,
+    null as unknown as ApiRequest,
+    user,
+  );
+
+  logger.debug({ appId: app._id }, "Configured customer appointment updates");
 }
 
-async function ensureInstallAppointmentNotificationDefaults(
+async function ensureInstallAppointmentReminderDefaults(
   services: ReturnType<typeof ServicesContainer>,
   language: (typeof languages)[number],
   prefs: InstallPreferences,
   user: SessionUser,
 ): Promise<void> {
   const logger = getLoggerFactory("InstallActions")(
-    "ensureInstallAppointmentNotificationDefaults",
+    "ensureInstallAppointmentReminderDefaults",
   );
 
   logger.debug(
@@ -478,29 +490,28 @@ async function ensureInstallAppointmentNotificationDefaults(
       language,
       optAppointmentNotifications: prefs.optAppointmentNotifications,
     },
-    "Ensuring appointment notification defaults",
+    "Ensuring appointment reminder defaults",
   );
 
   if (!prefs.optAppointmentNotifications) {
-    logger.debug("No appointment notifications enabled; skipping");
+    logger.debug("Appointment reminders not enabled; skipping");
     return;
   }
 
   const app = (
     await services.connectedAppsService.getAppsByApp(
-      APPOINTMENT_NOTIFICATIONS_APP_NAME,
+      APPOINTMENT_REMINDERS_APP_NAME,
     )
   )[0];
 
   if (!app) {
-    logger.debug("No appointment notifications app found; skipping");
+    logger.debug("Appointment reminders app not found; skipping");
     return;
   }
 
   const templateSource =
-    AppointmentNotificationsTemplates["appointment-reminder-email"]?.[
-      language
-    ] ?? AppointmentNotificationsTemplates["appointment-reminder-email"]?.en;
+    AppointmentRemindersTemplates["appointment-reminder-email"]?.[language] ??
+    AppointmentRemindersTemplates["appointment-reminder-email"]?.en;
 
   if (!templateSource) return;
 
@@ -522,12 +533,12 @@ async function ensureInstallAppointmentNotificationDefaults(
 
   if (!isUnique) return;
 
-  logger.debug({ appId: app._id }, "Creating appointment notification default");
+  logger.debug({ appId: app._id }, "Creating appointment reminder default");
   await services.connectedAppsService.processRequest(
     app._id,
     {
-      type: "create-appointment-notification",
-      appointmentNotification: {
+      type: "create-appointment-reminder",
+      appointmentReminder: {
         name: defaultName,
         type: "timeBefore",
         weeks: 0,
@@ -546,7 +557,7 @@ async function ensureInstallAppointmentNotificationDefaults(
 
   logger.debug(
     { appId: app._id, templateId, defaultName },
-    "Created appointment notification default",
+    "Created appointment reminder default",
   );
 }
 
@@ -778,13 +789,16 @@ export async function runCompleteInstallSetupSteps(args: {
   installSet.add(AUTOMATIC_STRUCTURED_DATA_APP_NAME);
   installSet.add(AUTOMATIC_AI_DISCOVERY_APP_NAME);
 
-  if (prefs.optCustomerEmailNotifications) {
+  if (
+    prefs.optCustomerEmailNotifications ||
+    prefs.optCustomerTextMessageNotifications
+  ) {
     logger.debug(
-      { appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME },
-      "Adding customer email notification app",
+      { appName: CUSTOMER_APPOINTMENT_UPDATES_APP_NAME },
+      "Adding customer appointment updates app",
     );
 
-    installSet.add(CUSTOMER_EMAIL_NOTIFICATION_APP_NAME);
+    installSet.add(CUSTOMER_APPOINTMENT_UPDATES_APP_NAME);
   }
 
   if (prefs.optCustomerPackageEmailNotifications) {
@@ -796,22 +810,13 @@ export async function runCompleteInstallSetupSteps(args: {
     installSet.add(CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME);
   }
 
-  if (prefs.optCustomerTextMessageNotifications) {
-    logger.debug(
-      { appName: CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME },
-      "Adding customer text message notification app",
-    );
-
-    installSet.add(CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME);
-  }
-
   if (prefs.optAppointmentNotifications) {
     logger.debug(
-      { appName: APPOINTMENT_NOTIFICATIONS_APP_NAME },
+      { appName: APPOINTMENT_REMINDERS_APP_NAME },
       "Adding appointment notifications app",
     );
 
-    installSet.add(APPOINTMENT_NOTIFICATIONS_APP_NAME);
+    installSet.add(APPOINTMENT_REMINDERS_APP_NAME);
   }
 
   if (prefs.optWaitlist) {
@@ -853,11 +858,11 @@ export async function runCompleteInstallSetupSteps(args: {
 
   if (prefs.inviteMode === "email") {
     logger.debug(
-      { appName: EMAIL_NOTIFICATION_APP_NAME },
-      "Adding email notification app",
+      { appName: MY_APPOINTMENT_NOTIFICATIONS_APP_NAME },
+      "Adding my appointment notifications app",
     );
 
-    installSet.add(EMAIL_NOTIFICATION_APP_NAME);
+    installSet.add(MY_APPOINTMENT_NOTIFICATIONS_APP_NAME);
   }
 
   for (const name of installSet) {
@@ -953,7 +958,7 @@ export async function runCompleteInstallSetupSteps(args: {
     "Ensuring install customer notification templates",
   );
 
-  await ensureInstallAppointmentNotificationDefaults(
+  await ensureInstallAppointmentReminderDefaults(
     services,
     language,
     prefs,

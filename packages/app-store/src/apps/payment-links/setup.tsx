@@ -150,7 +150,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
 
     try {
       setIsLoading(true);
-      // Install only — `install()` seeds templates + header/footer. Do not call
+      // Install only - `install()` seeds templates + header/footer. Do not call
       // processRequest here or empty form values would overwrite seeded ids.
       const appId = await toastPromise(
         appsApi.addNewApp(PaymentLinksApp.name),

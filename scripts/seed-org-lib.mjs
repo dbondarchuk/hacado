@@ -81,7 +81,7 @@ export function staffPersonAt(index) {
   };
 }
 
-/** Format: +1 (555)010-0100 — 555 area code keeps numbers clearly fictional. */
+/** Format: +1 (555)010-0100 - 555 area code keeps numbers clearly fictional. */
 export function fakePhoneAt(index) {
   const i = Math.abs(Number(index) || 0);
   const exchange = String(100 + (i % 900)).padStart(3, "0");
@@ -636,7 +636,7 @@ function textBlock(text, { align = "left" } = {}) {
     id: `block-${newId()}`,
     data: {
       props: {
-        // Plate nodes must NOT have `id` — the editor indexes any {id,type} as a block.
+        // Plate nodes must NOT have `id` - the editor indexes any {id,type} as a block.
         value: [{ type: "p", children: [{ text: text || "" }] }],
       },
       style: {
@@ -712,7 +712,7 @@ function buttonBlock(label, url) {
   };
 }
 
-/** Page / footer document root — must be a PageLayout with id + type. */
+/** Page / footer document root - must be a PageLayout with id + type. */
 function pageShell(children) {
   return {
     type: "PageLayout",
@@ -849,7 +849,7 @@ function remapPlacementRecord(record, idMap) {
 
 /**
  * Remap block ids AND FluidLayout placement keys (placements are keyed by
- * child block id — rewriting ids alone drops the grid and collapses copy).
+ * child block id - rewriting ids alone drops the grid and collapses copy).
  */
 function assignUniqueIds(root) {
   /** @type {Map<string, string>} */
@@ -1052,7 +1052,7 @@ export async function buildPackPages({
     home: {
       title: "Home",
       slug: "home",
-      description: `${orgName} — ${heroSubtitle}`,
+      description: `${orgName} - ${heroSubtitle}`,
       keywords: `${orgName}, booking, ${packId}`,
       published: true,
       fullWidth: true,
@@ -1088,7 +1088,7 @@ export async function buildPackPages({
     terms: {
       title: "Terms",
       slug: "terms",
-      description: `Terms — ${orgName}`,
+      description: `Terms - ${orgName}`,
       keywords: `${orgName}, terms`,
       published: true,
       fullWidth: true,
@@ -1531,7 +1531,7 @@ export async function purgeOrganizationBySlug(
   const org = await db.collection(COLLECTIONS.orgs).findOne({ slug });
   if (!org) {
     console.log(
-      `No existing organization with slug "${slug}" — nothing to purge.`,
+      `No existing organization with slug "${slug}" - nothing to purge.`,
     );
     return null;
   }
@@ -1547,7 +1547,7 @@ export async function purgeOrganizationBySlug(
       domain: org.domain ?? null,
     });
   } else {
-    console.log("Redis config not provided — skipping cache invalidation.");
+    console.log("Redis config not provided - skipping cache invalidation.");
   }
 
   const orgMatch = orgIdMatch(organizationId);
@@ -1636,7 +1636,7 @@ export async function purgeOrganizationBySlug(
   if (s3?.client && s3?.bucket) {
     await purgeOrganizationS3Prefix(s3.client, s3.bucket, organizationId);
   } else {
-    console.log("S3 config not provided — skipping S3 object deletion.");
+    console.log("S3 config not provided - skipping S3 object deletion.");
   }
 
   return organizationId;

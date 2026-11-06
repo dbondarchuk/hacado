@@ -44,7 +44,7 @@ import {
 } from "./models";
 
 import { AvailableApps } from "../../apps";
-import { getEmailTemplate } from "../email-notification/emails/utils";
+import { getEmailTemplate } from "../my-appointment-notifications/emails/utils";
 import {
   CalendarWriterAdminAllKeys,
   CalendarWriterAdminKeys,

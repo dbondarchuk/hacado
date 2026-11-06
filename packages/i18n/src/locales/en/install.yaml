@@ -271,7 +271,7 @@ wizard:
     customerPackageEmailNotificationsDesc: Email customers when packages are purchased, exhausted, cancelled, or expired.
     customerTextNotifications: Customer text message notifications
     customerTextNotificationsDesc: Send booking confirmation and updates to customers by SMS.
-    appointmentNotifications: Appointment reminders and follow-ups
+    appointmentNotifications: Appointment Reminders
     appointmentNotificationsDesc: Send reminders and follow-ups to customers by email and SMS.
     waitlist: Waitlist
     waitlistDesc: Let customers join a waitlist for unavailable times.

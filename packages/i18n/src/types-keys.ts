@@ -1,6 +1,6 @@
 /**
  * Heavy generated key unions. Import from `@hacado/i18n/keys` (or package
- * root) — not from `@hacado/i18n/client` / `server`.
+ * root) - not from `@hacado/i18n/client` / `server`.
  */
 import type { Keys as AdminKeys } from "./locales/en/admin.keys";
 import type { Keys as AppsKeys } from "./locales/en/apps.keys";

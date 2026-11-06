@@ -1,4 +1,4 @@
----
+﻿---
 description: Finish connecting your calendar, payments, and customer notifications before real clients book.
 ---
 
@@ -37,14 +37,13 @@ After connecting, you can require a deposit or full payment at booking. Adjust d
 
 Make sure clients receive confirmations and updates:
 
-- [Customer email notifications](/docs/apps/customer-email-notification)
-- [Customer text message notifications](/docs/apps/customer-text-message-notification)
+- [Customer Appointment Updates](/docs/apps/customer-appointment-updates)
 
 Review starter wording under **Settings → Communications → Templates**.
 
 ## Reminders and follow-ups
 
-[Appointment notifications](/docs/apps/appointment-notifications) sends reminders before visits and optional follow-ups after. Confirm the timing still matches how you work.
+[Appointment Reminders](/docs/apps/appointment-reminders) sends reminders before visits and optional follow-ups after. Confirm the timing still matches how you work.
 
 ## Optional but popular
 

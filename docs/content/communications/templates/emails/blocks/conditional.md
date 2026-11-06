@@ -1,5 +1,5 @@
 ---
-description: Conditional block — a JavaScript expression that chooses one group of blocks or the other.
+description: Conditional block - a JavaScript expression that chooses one group of blocks or the other.
 ---
 
 # Conditional container
@@ -12,8 +12,8 @@ The sample sign-in email uses it for the logo, with the condition `config.logo`.
 
 ![Conditional container with a single Condition field](/img/communications/email-block-conditional.png)
 
-| Field | What it changes |
-| --- | --- |
+| Field         | What it changes                                                                                    |
+| ------------- | -------------------------------------------------------------------------------------------------- |
 | **Condition** | A JavaScript expression. Yes sends the first area. No sends the second. Do not wrap it in `{{ }}`. |
 
 There is no separate color or padding on this block. Style the blocks you put inside it.
@@ -30,35 +30,35 @@ Nested fields use a dot: `customer.name`, `service.price`, `config.logo`, `dateT
 
 Hacado does not look for the words true or false. It asks whether the result counts as yes in JavaScript.
 
-| Result | Counts as |
-| --- | --- |
-| A non-empty piece of text, such as a logo URL or a name | Yes |
-| A number other than 0, including a length | Yes |
-| `true`, such as `confirmed` or `dateTime.isTomorrow` | Yes |
-| `false`, `0`, or `""` | No |
-| A missing value | No |
-| Any list, even an empty one | Yes. An empty list is still a list. Test `addons.length` when you mean “has at least one”. |
-| Any object, such as `discount` or `member` | Yes, when that object is present |
+| Result                                                  | Counts as                                                                                  |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| A non-empty piece of text, such as a logo URL or a name | Yes                                                                                        |
+| A number other than 0, including a length               | Yes                                                                                        |
+| `true`, such as `confirmed` or `dateTime.isTomorrow`    | Yes                                                                                        |
+| `false`, `0`, or `""`                                   | No                                                                                         |
+| A missing value                                         | No                                                                                         |
+| Any list, even an empty one                             | Yes. An empty list is still a list. Test `addons.length` when you mean “has at least one”. |
+| Any object, such as `discount` or `member`              | Yes, when that object is present                                                           |
 
 These are the usual yes/no checks:
 
-| Expression | Yes when |
-| --- | --- |
-| `config.logo` | A logo is set |
-| `!config.logo` | No logo |
-| `customer.email` | The customer has an email |
-| `member && member.jobTitle` | The staff member has a job title |
-| `member?.jobTitle` | Same check. `?.` stays no when `member` is missing, instead of breaking the expression |
-| `discount` | The booking has a discount |
-| `confirmed` | The appointment is confirmed |
-| `pending` | It is still a request |
-| `declined` | It was declined |
-| `canceled` | It was canceled |
-| `noShow` | It was a no-show |
-| `dateTime.isTomorrow` | The appointment is tomorrow in the business time zone |
-| `meetingInformation` | The appointment has a video meeting |
-| `addons.length` | There is at least one add-on |
-| `packageUsage && packageUsage.isPackageAppointment` | A package covers this appointment |
+| Expression                                          | Yes when                                                                               |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `config.logo`                                       | A logo is set                                                                          |
+| `!config.logo`                                      | No logo                                                                                |
+| `customer.email`                                    | The customer has an email                                                              |
+| `member && member.jobTitle`                         | The staff member has a job title                                                       |
+| `member?.jobTitle`                                  | Same check. `?.` stays no when `member` is missing, instead of breaking the expression |
+| `discount`                                          | The booking has a discount                                                             |
+| `confirmed`                                         | The appointment is confirmed                                                           |
+| `pending`                                           | It is still a request                                                                  |
+| `declined`                                          | It was declined                                                                        |
+| `canceled`                                          | It was canceled                                                                        |
+| `noShow`                                            | It was a no-show                                                                       |
+| `dateTime.isTomorrow`                               | The appointment is tomorrow in the business time zone                                  |
+| `meetingInformation`                                | The appointment has a video meeting                                                    |
+| `addons.length`                                     | There is at least one add-on                                                           |
+| `packageUsage && packageUsage.isPackageAppointment` | A package covers this appointment                                                      |
 
 `confirmed`, `pending`, `declined`, `canceled`, and `noShow` are already yes/no. You do not have to compare the status text yourself.
 
@@ -66,17 +66,17 @@ These are the usual yes/no checks:
 
 Compare the raw value, not the formatted string. `service.price` is the number `50`. `service.priceFormatted` is text such as `$50.00`, and that text changes with currency.
 
-| Expression | Yes when |
-| --- | --- |
-| `service.price > 0` | The service has a price |
-| `service.price >= 100` | The price is 100 or more |
-| `totalAmountLeftToPay > 0` | Something is still due |
-| `totalAmountPaid === 0` | Nothing has been paid |
-| `addons.length > 1` | More than one add-on |
-| `duration.hours >= 1` | The appointment is at least one hour |
-| `dateTime.hour >= 12` | The appointment is at noon or later |
+| Expression                        | Yes when                              |
+| --------------------------------- | ------------------------------------- |
+| `service.price > 0`               | The service has a price               |
+| `service.price >= 100`            | The price is 100 or more              |
+| `totalAmountLeftToPay > 0`        | Something is still due                |
+| `totalAmountPaid === 0`           | Nothing has been paid                 |
+| `addons.length > 1`               | More than one add-on                  |
+| `duration.hours >= 1`             | The appointment is at least one hour  |
+| `dateTime.hour >= 12`             | The appointment is at noon or later   |
 | `service.name === "Demo service"` | The service name is exactly that text |
-| `status === "confirmed"` | Same answer as `confirmed` |
+| `status === "confirmed"`          | Same answer as `confirmed`            |
 
 `===` is an exact match. `!==` is not that value. `>` , `<` , `>=` , and `<=` are for numbers. Text matched with `===` is case-sensitive: `"Demo service"` is not `"demo service"`.
 
@@ -86,13 +86,13 @@ A formatted date is a poor comparison. `dateTime.full` changes with language and
 
 `&&` means both. `||` means either. `!` flips the answer.
 
-| Expression | Yes when |
-| --- | --- |
-| `confirmed && addons.length` | Confirmed, and there is at least one add-on |
-| `!canceled && !declined` | Not canceled and not declined |
-| `discount && discount.discountAmount > 0` | A discount took money off the total |
-| `payments.some(payment => payment.isDeposit)` | One of the payments is a deposit |
-| `payments.some(payment => payment.isGiftCard)` | One of the payments is a gift card |
+| Expression                                     | Yes when                                    |
+| ---------------------------------------------- | ------------------------------------------- |
+| `confirmed && addons.length`                   | Confirmed, and there is at least one add-on |
+| `!canceled && !declined`                       | Not canceled and not declined               |
+| `discount && discount.discountAmount > 0`      | A discount took money off the total         |
+| `payments.some(payment => payment.isDeposit)`  | One of the payments is a deposit            |
+| `payments.some(payment => payment.isGiftCard)` | One of the payments is a gift card          |
 
 `||` means either side may be yes. A request that should also match a confirmed appointment is:
 

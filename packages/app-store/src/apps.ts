@@ -1,6 +1,6 @@
 import type { App } from "@hacado/types/apps";
-import { AppointmentNotificationsApp } from "./apps/appointment-notifications/app";
-import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
+import { AppointmentRemindersApp } from "./apps/appointment-reminders/app";
+import { APPOINTMENT_REMINDERS_APP_NAME } from "./apps/appointment-reminders/const";
 import { AutomaticAiDiscoveryApp } from "./apps/automatic-ai-discovery/app";
 import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
 import { AutomaticStructuredDataApp } from "./apps/automatic-structured-data/app";
@@ -17,16 +17,12 @@ import { CarddavApp } from "./apps/carddav/app";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
 import { CustomScriptsApp } from "./apps/custom-scripts/app";
 import { CUSTOM_SCRIPTS_APP_NAME } from "./apps/custom-scripts/const";
-import { CustomerEmailNotificationApp } from "./apps/customer-email-notification/app";
-import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
+import { CustomerAppointmentUpdatesApp } from "./apps/customer-appointment-updates/app";
+import { CUSTOMER_APPOINTMENT_UPDATES_APP_NAME } from "./apps/customer-appointment-updates/const";
 import { CustomerPackageEmailNotificationApp } from "./apps/customer-package-email-notification/app";
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
-import { CustomerTextMessageNotificationApp } from "./apps/customer-text-message-notification/app";
-import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 import { CustomerWaitlistNotificationsApp } from "./apps/customer-waitlist-notifications/app";
 import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
-import { EmailNotificationApp } from "./apps/email-notification/app";
-import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 import { FormsApp } from "./apps/forms/app";
 import { FORMS_APP_NAME } from "./apps/forms/const";
 import { GiftCardStudioApp } from "./apps/gift-card-studio/app";
@@ -37,6 +33,8 @@ import { GoogleCalendarApp } from "./apps/google-calendar/app";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { IcsApp } from "./apps/ics/app";
 import { ICS_APP_NAME } from "./apps/ics/const";
+import { MyAppointmentNotificationsApp } from "./apps/my-appointment-notifications/app";
+import { MY_APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/my-appointment-notifications/const";
 import { MyCabinetApp } from "./apps/my-cabinet/app";
 import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 import { OutlookApp } from "./apps/outlook/app";
@@ -61,8 +59,6 @@ import { TextMessageAutoReplyApp } from "./apps/text-message-auto-reply/app";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
 import { TextMessageForwardingApp } from "./apps/text-message-forwarding/app";
 import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
-import { TextMessageNotificationApp } from "./apps/text-message-notification/app";
-import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
 import { UrlBusyEventsApp } from "./apps/url-busy-events/app";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { UrlScheduleProviderApp } from "./apps/url-schedule-provider/app";
@@ -88,15 +84,12 @@ export const AvailableApps: Record<string, App> = {
   [WEEKLY_SCHEDULE_APP_NAME]: WeeklyScheduleApp,
   [BUSY_EVENTS_APP_NAME]: BusyEventsApp,
   [TEXTBELT_APP_NAME]: TextBeltApp,
-  [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: CustomerEmailNotificationApp,
+  [CUSTOMER_APPOINTMENT_UPDATES_APP_NAME]: CustomerAppointmentUpdatesApp,
   [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]:
     CustomerPackageEmailNotificationApp,
-  [EMAIL_NOTIFICATION_APP_NAME]: EmailNotificationApp,
+  [MY_APPOINTMENT_NOTIFICATIONS_APP_NAME]: MyAppointmentNotificationsApp,
   [CALENDAR_WRITER_APP_NAME]: CalendarWriterApp,
-  [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]:
-    CustomerTextMessageNotificationApp,
-  [TEXT_MESSAGE_NOTIFICATION_APP_NAME]: TextMessageNotificationApp,
-  [APPOINTMENT_NOTIFICATIONS_APP_NAME]: AppointmentNotificationsApp,
+  [APPOINTMENT_REMINDERS_APP_NAME]: AppointmentRemindersApp,
   // [FILE_SYSTEM_ASSETS_STORAGE_APP_NAME]: FileSystemAssetsStorageApp,
   // [S3_ASSETS_STORAGE_APP_NAME]: S3AssetsStorageApp,
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: TextMessageAutoReplyApp,
@@ -126,11 +119,10 @@ export { BUSY_EVENTS_APP_NAME } from "./apps/busy-events/const";
 export { CALDAV_APP_NAME } from "./apps/caldav/const";
 export { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 export { CARDDAV_APP_NAME } from "./apps/carddav/const";
-export { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
+export { CUSTOMER_APPOINTMENT_UPDATES_APP_NAME } from "./apps/customer-appointment-updates/const";
 export { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
-export { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 export { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
-export { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
+export { MY_APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/my-appointment-notifications/const";
 // export { FILE_SYSTEM_ASSETS_STORAGE_APP_NAME } from "./apps/file-system-assets-storage/const";
 export { GOOGLE_ANALYTICS_APP_NAME } from "./apps/google-analytics/const";
 export { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
@@ -142,7 +134,7 @@ export { PAYPAL_APP_NAME } from "./apps/paypal/const";
 export { SQUARE_APP_NAME } from "./apps/square/const";
 export { STRIPE_APP_NAME } from "./apps/stripe/const";
 // export { S3_ASSETS_STORAGE_APP_NAME } from "./apps/s3-assets-storage/const";
-export { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
+export { APPOINTMENT_REMINDERS_APP_NAME } from "./apps/appointment-reminders/const";
 export { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
 export { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
 export { CUSTOM_SCRIPTS_APP_NAME } from "./apps/custom-scripts/const";
@@ -154,7 +146,6 @@ export { SMTP_APP_NAME } from "./apps/smtp/const";
 export { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
 export { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
 export { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
-export { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
 export { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 export { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
 export { WAITLIST_APP_NAME } from "./apps/waitlist/const";

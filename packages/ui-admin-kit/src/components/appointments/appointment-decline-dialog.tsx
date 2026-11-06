@@ -231,7 +231,7 @@ const PaymentRefundCard = ({
                 </TooltipResponsiveContent>
               </TooltipResponsive>
             ) : (
-              <span className="text-sm text-foreground/60">—</span>
+              <span className="text-sm text-foreground/60">-</span>
             )}
           </div>
           {payment.description && (

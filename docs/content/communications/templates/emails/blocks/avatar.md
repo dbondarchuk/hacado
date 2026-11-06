@@ -1,5 +1,5 @@
 ---
-description: Avatar block — a small image with size, shape, and alt text.
+description: Avatar block - a small image with size, shape, and alt text.
 ---
 
 # Avatar
@@ -10,14 +10,14 @@ description: Avatar block — a small image with size, shape, and alt text.
 
 ![Avatar size, shape, image, alignment, and padding](/img/communications/email-block-avatar.png)
 
-| Field | What it changes |
-| --- | --- |
-| **Size** | Width and height of the avatar, in pixels. A whole number greater than 0. |
-| **Shape** | **Circle**, **Square**, or **Rounded**. |
-| **Image URL** | The file. |
-| **Alt text** | The description if the image does not load. |
-| **Text align** | Left, center, or right. |
-| **Padding** | Space around the avatar. |
+| Field          | What it changes                                                           |
+| -------------- | ------------------------------------------------------------------------- |
+| **Size**       | Width and height of the avatar, in pixels. A whole number greater than 0. |
+| **Shape**      | **Circle**, **Square**, or **Rounded**.                                   |
+| **Image URL**  | The file.                                                                 |
+| **Alt text**   | The description if the image does not load.                               |
+| **Text align** | Left, center, or right.                                                   |
+| **Padding**    | Space around the avatar.                                                  |
 
 ## Related
 

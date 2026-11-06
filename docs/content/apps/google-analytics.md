@@ -12,7 +12,7 @@ Connect Google Analytics 4 so your public website loads the GA4 tag, and Hacado 
 2. Find **Google Analytics** and install or connect it.
 3. Sign in with the Google account that owns the GA4 property. Finish any two-step prompts Google asks for.
 4. On the consent screen approve every permission Hacado lists. Incomplete approval commonly leaves the App on **Pending**.
-5. Pick the **web data stream** whose measurement ID (starts with `G-`) matches this website. Setup stays open until you choose a stream — the App stays **Pending** until then.
+5. Pick the **web data stream** whose measurement ID (starts with `G-`) matches this website. Setup stays open until you choose a stream - the App stays **Pending** until then.
 
 If setup loops or hangs, read **[Apps troubleshooting](/docs/apps/troubleshooting)**.
 

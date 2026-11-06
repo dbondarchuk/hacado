@@ -1,5 +1,5 @@
 ---
-description: Spacer block — empty vertical space and an optional background.
+description: Spacer block - empty vertical space and an optional background.
 ---
 
 # Spacer
@@ -10,9 +10,9 @@ description: Spacer block — empty vertical space and an optional background.
 
 ![Spacer height and background color](/img/communications/email-block-spacer.png)
 
-| Field | What it changes |
-| --- | --- |
-| **Height** | How tall the gap is. Must be greater than 0. |
+| Field                | What it changes                                           |
+| -------------------- | --------------------------------------------------------- |
+| **Height**           | How tall the gap is. Must be greater than 0.              |
 | **Background color** | Fill of the gap. Leave it clear to show the canvas color. |
 
 ## Related

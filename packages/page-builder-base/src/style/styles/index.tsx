@@ -26,7 +26,7 @@ export * from "./typography";
 type AnyStyleDefinition = StyleDefinition<z.ZodType<any, any>, string>;
 
 /**
- * Catalog list. Not `as const` — aggregating ~80 style objects into one const
+ * Catalog list. Not `as const` - aggregating ~80 style objects into one const
  * tuple made this file's checkExpression cost dominate app-store/services traces.
  */
 export const allStyles: readonly AnyStyleDefinition[] = [

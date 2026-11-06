@@ -37,14 +37,17 @@ export const BreadcrumbsRender = () => {
   if (!items?.length) return null;
 
   return (
-    <Breadcrumb className="flex-1">
+    <Breadcrumb className="min-w-0 flex-1 overflow-hidden">
       <BreadcrumbList className="text-sm @container/breadcrumbs flex-nowrap">
         {items.map((item, index) =>
           "subItems" in item ? (
             <DropdownMenu key={index}>
-              <DropdownMenuTrigger className="flex items-center gap-1">
-                {item.title}
-                <ChevronDownIcon />
+              <DropdownMenuTrigger
+                className="flex min-w-0 max-w-full items-center gap-1"
+                title={item.title}
+              >
+                <span className="truncate">{item.title}</span>
+                <ChevronDownIcon className="size-4 shrink-0" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 {item.subItems.map((subItem, jndex) => (
@@ -57,19 +60,28 @@ export const BreadcrumbsRender = () => {
           ) : (
             <Fragment key={item.title}>
               {index !== items.length - 1 && (
-                <BreadcrumbItem className="hidden @xs/breadcrumbs:block">
+                <BreadcrumbItem className="hidden max-w-[40%] @xs/breadcrumbs:block">
                   <BreadcrumbLink asChild>
-                    <NextLink href={item.link}>{item.title}</NextLink>
+                    <NextLink
+                      href={item.link}
+                      className="block truncate"
+                      title={item.title}
+                    >
+                      {item.title}
+                    </NextLink>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               )}
               {index < items.length - 1 && (
-                <BreadcrumbSeparator className="hidden @xs/breadcrumbs:block">
+                <BreadcrumbSeparator className="hidden shrink-0 @xs/breadcrumbs:block">
                   {/* <Slash /> */}
                 </BreadcrumbSeparator>
               )}
               {index === items.length - 1 && (
-                <BreadcrumbPage className="grid pr-1">
+                <BreadcrumbPage
+                  className="grid min-w-0 pr-1"
+                  title={item.title}
+                >
                   <span className="truncate">{item.title}</span>
                 </BreadcrumbPage>
               )}

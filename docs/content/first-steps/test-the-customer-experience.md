@@ -47,8 +47,8 @@ Canceling proves your cancellation flow works too.
 | --- | --- |
 | No times available | [Set your availability](./set-your-availability) |
 | Wrong service or price | [Set up your services](./set-up-your-services) |
-| No confirmation email | [Connect essentials](./connect-essentials) → customer email notifications |
-| No text message | Customer text message notifications app + templates |
+| No confirmation email | [Connect essentials](./connect-essentials) → [Customer Appointment Updates](/docs/apps/customer-appointment-updates) |
+| No text message | [Customer Appointment Updates](/docs/apps/customer-appointment-updates) with text enabled |
 | Payment did not work | Payment app under **Settings → Apps → Installed apps** |
 | Booking not on calendar | Calendar app connection |
 | Page looks wrong | [Build your website](./build-your-website) and [Publish and share](./publish-and-share) |

@@ -83,7 +83,9 @@ async function up(db) {
       .toArray();
 
     const tipRows = linked.filter(isSyncedTipPayment);
-    const serviceRows = linked.filter((payment) => !isSyncedTipPayment(payment));
+    const serviceRows = linked.filter(
+      (payment) => !isSyncedTipPayment(payment),
+    );
 
     if (!tipRows.length) {
       skippedNoTips += 1;
@@ -183,7 +185,7 @@ async function up(db) {
   }
 
   // Orphan synced tip rows (same externalId as a service payment, not listed
-  // on the synced-payment paymentIds) — merge when we can find a sibling.
+  // on the synced-payment paymentIds) - merge when we can find a sibling.
   const orphanTips = await payments
     .find({
       source: "synced",

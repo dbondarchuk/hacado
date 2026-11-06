@@ -1,5 +1,5 @@
-import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
-import { AppointmentNotificationsTranslations } from "./apps/appointment-notifications/translations";
+import { APPOINTMENT_REMINDERS_APP_NAME } from "./apps/appointment-reminders/const";
+import { AppointmentRemindersTranslations } from "./apps/appointment-reminders/translations";
 import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
 import { AutomaticAiDiscoveryTranslations } from "./apps/automatic-ai-discovery/translations";
 import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
@@ -16,16 +16,12 @@ import { CARDDAV_APP_NAME } from "./apps/carddav/const";
 import { CarddavTranslations } from "./apps/carddav/translations";
 import { CUSTOM_SCRIPTS_APP_NAME } from "./apps/custom-scripts/const";
 import { CustomScriptsTranslations } from "./apps/custom-scripts/translations";
-import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
-import { CustomerEmailNotificationTranslations } from "./apps/customer-email-notification/translations";
+import { CUSTOMER_APPOINTMENT_UPDATES_APP_NAME } from "./apps/customer-appointment-updates/const";
+import { CustomerAppointmentUpdatesTranslations } from "./apps/customer-appointment-updates/translations";
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
 import { CustomerPackageEmailNotificationTranslations } from "./apps/customer-package-email-notification/translations";
-import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
-import { CustomerTextMessageNotificationTranslations } from "./apps/customer-text-message-notification/translations";
 import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
 import { CustomerWaitlistNotificationsTranslations } from "./apps/customer-waitlist-notifications/translations";
-import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
-import { EmailNotificationTranslations } from "./apps/email-notification/translations";
 import { FORMS_APP_NAME } from "./apps/forms/const";
 import { FormsTranslations } from "./apps/forms/translations";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./apps/gift-card-studio/const";
@@ -36,6 +32,8 @@ import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { GoogleCalendarTranslations } from "./apps/google-calendar/translations";
 import { ICS_APP_NAME } from "./apps/ics/const";
 import { IcsTranslations } from "./apps/ics/translations";
+import { MY_APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/my-appointment-notifications/const";
+import { MyAppointmentNotificationsTranslations } from "./apps/my-appointment-notifications/translations";
 import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 import { MyCabinetTranslations } from "./apps/my-cabinet/translations";
 import { OUTLOOK_APP_NAME } from "./apps/outlook/const";
@@ -60,8 +58,6 @@ import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply
 import { TextMessageAutoReplyTranslations } from "./apps/text-message-auto-reply/translations";
 import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
 import { TextMessageForwardingTranslations } from "./apps/text-message-forwarding/translations";
-import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
-import { TextMessageNotificationTranslations } from "./apps/text-message-notification/translations";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { UrlBusyEventsTranslations } from "./apps/url-busy-events/translations";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
@@ -91,12 +87,12 @@ export const AppsTranslations: Record<
   [CALDAV_APP_NAME]: CaldavTranslations,
   [CARDDAV_APP_NAME]: CarddavTranslations,
   [CALENDAR_WRITER_APP_NAME]: CalendarWriterTranslations,
-  [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: CustomerEmailNotificationTranslations,
+  [CUSTOMER_APPOINTMENT_UPDATES_APP_NAME]:
+    CustomerAppointmentUpdatesTranslations,
   [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]:
     CustomerPackageEmailNotificationTranslations,
-  [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]:
-    CustomerTextMessageNotificationTranslations,
-  [EMAIL_NOTIFICATION_APP_NAME]: EmailNotificationTranslations,
+  [MY_APPOINTMENT_NOTIFICATIONS_APP_NAME]:
+    MyAppointmentNotificationsTranslations,
   [GOOGLE_CALENDAR_APP_NAME]: GoogleCalendarTranslations,
   [GOOGLE_ANALYTICS_APP_NAME]: GoogleAnalyticsTranslations,
   [ICS_APP_NAME]: IcsTranslations,
@@ -105,12 +101,11 @@ export const AppsTranslations: Record<
   [PAYMENT_LINKS_APP_NAME]: PaymentLinksTranslations,
   [SQUARE_APP_NAME]: SquareTranslations,
   [STRIPE_APP_NAME]: StripeTranslations,
-  [APPOINTMENT_NOTIFICATIONS_APP_NAME]: AppointmentNotificationsTranslations,
+  [APPOINTMENT_REMINDERS_APP_NAME]: AppointmentRemindersTranslations,
   [SMTP_APP_NAME]: SmtpTranslations,
   [RESEND_APP_NAME]: ResendTranslations,
   [TEXTBELT_APP_NAME]: TextBeltTranslations,
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: TextMessageAutoReplyTranslations,
-  [TEXT_MESSAGE_NOTIFICATION_APP_NAME]: TextMessageNotificationTranslations,
   [TEXT_MESSAGE_FORWARDING_APP_NAME]: TextMessageForwardingTranslations,
   [WEEKLY_SCHEDULE_APP_NAME]: WeeklyScheduleTranslations,
   [WEBHOOKS_APP_NAME]: WebhooksTranslations,

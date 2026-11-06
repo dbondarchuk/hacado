@@ -1123,7 +1123,7 @@ pageBuilder:
         imageAlt: Фото салону
       galleryMasonry:
         title: Lookbook
-        body: Стовпчики фото різної висоти — торкніться будь-якого, щоб відкрити.
+        body: Стовпчики фото різної висоти - торкніться будь-якого, щоб відкрити.
         imageAlt: Фото галереї
     booking:
       bookingSection:
@@ -2077,7 +2077,7 @@ pageBuilder:
       salon_d:
         name: Lumen Cut
         category: Макети салонів
-        tagline: Cuts that catch light — booked in two taps
+        tagline: Cuts that catch light - booked in two taps
         installHint: Краса
       tattoo_d:
         name: Needle Atlas
@@ -2137,7 +2137,7 @@ pageBuilder:
       nails_b:
         name: Soft Edge Nail
         category: Макети нігтів
-        tagline: "Тиха розкіш на кінчиках — пастель, точність, запис"
+        tagline: "Тиха розкіш на кінчиках - пастель, точність, запис"
         installHint: Краса
       lash_b:
         name: Silk Brow Co.
@@ -2504,7 +2504,7 @@ pageBuilder:
         step4Bullets: Короткий огляд того, як зазвичай проходить візит до нас.
       video:
         title: "Хвилина всередині"
-        body: "Амбієнтний кліп — за замовчуванням без звуку."
+        body: "Амбієнтний кліп - за замовчуванням без звуку."
     salon:
       home:
         heroTitle: Волосся, нігті та блиск - бронюйте за лічені хвилини
@@ -4428,13 +4428,13 @@ pageBuilder:
     salon_d:
       home:
         heroTitle: Hair that photographs itself.
-        heroSubtitle: Editorial cuts and color in a calm chair — no upsell theater.
+        heroSubtitle: Editorial cuts and color in a calm chair - no upsell theater.
         bookCta: Book a chair
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "NASHVILLE"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Послуги в русі"
-        servicesBody: "Гортайте стрічку — кожна картка веде в той самий календар."
+        servicesBody: "Гортайте стрічку - кожна картка веде в той самий календар."
         galleryTitle: "Стіна галереї"
         lookInsideTitle: Зазирніть всередину
         testimonialsTitle: Що кажуть клієнти
@@ -4447,24 +4447,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Lumen Cut легко знайти — напрямки в листі підтвердження.
+        faqA4: Lumen Cut легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Забронювати крісло"
-        ctaBody: "Стрижки, що ловлять світло — за два дотики"
+        ctaBody: "Стрижки, що ловлять світло - за два дотики"
       booking:
         title: Оберіть зручний час
         body: "New guests: arrive with dry hair and a reference that shows the silhouette you want."
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Lumen Cut
         body1: "Lumen Cut is a light-forward salon for people who want their hair to look intentional in daylight, not just under studio LEDs."
-        body2: Cuts that catch light — booked in two taps. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Cuts that catch light - booked in two taps. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4477,7 +4477,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Lumen Cut не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         cut:
           name: Precision Cut
@@ -4498,9 +4498,9 @@ pageBuilder:
         bookCta: Reserve a seat
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "PORTLAND"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Послуги в русі"
-        servicesBody: "Гортайте стрічку — кожна картка веде в той самий календар."
+        servicesBody: "Гортайте стрічку - кожна картка веде в той самий календар."
         galleryTitle: "Стіна галереї"
         lookInsideTitle: Зазирніть всередину
         testimonialsTitle: Що кажуть клієнти
@@ -4513,9 +4513,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Needle Atlas легко знайти — напрямки в листі підтвердження.
+        faqA4: Needle Atlas легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Забронювати місце"
@@ -4524,13 +4524,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Bring ID. Eat first. We will not tattoo over fresh sunburns.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Needle Atlas
-        body1: Needle Atlas is a small Portland shop obsessed with composition — every piece is a miniature atlas you carry.
-        body2: Maps drawn into skin. Перший чи п’ятдесятий візит — має бути турбота.
+        body1: Needle Atlas is a small Portland shop obsessed with composition - every piece is a miniature atlas you carry.
+        body2: Maps drawn into skin. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4543,7 +4543,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Needle Atlas не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         fineLine:
           name: Fine Line Session
@@ -4564,9 +4564,9 @@ pageBuilder:
         bookCta: Book a soak
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "SEATTLE"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Послуги в русі"
-        servicesBody: "Гортайте стрічку — кожна картка веде в той самий календар."
+        servicesBody: "Гортайте стрічку - кожна картка веде в той самий календар."
         galleryTitle: "Стіна галереї"
         lookInsideTitle: Зазирніть всередину
         testimonialsTitle: Що кажуть клієнти
@@ -4579,9 +4579,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Stillwater Baths легко знайти — напрямки в листі підтвердження.
+        faqA4: Stillwater Baths легко знайти - напрямки в листі підтвердження.
         pricingTitle: "Прозорі ціни"
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Забронювати soak"
@@ -4590,13 +4590,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Arrive 15 minutes early. Phones stay in lockers.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Stillwater Baths
-        body1: "We keep rooms quiet, lights low, and menus short — so you leave with a slower pulse, not a product bag."
-        body2: Mineral quiet in the middle of the city. Перший чи п’ятдесятий візит — має бути турбота.
+        body1: "We keep rooms quiet, lights low, and menus short - so you leave with a slower pulse, not a product bag."
+        body2: Mineral quiet in the middle of the city. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4609,7 +4609,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Stillwater Baths не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         massage:
           name: Mineral Massage
@@ -4630,7 +4630,7 @@ pageBuilder:
         bookCta: Start a draft
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "CHICAGO"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Кейс-смуги"
         servicesBody: "Чергування наративних блоків."
         galleryTitle: Галерея
@@ -4645,9 +4645,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: North Draft легко знайти — напрямки в листі підтвердження.
+        faqA4: North Draft легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Почати драфт"
@@ -4656,13 +4656,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Intake form required 48 hours before the first session.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія North Draft
-        body1: "We work in written drafts — agendas, decisions, feedback — so coaching sticks after the call ends."
-        body2: Leadership drafts that survive the week. Перший чи п’ятдесятий візит — має бути турбота.
+        body1: "We work in written drafts - agendas, decisions, feedback - so coaching sticks after the call ends."
+        body2: Leadership drafts that survive the week. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4675,7 +4675,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, North Draft не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         leadership:
           name: Leadership Intensive
@@ -4691,14 +4691,14 @@ pageBuilder:
           description: Standing check-in for shipping work.
     fitness_d:
       home:
-        heroTitle: Train like the room is watching — because it is.
+        heroTitle: Train like the room is watching - because it is.
         heroSubtitle: Volt Room caps classes at 12. Coaches know your name by week two.
         bookCta: Claim a spot
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "AUSTIN"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Послуги в русі"
-        servicesBody: "Гортайте стрічку — кожна картка веде в той самий календар."
+        servicesBody: "Гортайте стрічку - кожна картка веде в той самий календар."
         galleryTitle: "Стіна галереї"
         lookInsideTitle: Зазирніть всередину
         testimonialsTitle: Що кажуть клієнти
@@ -4711,9 +4711,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Volt Room легко знайти — напрямки в листі підтвердження.
+        faqA4: Volt Room легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Забрати місце"
@@ -4722,13 +4722,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: First class includes a 10-minute movement screen.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Volt Room
         body1: We built Volt for people tired of endless apps and empty big-box floors. Short classes. Real load. Clear progress.
-        body2: Small-group power. No mirror selfies required.. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Small-group power. No mirror selfies required.. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4741,7 +4741,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Volt Room не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         strength:
           name: Strength Block
@@ -4762,7 +4762,7 @@ pageBuilder:
         bookCta: Book a shoot
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "DENVER"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Кейс-смуги"
         servicesBody: "Чергування наративних блоків."
         galleryTitle: "Стіна галереї"
@@ -4777,9 +4777,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: "Frame & Field легко знайти — напрямки в листі підтвердження."
+        faqA4: "Frame & Field легко знайти - напрямки в листі підтвердження."
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Забронювати зйомку"
@@ -4788,13 +4788,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Wardrobe guide sent after deposit. Golden-hour slots book 3 weeks out.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: "Історія Frame & Field"
-        body1: We are a two-person studio that still delivers galleries within a week — because waiting kills momentum.
-        body2: Portraits with weather in them. Перший чи п’ятдесятий візит — має бути турбота.
+        body1: We are a two-person studio that still delivers galleries within a week - because waiting kills momentum.
+        body2: Portraits with weather in them. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4807,7 +4807,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Frame & Field не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         portrait:
           name: Portrait Hour
@@ -4823,14 +4823,14 @@ pageBuilder:
           description: Tabletop pack of 20 edited frames.
     clinic_d:
       home:
-        heroTitle: Care with a cedar-calm waiting room — and a real inbox.
+        heroTitle: Care with a cedar-calm waiting room - and a real inbox.
         heroSubtitle: Cedar Care is a neighborhood clinic that still picks up the phone.
         bookCta: Book a visit
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "CEDAR FALLS"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Послуги в русі"
-        servicesBody: "Гортайте стрічку — кожна картка веде в той самий календар."
+        servicesBody: "Гортайте стрічку - кожна картка веде в той самий календар."
         galleryTitle: "Стіна галереї"
         lookInsideTitle: Зазирніть всередину
         testimonialsTitle: Що кажуть клієнти
@@ -4843,9 +4843,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Cedar Care легко знайти — напрямки в листі підтвердження.
+        faqA4: Cedar Care легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Записатись"
@@ -4854,13 +4854,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: "New patients: upload insurance card before your visit."
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Cedar Care
         body1: We keep panels small so visits are longer and follow-ups are faster. Telehealth when it helps; in-person when it matters.
-        body2: Primary care that answers the same day. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Primary care that answers the same day. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4873,7 +4873,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Cedar Care не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         wellness:
           name: Annual Wellness
@@ -4894,9 +4894,9 @@ pageBuilder:
         bookCta: Book for your dog
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "BOULDER"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Послуги в русі"
-        servicesBody: "Гортайте стрічку — кожна картка веде в той самий календар."
+        servicesBody: "Гортайте стрічку - кожна картка веде в той самий календар."
         galleryTitle: "Стіна галереї"
         lookInsideTitle: Зазирніть всередину
         testimonialsTitle: Що кажуть клієнти
@@ -4909,9 +4909,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: "Trail & Tail легко знайти — напрямки в листі підтвердження."
+        faqA4: "Trail & Tail легко знайти - напрямки в листі підтвердження."
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Записати собаку"
@@ -4920,13 +4920,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Vaccination records required for daycare-adjacent walks.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: "Історія Trail & Tail"
-        body1: We photograph after every groom (with consent) and text you when your dog is ready — no surprise add-ons.
-        body2: Grooms and walks with mud allowed. Перший чи п’ятдесятий візит — має бути турбота.
+        body1: We photograph after every groom (with consent) and text you when your dog is ready - no surprise add-ons.
+        body2: Grooms and walks with mud allowed. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -4939,11 +4939,11 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Trail & Tail не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         groom:
           name: Full Groom
-          description: "Bath, cut, nails — trail-ready."
+          description: "Bath, cut, nails - trail-ready."
         walk:
           name: Adventure Walk
           description: 90 minutes off the sidewalk.
@@ -4960,7 +4960,7 @@ pageBuilder:
         bookCta: Schedule a visit
         secondaryCta: "Дивитись послуги"
         heroEyebrow: "PHILADELPHIA"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Що входить у візит"
         servicesBody: "Чіткий обсяг. Без сюрпризів посеред роботи."
         galleryTitle: "Стіна галереї"
@@ -4975,24 +4975,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Threshold Co. легко знайти — напрямки в листі підтвердження.
+        faqA4: Threshold Co. легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Запланувати візит"
         ctaBody: "Список справ, який справді закривається"
       booking:
         title: Оберіть зручний час
-        body: "Pets? Add a note — we bring boot covers either way."
+        body: "Pets? Add a note - we bring boot covers either way."
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Threshold Co.
         body1: We photograph before/after on request and leave a short note of what still needs a specialist.
-        body2: The punch list that actually closes. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: The punch list that actually closes. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5005,11 +5005,11 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Threshold Co. не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         clean:
           name: Weekly Clean
-          description: "Kitchen, baths, floors — consistent."
+          description: "Kitchen, baths, floors - consistent."
         handyman:
           name: Punch-List Hour
           description: Handyman blocks for small fixes.
@@ -5022,11 +5022,11 @@ pageBuilder:
     professional_d:
       home:
         heroTitle: Numbers that stay quiet.
-        heroSubtitle: Ledger Lane is a boutique practice for founders who want books closed by day five — every month.
+        heroSubtitle: Ledger Lane is a boutique practice for founders who want books closed by day five - every month.
         bookCta: Book a consult
         secondaryCta: "Більше про нас"
         heroEyebrow: "LEDGER LANE"
-        announcement: Нові клієнти вітаються — є вікна на цьому тижні
+        announcement: Нові клієнти вітаються - є вікна на цьому тижні
         servicesTitle: "Кейс-смуги"
         servicesBody: "Чергування наративних блоків."
         galleryTitle: "Команди, які ми тримаємо в порядку"
@@ -5041,9 +5041,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Ledger Lane легко знайти — напрямки в листі підтвердження.
+        faqA4: Ledger Lane легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: "Записатись на консультацію"
@@ -5052,13 +5052,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Bring last three months of bank feeds or grant read-only access.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Ledger Lane
         body1: "We specialize in service businesses and studios. Less jargon, more reconciliations that match reality."
-        body2: Books that close without the scramble. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Books that close without the scramble. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5071,7 +5071,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Ledger Lane не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         books:
           name: Books Cleanup
@@ -5089,11 +5089,11 @@ pageBuilder:
     nails:
       home:
         heroTitle: "Нігті, що фотографуються самі."
-        heroSubtitle: "Гель, акрил і арт у спокійному кріслі — бронювання в кілька дотиків."
+        heroSubtitle: "Гель, акрил і арт у спокійному кріслі - бронювання в кілька дотиків."
         bookCta: Записатись на сет
         secondaryCta: Більше про нас
         heroEyebrow: GLOSS BENCH
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5108,24 +5108,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Gloss Bench легко знайти — напрямки в листі підтвердження.
+        faqA4: Gloss Bench легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на сет
         ctaBody: "Гель, акрил і арт, що фотографуються самі"
       booking:
         title: Оберіть зручний час
-        body: Оберіть послугу й час — підтвердження прийде одразу.
+        body: Оберіть послугу й час - підтвердження прийде одразу.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Gloss Bench
         body1: "Gloss Bench створено для незалежних майстрів, яким потрібен красивий сайт бронювання."
-        body2: "Гель, акрил і арт, що фотографуються самі. Перший чи п’ятдесятий візит — має бути турбота."
+        body2: "Гель, акрил і арт, що фотографуються самі. Перший чи п’ятдесятий візит - має бути турбота."
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5138,7 +5138,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Gloss Bench не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         gel:
           name: Гель-манікюр
@@ -5154,12 +5154,12 @@ pageBuilder:
           description: "Оновлення відрослого з балансом, ремонтом і новим топом."
     lash:
       home:
-        heroTitle: Спочатку очі. Все інше — після.
+        heroTitle: Спочатку очі. Все інше - після.
         heroSubtitle: "Класика, об’єм і корекції на спокійному ліжку для вій."
         bookCta: Записатись на вії
         secondaryCta: Більше про нас
         heroEyebrow: SOFT LASH ROOM
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5174,24 +5174,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Soft Lash Room легко знайти — напрямки в листі підтвердження.
+        faqA4: Soft Lash Room легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на вії
         ctaBody: "Класика, об’єм і брови у спокійному кріслі"
       booking:
         title: Оберіть зручний час
-        body: Оберіть послугу й час — підтвердження прийде одразу.
+        body: Оберіть послугу й час - підтвердження прийде одразу.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Soft Lash Room
         body1: "Soft Lash Room створено для незалежних майстрів, яким потрібен красивий сайт бронювання."
-        body2: "Класика, об’єм і брови у спокійному кріслі. Перший чи п’ятдесятий візит — має бути турбота."
+        body2: "Класика, об’єм і брови у спокійному кріслі. Перший чи п’ятдесятий візит - має бути турбота."
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5204,7 +5204,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Soft Lash Room не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         classic:
           name: Класичний сет
@@ -5221,11 +5221,11 @@ pageBuilder:
     nails_b:
       home:
         heroTitle: Тиха розкіш на кінчиках.
-        heroSubtitle: "Пастельні гелі, м’які оверлеї та мікро-арт — у вашому календарі."
+        heroSubtitle: "Пастельні гелі, м’які оверлеї та мікро-арт - у вашому календарі."
         bookCta: Записатись на манікюр
         secondaryCta: Більше про нас
         heroEyebrow: SOFT EDGE NAIL
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5240,24 +5240,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Soft Edge Nail легко знайти — напрямки в листі підтвердження.
+        faqA4: Soft Edge Nail легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на манікюр
-        ctaBody: "Тиха розкіш на кінчиках — пастель, точність, запис"
+        ctaBody: "Тиха розкіш на кінчиках - пастель, точність, запис"
       booking:
         title: Оберіть зручний час
-        body: Оберіть послугу й час — підтвердження прийде одразу.
+        body: Оберіть послугу й час - підтвердження прийде одразу.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Soft Edge Nail
         body1: "Soft Edge Nail створено для незалежних майстрів, яким потрібен красивий сайт бронювання."
-        body2: "Тиха розкіш на кінчиках — пастель, точність, запис. Перший чи п’ятдесятий візит — має бути турбота."
+        body2: "Тиха розкіш на кінчиках - пастель, точність, запис. Перший чи п’ятдесятий візит - має бути турбота."
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5270,7 +5270,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Soft Edge Nail не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         gel:
           name: М’який гель-манікюр
@@ -5291,7 +5291,7 @@ pageBuilder:
         bookCta: Записатись
         secondaryCta: Більше про нас
         heroEyebrow: SILK BROW CO.
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5306,24 +5306,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Silk Brow Co. легко знайти — напрямки в листі підтвердження.
+        faqA4: Silk Brow Co. легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись
         ctaBody: "Вії та брови, що обрамляють усе обличчя"
       booking:
         title: Оберіть зручний час
-        body: Оберіть послугу й час — підтвердження прийде одразу.
+        body: Оберіть послугу й час - підтвердження прийде одразу.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Silk Brow Co.
         body1: "Silk Brow Co. створено для незалежних майстрів, яким потрібен красивий сайт бронювання."
-        body2: "Вії та брови, що обрамляють усе обличчя. Перший чи п’ятдесятий візит — має бути турбота."
+        body2: "Вії та брови, що обрамляють усе обличчя. Перший чи п’ятдесятий візит - має бути турбота."
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5336,7 +5336,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Silk Brow Co. не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         classic:
           name: Шовковий класичний сет
@@ -5353,11 +5353,11 @@ pageBuilder:
     nails_c:
       home:
         heroTitle: Дзеркальні кінчики. Колір на вечір.
-        heroSubtitle: "Chrome Room — для сетів, що ловлять спалах і вуличне світло."
+        heroSubtitle: "Chrome Room - для сетів, що ловлять спалах і вуличне світло."
         bookCta: Записатись на хром
         secondaryCta: Більше про нас
         heroEyebrow: CHROME ROOM
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5372,24 +5372,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Chrome Room легко знайти — напрямки в листі підтвердження.
+        faqA4: Chrome Room легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на хром
         ctaBody: "Дзеркальні кінчики, сміливий колір і сети на вечір"
       booking:
         title: Оберіть зручний час
-        body: Оберіть послугу й час — підтвердження прийде одразу.
+        body: Оберіть послугу й час - підтвердження прийде одразу.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Chrome Room
         body1: "Chrome Room створено для незалежних майстрів, яким потрібен красивий сайт бронювання."
-        body2: "Дзеркальні кінчики, сміливий колір і сети на вечір. Перший чи п’ятдесятий візит — має бути турбота."
+        body2: "Дзеркальні кінчики, сміливий колір і сети на вечір. Перший чи п’ятдесятий візит - має бути турбота."
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5402,7 +5402,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Chrome Room не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         chrome:
           name: Chrome tip сет
@@ -5423,7 +5423,7 @@ pageBuilder:
         bookCta: Записатись на об’єм
         secondaryCta: Більше про нас
         heroEyebrow: VOLUME STUDIO
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5438,24 +5438,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Volume Studio легко знайти — напрямки в листі підтвердження.
+        faqA4: Volume Studio легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на об’єм
         ctaBody: Клінічно-спокійні ліжка та точне картування
       booking:
         title: Оберіть зручний час
-        body: Оберіть послугу й час — підтвердження прийде одразу.
+        body: Оберіть послугу й час - підтвердження прийде одразу.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Volume Studio
         body1: "Volume Studio створено для незалежних майстрів, яким потрібен красивий сайт бронювання."
-        body2: Клінічно-спокійні ліжка та точне картування. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Клінічно-спокійні ліжка та точне картування. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5468,14 +5468,14 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Volume Studio не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         classic:
           name: Класика за картою
           description: Картування форми ока з природним завитком і довжиною.
         volume:
           name: Мега-об’єм
-          description: Щільні віяла для editorial-повноти — досі легкі.
+          description: Щільні віяла для editorial-повноти - досі легкі.
         hybrid:
           name: Гібридне оновлення
           description: Мікс класики й об’єму для рівномірної щільності.
@@ -5485,11 +5485,11 @@ pageBuilder:
     nails_d:
       home:
         heroTitle: "Нігті, що ловлять світло."
-        heroSubtitle: "Glass Cuticle — спокійне крісло для гелю, м’яких сетів і арту, що виглядає свідомо вдень."
+        heroSubtitle: "Glass Cuticle - спокійне крісло для гелю, м’яких сетів і арту, що виглядає свідомо вдень."
         bookCta: Записатись на сет
         secondaryCta: Більше про нас
         heroEyebrow: GLASS CUTICLE
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5504,9 +5504,9 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Glass Cuticle легко знайти — напрямки в листі підтвердження.
+        faqA4: Glass Cuticle легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на сет
@@ -5515,13 +5515,13 @@ pageBuilder:
         title: Оберіть зручний час
         body: Приходьте з чистими нігтями; зняття додає 20 хвилин за потреби.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Glass Cuticle
         body1: "Фотографуємо готові сети при денному світлі й тримаємо темп, щоб кутикула лишалась спокійною."
-        body2: Редакційні нігті в світлій студії. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Редакційні нігті в світлій студії. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5534,7 +5534,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Glass Cuticle не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         gel:
           name: Glass гель-манікюр
@@ -5550,12 +5550,12 @@ pageBuilder:
           description: "Спочатку структура, потім полірування."
     lash_d:
       home:
-        heroTitle: Спочатку очі. Все інше — після.
-        heroSubtitle: "Lash Atelier — студія з пріоритетом бронювання: класика, об’єм, корекції й брови під сет."
+        heroTitle: Спочатку очі. Все інше - після.
+        heroSubtitle: "Lash Atelier - студія з пріоритетом бронювання: класика, об’єм, корекції й брови під сет."
         bookCta: Записатись на вії
         secondaryCta: Більше про нас
         heroEyebrow: LASH ATELIER
-        announcement: Нові клієнти вітаються — є вікна на цей тиждень
+        announcement: Нові клієнти вітаються - є вікна на цей тиждень
         servicesTitle: Послуги
         servicesBody: Оберіть те, що підходить саме вам.
         galleryTitle: Погляд усередину
@@ -5570,24 +5570,24 @@ pageBuilder:
         faqQ2: Яка політика скасування?
         faqA2: Скасуйте або перенесіть щонайменше за 24 години, щоб ми могли запропонувати слот іншому.
         faqQ3: Чи приймаєте walk-in?
-        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні — перевірте Book.
+        faqA3: Пріоритет у заброньованих візитів. Іноді з’являються вікна на сьогодні - перевірте Book.
         faqQ4: Де ви знаходитесь?
-        faqA4: Lash Atelier легко знайти — напрямки в листі підтвердження.
+        faqA4: Lash Atelier легко знайти - напрямки в листі підтвердження.
         pricingTitle: Прості пакети
         comparisonTitle: Чому бронювати з нами
         ctaTitle: Записатись на вії
         ctaBody: Сети й корекції з галереєю поглядів
       booking:
         title: Оберіть зручний час
-        body: Приходьте з чистими віями — без туші. Патч-тест за запитом.
+        body: Приходьте з чистими віями - без туші. Патч-тест за запитом.
       service:
-        bullet1: Окрема тривалість візиту — без накладок
+        bullet1: Окрема тривалість візиту - без накладок
         bullet2: Підтвердження та нагадування email
         bullet3: Легке перенесення з посилання бронювання
       about:
         title: Історія Lash Atelier
         body1: "Картуємо кожен сет під форму ока й фотографуємо загоєні корекції, щоб було видно вигляд через два тижні."
-        body2: Сети й корекції з галереєю поглядів. Перший чи п’ятдесятий візит — має бути турбота.
+        body2: Сети й корекції з галереєю поглядів. Перший чи п’ятдесятий візит - має бути турбота.
       terms:
         title: Правила бронювання
         intro: Це чернетка для огляду, не юридична консультація. Замініть на погоджені з юристом умови перед публікацією.
@@ -5600,7 +5600,7 @@ pageBuilder:
         liabilityTitle: Відповідальність
         liabilityBody: "Наскільки дозволяє закон, Lash Atelier не відповідає за непрямі збитки від використання сайту бронювання чи послуг."
         contactTitle: Контакти
-        contactBody: Питання щодо правил — через контакти в листі підтвердження.
+        contactBody: Питання щодо правил - через контакти в листі підтвердження.
       services:
         classic:
           name: Класика за картою

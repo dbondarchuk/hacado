@@ -46,10 +46,10 @@ Keep each message inside these rules:
 
 ### What the legal pages must say
 
-| Page | Must include |
-| ---- | ------------ |
-| **Privacy policy** | That mobile opt-in data is not shared with third parties or affiliates for marketing, and that phone numbers are used only for booking texts. |
-| **Terms** | How often messages are sent; that message and data rates may apply; that customers can reply **STOP** to opt out and **HELP** for help; that carriers are not liable for delayed or undelivered messages. |
+| Page               | Must include                                                                                                                                                                                              |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Privacy policy** | That mobile opt-in data is not shared with third parties or affiliates for marketing, and that phone numbers are used only for booking texts.                                                             |
+| **Terms**          | How often messages are sent; that message and data rates may apply; that customers can reply **STOP** to opt out and **HELP** for help; that carriers are not liable for delayed or undelivered messages. |
 
 ## Custom text messages
 
@@ -80,6 +80,6 @@ On Solo and above, a connected texting app can use custom templates without the 
 
 ## Related
 
-- [Customer access](./customer-access) — send sign-in codes by SMS once texts are on
-- [Text message templates](/docs/communications/templates/text-messages) — write the wording apps send
-- [Apps](/docs/apps/overview) — customer text notification apps
+- [Customer access](./customer-access) - send sign-in codes by SMS once texts are on
+- [Text message templates](/docs/communications/templates/text-messages) - write the wording apps send
+- [Apps](/docs/apps/overview) - [Customer Appointment Updates](/docs/apps/customer-appointment-updates) and related notification apps

@@ -1,0 +1,85 @@
+app:
+  displayName: My appointment notifications
+  description: |-
+    Get an email when your bookings change. For each event, turn the alert on.
+    Coordinators and above can also send it as a text.
+navigation:
+  title: My appointment notifications
+form:
+  email:
+    label: Send to email
+    tooltip: Email address for these alerts. Leave empty to use your default email address.
+    placeholder: john@example.com
+  phone:
+    label: Phone number
+    tooltip: Optional phone number for text alerts. Your phone is used by default.
+    placeholder: Phone
+  processOtherMembersAppointments:
+    label: Process other members' appointments
+    description: When enabled, also send notifications for appointments assigned to other team members.
+  schedule:
+    label: When to send
+  delivery:
+    label: How to send
+  channel:
+    required: At least one channel is required. Turn on email, text message, or both.
+  emailChannel:
+    label: Email
+    description: Send this alert to your inbox, with a calendar attachment when available.
+  textMessage:
+    label: Text message
+    description: Send this alert by text message.
+    smsDisabled: Text messages need text messaging turned on. While it is off, this option stays unavailable.
+    smsDisabledAction: Turn on text messaging
+  events:
+    pending:
+      enabled:
+        label: New appointment request
+        description: Sent when a customer requests an appointment that still needs confirmation.
+    confirmed:
+      enabled:
+        label: Appointment confirmed
+        description: Sent when an appointment is confirmed, including auto-confirmed bookings.
+    declined:
+      enabled:
+        label: Appointment declined
+        description: Sent when you decline a booking request.
+    canceled:
+      enabled:
+        label: Appointment canceled
+        description: Sent when the appointment is canceled.
+    noShow:
+      enabled:
+        label: Customer no-show
+        description: Sent when you mark the customer as a no-show.
+    rescheduled:
+      enabled:
+        label: Appointment rescheduled
+        description: Sent when the appointment time changes.
+  update: Update <app></app>
+  add: Add <app></app>
+statusText:
+  email_app_not_configured: Email sender default is not configured
+  text_message_app_not_configured: Text message sender default app is not configured
+  successfully_set_up: Successfully set up
+  error_processing_configuration: Error processing my appointment notifications configuration
+  error_sending_email_notification_for_new_appointment: Error sending email notification for new appointment
+  error_sending_email_notification_for_status_change: Error sending email notification for status change
+  error_sending_email_notification_for_rescheduled_appointment: Error sending email notification for rescheduled appointment
+  error_sending_text_message_notification_for_new_appointment: Error sending text message notification for new appointment
+  error_sending_text_message_notification_for_status_change: Error sending text message notification for status change
+  error_sending_text_message_notification_for_rescheduled_appointment: Error sending text message notification for rescheduled appointment
+  error_processing_text_message_reply: Error processing text message reply
+handlers:
+  newRequest: My Appointment Notifications - New Request
+  pending: My Appointment Notifications - Pending
+  confirmed: My Appointment Notifications - Confirmed
+  declined: My Appointment Notifications - Declined
+  canceled: My Appointment Notifications - Canceled
+  noShow: My Appointment Notifications - No-show
+  rescheduled: My Appointment Notifications - Rescheduled
+  autoReply: My Appointment Notifications - Auto reply
+validation:
+  form:
+    channel:
+      required: At least one channel is required. Turn on email, text message, or both.

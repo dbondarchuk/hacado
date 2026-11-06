@@ -13,7 +13,7 @@ export type PackTheme = {
     surface?: string;
     ink?: string;
   };
-  /** Google fonts present in `fonts.json` — body → primary, display → secondary. */
+  /** Google fonts present in `fonts.json` - body → primary, display → secondary. */
   fonts: {
     primary: string;
     secondary: string;
@@ -22,7 +22,7 @@ export type PackTheme = {
 };
 
 export const PACK_THEMES: Record<WebsitePackId, PackTheme> = {
-  // Series A — brand hex from HTML; fonts suggested (HTML used system stacks)
+  // Series A - brand hex from HTML; fonts suggested (HTML used system stacks)
   salon: {
     colors: { primary: "#7c3aed", muted: "#f5f3ff", dark: "#4c1d95" },
     fonts: { primary: "Inter", secondary: "Playfair Display" },
@@ -74,7 +74,7 @@ export const PACK_THEMES: Record<WebsitePackId, PackTheme> = {
     fonts: { primary: "Source Sans 3", secondary: "Libre Baskerville" },
   },
 
-  // Series B — packs-v2 colors; fonts suggested
+  // Series B - packs-v2 colors; fonts suggested
   salon_b: {
     colors: { primary: "#be185d", muted: "#fdf2f8", dark: "#831843" },
     fonts: { primary: "Poppins", secondary: "Playfair Display" },
@@ -125,7 +125,7 @@ export const PACK_THEMES: Record<WebsitePackId, PackTheme> = {
     fonts: { primary: "Source Sans 3", secondary: "Cormorant Garamond" },
   },
 
-  // Series C — packs-v3 colors; fonts suggested
+  // Series C - packs-v3 colors; fonts suggested
   salon_c: {
     colors: { primary: "#e11d48", muted: "#fff1f2", dark: "#9f1239" },
     fonts: { primary: "DM Sans", secondary: "Raleway" },
@@ -190,7 +190,7 @@ export const PACK_THEMES: Record<WebsitePackId, PackTheme> = {
     fonts: { primary: "Inter", secondary: "Literata" },
   },
 
-  // Series D — packs-v4.mjs (colors + fonts from HTML)
+  // Series D - packs-v4.mjs (colors + fonts from HTML)
   salon_d: {
     city: "Nashville",
     colors: {

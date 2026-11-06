@@ -16,15 +16,15 @@ Use **General** for information that should stay consistent across emails, your 
 
 ![General tab with business name, industry, contact details, timezone, country, and currency](/img/daily-use/settings/brand-general.png)
 
-| Field | What it does |
-| ----- | ------------ |
-| **Business name** | Public name of your business. |
-| **Industry** | Helps search and listings understand what you do. |
-| **Business email** and **phone** | Contact details for the business. |
-| **Time zone** | Clock used for scheduling and the booking page. |
-| **Use customer's timezone** | On for mostly online work so clients see times in their zone. Off for in-person work so everyone sees your location’s clock. |
-| **Country** and **Currency** | Shape how prices display at checkout. |
-| **Street address** (and line 2, city, region, postal code) | Optional physical location on your site and in search. Use **Find address** for a lookup. |
+| Field                                                      | What it does                                                                                                                 |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Business name**                                          | Public name of your business.                                                                                                |
+| **Industry**                                               | Helps search and listings understand what you do.                                                                            |
+| **Business email** and **phone**                           | Contact details for the business.                                                                                            |
+| **Time zone**                                              | Clock used for scheduling and the booking page.                                                                              |
+| **Use customer's timezone**                                | On for mostly online work so clients see times in their zone. Off for in-person work so everyone sees your location’s clock. |
+| **Country** and **Currency**                               | Shape how prices display at checkout.                                                                                        |
+| **Street address** (and line 2, city, region, postal code) | Optional physical location on your site and in search. Use **Find address** for a lookup.                                    |
 
 ### Subscription & billing
 
@@ -44,22 +44,22 @@ Use the **Brand** tab for what visitors see on your booking website.
 
 ### Visual identity
 
-- **Logo** — click **Select** to pick an image from your assets. Shown in the site header and previews.
+- **Logo** - click **Select** to pick an image from your assets. Shown in the site header and previews.
 
 ### Website
 
-| Field | What it does |
-| ----- | ------------ |
-| **Site title** | Name on public pages and in the browser tab. |
-| **Default site language** | Language clients read first. |
-| **Favicon** | Square image for browser tabs (at least 512×512px PNG/JPEG/WebP/GIF, or SVG). |
+| Field                     | What it does                                                                  |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| **Site title**            | Name on public pages and in the browser tab.                                  |
+| **Default site language** | Language clients read first.                                                  |
+| **Favicon**               | Square image for browser tabs (at least 512×512px PNG/JPEG/WebP/GIF, or SVG). |
 
 ### SEO
 
-| Field | What it does |
-| ----- | ------------ |
-| **Meta description** | Short description for search engines. |
-| **Keywords** | Words that help search engines understand your site. Add them as tags. |
+| Field                | What it does                                                           |
+| -------------------- | ---------------------------------------------------------------------- |
+| **Meta description** | Short description for search engines.                                  |
+| **Keywords**         | Words that help search engines understand your site. Add them as tags. |
 
 ### Your Hacado address
 
@@ -94,6 +94,6 @@ Use these colours and fonts when you edit website pages so the look stays consis
 
 ## Next steps
 
-- [Team](./team) — invite staff
-- [Appointments](./appointments) — booking behaviour
+- [Team](./team) - invite staff
+- [Appointments](./appointments) - booking behaviour
 - [Connect your own domain](/docs/how-to-guides/domains/connect-your-own-domain)

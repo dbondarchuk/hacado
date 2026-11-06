@@ -58,7 +58,7 @@ module.exports = [
       // `eslint --fix` and save still apply it. Switch to "error" after a fix pass.
       "hacado/padding-lines": "warn",
       "react-hooks/rules-of-hooks": "off",
-      // Packages split into domain/component subpaths — ban the root barrel only.
+      // Packages split into domain/component subpaths - ban the root barrel only.
       // Subpaths like `@hacado/types/booking` or `@hacado/ui/button` are allowed.
       "no-restricted-imports": [
         "error",
@@ -109,7 +109,7 @@ module.exports = [
               message:
                 "Import from a domain subpath (e.g. `@hacado/ui-admin-kit/appointments`, `@hacado/ui-admin-kit/payments`) instead of the package root.",
             },
-            // Exact root only — patterns treat `@hacado/i18n` as a prefix and
+            // Exact root only - patterns treat `@hacado/i18n` as a prefix and
             // would incorrectly ban `@hacado/i18n/keys`.
             {
               name: "@hacado/i18n",

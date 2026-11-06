@@ -41,8 +41,11 @@ import {
   createS3Client,
   defaultBooking,
   defaultSchedule,
+  effectiveSeedStaffDuration,
+  effectiveSeedStaffPrice,
   ensurePackMediaBundle,
   generateAppointmentSlots,
+  getWebsitePack,
   invalidatePageRouteCache,
   listPackIds,
   loadBuilderI18n,
@@ -50,7 +53,6 @@ import {
   loadEnvFile,
   loadEnvIfPresent,
   loadWebsitePacks,
-  getWebsitePack,
   newId,
   orgIdMatch,
   parsePackId,
@@ -60,10 +62,8 @@ import {
   resolveTemplate,
   slugify,
   staffAssignmentsForMembers,
-  staffPersonAt,
   staffJobTitleAt,
-  effectiveSeedStaffDuration,
-  effectiveSeedStaffPrice,
+  staffPersonAt,
   uploadLocalTemplateLogos,
   uploadRemoteImages,
   validateRedisConnection,
@@ -634,7 +634,7 @@ async function seedOrg(db, s3Config, redisConfig, opts, resolved) {
   } else if (plan === "studio") {
     orgDoc.feesExempt = true;
     console.log(
-      "POLAR_BILLING_PLANS missing studio product — setting feesExempt for Studio access.",
+      "POLAR_BILLING_PLANS missing studio product - setting feesExempt for Studio access.",
     );
   } else if (plan === "free" || plan === "solo") {
     console.warn(
@@ -654,8 +654,7 @@ async function seedOrg(db, s3Config, redisConfig, opts, resolved) {
     const memberId = newId();
     const role = i === 0 ? "owner" : roles[Math.min(i, roles.length - 1)];
     const person = staffPersonAt(i);
-    const email =
-      `${person.emailLocal}+${slug}@${emailDomain}`.toLowerCase();
+    const email = `${person.emailLocal}+${slug}@${emailDomain}`.toLowerCase();
     const displayName = person.name;
     const jobTitle = staffJobTitleAt(i, picked.professionLabel);
 
@@ -694,9 +693,7 @@ async function seedOrg(db, s3Config, redisConfig, opts, resolved) {
     };
     await db.collection(COLLECTIONS.members).insertOne(member);
     members.push(member);
-    console.log(
-      `  user ${displayName} <${email}> (${role}) — ${jobTitle}`,
-    );
+    console.log(`  user ${displayName} <${email}> (${role}) - ${jobTitle}`);
   }
 
   const optionIds = [];
@@ -1002,7 +999,7 @@ async function main() {
         rl,
         opts,
         "variant",
-        `Template variant (${TEMPLATE_VARIANTS.join("|")} — series A/B/C)`,
+        `Template variant (${TEMPLATE_VARIANTS.join("|")} - series A/B/C)`,
         suggestedParsed.variant,
       );
       if (

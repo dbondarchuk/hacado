@@ -1,5 +1,5 @@
 ---
-description: Button block — label, link, width, size, shape, and colors.
+description: Button block - label, link, width, size, shape, and colors.
 ---
 
 # Button
@@ -12,21 +12,21 @@ description: Button block — label, link, width, size, shape, and colors.
 
 ![Button colors, font, alignment, and padding](/img/communications/email-block-button-rest.png)
 
-| Field | What it changes |
-| --- | --- |
-| **Text** | The label on the button. |
-| **URL** | Where the button goes. Use a placeholder when the link depends on the booking, such as a manage or pay link. |
-| **Width** | **Auto** (as wide as the label) or **Full width**. |
-| **Size** | **X-Small**, **Small**, **Medium**, or **Large**. |
-| **Style** | **Rectangle**, **Rounded**, or **Pill**. |
-| **Text color** | Color of the label. |
-| **Button color** | Fill of the button. |
-| **Background color** | Fill of the block behind the button, not the button itself. |
-| **Font family** | Typeface of the label. |
-| **Font size** | Size of the label. |
-| **Font weight** | How heavy the label is. |
-| **Text align** | Where the button sits: left, center, or right. |
-| **Padding** | Space around the button inside the block. |
+| Field                | What it changes                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Text**             | The label on the button.                                                                                     |
+| **URL**              | Where the button goes. Use a placeholder when the link depends on the booking, such as a manage or pay link. |
+| **Width**            | **Auto** (as wide as the label) or **Full width**.                                                           |
+| **Size**             | **X-Small**, **Small**, **Medium**, or **Large**.                                                            |
+| **Style**            | **Rectangle**, **Rounded**, or **Pill**.                                                                     |
+| **Text color**       | Color of the label.                                                                                          |
+| **Button color**     | Fill of the button.                                                                                          |
+| **Background color** | Fill of the block behind the button, not the button itself.                                                  |
+| **Font family**      | Typeface of the label.                                                                                       |
+| **Font size**        | Size of the label.                                                                                           |
+| **Font weight**      | How heavy the label is.                                                                                      |
+| **Text align**       | Where the button sits: left, center, or right.                                                               |
+| **Padding**          | Space around the button inside the block.                                                                    |
 
 ## Related
 

@@ -1,4 +1,4 @@
----
+﻿---
 description: Walk through first-time setup, from your business name to the ready screen.
 ---
 
@@ -89,10 +89,9 @@ Click **Connect** on the one you use, and follow the prompts. Skip them all if y
 
 Further down, **Optional apps** are switches. They start off. Turn one on only if you want it now:
 
-- **Customer email notifications** emails clients when a booking is made or changed.
+- **Customer Appointment Updates** emails or texts clients when a booking is made or changed.
 - **Customer package emails** emails clients about prepaid packages.
-- **Customer text message notifications** texts clients about bookings.
-- **Appointment reminders and follow-ups** sends a reminder before the visit.
+- **Appointment Reminders** sends a reminder before the visit, and can also send a follow-up after.
 - **Waitlist** lets clients ask to be told when a full time opens up.
 - **Blog**, **Forms**, and **Gift Card Studio** add those tools to your site.
 - **My account** lets clients sign in to see and change their own bookings.

@@ -1,0 +1,87 @@
+app:
+  displayName: Customer Appointment Updates
+  description: |-
+    Tell the customer as soon as their booking changes. For each event, turn the update on and send it by email, text, or both.
+navigation:
+  title: Customer Appointment Updates
+form:
+  events:
+    pending:
+      label: Appointment is pending
+      description: Sent when a customer requests an appointment and it is waiting for confirmation.
+    confirmed:
+      label: Appointment is confirmed
+      description: Sent when a booking is confirmed right away, or when you later confirm a pending appointment.
+    declined:
+      label: Appointment is declined
+      description: Sent when you decline a booking request.
+    canceled:
+      label: Appointment is canceled
+      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer.
+    noShow:
+      label: Customer does not show
+      description: Sent when you mark the customer as a no-show. You can still skip it on a single appointment.
+    rescheduled:
+      label: Appointment is rescheduled
+      description: Sent when the appointment time changes, unless that change is set not to notify the customer.
+  howToSend:
+    label: How to send
+  email:
+    label: Email
+    description: Send the customer an email.
+  emailTemplate:
+    label: Email template
+    description: The email customers receive for this update.
+  text:
+    label: Text message
+    description: Send the customer a text message. A built-in message is used unless you choose a custom template.
+  packageEmails:
+    pendingPackage:
+      enabled:
+        label: Send a different email for pending package appointments
+        description: Used instead of the pending email when the appointment is covered by a package.
+      templateId:
+        label: Email template
+        description: The email customers receive for a pending package appointment.
+    confirmedPackage:
+      enabled:
+        label: Send a different email for confirmed package appointments
+        description: Used instead of the confirmed email when the appointment is covered by a package.
+      templateId:
+        label: Email template
+        description: The email customers receive for a confirmed package appointment.
+  calendarEventTemplate:
+    enabled:
+      label: Include a calendar event
+      description: Added to emails so customers can save the appointment on their calendar. Text messages are not affected.
+    templateId:
+      label: Calendar event template
+      description: The event customers see in their calendar.
+statusText:
+  email_app_not_configured: Email sender default is not configured
+  text_message_app_not_configured: Text message sender default app is not configured
+  successfully_set_up: Successfully set up
+  error_processing_configuration: Error processing configuration
+  error_sending_customer_appointment_updates_for_new_appointment: Error sending customer appointment update for new appointment
+  error_sending_customer_appointment_updates_for_status_change: Error sending customer appointment update for status change
+  error_sending_customer_appointment_updates_for_rescheduled_appointment: Error sending customer appointment update for rescheduled appointment
+handlers:
+  newRequest: Customer Appointment Updates - New Request
+  pending: Customer Appointment Updates - Pending
+  confirmed: Customer Appointment Updates - Confirmed
+  declined: Customer Appointment Updates - Declined
+  canceled: Customer Appointment Updates - Canceled
+  noShow: Customer Appointment Updates - No-show
+  rescheduled: Customer Appointment Updates - Rescheduled
+validation:
+  channel:
+    required: Choose at least one way to send, email or text message
+  eventTemplate:
+    templateId:
+      required: Select a calendar event template
+  emailTemplate:
+    templateId:
+      required: Select an email template
+  packageTemplate:
+    templateId:
+      required: Select an email template

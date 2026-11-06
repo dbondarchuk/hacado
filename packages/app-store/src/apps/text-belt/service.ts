@@ -680,7 +680,7 @@ export default class TextBeltConnectedApp
         );
 
         // data.data is set when forwarding a customer reply to a member, so a
-        // reply carrying it is from the member — not a new customer message.
+        // reply carrying it is from the member - not a new customer message.
         result = {
           handledBy:
             "app_text-belt_admin.webhookHandler" satisfies TextBeltAdminAllKeys,

@@ -1356,11 +1356,11 @@ export const homeFaqs = [
   },
   {
     q: "Can I see where people drop off in booking?",
-    a: "Yes. Booking tracking on Solo shows conversion to an appointment or waitlist, and which step they stop on — availability, payment, the form. Merely opening the page does not count as abandoned.",
+    a: "Yes. Booking tracking on Solo shows conversion to an appointment or waitlist, and which step they stop on - availability, payment, the form. Merely opening the page does not count as abandoned.",
   },
   {
     q: "Can clients reschedule themselves?",
-    a: "Yes, in the client cabinet on Solo — inside windows you set. You can also confirm, edit the service, decline, cancel, or mark no-show from Appointments on every plan. Auto-confirm is optional; pending requests wait for you.",
+    a: "Yes, in the client cabinet on Solo - inside windows you set. You can also confirm, edit the service, decline, cancel, or mark no-show from Appointments on every plan. Auto-confirm is optional; pending requests wait for you.",
   },
   {
     q: "How do I cancel?",

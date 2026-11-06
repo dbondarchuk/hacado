@@ -903,7 +903,7 @@ pageBuilder:
           - Balle deux
           - Balle trois
       testimonial:
-        quote: "\"Citation d'un client satisfait sur la qualité du produit.\""
+        quote: '"Citation d''un client satisfait sur la qualité du produit."'
         name: Nom
         role: Rôle ou entreprise
       ctaBand:
@@ -1284,7 +1284,7 @@ pageBuilder:
       salon_d:
         name: Coupe de lumière
         category: Aménagements des salons
-        tagline: Des coupes qui captent la lumière — réservées en deux clics
+        tagline: Des coupes qui captent la lumière - réservées en deux clics
         installHint: Beauté
       tattoo_d:
         name: Atlas des aiguilles
@@ -3660,7 +3660,7 @@ pageBuilder:
         pricingTitle: Forfaits simples
         comparisonTitle: Pourquoi réserver avec nous
         ctaTitle: Réservez une chaise
-        ctaBody: Des coupes qui captent la lumière — réservées en deux clics
+        ctaBody: Des coupes qui captent la lumière - réservées en deux clics
       booking:
         title: Choisissez une heure qui fonctionne
         body: "Nouveaux invités : arrivez avec les cheveux secs et une référence qui montre la silhouette que vous souhaitez."
@@ -4216,7 +4216,7 @@ pageBuilder:
       services:
         clean:
           name: Nettoyage hebdomadaire
-          description: Cuisine, salles de bains, sols — cohérents.
+          description: Cuisine, salles de bains, sols - cohérents.
         handyman:
           name: Heure de la liste de pointage
           description: Blocs de bricoleur pour les petites réparations.
@@ -5943,4 +5943,3 @@ rte:
       destructive: Destructeur
       destructive-foreground: Texte destructeur
       border: Frontière
-

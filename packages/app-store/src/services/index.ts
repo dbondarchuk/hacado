@@ -1,6 +1,6 @@
 import { IConnectedApp, IConnectedAppProps } from "@hacado/types/apps";
-import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "../apps/appointment-notifications/const";
-import ScheduledNotificationsConnectedApp from "../apps/appointment-notifications/service";
+import { APPOINTMENT_REMINDERS_APP_NAME } from "../apps/appointment-reminders/const";
+import AppointmentRemindersConnectedApp from "../apps/appointment-reminders/service";
 import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "../apps/automatic-ai-discovery/const";
 import { AutomaticAiDiscoveryConnectedApp } from "../apps/automatic-ai-discovery/service";
 import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "../apps/automatic-structured-data/const";
@@ -17,16 +17,12 @@ import { CARDDAV_APP_NAME } from "../apps/carddav/const";
 import CarddavConnectedApp from "../apps/carddav/service";
 import { CUSTOM_SCRIPTS_APP_NAME } from "../apps/custom-scripts/const";
 import { CustomScriptsConnectedApp } from "../apps/custom-scripts/service";
-import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-email-notification/const";
-import CustomerEmailNotificationConnectedApp from "../apps/customer-email-notification/service";
+import { CUSTOMER_APPOINTMENT_UPDATES_APP_NAME } from "../apps/customer-appointment-updates/const";
+import CustomerAppointmentUpdatesConnectedApp from "../apps/customer-appointment-updates/service";
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-package-email-notification/const";
 import CustomerPackageEmailNotificationConnectedApp from "../apps/customer-package-email-notification/service";
-import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "../apps/customer-text-message-notification/const";
-import CustomerTextMessageNotificationConnectedApp from "../apps/customer-text-message-notification/service";
 import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "../apps/customer-waitlist-notifications/const";
 import { CustomerWaitlistNotificationsConnectedApp } from "../apps/customer-waitlist-notifications/service";
-import { EMAIL_NOTIFICATION_APP_NAME } from "../apps/email-notification/const";
-import { EmailNotificationConnectedApp } from "../apps/email-notification/service";
 import { FORMS_APP_NAME } from "../apps/forms/const";
 import { FormsConnectedApp } from "../apps/forms/service";
 import { GIFT_CARD_STUDIO_APP_NAME } from "../apps/gift-card-studio/const";
@@ -37,6 +33,8 @@ import { GOOGLE_CALENDAR_APP_NAME } from "../apps/google-calendar/const";
 import GoogleCalendarConnectedApp from "../apps/google-calendar/service";
 import { ICS_APP_NAME } from "../apps/ics/const";
 import IcsConnectedApp from "../apps/ics/service";
+import { MY_APPOINTMENT_NOTIFICATIONS_APP_NAME } from "../apps/my-appointment-notifications/const";
+import { MyAppointmentNotificationsConnectedApp } from "../apps/my-appointment-notifications/service";
 import { MY_CABINET_APP_NAME } from "../apps/my-cabinet/const";
 import { MyCabinetConnectedApp } from "../apps/my-cabinet/service";
 import { OUTLOOK_APP_NAME } from "../apps/outlook/const";
@@ -61,8 +59,6 @@ import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "../apps/text-message-auto-repl
 import TextMessageAutoReplyConnectedApp from "../apps/text-message-auto-reply/service";
 import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "../apps/text-message-forwarding/const";
 import TextMessageForwardingConnectedApp from "../apps/text-message-forwarding/service";
-import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "../apps/text-message-notification/const";
-import { TextMessageNotificationConnectedApp } from "../apps/text-message-notification/service";
 import { URL_BUSY_EVENTS_APP_NAME } from "../apps/url-busy-events/const";
 import UrlBusyEventsConnectedApp from "../apps/url-busy-events/service";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "../apps/url-schedule-provider/const";
@@ -92,23 +88,19 @@ export const AvailableAppServices: Record<
   [SMTP_APP_NAME]: (props) => new SmtpConnectedApp(props),
   [RESEND_APP_NAME]: (props) => new ResendConnectedApp(props),
   [TEXTBELT_APP_NAME]: (props) => new TextBeltConnectedApp(props),
-  [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: (props) =>
-    new CustomerEmailNotificationConnectedApp(props),
+  [CUSTOMER_APPOINTMENT_UPDATES_APP_NAME]: (props) =>
+    new CustomerAppointmentUpdatesConnectedApp(props),
   [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]: (props) =>
     new CustomerPackageEmailNotificationConnectedApp(props),
-  [EMAIL_NOTIFICATION_APP_NAME]: (props) =>
-    new EmailNotificationConnectedApp(props),
+  [MY_APPOINTMENT_NOTIFICATIONS_APP_NAME]: (props) =>
+    new MyAppointmentNotificationsConnectedApp(props),
   [CALENDAR_WRITER_APP_NAME]: (props) => new CalendarWriterConnectedApp(props),
-  [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]: (props) =>
-    new CustomerTextMessageNotificationConnectedApp(props),
-  [TEXT_MESSAGE_NOTIFICATION_APP_NAME]: (props) =>
-    new TextMessageNotificationConnectedApp(props),
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: (props) =>
     new TextMessageAutoReplyConnectedApp(props),
   [TEXT_MESSAGE_FORWARDING_APP_NAME]: (props) =>
     new TextMessageForwardingConnectedApp(props),
-  [APPOINTMENT_NOTIFICATIONS_APP_NAME]: (props) =>
-    new ScheduledNotificationsConnectedApp(props),
+  [APPOINTMENT_REMINDERS_APP_NAME]: (props) =>
+    new AppointmentRemindersConnectedApp(props),
   [PAYPAL_APP_NAME]: (props) => new PaypalConnectedApp(props),
   [PAYMENT_LINKS_APP_NAME]: (props) => new PaymentLinksConnectedApp(props),
   [SQUARE_APP_NAME]: (props) => new SquareConnectedApp(props),

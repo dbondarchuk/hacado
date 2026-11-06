@@ -13,9 +13,9 @@ Pending and cancelled payment links appear in the same payment lists as other pa
 1. Open **Apps** » **Store** and install **Payment Links** (Solo plan or higher) with one click.
 2. Connect a payment processor and set it as the **default payment app**.
 3. Install seeds email/SMS templates and picks the site’s preferred header/footer (same approach as Blog). The settings form stays open so you can adjust verification, templates, tips, chrome, and expiry:
-   - **None** — anyone with the link can pay
-   - **Contact match** — customer must enter a matching email or phone
-   - **OTP** — customer must complete email/SMS one-time password verification
+   - **None** - anyone with the link can pay
+   - **Contact match** - customer must enter a matching email or phone
+   - **OTP** - customer must complete email/SMS one-time password verification
 4. Optionally set how many days a link stays valid.
 5. Optionally **enable tips** and configure up to four percentage presets. Customers always see **No tip** (default) and **Custom**, plus your presets.
 
@@ -36,14 +36,14 @@ You also need a default email sender (and SMS sender if you send by text).
 
 On a pending payment-link row (payment card or Financials » Payments):
 
-- **Show QR code** — display a scannable code for the customer (copy or download the image)
-- **Copy link** — copy the public URL
-- **Resend** — send again by email or SMS
-- **Cancel** — mark the payment **cancelled** (it stays visible but never counts as paid)
+- **Show QR code** - display a scannable code for the customer (copy or download the image)
+- **Copy link** - copy the public URL
+- **Resend** - send again by email or SMS
+- **Cancel** - mark the payment **cancelled** (it stays visible but never counts as paid)
 
 ### Customer pays
 
-The customer opens `/payment?id=…`, completes verification if required, optionally adds a tip (if enabled), and pays with your default processor. The same payment row becomes **paid**. Tip is stored on that row as `tipAmount` (included in `amount`), not as a separate tip payment — cash tips can still be recorded separately.
+The customer opens `/payment?id=…`, completes verification if required, optionally adds a tip (if enabled), and pays with your default processor. The same payment row becomes **paid**. Tip is stored on that row as `tipAmount` (included in `amount`), not as a separate tip payment - cash tips can still be recorded separately.
 
 ## Good to know
 

@@ -270,8 +270,8 @@ wizard:
     customerPackageEmailNotificationsDesc: Надсилайте клієнтам листи про купівлю пакета та коли пакет вичерпано, скасовано або прострочено.
     customerTextNotifications: SMS-сповіщення для клієнтів
     customerTextNotificationsDesc: Надсилайте клієнтам підтвердження та оновлення записів SMS-ами.
-    appointmentNotifications: Сповіщення про нагадування та follow-up про записи
-    appointmentNotificationsDesc: Надсилайте клієнтам нагадування та follow-up повідомлення електронною поштою та SMS-ами.
+    appointmentNotifications: Нагадування та подальші дії після запису
+    appointmentNotificationsDesc: Надсилайте клієнтам Нагадування та подальші дії після запису повідомлення електронною поштою та SMS-ами.
     waitlist: Лист очікування
     waitlistDesc: Дозвольте клієнтам ставати в чергу на недоступні слоти.
     waitlistNotifications: Сповіщення клієнтів про список очікування

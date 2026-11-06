@@ -13,7 +13,7 @@ export const postalAddressSchema = z.object({
     "validation.configuration.general.address.streetAddress.max",
     256,
   ),
-  /** Suite / unit / floor — joined with streetAddress when formatting. */
+  /** Suite / unit / floor - joined with streetAddress when formatting. */
   addressLine2: zAddressLine(
     "validation.configuration.general.address.addressLine2.max",
     128,

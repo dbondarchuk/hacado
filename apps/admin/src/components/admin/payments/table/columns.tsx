@@ -29,7 +29,7 @@ function PaymentDateCell({ payment }: { payment: PaymentSummary }) {
     return (
       <PaymentDetailsDialog payment={payment}>
         <Button variant="link-dashed" className="p-0 h-auto font-medium">
-          —
+          -
         </Button>
       </PaymentDetailsDialog>
     );
@@ -46,7 +46,7 @@ function PaymentDateCell({ payment }: { payment: PaymentSummary }) {
       <Button variant="link-dashed" className="p-0 h-auto font-medium">
         {dateTime.isValid
           ? dateTime.toLocaleString(DateTime.DATETIME_MED, { locale })
-          : "—"}
+          : "-"}
       </Button>
     </PaymentDetailsDialog>
   );

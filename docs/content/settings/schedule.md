@@ -29,14 +29,14 @@ A day with no shifts is a day off for the default schedule.
 
 ## How this interacts with other settings
 
-| Piece | Role |
-| ----- | ---- |
-| **Default schedule** (this page) | Baseline weekly hours. |
-| **Schedule provider app** on [Appointments → Main](./appointments) | Optional app that can supply schedule instead. |
-| **[Weekly schedule](/docs/apps/weekly-schedule)** app | Week-by-week overrides when hours change often. |
-| **Busy events / calendars** | Block times inside otherwise-open hours. |
+| Piece                                                              | Role                                            |
+| ------------------------------------------------------------------ | ----------------------------------------------- |
+| **Default schedule** (this page)                                   | Baseline weekly hours.                          |
+| **Schedule provider app** on [Appointments → Main](./appointments) | Optional app that can supply schedule instead.  |
+| **[Weekly schedule](/docs/apps/weekly-schedule)** app              | Week-by-week overrides when hours change often. |
+| **Busy events / calendars**                                        | Block times inside otherwise-open hours.        |
 
 ## Related
 
-- [Appointment settings](./appointments) — booking windows, buffers, auto-confirm
-- [Set your availability](/docs/first-steps/set-your-availability) — first-steps overview
+- [Appointment settings](./appointments) - booking windows, buffers, auto-confirm
+- [Set your availability](/docs/first-steps/set-your-availability) - first-steps overview

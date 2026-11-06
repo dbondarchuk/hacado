@@ -26,7 +26,7 @@ const REQUIRES_DATA_STREAM =
   "app_google-analytics_admin.statusText.requires_data_stream" satisfies GoogleAnalyticsAdminAllKeys;
 
 function streamLabel(stream: DataStreamListItem): string {
-  return `${stream.propertyName} — ${stream.streamName} (${stream.measurementId})`;
+  return `${stream.propertyName} - ${stream.streamName} (${stream.measurementId})`;
 }
 
 function streamKey(stream: DataStreamListItem): string {

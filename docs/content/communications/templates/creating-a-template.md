@@ -1,4 +1,4 @@
----
+﻿---
 description: Start a template from a blank message or from a Hacado or app starter.
 ---
 
@@ -53,7 +53,7 @@ Installed apps can add more rows to the same list. They are not in the core set 
 
 | App | Extra starters |
 | --- | --- |
-| Appointment notifications | Reminder email and reminder text |
+| Appointment Reminders | Reminder or follow-up email and text |
 | Waitlist | New waitlist entry email |
 | Customer waitlist notifications | Slot opened email, slot opened text, leave-confirmation text |
 | Package email notifications | Purchased, cancelled, expiring soon, expired, exhausted |

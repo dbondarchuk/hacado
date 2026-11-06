@@ -1109,7 +1109,7 @@ pageBuilder:
         imageAlt: Salon photo
       galleryMasonry:
         title: Lookbook
-        body: Staggered columns of photos — tap any shot to open it.
+        body: Staggered columns of photos - tap any shot to open it.
         imageAlt: Gallery photo
     booking:
       bookingSection:
@@ -1270,7 +1270,7 @@ pageBuilder:
       salon_d:
         name: Lumen Cut
         category: Salon layouts
-        tagline: Cuts that catch light — booked in two taps
+        tagline: Cuts that catch light - booked in two taps
         installHint: Beauty
       tattoo_d:
         name: Needle Atlas
@@ -1330,7 +1330,7 @@ pageBuilder:
       nails_b:
         name: Soft Edge Nail
         category: Nail layouts
-        tagline: "Quiet luxury at the tip — pastel, precise, booked"
+        tagline: "Quiet luxury at the tip - pastel, precise, booked"
         installHint: Beauty
       lash_b:
         name: Silk Brow Co.
@@ -1697,7 +1697,7 @@ pageBuilder:
         step4Bullets: A short look at how a visit with us typically goes.
       video:
         title: A minute inside
-        body: Autoplaying ambient clip — mute by default.
+        body: Autoplaying ambient clip - mute by default.
     salon:
       home:
         heroTitle: "Hair, nails & glow - booked in minutes"
@@ -3621,13 +3621,13 @@ pageBuilder:
     salon_d:
       home:
         heroTitle: Hair that photographs itself.
-        heroSubtitle: Editorial cuts and color in a calm chair — no upsell theater.
+        heroSubtitle: Editorial cuts and color in a calm chair - no upsell theater.
         bookCta: Book a chair
         secondaryCta: View services
         heroEyebrow: NASHVILLE
         announcement: New clients welcome - same-week openings available
         servicesTitle: Services in motion
-        servicesBody: Swipe the strip — every card books the same calendar.
+        servicesBody: Swipe the strip - every card books the same calendar.
         galleryTitle: Gallery wall
         lookInsideTitle: Look inside
         testimonialsTitle: What clients say
@@ -3646,7 +3646,7 @@ pageBuilder:
         pricingTitle: Simple packages
         comparisonTitle: Why book with us
         ctaTitle: Book a chair
-        ctaBody: Cuts that catch light — booked in two taps
+        ctaBody: Cuts that catch light - booked in two taps
       booking:
         title: Choose a time that works
         body: "New guests: arrive with dry hair and a reference that shows the silhouette you want."
@@ -3657,7 +3657,7 @@ pageBuilder:
       about:
         title: The story behind Lumen Cut
         body1: "Lumen Cut is a light-forward salon for people who want their hair to look intentional in daylight, not just under studio LEDs."
-        body2: "Cuts that catch light — booked in two taps. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+        body2: "Cuts that catch light - booked in two taps. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
         intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
@@ -3693,7 +3693,7 @@ pageBuilder:
         heroEyebrow: PORTLAND
         announcement: New clients welcome - same-week openings available
         servicesTitle: Services in motion
-        servicesBody: Swipe the strip — every card books the same calendar.
+        servicesBody: Swipe the strip - every card books the same calendar.
         galleryTitle: Gallery wall
         lookInsideTitle: Look inside
         testimonialsTitle: What clients say
@@ -3722,7 +3722,7 @@ pageBuilder:
         bullet3: Easy reschedule from your booking link
       about:
         title: The story behind Needle Atlas
-        body1: Needle Atlas is a small Portland shop obsessed with composition — every piece is a miniature atlas you carry.
+        body1: Needle Atlas is a small Portland shop obsessed with composition - every piece is a miniature atlas you carry.
         body2: "Maps drawn into skin. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
@@ -3759,7 +3759,7 @@ pageBuilder:
         heroEyebrow: SEATTLE
         announcement: New clients welcome - same-week openings available
         servicesTitle: Services in motion
-        servicesBody: Swipe the strip — every card books the same calendar.
+        servicesBody: Swipe the strip - every card books the same calendar.
         galleryTitle: Gallery wall
         lookInsideTitle: Look inside
         testimonialsTitle: What clients say
@@ -3788,7 +3788,7 @@ pageBuilder:
         bullet3: Easy reschedule from your booking link
       about:
         title: The story behind Stillwater Baths
-        body1: "We keep rooms quiet, lights low, and menus short — so you leave with a slower pulse, not a product bag."
+        body1: "We keep rooms quiet, lights low, and menus short - so you leave with a slower pulse, not a product bag."
         body2: "Mineral quiet in the middle of the city. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
@@ -3854,7 +3854,7 @@ pageBuilder:
         bullet3: Easy reschedule from your booking link
       about:
         title: The story behind North Draft
-        body1: "We work in written drafts — agendas, decisions, feedback — so coaching sticks after the call ends."
+        body1: "We work in written drafts - agendas, decisions, feedback - so coaching sticks after the call ends."
         body2: "Leadership drafts that survive the week. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
@@ -3884,14 +3884,14 @@ pageBuilder:
           description: Standing check-in for shipping work.
     fitness_d:
       home:
-        heroTitle: Train like the room is watching — because it is.
+        heroTitle: Train like the room is watching - because it is.
         heroSubtitle: Volt Room caps classes at 12. Coaches know your name by week two.
         bookCta: Claim a spot
         secondaryCta: View services
         heroEyebrow: AUSTIN
         announcement: New clients welcome - same-week openings available
         servicesTitle: Services in motion
-        servicesBody: Swipe the strip — every card books the same calendar.
+        servicesBody: Swipe the strip - every card books the same calendar.
         galleryTitle: Gallery wall
         lookInsideTitle: Look inside
         testimonialsTitle: What clients say
@@ -3986,7 +3986,7 @@ pageBuilder:
         bullet3: Easy reschedule from your booking link
       about:
         title: "The story behind Frame & Field"
-        body1: We are a two-person studio that still delivers galleries within a week — because waiting kills momentum.
+        body1: We are a two-person studio that still delivers galleries within a week - because waiting kills momentum.
         body2: "Portraits with weather in them. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
@@ -4016,14 +4016,14 @@ pageBuilder:
           description: Tabletop pack of 20 edited frames.
     clinic_d:
       home:
-        heroTitle: Care with a cedar-calm waiting room — and a real inbox.
+        heroTitle: Care with a cedar-calm waiting room - and a real inbox.
         heroSubtitle: Cedar Care is a neighborhood clinic that still picks up the phone.
         bookCta: Book a visit
         secondaryCta: View services
         heroEyebrow: CEDAR FALLS
         announcement: New clients welcome - same-week openings available
         servicesTitle: Services in motion
-        servicesBody: Swipe the strip — every card books the same calendar.
+        servicesBody: Swipe the strip - every card books the same calendar.
         galleryTitle: Gallery wall
         lookInsideTitle: Look inside
         testimonialsTitle: What clients say
@@ -4089,7 +4089,7 @@ pageBuilder:
         heroEyebrow: BOULDER
         announcement: New clients welcome - same-week openings available
         servicesTitle: Services in motion
-        servicesBody: Swipe the strip — every card books the same calendar.
+        servicesBody: Swipe the strip - every card books the same calendar.
         galleryTitle: Gallery wall
         lookInsideTitle: Look inside
         testimonialsTitle: What clients say
@@ -4118,7 +4118,7 @@ pageBuilder:
         bullet3: Easy reschedule from your booking link
       about:
         title: "The story behind Trail & Tail"
-        body1: We photograph after every groom (with consent) and text you when your dog is ready — no surprise add-ons.
+        body1: We photograph after every groom (with consent) and text you when your dog is ready - no surprise add-ons.
         body2: "Grooms and walks with mud allowed. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
@@ -4136,7 +4136,7 @@ pageBuilder:
       services:
         groom:
           name: Full Groom
-          description: "Bath, cut, nails — trail-ready."
+          description: "Bath, cut, nails - trail-ready."
         walk:
           name: Adventure Walk
           description: 90 minutes off the sidewalk.
@@ -4177,7 +4177,7 @@ pageBuilder:
         ctaBody: The punch list that actually closes
       booking:
         title: Choose a time that works
-        body: "Pets? Add a note — we bring boot covers either way."
+        body: "Pets? Add a note - we bring boot covers either way."
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4202,7 +4202,7 @@ pageBuilder:
       services:
         clean:
           name: Weekly Clean
-          description: "Kitchen, baths, floors — consistent."
+          description: "Kitchen, baths, floors - consistent."
         handyman:
           name: Punch-List Hour
           description: Handyman blocks for small fixes.
@@ -4215,7 +4215,7 @@ pageBuilder:
     professional_d:
       home:
         heroTitle: Numbers that stay quiet.
-        heroSubtitle: Ledger Lane is a boutique practice for founders who want books closed by day five — every month.
+        heroSubtitle: Ledger Lane is a boutique practice for founders who want books closed by day five - every month.
         bookCta: Book a consult
         secondaryCta: More about us
         heroEyebrow: LEDGER LANE
@@ -4281,7 +4281,7 @@ pageBuilder:
     nails:
       home:
         heroTitle: Nails that photograph themselves.
-        heroSubtitle: "Gel, acrylic, and art in a calm chair — booked in a few taps."
+        heroSubtitle: "Gel, acrylic, and art in a calm chair - booked in a few taps."
         bookCta: Book a set
         secondaryCta: More about us
         heroEyebrow: GLOSS BENCH
@@ -4309,7 +4309,7 @@ pageBuilder:
         ctaBody: "Gel, acrylic, and art that photographs itself"
       booking:
         title: Choose a time that works
-        body: Pick a service and time — confirmation arrives right away.
+        body: Pick a service and time - confirmation arrives right away.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4375,7 +4375,7 @@ pageBuilder:
         ctaBody: "Classic sets, volume, and brows with a calm chair"
       booking:
         title: Choose a time that works
-        body: Pick a service and time — confirmation arrives right away.
+        body: Pick a service and time - confirmation arrives right away.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4413,7 +4413,7 @@ pageBuilder:
     nails_b:
       home:
         heroTitle: Quiet luxury at the tip.
-        heroSubtitle: "Pastel gels, soft overlays, and micro art — booked on your calendar."
+        heroSubtitle: "Pastel gels, soft overlays, and micro art - booked on your calendar."
         bookCta: Book a mani
         secondaryCta: More about us
         heroEyebrow: SOFT EDGE NAIL
@@ -4438,10 +4438,10 @@ pageBuilder:
         pricingTitle: Simple packages
         comparisonTitle: Why book with us
         ctaTitle: Book a mani
-        ctaBody: "Quiet luxury at the tip — pastel, precise, booked"
+        ctaBody: "Quiet luxury at the tip - pastel, precise, booked"
       booking:
         title: Choose a time that works
-        body: Pick a service and time — confirmation arrives right away.
+        body: Pick a service and time - confirmation arrives right away.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4449,7 +4449,7 @@ pageBuilder:
       about:
         title: The story behind Soft Edge Nail
         body1: Soft Edge Nail is built for independents who want a beautiful booking website.
-        body2: "Quiet luxury at the tip — pastel, precise, booked. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+        body2: "Quiet luxury at the tip - pastel, precise, booked. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
       terms:
         title: Booking policies
         intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
@@ -4507,7 +4507,7 @@ pageBuilder:
         ctaBody: Lashes and brows that frame the whole face
       booking:
         title: Choose a time that works
-        body: Pick a service and time — confirmation arrives right away.
+        body: Pick a service and time - confirmation arrives right away.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4573,7 +4573,7 @@ pageBuilder:
         ctaBody: "Mirror tips, bold color, and night-out sets"
       booking:
         title: Choose a time that works
-        body: Pick a service and time — confirmation arrives right away.
+        body: Pick a service and time - confirmation arrives right away.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4598,7 +4598,7 @@ pageBuilder:
       services:
         chrome:
           name: Chrome Tip Set
-          description: Mirror finish on a sculpted tip — camera-ready from every angle.
+          description: Mirror finish on a sculpted tip - camera-ready from every angle.
         color:
           name: Bold Color Set
           description: Saturated gels with clean cuticles and a glass-smooth seal.
@@ -4639,7 +4639,7 @@ pageBuilder:
         ctaBody: Clinical-calm lash beds and precise mapping
       booking:
         title: Choose a time that works
-        body: Pick a service and time — confirmation arrives right away.
+        body: Pick a service and time - confirmation arrives right away.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email
@@ -4667,7 +4667,7 @@ pageBuilder:
           description: Eye-shape mapping with natural curl and length.
         volume:
           name: Mega Volume
-          description: Dense fans for editorial fullness — still lightweight.
+          description: Dense fans for editorial fullness - still lightweight.
         hybrid:
           name: Hybrid Refresh
           description: Mix classic and volume to fill sparse zones evenly.
@@ -4743,7 +4743,7 @@ pageBuilder:
     lash_d:
       home:
         heroTitle: Eyes first. Everything else follows.
-        heroSubtitle: "Lash Atelier is a booking-first studio for classic, volume, and fills — with brows that match."
+        heroSubtitle: "Lash Atelier is a booking-first studio for classic, volume, and fills - with brows that match."
         bookCta: Book lashes
         secondaryCta: More about us
         heroEyebrow: LASH ATELIER
@@ -4771,7 +4771,7 @@ pageBuilder:
         ctaBody: Sets and fills with a gallery wall of eyes
       booking:
         title: Choose a time that works
-        body: Come with clean lashes — no mascara. Patch tests available on request.
+        body: Come with clean lashes - no mascara. Patch tests available on request.
       service:
         bullet1: Dedicated appointment length - no overlapping clients
         bullet2: Confirmation and reminders by email

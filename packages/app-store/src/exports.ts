@@ -1,1 +1,1 @@
-export { AppointmentNotificationsTemplates } from "./apps/appointment-notifications/templates";
+export { AppointmentRemindersTemplates } from "./apps/appointment-reminders/templates";

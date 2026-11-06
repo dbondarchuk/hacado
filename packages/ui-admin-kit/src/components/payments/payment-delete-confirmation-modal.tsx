@@ -83,7 +83,7 @@ export const PaymentDeleteConfirmationModal = ({
                 ? DateTime.fromJSDate(payment.paidAt)
                     .setZone(timeZone)
                     .toLocaleString(DateTime.DATETIME_FULL)
-                : "—",
+                : "-",
             })}
           </AlertDialogDescription>
         </AlertDialogHeader>

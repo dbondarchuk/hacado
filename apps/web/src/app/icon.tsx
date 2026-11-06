@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export const contentType = "image/png";
 
 /**
- * Must not call headers()/cookies() — Next invokes this from generateStaticParams
+ * Must not call headers()/cookies() - Next invokes this from generateStaticParams
  * at build time. Tenant-specific data is resolved in the Icon handler instead.
  * Cache busting uses ETag + short Cache-Control on the response.
  */

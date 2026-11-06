@@ -36,7 +36,7 @@ export const resolvedBookingTipsSchema = z.object({
 /**
  * Booking deposit / payment-threshold settings.
  * Online payments themselves are gated by the default payment app
- * (`defaultApps.paymentAppId`) and the subscription plan — not by a
+ * (`defaultApps.paymentAppId`) and the subscription plan - not by a
  * separate `enabled` flag (legacy `enabled` is accepted and ignored).
  */
 export const paymentsConfigurationSchema = z

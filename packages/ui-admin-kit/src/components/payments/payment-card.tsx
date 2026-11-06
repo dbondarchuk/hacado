@@ -407,7 +407,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
                 </TooltipResponsiveContent>
               </TooltipResponsive>
             ) : (
-              <span className="text-sm text-foreground/60">—</span>
+              <span className="text-sm text-foreground/60">-</span>
             )}
           </div>
           {description && (
