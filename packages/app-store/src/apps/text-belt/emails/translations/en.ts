@@ -3,7 +3,7 @@ import { EmailTemplates } from "../types";
 const notifyReplyText = `
 Hi {{name}},
 
-There was a reply to text message message from {{reply.from}}.
+There was a reply to text message from {{reply.from}}.
 
 Reply text:
 

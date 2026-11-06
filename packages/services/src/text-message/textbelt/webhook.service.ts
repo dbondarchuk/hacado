@@ -156,18 +156,20 @@ export class TextBeltWebhookService {
         textId: reply.textId,
       });
 
-      const parts = (reply?.data || "").split("|", 4);
+      const parts = (reply?.data || "").split("|");
 
       const appId = parts[0] || undefined;
       const appointmentId = parts[1] || undefined;
       const customerId = parts[2] || undefined;
-      const data = parts[3] || undefined;
+      const memberId = parts[3] || undefined;
+      const data = parts[4] || undefined;
 
       logger.debug(
         {
           parsedAppId: appId,
           appointmentId,
           customerId,
+          hasMemberId: !!memberId,
           hasData: !!data,
         },
         "Parsed webhook data",
@@ -190,6 +192,7 @@ export class TextBeltWebhookService {
         },
         appointmentId,
         customerId,
+        memberId,
       });
 
       logger.info(

@@ -357,7 +357,7 @@ export default class TextBeltConnectedApp
         return Response.json({ success: true }, { status: 201 });
       }
 
-      const parts = (reply?.data || "").split("|", 4);
+      const parts = (reply?.data || "").split("|");
 
       const appId = parts[0] || undefined;
       const appointmentId = parts[1] || undefined;
@@ -371,6 +371,7 @@ export default class TextBeltConnectedApp
           parsedAppId: appId,
           appointmentId,
           customerId,
+          hasMemberId: !!memberId,
           hasData: !!data,
         },
         "Parsed webhook data",
@@ -601,14 +602,6 @@ export default class TextBeltConnectedApp
       "Processing text message reply",
     );
 
-    const config =
-      await this.props.services.configurationService.getConfigurations(
-        "booking",
-        "general",
-        "brand",
-        "social",
-      );
-
     const {
       appointment,
       customer,
@@ -616,79 +609,10 @@ export default class TextBeltConnectedApp
       ...reply
     } = textMessageReply;
 
-    const organization =
-      await this.props.services.organizationService.getOrganization();
-
-    if (!organization) {
-      logger.error(
-        { appId: appData._id, appointmentId: appointment?._id },
-        "Organization not found",
-      );
-
-      return;
-    }
-
     let memberId = _memberId;
     if (!memberId) {
       memberId = appointment?.memberId ?? appData.memberId;
     }
-
-    const member =
-      await this.props.services.teamService.getMemberById(memberId);
-
-    if (!member) {
-      logger.error({ appId: appData._id, memberId }, "Member not found");
-      return;
-    }
-
-    const adminUrl = getAdminUrl();
-    const websiteUrl = getWebsiteUrl(organization);
-
-    const args = getArguments({
-      appointment,
-      config,
-      customer,
-      useAppointmentTimezone: true,
-      additionalProperties: {
-        reply: {
-          ...reply,
-          message: reply.message?.trim(),
-        },
-      },
-      member,
-      locale: config.brand.language,
-      adminUrl,
-      websiteUrl,
-    });
-
-    const url = getAdminUrl();
-    const { template: description, subject } = await getEmailTemplate(
-      "user-notify-reply",
-      config.brand.language,
-      url,
-      args,
-      appointment?._id,
-      customer?._id,
-    );
-
-    logger.debug(
-      { appId: appData._id, ownerEmail: member.email },
-      "Sending email to owner about incoming message",
-    );
-
-    await this.props.services.notificationService.sendEmail({
-      email: {
-        to: member.email,
-        subject,
-        body: description,
-      },
-      handledBy:
-        "app_text-belt_admin.webhookHandlerUser" satisfies TextBeltAdminAllKeys,
-      participantType: "member",
-      memberId: member._id,
-      appointmentId: appointment?._id,
-      customerId: customer?._id,
-    });
 
     let result: RespondResult | null | undefined;
     try {
@@ -755,11 +679,30 @@ export default class TextBeltConnectedApp
           "No responder app was registered with TextBelt Webhook app or it was not processed",
         );
 
+        // data.data is set when forwarding a customer reply to a member, so a
+        // reply carrying it is from the member — not a new customer message.
         result = {
           handledBy:
             "app_text-belt_admin.webhookHandler" satisfies TextBeltAdminAllKeys,
-          participantType: "customer",
+          participantType: reply.data.data?.length ? "member" : "customer",
         };
+      }
+
+      if (result.participantType === "customer") {
+        await this.notifyMemberOfCustomerReply(
+          appData,
+          textMessageReply,
+          memberId,
+        );
+      } else {
+        logger.debug(
+          {
+            appId: appData._id,
+            fromNumber: maskify(textMessageReply.from),
+            handledBy: result.handledBy,
+          },
+          "Skipping customer-reply email for member inbound message",
+        );
       }
 
       logger.debug(
@@ -784,7 +727,7 @@ export default class TextBeltConnectedApp
         ...(result.participantType === "member"
           ? {
               participantType: "member" as const,
-              memberId: appointment?.memberId ?? appData.memberId,
+              memberId: memberId ?? appointment?.memberId ?? appData.memberId,
             }
           : {
               participantType: "customer" as const,
@@ -803,5 +746,94 @@ export default class TextBeltConnectedApp
         "Successfully processed text message reply",
       );
     }
+  }
+
+  private async notifyMemberOfCustomerReply(
+    appData: ConnectedAppData<TextBeltConfiguration>,
+    textMessageReply: TextMessageReply,
+    memberId: string | undefined,
+  ): Promise<void> {
+    const logger = this.loggerFactory("notifyMemberOfCustomerReply");
+    const { appointment, customer, ...reply } = textMessageReply;
+
+    if (!memberId) {
+      logger.error({ appId: appData._id }, "Member ID is required for notify");
+      return;
+    }
+
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+
+    if (!organization) {
+      logger.error(
+        { appId: appData._id, appointmentId: appointment?._id },
+        "Organization not found",
+      );
+
+      return;
+    }
+
+    const member =
+      await this.props.services.teamService.getMemberById(memberId);
+
+    if (!member) {
+      logger.error({ appId: appData._id, memberId }, "Member not found");
+      return;
+    }
+
+    const config =
+      await this.props.services.configurationService.getConfigurations(
+        "booking",
+        "general",
+        "brand",
+        "social",
+      );
+
+    const adminUrl = getAdminUrl();
+    const websiteUrl = getWebsiteUrl(organization);
+    const args = getArguments({
+      appointment,
+      config,
+      customer,
+      useAppointmentTimezone: true,
+      additionalProperties: {
+        reply: {
+          ...reply,
+          message: reply.message?.trim(),
+        },
+      },
+      member,
+      locale: config.brand.language,
+      adminUrl,
+      websiteUrl,
+    });
+
+    const { template: description, subject } = await getEmailTemplate(
+      "user-notify-reply",
+      config.brand.language,
+      adminUrl,
+      args,
+      appointment?._id,
+      customer?._id,
+    );
+
+    logger.debug(
+      { appId: appData._id, ownerEmail: member.email },
+      "Sending email to owner about incoming message",
+    );
+
+    await this.props.services.notificationService.sendEmail({
+      email: {
+        to: member.email,
+        subject,
+        body: description,
+      },
+      handledBy:
+        "app_text-belt_admin.webhookHandlerUser" satisfies TextBeltAdminAllKeys,
+      participantType: "member",
+      memberId: member._id,
+      appointmentId: appointment?._id,
+      customerId: customer?._id,
+    });
   }
 }

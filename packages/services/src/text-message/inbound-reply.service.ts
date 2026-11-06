@@ -1,4 +1,3 @@
-import { getTextBeltWebhookEmailTemplate } from "@hacado/app-store/exports";
 import type { BaseAllKeys } from "@hacado/i18n/keys";
 
 import { getLoggerFactory } from "@hacado/logger";
@@ -21,6 +20,7 @@ import {
 import { getArguments } from "@hacado/utils/get-arguments";
 import { maskify } from "@hacado/utils/string";
 import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
+import { getInboundReplyEmailTemplate } from "./emails/utils";
 
 export class InboundTextMessageService {
   protected readonly loggerFactory = getLoggerFactory(
@@ -80,13 +80,6 @@ export class InboundTextMessageService {
       "Processing text message reply",
     );
 
-    const config = await this.configurationService.getConfigurations(
-      "booking",
-      "general",
-      "brand",
-      "social",
-    );
-
     const {
       appointment,
       customer,
@@ -94,69 +87,14 @@ export class InboundTextMessageService {
       ...reply
     } = textMessageReply;
 
-    const organization = await this.organizationService.getOrganization();
-    if (!organization) {
-      logger.error(
-        { appointmentId: appointment?._id },
-        "Organization not found",
-      );
-
-      return;
-    }
-
-    const adminUrl = getAdminUrl();
-    const websiteUrl = getWebsiteUrl(organization);
-    const args = getArguments({
-      appointment,
-      config,
-      customer,
-      useAppointmentTimezone: true,
-      additionalProperties: {
-        reply: {
-          ...reply,
-          message: reply.message?.trim(),
-        },
-      },
-      locale: config.brand.language,
-      adminUrl,
-      websiteUrl,
-    });
-
-    const { template: description, subject } =
-      await getTextBeltWebhookEmailTemplate(
-        "user-notify-reply",
-        config.brand.language,
-        adminUrl,
-        args,
-        appointment?._id,
-        customer?._id,
-      );
-
-    logger.debug(
-      { ownerEmail: config.general.email },
-      "Sending email to owner about incoming message",
-    );
-
     let memberId = _memberId;
     if (!memberId) {
       memberId =
         appointment?.memberId ?? (await this.teamService.getOwnerMember())._id;
     }
 
-    await this.notificationService.sendEmail({
-      email: {
-        to: config.general.email,
-        subject,
-        body: description,
-      },
-      handledBy: "admin.text-message-reply.handledBy" satisfies BaseAllKeys,
-      participantType: "member",
-      memberId,
-      appointmentId: appointment?._id,
-      customerId: customer?._id,
-    });
-
     let result: RespondResult | null | undefined;
+
     try {
       try {
         if (reply.data.appId && reply.data.appId.length) {
@@ -207,10 +145,24 @@ export class InboundTextMessageService {
           "No responder app was registered or the incoming text was not processed",
         );
 
+        // data.data is set when forwarding a customer reply to a member, so a
+        // reply carrying it is from the member — not a new customer message.
         result = {
           handledBy: "admin.text-message-reply.handledBy" satisfies BaseAllKeys,
-          participantType: "customer",
+          participantType: reply.data.data?.length ? "member" : "customer",
         };
+      }
+
+      if (result.participantType === "customer") {
+        await this.notifyMemberOfCustomerReply(textMessageReply, memberId);
+      } else {
+        logger.debug(
+          {
+            fromNumber: maskify(textMessageReply.from),
+            handledBy: result.handledBy,
+          },
+          "Skipping customer-reply email for member inbound message",
+        );
       }
 
       logger.debug(
@@ -249,5 +201,76 @@ export class InboundTextMessageService {
         "Successfully processed text message reply",
       );
     }
+  }
+
+  private async notifyMemberOfCustomerReply(
+    textMessageReply: TextMessageReply,
+    memberId: string,
+  ): Promise<void> {
+    const logger = this.loggerFactory("notifyMemberOfCustomerReply");
+    const { appointment, customer, ...reply } = textMessageReply;
+
+    const organization = await this.organizationService.getOrganization();
+    if (!organization) {
+      logger.error(
+        { appointmentId: appointment?._id },
+        "Organization not found",
+      );
+
+      return;
+    }
+
+    const config = await this.configurationService.getConfigurations(
+      "booking",
+      "general",
+      "brand",
+      "social",
+    );
+
+    const adminUrl = getAdminUrl();
+    const websiteUrl = getWebsiteUrl(organization);
+    const args = getArguments({
+      appointment,
+      config,
+      customer,
+      useAppointmentTimezone: true,
+      additionalProperties: {
+        reply: {
+          ...reply,
+          message: reply.message?.trim(),
+        },
+      },
+      locale: config.brand.language,
+      adminUrl,
+      websiteUrl,
+    });
+
+    const { template: description, subject } =
+      await getInboundReplyEmailTemplate(
+        "user-notify-reply",
+        config.brand.language,
+        adminUrl,
+        args,
+        appointment?._id,
+        customer?._id,
+      );
+
+    logger.debug(
+      { ownerEmail: config.general.email },
+      "Sending email to owner about incoming message",
+    );
+
+    await this.notificationService.sendEmail({
+      email: {
+        to: config.general.email,
+        subject,
+        body: description,
+      },
+      handledBy: "admin.text-message-reply.handledBy" satisfies BaseAllKeys,
+      participantType: "member",
+      memberId,
+      appointmentId: appointment?._id,
+      customerId: customer?._id,
+    });
   }
 }
