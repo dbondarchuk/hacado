@@ -59,10 +59,10 @@ import { TEXTBELT_APP_NAME } from "../apps/text-belt/const";
 import TextBeltConnectedApp from "../apps/text-belt/service";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "../apps/text-message-auto-reply/const";
 import TextMessageAutoReplyConnectedApp from "../apps/text-message-auto-reply/service";
+import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "../apps/text-message-forwarding/const";
+import TextMessageForwardingConnectedApp from "../apps/text-message-forwarding/service";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "../apps/text-message-notification/const";
 import { TextMessageNotificationConnectedApp } from "../apps/text-message-notification/service";
-import { TEXT_MESSAGE_RESENDER_APP_NAME } from "../apps/text-message-resender/const";
-import TextMessageResenderConnectedApp from "../apps/text-message-resender/service";
 import { URL_BUSY_EVENTS_APP_NAME } from "../apps/url-busy-events/const";
 import UrlBusyEventsConnectedApp from "../apps/url-busy-events/service";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "../apps/url-schedule-provider/const";
@@ -105,8 +105,8 @@ export const AvailableAppServices: Record<
     new TextMessageNotificationConnectedApp(props),
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: (props) =>
     new TextMessageAutoReplyConnectedApp(props),
-  [TEXT_MESSAGE_RESENDER_APP_NAME]: (props) =>
-    new TextMessageResenderConnectedApp(props),
+  [TEXT_MESSAGE_FORWARDING_APP_NAME]: (props) =>
+    new TextMessageForwardingConnectedApp(props),
   [APPOINTMENT_NOTIFICATIONS_APP_NAME]: (props) =>
     new ScheduledNotificationsConnectedApp(props),
   [PAYPAL_APP_NAME]: (props) => new PaypalConnectedApp(props),

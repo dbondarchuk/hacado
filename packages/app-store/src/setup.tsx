@@ -22,8 +22,8 @@ import { SquareAppSetup } from "./apps/square/setup";
 import { StripeAppSetup } from "./apps/stripe/setup";
 import { TextBeltAppSetup } from "./apps/text-belt/setup";
 import { TextMessageAutoReplyAppSetup } from "./apps/text-message-auto-reply/setup";
+import { TextMessageForwardingAppSetup } from "./apps/text-message-forwarding/setup";
 import { TextMessageNotificationAppSetup } from "./apps/text-message-notification/setup";
-import { TextMessageResenderAppSetup } from "./apps/text-message-resender/setup";
 import { UrlBusyEventsAppSetup } from "./apps/url-busy-events/setup";
 import { UrlScheduleProviderAppSetup } from "./apps/url-schedule-provider/setup";
 import { WebhooksAppSetup } from "./apps/webhooks/setup";
@@ -51,8 +51,8 @@ import { SQUARE_APP_NAME } from "./apps/square/const";
 import { STRIPE_APP_NAME } from "./apps/stripe/const";
 import { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
+import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
-import { TEXT_MESSAGE_RESENDER_APP_NAME } from "./apps/text-message-resender/const";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
 import { WEBHOOKS_APP_NAME } from "./apps/webhooks/const";
@@ -85,8 +85,8 @@ export const AppSetups: Record<string, BasicAppSetup> = {
   [TEXT_MESSAGE_NOTIFICATION_APP_NAME]: (props) => (
     <TextMessageNotificationAppSetup {...props} />
   ),
-  [TEXT_MESSAGE_RESENDER_APP_NAME]: (props) => (
-    <TextMessageResenderAppSetup {...props} />
+  [TEXT_MESSAGE_FORWARDING_APP_NAME]: (props) => (
+    <TextMessageForwardingAppSetup {...props} />
   ),
   [URL_BUSY_EVENTS_APP_NAME]: (props) => <UrlBusyEventsAppSetup {...props} />,
   [URL_SCHEDULE_PROVIDER_APP_NAME]: (props) => (

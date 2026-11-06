@@ -3,7 +3,7 @@ import {
   resolveMessageLocale,
 } from "./locale-namespace-loaders.generated";
 
-export const TextMessageResenderTranslations = {
+export const TextMessageForwardingTranslations = {
   admin: async (locale: string) => {
     const l = resolveMessageLocale(locale);
     const { namespaceLoaders } = await localeNamespaceLoaders[l]();

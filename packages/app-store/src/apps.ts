@@ -59,10 +59,10 @@ import { TextBeltApp } from "./apps/text-belt/app";
 import { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
 import { TextMessageAutoReplyApp } from "./apps/text-message-auto-reply/app";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
+import { TextMessageForwardingApp } from "./apps/text-message-forwarding/app";
+import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
 import { TextMessageNotificationApp } from "./apps/text-message-notification/app";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
-import { TextMessageResenderApp } from "./apps/text-message-resender/app";
-import { TEXT_MESSAGE_RESENDER_APP_NAME } from "./apps/text-message-resender/const";
 import { UrlBusyEventsApp } from "./apps/url-busy-events/app";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { UrlScheduleProviderApp } from "./apps/url-schedule-provider/app";
@@ -100,7 +100,7 @@ export const AvailableApps: Record<string, App> = {
   // [FILE_SYSTEM_ASSETS_STORAGE_APP_NAME]: FileSystemAssetsStorageApp,
   // [S3_ASSETS_STORAGE_APP_NAME]: S3AssetsStorageApp,
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: TextMessageAutoReplyApp,
-  [TEXT_MESSAGE_RESENDER_APP_NAME]: TextMessageResenderApp,
+  [TEXT_MESSAGE_FORWARDING_APP_NAME]: TextMessageForwardingApp,
   [PAYPAL_APP_NAME]: PaypalApp,
   [PAYMENT_LINKS_APP_NAME]: PaymentLinksApp,
   [SQUARE_APP_NAME]: SquareApp,
@@ -153,8 +153,8 @@ export { SMART_SCHEDULE_APP_NAME } from "./apps/smart-schedule/const";
 export { SMTP_APP_NAME } from "./apps/smtp/const";
 export { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
 export { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
+export { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
 export { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
-export { TEXT_MESSAGE_RESENDER_APP_NAME } from "./apps/text-message-resender/const";
 export { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 export { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
 export { WAITLIST_APP_NAME } from "./apps/waitlist/const";

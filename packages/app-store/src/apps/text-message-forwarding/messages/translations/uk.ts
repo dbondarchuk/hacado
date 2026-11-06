@@ -1,6 +1,6 @@
-import { TextMessageResenderMessage } from "../types";
+import { TextMessageForwardingMessage } from "../types";
 
-export const UkTextMessageResenderMessages: TextMessageResenderMessage = {
+export const UkTextMessageForwardingMessages: TextMessageForwardingMessage = {
   resendToUserFromCustomer: `Привіт {{user.name}}, {{customer.name}} відповів з {{reply.from}}:
 {{reply.message}}
 Ви можете відповісти на це повідомлення безпосередньо`,

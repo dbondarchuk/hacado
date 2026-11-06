@@ -22,18 +22,18 @@ import { Spinner } from "@hacado/ui/spinner";
 import { subscriptionAllowsMultipleUsers } from "@hacado/utils/permissions";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
-import { TextMessageResenderApp } from "./app";
+import { TextMessageForwardingApp } from "./app";
 import {
-  TextMessageResenderConfiguration,
-  textMessageResenderConfigurationSchema,
+  TextMessageForwardingConfiguration,
+  textMessageForwardingConfigurationSchema,
 } from "./models";
 import {
-  TextMessageResenderAdminKeys,
-  TextMessageResenderAdminNamespace,
-  textMessageResenderAdminNamespace,
+  TextMessageForwardingAdminKeys,
+  TextMessageForwardingAdminNamespace,
+  textMessageForwardingAdminNamespace,
 } from "./translations/types";
 
-export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
+export const TextMessageForwardingAppSetup: React.FC<AppSetupProps> = ({
   onSuccess,
   onError,
   appId,
@@ -45,18 +45,18 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
   );
 
   const { appStatus, form, isLoading, isValid, onSubmit } =
-    useConnectedAppSetup<TextMessageResenderConfiguration>({
+    useConnectedAppSetup<TextMessageForwardingConfiguration>({
       appId,
-      appName: TextMessageResenderApp.name,
-      schema: textMessageResenderConfigurationSchema,
+      appName: TextMessageForwardingApp.name,
+      schema: textMessageForwardingConfigurationSchema,
       onSuccess,
       onError,
     });
 
   const t = useI18n<
-    TextMessageResenderAdminNamespace,
-    TextMessageResenderAdminKeys
-  >(textMessageResenderAdminNamespace);
+    TextMessageForwardingAdminNamespace,
+    TextMessageForwardingAdminKeys
+  >(textMessageForwardingAdminNamespace);
 
   return (
     <>
@@ -101,7 +101,7 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
                 {t.rich("form.connectWith", {
                   app: () => (
                     <ConnectedAppNameAndLogo
-                      appName={TextMessageResenderApp.name}
+                      appName={TextMessageForwardingApp.name}
                     />
                   ),
                 })}

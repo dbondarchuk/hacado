@@ -1,6 +1,6 @@
-title: Reenviador de mensajes de texto
+title: Reenvío de mensajes de texto
 app:
-  displayName: Reenviador de mensajes de texto
+  displayName: Reenvío de mensajes de texto
   description: Asegúrese de no perderse nunca la respuesta de un cliente. Cuando un cliente responde a un mensaje de texto, su respuesta se reenvía automáticamente al miembro del equipo asignado, o al miembro predeterminado que usted elija, manteniendo la comunicación fluida y personal.
 form:
   defaultMemberId:
@@ -10,11 +10,10 @@ form:
   connectWith: Conéctese con <app></app>
 statusText:
   successfully_set_up: Configurado exitosamente
-  error_processing_configuration: Error al procesar la configuración del reenviador de mensajes de texto
-  error_processing_reply: Error al procesar la respuesta del reenviador de mensajes de texto
+  error_processing_configuration: Error al procesar la configuración de Reenvío de mensajes de texto
+  error_processing_reply: Error al procesar la respuesta de Reenvío de mensajes de texto
 handlers:
-  resendToCustomer: "Reenviador de mensajes de texto: reenviar al cliente"
-  processUserReply: "Reenviador de mensajes de texto: procesar respuesta del usuario"
-  resendToUser: "Reenviador de mensajes de texto: reenviar al usuario"
-  processCustomerReply: "Reenviador de mensajes de texto: procesar la respuesta del cliente"
-
+  resendToCustomer: "Reenvío de mensajes de texto: reenviar al cliente"
+  processUserReply: "Reenvío de mensajes de texto: procesar respuesta del usuario"
+  resendToUser: "Reenvío de mensajes de texto: reenviar al usuario"
+  processCustomerReply: "Reenvío de mensajes de texto: procesar la respuesta del cliente"

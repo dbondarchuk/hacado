@@ -58,10 +58,10 @@ import { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
 import { TextBeltTranslations } from "./apps/text-belt/translations";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./apps/text-message-auto-reply/const";
 import { TextMessageAutoReplyTranslations } from "./apps/text-message-auto-reply/translations";
+import { TEXT_MESSAGE_FORWARDING_APP_NAME } from "./apps/text-message-forwarding/const";
+import { TextMessageForwardingTranslations } from "./apps/text-message-forwarding/translations";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notification/const";
 import { TextMessageNotificationTranslations } from "./apps/text-message-notification/translations";
-import { TEXT_MESSAGE_RESENDER_APP_NAME } from "./apps/text-message-resender/const";
-import { TextMessageResenderTranslations } from "./apps/text-message-resender/translations";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { UrlBusyEventsTranslations } from "./apps/url-busy-events/translations";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
@@ -111,7 +111,7 @@ export const AppsTranslations: Record<
   [TEXTBELT_APP_NAME]: TextBeltTranslations,
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: TextMessageAutoReplyTranslations,
   [TEXT_MESSAGE_NOTIFICATION_APP_NAME]: TextMessageNotificationTranslations,
-  [TEXT_MESSAGE_RESENDER_APP_NAME]: TextMessageResenderTranslations,
+  [TEXT_MESSAGE_FORWARDING_APP_NAME]: TextMessageForwardingTranslations,
   [WEEKLY_SCHEDULE_APP_NAME]: WeeklyScheduleTranslations,
   [WEBHOOKS_APP_NAME]: WebhooksTranslations,
   [SMART_SCHEDULE_APP_NAME]: SmartScheduleTranslations,

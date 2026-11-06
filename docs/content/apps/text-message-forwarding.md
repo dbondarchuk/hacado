@@ -2,14 +2,14 @@
 description: Forward customer SMS replies to your phone so you see the thread without opening admin.
 ---
 
-# Text message resender
+# Text Message Forwarding
 
 When customers **reply** to business texts, this App forwards that reply to **your phone number** (or another number you enter) so you can keep chatting from your handset. It is meant for personal follow-up, not as a full help desk.
 
 ## Adding the App
 
 1. Ensure **[Textbelt SMS](/docs/apps/text-belt)** stays healthy and inbound replies are already reaching Hacado.
-2. Open **Apps**, then **Store**, and install **Text message resender**.
+2. Open **Apps**, then **Store**, and install **Text Message Forwarding**.
 3. Optionally set a **phone override** field if forwards should reach a teammate or shared handset.
 4. Save. Ask a coworker’s phone to reply to an outbound SMS and confirm you receive the forwarded copy.
 
@@ -36,7 +36,7 @@ Treat forwarded messages like client data lock handsets respect privacy training
 ## Removing the App
 
 1. Open **Apps**, then **Installed apps**.
-2. Remove **Text message resender**.
+2. Remove **Text Message Forwarding**.
 
 ### What changes afterward
 

@@ -13,50 +13,50 @@ import { getArguments } from "@hacado/utils/get-arguments";
 import { subscriptionAllowsMultipleUsers } from "@hacado/utils/permissions";
 import { template } from "@hacado/utils/string";
 import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
-import { getTextMessageResenderMessages } from "./messages";
+import { getTextMessageForwardingMessages } from "./messages";
 import {
-  TextMessageResenderConfiguration,
-  textMessageResenderConfigurationSchema,
+  TextMessageForwardingConfiguration,
+  textMessageForwardingConfigurationSchema,
 } from "./models";
 import {
-  TextMessageResenderAdminAllKeys,
-  TextMessageResenderAdminKeys,
-  TextMessageResenderAdminNamespace,
+  TextMessageForwardingAdminAllKeys,
+  TextMessageForwardingAdminKeys,
+  TextMessageForwardingAdminNamespace,
 } from "./translations/types";
 
-export default class TextMessageResenderConnectedApp
+export default class TextMessageForwardingConnectedApp
   implements IConnectedApp, ITextMessageResponder
 {
   protected readonly loggerFactory: LoggerFactory;
 
   public constructor(protected readonly props: IConnectedAppProps) {
     this.loggerFactory = getLoggerFactory(
-      "TextMessageResenderConnectedApp",
+      "TextMessageForwardingConnectedApp",
       props.organizationId,
     );
   }
 
   public async processRequest(
     appData: ConnectedAppData,
-    request: TextMessageResenderConfiguration,
+    request: TextMessageForwardingConfiguration,
   ): Promise<
     ConnectedAppStatusWithText<
-      TextMessageResenderAdminNamespace,
-      TextMessageResenderAdminKeys
+      TextMessageForwardingAdminNamespace,
+      TextMessageForwardingAdminKeys
     >
   > {
     const logger = this.loggerFactory("processRequest");
     const { data, success, error } =
-      textMessageResenderConfigurationSchema.safeParse(request);
+      textMessageForwardingConfigurationSchema.safeParse(request);
 
     if (!success) {
       logger.error(
         { error },
-        "Invalid Text Message Resender configuration request",
+        "Invalid Text Message Forwarding configuration request",
       );
 
       throw new ConnectedAppRequestError(
-        "invalid_text-message-resender_configuration_request",
+        "invalid_text-message-forwarding_configuration_request",
         { request, error },
         400,
         error.message,
@@ -71,14 +71,14 @@ export default class TextMessageResenderConnectedApp
       organization?.feesExempt,
     );
 
-    const savedData: TextMessageResenderConfiguration = {
+    const savedData: TextMessageForwardingConfiguration = {
       ...data,
       defaultMemberId: allowsMultipleUsers ? data.defaultMemberId : undefined,
     };
 
     logger.debug(
       { appId: appData._id, defaultMemberId: savedData.defaultMemberId },
-      "Processing text message resender configuration request",
+      "Processing text message forwarding configuration request",
     );
 
     try {
@@ -97,7 +97,7 @@ export default class TextMessageResenderConnectedApp
           );
 
           throw new ConnectedAppRequestError(
-            "invalid_text-message-resender_default_member",
+            "invalid_text-message-forwarding_default_member",
             { request, defaultMemberId: savedData.defaultMemberId },
             400,
             "Default member not found",
@@ -106,12 +106,12 @@ export default class TextMessageResenderConnectedApp
       }
 
       const status: ConnectedAppStatusWithText<
-        TextMessageResenderAdminNamespace,
-        TextMessageResenderAdminKeys
+        TextMessageForwardingAdminNamespace,
+        TextMessageForwardingAdminKeys
       > = {
         status: "connected",
         statusText:
-          "app_text-message-resender_admin.statusText.successfully_set_up",
+          "app_text-message-forwarding_admin.statusText.successfully_set_up",
       };
 
       this.props.update({
@@ -121,23 +121,23 @@ export default class TextMessageResenderConnectedApp
 
       logger.info(
         { appId: appData._id, status: status.status },
-        "Successfully configured text message resender",
+        "Successfully configured text message forwarding",
       );
 
       return status;
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error },
-        "Error processing text message resender configuration",
+        "Error processing text message forwarding configuration",
       );
 
       const status: ConnectedAppStatusWithText<
-        TextMessageResenderAdminNamespace,
-        TextMessageResenderAdminKeys
+        TextMessageForwardingAdminNamespace,
+        TextMessageForwardingAdminKeys
       > = {
         status: "failed",
         statusText:
-          "app_text-message-resender_admin.statusText.error_processing_configuration",
+          "app_text-message-forwarding_admin.statusText.error_processing_configuration",
       };
 
       this.props.update({
@@ -149,11 +149,11 @@ export default class TextMessageResenderConnectedApp
   }
 
   public async respond(
-    appData: ConnectedAppData<TextMessageResenderConfiguration>,
+    appData: ConnectedAppData<TextMessageForwardingConfiguration>,
     textMessageReply: TextMessageReply,
   ): Promise<RespondResult<
-    TextMessageResenderAdminNamespace,
-    TextMessageResenderAdminKeys
+    TextMessageForwardingAdminNamespace,
+    TextMessageForwardingAdminKeys
   > | null> {
     const logger = this.loggerFactory("respond");
     logger.debug(
@@ -164,7 +164,7 @@ export default class TextMessageResenderConnectedApp
         message: textMessageReply.message,
         hasData: !!textMessageReply.data.data?.length,
       },
-      "Processing text message resender reply",
+      "Processing text message forwarding reply",
     );
 
     try {
@@ -223,7 +223,7 @@ export default class TextMessageResenderConnectedApp
               "$1***$2",
             ),
           },
-          "Processing reply from user - resending to customer",
+          "Processing reply from user - forwarding to customer",
         );
 
         const businessName = config.general.name?.trim();
@@ -244,17 +244,17 @@ export default class TextMessageResenderConnectedApp
           participantType: "customer",
           memberId,
           handledBy:
-            "app_text-message-resender_admin.handlers.resendToCustomer" satisfies TextMessageResenderAdminAllKeys,
+            "app_text-message-forwarding_admin.handlers.resendToCustomer" satisfies TextMessageForwardingAdminAllKeys,
         });
 
         logger.info(
           { appId: appData._id, appointmentId: reply.data.appointmentId },
-          "Successfully resent user reply to customer",
+          "Successfully forwarded user reply to customer",
         );
 
         return {
           handledBy:
-            "app_text-message-resender_admin.handlers.processUserReply" satisfies TextMessageResenderAdminAllKeys,
+            "app_text-message-forwarding_admin.handlers.processUserReply" satisfies TextMessageForwardingAdminAllKeys,
           participantType: "member",
         };
       }
@@ -266,7 +266,7 @@ export default class TextMessageResenderConnectedApp
           from: reply.from?.replace(/(\d{3})\d{3}(\d{4})/, "$1***$2"),
           customerName: customer?.name,
         },
-        "Processing reply from customer - resending to user",
+        "Processing reply from customer - forwarding to user",
       );
 
       if (!organization) {
@@ -295,7 +295,7 @@ export default class TextMessageResenderConnectedApp
       });
 
       const body = template(
-        getTextMessageResenderMessages(config.brand.language)
+        getTextMessageForwardingMessages(config.brand.language)
           .resendToUserFromCustomer,
         args,
       );
@@ -336,17 +336,17 @@ export default class TextMessageResenderConnectedApp
         participantType: "member",
         memberId,
         handledBy:
-          "app_text-message-resender_admin.handlers.resendToUser" satisfies TextMessageResenderAdminAllKeys,
+          "app_text-message-forwarding_admin.handlers.resendToUser" satisfies TextMessageForwardingAdminAllKeys,
       });
 
       logger.info(
         { appId: appData._id, appointmentId: reply.data.appointmentId },
-        "Successfully resent customer reply to user",
+        "Successfully forwarded customer reply to user",
       );
 
       return {
         handledBy:
-          "app_text-message-resender_admin.handlers.processCustomerReply" satisfies TextMessageResenderAdminAllKeys,
+          "app_text-message-forwarding_admin.handlers.processCustomerReply" satisfies TextMessageForwardingAdminAllKeys,
         participantType: "customer",
       };
     } catch (error: any) {
@@ -356,13 +356,13 @@ export default class TextMessageResenderConnectedApp
           appointmentId: textMessageReply.data?.appointmentId,
           error,
         },
-        "Error processing text message resender reply",
+        "Error processing text message forwarding reply",
       );
 
       this.props.update({
         status: "failed",
         statusText:
-          "app_text-message-resender_admin.statusText.error_processing_reply" satisfies TextMessageResenderAdminAllKeys,
+          "app_text-message-forwarding_admin.statusText.error_processing_reply" satisfies TextMessageForwardingAdminAllKeys,
       });
 
       throw error;

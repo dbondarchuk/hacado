@@ -41,7 +41,7 @@ const meta: MetaRecord = {
   "text-message-notification": "Text message notification",
   "customer-text-message-notification": "Customer text message notification",
   "text-message-auto-reply": "Text message auto reply",
-  "text-message-resender": "Text message resender",
+  "text-message-forwarding": "Text Message Forwarding",
   "--site": separator("Website features"),
   blog: "Blog",
   waitlist: "Waitlist",

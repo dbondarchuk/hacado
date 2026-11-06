@@ -1,6 +1,6 @@
-import { TextMessageResenderMessage } from "../types";
+import { TextMessageForwardingMessage } from "../types";
 
-export const EnTextMessageResenderMessages: TextMessageResenderMessage = {
+export const EnTextMessageForwardingMessages: TextMessageForwardingMessage = {
   resendToUserFromCustomer: `Hi {{user.name}}, {{customer.name}} has replied from {{reply.from}}:
 {{reply.message}}
 You can reply to this message directly`,

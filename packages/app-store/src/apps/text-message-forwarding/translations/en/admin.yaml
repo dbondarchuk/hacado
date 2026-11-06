@@ -1,6 +1,6 @@
-title: Text message resender
+title: Text Message Forwarding
 app:
-  displayName: Text message resender
+  displayName: Text Message Forwarding
   description: Ensure you never miss a customer response. When a customer replies to a text message, their reply is automatically forwarded to the assigned team member - or a default member you choose - keeping communication seamless and personal.
 form:
   defaultMemberId:
@@ -10,10 +10,10 @@ form:
   connectWith: Connect with <app></app>
 statusText:
   successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing text message resender configuration
-  error_processing_reply: Error processing text message resender reply
+  error_processing_configuration: Error processing Text Message Forwarding configuration
+  error_processing_reply: Error processing Text Message Forwarding reply
 handlers:
-  resendToCustomer: Text Message Resender - Resend to customer
-  processUserReply: Text Message Resender - Process user reply
-  resendToUser: Text Message Resender - Resend to user
-  processCustomerReply: Text Message Resender - Process customer reply
+  resendToCustomer: Text Message Forwarding - Resend to customer
+  processUserReply: Text Message Forwarding - Process user reply
+  resendToUser: Text Message Forwarding - Resend to user
+  processCustomerReply: Text Message Forwarding - Process customer reply
