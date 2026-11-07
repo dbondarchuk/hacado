@@ -1,4 +1,6 @@
+import type { NotificationAudience } from "@hacado/types/apps";
 import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
+import type { IServicesContainer } from "@hacado/types/services";
 import { buildNewWaitlistEntryEmailNotifications } from "./emails/new-entry-email";
 import type { WaitlistConfiguration } from "./models";
 import {
@@ -11,6 +13,62 @@ import { WaitlistRepositoryService } from "./service/repository-service";
 import { WaitlistAdminAllKeys } from "./translations/types";
 
 const COORDINATOR_AND_ABOVE = ["owner", "admin", "coordinator"] as const;
+
+async function resolveWaitlistNewEntryAudience(
+  entry: WaitlistEntryCreatedEvent["payload"]["entry"],
+  services: IServicesContainer,
+): Promise<NotificationAudience> {
+  let app;
+  try {
+    app = await services.connectedAppsService.getApp(entry.appId);
+  } catch {
+    if (entry.member?._id) {
+      return { memberIds: [entry.member._id] };
+    }
+
+    const coordinators =
+      await services.teamService.getOrganizationMemberContacts([
+        ...COORDINATOR_AND_ABOVE,
+      ]);
+
+    return { memberIds: coordinators.map((contact) => contact.memberId) };
+  }
+
+  const settings = (app.data ?? {}) as Partial<WaitlistConfiguration>;
+  const notifyMember = Boolean(settings.notifyMemberOnNewEntry);
+  const notifyCoordinators = Boolean(settings.notifyCoordinatorsOnNewEntry);
+
+  const memberIds = new Set<string>();
+
+  if (notifyMember && entry.member?._id) {
+    memberIds.add(entry.member._id);
+  }
+
+  if (notifyCoordinators) {
+    const coordinators =
+      await services.teamService.getOrganizationMemberContacts([
+        ...COORDINATOR_AND_ABOVE,
+      ]);
+
+    for (const contact of coordinators) {
+      memberIds.add(contact.memberId);
+    }
+  }
+
+  if (memberIds.size > 0) {
+    return { memberIds: [...memberIds] };
+  }
+
+  if (entry.member?._id) {
+    return { memberIds: [entry.member._id] };
+  }
+
+  const coordinators = await services.teamService.getOrganizationMemberContacts(
+    [...COORDINATOR_AND_ABOVE],
+  );
+
+  return { memberIds: coordinators.map((contact) => contact.memberId) };
+}
 
 export const WAITLIST_APP_EVENTS: AppEventConfig = {
   events: [
@@ -42,6 +100,11 @@ export const WAITLIST_APP_EVENTS: AppEventConfig = {
         const waitlistEntriesCount =
           await repositoryService.getWaitlistEntriesCount(new Date());
 
+        const audience = await resolveWaitlistNewEntryAudience(
+          envelope.payload.entry,
+          services,
+        );
+
         return {
           type: "waitlist-entries",
           badges: [
@@ -65,6 +128,25 @@ export const WAITLIST_APP_EVENTS: AppEventConfig = {
               href: `/dashboard?activeTab=waitlist&key=${Date.now()}`,
             },
           },
+          audience,
+        };
+      },
+      pushNotification: async (envelope, services) => {
+        const audience = await resolveWaitlistNewEntryAudience(
+          envelope.payload.entry,
+          services,
+        );
+
+        return {
+          title: {
+            key: "app_waitlist_admin.notifications.newEntry" satisfies WaitlistAdminAllKeys,
+          },
+          body: {
+            key: "app_waitlist_admin.notifications.newEntryMessage" satisfies WaitlistAdminAllKeys,
+          },
+          url: `/dashboard?activeTab=waitlist&key=${Date.now()}`,
+          tag: WAITLIST_ENTRY_CREATED_EVENT_TYPE,
+          audience,
         };
       },
       emailNotifications: async (envelope, services) => {

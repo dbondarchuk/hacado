@@ -3448,6 +3448,23 @@ dashboard:
   inactiveMembersBanner:
     message: "{count, plural, =1 {# inactive team member has} other {# inactive team members have}} próximas citas que deben reasignarse."
     viewAppointments: Ver citas →
+  pushPrompt:
+    title: Activar notificaciones del navegador
+    description: Recibe avisos sobre nuevas reservas y actualizaciones importantes aunque esta pestaña esté cerrada.
+    enable: Activar
+    dismiss: Cerrar
+    showMeHow: Muéstrame cómo
+    iosTitle: Añade a la pantalla de inicio para activar notificaciones
+    iosDescription: En iPhone o iPad, instala Hacado en la pantalla de inicio y ábrelo desde ahí para activar las notificaciones del navegador.
+    howTo:
+      title: Añadir Hacado a la pantalla de inicio
+      description: En iPhone y iPad, las notificaciones del navegador solo están disponibles después de instalar la app en la pantalla de inicio (Safari o Chrome).
+      step1Title: Abrir Compartir
+      step1Description: Toca el botón Compartir en la barra del navegador (cuadrado con una flecha hacia arriba). En Chrome, abre el menú y elige Compartir si no lo ves.
+      step2Title: Añadir a pantalla de inicio
+      step2Description: Desplázate por la hoja de compartir y toca Añadir a la pantalla de inicio, luego confirma con Añadir.
+      step3Title: Abrir desde la pantalla de inicio
+      step3Description: Abre Hacado desde el nuevo icono y activa las notificaciones del navegador desde el aviso o los ajustes del perfil.
   subscriptionInactive:
     title: Suscripción cancelada
     description: Esta suscripción de espacio de trabajo no está activa. Contáctenos para restaurar el acceso.
@@ -4166,6 +4183,15 @@ users:
         appTooltip: Seleccione la aplicación conectada utilizada para crear enlaces de reuniones en línea para sus citas virtuales.
       changePhoto: Cambiar foto
       removePhoto: Eliminar
+    push:
+      sectionTitle: Notificaciones del navegador
+      title: Notificaciones push
+      description: Recibe alertas en este dispositivo incluso cuando el panel esté cerrado.
+      unsupported: Las notificaciones push del navegador no son compatibles con este dispositivo.
+      iosInstallHint: En iPhone o iPad, primero añade Hacado a la pantalla de inicio y luego ábrelo desde ahí para activar las notificaciones push.
+      enabledToast: Notificaciones del navegador activadas
+      disabledToast: Notificaciones del navegador desactivadas
+      errorToast: No se pudieron actualizar los ajustes de notificaciones del navegador
     security:
       title: Cuenta y seguridad
       email: Dirección de correo electrónico

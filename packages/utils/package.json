@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/schedule-resolve.test.ts src/short-links.test.ts src/server/custom-domain-dns.test.ts src/sms-date.test.ts"
+    "test": "node --import tsx --test src/schedule-resolve.test.ts src/short-links.test.ts src/server/custom-domain-dns.test.ts src/sms-date.test.ts src/permissions.test.ts"
   },
   "main": "./src/index.ts",
   "exports": {
@@ -40,6 +40,7 @@
     "./phone": "./src/phone.ts",
     "./properties-to-array": "./src/properties-to-array.ts",
     "./query": "./src/query.ts",
+    "./resolved-i18n-text": "./src/resolved-i18n-text.ts",
     "./schedule-exception": "./src/schedule-exception.ts",
     "./schedule-resolve": "./src/schedule-resolve.ts",
     "./server": "./src/server/index.ts",
@@ -68,6 +69,7 @@
     "typescript": "6.0.2"
   },
   "dependencies": {
+    "@hacado/i18n": "*",
     "@hacado/types": "*",
     "color": "^5.0.0",
     "content-type": "1.0.4",

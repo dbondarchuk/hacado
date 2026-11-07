@@ -3448,6 +3448,23 @@ dashboard:
   inactiveMembersBanner:
     message: "{count, plural, =1 {# inactive team member has} other {# inactive team members have}} rendez-vous à venir qui doivent être réaffectés."
     viewAppointments: Afficher les rendez-vous →
+  pushPrompt:
+    title: Activer les notifications du navigateur
+    description: Recevez des alertes sur les nouvelles réservations et les mises à jour importantes même lorsque cet onglet est fermé.
+    enable: Activer
+    dismiss: Fermer
+    showMeHow: Montrez-moi comment
+    iosTitle: Ajoutez à l’écran d’accueil pour activer les notifications
+    iosDescription: Sur iPhone ou iPad, installez Hacado sur l’écran d’accueil, puis ouvrez-le depuis là pour activer les notifications du navigateur.
+    howTo:
+      title: Ajouter Hacado à l’écran d’accueil
+      description: Sur iPhone et iPad, les notifications du navigateur ne sont disponibles qu’après l’installation de l’app sur l’écran d’accueil (Safari ou Chrome).
+      step1Title: Ouvrir Partager
+      step1Description: Touchez le bouton Partager dans la barre du navigateur (carré avec une flèche vers le haut). Dans Chrome, ouvrez le menu et choisissez Partager si vous ne le voyez pas.
+      step2Title: Sur l’écran d’accueil
+      step2Description: Faites défiler la feuille de partage et touchez Sur l’écran d’accueil, puis confirmez avec Ajouter.
+      step3Title: Ouvrir depuis l’écran d’accueil
+      step3Description: Lancez Hacado depuis la nouvelle icône, puis activez les notifications du navigateur via la bannière ou les paramètres du profil.
   subscriptionInactive:
     title: Abonnement annulé
     description: Cet abonnement à l'espace de travail n'est pas actif. Contactez-nous pour restaurer l'accès.
@@ -4166,6 +4183,15 @@ users:
         appTooltip: Sélectionnez l'application connectée utilisée pour créer des liens de réunion en ligne pour vos rendez-vous virtuels.
       changePhoto: Changer de photo
       removePhoto: Retirer
+    push:
+      sectionTitle: Notifications du navigateur
+      title: Notifications push
+      description: Recevez des alertes sur cet appareil même lorsque le tableau de bord est fermé.
+      unsupported: Les notifications push du navigateur ne sont pas prises en charge sur cet appareil.
+      iosInstallHint: Sur iPhone ou iPad, ajoutez d’abord Hacado à l’écran d’accueil, puis ouvrez-le depuis là pour activer les notifications push.
+      enabledToast: Notifications du navigateur activées
+      disabledToast: Notifications du navigateur désactivées
+      errorToast: Impossible de mettre à jour les paramètres de notification du navigateur
     security:
       title: Compte et sécurité
       email: Adresse email

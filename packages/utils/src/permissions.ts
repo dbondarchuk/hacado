@@ -1,3 +1,4 @@
+import type { NotificationAudience } from "@hacado/types/apps";
 import type {
   RequiredPermission,
   SessionUser,
@@ -295,4 +296,53 @@ export function canUpdateAppointment(
   if (hasPermission(user, "appointment", "updateAll")) return true;
 
   return !!user?.memberId && user.memberId === appointmentMemberId;
+}
+
+/** Minimal identity for server-side notification audience filtering. */
+export type NotificationAudienceViewer = {
+  memberId: string;
+  role: UserRole;
+};
+
+/**
+ * Whether `viewer` may receive a notification with the given `audience`.
+ * Missing/undefined audience = deliver to everyone (legacy org-wide).
+ * All set audience fields are AND-ed.
+ */
+export function notificationAudienceMatches(
+  viewer: NotificationAudienceViewer | null | undefined,
+  audience?: NotificationAudience | null,
+): boolean {
+  if (!audience) {
+    return true;
+  }
+
+  if (!viewer) {
+    return false;
+  }
+
+  // Permission helpers only read `role` / `memberId` from SessionUser.
+  const user = viewer as SessionUser;
+
+  if (audience.requiredPermissions?.length) {
+    for (const required of audience.requiredPermissions) {
+      if (!meetsRequiredPermission(user, required)) {
+        return false;
+      }
+    }
+  }
+
+  if (audience.appointmentMemberId !== undefined) {
+    if (!canUpdateAppointment(user, audience.appointmentMemberId)) {
+      return false;
+    }
+  }
+
+  if (audience.memberIds?.length) {
+    if (!audience.memberIds.includes(viewer.memberId)) {
+      return false;
+    }
+  }
+
+  return true;
 }

@@ -23,6 +23,12 @@ import { dashboardUrls } from "../links";
 
 const verificationUrl = `${dashboardUrls.textMessagingVerification}`;
 
+const SETTINGS_UPDATE_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "settings" as const, action: "update" as const },
+  ],
+};
+
 const activity = (
   envelope: EventEnvelope,
   title: BaseAllKeys,
@@ -69,6 +75,7 @@ const outcomeNotification = (
         href: verificationUrl,
       },
     },
+    audience: SETTINGS_UPDATE_AUDIENCE,
   };
 };
 
@@ -175,6 +182,22 @@ export const SMS_VERIFICATION_EVENT_DEFINITIONS: Record<
         "error",
         "admin.settings.textMessaging.notifications.failed",
       ),
+    pushNotification: (envelope) => {
+      const notification = outcomeNotification(
+        envelope,
+        "sms-verification-failed",
+        "error",
+        "admin.settings.textMessaging.notifications.failed",
+      );
+
+      return {
+        title: notification.toast.title,
+        body: notification.toast.message,
+        url: notification.toast.action.href,
+        tag: notification.type,
+        audience: SETTINGS_UPDATE_AUDIENCE,
+      };
+    },
     emailNotifications: (envelope, services) =>
       adminEmails(
         envelope,
@@ -199,6 +222,22 @@ export const SMS_VERIFICATION_EVENT_DEFINITIONS: Record<
         "success",
         "admin.settings.textMessaging.notifications.succeeded",
       ),
+    pushNotification: (envelope) => {
+      const notification = outcomeNotification(
+        envelope,
+        "sms-verification-succeeded",
+        "success",
+        "admin.settings.textMessaging.notifications.succeeded",
+      );
+
+      return {
+        title: notification.toast.title,
+        body: notification.toast.message,
+        url: notification.toast.action.href,
+        tag: notification.type,
+        audience: SETTINGS_UPDATE_AUDIENCE,
+      };
+    },
     emailNotifications: (envelope, services) =>
       adminEmails(
         envelope,

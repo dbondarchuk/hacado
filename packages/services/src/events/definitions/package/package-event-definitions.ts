@@ -29,6 +29,33 @@ import {
 import { dashboardUrls } from "../links";
 import { buildCustomerPackagePurchasedOwnerEmails } from "./package-purchased-owner-email";
 
+const PACKAGE_READ_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "package" as const, action: "read" as const },
+  ],
+};
+
+function getCustomerPackageIssuedToast(
+  customerPackage: CustomerPackageIssuedPayload["customerPackage"],
+) {
+  return {
+    type: "info" as const,
+    title: {
+      key: "admin.catalog.packages.notifications.issued.title" satisfies BaseAllKeys,
+    },
+    message: {
+      key: "admin.catalog.packages.notifications.issued.message" satisfies BaseAllKeys,
+      args: { name: customerPackage.name },
+    },
+    action: {
+      label: {
+        key: "admin.catalog.packages.notifications.issued.action" satisfies BaseAllKeys,
+      },
+      href: dashboardUrls.customer(customerPackage.customerId),
+    },
+  };
+}
+
 export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE]: {
     type: APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
@@ -128,22 +155,22 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
 
       return {
         type: "customer-package-issued",
-        toast: {
-          type: "info",
-          title: {
-            key: "admin.catalog.packages.notifications.issued.title" satisfies BaseAllKeys,
-          },
-          message: {
-            key: "admin.catalog.packages.notifications.issued.message" satisfies BaseAllKeys,
-            args: { name: customerPackage.name },
-          },
-          action: {
-            label: {
-              key: "admin.catalog.packages.notifications.issued.action" satisfies BaseAllKeys,
-            },
-            href: dashboardUrls.customer(customerPackage.customerId),
-          },
-        },
+        toast: getCustomerPackageIssuedToast(customerPackage),
+        audience: PACKAGE_READ_AUDIENCE,
+      };
+    },
+    pushNotification: (envelope) => {
+      const { customerPackage } =
+        envelope.payload as CustomerPackageIssuedPayload;
+
+      const toast = getCustomerPackageIssuedToast(customerPackage);
+
+      return {
+        title: toast.title,
+        body: toast.message,
+        url: toast.action.href,
+        tag: CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
+        audience: PACKAGE_READ_AUDIENCE,
       };
     },
     emailNotifications: buildCustomerPackagePurchasedOwnerEmails,

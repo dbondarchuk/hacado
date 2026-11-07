@@ -25,6 +25,7 @@ export * from "./packages.service";
 export * from "./pages-cached.service";
 export * from "./pages.service";
 export * from "./payments.service";
+export * from "./push-notifications.service";
 export * from "./s3-assets-storage";
 export * from "./schedule.service";
 export * from "./short-links";

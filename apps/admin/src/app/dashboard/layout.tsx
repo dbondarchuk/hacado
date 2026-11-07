@@ -9,6 +9,7 @@ import {
 } from "@/components/admin/layout/command-palette-data";
 import Header from "@/components/admin/layout/header";
 import { AppSidebar } from "@/components/admin/layout/sidebar";
+import { BrowserPushPrompt } from "@/components/admin/push/browser-push-prompt";
 import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
 import { navItems } from "@/constants/data";
 import { filterNavItemsForPermission } from "@/lib/auth/filter-nav-items-for-role";
@@ -302,6 +303,7 @@ export default async function DashboardLayout({
                       >
                         {/* <main className="w-full flex-1 overflow-hidden"> */}
                         <Header />
+                        <BrowserPushPrompt />
                         {isSubscriptionPastDueFlag ? (
                           <div
                             className="mx-4 mt-4 flex overflow-hidden rounded-lg border border-amber-500/50 bg-amber-950 shadow-sm dark:border-amber-500/40"

@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
+import { BrowserPushSettings } from "@/components/admin/push/browser-push-settings";
 import { LanguageOptions } from "@/constants/texts";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import {
@@ -444,6 +445,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   enabledSocialProviders={enabledSocialProviders}
                 />
               </Suspense>
+            </CardContent>
+          </Card>
+        ) : null}
+        {isSelfProfile ? (
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("users.profile.push.sectionTitle")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <BrowserPushSettings />
             </CardContent>
           </Card>
         ) : null}

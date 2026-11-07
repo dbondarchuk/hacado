@@ -3,6 +3,7 @@ import type { ActivityActorDisplay } from "../../activity/activity-actor";
 import type { ActivityTextField } from "../../activity/activity-record";
 import type { ActivitySeverity } from "../../activity/activity-severity";
 import { ConnectedAppData } from "../connected-app.data";
+import type { NotificationAudience } from "./audience";
 
 export const DASHBOARD_BADGE_EVENT = "dashboard-badge";
 
@@ -32,6 +33,8 @@ export type ActivityFeedPreview = {
 
 export type DashboardNotification = {
   type: string;
+  /** When set, SSE broker only delivers to matching viewers. */
+  audience?: NotificationAudience;
   badges?: DashboardNotificationBadge[];
   /** Increment a sidebar badge when per-user counts cannot be broadcast via `badges`. */
   incrementBadgeKey?: string;

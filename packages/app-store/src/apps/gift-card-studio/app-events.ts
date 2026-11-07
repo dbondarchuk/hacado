@@ -17,6 +17,13 @@ import {
 import type { GiftCardStudioSettings } from "./models/settings";
 import { GiftCardStudioAdminAllKeys } from "./translations/types";
 
+// Matches purchases page menu (`giftCard:read`).
+const GIFT_CARD_STUDIO_TOAST_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "giftCard" as const, action: "read" as const },
+  ],
+};
+
 export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
   events: [
     {
@@ -137,6 +144,27 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
               href: `/dashboard/gift-card-studio/purchases?purchaseId=${purchase._id}`,
             },
           },
+          audience: GIFT_CARD_STUDIO_TOAST_AUDIENCE,
+        };
+      },
+      pushNotification: (envelope) => {
+        if (envelope.source.actor !== "customer") {
+          return null;
+        }
+
+        const { purchase } =
+          envelope.payload as GiftCardStudioPurchaseCreatedPayload;
+
+        return {
+          title: {
+            key: "app_gift-card-studio_admin.notifications.newPurchase.title" satisfies GiftCardStudioAdminAllKeys,
+          },
+          body: {
+            key: "app_gift-card-studio_admin.notifications.newPurchase.message" satisfies GiftCardStudioAdminAllKeys,
+          },
+          url: `/dashboard/gift-card-studio/purchases?purchaseId=${purchase._id}`,
+          tag: GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE,
+          audience: GIFT_CARD_STUDIO_TOAST_AUDIENCE,
         };
       },
       emailNotifications: async (envelope, services) => {

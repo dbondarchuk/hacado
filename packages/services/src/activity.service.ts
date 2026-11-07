@@ -218,6 +218,9 @@ export class ActivityService extends BaseService implements IActivityService {
     await this.dashboardNotifications.publishNotification({
       type: "activity-feed",
       activityFeed: { preview: [preview] },
+      audience: {
+        requiredPermissions: [{ resource: "activity", action: "read" }],
+      },
     });
   }
 

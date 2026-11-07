@@ -27,6 +27,7 @@ import { OrganizationService } from "./organization.service";
 import { PackagesService } from "./packages.service";
 import { CachedPagesService } from "./pages-cached.service";
 import { PaymentsService } from "./payments.service";
+import { PushNotificationsService } from "./push-notifications.service";
 import { S3AssetsStorageService } from "./s3-assets-storage";
 import { getS3Configuration } from "./s3-assets-storage/utils";
 import { ScheduleService } from "./schedule.service";
@@ -87,6 +88,12 @@ export const ServicesContainer: (
     );
 
     const teamService = new TeamService(organizationId, eventService);
+    const pushNotificationsService = new PushNotificationsService(
+      organizationId,
+      teamService,
+      configurationService,
+    );
+
     const customersService = new CustomersService(organizationId, eventService);
     const activityService = new ActivityService(
       organizationId,
@@ -228,6 +235,7 @@ export const ServicesContainer: (
       organizationService,
       teamService,
       dashboardNotificationsService,
+      pushNotificationsService,
       giftCardsService,
       packagesService,
       billingService,

@@ -1,6 +1,7 @@
 import type { ActivityRecord } from "../activity/activity-record";
 import type { IConnectedAppProps } from "../apps/connected-app.props";
 import type { DashboardNotification } from "../apps/notifications/dashboard";
+import type { PushNotification } from "../apps/notifications/push";
 import type {
   EmailNotificationRequest,
   TextMessageNotificationRequest,
@@ -33,6 +34,13 @@ export type EventDefinition<TPayload = any> = {
         | DashboardNotification
         | null
         | Promise<DashboardNotification | null>);
+  pushNotification?:
+    | false
+    | ((
+        envelope: EventEnvelope<TPayload>,
+        services: IConnectedAppProps["services"],
+        getDbConnection: IConnectedAppProps["getDbConnection"],
+      ) => PushNotification | null | Promise<PushNotification | null>);
   emailNotifications?:
     | false
     | ((

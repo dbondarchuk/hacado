@@ -18,6 +18,13 @@ import {
 import { getBlogPendingCommentsBadges } from "./service/pending-comments-badge";
 import { BlogAdminAllKeys } from "./translations/types";
 
+// New-comment emails go to organization admins (`settings:update`).
+const BLOG_COMMENT_TOAST_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "settings" as const, action: "update" as const },
+  ],
+};
+
 export const BLOG_APP_EVENTS: AppEventConfig = {
   events: [
     {
@@ -134,6 +141,26 @@ export const BLOG_APP_EVENTS: AppEventConfig = {
               href: `/dashboard/blog/comments?postId=${post._id}&commentId=${comment._id}`,
             },
           },
+          audience: BLOG_COMMENT_TOAST_AUDIENCE,
+        };
+      },
+      pushNotification: async (envelope) => {
+        const payload = envelope.payload as BlogCommentCreatedPayload;
+
+        if (envelope.source.actor !== "visitor") {
+          return null;
+        }
+
+        return {
+          title: {
+            key: "app_blog_admin.notifications.newComment" satisfies BlogAdminAllKeys,
+          },
+          body: {
+            key: "app_blog_admin.notifications.newCommentMessage" satisfies BlogAdminAllKeys,
+          },
+          url: `/dashboard/blog/comments?postId=${payload.post._id}&commentId=${payload.comment._id}`,
+          tag: BLOG_COMMENT_CREATED_EVENT_TYPE,
+          audience: BLOG_COMMENT_TOAST_AUDIENCE,
         };
       },
       emailNotifications: async (envelope, services) => {

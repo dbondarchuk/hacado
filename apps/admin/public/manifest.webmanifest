@@ -1,0 +1,22 @@
+{
+  "name": "Hacado Dashboard",
+  "short_name": "Hacado",
+  "description": "Hacado admin dashboard",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "icons": [
+    {
+      "src": "/logo-notification.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": ["any", "maskable"]
+    }
+  ]
+}

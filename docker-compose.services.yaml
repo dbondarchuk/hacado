@@ -56,6 +56,9 @@ services:
       - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
       - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
       - GEOAPIFY_API_KEY=${GEOAPIFY_API_KEY}
+      - VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}
+      - VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}
+      - VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}
     restart: unless-stopped
     ports:
       - "3001:3001"
@@ -208,6 +211,9 @@ services:
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
       - SMS_APPOINTMENT_CONSENT_BEFORE=${SMS_APPOINTMENT_CONSENT_BEFORE:-}
+      - VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}
+      - VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}
+      - VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}
     restart: unless-stopped
 
   app-external-server:

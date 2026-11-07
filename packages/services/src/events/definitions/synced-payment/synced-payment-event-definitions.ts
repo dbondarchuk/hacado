@@ -24,6 +24,12 @@ import {
 } from "@hacado/types/events";
 import { dashboardUrls } from "../links";
 
+const SYNCED_PAYMENT_READ_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "syncedPayment" as const, action: "read" as const },
+  ],
+};
+
 export const SYNCED_PAYMENTS_REVIEW_BADGE_KEY = "synced_payments_review";
 
 function syncedPaymentsReviewBadges(
@@ -37,6 +43,43 @@ async function reviewQueueBadges(services: {
 }) {
   const count = await services.syncedPaymentsService.getReviewQueueCount();
   return syncedPaymentsReviewBadges(count);
+}
+
+function buildSyncedPaymentIngestedToast(
+  syncedPayment: SyncedPaymentIngestedPayload["syncedPayment"],
+) {
+  const isMatched = syncedPayment.status === "matched";
+  const keyPrefix = isMatched
+    ? ("admin.syncedPayments.notifications.ingested.matched" as const)
+    : ("admin.syncedPayments.notifications.ingested.unmatched" as const);
+
+  return {
+    type: isMatched ? ("info" as const) : ("warning" as const),
+    title: {
+      key: `${keyPrefix}.title` satisfies BaseAllKeys,
+    },
+    message: {
+      key: `${keyPrefix}.message` satisfies BaseAllKeys,
+      args: {
+        $_amount: syncedPayment.amount,
+        t_provider:
+          AvailableApps[syncedPayment.appName]?.displayName ??
+          syncedPayment.appName,
+        t_status:
+          `admin.syncedPayments.status.${syncedPayment.status}` satisfies BaseAllKeys,
+        dt_transactionTime: {
+          value: syncedPayment.transactionTime.toISOString(),
+          format: "DATETIME_HUGE",
+        },
+      },
+    },
+    action: {
+      label: {
+        key: `${keyPrefix}.action` satisfies BaseAllKeys,
+      },
+      href: dashboardUrls.syncedPayment(syncedPayment),
+    },
+  };
 }
 
 export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
@@ -74,41 +117,26 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           envelope.payload as SyncedPaymentIngestedPayload;
 
         const badges = await reviewQueueBadges(services);
-        const isMatched = syncedPayment.status === "matched";
-        const keyPrefix = isMatched
-          ? ("admin.syncedPayments.notifications.ingested.matched" as const)
-          : ("admin.syncedPayments.notifications.ingested.unmatched" as const);
 
         return {
           type: "synced-payment-ingested",
           badges,
-          toast: {
-            type: isMatched ? "info" : "warning",
-            title: {
-              key: `${keyPrefix}.title` satisfies BaseAllKeys,
-            },
-            message: {
-              key: `${keyPrefix}.message` satisfies BaseAllKeys,
-              args: {
-                $_amount: syncedPayment.amount,
-                t_provider:
-                  AvailableApps[syncedPayment.appName]?.displayName ??
-                  syncedPayment.appName,
-                t_status:
-                  `admin.syncedPayments.status.${syncedPayment.status}` satisfies BaseAllKeys,
-                dt_transactionTime: {
-                  value: syncedPayment.transactionTime.toISOString(),
-                  format: "DATETIME_HUGE",
-                },
-              },
-            },
-            action: {
-              label: {
-                key: `${keyPrefix}.action` satisfies BaseAllKeys,
-              },
-              href: dashboardUrls.syncedPayment(syncedPayment),
-            },
-          },
+          toast: buildSyncedPaymentIngestedToast(syncedPayment),
+          audience: SYNCED_PAYMENT_READ_AUDIENCE,
+        };
+      },
+      pushNotification: async (envelope) => {
+        const { syncedPayment } =
+          envelope.payload as SyncedPaymentIngestedPayload;
+
+        const toast = buildSyncedPaymentIngestedToast(syncedPayment);
+
+        return {
+          title: toast.title,
+          body: toast.message,
+          url: toast.action.href,
+          tag: SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
+          audience: SYNCED_PAYMENT_READ_AUDIENCE,
         };
       },
       emailNotifications: false,

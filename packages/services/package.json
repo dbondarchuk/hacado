@@ -38,6 +38,7 @@
     "./pages": "./src/pages.service.ts",
     "./pages-cached": "./src/pages-cached.service.ts",
     "./payments": "./src/payments.service.ts",
+    "./push-notifications": "./src/push-notifications.service.ts",
     "./s3-assets-storage": "./src/s3-assets-storage/index.ts",
     "./schedule": "./src/schedule.service.ts",
     "./short-links": "./src/short-links/index.ts",
@@ -54,6 +55,7 @@
     "@types/html-to-text": "^9.0.4",
     "@types/node": "^20",
     "@types/react": "19.2.18",
+    "@types/web-push": "^3.6.4",
     "tsx": "^4.7.0",
     "typescript": "6.0.2"
   },
@@ -73,6 +75,7 @@
     "nodemailer": "^6.9.14",
     "p-limit": "^6.2.0",
     "resend": "^6.19.0",
-    "telnyx": "^7.26.0"
+    "telnyx": "^7.26.0",
+    "web-push": "3.6.7"
   }
 }

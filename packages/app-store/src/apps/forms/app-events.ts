@@ -6,6 +6,13 @@ import {
 } from "./models/events";
 import { FormsAdminAllKeys } from "./translations/types";
 
+// Matches forms menu badge UI (`page:update`).
+const FORMS_TOAST_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "page" as const, action: "update" as const },
+  ],
+};
+
 export const FORMS_APP_EVENTS: AppEventConfig = {
   events: [
     {
@@ -55,6 +62,26 @@ export const FORMS_APP_EVENTS: AppEventConfig = {
               href: `/dashboard/forms/responses/edit?id=${formResponse._id}`,
             },
           },
+          audience: FORMS_TOAST_AUDIENCE,
+        };
+      },
+      pushNotification: (envelope) => {
+        if (envelope.source.actor !== "customer") {
+          return null;
+        }
+
+        const { formResponse } = envelope.payload as FormResponseCreatedPayload;
+
+        return {
+          title: {
+            key: "app_forms_admin.notifications.newResponse" satisfies FormsAdminAllKeys,
+          },
+          body: {
+            key: "app_forms_admin.notifications.newResponseMessage" satisfies FormsAdminAllKeys,
+          },
+          url: `/dashboard/forms/responses/edit?id=${formResponse._id}`,
+          tag: FORM_RESPONSE_CREATED_EVENT_TYPE,
+          audience: FORMS_TOAST_AUDIENCE,
         };
       },
       emailNotifications: false,

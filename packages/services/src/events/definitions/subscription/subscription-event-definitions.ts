@@ -13,6 +13,12 @@ import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 
+const BILLING_READ_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "billing" as const, action: "read" as const },
+  ],
+};
+
 const CONCERNING_SUBSCRIPTION_STATUSES =
   new Set<OrganizationSubscriptionStatus>([
     OrganizationSubscriptionStatus.Canceled,
@@ -26,6 +32,34 @@ function isConcerningSubscriptionStatus(
   status: OrganizationSubscriptionStatus,
 ): boolean {
   return CONCERNING_SUBSCRIPTION_STATUSES.has(status);
+}
+
+function getSubscriptionStatusChangedToast(
+  payload: SubscriptionStatusChangedPayload,
+) {
+  const product = payload.productName?.trim() || "-";
+  const concerning = isConcerningSubscriptionStatus(payload.newStatus);
+
+  return {
+    type: concerning ? ("warning" as const) : ("info" as const),
+    title: {
+      key: "admin.platformEvents.subscription.statusChanged.title" as BaseAllKeys,
+    },
+    message: {
+      key: "admin.platformEvents.subscription.statusChanged.description" as BaseAllKeys,
+      args: {
+        product,
+        newStatus: payload.newStatus,
+        oldStatus: payload.oldStatus ?? "-",
+      },
+    },
+    action: {
+      label: {
+        key: "admin.billing.emails.subscriptionAlert.button" as BaseAllKeys,
+      },
+      href: dashboardUrls.billing,
+    },
+  };
 }
 
 export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
@@ -59,30 +93,22 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     },
     dashboardNotification: async (envelope) => {
       const payload = envelope.payload as SubscriptionStatusChangedPayload;
-      const product = payload.productName?.trim() || "-";
-      const concerning = isConcerningSubscriptionStatus(payload.newStatus);
       return {
         type: "subscription-status-changed",
-        toast: {
-          type: concerning ? "warning" : "info",
-          title: {
-            key: "admin.platformEvents.subscription.statusChanged.title" as BaseAllKeys,
-          },
-          message: {
-            key: "admin.platformEvents.subscription.statusChanged.description" as BaseAllKeys,
-            args: {
-              product,
-              newStatus: payload.newStatus,
-              oldStatus: payload.oldStatus ?? "-",
-            },
-          },
-          action: {
-            label: {
-              key: "admin.billing.emails.subscriptionAlert.button" as BaseAllKeys,
-            },
-            href: dashboardUrls.billing,
-          },
-        },
+        toast: getSubscriptionStatusChangedToast(payload),
+        audience: BILLING_READ_AUDIENCE,
+      };
+    },
+    pushNotification: async (envelope) => {
+      const payload = envelope.payload as SubscriptionStatusChangedPayload;
+      const toast = getSubscriptionStatusChangedToast(payload);
+
+      return {
+        title: toast.title,
+        body: toast.message,
+        url: toast.action.href,
+        tag: SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
+        audience: BILLING_READ_AUDIENCE,
       };
     },
     emailNotifications: async (envelope, services) => {

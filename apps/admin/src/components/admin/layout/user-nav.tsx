@@ -1,5 +1,6 @@
 "use client";
 import { authClient } from "@/app/auth-client";
+import { disableBrowserPush } from "@/push/browser-push";
 import type { AdminKeys } from "@hacado/i18n/keys";
 
 import { useI18n } from "@hacado/i18n/client";
@@ -36,6 +37,7 @@ export function UserNav() {
   const { isMobile } = useSidebar();
   const router = useRouter();
   const logout = async () => {
+    await disableBrowserPush().catch(() => undefined);
     await authClient.signOut();
     router.push("/");
   };

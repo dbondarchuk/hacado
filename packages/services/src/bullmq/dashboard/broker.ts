@@ -1,11 +1,15 @@
 import { getLoggerFactory } from "@hacado/logger";
 import type { DashboardNotification } from "@hacado/types/apps";
+import type { UserRole } from "@hacado/types/users";
+import { notificationAudienceMatches } from "@hacado/utils/permissions";
 import { Redis } from "ioredis";
 import { getRedisClient } from "../redis-client";
 
 type Client = {
   id: string;
   organizationId: string;
+  memberId: string;
+  role: UserRole;
   send: (data: DashboardNotification) => void;
 };
 
@@ -82,10 +86,25 @@ class DashboardNotificationRealtimeBroker {
       return;
     }
 
-    const data = JSON.parse(raw);
-    for (const client of clients) client.send(data);
+    const data = JSON.parse(raw) as DashboardNotification;
+    let delivered = 0;
+
+    for (const client of clients) {
+      if (
+        !notificationAudienceMatches(
+          { memberId: client.memberId, role: client.role },
+          data.audience,
+        )
+      ) {
+        continue;
+      }
+
+      client.send(data);
+      delivered += 1;
+    }
+
     logger.info(
-      { organizationId, clients: clients.size },
+      { organizationId, clients: clients.size, delivered },
       "Sent message to clients",
     );
   }

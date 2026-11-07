@@ -3703,6 +3703,23 @@ dashboard:
       {count, plural, =1 {# inactive team member has} other {# inactive team
       members have}} upcoming appointments that need to be reassigned.
     viewAppointments: View appointments →
+  pushPrompt:
+    title: Enable browser notifications
+    description: Get notified about new bookings and important updates even when this tab is closed.
+    enable: Enable
+    dismiss: Dismiss
+    showMeHow: Show me how
+    iosTitle: Add to Home Screen to enable notifications
+    iosDescription: On iPhone or iPad, install Hacado to your Home Screen, then open it from there to turn on browser notifications.
+    howTo:
+      title: Add Hacado to Home Screen
+      description: iPhone and iPad only allow browser notifications after you install the app to your Home Screen (Safari or Chrome).
+      step1Title: Open Share
+      step1Description: Tap the Share button in the browser toolbar (square with an upward arrow). In Chrome, open the menu and choose Share if you do not see it.
+      step2Title: Add to Home Screen
+      step2Description: Scroll the share sheet and tap Add to Home Screen, then confirm with Add.
+      step3Title: Open from Home Screen
+      step3Description: Launch Hacado from the new Home Screen icon, then enable browser notifications from the banner or your profile settings.
   subscriptionInactive:
     title: Subscription cancelled
     description: This workspace subscription is not active. Contact us to restore access.
@@ -4475,6 +4492,15 @@ users:
           virtual appointments.
       changePhoto: Change photo
       removePhoto: Remove
+    push:
+      sectionTitle: Browser notifications
+      title: Push notifications
+      description: Get alerts on this device even when the dashboard is closed.
+      unsupported: Browser push notifications are not supported on this device.
+      iosInstallHint: On iPhone or iPad, add Hacado to your Home Screen first, then open it from there to enable push notifications.
+      enabledToast: Browser notifications enabled
+      disabledToast: Browser notifications disabled
+      errorToast: Could not update browser notification settings
     security:
       title: Account & security
       email: Email address

@@ -22,6 +22,12 @@ import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 
+const BILLING_READ_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "billing" as const, action: "read" as const },
+  ],
+};
+
 function smsCreditsEmailKeyPrefix(eventType: string) {
   return eventType === SMS_CREDITS_EXHAUSTED_EVENT_TYPE
     ? ("admin.billing.emails.smsCreditsExhausted" as const)
@@ -132,6 +138,41 @@ function buildSmsCreditThresholdActivity(
   };
 }
 
+type SmsCreditsDashboardToast = {
+  type: "warning" | "error";
+  title: { key: BaseAllKeys };
+  message: { key: BaseAllKeys; args: { balance: number } };
+  action: {
+    label: { key: BaseAllKeys };
+    href: string;
+  };
+};
+
+function getSmsCreditsThresholdToast(
+  envelope: EventEnvelope<SmsCreditsThresholdPayload>,
+): SmsCreditsDashboardToast {
+  const keyPrefix = smsCreditsNotificationKeyPrefix(envelope.type);
+  const payload = envelope.payload as SmsCreditsThresholdPayload;
+  const isExhausted = envelope.type === SMS_CREDITS_EXHAUSTED_EVENT_TYPE;
+
+  return {
+    type: isExhausted ? "error" : "warning",
+    title: {
+      key: `${keyPrefix}.title` as BaseAllKeys,
+    },
+    message: {
+      key: `${keyPrefix}.message` as BaseAllKeys,
+      args: { balance: payload.balance },
+    },
+    action: {
+      label: {
+        key: `${keyPrefix}.action` as BaseAllKeys,
+      },
+      href: dashboardUrls.billing,
+    },
+  };
+}
+
 export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [SMS_CREDITS_LOW_EVENT_TYPE]: {
     type: SMS_CREDITS_LOW_EVENT_TYPE,
@@ -140,26 +181,25 @@ export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         envelope as EventEnvelope<SmsCreditsThresholdPayload>,
       ),
     dashboardNotification: async (envelope) => {
-      const keyPrefix = smsCreditsNotificationKeyPrefix(envelope.type);
-      const payload = envelope.payload as SmsCreditsThresholdPayload;
       return {
         type: "billing-sms-credits-low",
-        toast: {
-          type: "warning" as const,
-          title: {
-            key: `${keyPrefix}.title` as BaseAllKeys,
-          },
-          message: {
-            key: `${keyPrefix}.message` as BaseAllKeys,
-            args: { balance: payload.balance },
-          },
-          action: {
-            label: {
-              key: `${keyPrefix}.action` as BaseAllKeys,
-            },
-            href: dashboardUrls.billing,
-          },
-        },
+        toast: getSmsCreditsThresholdToast(
+          envelope as EventEnvelope<SmsCreditsThresholdPayload>,
+        ),
+        audience: BILLING_READ_AUDIENCE,
+      };
+    },
+    pushNotification: async (envelope) => {
+      const toast = getSmsCreditsThresholdToast(
+        envelope as EventEnvelope<SmsCreditsThresholdPayload>,
+      );
+
+      return {
+        title: toast.title,
+        body: toast.message,
+        url: toast.action.href,
+        tag: SMS_CREDITS_LOW_EVENT_TYPE,
+        audience: BILLING_READ_AUDIENCE,
       };
     },
     emailNotifications: async (envelope, services) =>
@@ -173,26 +213,25 @@ export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         envelope as EventEnvelope<SmsCreditsThresholdPayload>,
       ),
     dashboardNotification: async (envelope) => {
-      const keyPrefix = smsCreditsNotificationKeyPrefix(envelope.type);
-      const payload = envelope.payload as SmsCreditsThresholdPayload;
       return {
         type: "billing-sms-credits-exhausted",
-        toast: {
-          type: "error" as const,
-          title: {
-            key: `${keyPrefix}.title` as BaseAllKeys,
-          },
-          message: {
-            key: `${keyPrefix}.message` as BaseAllKeys,
-            args: { balance: payload.balance },
-          },
-          action: {
-            label: {
-              key: `${keyPrefix}.action` as BaseAllKeys,
-            },
-            href: dashboardUrls.billing,
-          },
-        },
+        toast: getSmsCreditsThresholdToast(
+          envelope as EventEnvelope<SmsCreditsThresholdPayload>,
+        ),
+        audience: BILLING_READ_AUDIENCE,
+      };
+    },
+    pushNotification: async (envelope) => {
+      const toast = getSmsCreditsThresholdToast(
+        envelope as EventEnvelope<SmsCreditsThresholdPayload>,
+      );
+
+      return {
+        title: toast.title,
+        body: toast.message,
+        url: toast.action.href,
+        tag: SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
+        audience: BILLING_READ_AUDIENCE,
       };
     },
     emailNotifications: async (envelope, services) =>
@@ -242,6 +281,25 @@ export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             href: dashboardUrls.billing,
           },
         },
+        audience: BILLING_READ_AUDIENCE,
+      };
+    },
+    pushNotification: async (envelope) => {
+      const { credits } = envelope.payload as SmsTopupPurchasedPayload;
+
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
+      return {
+        title: {
+          key: "admin.billing.notifications.smsTopupPurchased.title" as BaseAllKeys,
+        },
+        body: {
+          key: "admin.billing.notifications.smsTopupPurchased.message" as BaseAllKeys,
+          args: { credits },
+        },
+        url: dashboardUrls.billing,
+        tag: SMS_TOPUP_PURCHASED_EVENT_TYPE,
+        audience: BILLING_READ_AUDIENCE,
       };
     },
     emailNotifications: false,

@@ -3,6 +3,7 @@ import { renderUserEmailTemplate } from "@hacado/email-builder/static";
 import { fallbackLanguage, type Language } from "@hacado/i18n";
 import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { getI18nAsync } from "@hacado/i18n/server";
+import type { NotificationAudience } from "@hacado/types/apps";
 import type {
   AppConnectedPayload,
   AppFailedPayload,
@@ -17,6 +18,22 @@ import {
   APP_UNINSTALLED_EVENT_TYPE,
 } from "@hacado/types/events";
 import { getAdminUrl } from "@hacado/utils/website";
+
+const COMPANY_APP_FAILED_AUDIENCE = {
+  requiredPermissions: [
+    { resource: "app" as const, action: "install" as const },
+    { resource: "app" as const, action: "useCompany" as const },
+  ],
+};
+
+function appFailedAudience(payload: AppFailedPayload): NotificationAudience {
+  const target = AvailableApps[payload.appName]?.target ?? "company";
+  if (target === "member" && payload.memberId) {
+    return { memberIds: [payload.memberId] };
+  }
+
+  return COMPANY_APP_FAILED_AUDIENCE;
+}
 
 export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [APP_INSTALLED_EVENT_TYPE]: {
@@ -129,6 +146,8 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     },
     dashboardNotification: async (envelope) => {
       const payload = envelope.payload as AppFailedPayload;
+      const audience = appFailedAudience(payload);
+
       return {
         type: "app-failed",
         toast: {
@@ -151,6 +170,26 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             href: "/dashboard/apps",
           },
         },
+        audience,
+      };
+    },
+    pushNotification: async (envelope) => {
+      const payload = envelope.payload as AppFailedPayload;
+      return {
+        title: {
+          key: "admin.apps.notifications.failed.title" satisfies BaseAllKeys,
+        },
+        body: {
+          key: "admin.apps.notifications.failed.message" satisfies BaseAllKeys,
+          args: {
+            appName: payload.appName,
+            t_appDisplayName:
+              AvailableApps[payload.appName]?.displayName ?? payload.appName,
+          },
+        },
+        url: "/dashboard/apps",
+        tag: APP_FAILED_EVENT_TYPE,
+        audience: appFailedAudience(payload),
       };
     },
     emailNotifications: async (envelope, services) => {

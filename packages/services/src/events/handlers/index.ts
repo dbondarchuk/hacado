@@ -4,12 +4,14 @@ import { customerPackagePaymentHandler } from "./customer-package-payment-handle
 import { dashboardNotificationHandler } from "./dashboard-notification-handler";
 import { giftCardPaymentHandler } from "./gift-card-payment-handler";
 import { notificationHandler } from "./notification-handler";
+import { pushNotificationHandler } from "./push-notification-handler";
 import { smsProfileNumberHandler } from "./sms-profile-number-handler";
 import type { EventHandler } from "./types";
 
 export const eventHandlers: EventHandler[] = [
   activityHandler,
   dashboardNotificationHandler,
+  pushNotificationHandler,
   notificationHandler,
   appsHandler,
   smsProfileNumberHandler,

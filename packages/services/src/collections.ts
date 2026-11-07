@@ -28,3 +28,4 @@ export const APPOINTMENT_PACKAGES_COLLECTION_NAME = "appointment-packages";
 export const CUSTOMER_PACKAGES_COLLECTION_NAME = "customer-packages";
 export const ACTIVITIES_COLLECTION_NAME = "activities";
 export const SHORT_LINKS_COLLECTION_NAME = "short-links";
+export const PUSH_SUBSCRIPTIONS_COLLECTION_NAME = "push-subscriptions";

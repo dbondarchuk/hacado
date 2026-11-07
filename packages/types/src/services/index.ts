@@ -16,6 +16,7 @@ export type * from "./organization.service";
 export type * from "./packages.service";
 export type * from "./pages.service";
 export type * from "./payments.service";
+export type * from "./push-notifications.service";
 export type * from "./schedule.service";
 export type * from "./short-links.service";
 export type * from "./sms-consent.service";

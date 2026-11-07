@@ -21,6 +21,7 @@ import type { IOrganizationService } from "./organization.service";
 import type { IPackagesService } from "./packages.service";
 import type { IPagesService } from "./pages.service";
 import type { IPaymentsService } from "./payments.service";
+import type { IPushNotificationsService } from "./push-notifications.service";
 import type { IScheduleService } from "./schedule.service";
 import type { IShortLinksService } from "./short-links.service";
 import type { ISmsConsentService } from "./sms-consent.service";
@@ -50,6 +51,7 @@ export type IServicesContainer = {
   organizationService: IOrganizationService;
   teamService: ITeamService;
   dashboardNotificationsService: IDashboardNotificationsService;
+  pushNotificationsService: IPushNotificationsService;
   giftCardsService: IGiftCardsService;
   packagesService: IPackagesService;
   billingService: IBillingService;

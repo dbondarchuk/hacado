@@ -202,6 +202,8 @@ export async function GET(request: NextRequest) {
       const client = {
         id: v4(),
         organizationId,
+        memberId: session.user.memberId,
+        role: session.user.role,
         send: (data: DashboardNotification) => {
           logger.debug({ data }, "Received notification");
           controller.enqueue(`data: ${JSON.stringify(data)}\n\n`);

@@ -36,6 +36,16 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/icon.ico",
+    apple: "/logo-notification.png",
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Hacado",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
   },
 };
 
