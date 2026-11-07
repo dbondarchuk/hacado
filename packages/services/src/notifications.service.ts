@@ -6,6 +6,7 @@ import {
   IMailSenderApp,
   ITextMessageSender,
   ITextMessageSenderApp,
+  PushNotificationRequest,
   TextMessage,
   TextMessageResponse,
 } from "@hacado/types/apps";
@@ -119,6 +120,12 @@ export class NotificationService implements INotificationService {
     private readonly smsStore: SmsStore = new SmsStore(),
     private readonly registrationStore: SmsRegistrationStore = new SmsRegistrationStore(),
   ) {}
+
+  public async sendPush(_props: PushNotificationRequest): Promise<void> {
+    throw new Error(
+      "Direct NotificationService.sendPush is not supported; use PushNotificationsService.sendToSubscription via the push queue worker",
+    );
+  }
 
   public async sendEmail(props: EmailNotificationRequest): Promise<void> {
     const { email, handledBy, participantType, appointmentId, customerId } =

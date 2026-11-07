@@ -1,6 +1,7 @@
 import { AllKeys, I18nNamespaces } from "@hacado/i18n";
 import { Email } from "../apps/mail";
 import { DashboardNotification } from "../apps/notifications/dashboard";
+import { PushNotificationRequest } from "../apps/notifications/push";
 import { TextMessageData } from "../apps/text-message";
 import {
   TextMessage,
@@ -84,6 +85,8 @@ export interface INotificationService {
   sendTextMessage(
     props: TextMessageNotificationRequest,
   ): Promise<TextMessageResponse>;
+
+  sendPush(props: PushNotificationRequest): Promise<void>;
 }
 
 export interface ISystemNotificationService {

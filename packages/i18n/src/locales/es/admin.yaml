@@ -4192,6 +4192,11 @@ users:
       enabledToast: Notificaciones del navegador activadas
       disabledToast: Notificaciones del navegador desactivadas
       errorToast: No se pudieron actualizar los ajustes de notificaciones del navegador
+      sendTest: Enviar notificación de prueba
+      testTitle: Notificación de prueba
+      testBody: Las notificaciones del navegador funcionan en este dispositivo.
+      testSentToast: Notificación de prueba enviada
+      testErrorToast: No se pudo enviar la notificación de prueba
     security:
       title: Cuenta y seguridad
       email: Dirección de correo electrónico

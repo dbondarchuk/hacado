@@ -180,6 +180,23 @@ export async function getServerPushStatus(endpoint: string): Promise<boolean> {
   return data.enabled;
 }
 
+export async function sendTestBrowserPush(): Promise<void> {
+  const subscription = await getCurrentPushSubscription();
+  if (!subscription) {
+    throw new Error("No push subscription");
+  }
+
+  const response = await fetch(`${BASE_ADMIN_API_URL}/push/test`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ endpoint: subscription.endpoint }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to send test push notification");
+  }
+}
+
 export async function enableBrowserPush(): Promise<PushSubscription> {
   if (!isBrowserPushSupported()) {
     throw new Error("Browser push is not supported");

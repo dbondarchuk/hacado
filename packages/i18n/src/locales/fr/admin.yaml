@@ -4192,6 +4192,11 @@ users:
       enabledToast: Notifications du navigateur activées
       disabledToast: Notifications du navigateur désactivées
       errorToast: Impossible de mettre à jour les paramètres de notification du navigateur
+      sendTest: Envoyer une notification de test
+      testTitle: Notification de test
+      testBody: Les notifications du navigateur fonctionnent sur cet appareil.
+      testSentToast: Notification de test envoyée
+      testErrorToast: Impossible d’envoyer la notification de test
     security:
       title: Compte et sécurité
       email: Adresse email

@@ -4501,6 +4501,11 @@ users:
       enabledToast: Browser notifications enabled
       disabledToast: Browser notifications disabled
       errorToast: Could not update browser notification settings
+      sendTest: Send test notification
+      testTitle: Test notification
+      testBody: Browser notifications are working on this device.
+      testSentToast: Test notification sent
+      testErrorToast: Could not send test notification
     security:
       title: Account & security
       email: Email address

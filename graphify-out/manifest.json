@@ -980,8 +980,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/layout.tsx": {
-    "mtime": 1794000259.4228423,
-    "ast_hash": "f76a81395c88207a761725b6e8e128b2",
+    "mtime": 1794068544.0151083,
+    "ast_hash": "c9ebe2916de58ba16919ead0b5db4e6f",
     "semantic_hash": ""
   },
   "apps/admin/src/app/utils.ts": {
@@ -11805,13 +11805,13 @@
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/notifications/bullmq-notification-service.ts": {
-    "mtime": 1793559267.0835726,
-    "ast_hash": "7d28b32cf7e205d273b8530bc97b1ca0",
+    "mtime": 1794091836.0725489,
+    "ast_hash": "55b1a24961684502fce7f79a1d4e13fe",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/notifications/bullmq-notification-worker.ts": {
-    "mtime": 1793559267.0835726,
-    "ast_hash": "f70057e8f7c7c5e4e9dc3b3c40e9bbb7",
+    "mtime": 1794091866.6674738,
+    "ast_hash": "0321ae0df06d72abce95781452ea018e",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/notifications/index.ts": {
@@ -11820,13 +11820,13 @@
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/notifications/types.ts": {
-    "mtime": 1773675371.4379978,
-    "ast_hash": "92ec0b71ddb91aa6e2c71475627cfa69",
+    "mtime": 1794091817.063351,
+    "ast_hash": "62c884957c5dcdf3d331999a3187ab9b",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/notifications/utils.ts": {
-    "mtime": 1773675371.4379978,
-    "ast_hash": "41fe607824af209a4c7c597f8426fc0b",
+    "mtime": 1794091819.3879848,
+    "ast_hash": "ff99f1826850eea6a5797099fa32b40f",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/redis-client.ts": {
@@ -12085,8 +12085,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/notifications.service.ts": {
-    "mtime": 1793739807.3608074,
-    "ast_hash": "05b9c28a3a84c25531089f0bba9aeb87",
+    "mtime": 1794091810.7554967,
+    "ast_hash": "6ed56da9dd01a047c06503a828aa5d0a",
     "semantic_hash": ""
   },
   "packages/services/src/organization-hostname-cache.ts": {
@@ -12875,8 +12875,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/services/notification.service.ts": {
-    "mtime": 1793490076.4009302,
-    "ast_hash": "726ec7ed904fd3067505995635d24f74",
+    "mtime": 1794091778.8554215,
+    "ast_hash": "13c68a72d92a8c3ed3206c1243e4e6eb",
     "semantic_hash": ""
   },
   "packages/types/src/services/organization.service.ts": {
@@ -14515,18 +14515,18 @@
     "semantic_hash": ""
   },
   "docker-compose.local.yaml": {
-    "mtime": 1794003761.8111944,
-    "ast_hash": "cf603b027b8c2553fba4a8c44c0aba86",
+    "mtime": 1794091880.382689,
+    "ast_hash": "3c5790fec3d33fa99ed445d2f6df488a",
     "semantic_hash": ""
   },
   "docker-compose.services.yaml": {
-    "mtime": 1794003753.6058533,
-    "ast_hash": "130769cce9eb09a0a5ef83660aa6e8de",
+    "mtime": 1794091884.73125,
+    "ast_hash": "8b696e5d5aeb960cd7aa69f8ee111b1a",
     "semantic_hash": ""
   },
   "docker-compose.yaml": {
-    "mtime": 1794003748.3669276,
-    "ast_hash": "46db4d22785eda5fca69d65c69f063ed",
+    "mtime": 1794091871.3855448,
+    "ast_hash": "bc1db60d3616e2edb45785f0daa34f2c",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -38375,23 +38375,23 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/handlers/push-notification-handler.ts": {
-    "mtime": 1793999904.8669567,
-    "ast_hash": "9d35dbc427766ea478b87b45b7bfe7a7",
+    "mtime": 1794091807.4911125,
+    "ast_hash": "ff78ead9d72de0addb06466c224c57bf",
     "semantic_hash": ""
   },
   "packages/services/src/push-notifications.service.ts": {
-    "mtime": 1794067949.7865498,
-    "ast_hash": "0a27f7ee5e70dd3eb8e52e10da8829e7",
+    "mtime": 1794091802.7699518,
+    "ast_hash": "565358e4437af8aa13894cf0fa4f5cae",
     "semantic_hash": ""
   },
   "packages/types/src/apps/notifications/push.ts": {
-    "mtime": 1794021890.7651227,
-    "ast_hash": "29d689e305284afe04813b72a3fd1a5b",
+    "mtime": 1794091772.9318223,
+    "ast_hash": "1171f8f9c7e30d5f69520745f4442fbc",
     "semantic_hash": ""
   },
   "packages/types/src/services/push-notifications.service.ts": {
-    "mtime": 1793999757.3399053,
-    "ast_hash": "449b3776ce848c04b0ace2b45cb801fb",
+    "mtime": 1794091775.9127095,
+    "ast_hash": "6eb897a7d1f63939daea05ce5fd8c990",
     "semantic_hash": ""
   },
   "packages/utils/src/resolved-i18n-text.ts": {
@@ -38405,18 +38405,18 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/push/status/route.ts": {
-    "mtime": 1794067952.5532982,
-    "ast_hash": "026288b56fc26e1cac2c459eeb42a395",
+    "mtime": 1794090842.399558,
+    "ast_hash": "55caa8556fc29e4ddab51d93de4096bf",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/push/subscribe/route.ts": {
-    "mtime": 1794067951.4537835,
-    "ast_hash": "3c60bd7fcd66ea5150de404e308d4fcc",
+    "mtime": 1794090839.7104833,
+    "ast_hash": "a5fd40b09d7e0eaf1bb1d1275be80f18",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/push/vapid-public-key/route.ts": {
-    "mtime": 1794003871.7309737,
-    "ast_hash": "0a7c81bb4252417c7b045c38912ae395",
+    "mtime": 1794090844.1922498,
+    "ast_hash": "4a069d399fb7bff5cb96cc65e5fd4409",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/push/browser-push-prompt.tsx": {
@@ -38425,13 +38425,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/push/browser-push-settings.tsx": {
-    "mtime": 1794064361.1407862,
-    "ast_hash": "0b772e876baa7392d62f49c6f705bb5d",
+    "mtime": 1794068674.0140622,
+    "ast_hash": "9d2fd96a7333b59c9e2c94450106f24f",
     "semantic_hash": ""
   },
   "apps/admin/src/push/browser-push.ts": {
-    "mtime": 1794067378.041189,
-    "ast_hash": "fda40f79b9d4c33f4be121237a77ac87",
+    "mtime": 1794068671.4531937,
+    "ast_hash": "4332c62070984d4cf60d6ead1a85950d",
     "semantic_hash": ""
   },
   "apps/admin/src/push/url-base64-to-uint8-array.ts": {

@@ -57,3 +57,15 @@ export type DeliveredPushPayload = {
   url?: string;
   tag?: string;
 };
+
+/**
+ * Final delivery unit prepared by job-processor and enqueued for
+ * notification-sender (one browser PushSubscription).
+ */
+export type PushNotificationRequest = {
+  endpoint: string;
+  keys: PushSubscriptionKeys;
+  expirationTime?: number | null;
+  memberId: string;
+  payload: DeliveredPushPayload;
+};

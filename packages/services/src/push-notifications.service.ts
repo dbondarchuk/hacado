@@ -3,6 +3,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import type {
   DeliveredPushPayload,
   PushNotification,
+  PushNotificationRequest,
   PushSubscriptionRecord,
   UpsertPushSubscriptionInput,
 } from "@hacado/types/apps";
@@ -51,8 +52,27 @@ export class PushNotificationsService
     input: UpsertPushSubscriptionInput,
   ): Promise<PushSubscriptionRecord> {
     const logger = this.loggerFactory("upsertSubscription");
+    logger.debug(
+      {
+        endpoint: input.endpoint,
+        memberId: input.memberId,
+        userId: input.userId,
+        organizationId: input.organizationId,
+        hasExpirationTime: input.expirationTime != null,
+        userAgent: input.userAgent,
+      },
+      "Upserting push subscription",
+    );
 
     if (input.organizationId !== this.organizationId) {
+      logger.warn(
+        {
+          inputOrganizationId: input.organizationId,
+          organizationId: this.organizationId,
+        },
+        "Push subscription organization mismatch",
+      );
+
       throw new Error("Push subscription organization mismatch");
     }
 
@@ -64,6 +84,15 @@ export class PushNotificationsService
 
     const sameOrgExisting = await collection.findOne(
       this.withOrganizationFilter({ endpoint: input.endpoint }),
+    );
+
+    logger.debug(
+      {
+        endpoint: input.endpoint,
+        foundSameOrg: Boolean(sameOrgExisting),
+        previousMemberId: sameOrgExisting?.memberId,
+      },
+      "Looked up same-org push subscription",
     );
 
     // Endpoints are globally unique. Only reclaim a foreign binding when the
@@ -78,6 +107,15 @@ export class PushNotificationsService
         const keysMatch =
           foreignExisting.keys.p256dh === input.keys.p256dh &&
           foreignExisting.keys.auth === input.keys.auth;
+
+        logger.debug(
+          {
+            endpoint: input.endpoint,
+            previousOrganizationId: foreignExisting.organizationId,
+            keysMatch,
+          },
+          "Found foreign push subscription for endpoint",
+        );
 
         if (!keysMatch) {
           logger.warn(
@@ -125,7 +163,7 @@ export class PushNotificationsService
       updatedAt: now,
     };
 
-    await collection.updateOne(
+    const updateResult = await collection.updateOne(
       this.withOrganizationFilter({ endpoint: input.endpoint }),
       {
         $set: {
@@ -146,11 +184,22 @@ export class PushNotificationsService
       { upsert: true },
     );
 
+    logger.debug(
+      {
+        endpoint: input.endpoint,
+        matchedCount: updateResult.matchedCount,
+        modifiedCount: updateResult.modifiedCount,
+        upsertedCount: updateResult.upsertedCount,
+      },
+      "Push subscription update result",
+    );
+
     logger.info(
       {
         endpoint: input.endpoint,
         memberId: input.memberId,
         organizationId: this.organizationId,
+        created: !sameOrgExisting,
       },
       "Upserted push subscription",
     );
@@ -160,6 +209,8 @@ export class PushNotificationsService
 
   public async deleteSubscriptionByEndpoint(endpoint: string): Promise<void> {
     const logger = this.loggerFactory("deleteSubscriptionByEndpoint");
+    logger.debug({ endpoint }, "Deleting push subscription by endpoint");
+
     const db = await getDbConnection();
     const result = await db
       .collection<PushSubscriptionRecord>(PUSH_SUBSCRIPTIONS_COLLECTION_NAME)
@@ -173,6 +224,8 @@ export class PushNotificationsService
 
   public async deleteSubscriptionsByMemberId(memberId: string): Promise<void> {
     const logger = this.loggerFactory("deleteSubscriptionsByMemberId");
+    logger.debug({ memberId }, "Deleting push subscriptions by member");
+
     const db = await getDbConnection();
     const result = await db
       .collection<PushSubscriptionRecord>(PUSH_SUBSCRIPTIONS_COLLECTION_NAME)
@@ -189,37 +242,69 @@ export class PushNotificationsService
   public async listSubscriptionsByOrganization(): Promise<
     PushSubscriptionRecord[]
   > {
+    const logger = this.loggerFactory("listSubscriptionsByOrganization");
+    logger.debug("Listing push subscriptions for organization");
+
     const db = await getDbConnection();
-    return db
+    const subscriptions = await db
       .collection<PushSubscriptionRecord>(PUSH_SUBSCRIPTIONS_COLLECTION_NAME)
       .find({ organizationId: this.organizationId })
       .toArray();
+
+    logger.debug(
+      { count: subscriptions.length },
+      "Listed push subscriptions for organization",
+    );
+
+    return subscriptions;
   }
 
   public async getSubscriptionByEndpoint(
     endpoint: string,
   ): Promise<PushSubscriptionRecord | null> {
+    const logger = this.loggerFactory("getSubscriptionByEndpoint");
+    logger.debug({ endpoint }, "Getting push subscription by endpoint");
+
     const db = await getDbConnection();
-    return db
+    const subscription = await db
       .collection<PushSubscriptionRecord>(PUSH_SUBSCRIPTIONS_COLLECTION_NAME)
       .findOne(this.withOrganizationFilter({ endpoint }));
+
+    logger.debug(
+      {
+        endpoint,
+        found: Boolean(subscription),
+        memberId: subscription?.memberId,
+      },
+      "Push subscription lookup result",
+    );
+
+    return subscription;
   }
 
-  public async deliver(notification: PushNotification): Promise<void> {
-    const logger = this.loggerFactory("deliver");
-    const vapid = getVapidConfig();
-    if (!vapid) {
-      logger.warn("VAPID keys not configured; skipping push delivery");
-      return;
-    }
-
-    webpush.setVapidDetails(vapid.subject, vapid.publicKey, vapid.privateKey);
+  public async prepareDeliveries(
+    notification: PushNotification,
+  ): Promise<PushNotificationRequest[]> {
+    const logger = this.loggerFactory("prepareDeliveries");
+    logger.debug(
+      {
+        url: notification.url,
+        tag: notification.tag,
+        audience: notification.audience,
+      },
+      "Preparing push notification deliveries",
+    );
 
     const subscriptions = await this.listSubscriptionsByOrganization();
     if (subscriptions.length === 0) {
       logger.debug("No push subscriptions for organization");
-      return;
+      return [];
     }
+
+    logger.debug(
+      { subscriptionCount: subscriptions.length },
+      "Loaded push subscriptions for preparation",
+    );
 
     const general = await this.configurationService.getConfiguration("general");
     const timeZone = general.timeZone;
@@ -236,77 +321,99 @@ export class PushNotificationsService
     >();
 
     const deadEndpoints: string[] = [];
+    const deliveries: PushNotificationRequest[] = [];
+    let skippedCount = 0;
 
-    await Promise.all(
-      subscriptions.map(async (subscription) => {
-        try {
-          let resolved = memberCache.get(subscription.memberId);
+    for (const subscription of subscriptions) {
+      try {
+        let resolved = memberCache.get(subscription.memberId);
 
-          if (!resolved) {
-            const member = await this.teamService.getMemberById(
-              subscription.memberId,
+        if (!resolved) {
+          const member = await this.teamService.getMemberById(
+            subscription.memberId,
+          );
+
+          if (!member || member.status !== "active") {
+            logger.debug(
+              {
+                endpoint: subscription.endpoint,
+                memberId: subscription.memberId,
+                memberStatus: member?.status,
+              },
+              "Pruning push subscription for missing/inactive member",
             );
 
-            if (!member || member.status !== "active") {
-              deadEndpoints.push(subscription.endpoint);
-              return;
-            }
+            deadEndpoints.push(subscription.endpoint);
+            continue;
+          }
 
-            if (
-              !notificationAudienceMatches(
-                { memberId: member._id, role: member.role },
-                notification.audience,
-              )
-            ) {
-              memberCache.set(subscription.memberId, { skip: true });
-              return;
-            }
+          if (
+            !notificationAudienceMatches(
+              { memberId: member._id, role: member.role },
+              notification.audience,
+            )
+          ) {
+            logger.debug(
+              {
+                memberId: member._id,
+                role: member.role,
+                audience: notification.audience,
+              },
+              "Skipping push subscription; audience mismatch",
+            );
 
-            const locale = (member.language ?? fallbackLanguage) as Language;
-            const t = await getI18nAsync({ locale });
-            resolved = {
+            memberCache.set(subscription.memberId, { skip: true });
+            skippedCount += 1;
+            continue;
+          }
+
+          const locale = (member.language ?? fallbackLanguage) as Language;
+          const t = await getI18nAsync({ locale });
+          resolved = {
+            locale,
+            title: resolvedI18nText(
+              notification.title,
+              t,
+              timeZone,
               locale,
-              title: resolvedI18nText(
-                notification.title,
-                t,
-                timeZone,
-                locale,
-                currency,
-              ),
-              body: resolvedI18nText(
-                notification.body,
-                t,
-                timeZone,
-                locale,
-                currency,
-              ),
-            };
+              currency,
+            ),
+            body: resolvedI18nText(
+              notification.body,
+              t,
+              timeZone,
+              locale,
+              currency,
+            ),
+          };
 
-            memberCache.set(subscription.memberId, resolved);
-          }
+          memberCache.set(subscription.memberId, resolved);
+        }
 
-          if ("skip" in resolved) {
-            return;
-          }
+        if ("skip" in resolved) {
+          skippedCount += 1;
+          continue;
+        }
 
-          const result = await this.sendToSubscription(subscription, {
+        deliveries.push({
+          endpoint: subscription.endpoint,
+          keys: subscription.keys,
+          expirationTime: subscription.expirationTime ?? null,
+          memberId: subscription.memberId,
+          payload: {
             title: resolved.title,
             body: resolved.body,
             url: notification.url,
             tag: notification.tag,
-          });
-
-          if (result === "gone") {
-            deadEndpoints.push(subscription.endpoint);
-          }
-        } catch (error) {
-          logger.error(
-            { error, endpoint: subscription.endpoint },
-            "Failed to deliver push notification",
-          );
-        }
-      }),
-    );
+          },
+        });
+      } catch (error) {
+        logger.error(
+          { error, endpoint: subscription.endpoint },
+          "Failed to prepare push notification delivery",
+        );
+      }
+    }
 
     if (deadEndpoints.length > 0) {
       const db = await getDbConnection();
@@ -323,13 +430,45 @@ export class PushNotificationsService
         "Pruned dead push subscriptions",
       );
     }
+
+    logger.debug(
+      {
+        subscriptionCount: subscriptions.length,
+        deliveryCount: deliveries.length,
+        skippedCount,
+        prunedCount: deadEndpoints.length,
+      },
+      "Finished preparing push notification deliveries",
+    );
+
+    return deliveries;
   }
 
   public async sendToSubscription(
-    subscription: PushSubscriptionRecord,
+    subscription: Pick<
+      PushSubscriptionRecord,
+      "endpoint" | "keys" | "expirationTime" | "memberId"
+    >,
     payload: DeliveredPushPayload,
   ): Promise<"ok" | "gone"> {
     const logger = this.loggerFactory("sendToSubscription");
+    logger.debug(
+      {
+        endpoint: subscription.endpoint,
+        memberId: subscription.memberId,
+        url: payload.url,
+        tag: payload.tag,
+      },
+      "Sending web push notification",
+    );
+
+    const vapid = getVapidConfig();
+    if (!vapid) {
+      logger.warn("VAPID keys not configured; cannot send push");
+      throw new Error("VAPID keys not configured");
+    }
+
+    webpush.setVapidDetails(vapid.subject, vapid.publicKey, vapid.privateKey);
 
     try {
       await webpush.sendNotification(
@@ -340,6 +479,11 @@ export class PushNotificationsService
         },
         JSON.stringify(payload),
         { TTL: 60 * 60 * 12 },
+      );
+
+      logger.debug(
+        { endpoint: subscription.endpoint, memberId: subscription.memberId },
+        "Web push notification sent",
       );
 
       return "ok";
@@ -353,6 +497,16 @@ export class PushNotificationsService
 
         return "gone";
       }
+
+      logger.error(
+        {
+          endpoint: subscription.endpoint,
+          memberId: subscription.memberId,
+          statusCode,
+          error,
+        },
+        "Web push send failed",
+      );
 
       throw error;
     }

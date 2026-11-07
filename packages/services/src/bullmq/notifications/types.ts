@@ -10,5 +10,9 @@ export type BullMQNotificationConfig = BullMQConfig & {
       name: string;
       concurrency: number;
     };
+    push: {
+      name: string;
+      concurrency: number;
+    };
   };
 };

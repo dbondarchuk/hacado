@@ -1,5 +1,9 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { Email, TextMessage } from "@hacado/types/apps";
+import {
+  Email,
+  PushNotificationRequest,
+  TextMessage,
+} from "@hacado/types/apps";
 import {
   EmailNotificationRequest,
   IServicesContainer,
@@ -58,6 +62,16 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       this.config.queues.textMessage.name,
     );
 
+    const pushWorker = this.createWorker(
+      this.config.queues.push.name,
+      this.processPushJobs.bind(this),
+      {
+        concurrency: this.config.queues.push.concurrency,
+      },
+    );
+
+    this.setupWorkerEventListeners(pushWorker, this.config.queues.push.name);
+
     logger.info("BullMQ notification workers initialized");
   }
 
@@ -91,6 +105,91 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
 
       default:
         throw new Error("Invalid job type for text message processor");
+    }
+  }
+
+  private async processPushJobs(job: Job<NotificationJobData>): Promise<void> {
+    const jobData = job.data;
+
+    if (jobData.type !== "push") {
+      throw new Error("Invalid job type for push processor");
+    }
+
+    await this.processPushJob(job);
+  }
+
+  private async processPushJob(job: Job<NotificationJobData>): Promise<void> {
+    const logger = this.loggerFactory("processPushJob");
+    const jobData = job.data;
+
+    logger.info({ jobData }, "Processing push notification job data");
+
+    if (jobData.type !== "push") {
+      throw new Error("Invalid job type for push processor");
+    }
+
+    const pushData = jobData.data as PushNotificationRequest;
+    const organizationId = jobData.organizationId;
+    if (!organizationId) {
+      throw new Error("organizationId is required in job data");
+    }
+
+    const services = this.getServices(organizationId);
+
+    try {
+      logger.info(
+        {
+          jobId: job.id,
+          attempt: job.attemptsMade + 1,
+          maxAttempts: job.opts.attempts,
+          endpoint: pushData.endpoint,
+          memberId: pushData.memberId,
+          url: pushData.payload.url,
+          tag: pushData.payload.tag,
+          organizationId,
+        },
+        "Processing push notification job",
+      );
+
+      const result = await services.pushNotificationsService.sendToSubscription(
+        {
+          endpoint: pushData.endpoint,
+          keys: pushData.keys,
+          expirationTime: pushData.expirationTime,
+          memberId: pushData.memberId,
+        },
+        pushData.payload,
+      );
+
+      if (result === "gone") {
+        await services.pushNotificationsService.deleteSubscriptionByEndpoint(
+          pushData.endpoint,
+        );
+
+        logger.info(
+          { jobId: job.id, endpoint: pushData.endpoint },
+          "Pruned gone push subscription after send",
+        );
+      }
+
+      logger.info(
+        { jobId: job.id, result },
+        "Push notification job completed successfully",
+      );
+    } catch (error) {
+      logger.error(
+        {
+          error,
+          jobId: job.id,
+          attempt: job.attemptsMade + 1,
+          maxAttempts: job.opts.attempts,
+          endpoint: pushData.endpoint,
+          memberId: pushData.memberId,
+        },
+        "Push notification job failed",
+      );
+
+      throw error;
     }
   }
 
@@ -341,15 +440,23 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       completed: number;
       failed: number;
     };
+    push: {
+      waiting: number;
+      active: number;
+      completed: number;
+      failed: number;
+    };
   }> {
-    const [emailStats, textMessageStats] = await Promise.all([
+    const [emailStats, textMessageStats, pushStats] = await Promise.all([
       this.getQueueStats(this.config.queues.email.name),
       this.getQueueStats(this.config.queues.textMessage.name),
+      this.getQueueStats(this.config.queues.push.name),
     ]);
 
     return {
       email: emailStats,
       textMessage: textMessageStats,
+      push: pushStats,
     };
   }
 

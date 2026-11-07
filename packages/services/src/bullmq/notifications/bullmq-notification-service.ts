@@ -1,5 +1,10 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { Email, TextMessage, TextMessageResponse } from "@hacado/types/apps";
+import {
+  Email,
+  PushNotificationRequest,
+  TextMessage,
+  TextMessageResponse,
+} from "@hacado/types/apps";
 import { CommunicationParticipantType } from "@hacado/types/communication";
 import { WithOrganizationId } from "@hacado/types/database";
 import {
@@ -24,6 +29,11 @@ export type TextMessageJobData = WithOrganizationId<{
   data: TextMessageNotificationRequest;
 }>;
 
+export type PushJobData = WithOrganizationId<{
+  type: "push";
+  data: PushNotificationRequest;
+}>;
+
 export type SystemEmailJobData = {
   type: "system-email";
   data: Email;
@@ -37,6 +47,7 @@ export type SystemTextMessageJobData = {
 export type NotificationJobData =
   | EmailJobData
   | TextMessageJobData
+  | PushJobData
   | SystemEmailJobData
   | SystemTextMessageJobData;
 
@@ -85,16 +96,9 @@ export class BullMQNotificationService
   private initializeQueues(): void {
     const logger = this.loggerFactory("initializeQueues");
 
-    // Create email queue
-    const emailQueue = this.createQueue(this.config.queues.email.name);
-    // this.createQueueEvents(this.config.queues.email.name);
-
-    // Create text message queue
-    const textMessageQueue = this.createQueue(
-      this.config.queues.textMessage.name,
-    );
-
-    // this.createQueueEvents(this.config.queues.textMessage.name);
+    this.createQueue(this.config.queues.email.name);
+    this.createQueue(this.config.queues.textMessage.name);
+    this.createQueue(this.config.queues.push.name);
 
     logger.info("BullMQ notification queues initialized");
   }
@@ -176,6 +180,35 @@ export class BullMQNotificationService
     }
   }
 
+  public async sendPush(data: PushNotificationRequest): Promise<void> {
+    const logger = this.loggerFactory("sendPush");
+
+    try {
+      const job = await this.enqueuePush(data, { priority: 0, delay: 0 });
+      logger.info(
+        {
+          jobId: job.id,
+          endpoint: data.endpoint,
+          memberId: data.memberId,
+          url: data.payload.url,
+          tag: data.payload.tag,
+        },
+        "Push notification job added to queue",
+      );
+    } catch (error) {
+      logger.error(
+        {
+          error,
+          endpoint: data.endpoint,
+          memberId: data.memberId,
+        },
+        "Failed to add push notification to queue",
+      );
+
+      throw error;
+    }
+  }
+
   public async getEmailQueueStats(): Promise<{
     waiting: number;
     active: number;
@@ -194,6 +227,15 @@ export class BullMQNotificationService
     return this.getQueueStats(this.config.queues.textMessage.name);
   }
 
+  public async getPushQueueStats(): Promise<{
+    waiting: number;
+    active: number;
+    completed: number;
+    failed: number;
+  }> {
+    return this.getQueueStats(this.config.queues.push.name);
+  }
+
   public async getAllNotificationQueueStats(): Promise<{
     email: {
       waiting: number;
@@ -207,15 +249,23 @@ export class BullMQNotificationService
       completed: number;
       failed: number;
     };
+    push: {
+      waiting: number;
+      active: number;
+      completed: number;
+      failed: number;
+    };
   }> {
-    const [emailStats, textMessageStats] = await Promise.all([
+    const [emailStats, textMessageStats, pushStats] = await Promise.all([
       this.getEmailQueueStats(),
       this.getTextMessageQueueStats(),
+      this.getPushQueueStats(),
     ]);
 
     return {
       email: emailStats,
       textMessage: textMessageStats,
+      push: pushStats,
     };
   }
 
@@ -391,6 +441,27 @@ export class BullMQNotificationService
       throw error;
     }
   }
+
+  private async enqueuePush(
+    data: PushNotificationRequest,
+    options: { delay?: number; priority?: number; attempts?: number },
+  ): Promise<Job> {
+    const jobData: PushJobData = {
+      type: "push",
+      data,
+      organizationId: this.organizationId,
+    };
+
+    return await this.getQueue(this.config.queues.push.name).add(
+      "push-notification",
+      jobData,
+      {
+        priority: options.priority || 0,
+        delay: options.delay || 0,
+        ...(options.attempts ? { attempts: options.attempts } : {}),
+      },
+    );
+  }
 }
 
 export class BullMQSystemNotificationService
@@ -409,14 +480,9 @@ export class BullMQSystemNotificationService
   private initializeQueues(): void {
     const logger = this.loggerFactory("initializeQueues");
 
-    // Create email queue
-    const emailQueue = this.createQueue(this.config.queues.email.name);
-    // this.createQueueEvents(this.config.queues.email.name);
-
-    // Create text message queue
-    const textMessageQueue = this.createQueue(
-      this.config.queues.textMessage.name,
-    );
+    this.createQueue(this.config.queues.email.name);
+    this.createQueue(this.config.queues.textMessage.name);
+    this.createQueue(this.config.queues.push.name);
 
     logger.info("BullMQ notification queues initialized");
   }

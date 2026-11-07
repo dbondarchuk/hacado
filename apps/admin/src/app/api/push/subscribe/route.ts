@@ -20,8 +20,11 @@ const subscriptionSchema = z.object({
 
 export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/push/subscribe")("POST");
+  logger.debug("Saving push subscription");
+
   const session = await getSession();
   if (!session) {
+    logger.debug("Unauthorized push subscribe request");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -38,8 +41,26 @@ export async function POST(request: NextRequest) {
   const memberId = session.user.memberId;
 
   if (!organizationId || !memberId) {
+    logger.debug(
+      {
+        hasOrganizationId: Boolean(organizationId),
+        hasMemberId: Boolean(memberId),
+      },
+      "Missing organization or member for push subscribe",
+    );
+
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  logger.debug(
+    {
+      organizationId,
+      memberId,
+      userId: session.user.id,
+      endpoint: parsed.data.endpoint,
+    },
+    "Upserting push subscription",
+  );
 
   const services = await getServicesContainer();
   const record = await services.pushNotificationsService.upsertSubscription({
@@ -62,8 +83,11 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/push/subscribe")("DELETE");
+  logger.debug("Deleting push subscription");
+
   const session = await getSession();
   if (!session) {
+    logger.debug("Unauthorized push unsubscribe request");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -74,12 +98,23 @@ export async function DELETE(request: NextRequest) {
       : request.nextUrl.searchParams.get("endpoint");
 
   if (!endpoint) {
+    logger.debug("Push unsubscribe missing endpoint");
     return NextResponse.json({ error: "endpoint required" }, { status: 400 });
   }
 
   const services = await getServicesContainer();
   const existing =
     await services.pushNotificationsService.getSubscriptionByEndpoint(endpoint);
+
+  logger.debug(
+    {
+      endpoint,
+      found: Boolean(existing),
+      existingMemberId: existing?.memberId,
+      sessionMemberId: session.user.memberId,
+    },
+    "Loaded push subscription for delete",
+  );
 
   if (existing && existing.memberId !== session.user.memberId) {
     logger.warn(

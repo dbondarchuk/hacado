@@ -8,6 +8,7 @@ import {
   isBrowserPushSupported,
   needsIosHomeScreenInstall,
   registerPushServiceWorker,
+  sendTestBrowserPush,
 } from "@/push/browser-push";
 import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
@@ -20,6 +21,7 @@ export function BrowserPushSettings() {
   const t = useI18n("admin");
   const [enabled, setEnabled] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [testing, setTesting] = React.useState(false);
   const [supported, setSupported] = React.useState(false);
   const [needsInstall, setNeedsInstall] = React.useState(false);
   const [howToOpen, setHowToOpen] = React.useState(false);
@@ -93,6 +95,19 @@ export function BrowserPushSettings() {
     }
   };
 
+  const onSendTest = async () => {
+    setTesting(true);
+
+    try {
+      await sendTestBrowserPush();
+      toast.success(t("users.profile.push.testSentToast"));
+    } catch {
+      toast.error(t("users.profile.push.testErrorToast"));
+    } finally {
+      setTesting(false);
+    }
+  };
+
   if (!supported && !needsInstall) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -132,6 +147,17 @@ export function BrowserPushSettings() {
             {t("dashboard.pushPrompt.showMeHow")}
           </Button>
         </div>
+      ) : null}
+      {enabled && !needsInstall ? (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          disabled={loading || testing}
+          onClick={() => void onSendTest()}
+        >
+          {t("users.profile.push.sendTest")}
+        </Button>
       ) : null}
       <IosAddToHomeScreenDialog open={howToOpen} onOpenChange={setHowToOpen} />
     </div>
