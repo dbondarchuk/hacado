@@ -15,7 +15,7 @@ import type {
 import { notificationAudienceMatches } from "@hacado/utils/permissions";
 import { resolvedI18nText } from "@hacado/utils/resolved-i18n-text";
 import { ObjectId } from "mongodb";
-import * as webpush from "web-push";
+import webpush from "web-push";
 import { PUSH_SUBSCRIPTIONS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
@@ -25,15 +25,40 @@ function getVapidConfig(): {
   privateKey: string;
   subject: string;
 } | null {
-  const publicKey = process.env.VAPID_PUBLIC_KEY;
-  const privateKey = process.env.VAPID_PRIVATE_KEY;
-  const subject = process.env.VAPID_SUBJECT ?? "mailto:support@hacado.com";
+  const publicKey = process.env.VAPID_PUBLIC_KEY?.trim();
+  const privateKey = process.env.VAPID_PRIVATE_KEY?.trim();
+  const subject =
+    process.env.VAPID_SUBJECT?.trim() || "mailto:support@hacado.com";
 
   if (!publicKey || !privateKey) {
     return null;
   }
 
   return { publicKey, privateKey, subject };
+}
+
+function serializePushError(error: unknown) {
+  if (!error || typeof error !== "object") {
+    return { message: String(error) };
+  }
+
+  const err = error as {
+    message?: string;
+    name?: string;
+    stack?: string;
+    statusCode?: number;
+    body?: string;
+    endpoint?: string;
+  };
+
+  return {
+    name: err.name,
+    message: err.message,
+    statusCode: err.statusCode,
+    body: err.body,
+    endpoint: err.endpoint,
+    stack: err.stack,
+  };
 }
 
 export class PushNotificationsService
@@ -487,8 +512,12 @@ export class PushNotificationsService
       );
 
       return "ok";
-    } catch (error: any) {
-      const statusCode = error?.statusCode as number | undefined;
+    } catch (error: unknown) {
+      const statusCode =
+        error && typeof error === "object" && "statusCode" in error
+          ? (error as { statusCode?: number }).statusCode
+          : undefined;
+
       if (statusCode === 404 || statusCode === 410) {
         logger.info(
           { endpoint: subscription.endpoint, statusCode },
@@ -503,7 +532,7 @@ export class PushNotificationsService
           endpoint: subscription.endpoint,
           memberId: subscription.memberId,
           statusCode,
-          error,
+          err: serializePushError(error),
         },
         "Web push send failed",
       );

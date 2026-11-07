@@ -122,8 +122,6 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     const logger = this.loggerFactory("processPushJob");
     const jobData = job.data;
 
-    logger.info({ jobData }, "Processing push notification job data");
-
     if (jobData.type !== "push") {
       throw new Error("Invalid job type for push processor");
     }
@@ -177,9 +175,23 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         "Push notification job completed successfully",
       );
     } catch (error) {
+      const err =
+        error && typeof error === "object"
+          ? {
+              name: (error as { name?: string }).name,
+              message:
+                error instanceof Error
+                  ? error.message
+                  : (error as { message?: string }).message,
+              statusCode: (error as { statusCode?: number }).statusCode,
+              body: (error as { body?: string }).body,
+              stack: error instanceof Error ? error.stack : undefined,
+            }
+          : { message: String(error) };
+
       logger.error(
         {
-          error,
+          err,
           jobId: job.id,
           attempt: job.attemptsMade + 1,
           maxAttempts: job.opts.attempts,
