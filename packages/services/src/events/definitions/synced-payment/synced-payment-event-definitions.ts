@@ -45,13 +45,33 @@ async function reviewQueueBadges(services: {
   return syncedPaymentsReviewBadges(count);
 }
 
-function buildSyncedPaymentIngestedToast(
+async function buildSyncedPaymentIngestedToast(
   syncedPayment: SyncedPaymentIngestedPayload["syncedPayment"],
+  services: {
+    customersService: {
+      getCustomer(id: string): Promise<{ name: string } | null>;
+    };
+  },
 ) {
   const isMatched = syncedPayment.status === "matched";
   const keyPrefix = isMatched
     ? ("admin.syncedPayments.notifications.ingested.matched" as const)
     : ("admin.syncedPayments.notifications.ingested.unmatched" as const);
+
+  const provider =
+    AvailableApps[syncedPayment.appName]?.displayName ?? syncedPayment.appName;
+
+  let name = provider;
+
+  if (syncedPayment.customerId) {
+    const customer = await services.customersService.getCustomer(
+      syncedPayment.customerId,
+    );
+
+    if (customer?.name) {
+      name = customer.name;
+    }
+  }
 
   return {
     type: isMatched ? ("info" as const) : ("warning" as const),
@@ -62,9 +82,8 @@ function buildSyncedPaymentIngestedToast(
       key: `${keyPrefix}.message` satisfies BaseAllKeys,
       args: {
         $_amount: syncedPayment.amount,
-        t_provider:
-          AvailableApps[syncedPayment.appName]?.displayName ??
-          syncedPayment.appName,
+        name,
+        t_provider: provider,
         t_status:
           `admin.syncedPayments.status.${syncedPayment.status}` satisfies BaseAllKeys,
         dt_transactionTime: {
@@ -80,6 +99,29 @@ function buildSyncedPaymentIngestedToast(
       href: dashboardUrls.syncedPayment(syncedPayment),
     },
   };
+}
+
+function matchedSyncedPaymentPushActions(syncedPaymentId: string): {
+  action: string;
+  title: { key: BaseAllKeys };
+  url: string;
+}[] {
+  return [
+    {
+      action: "confirm",
+      title: {
+        key: "admin.syncedPayments.notifications.actions.confirm" satisfies BaseAllKeys,
+      },
+      url: dashboardUrls.syncedPaymentConfirm(syncedPaymentId),
+    },
+    {
+      action: "reject",
+      title: {
+        key: "admin.syncedPayments.notifications.actions.reject" satisfies BaseAllKeys,
+      },
+      url: dashboardUrls.syncedPaymentReject(syncedPaymentId),
+    },
+  ];
 }
 
 export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
@@ -116,20 +158,28 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
         const { syncedPayment } =
           envelope.payload as SyncedPaymentIngestedPayload;
 
-        const badges = await reviewQueueBadges(services);
+        const [badges, toast] = await Promise.all([
+          reviewQueueBadges(services),
+          buildSyncedPaymentIngestedToast(syncedPayment, services),
+        ]);
 
         return {
           type: "synced-payment-ingested",
           badges,
-          toast: buildSyncedPaymentIngestedToast(syncedPayment),
+          toast,
           audience: SYNCED_PAYMENT_READ_AUDIENCE,
         };
       },
-      pushNotification: async (envelope) => {
+      pushNotification: async (envelope, services) => {
         const { syncedPayment } =
           envelope.payload as SyncedPaymentIngestedPayload;
 
-        const toast = buildSyncedPaymentIngestedToast(syncedPayment);
+        const toast = await buildSyncedPaymentIngestedToast(
+          syncedPayment,
+          services,
+        );
+
+        const isMatched = syncedPayment.status === "matched";
 
         return {
           title: toast.title,
@@ -137,6 +187,11 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           url: toast.action.href,
           tag: SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
           audience: SYNCED_PAYMENT_READ_AUDIENCE,
+          ...(isMatched
+            ? {
+                actions: matchedSyncedPaymentPushActions(syncedPayment._id),
+              }
+            : {}),
         };
       },
       emailNotifications: false,

@@ -28,10 +28,17 @@ type AppointmentDashboardToast = {
   };
 };
 
+type AppointmentPushAction = {
+  action: string;
+  title: { key: BaseAllKeys };
+  url: string;
+};
+
 function pushFromDashboardToast(
   toast: AppointmentDashboardToast | undefined,
   tag: string,
   audience: NotificationAudience,
+  actions?: AppointmentPushAction[],
 ) {
   if (!toast) {
     return null;
@@ -43,7 +50,36 @@ function pushFromDashboardToast(
     url: toast.action?.href,
     tag,
     audience,
+    ...(actions && actions.length > 0 ? { actions } : {}),
   };
+}
+
+function appointmentPushActions(
+  appointmentId: string,
+  confirmed: boolean,
+): AppointmentPushAction[] {
+  const decline = {
+    action: "decline",
+    title: {
+      key: "admin.appointments.notifications.actions.decline" satisfies BaseAllKeys,
+    },
+    url: `/dashboard/appointments/${appointmentId}/decline`,
+  } satisfies AppointmentPushAction;
+
+  if (confirmed) {
+    return [decline];
+  }
+
+  return [
+    {
+      action: "confirm",
+      title: {
+        key: "admin.appointments.notifications.actions.confirm" satisfies BaseAllKeys,
+      },
+      url: `/dashboard/appointments/${appointmentId}/confirm`,
+    } satisfies AppointmentPushAction,
+    decline,
+  ];
 }
 
 function getAppointmentCreatedToast(
@@ -197,6 +233,7 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         getAppointmentCreatedToast(payload),
         APPOINTMENT_CREATED_EVENT_TYPE,
         { appointmentMemberId: payload.appointment.memberId },
+        appointmentPushActions(payload.appointment._id, payload.confirmed),
       );
     },
     emailNotifications: buildAppointmentLimitReachedEmails,

@@ -863,12 +863,15 @@ syncedPayments:
     ingested:
       matched:
         title: Pago en tienda igualado
-        message: "{amount} de {provider} se vinculó automáticamente con una cita en {transactionTime}."
+        message: "{amount} de {name} vía {provider} se vinculó automáticamente con una cita en {transactionTime}."
         action: Revisar
       unmatched:
         title: Revisión de necesidades de pago en tienda
         message: "{amount} de {provider} a {transactionTime} no pudo coincidir con una cita."
         action: Revisar
+    actions:
+      confirm: Confirmar
+      reject: Rechazar
 appointments:
   title: Equipo
   scheduleAppointment: Agendar cita
@@ -1183,6 +1186,9 @@ appointments:
       title: Nueva cita solicitada
       message: Una nueva cita ha sido solicitada por {name} para {service} el {dateTime} para {durationHours, plural, =0 {{durationMinutes} min} other {# hr, {durationMinutes} min}}
       action: Vista
+    actions:
+      confirm: Confirmar
+      decline: Rechazar
     appointmentRescheduled:
       title: Se reprogramó la cita
       message: "{name} reprogramado {service}."

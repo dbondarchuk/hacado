@@ -863,12 +863,15 @@ syncedPayments:
     ingested:
       matched:
         title: Платіж у закладі зіставлено
-        message: "{amount} від {provider} автоматично зіставлено з записом о {transactionTime}."
+        message: "{amount} від {name} через {provider} автоматично зіставлено з записом о {transactionTime}."
         action: Переглянути
       unmatched:
         title: Платіж у закладі потребує перевірки
         message: "{amount} від {provider} о {transactionTime} не вдалося зіставити з записом."
         action: Переглянути
+    actions:
+      confirm: Підтвердити
+      reject: Відхилити
 appointments:
   title: Записи
   scheduleAppointment: Запланувати запис
@@ -1183,6 +1186,9 @@ appointments:
       title: Запис створений
       message: Запис створений для {name} на {service} {dateTime} {durationHours, plural, =0 {{durationMinutes} хв} other {# год, {durationMinutes} хв}}
       action: Переглянути
+    actions:
+      confirm: Підтвердити
+      decline: Відхилити
     appointmentRescheduled:
       title: Запис перенесений
       message: "{name} перенес {service}."

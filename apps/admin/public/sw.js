@@ -1,4 +1,4 @@
-/* global self, clients */
+/* global self, clients, Notification */
 
 const PUSH_NAVIGATE_MESSAGE = "hacado:push-navigate";
 
@@ -8,6 +8,19 @@ function resolveNotificationUrl(rawUrl) {
   } catch {
     return new URL("/dashboard", self.location.origin).href;
   }
+}
+
+function resolveClickUrl(notification, action) {
+  const data = notification.data || {};
+
+  if (action && Array.isArray(data.actions)) {
+    const match = data.actions.find((entry) => entry.action === action);
+    if (match?.url) {
+      return resolveNotificationUrl(match.url);
+    }
+  }
+
+  return resolveNotificationUrl(data.url);
 }
 
 self.addEventListener("push", (event) => {
@@ -25,14 +38,40 @@ self.addEventListener("push", (event) => {
     }
   }
 
+  const deliveredActions = Array.isArray(payload.actions)
+    ? payload.actions.filter(
+        (entry) =>
+          entry &&
+          typeof entry.action === "string" &&
+          typeof entry.title === "string" &&
+          typeof entry.url === "string",
+      )
+    : [];
+
+  const maxActions =
+    typeof Notification !== "undefined" && Notification.maxActions
+      ? Notification.maxActions
+      : 0;
+
   const options = {
     body: payload.body || "",
-    data: { url: payload.url || "/dashboard" },
+    data: {
+      url: payload.url || "/dashboard",
+      actions: deliveredActions,
+    },
     tag: payload.tag || undefined,
     renotify: Boolean(payload.tag),
     icon: "/logo-notification.png",
     badge: "/logo-notification.png",
   };
+
+  // Chromium shows up to maxActions; Safari/iOS ignore actions entirely.
+  if (maxActions > 0 && deliveredActions.length > 0) {
+    options.actions = deliveredActions.slice(0, maxActions).map((entry) => ({
+      action: entry.action,
+      title: entry.title,
+    }));
+  }
 
   event.waitUntil(self.registration.showNotification(payload.title, options));
 });
@@ -40,7 +79,7 @@ self.addEventListener("push", (event) => {
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  const targetUrl = resolveNotificationUrl(event.notification.data?.url);
+  const targetUrl = resolveClickUrl(event.notification, event.action);
 
   event.waitUntil(
     (async () => {

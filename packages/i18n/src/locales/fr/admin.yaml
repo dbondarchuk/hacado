@@ -863,12 +863,15 @@ syncedPayments:
     ingested:
       matched:
         title: Paiement en magasin correspondant
-        message: "{amount} de {provider} a été automatiquement associé à un rendez-vous au {transactionTime}."
+        message: "{amount} de {name} via {provider} a été automatiquement associé à un rendez-vous au {transactionTime}."
         action: Revoir
       unmatched:
         title: Examen des besoins de paiement en magasin
         message: "{amount} du {provider} au {transactionTime} n'a pas pu être associé à un rendez-vous."
         action: Revoir
+    actions:
+      confirm: Confirmer
+      reject: Rejeter
 appointments:
   title: Rendez-vous
   scheduleAppointment: Planifier un rendez-vous
@@ -1183,6 +1186,9 @@ appointments:
       title: Nouveau rendez-vous demandé
       message: Un nouveau rendez-vous a été demandé par {name} pour {service} le {dateTime} pour {durationHours, plural, =0 {{durationMinutes} min} other {# hr, {durationMinutes} min}}
       action: Voir
+    actions:
+      confirm: Confirmer
+      decline: Refuser
     appointmentRescheduled:
       title: Le rendez-vous a été reporté
       message: "{name} reporté {service}."

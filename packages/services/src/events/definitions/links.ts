@@ -8,6 +8,10 @@ export const dashboardUrls = {
     `/dashboard/financials/payments?id=${encodeURIComponent(payment._id)}`,
   syncedPayment: (record: { externalId: string }) =>
     `/dashboard/financials/inbox?externalId=${encodeURIComponent(record.externalId)}`,
+  syncedPaymentConfirm: (id: string) =>
+    `/dashboard/financials/inbox/${id}/confirm`,
+  syncedPaymentReject: (id: string) =>
+    `/dashboard/financials/inbox/${id}/reject`,
   syncedPayments: "/dashboard/financials/inbox",
   giftCard: (id: string) => `/dashboard/catalog/gift-cards/${id}`,
   giftCards: "/dashboard/catalog/gift-cards",

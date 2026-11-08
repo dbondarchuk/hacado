@@ -867,12 +867,15 @@ syncedPayments:
     ingested:
       matched:
         title: In-store payment matched
-        message: "{amount} from {provider} was auto-matched to an appointment at {transactionTime}."
+        message: "{amount} from {name} via {provider} was auto-matched to an appointment at {transactionTime}."
         action: Review
       unmatched:
         title: In-store payment needs review
         message: "{amount} from {provider} at {transactionTime} could not be matched to an appointment."
         action: Review
+    actions:
+      confirm: Confirm
+      reject: Reject
 appointments:
   title: Appointments
   scheduleAppointment: Schedule appointment
@@ -1217,6 +1220,9 @@ appointments:
         for {durationHours, plural, =0 {{durationMinutes} min} other {# hr, {durationMinutes}
         min}}
       action: View
+    actions:
+      confirm: Confirm
+      decline: Decline
     appointmentRescheduled:
       title: Appointment was rescheduled
       message: "{name} rescheduled {service}."

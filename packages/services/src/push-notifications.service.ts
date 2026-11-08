@@ -341,6 +341,11 @@ export class PushNotificationsService
           locale: Language;
           title: string;
           body: string;
+          actions?: {
+            action: string;
+            title: string;
+            url: string;
+          }[];
         }
       | { skip: true }
     >();
@@ -394,6 +399,18 @@ export class PushNotificationsService
 
           const locale = (member.language ?? fallbackLanguage) as Language;
           const t = await getI18nAsync({ locale });
+          const actions = notification.actions?.map((action) => ({
+            action: action.action,
+            title: resolvedI18nText(
+              action.title,
+              t,
+              timeZone,
+              locale,
+              currency,
+            ),
+            url: action.url,
+          }));
+
           resolved = {
             locale,
             title: resolvedI18nText(
@@ -410,6 +427,7 @@ export class PushNotificationsService
               locale,
               currency,
             ),
+            ...(actions && actions.length > 0 ? { actions } : {}),
           };
 
           memberCache.set(subscription.memberId, resolved);
@@ -430,6 +448,7 @@ export class PushNotificationsService
             body: resolved.body,
             url: notification.url,
             tag: notification.tag,
+            ...(resolved.actions ? { actions: resolved.actions } : {}),
           },
         });
       } catch (error) {
