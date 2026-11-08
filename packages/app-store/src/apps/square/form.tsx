@@ -2,6 +2,7 @@
 
 import { appsApi } from "@hacado/api-sdk/client/apps";
 import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import { PaymentAppFormProps } from "@hacado/types/apps";
 import { useConfig, useCurrency } from "@hacado/ui/context";
@@ -130,12 +131,29 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
         });
 
         if (!data?.success) {
+          if (data?.error === "intent_already_paid") {
+            onSubmit();
+            return;
+          }
+
           throw new Error(data?.error ?? "payment_failed");
         }
 
         bookingApi.trackPaymentSucceeded(intent.amount);
         onSubmit();
       } catch (e: unknown) {
+        if (e instanceof ClientApiError) {
+          try {
+            const body = (await e.response.json()) as { error?: string };
+            if (body?.error === "intent_already_paid") {
+              onSubmit();
+              return;
+            }
+          } catch {
+            // fall through to failure toast
+          }
+        }
+
         console.error(e);
         bookingApi.trackPaymentFailed(intent.amount);
         toast.error(t("toast.payment_failed"), {
@@ -145,7 +163,7 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
         setIsPaying(false);
       }
     },
-    [intent.appId, intent._id, onSubmit, t],
+    [intent.appId, intent._id, intent.amount, onSubmit, t],
   );
 
   const formId = intent._id.replace(/[^a-zA-Z0-9_-]/g, "");

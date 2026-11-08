@@ -206,6 +206,13 @@ booking:
     fixedAmountRequiredDescription: Afin de prendre ce rendez-vous, un dépôt de {amount} est requis. Merci de payer en utilisant le formulaire ci-dessous
     fullPaymentRequiredTitle: Le paiement intégral est requis
     fullPaymentRequiredDescription: Afin de prendre ce rendez-vous, le paiement intégral de {amount} est requis. Merci de payer en utilisant le formulaire ci-dessous
+    paymentReceivedTitle: Paiement reçu
+    paymentReceivedDescription: >-
+      Votre paiement a bien été effectué, mais nous n'avons pas pu finaliser
+      votre réservation. Vous ne serez pas débité une seconde fois. Appuyez
+      ci-dessous pour terminer votre réservation. Si cela échoue encore,
+      veuillez nous contacter.
+    completeBooking: Terminer la réservation
     tips:
       title: Ajouter un conseil
       none: Pas de pourboire

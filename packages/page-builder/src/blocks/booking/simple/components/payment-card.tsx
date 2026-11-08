@@ -4,6 +4,7 @@ import React, { useCallback, useRef } from "react";
 
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
+import { BookingPaymentReceived } from "@hacado/ui/booking-payment-received";
 import { BookingPaymentTips } from "@hacado/ui/booking-payment-tips";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { formatAmount } from "@hacado/utils/currency";
@@ -44,8 +45,20 @@ export const PaymentCard: React.FC = () => {
     [fetchPaymentInformation, setPaymentInformation],
   );
 
+  const markPaidAndSubmit = useCallback(() => {
+    if (!paymentForm) return;
+
+    setPaymentInformation({
+      ...paymentForm,
+      intent: { ...paymentForm.intent, status: "paid" },
+    });
+
+    void onSubmit(paymentForm.intent._id);
+  }, [onSubmit, paymentForm, setPaymentInformation]);
+
   if (!paymentForm) return null;
 
+  const isPaid = paymentForm.intent.status === "paid";
   const Form = PaymentAppForms[paymentForm.intent.appName];
 
   const isFullPayment = paymentForm.amountTotal === price;
@@ -72,20 +85,29 @@ export const PaymentCard: React.FC = () => {
           },
         )}
       </div>
-      <BookingPaymentTips
-        tips={appointmentOption.tips}
-        chargeAmount={paymentForm.amount}
-        amountTotal={paymentForm.amountTotal}
-        amountPaid={paymentForm.amountPaid}
-        disabled={isLoading}
-        className="mb-4"
-        onDebouncedTipAmountChange={handleTipAmountChange}
-      />
-      <Form
-        {...paymentForm.formProps}
-        intent={paymentForm.intent}
-        onSubmit={onSubmit}
-      />
+      {!isPaid && (
+        <BookingPaymentTips
+          tips={appointmentOption.tips}
+          chargeAmount={paymentForm.amount}
+          amountTotal={paymentForm.amountTotal}
+          amountPaid={paymentForm.amountPaid}
+          disabled={isLoading}
+          className="mb-4"
+          onDebouncedTipAmountChange={handleTipAmountChange}
+        />
+      )}
+      {isPaid ? (
+        <BookingPaymentReceived
+          isLoading={isLoading}
+          onComplete={markPaidAndSubmit}
+        />
+      ) : (
+        <Form
+          {...paymentForm.formProps}
+          intent={paymentForm.intent}
+          onSubmit={markPaidAndSubmit}
+        />
+      )}
     </CardWithAppointmentInformation>
   );
 };

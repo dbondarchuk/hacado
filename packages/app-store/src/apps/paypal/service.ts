@@ -847,6 +847,15 @@ class PaypalConnectedApp
         return Response.json({ error: "intent_not_found" }, { status: 400 });
       }
 
+      if (intent.status === "paid") {
+        logger.debug(
+          { appId: appData._id, paymentIntentId: request.paymentIntentId },
+          "Internal intent already paid, not creating PayPal order",
+        );
+
+        return Response.json({ error: "intent_already_paid" }, { status: 400 });
+      }
+
       logger.debug(
         {
           appId: appData._id,

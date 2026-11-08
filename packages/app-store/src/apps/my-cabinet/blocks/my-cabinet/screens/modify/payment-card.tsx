@@ -1,8 +1,10 @@
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
+import { BookingPaymentReceived } from "@hacado/ui/booking-payment-received";
 import { cn } from "@hacado/ui/cn";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { CreditCard } from "lucide-react";
+import { useCallback } from "react";
 import { useCabinetModifyContext } from "./context";
 
 export const PaymentCard: React.FC = () => {
@@ -11,12 +13,26 @@ export const PaymentCard: React.FC = () => {
 
   const {
     paymentInformation: paymentForm,
+    setPaymentInformation,
     onSubmit,
     appointment,
+    isLoading,
   } = useCabinetModifyContext();
+
+  const markPaidAndSubmit = useCallback(() => {
+    if (!paymentForm) return;
+
+    setPaymentInformation({
+      ...paymentForm,
+      intent: { ...paymentForm.intent, status: "paid" },
+    });
+
+    void onSubmit(paymentForm.intent._id);
+  }, [onSubmit, paymentForm, setPaymentInformation]);
 
   if (!paymentForm || !appointment) return null;
 
+  const isPaid = paymentForm.intent.status === "paid";
   const Form = PaymentAppForms[paymentForm.intent.appName];
 
   return (
@@ -43,15 +59,23 @@ export const PaymentCard: React.FC = () => {
           </p>
         </div>
 
-        <Form
-          {...paymentForm.formProps}
-          intent={paymentForm.intent}
-          onSubmit={onSubmit}
-          className={cn(
-            "payment-card-form payment-form",
-            paymentForm.formProps?.className,
-          )}
-        />
+        {isPaid ? (
+          <BookingPaymentReceived
+            isLoading={isLoading}
+            onComplete={markPaidAndSubmit}
+            className="payment-card-form payment-form"
+          />
+        ) : (
+          <Form
+            {...paymentForm.formProps}
+            intent={paymentForm.intent}
+            onSubmit={markPaidAndSubmit}
+            className={cn(
+              "payment-card-form payment-form",
+              paymentForm.formProps?.className,
+            )}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
+import { BookingPaymentReceived } from "@hacado/ui/booking-payment-received";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { useModifyAppointmentFormContext } from "./context";
 
@@ -13,13 +14,26 @@ export const PaymentCard: React.FC = () => {
   const {
     appointment,
     paymentInformation: paymentForm,
+    setPaymentInformation,
     fields,
     onSubmit,
     type,
   } = useModifyAppointmentFormContext();
 
+  const markPaidAndSubmit = useCallback(() => {
+    if (!paymentForm) return;
+
+    setPaymentInformation({
+      ...paymentForm,
+      intent: { ...paymentForm.intent, status: "paid" },
+    });
+
+    void onSubmit(paymentForm.intent._id);
+  }, [onSubmit, paymentForm, setPaymentInformation]);
+
   if (!paymentForm) return null;
 
+  const isPaid = paymentForm.intent.status === "paid";
   const Form = PaymentAppForms[paymentForm.intent.appName];
 
   return (
@@ -35,12 +49,16 @@ export const PaymentCard: React.FC = () => {
           amount: currencyFormat(paymentForm.intent.amount),
         })}
       </div>
-      <Form
-        fields={fields}
-        {...paymentForm.formProps}
-        intent={paymentForm.intent}
-        onSubmit={onSubmit}
-      />
+      {isPaid ? (
+        <BookingPaymentReceived onComplete={markPaidAndSubmit} />
+      ) : (
+        <Form
+          fields={fields}
+          {...paymentForm.formProps}
+          intent={paymentForm.intent}
+          onSubmit={markPaidAndSubmit}
+        />
+      )}
     </div>
   );
 };

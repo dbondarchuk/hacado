@@ -683,6 +683,15 @@ class SquareConnectedApp
       return Response.json({ error: "intent_not_found" }, { status: 400 });
     }
 
+    if (intent.status === "paid") {
+      logger.debug(
+        { appId: appData._id, paymentIntentId },
+        "Internal intent already paid, not creating Square payment",
+      );
+
+      return Response.json({ error: "intent_already_paid" }, { status: 400 });
+    }
+
     if (!appData.data?.locationId) {
       return Response.json({ error: "square_not_configured" }, { status: 400 });
     }

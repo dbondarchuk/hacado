@@ -1056,7 +1056,8 @@ export const Schedule: React.FC<
           return;
         }
 
-        if (currentStep === "payment") {
+        // Stay on payment when the intent is already paid so recovery UI can retry.
+        if (currentStep === "payment" && !paymentIntentId) {
           setCurrentStep("form");
         }
 

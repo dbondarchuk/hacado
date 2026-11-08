@@ -4,6 +4,7 @@
 import GooglePayButton from "@google-pay/button-react";
 import { appsApi } from "@hacado/api-sdk/client/apps";
 import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import { PaymentAppFormProps } from "@hacado/types/apps";
 import { Button } from "@hacado/ui/button";
@@ -32,6 +33,21 @@ import {
   paypalPublicNamespace,
 } from "./translations/types";
 import { PaypalOrder } from "./types";
+
+const INTENT_ALREADY_PAID = "INTENT_ALREADY_PAID";
+
+async function isIntentAlreadyPaidError(error: unknown): Promise<boolean> {
+  if (!(error instanceof ClientApiError)) {
+    return false;
+  }
+
+  try {
+    const body = (await error.response.json()) as { error?: string };
+    return body?.error === "intent_already_paid";
+  } catch {
+    return false;
+  }
+}
 
 interface PaypalGooglePayConfig {
   allowedPaymentMethods: google.payments.api.PaymentMethodSpecification[];
@@ -192,6 +208,15 @@ const ApplePaySection: React.FC<{
 
         onSubmit();
       } catch (err) {
+        if (await isIntentAlreadyPaidError(err)) {
+          if (!sheetCompleted) {
+            session.completePayment(ApplePaySession.STATUS_SUCCESS);
+          }
+
+          onSubmit();
+          return;
+        }
+
         console.error("Apple Pay payment failed", err);
         onFailed();
         if (!sheetCompleted) {
@@ -314,6 +339,11 @@ const GooglePaySection: React.FC<{
         onSubmit();
         return { transactionState: "SUCCESS" };
       } catch (error) {
+        if (await isIntentAlreadyPaidError(error)) {
+          onSubmit();
+          return { transactionState: "SUCCESS" };
+        }
+
         console.error("Google Pay payment failed", error);
         onFailed();
         toast.error(t("toast.payment_failed"), {
@@ -508,6 +538,11 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
         throw new Error(errorMessage);
       }
     } catch (error) {
+      if (await isIntentAlreadyPaidError(error)) {
+        handleSuccess();
+        throw new Error(INTENT_ALREADY_PAID);
+      }
+
       console.error(error);
       handleFailed();
       return `Could not initiate PayPal Checkout...${error}`;
@@ -560,6 +595,13 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
   };
 
   function onError(error: any) {
+    if (
+      error?.message === INTENT_ALREADY_PAID ||
+      String(error).includes(INTENT_ALREADY_PAID)
+    ) {
+      return;
+    }
+
     console.error(`Payment has failed`, error);
     handleFailed();
     toast.error(t("toast.payment_failed"), {

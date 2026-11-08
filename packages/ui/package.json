@@ -108,6 +108,7 @@
     "./auto-skeleton": "./src/components/auto-skeleton.tsx",
     "./avatar": "./src/components/avatar.tsx",
     "./badge": "./src/components/badge.tsx",
+    "./booking-payment-received": "./src/components/booking-payment-received.tsx",
     "./booking-payment-tips": "./src/components/booking-payment-tips.tsx",
     "./boolean-select": "./src/components/boolean-select.tsx",
     "./breadcrumb": "./src/components/breadcrumb.tsx",

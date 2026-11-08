@@ -206,6 +206,12 @@ booking:
     fixedAmountRequiredDescription: Para reservar esta cita, se requiere un depósito de {amount}. Por favor pague usando el siguiente formulario
     fullPaymentRequiredTitle: Se requiere pago completo
     fullPaymentRequiredDescription: Para reservar esta cita, se requiere el pago total de {amount}. Por favor pague usando el siguiente formulario
+    paymentReceivedTitle: Pago recibido
+    paymentReceivedDescription: >-
+      Su pago se procesó correctamente, pero no pudimos completar su reserva. No
+      se le cobrará de nuevo. Toque abajo para completar su reserva. Si sigue
+      fallando, por favor contáctenos.
+    completeBooking: Completar reserva
     tips:
       title: Añadir una propina
       none: Sin propina

@@ -2,6 +2,7 @@
 
 import { appsApi } from "@hacado/api-sdk/client/apps";
 import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import { PaymentAppFormProps } from "@hacado/types/apps";
 import { Button } from "@hacado/ui/button";
@@ -159,16 +160,34 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
         }
 
         if (!res?.clientSecret) {
+          if (res?.error === "intent_already_paid") {
+            onSubmit();
+            return;
+          }
+
           setLoadError(res?.error ?? "missing_client_secret");
           return;
         }
 
         setClientSecret(res.clientSecret);
       } catch (e) {
-        if (!cancelled) {
-          setLoadError("create_intent_failed");
+        if (cancelled) {
+          return;
         }
 
+        if (e instanceof ClientApiError) {
+          try {
+            const body = (await e.response.json()) as { error?: string };
+            if (body?.error === "intent_already_paid") {
+              onSubmit();
+              return;
+            }
+          } catch {
+            // fall through to load error
+          }
+        }
+
+        setLoadError("create_intent_failed");
         console.error(e);
       }
     })();
@@ -176,7 +195,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
     return () => {
       cancelled = true;
     };
-  }, [intent._id, intent.appId, intent.amount]);
+  }, [intent._id, intent.appId, intent.amount, onSubmit]);
 
   const returnFrom3dsRef = React.useRef(false);
   /** After 3D Secure, Stripe returns with `redirect_status` on the same URL. */

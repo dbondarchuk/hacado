@@ -216,6 +216,12 @@ booking:
     fullPaymentRequiredDescription: >-
       In order to book this appointment, full payment of {amount} is required.
       Please pay by using the form below
+    paymentReceivedTitle: Payment received
+    paymentReceivedDescription: >-
+      Your payment went through, but we could not finish your booking. You will
+      not be charged again. Tap below to complete your booking. If it still fails,
+      please contact us.
+    completeBooking: Complete booking
     tips:
       title: Add a tip
       none: No tip
