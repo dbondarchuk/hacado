@@ -101,11 +101,15 @@ async function buildSyncedPaymentIngestedToast(
   };
 }
 
-function matchedSyncedPaymentPushActions(syncedPaymentId: string): {
+type SyncedPaymentPushAction = {
   action: string;
   title: { key: BaseAllKeys };
   url: string;
-}[] {
+};
+
+function matchedSyncedPaymentPushActions(
+  syncedPaymentId: string,
+): SyncedPaymentPushAction[] {
   return [
     {
       action: "confirm",
@@ -120,6 +124,20 @@ function matchedSyncedPaymentPushActions(syncedPaymentId: string): {
         key: "admin.syncedPayments.notifications.actions.reject" satisfies BaseAllKeys,
       },
       url: dashboardUrls.syncedPaymentReject(syncedPaymentId),
+    },
+  ];
+}
+
+function unmatchedSyncedPaymentPushActions(
+  syncedPaymentId: string,
+): SyncedPaymentPushAction[] {
+  return [
+    {
+      action: "ignore",
+      title: {
+        key: "admin.syncedPayments.notifications.actions.ignore" satisfies BaseAllKeys,
+      },
+      url: dashboardUrls.syncedPaymentIgnore(syncedPaymentId),
     },
   ];
 }
@@ -187,11 +205,9 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           url: toast.action.href,
           tag: SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
           audience: SYNCED_PAYMENT_READ_AUDIENCE,
-          ...(isMatched
-            ? {
-                actions: matchedSyncedPaymentPushActions(syncedPayment._id),
-              }
-            : {}),
+          actions: isMatched
+            ? matchedSyncedPaymentPushActions(syncedPayment._id)
+            : unmatchedSyncedPaymentPushActions(syncedPayment._id),
         };
       },
       emailNotifications: false,

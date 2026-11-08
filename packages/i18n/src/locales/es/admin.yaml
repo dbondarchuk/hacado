@@ -396,6 +396,9 @@ billing:
       title: Recarga por SMS completa
       message: Se agregó {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Se utilizan después de su grupo de suscripción incluido.
       action: Abrir configuración de facturación
+    actions:
+      topUp: Comprar créditos SMS
+      billing: Abrir configuración de facturación
 commandPalette:
   placeholder: Buscar
   typeHint: "Busca un solo tipo con un prefijo, como customer: o blog:."
@@ -872,6 +875,7 @@ syncedPayments:
     actions:
       confirm: Confirmar
       reject: Rechazar
+      ignore: Ignorar
 appointments:
   title: Equipo
   scheduleAppointment: Agendar cita
@@ -1992,6 +1996,8 @@ apps:
       title: La conexión de la aplicación falló
       message: "{appDisplayName} no pudo conectarse. Verifique la configuración de la aplicación."
       action: Abrir aplicaciones
+    actions:
+      open: Abrir aplicaciones
   emails:
     failed:
       subject: "{appDisplayName} - conexión fallida"

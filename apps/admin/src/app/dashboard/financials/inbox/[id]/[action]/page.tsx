@@ -33,14 +33,14 @@ export default async function Page(props: Props) {
     return notFound();
   }
 
-  if (existing.status !== "matched") {
-    redirect(
-      `/dashboard/financials/inbox?externalId=${encodeURIComponent(existing.externalId)}`,
-    );
-  }
+  const inboxUrl = `/dashboard/financials/inbox?externalId=${encodeURIComponent(existing.externalId)}`;
 
   switch (params.action) {
     case "confirm":
+      if (existing.status !== "matched") {
+        redirect(inboxUrl);
+      }
+
       await service.confirm(params.id, actor);
 
       logger.debug(
@@ -51,11 +51,13 @@ export default async function Page(props: Props) {
         "Synced payment confirmed, redirecting",
       );
 
-      redirect(
-        `/dashboard/financials/inbox?externalId=${encodeURIComponent(existing.externalId)}`,
-      );
+      redirect(inboxUrl);
 
     case "reject":
+      if (existing.status !== "matched") {
+        redirect(inboxUrl);
+      }
+
       await service.reject(params.id, actor);
 
       logger.debug(
@@ -64,6 +66,23 @@ export default async function Page(props: Props) {
           action: "reject",
         },
         "Synced payment rejected, redirecting",
+      );
+
+      redirect("/dashboard/financials/inbox");
+
+    case "ignore":
+      if (existing.status !== "unmatched") {
+        redirect(inboxUrl);
+      }
+
+      await service.ignore(params.id, actor);
+
+      logger.debug(
+        {
+          syncedPaymentId: params.id,
+          action: "ignore",
+        },
+        "Synced payment ignored, redirecting",
       );
 
       redirect("/dashboard/financials/inbox");

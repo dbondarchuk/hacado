@@ -12,7 +12,10 @@ export const dashboardUrls = {
     `/dashboard/financials/inbox/${id}/confirm`,
   syncedPaymentReject: (id: string) =>
     `/dashboard/financials/inbox/${id}/reject`,
+  syncedPaymentIgnore: (id: string) =>
+    `/dashboard/financials/inbox/${id}/ignore`,
   syncedPayments: "/dashboard/financials/inbox",
+  apps: "/dashboard/apps",
   giftCard: (id: string) => `/dashboard/catalog/gift-cards/${id}`,
   giftCards: "/dashboard/catalog/gift-cards",
   appointmentPackage: (id: string) => `/dashboard/catalog/packages/${id}`,

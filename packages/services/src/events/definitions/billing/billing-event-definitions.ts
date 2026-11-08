@@ -173,6 +173,31 @@ function getSmsCreditsThresholdToast(
   };
 }
 
+type SmsCreditsPushAction = {
+  action: string;
+  title: { key: BaseAllKeys };
+  url: string;
+};
+
+function smsCreditsPushActions(): SmsCreditsPushAction[] {
+  return [
+    {
+      action: "topup",
+      title: {
+        key: "admin.billing.notifications.actions.topUp" satisfies BaseAllKeys,
+      },
+      url: dashboardUrls.billingPurchaseSmsTopup,
+    },
+    {
+      action: "billing",
+      title: {
+        key: "admin.billing.notifications.actions.billing" satisfies BaseAllKeys,
+      },
+      url: dashboardUrls.billing,
+    },
+  ];
+}
+
 export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [SMS_CREDITS_LOW_EVENT_TYPE]: {
     type: SMS_CREDITS_LOW_EVENT_TYPE,
@@ -200,6 +225,7 @@ export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         url: toast.action.href,
         tag: SMS_CREDITS_LOW_EVENT_TYPE,
         audience: BILLING_READ_AUDIENCE,
+        actions: smsCreditsPushActions(),
       };
     },
     emailNotifications: async (envelope, services) =>
@@ -232,6 +258,7 @@ export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         url: toast.action.href,
         tag: SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
         audience: BILLING_READ_AUDIENCE,
+        actions: smsCreditsPushActions(),
       };
     },
     emailNotifications: async (envelope, services) =>

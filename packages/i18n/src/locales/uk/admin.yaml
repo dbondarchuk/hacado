@@ -396,6 +396,9 @@ billing:
       title: SMS-докупку завершено
       message: Додано {credits, plural, one {кредит} few {# кредити} many {# кредитів} other {# кредиту}}. Використовуються після включеного обсягу підписки.
       action: Відкрити білінг
+    actions:
+      topUp: Купити SMS-кредити
+      billing: Відкрити білінг
 commandPalette:
   placeholder: Пошук
   typeHint: "Шукайте один тип з префіксом, наприклад customer: або blog:."
@@ -872,6 +875,7 @@ syncedPayments:
     actions:
       confirm: Підтвердити
       reject: Відхилити
+      ignore: Ігнорувати
 appointments:
   title: Записи
   scheduleAppointment: Запланувати запис
@@ -1992,6 +1996,8 @@ apps:
       title: Підключення застосунку не вдалося
       message: "{appDisplayName} не вдалося підключити. Перевірте налаштування застосунку."
       action: Відкрити застосунки
+    actions:
+      open: Відкрити застосунки
   emails:
     failed:
       subject: "{appDisplayName} - не вдалося підключити"

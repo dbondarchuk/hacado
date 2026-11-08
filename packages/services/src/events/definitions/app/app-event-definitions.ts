@@ -19,6 +19,8 @@ import {
 } from "@hacado/types/events";
 import { getAdminUrl } from "@hacado/utils/website";
 
+import { dashboardUrls } from "../links";
+
 const COMPANY_APP_FAILED_AUDIENCE = {
   requiredPermissions: [
     { resource: "app" as const, action: "install" as const },
@@ -187,9 +189,18 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
               AvailableApps[payload.appName]?.displayName ?? payload.appName,
           },
         },
-        url: "/dashboard/apps",
+        url: dashboardUrls.apps,
         tag: APP_FAILED_EVENT_TYPE,
         audience: appFailedAudience(payload),
+        actions: [
+          {
+            action: "open",
+            title: {
+              key: "admin.apps.notifications.actions.open" satisfies BaseAllKeys,
+            },
+            url: dashboardUrls.apps,
+          },
+        ],
       };
     },
     emailNotifications: async (envelope, services) => {

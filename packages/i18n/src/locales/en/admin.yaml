@@ -399,6 +399,9 @@ billing:
       title: SMS top-up complete
       message: "Added {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. They are used after your included subscription pool."
       action: Open billing settings
+    actions:
+      topUp: Buy SMS credits
+      billing: Open billing settings
 commandPalette:
   placeholder: Search
   typeHint: "Search one type with a prefix, such as customer: or blog:."
@@ -876,6 +879,7 @@ syncedPayments:
     actions:
       confirm: Confirm
       reject: Reject
+      ignore: Ignore
 appointments:
   title: Appointments
   scheduleAppointment: Schedule appointment
@@ -2073,6 +2077,8 @@ apps:
       title: App connection failed
       message: "{appDisplayName} failed to connect. Check app settings."
       action: Open apps
+    actions:
+      open: Open apps
   emails:
     failed:
       subject: "{appDisplayName} - connection failed"

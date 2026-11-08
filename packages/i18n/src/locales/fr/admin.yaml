@@ -396,6 +396,9 @@ billing:
       title: Recharge SMS terminée
       message: Ajout de {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Ils sont utilisés après votre pool d'abonnement inclus.
       action: Ouvrir les paramètres de facturation
+    actions:
+      topUp: Acheter des crédits SMS
+      billing: Ouvrir les paramètres de facturation
 commandPalette:
   placeholder: Rechercher
   typeHint: "Cherchez un seul type avec un préfixe, comme customer: ou blog:."
@@ -872,6 +875,7 @@ syncedPayments:
     actions:
       confirm: Confirmer
       reject: Rejeter
+      ignore: Ignorer
 appointments:
   title: Rendez-vous
   scheduleAppointment: Planifier un rendez-vous
@@ -1992,6 +1996,8 @@ apps:
       title: La connexion à l'application a échoué
       message: "{appDisplayName} n'a pas réussi à se connecter. Vérifiez les paramètres de l'application."
       action: Ouvrir des applications
+    actions:
+      open: Ouvrir des applications
   emails:
     failed:
       subject: "{appDisplayName} - échec de la connexion"
