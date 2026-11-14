@@ -1,85 +1,94 @@
 app:
-  displayName: My appointment notifications
+  displayName: Mes notifications de rendez-vous
   description: |-
-    Get an email when your bookings change. For each event, turn the alert on.
-    Coordinators and above can also send it as a text.
+    Restez informé de vos rendez-vous grâce aux notifications automatiques par e-mail et SMS.
+
+    L'application **Mes notifications de rendez-vous** vous permet de recevoir des mises à jour personnalisées chaque fois que quelque chose change avec vos rendez-vous, vous tenant au courant sans consulter constamment votre calendrier Hacado.
+
+    Utilisez-le pour :
+    - Recevez des notifications lorsque de nouveaux rendez-vous sont **créés**.
+    - Restez informé lorsque les rendez-vous sont **confirmés ou refusés**.
+    - Soyez averti lorsque les rendez-vous sont **reprogrammés ou annulés**.
+    - Choisissez de recevoir des notifications par **e-mail, SMS ou les deux**.
+    - Gardez une trace de l'activité des rendez-vous et restez maître de votre emploi du temps, même lorsque vous êtes loin de Hacado.
 navigation:
-  title: My appointment notifications
+  title: Mes notifications de rendez-vous
 form:
   email:
-    label: Send to email
-    tooltip: Email address for these alerts. Leave empty to use your default email address.
-    placeholder: john@example.com
+    label: Envoyer par e-mail
+    tooltip: Adresse e-mail pour ces alertes. Laissez vide pour utiliser votre adresse e-mail par défaut.
+    placeholder: john@exemple.com
   phone:
-    label: Phone number
-    tooltip: Optional phone number for text alerts. Your phone is used by default.
-    placeholder: Phone
+    label: Numéro de téléphone
+    tooltip: Numéro de téléphone facultatif pour les alertes SMS. Votre téléphone est utilisé par défaut.
+    placeholder: Téléphone
   processOtherMembersAppointments:
-    label: Process other members' appointments
-    description: When enabled, also send notifications for appointments assigned to other team members.
+    label: Traiter les nominations des autres membres
+    description: Lorsqu'il est activé, envoyez également des notifications pour les rendez-vous attribués aux autres membres de l'équipe.
   schedule:
-    label: When to send
+    label: Quand envoyer
   delivery:
-    label: How to send
+    label: Comment envoyer
   channel:
-    required: At least one channel is required. Turn on email, text message, or both.
+    required: Au moins un canal est requis. Activez le courrier électronique, les SMS ou les deux.
   emailChannel:
-    label: Email
-    description: Send this alert to your inbox, with a calendar attachment when available.
+    label: E-mail
+    description: Envoyez cette alerte dans votre boîte de réception, avec une pièce jointe de calendrier lorsqu'elle est disponible.
   textMessage:
-    label: Text message
-    description: Send this alert by text message.
-    smsDisabled: Text messages need text messaging turned on. While it is off, this option stays unavailable.
-    smsDisabledAction: Turn on text messaging
+    label: SMS
+    description: Envoyez cette alerte par SMS.
+    smsDisabled: Les messages texte doivent être activés. Tant qu'elle est désactivée, cette option reste indisponible.
+    smsDisabledAction: Activer la messagerie texte
   events:
     pending:
       enabled:
-        label: New appointment request
-        description: Sent when a customer requests an appointment that still needs confirmation.
+        label: Nouvelle demande de rendez-vous
+        description: Envoyé lorsqu'un client demande un rendez-vous qui doit encore être confirmé.
     confirmed:
       enabled:
-        label: Appointment confirmed
-        description: Sent when an appointment is confirmed, including auto-confirmed bookings.
+        label: Rendez-vous confirmé
+        description: Envoyé lorsqu'un rendez-vous est confirmé, y compris les réservations automatiquement confirmées.
     declined:
       enabled:
-        label: Appointment declined
-        description: Sent when you decline a booking request.
+        label: Rendez-vous refusé
+        description: Envoyé lorsque vous refusez une demande de réservation.
     canceled:
       enabled:
-        label: Appointment canceled
-        description: Sent when the appointment is canceled.
+        label: Rendez-vous annulé
+        description: Envoyé lorsque le rendez-vous est annulé.
     noShow:
       enabled:
-        label: Customer no-show
-        description: Sent when you mark the customer as a no-show.
+        label: Non-présentation du client
+        description: Envoyé lorsque vous marquez le client comme non-présenté.
     rescheduled:
       enabled:
-        label: Appointment rescheduled
-        description: Sent when the appointment time changes.
-  update: Update <app></app>
-  add: Add <app></app>
+        label: Rendez-vous reporté
+        description: Envoyé lorsque l'heure du rendez-vous change.
+  update: Mettre à jour <app></app>
+  add: Ajouter <app></app>
 statusText:
-  email_app_not_configured: Email sender default is not configured
-  text_message_app_not_configured: Text message sender default app is not configured
-  successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing my appointment notifications configuration
-  error_sending_email_notification_for_new_appointment: Error sending email notification for new appointment
-  error_sending_email_notification_for_status_change: Error sending email notification for status change
-  error_sending_email_notification_for_rescheduled_appointment: Error sending email notification for rescheduled appointment
-  error_sending_text_message_notification_for_new_appointment: Error sending text message notification for new appointment
-  error_sending_text_message_notification_for_status_change: Error sending text message notification for status change
-  error_sending_text_message_notification_for_rescheduled_appointment: Error sending text message notification for rescheduled appointment
-  error_processing_text_message_reply: Error processing text message reply
+  email_app_not_configured: L'expéditeur d'e-mail par défaut n'est pas configuré
+  text_message_app_not_configured: L'application par défaut de l'expéditeur de messages texte n'est pas configurée
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Erreur lors du traitement de la configuration de mes notifications de rendez-vous
+  error_sending_email_notification_for_new_appointment: Erreur lors de l'envoi d'une notification par e-mail pour un nouveau rendez-vous
+  error_sending_email_notification_for_status_change: Erreur lors de l'envoi d'une notification par e-mail pour un changement de statut
+  error_sending_email_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par e-mail pour un rendez-vous reprogrammé
+  error_sending_text_message_notification_for_new_appointment: Erreur lors de l'envoi d'une notification par SMS pour un nouveau rendez-vous
+  error_sending_text_message_notification_for_status_change: Erreur lors de l'envoi d'une notification par SMS pour un changement de statut
+  error_sending_text_message_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par SMS pour un rendez-vous reprogrammé
+  error_processing_text_message_reply: Erreur lors du traitement de la réponse au message texte
 handlers:
-  newRequest: My Appointment Notifications - New Request
-  pending: My Appointment Notifications - Pending
-  confirmed: My Appointment Notifications - Confirmed
-  declined: My Appointment Notifications - Declined
-  canceled: My Appointment Notifications - Canceled
-  noShow: My Appointment Notifications - No-show
-  rescheduled: My Appointment Notifications - Rescheduled
-  autoReply: My Appointment Notifications - Auto reply
+  newRequest: Mes notifications de rendez-vous – Nouvelle demande
+  pending: Mes notifications de rendez-vous - En attente
+  confirmed: Mes notifications de rendez-vous - Confirmé
+  declined: Mes notifications de rendez-vous – Refusé
+  canceled: Mes notifications de rendez-vous - Annulé
+  noShow: Mes notifications de rendez-vous - Non-présentation
+  rescheduled: Mes notifications de rendez-vous – Reprogrammé
+  autoReply: Mes notifications de rendez-vous - Réponse automatique
 validation:
   form:
     channel:
-      required: At least one channel is required. Turn on email, text message, or both.
+      required: Au moins un canal est requis. Activez le courrier électronique, les SMS ou les deux.
+

@@ -12,6 +12,7 @@ import {
   professionMatchesSearch,
 } from "@/components/install/catalog";
 import { Language, useI18n, useLocale } from "@hacado/i18n/client";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { cn } from "@hacado/ui/cn";
@@ -116,60 +117,67 @@ export function AddServiceSplitButton({ canAddMore }: { canAddMore: boolean }) {
 
   return (
     <>
-      <div className="flex flex-col items-end gap-2">
-        <div className="flex items-center">
-          {canAddMore ? (
-            <Link
-              href="/dashboard/catalog/services/new"
-              button
-              variant="default"
-              className="rounded-r-none border-r"
-            >
-              <Plus />
+      <div className="flex items-center">
+        {canAddMore ? (
+          <Link
+            href="/dashboard/catalog/services/new"
+            button
+            size="sm"
+            variant="default"
+            className="rounded-r-none border-r"
+            aria-label={t("catalog.services.addNew")}
+          >
+            <Plus />
+            <TableToolbarActionLabel>
               {t("catalog.services.addNew")}
-            </Link>
-          ) : (
-            <TooltipResponsive>
-              <TooltipResponsiveTrigger>
-                <span>
-                  <Button
-                    type="button"
-                    variant="default"
-                    className="rounded-r-none border-r"
-                    disabled
-                  >
-                    <Lock />
+            </TableToolbarActionLabel>
+          </Link>
+        ) : (
+          <TooltipResponsive>
+            <TooltipResponsiveTrigger>
+              <span>
+                <Button
+                  type="button"
+                  variant="default"
+                  size="sm"
+                  className="rounded-r-none border-r"
+                  disabled
+                  aria-label={t("catalog.services.addNew")}
+                >
+                  <Lock />
+                  <TableToolbarActionLabel>
                     {t("catalog.services.addNew")}
-                  </Button>
-                </span>
-              </TooltipResponsiveTrigger>
-              <TooltipResponsiveContent>
-                <ServiceLimitUpgradeHint />
-              </TooltipResponsiveContent>
-            </TooltipResponsive>
-          )}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type="button"
-                variant="default"
-                size="md"
-                className="rounded-l-none px-2"
-                disabled={!canAddMore}
-              >
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                disabled={!canAddMore}
-                onClick={() => canAddMore && setDialogOpen(true)}
-              >
-                {t("catalog.services.addFromTemplate")}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+                  </TableToolbarActionLabel>
+                </Button>
+              </span>
+            </TooltipResponsiveTrigger>
+            <TooltipResponsiveContent>
+              <ServiceLimitUpgradeHint />
+            </TooltipResponsiveContent>
+          </TooltipResponsive>
+        )}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              type="button"
+              variant="default"
+              size="sm"
+              className="rounded-l-none px-2"
+              disabled={!canAddMore}
+              aria-label={t("catalog.services.addFromTemplate")}
+            >
+              <ChevronDown className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              disabled={!canAddMore}
+              onClick={() => canAddMore && setDialogOpen(true)}
+            >
+              {t("catalog.services.addFromTemplate")}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <Dialog

@@ -61,15 +61,11 @@ export const DeleteSelectedDesignsButton: React.FC<{
         variant="destructive"
         disabled={disabled || isLoading || !selected || !selected.length}
         onClick={() => setIsOpen(true)}
-        aria-label={t("designs.table.deleteSelected.label", {
-          count: selected.length,
-        })}
+        aria-label={t("designs.table.actions.delete")}
       >
         {isLoading && <Spinner />}
         <Trash className="h-4 w-4" />
-        <span className="max-xl:hidden">
-          {t("designs.table.deleteSelected.label", { count: selected.length })}
-        </span>
+        <span>{t("designs.table.actions.delete")}</span>
       </Button>
       <AlertModal
         isOpen={isOpen}

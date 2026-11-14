@@ -16,8 +16,8 @@ import { sessionCanCreateMoreServices } from "@/lib/billing/subscription-plan-ac
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { AppointmentOptionUpdateModel } from "@hacado/types/booking";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 
@@ -55,19 +55,6 @@ export default async function NewServicePage(props: Props) {
     });
 
   const canAddMore = sessionCanCreateMoreServices(session, serviceCount);
-
-  const breadcrumbItems = [
-    { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
-    {
-      title: t("navigation.services"),
-      link: "/dashboard/catalog/services",
-    },
-    {
-      title: t("catalog.services.new"),
-      link: "/dashboard/catalog/services/new",
-    },
-  ];
 
   let initialData: AppointmentOptionUpdateModel | undefined = undefined;
   if (canAddMore && from) {
@@ -157,21 +144,33 @@ export default async function NewServicePage(props: Props) {
     "New service option page loaded",
   );
 
+  if (canAddMore) {
+    return (
+      <PageContainer scrollable>
+        <ServiceForm initialData={initialData} />
+      </PageContainer>
+    );
+  }
+
+  const breadcrumbItems = [
+    { title: t("navigation.dashboard"), link: "/dashboard" },
+    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
+    {
+      title: t("navigation.services"),
+      link: "/dashboard/catalog/services",
+    },
+    {
+      title: t("catalog.services.new"),
+      link: "/dashboard/catalog/services/new",
+    },
+  ];
+
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("catalog.services.newTitle")}
-            description={t("catalog.services.newDescription")}
-          />
-        </div>
-        {canAddMore ? (
-          <ServiceForm initialData={initialData} />
-        ) : (
-          <ServiceLimitUpgradeHint />
-        )}
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("catalog.services.newDescription")} />
+        <ServiceLimitUpgradeHint />
       </div>
     </PageContainer>
   );

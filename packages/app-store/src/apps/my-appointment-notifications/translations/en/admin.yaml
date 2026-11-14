@@ -1,8 +1,16 @@
 app:
   displayName: My appointment notifications
   description: |-
-    Get an email when your bookings change. For each event, turn the alert on.
-    Coordinators and above can also send it as a text.
+    Stay informed about your appointments with automatic email and SMS notifications.
+
+    The **My Appointment Notifications** app allows you to receive personalized updates whenever something changes with your appointments, keeping you up to date without constantly checking your Hacado calendar.
+
+    Use it to:
+    - Receive notifications when new appointments are **created**.
+    - Stay informed when appointments are **confirmed or declined**.
+    - Get notified when appointments are **rescheduled or cancelled**.
+    - Choose whether to receive notifications by **email, SMS, or both**.
+    - Keep track of appointment activity and stay on top of your schedule, even when you're away from Hacado.
 navigation:
   title: My appointment notifications
 form:

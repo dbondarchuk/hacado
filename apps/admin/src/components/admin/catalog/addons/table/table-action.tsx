@@ -4,13 +4,16 @@ import { useAuth } from "@hacado/ui-admin/context";
 import {
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { hasPermission } from "@hacado/utils/permissions";
+import React from "react";
 import { DeleteSelectedAddonsButton } from "./delete-selected";
 import { useAddonsTableFilters } from "./use-table-filters";
 
-export function AddonsTableAction() {
+export function AddonsTableAction({ actions }: { actions?: React.ReactNode }) {
   const {
     isAnyFilterActive,
     resetFilters,
@@ -24,8 +27,8 @@ export function AddonsTableAction() {
   const canDelete = hasPermission(user, "service", "delete");
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+    <>
+      <DataTableToolbar actions={actions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -36,12 +39,12 @@ export function AddonsTableAction() {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
+      </DataTableToolbar>
       {canDelete ? (
-        <div className="flex flex-wrap items-center gap-4">
+        <SelectionActionBar count={rowSelection.length}>
           <DeleteSelectedAddonsButton selected={rowSelection} />
-        </div>
+        </SelectionActionBar>
       ) : null}
-    </div>
+    </>
   );
 }

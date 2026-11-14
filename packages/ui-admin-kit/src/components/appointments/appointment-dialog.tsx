@@ -7,20 +7,12 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
   DialogTitle,
 } from "@hacado/ui/dialog";
-import { Link } from "@hacado/ui/link";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { SquareArrowOutUpRight } from "lucide-react";
 import React from "react";
-import {
-  AppointmentView,
-  AppointmentViewButtons,
-  AppointmentViewProvider,
-} from "./appointment-view";
+import { AppointmentView, AppointmentViewProvider } from "./appointment-view";
 
 export type AppointmentDialogProps = DialogProps & {
   appointment: Appointment;
@@ -35,28 +27,12 @@ export const AppointmentDialog: React.FC<AppointmentDialogProps> = ({
   return (
     <Dialog {...rest}>
       <AppointmentViewProvider appointment={appointment}>
-        <DialogContent className="sm:max-w-[80%] flex flex-col h-full max-h-[100%]">
-          <DialogHeader className="flex flex-row justify-between items-center">
-            <div className="flex flex-col gap-1.5">
-              <DialogTitle className="w-full flex flex-row justify-between items-center mt-2">
-                <Link
-                  variant="underline"
-                  title={t("appointments.dialog.viewFullInfo")}
-                  href={`/dashboard/appointments/${appointment._id}`}
-                  className="inline"
-                >
-                  {appointment.service.name}
-                  <SquareArrowOutUpRight className="size-3.5 inline-block ml-1" />
-                </Link>
-              </DialogTitle>
-              <DialogDescription>
-                {t("appointments.dialog.by")} {appointment.fields.name}
-              </DialogDescription>
-            </div>
-            <AppointmentViewButtons />
-          </DialogHeader>
-          <div className="flex-1 w-full overflow-y-auto">
-            <AppointmentView />
+        <DialogContent className="flex h-full max-h-[100%] flex-col sm:max-w-[80%]">
+          <DialogTitle className="sr-only">
+            {appointment.service.name}
+          </DialogTitle>
+          <div className="min-h-0 w-full flex-1 overflow-y-auto">
+            <AppointmentView layout="page" showOpenFullPage />
           </div>
           <DialogFooter className="flex-row gap-2">
             <DialogClose asChild>

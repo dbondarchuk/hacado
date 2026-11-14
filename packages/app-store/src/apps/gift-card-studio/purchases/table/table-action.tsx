@@ -2,11 +2,12 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
+  TableToolbarActionLabel,
 } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { ShoppingCart } from "lucide-react";
@@ -56,34 +57,34 @@ export const PurchasesTableAction: React.FC<{
     </>
   );
 
+  const toolbarActions = (
+    <Button
+      onClick={onOpenManualPurchase}
+      variant="default"
+      size="sm"
+      aria-label={t("purchases.table.actions.create")}
+    >
+      <ShoppingCart size={16} />
+      <TableToolbarActionLabel>
+        {t("purchases.table.actions.create")}
+      </TableToolbarActionLabel>
+    </Button>
+  );
+
   return (
-    <div className="flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-        <DataTableSearch
-          searchKey={"search"}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-          placeholder={t("purchases.table.searchPlaceholder")}
-        />
-        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-      </div>
-      <HeaderActionButtonsPortal>
-        <Button
-          onClick={onOpenManualPurchase}
-          variant="default"
-          aria-label={t("purchases.table.actions.create")}
-        >
-          <ShoppingCart size={16} />
-          <span className="max-md:hidden">
-            {t("purchases.table.actions.create")}
-          </span>
-        </Button>
-      </HeaderActionButtonsPortal>
-    </div>
+    <DataTableToolbar actions={toolbarActions}>
+      <DataTableSearch
+        searchKey={"search"}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setPage={setPage}
+        placeholder={t("purchases.table.searchPlaceholder")}
+      />
+      <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+      <DataTableResetFilter
+        isFilterActive={isAnyFilterActive}
+        onReset={resetFilters}
+      />
+    </DataTableToolbar>
   );
 };

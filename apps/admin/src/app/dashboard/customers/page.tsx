@@ -9,9 +9,11 @@ import {
 } from "@hacado/api-sdk/admin/search-params/customers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { hasPermission } from "@hacado/utils/permissions";
 import { Plus } from "lucide-react";
@@ -54,23 +56,25 @@ export default async function CustomersPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("customers.title")}
-              description={t("customers.manageCustomers")}
-            />
-
-            {canCreate ? (
-              <Link button href={"/dashboard/customers/new"} variant="default">
-                <Plus /> {t("customers.addNew")}
+        <Breadcrumbs items={breadcrumbItems} />
+        <CustomersTableAction
+          actions={
+            canCreate ? (
+              <Link
+                button
+                href="/dashboard/customers/new"
+                size="sm"
+                variant="default"
+                aria-label={t("customers.addNew")}
+              >
+                <Plus />
+                <TableToolbarActionLabel>
+                  {t("customers.addNew")}
+                </TableToolbarActionLabel>
               </Link>
-            ) : null}
-          </div>
-          {/* <Separator /> */}
-        </div>
-        <CustomersTableAction />
+            ) : null
+          }
+        />
         <Suspense
           key={key}
           fallback={

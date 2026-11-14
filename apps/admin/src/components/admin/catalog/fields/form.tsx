@@ -10,9 +10,12 @@ import {
   ServiceFieldUpdateModel,
 } from "@hacado/types/booking";
 import { DatabaseId } from "@hacado/types/database";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Sortable } from "@hacado/ui-admin/sortable";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Button } from "@hacado/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
 import { Combobox } from "@hacado/ui/combobox";
@@ -46,7 +49,7 @@ import { toastPromise } from "@hacado/ui/sonner";
 import { TagInput } from "@hacado/ui/tag-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import { useFieldArray, useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
 import { SelectFieldOptionCard } from "./select-field-option-card";
@@ -198,205 +201,133 @@ export const ServiceFieldForm: React.FC<{
   const selectOptionsIds = selectOptionsFields.map((x) => x.id);
 
   const fieldType = form.watch("type");
+  const isNew = !initialData?._id;
+  const pageTitle = isNew
+    ? t("catalog.fields.newTitle")
+    : t("catalog.fields.editDescription");
+
+  const breadcrumbItems = useMemo(
+    () => [
+      { title: t("navigation.dashboard"), link: "/dashboard" },
+      { title: t("navigation.catalog"), link: "/dashboard/catalog" },
+      { title: t("navigation.fields"), link: "/dashboard/catalog/fields" },
+      {
+        title: pageTitle,
+        mobileTitle: pageTitle,
+        link: isNew
+          ? "/dashboard/catalog/fields/new"
+          : `/dashboard/catalog/fields/${initialData?._id}`,
+      },
+    ],
+    [initialData?._id, isNew, pageTitle, t],
+  );
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <div className="flex min-w-0 flex-col gap-4">
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("catalog.fields.form.details")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.fields.form.name")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder={t("catalog.fields.form.namePlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.fields.form.nameTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+      <div className="flex flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader
+          text={
+            <div className="my-2 w-full min-w-0">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={isNew}
+                label={t("catalog.fields.form.name")}
+                placeholder={t("catalog.fields.form.namePlaceholder")}
+                description={t("catalog.fields.form.nameTooltip")}
               />
-              <FormField
-                control={form.control}
-                name="data.label"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.fields.form.label")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder={t("catalog.fields.form.labelPlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.fields.form.labelTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem className="md:col-span-2">
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.fields.form.type")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <Combobox
-                        disabled={loading}
-                        className="flex w-full font-normal text-lg"
-                        values={fieldTypes.map((type) => ({
-                          value: type,
-                          label: t(`common.labels.fieldType.${type}`),
-                        }))}
-                        searchLabel={t("catalog.fields.form.typePlaceholder")}
-                        value={field.value}
-                        onItemSelect={(item) => {
-                          field.onChange(item);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.fields.form.typeTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="data.description"
-                render={({ field }) => (
-                  <FormItem className="min-w-0 md:col-span-2">
-                    <FormLabel>
-                      {t("catalog.fields.form.description")}
-                    </FormLabel>
-                    <FormControl>
-                      <PlateMarkdownEditor
-                        className="bg-background px-4 sm:px-4 pb-24"
-                        disabled={loading}
-                        value={field.value}
-                        onChange={(v) => {
-                          field.onChange(v);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.fields.form.descriptionTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-          <FormField
-            control={form.control}
-            name="required"
-            render={({ field }) => (
-              <SwitchCardFormItem
-                label={t("catalog.fields.form.required")}
-                description={t("catalog.fields.form.requiredTooltip")}
-                checked={!!field.value}
-                disabled={loading}
-                onCheckedChange={(checked) => {
-                  field.onChange(checked);
-                  field.onBlur();
-                }}
-              />
-            )}
-          />
-          {fieldType === "file" && (
+            </div>
+          }
+        />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-8"
+        >
+          <div className="flex min-w-0 flex-col gap-4">
             <Card>
               <CardHeader className="border-b">
                 <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  {t("catalog.fields.form.fileSettings")}
+                  {t("catalog.fields.form.details")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
-                  name="data.maxSizeMb"
+                  name="data.label"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {t("catalog.fields.form.maxSizeMbLabel")}
-                      </FormLabel>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("catalog.fields.form.label")}
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
-                        <InputGroup>
-                          <InputGroupInput>
-                            <Input
-                              disabled={loading}
-                              placeholder={t(
-                                "catalog.fields.form.maxSizeMbPlaceholder",
-                              )}
-                              type="number"
-                              className={InputGroupInputClasses()}
-                              {...field}
-                            />
-                          </InputGroupInput>
-                          <InputGroupAddon className={InputGroupAddonClasses()}>
-                            MB
-                          </InputGroupAddon>
-                        </InputGroup>
+                        <Input
+                          disabled={loading}
+                          placeholder={t(
+                            "catalog.fields.form.labelPlaceholder",
+                          )}
+                          {...field}
+                        />
                       </FormControl>
                       <FormDescription>
-                        {t("catalog.fields.form.maxSizeMbTooltip")}
+                        {t("catalog.fields.form.labelTooltip")}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
-                  name="data.accept"
+                  name="type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {t("catalog.fields.form.acceptedFilesLabel")}
-                      </FormLabel>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("catalog.fields.form.type")}
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
-                        <TagInput
-                          {...field}
-                          readOnly
-                          placeholder={t(
-                            "catalog.fields.form.acceptedFilesPlaceholder",
-                          )}
+                        <Combobox
+                          disabled={loading}
+                          className="flex w-full font-normal text-lg"
+                          values={fieldTypes.map((type) => ({
+                            value: type,
+                            label: t(`common.labels.fieldType.${type}`),
+                          }))}
+                          searchLabel={t("catalog.fields.form.typePlaceholder")}
                           value={field.value}
-                          onChange={(e) => {
-                            field.onChange(e);
+                          onItemSelect={(item) => {
+                            field.onChange(item);
                             field.onBlur();
                           }}
-                          tagValidator={fileFieldAcceptItemSchema}
-                          addItemTemplate={FileTypePickerTag}
                         />
                       </FormControl>
                       <FormDescription>
-                        {t("catalog.fields.form.acceptedFilesTooltip")}
+                        {t("catalog.fields.form.typeTooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="data.description"
+                  render={({ field }) => (
+                    <FormItem className="min-w-0 md:col-span-2">
+                      <FormLabel>
+                        {t("catalog.fields.form.description")}
+                      </FormLabel>
+                      <FormControl>
+                        <PlateMarkdownEditor
+                          className="bg-background px-4 sm:px-4 pb-24"
+                          disabled={loading}
+                          value={field.value}
+                          onChange={(v) => {
+                            field.onChange(v);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.fields.form.descriptionTooltip")}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -404,41 +335,135 @@ export const ServiceFieldForm: React.FC<{
                 />
               </CardContent>
             </Card>
-          )}
-          {fieldType === "select" && (
-            <Sortable
-              title={t("catalog.fields.form.optionsTitle")}
-              ids={selectOptionsIds}
-              onSort={sortSelectOptions}
-              onAdd={addNewSelectOption}
-              required
-              invalid={{
-                isInvalid: selectOptionsState.invalid,
-                message: selectOptionsState.error?.message,
-              }}
-            >
-              <div className="flex flex-grow flex-col gap-4">
-                {selectOptionsFields.map((item, index) => {
-                  return (
-                    <SelectFieldOptionCard
-                      form={form}
-                      item={item}
-                      key={item.id}
-                      name={`data.options.${index}`}
-                      disabled={loading}
-                      remove={() => {
-                        removeSelectOption(index);
-                        void form.trigger("data.options");
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </Sortable>
-          )}
-        </div>
-        <SaveButton form={form} />
-      </form>
+            <FormField
+              control={form.control}
+              name="required"
+              render={({ field }) => (
+                <SwitchCardFormItem
+                  label={t("catalog.fields.form.required")}
+                  description={t("catalog.fields.form.requiredTooltip")}
+                  checked={!!field.value}
+                  disabled={loading}
+                  onCheckedChange={(checked) => {
+                    field.onChange(checked);
+                    field.onBlur();
+                  }}
+                />
+              )}
+            />
+            {fieldType === "file" && (
+              <Card>
+                <CardHeader className="border-b">
+                  <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    {t("catalog.fields.form.fileSettings")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="data.maxSizeMb"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("catalog.fields.form.maxSizeMbLabel")}
+                        </FormLabel>
+                        <FormControl>
+                          <InputGroup>
+                            <InputGroupInput>
+                              <Input
+                                disabled={loading}
+                                placeholder={t(
+                                  "catalog.fields.form.maxSizeMbPlaceholder",
+                                )}
+                                type="number"
+                                className={InputGroupInputClasses()}
+                                {...field}
+                              />
+                            </InputGroupInput>
+                            <InputGroupAddon
+                              className={InputGroupAddonClasses()}
+                            >
+                              MB
+                            </InputGroupAddon>
+                          </InputGroup>
+                        </FormControl>
+                        <FormDescription>
+                          {t("catalog.fields.form.maxSizeMbTooltip")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="data.accept"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("catalog.fields.form.acceptedFilesLabel")}
+                        </FormLabel>
+                        <FormControl>
+                          <TagInput
+                            {...field}
+                            readOnly
+                            placeholder={t(
+                              "catalog.fields.form.acceptedFilesPlaceholder",
+                            )}
+                            value={field.value}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              field.onBlur();
+                            }}
+                            tagValidator={fileFieldAcceptItemSchema}
+                            addItemTemplate={FileTypePickerTag}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t("catalog.fields.form.acceptedFilesTooltip")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </Card>
+            )}
+            {fieldType === "select" && (
+              <Sortable
+                title={t("catalog.fields.form.optionsTitle")}
+                ids={selectOptionsIds}
+                onSort={sortSelectOptions}
+                onAdd={addNewSelectOption}
+                required
+                invalid={{
+                  isInvalid: selectOptionsState.invalid,
+                  message: selectOptionsState.error?.message,
+                }}
+              >
+                <div className="flex flex-grow flex-col gap-4">
+                  {selectOptionsFields.map((item, index) => {
+                    return (
+                      <SelectFieldOptionCard
+                        form={form}
+                        item={item}
+                        key={item.id}
+                        name={`data.options.${index}`}
+                        disabled={loading}
+                        remove={() => {
+                          removeSelectOption(index);
+                          void form.trigger("data.options");
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </Sortable>
+            )}
+          </div>
+          <SaveButton form={form} />
+        </form>
+      </div>
     </Form>
   );
 };

@@ -43,6 +43,7 @@ import {
   useToggleInspectorDrawer,
   useToggleShowBlocksPanel,
 } from "../../../documents/editor/context";
+import { ToolbarSectionButtons } from "./toolbar-buttons";
 
 export type ViewType = "editor" | "preview";
 
@@ -69,6 +70,7 @@ export const ToolbarViewGroups = memo(
     return (
       <>
         <ToolbarGroup>
+          <ToolbarSectionButtons section="view" position="start" />
           <ToolbarButton
             pressed={selectedView === "preview"}
             tooltip={t("baseBuilder.builderToolbar.preview")}
@@ -98,8 +100,10 @@ export const ToolbarViewGroups = memo(
           >
             <Pause />
           </ToolbarButton>
+          <ToolbarSectionButtons section="view" position="end" />
         </ToolbarGroup>
         <ToolbarGroup>
+          <ToolbarSectionButtons section="panels" position="start" />
           <Dialog>
             <DialogTrigger asChild>
               <ToolbarButton tooltip={t("baseBuilder.builderToolbar.context")}>
@@ -177,6 +181,7 @@ export const ToolbarViewGroups = memo(
           >
             <PanelRight />
           </ToolbarButton>
+          <ToolbarSectionButtons section="panels" position="end" />
         </ToolbarGroup>
       </>
     );

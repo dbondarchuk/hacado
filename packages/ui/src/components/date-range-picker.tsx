@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
 import { cn } from "../utils";
-import { Button } from "./button";
+import { Button, type ButtonSize } from "./button";
 import { Calendar, CalendarProps } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
@@ -27,11 +27,19 @@ export type CalendarDateRangePickerProps = Omit<
     range?: DateRange;
     onChange?: (range?: DateRange) => void;
     rangeOptions?: RangeOption[];
+    size?: ButtonSize;
   };
 
 export const CalendarDateRangePicker: React.FC<
   CalendarDateRangePickerProps
-> = ({ className, range, onChange, rangeOptions, ...rest }) => {
+> = ({
+  className,
+  range,
+  onChange,
+  rangeOptions,
+  size = "default",
+  ...rest
+}) => {
   const t = useI18n("ui");
   const [date, setDate] = React.useState<DateRange | undefined>(range);
   React.useEffect(() => {
@@ -57,9 +65,10 @@ export const CalendarDateRangePicker: React.FC<
       <PopoverTrigger asChild>
         <Button
           id="date"
-          variant={"outline"}
+          variant="outline"
+          size={size}
           className={cn(
-            "w-full justify-start text-left font-normal text-base",
+            "w-full justify-start text-left font-normal",
             className,
           )}
         >

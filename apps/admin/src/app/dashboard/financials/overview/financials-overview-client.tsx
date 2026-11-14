@@ -7,9 +7,11 @@ import type { DateRange } from "@hacado/types/general";
 import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import { PaymentCard } from "@hacado/ui-admin-kit/payments";
 import { useReload } from "@hacado/ui-admin/hooks";
+import { Button } from "@hacado/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
 import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
 import { CalendarDateRangePicker } from "@hacado/ui/date-range-picker";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import {
   Select,
   SelectContent,
@@ -18,6 +20,7 @@ import {
   SelectValue,
 } from "@hacado/ui/select";
 import { Skeleton } from "@hacado/ui/skeleton";
+import { Settings2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useQueryState } from "nuqs";
 import React from "react";
@@ -273,51 +276,118 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
     return convertedTo;
   };
 
+  const renderTimeGroupingSelect = (className?: string) => (
+    <Select
+      value={timeGrouping || "day"}
+      onValueChange={(value) => setTimeGrouping(value)}
+    >
+      <SelectTrigger size="sm" className={className}>
+        <SelectValue
+          placeholder={t("financialOverview.view.timeGrouping.label")}
+        />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="day">
+          {t("financialOverview.view.timeGrouping.daily")}
+        </SelectItem>
+        <SelectItem value="week">
+          {t("financialOverview.view.timeGrouping.weekly")}
+        </SelectItem>
+        <SelectItem value="month">
+          {t("financialOverview.view.timeGrouping.monthly")}
+        </SelectItem>
+      </SelectContent>
+    </Select>
+  );
+
+  const renderDateRangePicker = (className?: string) => (
+    <CalendarDateRangePicker
+      className={className}
+      range={{
+        start: start
+          ? DateTime.fromJSDate(start).setZone(timeZone).toJSDate()
+          : undefined,
+        end: end
+          ? DateTime.fromJSDate(end).setZone(timeZone).toJSDate()
+          : undefined,
+      }}
+      rangeOptions={dateRangeOptions.map((option) => ({
+        label: t(`financialOverview.view.rangeOptions.${option}`),
+        name: option,
+        value: getDateRange(option, timeZone),
+      }))}
+      onChange={handleCalendarChange}
+      timeZone={timeZone}
+    />
+  );
+
+  const sameDay = (a: Date, b: Date) =>
+    DateTime.fromJSDate(a)
+      .setZone(timeZone)
+      .hasSame(DateTime.fromJSDate(b).setZone(timeZone), "day");
+
+  const matchedRangeOption = dateRangeOptions.find((option) => {
+    const range = getDateRange(option, timeZone);
+
+    return (
+      !!start &&
+      !!end &&
+      !!range?.start &&
+      !!range.end &&
+      sameDay(start, range.start) &&
+      sameDay(end, range.end)
+    );
+  });
+
+  const timeframeLabel = matchedRangeOption
+    ? t(`financialOverview.view.rangeOptions.${matchedRangeOption}`)
+    : start && end
+      ? `${DateTime.fromJSDate(start).setZone(timeZone).toLocaleString(DateTime.DATE_MED)} – ${DateTime.fromJSDate(end).setZone(timeZone).toLocaleString(DateTime.DATE_MED)}`
+      : t("financialOverview.view.dateRange");
+
+  const timeGroupingLabel =
+    timeGrouping === "week"
+      ? t("financialOverview.view.timeGrouping.weekly")
+      : timeGrouping === "month"
+        ? t("financialOverview.view.timeGrouping.monthly")
+        : t("financialOverview.view.timeGrouping.daily");
+
   return (
     <div className="flex flex-col gap-8">
       <HeaderActionButtonsPortal>
-        <div className="w-full sm:w-32">
-          <Select
-            value={timeGrouping || "day"}
-            onValueChange={(value) => setTimeGrouping(value)}
-          >
-            <SelectTrigger size="sm" className="px-2.5 text-sm">
-              <SelectValue
-                placeholder={t("financialOverview.view.timeGrouping.label")}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="day">
-                {t("financialOverview.view.timeGrouping.daily")}
-              </SelectItem>
-              <SelectItem value="week">
-                {t("financialOverview.view.timeGrouping.weekly")}
-              </SelectItem>
-              <SelectItem value="month">
-                {t("financialOverview.view.timeGrouping.monthly")}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="hidden w-32 md:block">
+          {renderTimeGroupingSelect("px-2.5 text-sm")}
         </div>
-        <CalendarDateRangePicker
-          className="h-8 w-full px-2.5 text-sm sm:w-auto"
-          range={{
-            start: start
-              ? DateTime.fromJSDate(start).setZone(timeZone).toJSDate()
-              : undefined,
-            end: end
-              ? DateTime.fromJSDate(end).setZone(timeZone).toJSDate()
-              : undefined,
-          }}
-          rangeOptions={dateRangeOptions.map((option) => ({
-            label: t(`financialOverview.view.rangeOptions.${option}`),
-            name: option,
-            value: getDateRange(option, timeZone),
-          }))}
-          onChange={handleCalendarChange}
-          timeZone={timeZone}
-        />
+        <div className="hidden md:block">
+          {renderDateRangePicker("h-8 px-2.5 text-sm")}
+        </div>
+        <div className="md:hidden">
+          <Popover>
+            <PopoverTrigger tooltip={t("common.labels.filters")} asChild>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="size-8"
+                aria-label={t("common.labels.filters")}
+              >
+                <Settings2 className="size-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              className="flex w-[min(100vw-2rem,18rem)] flex-col gap-2 p-3"
+            >
+              {renderTimeGroupingSelect("w-full px-2.5 text-sm")}
+              {renderDateRangePicker("h-8 w-full px-2.5 text-sm")}
+            </PopoverContent>
+          </Popover>
+        </div>
       </HeaderActionButtonsPortal>
+      <div className="-mx-4 -mt-4 border-b border-border px-4 pb-2 md:hidden md:-mx-6 md:px-6">
+        <p className="text-sm font-medium leading-tight">{timeframeLabel}</p>
+        <p className="text-xs text-muted-foreground">{timeGroupingLabel}</p>
+      </div>
       <div className="flex flex-col gap-4">
         {/* Financial Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">

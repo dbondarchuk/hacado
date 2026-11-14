@@ -371,7 +371,7 @@ modification:
       checkboxLabel: Confirmo que entiendo y quiero cancelar esta cita
       confirmationTitle: ¿Está seguro?
       confirmationForfeitDepositDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, tu depósito <b>no será reembolsado</b>.
-      partialRefundDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, <b>{refundPercentage}%</b> de tu depósito{refundFees, plural, =1 {} other Se reembolsará {{feesAmount, plural, =0 {} other { (except <b>{feesAmount} fees</b>)}}}} (<b>{refundAmount}</b>).
+      partialRefundDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, <b>{refundPercentage}%</b> de tu depósito{refundFees, plural, =1 {} other {{feesAmount, plural, =0 {} other { (except <b>{feesAmount} fees</b>)}}}} se reembolsará (<b>{refundAmount}</b>).
       fullRefundDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, tu depósito{refundFees, plural, =1 {} other {{feesAmount, plural, =0 {} other { (except <b>{feesAmount} fees</b>)}}}} se reembolsará <b>completamente</b> (<b>{refundAmount}</b>).
       paymentPartialRequiredDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?
       paymentFullPriceRequiredDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?

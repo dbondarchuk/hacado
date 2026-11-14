@@ -176,6 +176,7 @@ form:
   name:
     label: Form name
     placeholder: Form name
+    description: Unique form name
   description: Description
   submit: Submit
   toasts:

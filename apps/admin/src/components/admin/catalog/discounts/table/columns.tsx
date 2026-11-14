@@ -1,15 +1,15 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types/booking";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 export const columns: ColumnDef<
@@ -47,6 +47,7 @@ export const columns: ColumnDef<
       <Link
         href={`/dashboard/catalog/discounts/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.name}
       </Link>
@@ -108,15 +109,9 @@ export const columns: ColumnDef<
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return row.original.startDate
-        ? DateTime.fromJSDate(row.original.startDate)
-            .setZone(timeZone)
-            .toLocaleString(DateTime.DATETIME_MED, { locale })
-        : "";
-    },
+    cell: ({ row }) => (
+      <TableDateTime value={row.original.startDate} empty="" />
+    ),
     id: "startDate",
     header: tableSortHeader(
       "catalog.discounts.table.columns.startDate",
@@ -126,15 +121,7 @@ export const columns: ColumnDef<
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return row.original.endDate
-        ? DateTime.fromJSDate(row.original.endDate)
-            .setZone(timeZone)
-            .toLocaleString(DateTime.DATETIME_MED, { locale })
-        : "";
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.endDate} empty="" />,
     id: "endDate",
     header: tableSortHeader(
       "catalog.discounts.table.columns.endDate",
@@ -148,6 +135,7 @@ export const columns: ColumnDef<
       <Link
         href={`/dashboard/appointments?discount=${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.usedCount || 0}
       </Link>
@@ -161,13 +149,7 @@ export const columns: ColumnDef<
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.updatedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "catalog.discounts.table.columns.updatedAt",

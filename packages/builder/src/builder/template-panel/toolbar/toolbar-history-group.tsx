@@ -14,6 +14,7 @@ import {
 } from "../../../documents/editor/context";
 import { isUndoRedo } from "../../../documents/helpers/is-undo-redo";
 import { usePortalContext } from "../portal-context";
+import { ToolbarSectionButtons } from "./toolbar-buttons";
 
 export const ToolbarHistoryGroup = () => {
   const t = useI18n("builder");
@@ -54,6 +55,7 @@ export const ToolbarHistoryGroup = () => {
 
   return (
     <ToolbarGroup>
+      <ToolbarSectionButtons section="history" position="start" />
       <ToolbarButton
         tooltip={t("baseBuilder.builderToolbar.undo")}
         disabled={!canUndo}
@@ -68,6 +70,7 @@ export const ToolbarHistoryGroup = () => {
       >
         <Redo2 />
       </ToolbarButton>
+      <ToolbarSectionButtons section="history" position="end" />
     </ToolbarGroup>
   );
 };

@@ -9,11 +9,17 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
 } from "@hacado/ui-admin/data-table";
+import React from "react";
 
 import { useTeamMembersTableFilters } from "./use-table-filters";
 
-export function TeamMembersTableAction() {
+export function TeamMembersTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const t = useI18n("admin");
   const {
     isAnyFilterActive,
@@ -67,20 +73,18 @@ export function TeamMembersTableAction() {
   );
 
   return (
-    <div className="flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-        <DataTableSearch
-          searchKey="name"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-        />
-        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-      </div>
-    </div>
+    <DataTableToolbar actions={actions}>
+      <DataTableSearch
+        searchKey="name"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setPage={setPage}
+      />
+      <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+      <DataTableResetFilter
+        isFilterActive={isAnyFilterActive}
+        onReset={resetFilters}
+      />
+    </DataTableToolbar>
   );
 }

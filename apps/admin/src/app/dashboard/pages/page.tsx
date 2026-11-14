@@ -12,7 +12,6 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -53,18 +52,8 @@ export default async function PagesPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("pages.title")}
-              description={t("pages.managePages")}
-            />
-
-            <AddPageButton canAddMore={canAddMore} />
-          </div>
-        </div>
-        <PagesTableAction />
+        <Breadcrumbs items={breadcrumbItems} />
+        <PagesTableAction actions={<AddPageButton canAddMore={canAddMore} />} />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={9} rowCount={10} />}

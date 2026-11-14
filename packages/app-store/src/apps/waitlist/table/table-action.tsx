@@ -3,7 +3,6 @@
 import { useI18n } from "@hacado/i18n/client";
 
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
@@ -11,10 +10,12 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   MembersDataTableAsyncFilterBox,
   OptionsDataTableAsyncFilterBox,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { canFilterByMember, hasPermission } from "@hacado/utils/permissions";
 
 import React from "react";
@@ -60,8 +61,6 @@ export const WaitlistTableAction: React.FC<{
     waitlistAdminNamespace,
   );
 
-  const tUi = useI18n("ui");
-
   const showMemberFilter = canFilterByMember(user);
   const canUpdateSettings = hasPermission(user, "settings", "update");
 
@@ -103,9 +102,18 @@ export const WaitlistTableAction: React.FC<{
     </>
   );
 
+  const toolbarActions = (
+    <>
+      <NewEntryDialog appId={appId} customerIdLock={customerIdLock} />
+      {!customerIdLock && canUpdateSettings ? (
+        <SettingsDialog appId={appId} />
+      ) : null}
+    </>
+  );
+
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={toolbarActions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -117,19 +125,13 @@ export const WaitlistTableAction: React.FC<{
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-2 max-md:justify-between">
+      </DataTableToolbar>
+      <SelectionActionBar count={rowSelection.length}>
         <DismissSelectedWaitlistEntriesButton
           selected={rowSelection}
           appId={appId}
         />
-        <HeaderActionButtonsPortal>
-          <NewEntryDialog appId={appId} customerIdLock={customerIdLock} />
-          {!customerIdLock && canUpdateSettings && (
-            <SettingsDialog appId={appId} />
-          )}
-        </HeaderActionButtonsPortal>
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 };

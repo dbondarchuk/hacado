@@ -120,12 +120,14 @@ export const TemplateFormPage: React.FC<
 
   if (initialData) {
     breadcrumbItems.push({
-      title: initialData.name,
-      link: `/dashboard/templates/${type}/${initialData._id}`,
+      title: t("templates.editPage.title"),
+      link: `/dashboard/templates/${initialData._id}`,
     });
   } else {
     breadcrumbItems.push({
-      title: t("templates.formPage.new"),
+      title: t("templates.newPage.title", {
+        type: t(`common.labels.channel.${type}`),
+      }),
       link: `/dashboard/templates/${type}/new`,
     });
   }

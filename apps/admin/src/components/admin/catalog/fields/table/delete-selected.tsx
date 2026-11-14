@@ -57,17 +57,11 @@ export const DeleteSelectedFieldsButton: React.FC<{
         <Button
           variant="destructive"
           disabled={isLoading || !selected || !selected.length}
-          aria-label={t("catalog.fields.deleteSelected.button", {
-            count: selected.length,
-          })}
+          aria-label={t("common.buttons.delete")}
         >
           {isLoading && <Spinner />}
           <Trash className="h-4 w-4" />
-          <span className="max-md:hidden">
-            {t("catalog.fields.deleteSelected.button", {
-              count: selected.length,
-            })}
-          </span>
+          <span>{t("common.buttons.delete")}</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

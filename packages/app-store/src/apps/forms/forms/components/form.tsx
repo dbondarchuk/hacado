@@ -1,6 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Sortable } from "@hacado/ui-admin/sortable";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
@@ -116,13 +118,15 @@ export const FormEditForm: React.FC<{
       { title: tAdmin("navigation.dashboard"), link: "/dashboard" },
       { title: t("app.displayName"), link: "/dashboard/forms" },
       {
-        title: initialData?._id ? initialData.name : t("app.pages.new.label"),
+        title: initialData?._id
+          ? t("app.pages.edit.title")
+          : t("app.pages.new.label"),
         link: initialData?._id
-          ? `/dashboard/forms/${initialData._id}`
+          ? `/dashboard/forms/edit?id=${initialData._id}`
           : "/dashboard/forms/new",
       },
     ],
-    [initialData?._id, initialData?.name, t, tAdmin],
+    [initialData?._id, t, tAdmin],
   );
 
   const onSubmit = async (data: FormValues) => {
@@ -152,122 +156,117 @@ export const FormEditForm: React.FC<{
 
   return (
     <Form {...form}>
-      <Breadcrumbs items={breadcrumbItems} />
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full h-full space-y-8"
-      >
-        <div className="flex flex-col gap-2 w-full">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    className="md:text-xl lg:text-2xl font-bold tracking-tight border-0 w-full px-0"
-                    autoFocus
-                    h={"lg"}
-                    disabled={loading}
-                    placeholder={t("form.name.placeholder")}
-                    {...field}
-                  />
-                </FormControl>
-                {isArchived && (
-                  <p className="text-sm text-muted-foreground">
-                    {t("form.archivedNotice")}
-                  </p>
-                )}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="grid lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2">
-            <Sortable
-              title={t("form.fields.title")}
-              invalid={fieldsInvalid}
-              ids={fieldsIds}
-              onSort={sortFields}
-              onAdd={addNewField}
-              disabled={fieldsDisabled}
-            >
-              <div className="flex flex-col gap-4">
-                {fieldsFields.map((item, index) => {
+      <div className="flex flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader
+          text={
+            <div className="my-2 flex w-full min-w-0 flex-col gap-1">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={!initialData?._id}
+                label={t("form.name.label")}
+                placeholder={t("form.name.placeholder")}
+                description={t("form.name.description")}
+              />
+              {isArchived ? (
+                <p className="text-xs text-muted-foreground md:text-sm">
+                  {t("form.archivedNotice")}
+                </p>
+              ) : null}
+            </div>
+          }
+        />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="h-full w-full space-y-8"
+        >
+          <div className="grid lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-2">
+              <Sortable
+                title={t("form.fields.title")}
+                invalid={fieldsInvalid}
+                ids={fieldsIds}
+                onSort={sortFields}
+                onAdd={addNewField}
+                disabled={fieldsDisabled}
+              >
+                <div className="flex flex-col gap-4">
+                  {fieldsFields.map((item, index) => {
+                    return (
+                      <FormFieldCard
+                        form={form}
+                        name={`fields.${index}`}
+                        disabled={fieldsDisabled}
+                        item={item}
+                        key={item.id}
+                        remove={() => removeField(index)}
+                      />
+                    );
+                  })}
+                </div>
+              </Sortable>
+            </div>
+            <div className="flex flex-col gap-4">
+              <FormField
+                control={form.control}
+                name="notifications.enabled"
+                render={({ field }) => {
                   return (
-                    <FormFieldCard
-                      form={form}
-                      name={`fields.${index}`}
+                    <SwitchCardFormItem
+                      label={t("form.notifications.enabled.label")}
+                      description={t("form.notifications.enabled.description")}
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
                       disabled={fieldsDisabled}
-                      item={item}
-                      key={item.id}
-                      remove={() => removeField(index)}
-                    />
+                    >
+                      {notificationsEnabled && (
+                        <FormField
+                          control={form.control}
+                          name="notifications.email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>
+                                {t("form.notifications.email.label")}
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="email"
+                                  disabled={fieldsDisabled}
+                                  {...field}
+                                  value={field.value ?? ""}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                {t("form.notifications.email.description")}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+                    </SwitchCardFormItem>
                   );
-                })}
-              </div>
-            </Sortable>
-          </div>
-          <div className="flex flex-col gap-4">
-            <FormField
-              control={form.control}
-              name="notifications.enabled"
-              render={({ field }) => {
-                return (
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="requireCustomerId"
+                render={({ field }) => (
                   <SwitchCardFormItem
-                    label={t("form.notifications.enabled.label")}
-                    description={t("form.notifications.enabled.description")}
+                    label={t("form.requireCustomerId.label")}
+                    description={t("form.requireCustomerId.description")}
                     checked={field.value ?? false}
                     onCheckedChange={field.onChange}
                     disabled={fieldsDisabled}
-                  >
-                    {notificationsEnabled && (
-                      <FormField
-                        control={form.control}
-                        name="notifications.email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              {t("form.notifications.email.label")}
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                disabled={fieldsDisabled}
-                                {...field}
-                                value={field.value ?? ""}
-                              />
-                            </FormControl>
-                            <FormDescription>
-                              {t("form.notifications.email.description")}
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
-                  </SwitchCardFormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
-              name="requireCustomerId"
-              render={({ field }) => (
-                <SwitchCardFormItem
-                  label={t("form.requireCustomerId.label")}
-                  description={t("form.requireCustomerId.description")}
-                  checked={field.value ?? false}
-                  onCheckedChange={field.onChange}
-                  disabled={fieldsDisabled}
-                />
-              )}
-            />
+                  />
+                )}
+              />
+            </div>
           </div>
-        </div>
-        <SaveButton form={form} disabled={fieldsDisabled} />
-      </form>
+          <SaveButton form={form} disabled={fieldsDisabled} />
+        </form>
+      </div>
     </Form>
   );
 };

@@ -12,6 +12,8 @@ import {
   getPageFooterSchemaWithUniqueNameCheck,
   PageFooterUpdateModel,
 } from "@hacado/types/pages";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import {
@@ -19,12 +21,9 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabelWithRequiredIndicator,
   FormMessage,
 } from "@hacado/ui/form";
-import { Heading } from "@hacado/ui/heading";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
-import { Input } from "@hacado/ui/input";
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -112,13 +111,15 @@ export const PageFooterForm: React.FC<{
         link: "/dashboard/pages/footers",
       },
       {
-        title: initialData?._id ? initialData.name : t("pages.footers.new"),
+        title: initialData?._id
+          ? t("pages.footers.edit")
+          : t("pages.footers.new"),
         link: initialData?._id
           ? `/dashboard/pages/footers/${initialData._id}`
           : "/dashboard/pages/footers/new",
       },
     ],
-    [initialData?._id, initialData?.name, t],
+    [initialData?._id, t],
   );
 
   const { setError, trigger } = form;
@@ -171,42 +172,26 @@ export const PageFooterForm: React.FC<{
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
       <Breadcrumbs items={breadcrumbItems} />
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-8 relative"
-      >
-        <Heading
-          title={t(
-            initialData?._id ? "pages.footers.edit" : "pages.footers.new",
-          )}
-          description={t(
-            initialData?._id
-              ? "pages.footers.managePageFooter"
-              : "pages.footers.addNewPageFooter",
-          )}
+      <div className="flex flex-1 flex-col">
+        <PageHeader
+          className="mb-0"
+          text={
+            <div className="my-2 w-full min-w-0">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={!initialData?._id}
+                label={t("pages.footers.form.name")}
+                placeholder={t("pages.footers.form.namePlaceholder")}
+                description={t("pages.footers.form.nameTooltip")}
+              />
+            </div>
+          }
         />
-
-        <div className="flex flex-col gap-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabelWithRequiredIndicator required>
-                  {t("pages.footers.form.name")}
-                </FormLabelWithRequiredIndicator>
-                <FormControl>
-                  <Input
-                    id="name"
-                    disabled={loading}
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="relative w-full space-y-8"
+        >
           <FormField
             control={form.control}
             name="content"
@@ -226,9 +211,9 @@ export const PageFooterForm: React.FC<{
               </FormItem>
             )}
           />
-        </div>
-        <SaveButton form={form} disabled={loading} />
-      </form>
+          <SaveButton form={form} disabled={loading} />
+        </form>
+      </div>
     </Form>
   );
 };

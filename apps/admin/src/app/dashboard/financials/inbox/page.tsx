@@ -1,8 +1,8 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { SyncedPaymentsReview } from "@/components/admin/synced-payments/review";
 import { getI18nAsync } from "@hacado/i18n/server";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,20 +20,16 @@ export default async function PaymentsInboxPage() {
     { title: t("navigation.financials"), link: "/dashboard/financials" },
     {
       title: t("navigation.paymentsInbox"),
+      mobileTitle: t("paymentsInbox.title"),
       link: "/dashboard/financials/inbox",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("paymentsInbox.title")}
-            description={t("paymentsInbox.description")}
-          />
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("paymentsInbox.description")} />
         <SyncedPaymentsReview />
       </div>
     </PageContainer>

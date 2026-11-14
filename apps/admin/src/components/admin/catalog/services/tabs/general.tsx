@@ -57,25 +57,6 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
         <CardContent className="flex flex-col gap-4 pt-6">
           <FormField
             control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabelWithRequiredIndicator required>
-                  {t("catalog.services.form.name")}
-                </FormLabelWithRequiredIndicator>
-                <FormControl>
-                  <Input
-                    disabled={disabled}
-                    placeholder={t("catalog.services.form.namePlaceholder")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem className="min-w-0">

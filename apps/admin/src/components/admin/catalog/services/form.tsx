@@ -10,6 +10,8 @@ import {
   getAppointmentOptionSchemaWithUniqueCheck,
 } from "@hacado/types/booking";
 import { DatabaseId } from "@hacado/types/database";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   AlertDialog,
@@ -20,6 +22,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@hacado/ui/alert-dialog";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Button } from "@hacado/ui/button";
 import { cn } from "@hacado/ui/cn";
 import { Form } from "@hacado/ui/form";
@@ -35,7 +38,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { AddonsTab } from "./tabs/addons";
@@ -192,178 +195,232 @@ export const ServiceForm: React.FC<{
     }
   };
 
+  const isNew = !initialData?._id;
+  const breadcrumbItems = useMemo(
+    () => [
+      { title: t("navigation.dashboard"), link: "/dashboard" },
+      { title: t("navigation.catalog"), link: "/dashboard/catalog" },
+      {
+        title: t("navigation.services"),
+        link: "/dashboard/catalog/services",
+      },
+      {
+        title: isNew
+          ? t("catalog.services.newTitle")
+          : t("catalog.services.editDescription"),
+        link: isNew
+          ? "/dashboard/catalog/services/new"
+          : `/dashboard/catalog/services/${initialData?._id}`,
+      },
+    ],
+    [initialData?._id, isNew, t],
+  );
+
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full min-w-0 space-y-8 relative flex flex-col gap-2 pb-4"
-      >
-        <Tabs
-          onValueChange={triggerValidation}
-          defaultValue={"general"}
-          className="min-w-0 space-y-4"
-          orientation="vertical"
+      <div className="flex min-w-0 flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="relative flex w-full min-w-0 flex-col gap-2 space-y-8 pb-4"
         >
-          <ResponsiveTabsList className="w-full flex flex-row gap-2">
-            <TabsTrigger
-              value="general"
-              className={cn(
-                form.getFieldState("name").invalid ||
-                  form.getFieldState("description").invalid ||
-                  form.getFieldState("duration").invalid ||
-                  form.getFieldState("price").invalid ||
-                  form.getFieldState("isAutoConfirm").invalid ||
-                  form.getFieldState("isOnline").invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("catalog.services.form.tabs.general")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="fields"
-              className={cn(
-                form.getFieldState("fields").invalid ? "text-destructive" : "",
-              )}
-            >
-              {t("catalog.services.form.tabs.fields")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="addons"
-              className={cn(
-                form.getFieldState("addons").invalid ? "text-destructive" : "",
-              )}
-            >
-              {t("catalog.services.form.tabs.addons")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="staff"
-              className={cn(
-                form.getFieldState("staff").invalid ? "text-destructive" : "",
-              )}
-            >
-              {t("catalog.services.form.tabs.staff")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="payments"
-              className={cn(
-                form.getFieldState("requireDeposit").invalid ||
-                  form.getFieldState("depositPercentage").invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("catalog.services.form.tabs.payments")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="duplicates"
-              className={cn(
-                form.getFieldState("duplicateAppointmentCheck").invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("catalog.services.form.tabs.duplicates")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="cancellations"
-              className={cn(
-                form.getFieldState("cancellationPolicy").invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("catalog.services.form.cancellationPolicy.title")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="reschedules"
-              className={cn(
-                form.getFieldState("reschedulePolicy").invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("catalog.services.form.reschedulePolicy.title")}
-            </TabsTrigger>
-          </ResponsiveTabsList>
-          <TabsContent value="general">
-            <GeneralTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="payments">
-            <PaymentsTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="duplicates">
-            <DuplicatesTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="fields">
-            <FieldsTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="addons">
-            <AddonsTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="cancellations">
-            <CancellationsTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="staff">
-            <MembersTab form={form} disabled={loading} />
-          </TabsContent>
-          <TabsContent value="reschedules">
-            <ReschedulesTab form={form} disabled={loading} />
-          </TabsContent>
-        </Tabs>
-        <SaveButton form={form} disabled={loading || availabilityLoading} />
-      </form>
-      <AlertDialog
-        open={showAvailabilityDialog}
-        onOpenChange={handleAvailabilityDialogOpenChange}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              {t("catalog.services.form.addToAvailabilityDialog.title")}
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              <I18nRichText
-                namespace="admin"
-                text="catalog.services.form.addToAvailabilityDialog.description"
-                args={{
-                  name: newOption?.name ?? "",
-                }}
-              />
-            </AlertDialogDescription>
-            <AlertDialogDescription>
-              {t.rich(
-                "catalog.services.form.addToAvailabilityDialog.manageHint",
-                {
-                  link: (children: React.ReactNode) => (
-                    <Link
-                      className="underline underline-offset-4"
-                      href="/dashboard/settings/appointments"
-                    >
-                      {children}
-                    </Link>
-                  ),
-                },
-              )}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel
-              disabled={availabilityLoading}
-              onClick={onSkipAddingToAvailability}
-            >
-              {t("catalog.services.form.addToAvailabilityDialog.actions.skip")}
-            </AlertDialogCancel>
-            <Button
-              disabled={availabilityLoading}
-              onClick={onAddToAvailability}
-            >
-              {availabilityLoading && <Spinner />}
-              {t("catalog.services.form.addToAvailabilityDialog.actions.add")}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          <Tabs
+            onValueChange={triggerValidation}
+            defaultValue={"general"}
+            className="min-w-0 space-y-4"
+            orientation="vertical"
+          >
+            <PageHeader
+              innerClassName="max-md:flex-col max-md:gap-0"
+              titleClassName="max-md:w-full max-md:max-w-full"
+              actionsClassName="max-md:w-full max-md:max-w-full"
+              text={
+                <div className="my-2 w-full min-w-0">
+                  <NameIdentityBar
+                    layout="inline"
+                    loading={loading}
+                    isNew={isNew}
+                    label={t("catalog.services.form.name")}
+                    placeholder={t("catalog.services.form.namePlaceholder")}
+                    description={t("catalog.services.form.nameTooltip")}
+                  />
+                </div>
+              }
+              actions={
+                <ResponsiveTabsList
+                  variant="line"
+                  className="min-w-0 border-b-0 py-2"
+                >
+                  <TabsTrigger
+                    value="general"
+                    className={cn(
+                      form.getFieldState("name").invalid ||
+                        form.getFieldState("description").invalid ||
+                        form.getFieldState("duration").invalid ||
+                        form.getFieldState("price").invalid ||
+                        form.getFieldState("isAutoConfirm").invalid ||
+                        form.getFieldState("isOnline").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.tabs.general")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="fields"
+                    className={cn(
+                      form.getFieldState("fields").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.tabs.fields")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="addons"
+                    className={cn(
+                      form.getFieldState("addons").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.tabs.addons")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="staff"
+                    className={cn(
+                      form.getFieldState("staff").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.tabs.staff")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="payments"
+                    className={cn(
+                      form.getFieldState("requireDeposit").invalid ||
+                        form.getFieldState("depositPercentage").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.tabs.payments")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="duplicates"
+                    className={cn(
+                      form.getFieldState("duplicateAppointmentCheck").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.tabs.duplicates")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="cancellations"
+                    className={cn(
+                      form.getFieldState("cancellationPolicy").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.cancellationPolicy.title")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="reschedules"
+                    className={cn(
+                      form.getFieldState("reschedulePolicy").invalid
+                        ? "text-destructive"
+                        : "",
+                    )}
+                  >
+                    {t("catalog.services.form.reschedulePolicy.title")}
+                  </TabsTrigger>
+                </ResponsiveTabsList>
+              }
+            />
+            <TabsContent value="general">
+              <GeneralTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="payments">
+              <PaymentsTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="duplicates">
+              <DuplicatesTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="fields">
+              <FieldsTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="addons">
+              <AddonsTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="cancellations">
+              <CancellationsTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="staff">
+              <MembersTab form={form} disabled={loading} />
+            </TabsContent>
+            <TabsContent value="reschedules">
+              <ReschedulesTab form={form} disabled={loading} />
+            </TabsContent>
+          </Tabs>
+          <SaveButton form={form} disabled={loading || availabilityLoading} />
+        </form>
+        <AlertDialog
+          open={showAvailabilityDialog}
+          onOpenChange={handleAvailabilityDialogOpenChange}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {t("catalog.services.form.addToAvailabilityDialog.title")}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                <I18nRichText
+                  namespace="admin"
+                  text="catalog.services.form.addToAvailabilityDialog.description"
+                  args={{
+                    name: newOption?.name ?? "",
+                  }}
+                />
+              </AlertDialogDescription>
+              <AlertDialogDescription>
+                {t.rich(
+                  "catalog.services.form.addToAvailabilityDialog.manageHint",
+                  {
+                    link: (children: React.ReactNode) => (
+                      <Link
+                        className="underline underline-offset-4"
+                        href="/dashboard/settings/appointments"
+                      >
+                        {children}
+                      </Link>
+                    ),
+                  },
+                )}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                disabled={availabilityLoading}
+                onClick={onSkipAddingToAvailability}
+              >
+                {t(
+                  "catalog.services.form.addToAvailabilityDialog.actions.skip",
+                )}
+              </AlertDialogCancel>
+              <Button
+                disabled={availabilityLoading}
+                onClick={onAddToAvailability}
+              >
+                {availabilityLoading && <Spinner />}
+                {t("catalog.services.form.addToAvailabilityDialog.actions.add")}
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </Form>
   );
 };

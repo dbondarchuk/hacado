@@ -8,9 +8,11 @@ import {
 } from "@hacado/api-sdk/admin/search-params/appointments";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
@@ -62,29 +64,24 @@ export default async function AppointmentsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <div className="flex flex-col gap-2 justify-between">
-            <Breadcrumbs items={breadcrumbItems} />
-            <div className="flex items-center justify-between">
-              <Heading title={t("appointments.title")} />
-
-              <Link
-                button
-                href={"/dashboard/appointments/new"}
-                variant="default"
-              >
-                <CalendarClock />{" "}
-                <span className="max-md:hidden">
-                  {t("appointments.scheduleAppointment")}
-                </span>
-                <span className="md:hidden">{t("appointments.addNew")}</span>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <Breadcrumbs items={breadcrumbItems} />
         <AppointmentsTableAction
           showCustomerFilter
           soldPackageFilterName={soldPackageFilterName}
+          actions={
+            <Link
+              button
+              href="/dashboard/appointments/new"
+              size="sm"
+              variant="default"
+              aria-label={t("appointments.scheduleAppointment")}
+            >
+              <CalendarClock />
+              <TableToolbarActionLabel>
+                {t("appointments.scheduleAppointment")}
+              </TableToolbarActionLabel>
+            </Link>
+          }
         />
         <Suspense
           key={key}

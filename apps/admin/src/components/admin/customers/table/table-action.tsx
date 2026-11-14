@@ -4,15 +4,21 @@ import { useAuth } from "@hacado/ui-admin/context";
 import {
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
-import { ButtonGroup } from "@hacado/ui/button-group";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { hasPermission } from "@hacado/utils/permissions";
+import React from "react";
 import { DeleteSelectedCustomersButton } from "./delete-selected";
 import { MergeSelectedCustomersButton } from "./merge-selected";
 import { useCustomersTableFilters } from "./use-table-filters";
 
-export function CustomersTableAction() {
+export function CustomersTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const {
     isAnyFilterActive,
     resetFilters,
@@ -27,8 +33,8 @@ export function CustomersTableAction() {
   const canMerge = hasPermission(user, "customer", "merge");
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+    <>
+      <DataTableToolbar actions={actions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -39,19 +45,21 @@ export function CustomersTableAction() {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
+      </DataTableToolbar>
       {canDelete || canMerge ? (
-        <div className="flex flex-wrap items-center gap-4">
-          <ButtonGroup>
-            {canMerge ? (
-              <MergeSelectedCustomersButton selected={rowSelection} />
-            ) : null}
-            {canDelete ? (
+        <SelectionActionBar
+          count={rowSelection.length}
+          primary={
+            canDelete ? (
               <DeleteSelectedCustomersButton selected={rowSelection} />
-            ) : null}
-          </ButtonGroup>
-        </div>
+            ) : undefined
+          }
+        >
+          {canMerge ? (
+            <MergeSelectedCustomersButton selected={rowSelection} />
+          ) : null}
+        </SelectionActionBar>
       ) : null}
-    </div>
+    </>
   );
 }

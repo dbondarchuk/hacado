@@ -6,10 +6,10 @@ import {
   CustomersDataTableAsyncFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
-import { cn } from "@hacado/ui/cn";
-
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import React from "react";
 import { DeleteSelectedAssetsButton } from "./delete-selected-button";
 import { useAssetsTableFilters } from "./use-table-filters";
@@ -20,7 +20,14 @@ export const AssetsTableAction: React.FC<{
   onDelete?: () => void;
   /** When false, hide bulk delete (e.g. staff viewing customer files). Default true. */
   allowDelete?: boolean;
-}> = ({ showCustomerFilter, className, onDelete, allowDelete = true }) => {
+  actions?: React.ReactNode;
+}> = ({
+  showCustomerFilter,
+  className,
+  onDelete,
+  allowDelete = true,
+  actions,
+}) => {
   const {
     isAnyFilterActive,
     resetFilters,
@@ -46,37 +53,30 @@ export const AssetsTableAction: React.FC<{
   ) : null;
 
   return (
-    <div
-      className={cn(
-        "flex flex-row flex-wrap items-center justify-between gap-2",
-        className,
-      )}
-    >
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={actions} className={className}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
         />
-        {additionalFilters && (
-          <>
-            <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-          </>
-        )}
+        {additionalFilters ? (
+          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+        ) : null}
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
+      </DataTableToolbar>
       {allowDelete ? (
-        <div className="flex flex-wrap items-center gap-4">
+        <SelectionActionBar count={rowSelection.length}>
           <DeleteSelectedAssetsButton
             selected={rowSelection}
             onDelete={onDelete}
           />
-        </div>
+        </SelectionActionBar>
       ) : null}
-    </div>
+    </>
   );
 };

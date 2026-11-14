@@ -9,8 +9,11 @@ import {
   getAppointmentPackageSchemaWithUniqueCheck,
 } from "@hacado/types/booking";
 import { zObjectId } from "@hacado/types/utils";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
 import { useCurrencySymbol } from "@hacado/ui/context";
 import {
@@ -43,7 +46,7 @@ import {
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import { Resolver, useForm } from "react-hook-form";
 import * as z from "zod";
 import { EligibleStaff } from "./eligible-staff";
@@ -144,297 +147,313 @@ export const PackageForm: React.FC<{
     }
   };
 
+  const isNew = !initialData?._id;
+  const breadcrumbItems = useMemo(
+    () => [
+      { title: t("navigation.dashboard"), link: "/dashboard" },
+      { title: t("navigation.catalog"), link: "/dashboard/catalog" },
+      {
+        title: t("navigation.packages"),
+        link: "/dashboard/catalog/packages",
+      },
+      {
+        title: isNew
+          ? t("catalog.packages.newTitle")
+          : t("catalog.packages.editDescription"),
+        link: isNew
+          ? "/dashboard/catalog/packages/new"
+          : `/dashboard/catalog/packages/${initialData?._id}`,
+      },
+    ],
+    [initialData?._id, isNew, t],
+  );
+
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full min-w-0 space-y-8"
-      >
-        <div className="flex min-w-0 flex-col gap-4">
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("catalog.packages.form.details")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-4 pt-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.packages.form.name.label")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder={t(
-                          "catalog.packages.form.name.placeholder",
-                        )}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.name.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+      <div className="flex flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader
+          text={
+            <div className="my-2 w-full min-w-0">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={isNew}
+                label={t("catalog.packages.form.name.label")}
+                placeholder={t("catalog.packages.form.name.placeholder")}
+                description={t("catalog.packages.form.name.tooltip")}
               />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem className="min-w-0">
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.packages.form.description.label")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <PlateMarkdownEditor
-                        className="bg-background px-4 sm:px-4 pb-24"
-                        disabled={loading}
-                        value={field.value}
-                        onChange={(v) => {
-                          field.onChange(v);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.description.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("catalog.packages.form.service")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="items.0.serviceId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.packages.form.option.label")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <ServiceSelector
-                        disabled={loading}
-                        value={field.value}
-                        onItemSelect={field.onChange}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.option.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="items.0.credits"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("catalog.packages.form.credits.label")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupInput>
-                          <Input
-                            disabled={loading}
-                            type="number"
-                            min={1}
-                            className={InputGroupInputClasses()}
-                            {...field}
-                          />
-                        </InputGroupInput>
-                        <InputGroupAddon className={InputGroupAddonClasses()}>
-                          {t("catalog.packages.form.credits.suffix")}
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.credits.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("catalog.packages.form.priceAndLimits")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("catalog.packages.form.price.label")}
-                    </FormLabel>
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupAddon
-                          className={InputGroupAddonClasses({
-                            variant: "prefix",
-                          })}
-                        >
-                          {currencySymbol}
-                        </InputGroupAddon>
-                        <InputGroupInput>
-                          <Input
-                            disabled={loading}
-                            placeholder={t(
-                              "catalog.packages.form.price.placeholder",
-                            )}
-                            type="number"
-                            className={InputGroupInputClasses({
+            </div>
+          }
+        />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full min-w-0 space-y-8"
+        >
+          <div className="flex min-w-0 flex-col gap-4">
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("catalog.packages.form.details")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4 pt-6">
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="min-w-0">
+                      <FormLabelWithRequiredIndicator required>
+                        {t("catalog.packages.form.description.label")}
+                      </FormLabelWithRequiredIndicator>
+                      <FormControl>
+                        <PlateMarkdownEditor
+                          className="bg-background px-4 sm:px-4 pb-24"
+                          disabled={loading}
+                          value={field.value}
+                          onChange={(v) => {
+                            field.onChange(v);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.packages.form.description.tooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("catalog.packages.form.service")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="items.0.serviceId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("catalog.packages.form.option.label")}
+                      </FormLabelWithRequiredIndicator>
+                      <FormControl>
+                        <ServiceSelector
+                          disabled={loading}
+                          value={field.value}
+                          onItemSelect={field.onChange}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.packages.form.option.tooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="items.0.credits"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("catalog.packages.form.credits.label")}
+                      </FormLabelWithRequiredIndicator>
+                      <FormControl>
+                        <InputGroup>
+                          <InputGroupInput>
+                            <Input
+                              disabled={loading}
+                              type="number"
+                              min={1}
+                              className={InputGroupInputClasses()}
+                              {...field}
+                            />
+                          </InputGroupInput>
+                          <InputGroupAddon className={InputGroupAddonClasses()}>
+                            {t("catalog.packages.form.credits.suffix")}
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.packages.form.credits.tooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("catalog.packages.form.priceAndLimits")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("catalog.packages.form.price.label")}
+                      </FormLabel>
+                      <FormControl>
+                        <InputGroup>
+                          <InputGroupAddon
+                            className={InputGroupAddonClasses({
                               variant: "prefix",
                             })}
-                            {...field}
-                          />
-                        </InputGroupInput>
-                      </InputGroup>
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.price.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="maxPurchasesPerCustomer"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("catalog.packages.form.maxPurchasesPerCustomer.label")}
-                    </FormLabel>
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupInput>
-                          <Input
-                            disabled={loading}
-                            type="number"
-                            min={1}
-                            className={InputGroupInputClasses()}
-                            value={field.value ?? ""}
-                            onChange={(e) =>
-                              field.onChange(
-                                e.target.value === ""
-                                  ? undefined
-                                  : e.target.valueAsNumber,
-                              )
-                            }
-                          />
-                        </InputGroupInput>
-                        <InputGroupAddon className={InputGroupAddonClasses()}>
-                          {t(
-                            "catalog.packages.form.maxPurchasesPerCustomer.suffix",
-                          )}
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormControl>
-                    <FormDescription>
-                      {t(
-                        "catalog.packages.form.maxPurchasesPerCustomer.tooltip",
-                      )}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="validityMonths"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("catalog.packages.form.validityMonths.label")}
-                    </FormLabel>
-                    <FormControl>
-                      <MonthsInput
-                        disabled={loading}
-                        value={field.value}
-                        onChange={(value) => {
-                          field.onChange(value);
-                          form.trigger("validityMonths");
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.validityMonths.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="isAutoConfirm"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("catalog.packages.form.isAutoConfirm.label")}
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                          field.onBlur();
-                        }}
-                        disabled={loading}
-                      >
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder={t(
-                              "catalog.services.form.selectOption",
+                          >
+                            {currencySymbol}
+                          </InputGroupAddon>
+                          <InputGroupInput>
+                            <Input
+                              disabled={loading}
+                              placeholder={t(
+                                "catalog.packages.form.price.placeholder",
+                              )}
+                              type="number"
+                              className={InputGroupInputClasses({
+                                variant: "prefix",
+                              })}
+                              {...field}
+                            />
+                          </InputGroupInput>
+                        </InputGroup>
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.packages.form.price.tooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="maxPurchasesPerCustomer"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t(
+                          "catalog.packages.form.maxPurchasesPerCustomer.label",
+                        )}
+                      </FormLabel>
+                      <FormControl>
+                        <InputGroup>
+                          <InputGroupInput>
+                            <Input
+                              disabled={loading}
+                              type="number"
+                              min={1}
+                              className={InputGroupInputClasses()}
+                              value={field.value ?? ""}
+                              onChange={(e) =>
+                                field.onChange(
+                                  e.target.value === ""
+                                    ? undefined
+                                    : e.target.valueAsNumber,
+                                )
+                              }
+                            />
+                          </InputGroupInput>
+                          <InputGroupAddon className={InputGroupAddonClasses()}>
+                            {t(
+                              "catalog.packages.form.maxPurchasesPerCustomer.suffix",
                             )}
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="always">
-                            {t("catalog.packages.form.isAutoConfirm.always")}
-                          </SelectItem>
-                          <SelectItem value="never">
-                            {t("catalog.packages.form.isAutoConfirm.never")}
-                          </SelectItem>
-                          <SelectItem value="inherit">
-                            {t("catalog.packages.form.isAutoConfirm.inherit")}
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormDescription>
-                      {t("catalog.packages.form.isAutoConfirm.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-        </div>
-        <EligibleStaff form={form} disabled={loading} />
-        <SaveButton form={form} isLoading={loading} />
-      </form>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </FormControl>
+                      <FormDescription>
+                        {t(
+                          "catalog.packages.form.maxPurchasesPerCustomer.tooltip",
+                        )}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="validityMonths"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("catalog.packages.form.validityMonths.label")}
+                      </FormLabel>
+                      <FormControl>
+                        <MonthsInput
+                          disabled={loading}
+                          value={field.value}
+                          onChange={(value) => {
+                            field.onChange(value);
+                            form.trigger("validityMonths");
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.packages.form.validityMonths.tooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="isAutoConfirm"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("catalog.packages.form.isAutoConfirm.label")}
+                      </FormLabel>
+                      <FormControl>
+                        <Select
+                          value={field.value}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            field.onBlur();
+                          }}
+                          disabled={loading}
+                        >
+                          <SelectTrigger>
+                            <SelectValue
+                              placeholder={t(
+                                "catalog.services.form.selectOption",
+                              )}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="always">
+                              {t("catalog.packages.form.isAutoConfirm.always")}
+                            </SelectItem>
+                            <SelectItem value="never">
+                              {t("catalog.packages.form.isAutoConfirm.never")}
+                            </SelectItem>
+                            <SelectItem value="inherit">
+                              {t("catalog.packages.form.isAutoConfirm.inherit")}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription>
+                        {t("catalog.packages.form.isAutoConfirm.tooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+          </div>
+          <EligibleStaff form={form} disabled={loading} />
+          <SaveButton form={form} isLoading={loading} />
+        </form>
+      </div>
     </Form>
   );
 };

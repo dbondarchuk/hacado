@@ -25,8 +25,13 @@ import { InspectorDrawer, SidebarTab } from "./inspector-drawer";
 import { TemplatePanel } from "./template-panel";
 import { PortalProvider } from "./template-panel/portal-context";
 import { BuilderToolbar } from "./template-panel/toolbar/builder-toolbar";
+import type { ToolbarButtonInjection } from "./template-panel/toolbar/toolbar-buttons";
 
 export type { SidebarTab } from "./inspector-drawer";
+export type {
+  ToolbarButtonInjection,
+  ToolbarSection,
+} from "./template-panel/toolbar/toolbar-buttons";
 
 export type BuilderProps<T extends BaseZodDictionary> = {
   defaultValue?: TEditorConfiguration;
@@ -44,6 +49,7 @@ export type BuilderProps<T extends BaseZodDictionary> = {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   getImageBlock?: (file: UploadedFile) => TEditorBlock;
+  toolbarButtons?: ToolbarButtonInjection[];
 };
 
 const SIDEBAR_COOKIE_NAME = "builder-sidebar-open";
@@ -100,7 +106,7 @@ const BuilderFullScreenProvider = ({
   const Element = (
     <div
       className={cn(
-        "flex flex-col w-full h-full min-h-full",
+        "flex min-w-0 flex-col w-full h-full min-h-full",
         fullScreen && "fixed inset-0 z-50 pointer-events-auto bg-background",
       )}
       data-shimmer-no-children
@@ -123,6 +129,7 @@ const BuilderInternal = ({
   sidebarWidth = 18,
   header,
   footer,
+  toolbarButtons,
 }: Omit<BuilderProps<any>, "editorBlocks" | "rootBlock" | "schemas">) => {
   const resetDocument = useResetDocument();
   const errors = useEditorStateErrors();
@@ -137,7 +144,7 @@ const BuilderInternal = ({
   return (
     <BuilderFullScreenProvider>
       <PortalProvider>
-        <BuilderToolbar args={args} />
+        <BuilderToolbar args={args} toolbarButtons={toolbarButtons} />
         <BuilderSidebarProvider sidebarWidth={sidebarWidth}>
           <SidebarInset
             className="flex flex-col w-full h-full min-h-full"

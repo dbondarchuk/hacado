@@ -4,6 +4,8 @@ import React from "react";
 
 export type BreadcrumbItemProp = {
   title: string;
+  /** Shown instead of `title` on small viewports (e.g. last crumb only). */
+  mobileTitle?: string;
   link: string;
 };
 

@@ -7,9 +7,11 @@ import {
   packagesSearchParamsSerializer,
 } from "@hacado/api-sdk/admin/search-params/packages";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { hasPermission } from "@hacado/utils/permissions";
 import { Plus, Receipt } from "lucide-react";
@@ -45,42 +47,39 @@ export default async function PackagesPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("catalog.packages.title")}
-              description={t("catalog.packages.description")}
-            />
-            <div className="flex shrink-0 items-center gap-2">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PackagesTableAction
+          actions={
+            <>
               <Link
                 href="/dashboard/catalog/packages/sold"
                 button
+                size="sm"
                 variant="outline"
                 aria-label={t("catalog.packages.sold.title")}
               >
                 <Receipt className="h-4 w-4" />
-                <span className="max-md:hidden">
+                <TableToolbarActionLabel>
                   {t("catalog.packages.sold.title")}
-                </span>
+                </TableToolbarActionLabel>
               </Link>
               {canCreate ? (
                 <Link
                   button
                   href="/dashboard/catalog/packages/new"
+                  size="sm"
                   variant="default"
                   aria-label={t("catalog.packages.addNew")}
                 >
                   <Plus className="h-4 w-4" />
-                  <span className="max-md:hidden">
+                  <TableToolbarActionLabel>
                     {t("catalog.packages.addNew")}
-                  </span>
+                  </TableToolbarActionLabel>
                 </Link>
               ) : null}
-            </div>
-          </div>
-        </div>
-        <PackagesTableAction />
+            </>
+          }
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={8} rowCount={10} />}

@@ -3,6 +3,8 @@
 import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { DatabaseId } from "@hacado/types/database";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   CustomTextTemplateSelect,
@@ -14,6 +16,7 @@ import {
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import { TemplateSelector } from "@hacado/ui-admin/template-selector";
 import { Alert, AlertDescription } from "@hacado/ui/alert";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Combobox } from "@hacado/ui/combobox";
 import { useTimeZone } from "@hacado/ui/context";
 import {
@@ -214,506 +217,528 @@ export const AppointmentReminderForm: React.FC<{
         })
       : null;
 
+  const isNew = !initialData?._id;
+  const breadcrumbItems = React.useMemo(
+    () => [
+      { title: tAdmin("navigation.dashboard"), link: "/dashboard" },
+      {
+        title: tAdmin("navigation.communications"),
+        link: "/dashboard/communication-logs",
+      },
+      {
+        title: t("navigation.main.title"),
+        link: "/dashboard/communications/appointment-reminders",
+      },
+      {
+        title: isNew ? t("navigation.new.title") : t("navigation.edit.title"),
+        link: isNew
+          ? "/dashboard/communications/appointment-reminders/new"
+          : `/dashboard/communications/appointment-reminders/edit?id=${initialData?._id}`,
+      },
+    ],
+    [initialData?._id, isNew, t, tAdmin],
+  );
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabelWithRequiredIndicator required>
-                {t("form.name.label")}
-              </FormLabelWithRequiredIndicator>
-              <FormControl>
-                <Input
-                  disabled={loading}
-                  placeholder={t("form.name.placeholder")}
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>{t("form.name.description")}</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+      <div className="flex flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader
+          text={
+            <div className="my-2 w-full min-w-0">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={isNew}
+                label={t("form.name.label")}
+                placeholder={t("form.name.placeholder")}
+                description={t("form.name.description")}
+              />
+            </div>
+          }
         />
-        <div className="flex flex-col gap-4 rounded-lg border p-4">
-          <p className="text-sm font-medium">{t("form.schedule.label")}</p>
-          <div className="grid gap-4 md:grid-cols-2 pt-4 border-t">
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem className={isAtTime ? undefined : "md:col-span-2"}>
-                  <FormLabelWithRequiredIndicator required>
-                    {t("form.type.label")}
-                  </FormLabelWithRequiredIndicator>
-                  <FormControl>
-                    <Combobox
-                      disabled={loading}
-                      className="flex w-full font-normal text-base"
-                      values={appointmentReminderTypes.map((type) => ({
-                        value: type,
-                        label: t(`triggers.${type}`),
-                      }))}
-                      searchLabel={t("form.type.searchLabel")}
-                      value={field.value}
-                      onItemSelect={(value) => {
-                        field.onChange(value);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t("form.type.description")}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {isAtTime ? (
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-8"
+        >
+          <div className="flex flex-col gap-4 rounded-lg border p-4">
+            <p className="text-sm font-medium">{t("form.schedule.label")}</p>
+            <div className="grid gap-4 md:grid-cols-2 pt-4 border-t">
               <FormField
                 control={form.control}
-                name="time"
+                name="type"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={isAtTime ? undefined : "md:col-span-2"}>
                     <FormLabelWithRequiredIndicator required>
-                      {t("form.time.label")}
+                      {t("form.type.label")}
                     </FormLabelWithRequiredIndicator>
                     <FormControl>
-                      <SimpleTimePicker
-                        use12HourFormat={uses12HourFormat}
-                        value={DateTime.fromObject({
-                          hour: field.value?.hour ?? 9,
-                          minute: field.value?.minute ?? 0,
-                          second: 0,
-                        }).toJSDate()}
-                        onChange={(date) => {
-                          const dateTime = date
-                            ? DateTime.fromJSDate(date)
-                            : undefined;
-
-                          field.onChange({
-                            hour: dateTime?.hour ?? 9,
-                            minute: dateTime?.minute ?? 0,
-                            second: 0,
-                          });
+                      <Combobox
+                        disabled={loading}
+                        className="flex w-full font-normal text-base"
+                        values={appointmentReminderTypes.map((type) => ({
+                          value: type,
+                          label: t(`triggers.${type}`),
+                        }))}
+                        searchLabel={t("form.type.searchLabel")}
+                        value={field.value}
+                        onItemSelect={(value) => {
+                          field.onChange(value);
+                          field.onBlur();
                         }}
                       />
                     </FormControl>
                     <FormDescription>
-                      {t("form.time.description")}
+                      {t("form.type.description")}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            ) : null}
-          </div>
-          <div
-            className={
-              isAtTime
-                ? "grid gap-4 md:grid-cols-2"
-                : "grid gap-4 md:grid-cols-4"
-            }
-          >
-            {(itemType === "timeBefore" || itemType === "timeAfter") && (
-              <>
+              {isAtTime ? (
                 <FormField
                   control={form.control}
-                  name="weeks"
+                  name="time"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabelWithRequiredIndicator>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "weeksBefore" : "weeksAfter"}.label`,
-                        )}
+                      <FormLabelWithRequiredIndicator required>
+                        {t("form.time.label")}
                       </FormLabelWithRequiredIndicator>
                       <FormControl>
-                        <Input
-                          type="number"
-                          disabled={loading}
-                          placeholder="0"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "weeksBefore" : "weeksAfter"}.description`,
-                        )}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="days"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "daysBefore" : "daysAfter"}.label`,
-                        )}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          disabled={loading}
-                          placeholder="0"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "daysBefore" : "daysAfter"}.description`,
-                        )}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="hours"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "hoursBefore" : "hoursAfter"}.label`,
-                        )}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          disabled={loading}
-                          placeholder="0"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "hoursBefore" : "hoursAfter"}.description`,
-                        )}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="minutes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "minutesBefore" : "minutesAfter"}.label`,
-                        )}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          disabled={loading}
-                          placeholder="0"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t(
-                          `form.${itemType === "timeBefore" ? "minutesBefore" : "minutesAfter"}.description`,
-                        )}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-            {(itemType === "atTimeBefore" || itemType === "atTimeAfter") && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="weeks"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator>
-                        {t(
-                          `form.${itemType === "atTimeBefore" ? "weeksBefore" : "weeksAfter"}.label`,
-                        )}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          disabled={loading}
-                          placeholder="0"
-                          {...field}
-                          onChange={(args) => {
-                            field.onChange(args);
-                            form.trigger("days");
+                        <SimpleTimePicker
+                          use12HourFormat={uses12HourFormat}
+                          value={DateTime.fromObject({
+                            hour: field.value?.hour ?? 9,
+                            minute: field.value?.minute ?? 0,
+                            second: 0,
+                          }).toJSDate()}
+                          onChange={(date) => {
+                            const dateTime = date
+                              ? DateTime.fromJSDate(date)
+                              : undefined;
+
+                            field.onChange({
+                              hour: dateTime?.hour ?? 9,
+                              minute: dateTime?.minute ?? 0,
+                              second: 0,
+                            });
                           }}
                         />
                       </FormControl>
                       <FormDescription>
-                        {t(
-                          `form.${itemType === "atTimeBefore" ? "weeksBefore" : "weeksAfter"}.description`,
-                        )}
+                        {t("form.time.description")}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="days"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator>
-                        {t(
-                          `form.${itemType === "atTimeBefore" ? "daysBefore" : "daysAfter"}.label`,
-                        )}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          disabled={loading}
-                          placeholder="0"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t(
-                          `form.${itemType === "atTimeBefore" ? "daysBefore" : "daysAfter"}.description`,
-                        )}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-          </div>
-          <p className="text-muted-foreground text-sm">{scheduleExample}</p>
-          <FormField
-            control={form.control}
-            name="appointmentCount.type"
-            render={({ field }) => (
-              <SwitchCardFormItem
-                alwaysItemsStart
-                noCard="borderTop"
-                label={t("form.appointmentCount.label")}
-                description={t("form.appointmentCount.description")}
-                checked={field.value !== "none"}
-                disabled={loading}
-                onCheckedChange={(checked) => {
-                  if (!checked) {
-                    field.onChange("none");
-                    return;
-                  }
-
-                  if (field.value === "none") field.onChange("equalTo");
-                }}
-              >
-                {field.value !== "none" ? (
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator required>
-                        {t("form.appointmentCount.type.label")}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Select
-                          disabled={loading}
-                          value={field.value}
-                          onValueChange={(value) => field.onChange(value)}
-                        >
-                          <SelectTrigger>
-                            <SelectValue
-                              placeholder={t(
-                                "form.appointmentCount.type.placeholder",
-                              )}
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {appointmentReminderAppointmentCountType
-                              .filter((type) => type !== "none")
-                              .map((type) => (
-                                <SelectItem key={type} value={type}>
-                                  {t(
-                                    `form.appointmentCount.type.types.${type}`,
-                                  )}
-                                </SelectItem>
-                              ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                    <FormField
-                      control={form.control}
-                      name="appointmentCount.count"
-                      render={({ field: countField }) => (
-                        <FormItem>
-                          <FormLabelWithRequiredIndicator required>
-                            {t("form.appointmentCount.count.label")}
-                          </FormLabelWithRequiredIndicator>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              disabled={loading}
-                              placeholder="0"
-                              {...countField}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                ) : null}
-                {countExample ? (
-                  <p className="text-muted-foreground text-sm">
-                    {countExample}
-                  </p>
-                ) : null}
-              </SwitchCardFormItem>
-            )}
-          />
-        </div>
-        <div className="flex flex-col gap-4 rounded-lg border p-4">
-          <div className="flex flex-col gap-0.5">
-            <p className="text-sm font-medium">{t("form.delivery.label")}</p>
-            {!emailEnabled && !textEnabled ? (
-              <p className="text-destructive text-sm">
-                {t("form.channel.required")}
-              </p>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-1 items-stretch gap-4 pt-4 border-t">
-            <FormField
-              control={form.control}
-              name="emailEnabled"
-              render={({ field }) => (
-                <SwitchCardFormItem
-                  alwaysItemsStart
-                  noCard
-                  label={t("form.email.label")}
-                  description={t("form.email.description")}
-                  checked={field.value === true}
-                  disabled={loading}
-                  onCheckedChange={field.onChange}
-                >
-                  {field.value === true ? (
-                    <FormField
-                      control={form.control}
-                      name="emailTemplateId"
-                      render={({ field: templateField }) => (
-                        <FormItem>
-                          <FormLabelWithRequiredIndicator required>
-                            {t("form.email.templateLabel")}
-                          </FormLabelWithRequiredIndicator>
-                          <FormControl>
-                            <TemplateSelector
-                              type="email"
-                              disabled={loading}
-                              value={templateField.value}
-                              onItemSelect={templateField.onChange}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            {t("form.email.templateDescription")}
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  ) : null}
-                </SwitchCardFormItem>
+              ) : null}
+            </div>
+            <div
+              className={
+                isAtTime
+                  ? "grid gap-4 md:grid-cols-2"
+                  : "grid gap-4 md:grid-cols-4"
+              }
+            >
+              {(itemType === "timeBefore" || itemType === "timeAfter") && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="weeks"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "weeksBefore" : "weeksAfter"}.label`,
+                          )}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="0"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "weeksBefore" : "weeksAfter"}.description`,
+                          )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="days"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "daysBefore" : "daysAfter"}.label`,
+                          )}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="0"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "daysBefore" : "daysAfter"}.description`,
+                          )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="hours"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "hoursBefore" : "hoursAfter"}.label`,
+                          )}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="0"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "hoursBefore" : "hoursAfter"}.description`,
+                          )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="minutes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "minutesBefore" : "minutesAfter"}.label`,
+                          )}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="0"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t(
+                            `form.${itemType === "timeBefore" ? "minutesBefore" : "minutesAfter"}.description`,
+                          )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
               )}
-            />
+              {(itemType === "atTimeBefore" || itemType === "atTimeAfter") && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="weeks"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator>
+                          {t(
+                            `form.${itemType === "atTimeBefore" ? "weeksBefore" : "weeksAfter"}.label`,
+                          )}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="0"
+                            {...field}
+                            onChange={(args) => {
+                              field.onChange(args);
+                              form.trigger("days");
+                            }}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t(
+                            `form.${itemType === "atTimeBefore" ? "weeksBefore" : "weeksAfter"}.description`,
+                          )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="days"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator>
+                          {t(
+                            `form.${itemType === "atTimeBefore" ? "daysBefore" : "daysAfter"}.label`,
+                          )}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="0"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t(
+                            `form.${itemType === "atTimeBefore" ? "daysBefore" : "daysAfter"}.description`,
+                          )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+            </div>
+            <p className="text-muted-foreground text-sm">{scheduleExample}</p>
             <FormField
               control={form.control}
-              name="textEnabled"
+              name="appointmentCount.type"
               render={({ field }) => (
                 <SwitchCardFormItem
                   alwaysItemsStart
                   noCard="borderTop"
-                  label={t("form.textMessage.label")}
-                  description={t("form.textMessage.description")}
-                  checked={field.value === true}
-                  disabled={
-                    loading || (smsEnabled === false && field.value !== true)
-                  }
-                  onCheckedChange={(value) => {
-                    if (value && smsEnabled === false) return;
+                  label={t("form.appointmentCount.label")}
+                  description={t("form.appointmentCount.description")}
+                  checked={field.value !== "none"}
+                  disabled={loading}
+                  onCheckedChange={(checked) => {
+                    if (!checked) {
+                      field.onChange("none");
+                      return;
+                    }
 
-                    field.onChange(value);
+                    if (field.value === "none") field.onChange("equalTo");
                   }}
                 >
-                  {smsEnabled === false ? (
-                    <Alert variant="warning">
-                      <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <span>{t("form.textMessage.smsDisabled")}</span>
-                        <Link
-                          button
-                          href="/dashboard/settings/text-messaging"
-                          variant="default"
-                          size="sm"
-                        >
-                          {t("form.textMessage.smsDisabledAction")}
-                        </Link>
-                      </AlertDescription>
-                    </Alert>
+                  {field.value !== "none" ? (
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("form.appointmentCount.type.label")}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Select
+                            disabled={loading}
+                            value={field.value}
+                            onValueChange={(value) => field.onChange(value)}
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t(
+                                  "form.appointmentCount.type.placeholder",
+                                )}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {appointmentReminderAppointmentCountType
+                                .filter((type) => type !== "none")
+                                .map((type) => (
+                                  <SelectItem key={type} value={type}>
+                                    {t(
+                                      `form.appointmentCount.type.types.${type}`,
+                                    )}
+                                  </SelectItem>
+                                ))}
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                      <FormField
+                        control={form.control}
+                        name="appointmentCount.count"
+                        render={({ field: countField }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t("form.appointmentCount.count.label")}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                disabled={loading}
+                                placeholder="0"
+                                {...countField}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   ) : null}
-                  {needsCustomVerification ? (
-                    <Alert variant="warning">
-                      <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <span>{t("form.textMessage.verify")}</span>
-                        <Link
-                          button
-                          href="/dashboard/settings/text-messaging/verification"
-                          variant="default"
-                          size="sm"
-                        >
-                          {t("form.textMessage.verifyAction")}
-                        </Link>
-                      </AlertDescription>
-                    </Alert>
-                  ) : null}
-                  {field.value === true &&
-                  smsEnabled !== false &&
-                  allowCustom ? (
-                    <FormField
-                      control={form.control}
-                      name="textTemplateId"
-                      render={({ field: templateField }) => (
-                        <CustomTextTemplateSelect
-                          disabled={loading}
-                          value={templateField.value}
-                          onChange={templateField.onChange}
-                        />
-                      )}
-                    />
-                  ) : null}
-                  {field.value === true && smsEnabled !== false ? (
-                    <SmsMessagePreview
-                      templateId={form.watch("textTemplateId")}
-                      allowCustom={allowCustom}
-                      args={messageArgs}
-                      fallback={renderBuiltInSms(
-                        getAppointmentReminderSms(
-                          smsPreviewLanguage(messageArgs),
-                        ),
-                        messageArgs,
-                        sharedPool,
-                      )}
-                    />
+                  {countExample ? (
+                    <p className="text-muted-foreground text-sm">
+                      {countExample}
+                    </p>
                   ) : null}
                 </SwitchCardFormItem>
               )}
             />
           </div>
-        </div>
-        <SaveButton form={form} />
-      </form>
+          <div className="flex flex-col gap-4 rounded-lg border p-4">
+            <div className="flex flex-col gap-0.5">
+              <p className="text-sm font-medium">{t("form.delivery.label")}</p>
+              {!emailEnabled && !textEnabled ? (
+                <p className="text-destructive text-sm">
+                  {t("form.channel.required")}
+                </p>
+              ) : null}
+            </div>
+            <div className="grid grid-cols-1 items-stretch gap-4 pt-4 border-t">
+              <FormField
+                control={form.control}
+                name="emailEnabled"
+                render={({ field }) => (
+                  <SwitchCardFormItem
+                    alwaysItemsStart
+                    noCard
+                    label={t("form.email.label")}
+                    description={t("form.email.description")}
+                    checked={field.value === true}
+                    disabled={loading}
+                    onCheckedChange={field.onChange}
+                  >
+                    {field.value === true ? (
+                      <FormField
+                        control={form.control}
+                        name="emailTemplateId"
+                        render={({ field: templateField }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t("form.email.templateLabel")}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              <TemplateSelector
+                                type="email"
+                                disabled={loading}
+                                value={templateField.value}
+                                onItemSelect={templateField.onChange}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.email.templateDescription")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ) : null}
+                  </SwitchCardFormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="textEnabled"
+                render={({ field }) => (
+                  <SwitchCardFormItem
+                    alwaysItemsStart
+                    noCard="borderTop"
+                    label={t("form.textMessage.label")}
+                    description={t("form.textMessage.description")}
+                    checked={field.value === true}
+                    disabled={
+                      loading || (smsEnabled === false && field.value !== true)
+                    }
+                    onCheckedChange={(value) => {
+                      if (value && smsEnabled === false) return;
+
+                      field.onChange(value);
+                    }}
+                  >
+                    {smsEnabled === false ? (
+                      <Alert variant="warning">
+                        <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                          <span>{t("form.textMessage.smsDisabled")}</span>
+                          <Link
+                            button
+                            href="/dashboard/settings/text-messaging"
+                            variant="default"
+                            size="sm"
+                          >
+                            {t("form.textMessage.smsDisabledAction")}
+                          </Link>
+                        </AlertDescription>
+                      </Alert>
+                    ) : null}
+                    {needsCustomVerification ? (
+                      <Alert variant="warning">
+                        <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                          <span>{t("form.textMessage.verify")}</span>
+                          <Link
+                            button
+                            href="/dashboard/settings/text-messaging/verification"
+                            variant="default"
+                            size="sm"
+                          >
+                            {t("form.textMessage.verifyAction")}
+                          </Link>
+                        </AlertDescription>
+                      </Alert>
+                    ) : null}
+                    {field.value === true &&
+                    smsEnabled !== false &&
+                    allowCustom ? (
+                      <FormField
+                        control={form.control}
+                        name="textTemplateId"
+                        render={({ field: templateField }) => (
+                          <CustomTextTemplateSelect
+                            disabled={loading}
+                            value={templateField.value}
+                            onChange={templateField.onChange}
+                          />
+                        )}
+                      />
+                    ) : null}
+                    {field.value === true && smsEnabled !== false ? (
+                      <SmsMessagePreview
+                        templateId={form.watch("textTemplateId")}
+                        allowCustom={allowCustom}
+                        args={messageArgs}
+                        fallback={renderBuiltInSms(
+                          getAppointmentReminderSms(
+                            smsPreviewLanguage(messageArgs),
+                          ),
+                          messageArgs,
+                          sharedPool,
+                        )}
+                      />
+                    ) : null}
+                  </SwitchCardFormItem>
+                )}
+              />
+            </div>
+          </div>
+          <SaveButton form={form} />
+        </form>
+      </div>
     </Form>
   );
 };

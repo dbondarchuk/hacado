@@ -1,6 +1,4 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 
 import { getServicesContainer } from "@/app/utils";
 import { AddonForm } from "@/components/admin/catalog/addons/form";
@@ -29,7 +27,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function EditAddonPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-addon");
-  const t = await getI18nAsync("admin");
   await assertPageHasPermission("service", "update");
   const params = await props.params;
 
@@ -56,30 +53,9 @@ export default async function EditAddonPage(props: Props) {
     "Service addon edit page loaded",
   );
 
-  const breadcrumbItems = [
-    { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
-    { title: t("navigation.addons"), link: "/dashboard/catalog/addons" },
-    {
-      title: addon.name,
-      link: `/dashboard/catalog/addons/${params.id}`,
-    },
-  ];
-
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={addon.name}
-            description={t("catalog.addons.editDescription")}
-          />
-
-          {/* <Separator /> */}
-        </div>
-        <AddonForm initialData={addon} />
-      </div>
+      <AddonForm initialData={addon} />
     </PageContainer>
   );
 }

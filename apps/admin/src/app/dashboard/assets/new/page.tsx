@@ -2,8 +2,8 @@ import { AssetForm } from "@/components/admin/assets/form";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -22,20 +22,18 @@ export default async function NewAssetsPage() {
   const breadcrumbItems = [
     { title: t("assets.dashboard"), link: "/dashboard" },
     { title: t("assets.title"), link: "/dashboard/assets" },
-    { title: t("assets.newPage"), link: "/dashboard/assets/new" },
+    {
+      title: t("assets.newPage"),
+      mobileTitle: t("assets.new"),
+      link: "/dashboard/assets/new",
+    },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("assets.new")}
-            description={t("assets.uploadNewAssets")}
-          />
-          {/* <Separator /> */}
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("assets.uploadNewAssets")} />
         <AssetForm />
       </div>
     </PageContainer>

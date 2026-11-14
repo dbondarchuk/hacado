@@ -8,6 +8,7 @@ common:
   openMenu: Open menu
   selectAll: Select all
   selectRow: Select row
+  editName: Edit name
   labels:
     languages:
       en: English
@@ -1532,6 +1533,7 @@ pages:
     pageSlugPlaceholder: Page slug
     pageName: Page name
     pageNamePlaceholder: e.g. Policies
+    pageNameTooltip: Name shown in the admin and used to generate the URL
     url: URL
     editUrl: Edit URL
     slugGeneratedPlaceholder: created-from-the-name
@@ -1867,7 +1869,7 @@ templates:
     subject: Email subject
     subjectTooltip: Email subject that will be used to send the message
     subjectPlaceholder: Subject
-    name: Template name
+    name: Name
     nameTooltip: Unique template name
     namePlaceholder: Template name
     validation:
@@ -2120,6 +2122,7 @@ catalog:
       virtualAppointmentTooltip: Hold this appointment by video, audio, or phone instead of in person.
       name: Name
       namePlaceholder: Service name
+      nameTooltip: Unique service name
       description: Short description
       descriptionTooltip: Short text that will be visible during booking
       duration: Duration
@@ -3054,6 +3057,7 @@ settings:
         requestError: There was a problem with your request.
   brand:
     title: Site & brand
+    breadcrumb: Brand settings
     description: Business details, website and SEO, social links, and styling.
     form:
       visualSectionTitle: Visual identity

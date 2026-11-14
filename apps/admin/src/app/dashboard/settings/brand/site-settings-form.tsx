@@ -3,6 +3,7 @@
 import { useI18n } from "@hacado/i18n/client";
 import type { OrganizationBillingSubscriptionDetails } from "@hacado/types/billing";
 import { BillingPlanTier } from "@hacado/types/billing";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Form } from "@hacado/ui/form";
 import { toastPromise } from "@hacado/ui/sonner";
@@ -109,15 +110,33 @@ export const SiteSettingsForm: React.FC<{
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex flex-col gap-6"
+        className="flex w-full flex-col gap-6"
       >
         <Tabs defaultValue="general">
-          <ResponsiveTabsList className="w-full flex flex-row gap-2">
-            <TabsTrigger value="general">{t("navigation.general")}</TabsTrigger>
-            <TabsTrigger value="brand">{t("navigation.brand")}</TabsTrigger>
-            <TabsTrigger value="social">{t("navigation.social")}</TabsTrigger>
-            <TabsTrigger value="styling">{t("navigation.styling")}</TabsTrigger>
-          </ResponsiveTabsList>
+          <PageHeader
+            text={t("settings.brand.description")}
+            innerClassName="max-md:flex-col max-md:gap-0"
+            titleClassName="max-md:w-full max-md:max-w-full"
+            actionsClassName="max-md:w-full max-md:max-w-full"
+            actions={
+              <ResponsiveTabsList
+                variant="line"
+                dontScrollIntoView
+                className="min-w-0 border-b-0"
+              >
+                <TabsTrigger value="general">
+                  {t("navigation.general")}
+                </TabsTrigger>
+                <TabsTrigger value="brand">{t("navigation.brand")}</TabsTrigger>
+                <TabsTrigger value="social">
+                  {t("navigation.social")}
+                </TabsTrigger>
+                <TabsTrigger value="styling">
+                  {t("navigation.styling")}
+                </TabsTrigger>
+              </ResponsiveTabsList>
+            }
+          />
           <TabsContent value="general">
             <div className="scroll-mt-24">
               <GeneralTab
@@ -127,7 +146,6 @@ export const SiteSettingsForm: React.FC<{
               />
             </div>
           </TabsContent>
-
           <TabsContent value="brand">
             <div className="scroll-mt-24">
               <BrandTab
@@ -145,21 +163,18 @@ export const SiteSettingsForm: React.FC<{
               />
             </div>
           </TabsContent>
-
           <TabsContent value="social">
             <div className="scroll-mt-24">
               <SocialTab form={form} loading={loading} />
             </div>
           </TabsContent>
-
           <TabsContent value="styling">
             <div className="scroll-mt-24">
               <StylingTab form={form} loading={loading} />
             </div>
           </TabsContent>
         </Tabs>
-
-        <SaveButton form={form} disabled={loading} />
+        <SaveButton form={form} disabled={loading} isLoading={loading} />
       </form>
     </Form>
   );

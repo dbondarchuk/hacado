@@ -2,14 +2,13 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { DesignListModel } from "../../models";
 import {
   GiftCardStudioAdminKeys,
@@ -51,6 +50,7 @@ export const columns: ColumnDef<DesignsTableRow>[] = [
       <Link
         href={`/dashboard/gift-card-studio/edit?id=${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.name}
       </Link>
@@ -84,6 +84,7 @@ export const columns: ColumnDef<DesignsTableRow>[] = [
       <Link
         href={`/dashboard/gift-card-studio/purchases?designId=${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.purchasesCount ?? 0}
       </Link>
@@ -100,12 +101,7 @@ export const columns: ColumnDef<DesignsTableRow>[] = [
     enableSorting: false,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.createdAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     id: "createdAt",
     header: tableSortHeader<
       GiftCardStudioAdminNamespace,

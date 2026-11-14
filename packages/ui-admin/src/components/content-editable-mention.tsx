@@ -18,6 +18,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { positionMentionDropdown } from "./mention-dropdown-position";
 import { MentionData } from "./textarea-mention";
 
 const isBrowser = typeof window !== "undefined";
@@ -319,9 +320,10 @@ export const ContentEditableMentions = React.forwardRef<HTMLElement, Props>(
 
           if (currentWord.startsWith(trigger)) {
             setCommandValue(currentWord.substring(trigger.length));
-            dropdown.style.left = caret.left + "px";
-            dropdown.style.top = caret.top + caret.height + "px";
-            dropdown.classList.remove("hidden");
+            positionMentionDropdown(dropdown, caret, {
+              mode: "fixed",
+              anchor: htmlElement,
+            });
           } else {
             // REMINDER: apparently, we need it when deleting
             if (commandValue !== "") {

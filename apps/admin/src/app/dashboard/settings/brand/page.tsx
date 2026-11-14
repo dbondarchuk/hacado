@@ -6,7 +6,6 @@ import {
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { SiteSettingsForm } from "./site-settings-form";
 import type { SiteSettingsFormValues } from "./site-settings-schema";
@@ -58,20 +57,15 @@ export default async function Page() {
     { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.brand"),
+      mobileTitle: t("settings.brand.breadcrumb"),
       link: "/dashboard/settings/brand",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("settings.brand.title")}
-            description={t("settings.brand.description")}
-          />
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
         <SiteSettingsForm
           values={values}
           initialBrandLanguage={brand.language}

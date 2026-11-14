@@ -23,12 +23,14 @@ export async function DashboardGreeting({ subtitle }: { subtitle: string }) {
   const key = greetingKey(DateTime.now().hour);
 
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div className="flex flex-col gap-4 mt-0 sm:mt-2 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0 space-y-1.5">
-        <h1 className="font-display text-3xl md:text-4xl font-medium tracking-tight text-foreground">
+        <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-foreground">
           {t(key, { name: firstName })}
         </h1>
-        <p className="text-base text-muted-foreground max-w-xl">{subtitle}</p>
+        <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
+          {subtitle}
+        </p>
       </div>
       <Link
         href="/dashboard/appointments/new"

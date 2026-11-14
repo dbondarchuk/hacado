@@ -83,6 +83,7 @@ alertModal:
   continueButton: Продовжити
 saveButton:
   defaultText: Зберегти
+  saveChanges: Зберегти зміни
   fixErrorsTitle: Будь ласка, виправте наступні помилки
   fixErrorsDescription: "Будь ласка, виправте наступні помилки перед збереженням:"
   saving: Збереження...

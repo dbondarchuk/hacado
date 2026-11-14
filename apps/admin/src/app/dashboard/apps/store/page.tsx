@@ -22,13 +22,19 @@ export default async function AppsStorePage(props: Params) {
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
     { title: t("navigation.apps"), link: "/dashboard/apps" },
-    { title: t("apps.appStore"), link: "/dashboard/apps/store" },
+    {
+      title: t("apps.appStore"),
+      mobileTitle: t("apps.appStore"),
+      link: "/dashboard/apps/store",
+    },
   ];
 
   return (
     <PageContainer scrollable>
-      <Breadcrumbs items={breadcrumbItems} />
-      <AppStore />
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <AppStore />
+      </div>
     </PageContainer>
   );
 }

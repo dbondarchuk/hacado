@@ -8,8 +8,8 @@ import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
 } from "@hacado/ui-admin-kit/page";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { meetsRequiredPermission } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, redirect } from "next/navigation";
@@ -79,26 +79,36 @@ const getAppPage = cache(async (path: string) => {
     forbidden();
   }
 
+  const pageTitle = t(menuItem.pageTitle || app.app.displayName, {
+    appName: t(app.app.displayName),
+  });
+
   const breadcrumbItems = [
     { title: tAdmin("navigation.dashboard"), link: "/dashboard" },
     ...(!menuItem.noAppsBreadcrumb
       ? [{ title: tAdmin("navigation.apps"), link: "/dashboard/apps" }]
       : []),
-    ...(menuItem.pageBreadcrumbs?.map((b) => ({
-      ...b,
-      title: t(b.title, { appName: t(app.app.displayName) }),
-    })) || [
+    ...(menuItem.pageBreadcrumbs?.map((b, index, items) => {
+      const title = t(b.title, { appName: t(app.app.displayName) });
+
+      return {
+        title,
+        link: b.link,
+        mobileTitle:
+          index === items.length - 1 && title !== pageTitle
+            ? pageTitle
+            : undefined,
+      };
+    }) || [
       {
-        title: t(menuItem.pageTitle || app.app.displayName, {
-          appName: t(app.app.displayName),
-        }),
+        title: pageTitle,
         link: `/dashboard/${path}`,
       },
     ]),
   ];
 
   return {
-    title: t(menuItem.pageTitle || app.app.displayName),
+    title: pageTitle,
     description: t(
       menuItem.pageDescription || "apps.common.defaultDescription",
       {
@@ -139,30 +149,26 @@ export default async function Page(props: Props) {
     "Processing dashboard page request",
   );
 
-  const {
-    menuItem,
-    breadcrumbItems,
-    appId,
-    title,
-    description,
-    servicesContainer,
-  } = await getAppPage(path);
+  const { menuItem, breadcrumbItems, appId, servicesContainer, description } =
+    await getAppPage(path);
 
   return (
     <PageContainer scrollable={!menuItem.notScrollable}>
       <HeaderActionButtonsProvider>
         <div className="flex flex-1 flex-col gap-4 w-full">
           <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex flex-row items-center gap-4 justify-between empty:hidden">
-            {!menuItem.hideHeading && (
-              <Heading
-                title={title}
-                description={description}
-                className="flex-1"
-              />
-            )}
-            <HeaderActionButtonsContainer />
-          </div>
+          {!menuItem.hideHeading ? (
+            <PageHeader
+              text={description}
+              actions={
+                <HeaderActionButtonsContainer className="justify-end py-2" />
+              }
+            />
+          ) : (
+            <div className="hidden has-[>:not(:empty)]:flex flex-row items-center gap-4 justify-end">
+              <HeaderActionButtonsContainer />
+            </div>
+          )}
           <menuItem.Page
             appId={appId}
             searchParams={searchParams}

@@ -14,6 +14,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 import { isPartialLocale } from "../src/locale-catalog.ts";
+import {
+  repairTranslationCache,
+  restorePlaceholderTokens,
+} from "./placeholder-tokens.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const LOCALES_DIR = path.join(__dirname, "../src/locales");
@@ -324,7 +328,16 @@ function saveCache(filePath, cacheObject) {
 
 async function translateOne(text, language, cache, cachePath) {
   const cacheKey = `en|${language}|${provider}|${text}`;
-  if (cache[cacheKey]) return cache[cacheKey];
+  if (cache[cacheKey]) {
+    const restored = restorePlaceholderTokens(text, cache[cacheKey]);
+    if (restored != null) {
+      if (restored !== cache[cacheKey]) cache[cacheKey] = restored;
+
+      return restored;
+    }
+
+    delete cache[cacheKey];
+  }
 
   const { shielded, tokens } = shieldTranslatableTokens(text);
   const targetLang = providerLanguageCode(language);
@@ -340,8 +353,11 @@ async function translateOne(text, language, cache, cachePath) {
   }
 
   translated = unshieldTranslatableTokens(translated, tokens);
-  cache[cacheKey] = translated;
-  return translated;
+  const restored = restorePlaceholderTokens(text, translated);
+  if (restored == null) return translated;
+
+  cache[cacheKey] = restored;
+  return restored;
 }
 
 async function mapPool(items, limit, worker) {
@@ -432,6 +448,14 @@ for (const language of languages) {
   );
 
   const cache = loadCache(cachePath);
+  const { repaired, dropped } = repairTranslationCache(cache);
+  if (repaired > 0 || dropped > 0) {
+    saveCache(cachePath, cache);
+    console.log(
+      `Cache: restored ${repaired} placeholder token(s), dropped ${dropped} damaged entr(y/ies).`,
+    );
+  }
+
   const strings = [...uniqueStrings];
   const pending = strings.filter(
     (s) => !cache[`en|${language}|${provider}|${s}`],

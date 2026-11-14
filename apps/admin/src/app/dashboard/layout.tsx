@@ -175,7 +175,7 @@ export default async function DashboardLayout({
         if (!parent.removeIfBecameParent) {
           parent.items.push({
             id: parent.id,
-            title: parent.title,
+            title: parent.pageTitle ?? parent.title,
             href: parent.href,
             disabled: parent.disabled,
             external: parent.external,

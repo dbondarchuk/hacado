@@ -41,6 +41,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
     group: "website",
     order: 115,
     notScrollable: true,
+    hideHeading: true,
     label:
       "app_gift-card-studio_admin.app.displayName" satisfies GiftCardStudioAdminAllKeys,
     icon: <Gift />,
@@ -103,7 +104,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
     parent: "gift-card-studio",
     id: "gift-card-studio-purchases",
     isHidden: false,
-    hideHeading: false,
+    hideHeading: true,
     notificationsCountKey: GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY,
     label:
       "app_gift-card-studio_admin.app.pages.purchases.title" satisfies GiftCardStudioAdminAllKeys,
@@ -156,13 +157,13 @@ export const GiftCardStudioMenuItems: AppMenuItem<
     isHidden: false,
     hideHeading: false,
     label:
-      "app_gift-card-studio_admin.app.pages.settings.title" satisfies GiftCardStudioAdminAllKeys,
+      "app_gift-card-studio_admin.app.pages.settings.label" satisfies GiftCardStudioAdminAllKeys,
     icon: <Settings />,
     Page: (props) => <GiftCardStudioSettingsPage appId={props.appId} />,
     pageBreadcrumbs: [
       mainBreadcrumb,
       {
-        title: "app_gift-card-studio_admin.app.pages.settings.title",
+        title: "app_gift-card-studio_admin.app.pages.settings.label",
         link: "/dashboard/gift-card-studio/settings",
       } as BreadcrumbItem,
     ],

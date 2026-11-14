@@ -7,8 +7,10 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { ButtonGroup } from "@hacado/ui/button-group";
 
 import React from "react";
@@ -44,7 +46,6 @@ export const CommentsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
   } = useCommentsTableFilters();
 
   const t = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
-  const tAdmin = useI18n("admin");
 
   const canApprove = rowSelection.some((row) => row.status !== "approved");
   const canReject = rowSelection.some((row) => row.status !== "rejected");
@@ -79,8 +80,8 @@ export const CommentsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
   );
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar>
         <DataTableSearch
           searchKey="search"
           searchQuery={searchQuery}
@@ -92,8 +93,16 @@ export const CommentsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      {rowSelection.length > 0 && (
+      </DataTableToolbar>
+      <SelectionActionBar
+        count={rowSelection.length}
+        primary={
+          <DeleteSelectedBlogCommentsButton
+            appId={appId}
+            selected={rowSelection}
+          />
+        }
+      >
         <ButtonGroup>
           <ApproveSelectedBlogCommentsButton
             appId={appId}
@@ -105,12 +114,8 @@ export const CommentsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
             selected={rowSelection}
             disabled={!canReject}
           />
-          <DeleteSelectedBlogCommentsButton
-            appId={appId}
-            selected={rowSelection}
-          />
         </ButtonGroup>
-      )}
-    </div>
+      </SelectionActionBar>
+    </>
   );
 };

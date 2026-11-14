@@ -4,8 +4,8 @@ import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers"
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import type { SessionUser } from "@hacado/types/users";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { canManageCalendarSources } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -49,6 +49,7 @@ export default async function Page() {
     { title: t("navigation.dashboard"), link: "/dashboard" },
     {
       title: t("navigation.profile"),
+      mobileTitle: t("users.profile.title"),
       link: "/dashboard/users/me/profile",
     },
   ];
@@ -57,14 +58,9 @@ export default async function Page() {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("users.profile.title")}
-            description={t("users.profile.description")}
-          />
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("users.profile.description")} />
         <ProfileForm
           values={user}
           canManageCalendarSources={canManageSources}

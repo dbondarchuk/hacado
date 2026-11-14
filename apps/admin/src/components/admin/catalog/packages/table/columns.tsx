@@ -2,15 +2,15 @@
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentPackageListModel } from "@hacado/types/booking";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 export const columns: ColumnDef<AppointmentPackageListModel>[] = [
@@ -44,6 +44,7 @@ export const columns: ColumnDef<AppointmentPackageListModel>[] = [
       <Link
         href={`/dashboard/catalog/packages/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.name}
       </Link>
@@ -104,6 +105,7 @@ export const columns: ColumnDef<AppointmentPackageListModel>[] = [
       <Link
         href={`/dashboard/catalog/packages/sold?packageId=${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.soldCount}
       </Link>
@@ -117,12 +119,7 @@ export const columns: ColumnDef<AppointmentPackageListModel>[] = [
     enableSorting: false,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(new Date(row.original.updatedAt))
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "catalog.packages.table.columns.updatedAt",

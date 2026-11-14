@@ -31,6 +31,7 @@ export const FormsMenuItems: AppMenuItem<
     group: "website",
     order: 110,
     notScrollable: true,
+    hideHeading: true,
     label: "app_forms_admin.app.pages.main.title" satisfies FormsAdminAllKeys,
     icon: <Form />,
     Page: (props) => <FormsMainPage appId={props.appId} />,
@@ -92,7 +93,7 @@ export const FormsMenuItems: AppMenuItem<
     parent: "forms",
     id: "forms-responses",
     isHidden: false,
-    hideHeading: false,
+    hideHeading: true,
     notificationsCountKey: FORMS_UNREAD_RESPONSES_BADGE_KEY,
     label:
       "app_forms_admin.app.pages.responses.title" satisfies FormsAdminAllKeys,

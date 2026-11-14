@@ -13,6 +13,7 @@ import {
   useEditorStateErrors,
   useSetSelectedBlockId,
 } from "../../../documents/editor/context";
+import { ToolbarSectionButtons } from "./toolbar-buttons";
 
 export const ToolbarErrorGroup = () => {
   const editorErrors = useEditorStateErrors();
@@ -50,6 +51,7 @@ export const ToolbarErrorGroup = () => {
 
   return (
     <ToolbarGroup>
+      <ToolbarSectionButtons section="errors" position="start" />
       {hasErrors ? (
         <Popover>
           <PopoverTrigger asChild>
@@ -98,6 +100,7 @@ export const ToolbarErrorGroup = () => {
           <Check className="text-green-600" />
         </ToolbarButton>
       )}
+      <ToolbarSectionButtons section="errors" position="end" />
     </ToolbarGroup>
   );
 };

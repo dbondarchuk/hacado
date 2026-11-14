@@ -3,14 +3,19 @@ import { SonnerToaster } from "@hacado/ui/sonner";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { DM_Mono, Manrope, Playfair_Display } from "next/font/google";
+import { DM_Mono, Inter, Playfair_Display } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
 
-/** Body and UI - Manrope. */
-const manrope = Manrope({
+// /** Body and UI - Manrope. */
+// const manrope = Manrope({
+//   subsets: ["latin", "cyrillic"],
+//   variable: "--font-sans",
+// });
+/** Body and UI - Inter. */
+const inter = Inter({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });
@@ -59,9 +64,9 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${manrope.variable} ${playfair.variable} ${dmMono.variable} font-sans overflow-hidden`}
+        className={`${inter.variable} ${playfair.variable} ${dmMono.variable} font-sans overflow-hidden`}
         style={{
-          "--font-primary": manrope.style.fontFamily,
+          "--font-primary": inter.style.fontFamily,
           "--font-secondary": playfair.style.fontFamily,
           "--font-tertiary": dmMono.style.fontFamily,
         }}

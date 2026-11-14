@@ -54,16 +54,12 @@ export const DeleteSelectedPagesButton: React.FC<{
       <AlertDialogTrigger asChild>
         <Button
           variant="destructive"
-          aria-label={t("pages.table.delete.selectedCount", {
-            count: selected.length,
-          })}
+          aria-label={t("common.buttons.delete")}
           disabled={isLoading || !selected || !selected.length}
         >
           {isLoading && <Spinner />}
           <Trash className="h-4 w-4" />
-          <span className="max-md:hidden">
-            {t("pages.table.delete.selectedCount", { count: selected.length })}
-          </span>
+          <span>{t("common.buttons.delete")}</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

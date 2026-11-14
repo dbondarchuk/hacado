@@ -137,20 +137,63 @@ TabsViaUrl.displayName = TabsPrimitive.Tabs.displayName;
 
 // TabsList.displayName = TabsPrimitive.List.displayName;
 
+type TabsListVariant = "default" | "line";
+
+const TabsListVariantContext = React.createContext<TabsListVariant>("default");
+
+function scrollTabIntoNearestOverflow(activeTab: HTMLElement) {
+  let scrollParent: HTMLElement | null = activeTab.parentElement;
+
+  while (scrollParent) {
+    const isScrollAreaViewport = scrollParent.hasAttribute(
+      "data-radix-scroll-area-viewport",
+    );
+
+    const { overflowX } = getComputedStyle(scrollParent);
+    const canScrollX =
+      overflowX === "auto" ||
+      overflowX === "scroll" ||
+      overflowX === "overlay" ||
+      isScrollAreaViewport;
+
+    if (canScrollX && scrollParent.scrollWidth > scrollParent.clientWidth + 1) {
+      const parentRect = scrollParent.getBoundingClientRect();
+      const tabRect = activeTab.getBoundingClientRect();
+      const nextLeft =
+        scrollParent.scrollLeft +
+        (tabRect.left - parentRect.left) -
+        parentRect.width / 2 +
+        tabRect.width / 2;
+
+      scrollParent.scrollTo({
+        left: Math.max(0, nextLeft),
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    scrollParent = scrollParent.parentElement;
+  }
+}
+
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> & {
     dontScrollIntoView?: boolean;
+    variant?: TabsListVariant;
   }
->(({ className, dontScrollIntoView, ...props }, ref) => {
+>(({ className, dontScrollIntoView, variant = "default", ...props }, ref) => {
   const tabsListRef = useRef<HTMLDivElement | null>(null);
   const hasSeededInitialIndicator = useRef(false);
-  const [indicatorStyle, setIndicatorStyle] = useState({
+  const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({
     left: 0,
     top: 0,
     width: 0,
     height: 0,
   });
+
+  const isLine = variant === "line";
 
   const updateIndicator = React.useCallback(() => {
     if (!tabsListRef.current) return;
@@ -165,22 +208,31 @@ const TabsList = React.forwardRef<
     const tabsRect = tabsListRef.current.getBoundingClientRect();
 
     if (!dontScrollIntoView) {
-      activeTab.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
+      scrollTabIntoNearestOverflow(activeTab);
     }
 
     requestAnimationFrame(() => {
+      if (isLine) {
+        setIndicatorStyle({
+          left: activeRect.left - tabsRect.left,
+          bottom: 0,
+          top: "auto",
+          width: activeRect.width,
+          height: 2,
+        });
+
+        return;
+      }
+
       setIndicatorStyle({
         left: activeRect.left - tabsRect.left,
         top: activeRect.top - tabsRect.top,
+        bottom: "auto",
         width: activeRect.width,
         height: activeRect.height,
       });
     });
-  }, [dontScrollIntoView]);
+  }, [dontScrollIntoView, isLine]);
 
   const seedIndicatorFromFirstTab = React.useCallback(() => {
     if (!tabsListRef.current || hasSeededInitialIndicator.current) return;
@@ -193,15 +245,26 @@ const TabsList = React.forwardRef<
     const firstRect = firstTab.getBoundingClientRect();
     const tabsRect = tabsListRef.current.getBoundingClientRect();
 
-    setIndicatorStyle({
-      left: firstRect.left - tabsRect.left,
-      top: firstRect.top - tabsRect.top,
-      width: firstRect.width,
-      height: firstRect.height,
-    });
+    if (isLine) {
+      setIndicatorStyle({
+        left: firstRect.left - tabsRect.left,
+        bottom: 0,
+        top: "auto",
+        width: firstRect.width,
+        height: 2,
+      });
+    } else {
+      setIndicatorStyle({
+        left: firstRect.left - tabsRect.left,
+        top: firstRect.top - tabsRect.top,
+        bottom: "auto",
+        width: firstRect.width,
+        height: firstRect.height,
+      });
+    }
 
     hasSeededInitialIndicator.current = true;
-  }, []);
+  }, [isLine]);
 
   useEffect(() => {
     // Seed initial position from first tab, then animate to active.
@@ -228,21 +291,31 @@ const TabsList = React.forwardRef<
   }, [seedIndicatorFromFirstTab, updateIndicator]);
 
   return (
-    <div className="relative" ref={tabsListRef}>
-      <TabsPrimitive.List
-        ref={ref}
-        data-slot="tabs-list"
-        className={cn(
-          "bg-muted text-muted-foreground relative inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
-          className,
-        )}
-        {...props}
-      />
-      <div
-        className="absolute rounded-md border border-transparent bg-background shadow-sm dark:border-input dark:bg-input/30 transition-all duration-300 ease-in-out"
-        style={indicatorStyle}
-      />
-    </div>
+    <TabsListVariantContext.Provider value={variant}>
+      <div className="relative" ref={tabsListRef}>
+        <TabsPrimitive.List
+          ref={ref}
+          data-slot="tabs-list"
+          data-variant={variant}
+          className={cn(
+            isLine
+              ? "relative inline-flex h-auto w-fit items-center justify-start gap-5 border-b border-border text-muted-foreground"
+              : "relative inline-flex h-9 w-fit items-center justify-center rounded-lg bg-muted p-[3px] text-muted-foreground",
+            className,
+          )}
+          {...props}
+        />
+        <div
+          className={cn(
+            "absolute transition-all duration-300 ease-in-out",
+            isLine
+              ? "bg-foreground"
+              : "rounded-md border border-transparent bg-background shadow-sm dark:border-input dark:bg-input/30",
+          )}
+          style={indicatorStyle}
+        />
+      </div>
+    </TabsListVariantContext.Provider>
   );
 });
 
@@ -251,17 +324,25 @@ TabsList.displayName = TabsPrimitive.List.displayName;
 const TabsTriggerBase = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Trigger
-    ref={ref}
-    data-slot="tabs-trigger"
-    className={cn(
-      "text-sm data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 font-medium whitespace-nowrap transition-colors focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 z-10",
-      className,
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const variant = React.useContext(TabsListVariantContext);
+  const isLine = variant === "line";
+
+  return (
+    <TabsPrimitive.Trigger
+      ref={ref}
+      data-slot="tabs-trigger"
+      className={cn(
+        "z-10 inline-flex items-center justify-center gap-1.5 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-1 focus-visible:outline-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        isLine
+          ? "h-auto rounded-none border-0 bg-transparent px-0 py-2.5 text-muted-foreground shadow-none data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
+          : "h-[calc(100%-1px)] flex-1 rounded-md border border-transparent px-2 py-1 data-[state=active]:text-foreground focus-visible:border-ring",
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsTriggerBase>,
@@ -303,8 +384,9 @@ const ResponsiveTabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> & {
     dontScrollIntoView?: boolean;
+    variant?: TabsListVariant;
   }
->(({ className, ...props }, ref) => {
+>(({ className, variant, ...props }, ref) => {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -348,21 +430,26 @@ const ResponsiveTabsList = React.forwardRef<
 
   return (
     <ScrollArea
-      className="relative grid whitespace-nowrap"
+      className="relative h-auto w-full min-w-0 max-w-full whitespace-nowrap [&>[data-radix-scroll-area-viewport]]:h-auto"
       viewportRef={viewportRef}
     >
-      <TabsList className={cn("mb-2", className)} ref={ref} {...props} />
+      <TabsList
+        variant={variant}
+        className={cn(variant === "line" ? "mb-0" : "mb-2", className)}
+        ref={ref}
+        {...props}
+      />
       <div
         aria-hidden="true"
         className={cn(
-          "pointer-events-none absolute left-0 top-0 z-20 h-[calc(100%-10px)] w-8 bg-gradient-to-r from-background to-transparent transition-opacity",
+          "pointer-events-none absolute left-0 top-0 z-20 h-full max-h-12 w-8 bg-gradient-to-r from-background to-transparent transition-opacity",
           canScrollLeft ? "opacity-100" : "opacity-0",
         )}
       />
       <div
         aria-hidden="true"
         className={cn(
-          "pointer-events-none absolute right-0 top-0 z-20 h-[calc(100%-10px)] w-8 bg-gradient-to-l from-background to-transparent transition-opacity",
+          "pointer-events-none absolute right-0 top-0 z-20 h-full max-h-12 w-8 bg-gradient-to-l from-background to-transparent transition-opacity",
           canScrollRight ? "opacity-100" : "opacity-0",
         )}
       />

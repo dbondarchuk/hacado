@@ -9,7 +9,11 @@ import {
 } from "@hacado/app-store/blocks/editors";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
 import { Language, useI18n } from "@hacado/i18n/client";
-import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
+import {
+  BlockProviderRegistry,
+  PageBuilder,
+  type ToolbarButtonInjection,
+} from "@hacado/page-builder";
 import { PageReader } from "@hacado/page-builder/reader";
 import { BrandConfiguration } from "@hacado/types/configuration/brand";
 import { GeneralConfiguration } from "@hacado/types/configuration/general";
@@ -21,6 +25,7 @@ import {
   PageUpdateModel,
 } from "@hacado/types/pages";
 import { useDemoArguments } from "@hacado/ui-admin/hooks";
+import { PageHeader as AdminPageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { cn } from "@hacado/ui/cn";
@@ -33,10 +38,11 @@ import {
 } from "@hacado/ui/form";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
 import { toastPromise } from "@hacado/ui/sonner";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { formatArguments } from "@hacado/utils/format-arguments";
 import { generateSlugPreview } from "@hacado/utils/page";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Settings as SettingsIcon } from "lucide-react";
+import { ExternalLink, Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm, useFormState } from "react-hook-form";
@@ -157,13 +163,13 @@ export const PageForm: React.FC<{
       { title: t("assets.dashboard"), link: "/dashboard" },
       { title: t("pages.title"), link: "/dashboard/pages" },
       {
-        title: initialData?._id ? title : t("pages.new"),
+        title: initialData?._id ? t("pages.edit") : t("pages.new"),
         link: initialData?._id
           ? `/dashboard/pages/${initialData._id}`
           : "/dashboard/pages/new",
       },
     ],
-    [title, initialData?._id, t],
+    [initialData?._id, t],
   );
 
   const { setError, trigger } = form;
@@ -342,24 +348,57 @@ export const PageForm: React.FC<{
     ];
   }, [form, loading, t, hasSettingsErrors]);
 
+  const viewPageHref =
+    initialData?._id && initialData.slug
+      ? `${websiteUrl}/${initialData.slug}?preview=true`
+      : undefined;
+
+  const toolbarButtons = useMemo<ToolbarButtonInjection[]>(
+    () => [
+      {
+        id: "view-page",
+        section: "view",
+        children: (
+          <ToolbarButton
+            type="button"
+            tooltip={t("pages.viewPage")}
+            aria-label={t("pages.viewPage")}
+            disabled={!viewPageHref}
+            onClick={() => {
+              if (!viewPageHref) {
+                return;
+              }
+
+              window.open(viewPageHref, "_blank", "noopener,noreferrer");
+            }}
+          >
+            <ExternalLink />
+          </ToolbarButton>
+        ),
+      },
+    ],
+    [t, viewPageHref],
+  );
+
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <div className="flex flex-1 flex-col gap-3">
-        <div className="flex flex-col">
-          <Breadcrumbs items={breadcrumbItems} />
-          <PageIdentityBar
-            loading={loading}
-            websiteUrl={websiteUrl}
-            isNewPage={isNewPage}
-            onSlugManualChange={() => setSlugManuallyChanged(true)}
-            viewHref={
-              initialData?._id && initialData.slug
-                ? `${websiteUrl}/${initialData.slug}?preview=true`
-                : undefined
-            }
-          />
-        </div>
+      <Breadcrumbs items={breadcrumbItems} />
+      <div className="flex flex-1 flex-col">
+        <AdminPageHeader
+          className="mb-0"
+          text={
+            <div className="my-2 w-full min-w-0">
+              <PageIdentityBar
+                layout="inline"
+                loading={loading}
+                websiteUrl={websiteUrl}
+                isNewPage={isNewPage}
+                onSlugManualChange={() => setSlugManuallyChanged(true)}
+              />
+            </div>
+          }
+        />
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-8"
@@ -379,6 +418,7 @@ export const PageForm: React.FC<{
                       header={pageHeader}
                       footer={pageFooter}
                       extraTabs={extraTabs}
+                      toolbarButtons={toolbarButtons}
                       blockRegistry={blockRegistry}
                       type="page"
                     />

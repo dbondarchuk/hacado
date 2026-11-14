@@ -2,16 +2,17 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
+  TableToolbarActionLabel,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { Button } from "@hacado/ui/button";
-import { ButtonGroup } from "@hacado/ui/button-group";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -54,7 +55,6 @@ export const ResponsesTableAction: React.FC<{
   } = useResponsesTableFilters();
 
   const t = useI18n<FormsAdminNamespace, FormsAdminKeys>(formsAdminNamespace);
-  const tAdmin = useI18n("admin");
 
   const handleSelectFormForNew = (formId: string) => {
     const params = new URLSearchParams({ formId });
@@ -91,49 +91,49 @@ export const ResponsesTableAction: React.FC<{
     </>
   );
 
+  const toolbarActions = !disableNewResponseLink ? (
+    <Button
+      onClick={() => setSelectFormOpen(true)}
+      variant="default"
+      size="sm"
+      aria-label={t("responses.table.actions.create")}
+    >
+      <Plus size={16} />
+      <TableToolbarActionLabel>
+        {t("responses.table.actions.create")}
+      </TableToolbarActionLabel>
+    </Button>
+  ) : null;
+
   return (
     <>
-      <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-        <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-          <DataTableSearch
-            searchKey="search"
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setPage={setPage}
+      <DataTableToolbar actions={toolbarActions}>
+        <DataTableSearch
+          searchKey="search"
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setPage={setPage}
+        />
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+        <DataTableResetFilter
+          isFilterActive={isAnyFilterActive}
+          onReset={resetFilters}
+        />
+      </DataTableToolbar>
+      <SelectionActionBar
+        count={rowSelection.length}
+        primary={
+          <DeleteSelectedFormResponsesButton
+            selected={rowSelection}
+            appId={appId}
           />
-          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-          <DataTableResetFilter
-            isFilterActive={isAnyFilterActive}
-            onReset={resetFilters}
-          />
-        </div>
-        <div className="flex flex-wrap items-center gap-2 max-md:justify-between">
-          <ButtonGroup>
-            <ReassignSelectedFormResponsesButton
-              selected={rowSelection}
-              appId={appId}
-            />
-            <DeleteSelectedFormResponsesButton
-              selected={rowSelection}
-              appId={appId}
-            />
-          </ButtonGroup>
-          <HeaderActionButtonsPortal>
-            {!disableNewResponseLink && (
-              <Button
-                onClick={() => setSelectFormOpen(true)}
-                variant="default"
-                aria-label={t("responses.table.actions.create")}
-              >
-                <Plus size={16} />
-                <span className="max-md:hidden">
-                  {t("responses.table.actions.create")}
-                </span>
-              </Button>
-            )}
-          </HeaderActionButtonsPortal>
-        </div>
-      </div>
+        }
+      >
+        <ReassignSelectedFormResponsesButton
+          selected={rowSelection}
+          appId={appId}
+        />
+      </SelectionActionBar>
       <SelectFormDialog
         appId={appId}
         open={selectFormOpen}

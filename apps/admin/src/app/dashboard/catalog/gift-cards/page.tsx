@@ -8,9 +8,11 @@ import {
 } from "@hacado/api-sdk/admin/search-params/gift-cards";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
@@ -46,25 +48,23 @@ export default async function GiftCardsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("catalog.giftCards.title")}
-              description={t("catalog.giftCards.description")}
-            />
-
+        <Breadcrumbs items={breadcrumbItems} />
+        <GiftCardsTableAction
+          actions={
             <Link
               button
-              href={"/dashboard/catalog/gift-cards/new"}
+              href="/dashboard/catalog/gift-cards/new"
+              size="sm"
               variant="default"
+              aria-label={t("catalog.giftCards.addNew")}
             >
-              <Plus /> {t("catalog.giftCards.addNew")}
+              <Plus />
+              <TableToolbarActionLabel>
+                {t("catalog.giftCards.addNew")}
+              </TableToolbarActionLabel>
             </Link>
-          </div>
-          {/* <Separator /> */}
-        </div>
-        <GiftCardsTableAction />
+          }
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={11} rowCount={10} />}

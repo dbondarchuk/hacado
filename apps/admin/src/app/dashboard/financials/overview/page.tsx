@@ -4,8 +4,8 @@ import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
 } from "@hacado/ui-admin-kit/page";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { FinancialsOverviewLoader } from "./loader";
 
@@ -30,6 +30,7 @@ export default async function FinancialOverviewPage(props: Params) {
     },
     {
       title: t("navigation.financialOverview"),
+      mobileTitle: t("financialOverview.view.title"),
       link: "/dashboard/financials/overview",
     },
   ];
@@ -37,18 +38,14 @@ export default async function FinancialOverviewPage(props: Params) {
   return (
     <PageContainer scrollable>
       <HeaderActionButtonsProvider>
-        <div className="flex flex-1 flex-col gap-4 w-full">
-          <div className="flex flex-col gap-4">
-            <Breadcrumbs items={breadcrumbItems} />
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <Heading
-                title={t("financialOverview.view.title")}
-                description={t("financialOverview.description")}
-                className="min-w-0"
-              />
-              <HeaderActionButtonsContainer className="w-full flex-wrap justify-end md:w-auto" />
-            </div>
-          </div>
+        <div className="flex w-full flex-1 flex-col gap-4">
+          <Breadcrumbs items={breadcrumbItems} />
+          <PageHeader
+            text={t("financialOverview.description")}
+            actions={
+              <HeaderActionButtonsContainer className="justify-end py-2" />
+            }
+          />
           <FinancialsOverviewLoader searchParams={searchParams} />
         </div>
       </HeaderActionButtonsProvider>

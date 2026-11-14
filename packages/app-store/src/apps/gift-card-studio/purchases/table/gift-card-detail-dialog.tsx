@@ -163,9 +163,7 @@ export const GiftCardDetailDialog: React.FC<{
                       href={`/dashboard/customers/${purchase.customerId}`}
                       variant="underline"
                     >
-                      <span>
-                        <CustomerName customer={purchase.customer} />
-                      </span>
+                      <CustomerName customer={purchase.customer} />
                     </Link>
                   </dd>
                 </div>

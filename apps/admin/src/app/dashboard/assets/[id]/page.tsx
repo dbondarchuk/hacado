@@ -3,8 +3,8 @@ import { AssetEditForm } from "@/components/admin/assets/edit-form";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -57,17 +57,18 @@ export default async function EditAssetsPage(props: Props) {
   const breadcrumbItems = [
     { title: t("assets.dashboard"), link: "/dashboard" },
     { title: t("assets.title"), link: "/dashboard/assets" },
-    { title: t("assets.editPage"), link: "/dashboard/assets" },
+    {
+      title: t("assets.editPage"),
+      mobileTitle: asset.filename,
+      link: `/dashboard/assets/${params.id}`,
+    },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading title={t("assets.edit")} description={asset.filename} />
-          {/* <Separator /> */}
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={asset.filename} />
         <AssetEditForm asset={asset} />
       </div>
     </PageContainer>

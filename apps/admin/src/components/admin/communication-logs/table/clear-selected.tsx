@@ -28,6 +28,7 @@ export const ClearSelectedCommunicationLogsButton: React.FC<{
 
   const router = useRouter();
   const t = useI18n("admin");
+  const tUi = useI18n("ui");
   const action = async () => {
     try {
       setIsLoading(true);
@@ -55,16 +56,13 @@ export const ClearSelectedCommunicationLogsButton: React.FC<{
     <AlertDialog onOpenChange={setIsOpen} open={isOpen}>
       <AlertDialogTrigger asChild>
         <Button
-          variant="default"
+          variant="secondary"
+          aria-label={tUi("common.clear")}
           disabled={isLoading || !selected || !selected.length}
         >
           {isLoading && <Spinner />}
           <Trash />
-          <span>
-            {t("communicationLogs.clearSelectedCount", {
-              count: selected.length,
-            })}
-          </span>
+          <span>{tUi("common.clear")}</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

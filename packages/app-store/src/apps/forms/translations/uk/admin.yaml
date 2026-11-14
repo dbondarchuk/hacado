@@ -176,6 +176,7 @@ form:
   name:
     label: Назва форми
     placeholder: Назва форми
+    description: Унікальна назва форми
   description: Опис
   submit: Надіслати
   toasts:
@@ -333,3 +334,4 @@ validation:
     answer:
       fieldId:
         required: ID обов'язковий
+

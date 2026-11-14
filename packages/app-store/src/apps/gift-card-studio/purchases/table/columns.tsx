@@ -4,15 +4,15 @@ import { useI18n } from "@hacado/i18n/client";
 import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit/payments";
 import {
   CustomerName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { Spinner } from "@hacado/ui/spinner";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { PurchasedGiftCardListModel } from "../../models";
 import { getFileName } from "../../service/utils";
 import {
@@ -33,7 +33,11 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
     >("purchases.table.columns.code", "string", giftCardStudioAdminNamespace),
     cell: ({ row }) => (
       <GiftCardDetailDialog purchase={row.original}>
-        <Button variant="link-dashed" className="p-0 h-auto font-medium">
+        <Button
+          variant="link-dashed"
+          size="sm"
+          className="p-0 h-auto font-medium"
+        >
           {row.original.giftCardCode ?? row.original.giftCardId}
         </Button>
       </GiftCardDetailDialog>
@@ -85,7 +89,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       );
 
       return (
-        <Button asChild variant="link-dashed" className="p-0 h-auto">
+        <Button asChild variant="link-dashed" size="sm" className="p-0 h-auto">
           <a
             href={`/files/${pdfFileName}`}
             target="_blank"
@@ -144,7 +148,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       );
 
       return (
-        <Button asChild variant="link-dashed" className="p-0 h-auto">
+        <Button asChild variant="link-dashed" size="sm" className="p-0 h-auto">
           <a
             href={`/files/${pdfFileName}`}
             target="_blank"
@@ -231,7 +235,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
     cell: ({ row }) => {
       return (
         <GiftCardPaymentsDialog giftCardId={row.original.giftCardId}>
-          <Button variant="link-dashed" className="p-0 h-auto">
+          <Button variant="link-dashed" size="sm" className="p-0 h-auto">
             {row.original.paymentsCount}
           </Button>
         </GiftCardPaymentsDialog>
@@ -253,6 +257,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       <Link
         href={`/dashboard/customers/${row.original.customerId}`}
         variant="underline"
+        size="sm"
       >
         <CustomerName customer={row.original.customer} />
       </Link>
@@ -291,6 +296,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       <Link
         href={`/dashboard/gift-card-studio/edit?id=${row.original.designId}`}
         variant="underline"
+        size="sm"
       >
         {row.original.designName}
       </Link>
@@ -307,12 +313,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       "date",
       giftCardStudioAdminNamespace,
     ),
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.createdAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     sortingFn: tableSortNoopFunction,
   },
   {

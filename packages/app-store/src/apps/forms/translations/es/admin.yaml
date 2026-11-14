@@ -176,6 +176,7 @@ form:
   name:
     label: Nombre del formulario
     placeholder: Nombre del formulario
+    description: Nombre de formulario único
   description: Descripción
   submit: Entregar
   toasts:

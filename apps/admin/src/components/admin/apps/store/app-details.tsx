@@ -6,6 +6,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getAppScopeUsage } from "@hacado/types/apps";
 import type { SessionUser } from "@hacado/types/users";
 import { ConnectedAppNameAndLogo } from "@hacado/ui-admin/connected-app-properties";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Button } from "@hacado/ui/button";
 import {
   Carousel,
@@ -14,7 +15,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@hacado/ui/carousel";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Markdown } from "@hacado/ui/markdown";
 import { canInstallApp } from "@hacado/utils/app-access";
@@ -51,19 +51,24 @@ export const AppDetails: React.FC<AppDetailsProps> = async ({ appName }) => {
   //if (app.isHidden) return null;
 
   return (
-    <div className="flex flex-col w-full gap-8">
-      <div className="flex flex-row gap-2">
-        <Link
-          button
-          variant="outline"
-          href="/dashboard/apps/store"
-          className="border-none rounded-none -ml-4"
-        >
-          <ArrowLeft />
-        </Link>
-        <Heading title={t("apps.common.appStore")} />
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <div className="flex w-full flex-col gap-8">
+      <PageHeader
+        text={t(app.description.text)}
+        actions={
+          <div className="flex items-center justify-end gap-2 py-2">
+            <Link
+              button
+              variant="outline"
+              size="sm"
+              href="/dashboard/apps/store"
+            >
+              <ArrowLeft />
+              {t("apps.common.appStore")}
+            </Link>
+          </div>
+        }
+      />
+      <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
         <div className="flex flex-col w-full gap-8">
           <ConnectedAppNameAndLogo
             appName={app.name}

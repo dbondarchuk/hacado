@@ -2,8 +2,8 @@ import { getUser } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Skeleton } from "@hacado/ui/skeleton";
 import { canViewCompanyApps } from "@hacado/utils/app-access";
@@ -35,31 +35,27 @@ export default async function AppsPage(props: Params) {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("apps.heading")}
-              description={t("apps.description")}
-            />
-
-            <div className="flex flex-col [&>a]:max-md:w-full md:flex-row gap-2 items-center">
-              {showCompanyTools && (
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader
+          text={t("apps.description")}
+          actions={
+            <div className="flex items-center justify-end gap-2 py-2">
+              {showCompanyTools ? (
                 <Link variant="secondary" button href="/dashboard/apps/default">
                   <Boxes /> {t("apps.defaultApps")}
                 </Link>
-              )}
+              ) : null}
               <Link variant="default" button href="/dashboard/apps/store">
                 <Store /> {t("apps.appStore")}
               </Link>
             </div>
-          </div>
-        </div>
-        <div className="grid  gap-4">
+          }
+        />
+        <div className="grid gap-4">
           <Suspense
             fallback={Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton key={index} className="w-full h-32" />
+              <Skeleton key={index} className="h-32 w-full" />
             ))}
           >
             <InstalledApps />

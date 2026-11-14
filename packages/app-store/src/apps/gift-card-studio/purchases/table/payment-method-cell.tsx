@@ -39,6 +39,7 @@ export function PaymentMethodCell({
     <>
       <Button
         variant="link-dashed"
+        size="sm"
         className="p-0 h-auto font-medium"
         onClick={onOpen}
         disabled={loading || !purchase.paymentId}

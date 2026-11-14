@@ -2,18 +2,13 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { DatabaseId } from "@hacado/types/database";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { cn } from "@hacado/ui/cn";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@hacado/ui/form";
+import { Form } from "@hacado/ui/form";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
-import { Input } from "@hacado/ui/input";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -97,13 +92,15 @@ export const DesignForm: React.FC<{
         link: "/dashboard/gift-card-studio",
       },
       {
-        title: initialData?._id ? initialData.name : t("app.pages.new.label"),
+        title: initialData?._id
+          ? t("app.pages.edit.title")
+          : t("app.pages.new.label"),
         link: initialData?._id
           ? `/dashboard/gift-card-studio/edit?id=${initialData._id}`
           : "/dashboard/gift-card-studio/new",
       },
     ],
-    [t, tAdmin, initialData?.name, initialData?._id],
+    [t, tAdmin, initialData?._id],
   );
 
   const onSubmit = async (values: FormValues) => {
@@ -155,32 +152,25 @@ export const DesignForm: React.FC<{
         className="flex flex-col gap-6"
       >
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-col gap-2 w-full">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    className="md:text-xl lg:text-2xl font-bold tracking-tight border-0 w-full px-0"
-                    autoFocus
-                    h={"lg"}
-                    disabled={loading}
-                    placeholder={t("designs.form.namePlaceholder")}
-                    {...field}
-                  />
-                </FormControl>
-                {initialData?.isArchived && (
-                  <p className="text-sm text-muted-foreground">
-                    {t("designs.form.archivedNotice")}
-                  </p>
-                )}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <PageHeader
+          text={
+            <div className="my-2 flex w-full min-w-0 flex-col gap-1">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={!initialData?._id}
+                label={t("designs.form.name")}
+                placeholder={t("designs.form.namePlaceholder")}
+                description={t("designs.form.nameTooltip")}
+              />
+              {initialData?.isArchived ? (
+                <p className="text-xs text-muted-foreground md:text-sm">
+                  {t("designs.form.archivedNotice")}
+                </p>
+              ) : null}
+            </div>
+          }
+        />
         <div className="flex flex-col gap-2">
           <div
             className={cn(

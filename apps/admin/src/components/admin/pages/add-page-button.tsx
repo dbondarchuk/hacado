@@ -2,6 +2,7 @@
 
 import { PageLimitUpgradeHint } from "@/components/admin/pages/page-limit-upgrade-hint";
 import { useI18n } from "@hacado/i18n/client";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { Link } from "@hacado/ui/link";
 import {
@@ -14,26 +15,41 @@ import { Lock, Plus } from "lucide-react";
 export function AddPageButton({ canAddMore }: { canAddMore: boolean }) {
   const t = useI18n("admin");
 
+  if (canAddMore) {
+    return (
+      <Link
+        button
+        href="/dashboard/pages/new"
+        size="sm"
+        variant="default"
+        aria-label={t("pages.addNew")}
+      >
+        <Plus />
+        <TableToolbarActionLabel>{t("pages.addNew")}</TableToolbarActionLabel>
+      </Link>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-end gap-2">
-      {canAddMore ? (
-        <Link button href="/dashboard/pages/new" variant="default">
-          <Plus /> {t("pages.addNew")}
-        </Link>
-      ) : (
-        <TooltipResponsive>
-          <TooltipResponsiveTrigger>
-            <span>
-              <Button variant="default" disabled>
-                <Lock /> {t("pages.addNew")}
-              </Button>
-            </span>
-          </TooltipResponsiveTrigger>
-          <TooltipResponsiveContent>
-            <PageLimitUpgradeHint />
-          </TooltipResponsiveContent>
-        </TooltipResponsive>
-      )}
-    </div>
+    <TooltipResponsive>
+      <TooltipResponsiveTrigger>
+        <span>
+          <Button
+            variant="default"
+            size="sm"
+            disabled
+            aria-label={t("pages.addNew")}
+          >
+            <Lock />
+            <TableToolbarActionLabel>
+              {t("pages.addNew")}
+            </TableToolbarActionLabel>
+          </Button>
+        </span>
+      </TooltipResponsiveTrigger>
+      <TooltipResponsiveContent>
+        <PageLimitUpgradeHint />
+      </TooltipResponsiveContent>
+    </TooltipResponsive>
   );
 }

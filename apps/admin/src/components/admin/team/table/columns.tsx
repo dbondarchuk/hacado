@@ -1,14 +1,13 @@
 "use client";
 
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
-import { useTimeZone } from "@hacado/ui/context";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 import type { TeamMemberListModel } from "./types";
 
@@ -86,13 +85,7 @@ export const columns: ColumnDef<TeamMemberListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(new Date(row.original.createdAt))
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     id: "createdAt",
     header: tableSortHeader("team.table.columns.joinedAt", "date", "admin"),
     sortingFn: tableSortNoopFunction,

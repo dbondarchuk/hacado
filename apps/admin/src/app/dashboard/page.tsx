@@ -151,19 +151,22 @@ export default async function Page(params: Params) {
   return (
     <PageContainer scrollable>
       <Breadcrumbs items={breadcrumbItems} />
-      <div className="space-y-6 flex-1 pb-8">
+      <div className="flex min-w-0 flex-1 flex-col space-y-6 pb-8">
         <DashboardGreeting subtitle={greetingSubtitle} />
         <Suspense>
-          <TabsViaUrl defaultValue={defaultTab} className="space-y-5">
-            <ResponsiveTabsList className="w-full flex flex-row gap-2">
-              <TabsTrigger value="overview" className="rounded-full">
+          <TabsViaUrl defaultValue={defaultTab} className="min-w-0 space-y-5">
+            <ResponsiveTabsList
+              variant="line"
+              className="min-w-0 w-full gap-2 border-b-0 sm:gap-5 [&_[data-slot=tabs-trigger]]:flex-1"
+            >
+              <TabsTrigger value="overview">
                 {tAdmin("dashboard.tabs.overview")}
               </TabsTrigger>
-              <TabsTrigger value="calendar" className="rounded-full">
+              <TabsTrigger value="calendar">
                 {tAdmin("dashboard.tabs.calendar")}
               </TabsTrigger>
               {showPendingAppointmentsTab ? (
-                <TabsTrigger value="appointments" className="rounded-full">
+                <TabsTrigger value="appointments">
                   {tAdmin("dashboard.tabs.pendingAppointments")}{" "}
                   <DashboardNotificationsBadge
                     notificationsCountKey="pending_appointments"
@@ -172,11 +175,7 @@ export default async function Page(params: Params) {
                 </TabsTrigger>
               ) : null}
               {dashboardTabAppsMap.map((item) => (
-                <TabsTrigger
-                  value={item.href}
-                  key={item.href}
-                  className="rounded-full"
-                >
+                <TabsTrigger value={item.href} key={item.href}>
                   {item.label}{" "}
                   {item.notificationsCountKey ? (
                     <DashboardNotificationsBadge

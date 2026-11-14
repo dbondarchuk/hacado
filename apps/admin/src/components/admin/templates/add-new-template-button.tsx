@@ -6,6 +6,7 @@ import {
   CommunicationChannel,
   communicationChannels,
 } from "@hacado/types/communication";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { Combobox } from "@hacado/ui/combobox";
 import {
@@ -82,12 +83,15 @@ export const AddNewTemplateButton: React.FC = () => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="default">
-          <Plus />{" "}
-          <span className="md:hidden">{t("templates.addNew.add")}</span>
-          <span className="hidden md:inline">
+        <Button
+          variant="default"
+          size="sm"
+          aria-label={t("templates.addNew.addNewTemplate")}
+        >
+          <Plus />
+          <TableToolbarActionLabel>
             {t("templates.addNew.addNewTemplate")}
-          </span>
+          </TableToolbarActionLabel>
         </Button>
       </DialogTrigger>
       <DialogContent className="w-full sm:max-w-96" overlayVariant="blur">
@@ -139,7 +143,7 @@ export const AddNewTemplateButton: React.FC = () => {
           </DialogClose>
           <Button
             variant="default"
-            disabled={!type || isLoading || !template}
+            disabled={!type || isLoading}
             onClick={() => {
               router.push(
                 `/dashboard/templates/new/${type}${template ? `?templateId=${encodeURIComponent(template)}` : ""}`,

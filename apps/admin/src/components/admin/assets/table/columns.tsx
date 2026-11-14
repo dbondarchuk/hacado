@@ -1,14 +1,14 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Asset } from "@hacado/types/assets";
 import { AssetPreview } from "@hacado/ui-admin/asset-preview";
 import {
   CustomerName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import {
   TooltipResponsive,
@@ -17,7 +17,6 @@ import {
 } from "@hacado/ui/tooltip-responsive";
 import { humanFileSize } from "@hacado/utils/file";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 const shortenFilename = (filename: string, maxLength = 20): string => {
@@ -127,6 +126,7 @@ export const columns: ColumnDef<Asset>[] = [
         <Link
           href={`/dashboard/appointments/${row.original.appointmentId}`}
           variant="underline"
+          size="sm"
         >
           {row.original.appointment.service.name}
         </Link>
@@ -145,6 +145,7 @@ export const columns: ColumnDef<Asset>[] = [
         <Link
           href={`/dashboard/customers/${row.original.customer?._id}`}
           variant="underline"
+          size="sm"
         >
           <CustomerName customer={row.original.customer} />
         </Link>
@@ -154,13 +155,7 @@ export const columns: ColumnDef<Asset>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.uploadedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.uploadedAt} />,
     id: "uploadedAt",
     header: tableSortHeader("assets.table.columns.uploadTime", "date", "admin"),
     sortingFn: tableSortNoopFunction,

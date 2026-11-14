@@ -42,6 +42,7 @@ export const ActivityActorDisplayView: React.FC<{
                 href={`/dashboard/customers/${actor.customerId}`}
                 onClick={(e) => e.stopPropagation()}
                 variant="underline"
+                size="sm"
                 className="group-focus/activity-preview-row:text-foreground/80"
               >
                 <CustomerName customer={actor} />

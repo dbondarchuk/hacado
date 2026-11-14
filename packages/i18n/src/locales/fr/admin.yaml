@@ -8,14 +8,15 @@ common:
   openMenu: Ouvrir le menu
   selectAll: Tout sélectionner
   selectRow: Sélectionner une ligne
+  editName: Modifier le nom
   labels:
     languages:
-      en: English
-      en-CA: English (Canada)
+      en: Anglais
+      en-CA: Anglais (Canada)
       fr: Français
       fr-CA: Français (Canada)
-      es: Español
-      es-MX: Español (México)
+      es: espagnol
+      es-MX: Espagnol (Mexique)
       uk: Українська
     channel:
       text-message: SMS
@@ -407,7 +408,7 @@ commandPalette:
   viewAll: Tout voir {label}
   groups:
     actions: Actions rapides
-    apps: Apps
+    apps: Applications
     installedApps: Apps installées
   actions:
     newAppointment: Nouveau rendez-vous
@@ -973,9 +974,9 @@ appointments:
     fees: Frais
     cancel: Annuler
     confirmAndRefund:
-      declined: Refus et remboursement {count, plural, =1 {payment} other {# payments}}{montant, pluriel, =0 {} autre { for {amountFormatted}}}
-      canceled: Annuler et rembourser {count, plural, =1 {payment} other {# payments}}{montant, pluriel, =0 {} autre { for {amountFormatted}}}
-      noShow: Non-présentation et remboursement {count, plural, =1 {payment} other {# payments}}{montant, pluriel, =0 {} autre { for {amountFormatted}}}
+      declined: Refus et remboursement {count, plural, =1 {payment} other {# payments}}{amount, plural, =0 {} other { for {amountFormatted}}}
+      canceled: Annuler et rembourser {count, plural, =1 {payment} other {# payments}}{amount, plural, =0 {} other { for {amountFormatted}}}
+      noShow: Non-présentation et remboursement {count, plural, =1 {payment} other {# payments}}{amount, plural, =0 {} other { for {amountFormatted}}}
     confirm:
       declined: Déclin
       canceled: Annuler
@@ -1516,6 +1517,7 @@ pages:
     settingsTabLabel: Paramètres
     header: En-tête
     footer: Pied de page
+    pageNameTooltip: Nom affiché dans l'administrateur et utilisé pour générer l'URL
   table:
     columns:
       title: Titre
@@ -1790,7 +1792,7 @@ templates:
     subject: Objet de l'e-mail
     subjectTooltip: Objet de l'e-mail qui sera utilisé pour envoyer le message
     subjectPlaceholder: Sujet
-    name: Nom du modèle
+    name: Nom
     nameTooltip: Nom de modèle unique
     namePlaceholder: Nom du modèle
     validation:
@@ -2244,6 +2246,7 @@ catalog:
         toasts:
           added: La disponibilité des options a été mise à jour.
           requestError: Il y a eu un problème avec votre demande.
+      nameTooltip: Nom de service unique
     table:
       columns:
         name: Nom
@@ -2901,6 +2904,7 @@ settings:
         requestError: Il y a eu un problème avec votre demande.
   brand:
     title: Site et marque
+    breadcrumb: Paramètres de la marque
     description: Détails de l'entreprise, site Web et référencement, liens sociaux et style.
     form:
       visualSectionTitle: Identité visuelle
@@ -4373,3 +4377,4 @@ smsConsent:
   attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
+

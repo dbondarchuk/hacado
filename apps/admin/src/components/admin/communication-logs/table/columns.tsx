@@ -1,17 +1,17 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { CommunicationLog } from "@hacado/types/communication";
 import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit/communications";
 import {
   CustomerName,
   MemberName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import {
   Dialog,
   DialogClose,
@@ -23,7 +23,6 @@ import {
 } from "@hacado/ui/dialog";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 
 export const columns: ColumnDef<CommunicationLog>[] = [
   {
@@ -142,7 +141,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
           <span>{text.substring(0, 50)}...</span>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="link-dashed">
+              <Button variant="link-dashed" size="sm">
                 {tAdmin("communicationLogs.table.actions.viewMore")}
               </Button>
             </DialogTrigger>
@@ -247,7 +246,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
             mode="body"
             title={t("communicationLogs.table.actions.logContent")}
             trigger={
-              <Button variant="link-dashed">
+              <Button variant="link-dashed" size="sm">
                 {t("communicationLogs.table.actions.viewMore")}
               </Button>
             }
@@ -275,7 +274,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
             mode="data"
             title={t("communicationLogs.table.actions.logData")}
             trigger={
-              <Button variant="link-dashed">
+              <Button variant="link-dashed" size="sm">
                 {t("communicationLogs.table.actions.view")}
               </Button>
             }
@@ -286,13 +285,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
     accessorFn: () => "", // Data column doesn't need sorting
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.dateTime)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.dateTime} />,
     id: "dateTime",
     header: tableSortHeader(
       "communicationLogs.table.columns.dateTime",
@@ -315,6 +308,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
       return (
         <Link
           variant="default"
+          size="sm"
           href={`/dashboard/appointments/${row.original.appointmentId}`}
         >
           {row.original.appointment?.service.name}
@@ -336,6 +330,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
       return (
         <Link
           variant="default"
+          size="sm"
           href={`/dashboard/customers/${row.original.customer._id}`}
         >
           <CustomerName customer={row.original.customer} />

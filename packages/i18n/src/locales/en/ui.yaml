@@ -83,6 +83,7 @@ alertModal:
   continueButton: Continue
 saveButton:
   defaultText: Save
+  saveChanges: Save changes
   fixErrorsTitle: Please fix following errors
   fixErrorsDescription: "Please fix the following errors before saving:"
   saving: Saving...

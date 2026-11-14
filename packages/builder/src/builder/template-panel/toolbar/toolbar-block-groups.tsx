@@ -15,6 +15,7 @@ import {
 } from "../../../documents/editor/context";
 import { getMoveBlockOutTarget } from "../../../documents/helpers/blocks";
 import { usePortalContext } from "../portal-context";
+import { ToolbarSectionButtons } from "./toolbar-buttons";
 import { ToolbarCopyPasteGroup } from "./toolbar-copy-paste-group";
 
 export const ToolbarBlockGroups = () => {
@@ -125,6 +126,7 @@ export const ToolbarBlockGroups = () => {
   return (
     <>
       <ToolbarGroup>
+        <ToolbarSectionButtons section="blockMove" position="start" />
         <ToolbarButton
           tooltip={t("baseBuilder.builderToolbar.moveUp")}
           disabled={!canDoBlockActions || disable?.move}
@@ -171,12 +173,14 @@ export const ToolbarBlockGroups = () => {
         >
           <ArrowUpFromLine />
         </ToolbarButton>
+        <ToolbarSectionButtons section="blockMove" position="end" />
       </ToolbarGroup>
       <ToolbarCopyPasteGroup
         canDoBlockActions={!!canDoBlockActions}
         disableClone={!!disable?.clone}
       />
       <ToolbarGroup>
+        <ToolbarSectionButtons section="blockActions" position="start" />
         <ToolbarButton
           tooltip={t("baseBuilder.builderToolbar.clone")}
           disabled={!canDoBlockActions || disable?.clone}
@@ -205,6 +209,7 @@ export const ToolbarBlockGroups = () => {
         >
           <Trash />
         </ToolbarButton>
+        <ToolbarSectionButtons section="blockActions" position="end" />
       </ToolbarGroup>
     </>
   );

@@ -2,13 +2,13 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import {
   Dialog,
   DialogClose,
@@ -20,7 +20,6 @@ import {
 } from "@hacado/ui/dialog";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { BlogCommentListItem } from "../../models";
 import {
   BlogAdminKeys,
@@ -84,6 +83,7 @@ export const columns: ColumnDef<CommentsTableRow>[] = [
       <Link
         href={`/dashboard/blog/edit?id=${row.original.postId}`}
         variant="underline"
+        size="sm"
       >
         {row.original.postTitle ?? row.original.postId}
       </Link>
@@ -170,12 +170,7 @@ export const columns: ColumnDef<CommentsTableRow>[] = [
       "date",
       blogAdminNamespace,
     ),
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(new Date(row.original.createdAt))
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     sortingFn: tableSortNoopFunction,
   },
   {

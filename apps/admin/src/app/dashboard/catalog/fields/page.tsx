@@ -8,9 +8,11 @@ import {
 } from "@hacado/api-sdk/admin/search-params/fields";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { hasPermission } from "@hacado/utils/permissions";
 import { Plus } from "lucide-react";
@@ -47,26 +49,25 @@ export default async function FieldsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("catalog.fields.title")}
-              description={t("catalog.fields.description")}
-            />
-
-            {canCreate ? (
+        <Breadcrumbs items={breadcrumbItems} />
+        <FieldsTableAction
+          actions={
+            canCreate ? (
               <Link
                 button
-                href={"/dashboard/catalog/fields/new"}
+                href="/dashboard/catalog/fields/new"
+                size="sm"
                 variant="default"
+                aria-label={t("catalog.fields.addNew")}
               >
-                <Plus /> {t("catalog.fields.addNew")}
+                <Plus />
+                <TableToolbarActionLabel>
+                  {t("catalog.fields.addNew")}
+                </TableToolbarActionLabel>
               </Link>
-            ) : null}
-          </div>
-        </div>
-        <FieldsTableAction />
+            ) : null
+          }
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={8} rowCount={10} />}

@@ -1,15 +1,14 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { PageFooterListModel } from "@hacado/types/pages";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 export const columns: ColumnDef<PageFooterListModel>[] = [
@@ -45,6 +44,7 @@ export const columns: ColumnDef<PageFooterListModel>[] = [
         <Link
           href={`/dashboard/pages/footers/${row.original._id}`}
           variant="underline"
+          size="sm"
         >
           {row.original.name}
         </Link>
@@ -59,13 +59,7 @@ export const columns: ColumnDef<PageFooterListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.updatedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "pages.footers.table.columns.updatedAt",

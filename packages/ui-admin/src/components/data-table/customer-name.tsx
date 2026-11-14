@@ -14,11 +14,11 @@ export const CustomerName = ({
 }) => {
   const t = useI18n("admin");
   return (
-    <span className="flex flex-row items-center gap-2">
+    <span className="whitespace-nowrap">
       {customer.isDeleted && (
         <TooltipResponsive>
           <TooltipResponsiveTrigger>
-            <Lock className="text-xs text-gray-500 size-4" />
+            <Lock className="mr-1.5 inline-block size-4 align-text-bottom text-xs text-gray-500" />
           </TooltipResponsiveTrigger>
           <TooltipResponsiveContent>
             <span>{t("customers.deletedCustomer")}</span>

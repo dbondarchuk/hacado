@@ -8,7 +8,10 @@ import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
 import { AssetPreview } from "@hacado/ui-admin/asset-preview";
 import { useAuth } from "@hacado/ui-admin/context";
-import { useSelectedRowsStore } from "@hacado/ui-admin/data-table";
+import {
+  TableToolbarActionLabel,
+  useSelectedRowsStore,
+} from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
 import { cn } from "@hacado/ui/cn";
@@ -108,7 +111,9 @@ const Loaders = () => (
   </>
 );
 
-export const CustomerFilesTableAction: React.FC<{}> = () => {
+export const CustomerFilesTableAction: React.FC<{
+  actions?: React.ReactNode;
+}> = ({ actions }) => {
   const router = useRouter();
   const { user } = useAuth();
   const canUpdate = hasPermission(user, "customer", "update");
@@ -118,9 +123,9 @@ export const CustomerFilesTableAction: React.FC<{}> = () => {
 
   return (
     <AssetsTableAction
-      className="flex-1"
       onDelete={onDelete}
       allowDelete={canUpdate}
+      actions={actions}
     />
   );
 };
@@ -167,9 +172,15 @@ export const CustomerFileUpload: React.FC<{
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" aria-label={t("common.buttons.addNew")}>
-          <Upload />{" "}
-          <span className="max-md:hidden">{t("common.buttons.addNew")}</span>
+        <Button
+          variant="default"
+          size="sm"
+          aria-label={t("common.buttons.addNew")}
+        >
+          <Upload />
+          <TableToolbarActionLabel>
+            {t("common.buttons.addNew")}
+          </TableToolbarActionLabel>
         </Button>
       </DialogTrigger>
       <DialogContent>

@@ -9,13 +9,20 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
+import React from "react";
 
 import { DeleteSelectedDiscountsButton } from "./delete-selected";
 import { useDiscountsTableFilters } from "./use-table-filters";
 
-export function DiscountsTableAction() {
+export function DiscountsTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const {
     typeFilter,
     setTypeFilter,
@@ -73,8 +80,8 @@ export function DiscountsTableAction() {
   );
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={actions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -86,10 +93,10 @@ export function DiscountsTableAction() {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
+      </DataTableToolbar>
+      <SelectionActionBar count={rowSelection.length}>
         <DeleteSelectedDiscountsButton selected={rowSelection} />
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 }

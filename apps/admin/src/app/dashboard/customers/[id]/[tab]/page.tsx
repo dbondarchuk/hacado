@@ -2,7 +2,10 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import { AppointmentsTable } from "@/components/admin/appointments/table/table";
 import { AppointmentsTableAction } from "@/components/admin/appointments/table/table-action";
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
-import { CustomerForm } from "@/components/admin/customers/form";
+import {
+  CustomerForm,
+  CustomerIdentityHeader,
+} from "@/components/admin/customers/form";
 import { CustomerSmsConsent } from "@/components/admin/customers/sms-consent";
 import PageContainer from "@/components/admin/layout/page-container";
 import { PaymentsTable } from "@/components/admin/payments/table/table";
@@ -32,13 +35,11 @@ import {
   SendCommunicationButton,
 } from "@hacado/ui-admin-kit/communications";
 import {
-  HeaderActionButtonsContainer,
-  HeaderActionButtonsPortal,
-  HeaderActionButtonsProvider,
-} from "@hacado/ui-admin-kit/page";
-import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import {
   ResponsiveTabsList,
@@ -235,211 +236,202 @@ export default async function CustomerPage(props: Props) {
     { title: t("assets.dashboard"), link: "/dashboard" },
     { title: t("customers.title"), link: "/dashboard/customers" },
     {
-      title: customer.name,
+      title: t("customers.manageCustomer"),
       link: `/dashboard/customers/${params.id}`,
     },
   ];
 
   return (
     <PageContainer scrollable={scrollableTabs.includes(activeTab)}>
-      <HeaderActionButtonsProvider>
-        <div className="flex flex-1 flex-col gap-4 w-full">
-          <div className="flex flex-row items-center gap-4 justify-between">
-            <Breadcrumbs items={breadcrumbItems} />
-            <Heading
-              title={<CustomerName customer={customer} />}
-              description={t("customers.manageCustomer")}
-            />
-
-            <HeaderActionButtonsContainer />
-          </div>
-          <div className="flex flex-col gap-4 flex-1">
-            <TabsViaUrl
-              value={activeTab}
-              usePath={path}
-              className="flex-1 flex flex-col gap-4 tabs-url"
-            >
-              <ResponsiveTabsList className="w-full flex flex-row gap-2">
+      <div className="flex min-w-0 w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <TabsViaUrl
+          value={activeTab}
+          usePath={path}
+          className="flex min-w-0 flex-1 flex-col gap-4 tabs-url"
+        >
+          <PageHeader
+            innerClassName="max-md:flex-col max-md:gap-0"
+            titleClassName="max-md:w-full max-md:max-w-full"
+            actionsClassName="max-md:w-full max-md:max-w-full"
+            text={
+              <div className="my-2 w-full min-w-0">
+                <CustomerIdentityHeader customer={customer} />
+              </div>
+            }
+            actions={
+              <ResponsiveTabsList
+                variant="line"
+                className="min-w-0 border-b-0 py-2"
+              >
                 {allTabValues.map((tabValue) => (
                   <TabsTrigger value={tabValue} key={tabValue}>
                     {getTabLabel(tabValue)}
                   </TabsTrigger>
                 ))}
               </ResponsiveTabsList>
-              <TabsContent value={detailsTab}>
-                {activeTab === detailsTab && (
-                  <CustomerForm
-                    initialData={customer}
-                    smsConsent={
-                      <CustomerSmsConsent
-                        customerId={customer._id}
-                        hasPhone={Boolean(customer.phone)}
-                        canUpdate={canUpdateCustomer}
-                        isDeleted={customer.isDeleted}
-                        status={
-                          customer.phone
-                            ? await servicesContainer.smsConsentService.getCustomerSmsConsentStatus(
-                                customer.phone,
-                              )
-                            : { consented: false, optedOut: false }
-                        }
-                      />
+            }
+          />
+          <TabsContent value={detailsTab} className="mt-0">
+            {activeTab === detailsTab && (
+              <CustomerForm
+                initialData={customer}
+                smsConsent={
+                  <CustomerSmsConsent
+                    customerId={customer._id}
+                    hasPhone={Boolean(customer.phone)}
+                    canUpdate={canUpdateCustomer}
+                    isDeleted={customer.isDeleted}
+                    status={
+                      customer.phone
+                        ? await servicesContainer.smsConsentService.getCustomerSmsConsentStatus(
+                            customer.phone,
+                          )
+                        : { consented: false, optedOut: false }
                     }
                   />
-                )}
+                }
+              />
+            )}
+          </TabsContent>
+          {activeTab === appointmentsTab && (
+            <TabsContent
+              value={appointmentsTab}
+              className="mt-0 flex min-h-0 min-w-0 flex-1 flex-col gap-4"
+            >
+              <AppointmentsTableAction
+                className="min-w-0 shrink-0"
+                actions={
+                  !customer.isDeleted ? (
+                    <Link
+                      button
+                      href={`/dashboard/appointments/new?customer=${params.id}`}
+                      size="sm"
+                      variant="default"
+                      aria-label={t("customers.scheduleAppointment")}
+                    >
+                      <CalendarClock className="h-4 w-4" />
+                      <TableToolbarActionLabel>
+                        {t("customers.scheduleAppointment")}
+                      </TableToolbarActionLabel>
+                    </Link>
+                  ) : null
+                }
+              />
+              <Suspense
+                key={key}
+                fallback={<DataTableSkeleton columnCount={9} rowCount={10} />}
+              >
+                <AppointmentsTable customerId={params.id} />
+              </Suspense>
+            </TabsContent>
+          )}
+          {activeTab === paymentsTab && canUsePayments && (
+            <TabsContent
+              value={paymentsTab}
+              className="mt-0 flex min-h-0 flex-1 flex-col gap-4"
+            >
+              <PaymentsTableAction
+                className="min-w-0 shrink-0"
+                showCustomerFilter={false}
+                customerIdLock={params.id}
+                actions={
+                  !customer.isDeleted ? (
+                    <AddPayment customerId={params.id} />
+                  ) : null
+                }
+              />
+              <Suspense
+                key={key}
+                fallback={<DataTableSkeleton columnCount={10} rowCount={10} />}
+              >
+                <PaymentsTable customerId={params.id} />
+              </Suspense>
+            </TabsContent>
+          )}
+          {activeTab === packagesTab && canUsePackages && (
+            <TabsContent
+              value={packagesTab}
+              className="mt-0 flex min-h-0 flex-1 flex-col gap-4"
+            >
+              <CustomerPackagesList customerId={params.id} />
+            </TabsContent>
+          )}
+          {activeTab === filesTab && (
+            <TabsContent
+              value={filesTab}
+              className="mt-0 flex min-h-0 flex-1 flex-col gap-4"
+            >
+              <CustomerFilesTableAction
+                actions={
+                  !customer.isDeleted && canUpdateCustomer ? (
+                    <CustomerFileUpload customerId={params.id} />
+                  ) : null
+                }
+              />
+              <Suspense
+                key={key}
+                fallback={<DataTableSkeleton columnCount={10} rowCount={10} />}
+              >
+                <CustomerFiles
+                  customerId={params.id}
+                  search={serializeAssetsSearchParams({
+                    search: assetsSearchParamsCache.get("search"),
+                  })}
+                />
+              </Suspense>
+            </TabsContent>
+          )}
+          {activeTab === communicationsTab && (
+            <TabsContent
+              value={communicationsTab}
+              className="mt-0 flex min-h-0 flex-1 flex-col gap-4"
+            >
+              <CommunicationLogsTableAction
+                className="min-w-0 shrink-0"
+                actions={
+                  !customer.isDeleted ? (
+                    <SendCommunicationButton customerId={params.id} />
+                  ) : null
+                }
+              />
+              <Suspense
+                key={key}
+                fallback={<DataTableSkeleton columnCount={10} rowCount={10} />}
+              >
+                <RecentCommunications
+                  customerId={params.id}
+                  direction={communicationLogsSearchParamsCache.get(
+                    "direction",
+                  )}
+                  channel={communicationLogsSearchParamsCache.get("channel")}
+                  status={communicationLogsSearchParamsCache.get("status")}
+                  start={communicationLogsSearchParamsCache.get("start")}
+                  end={communicationLogsSearchParamsCache.get("end")}
+                  search={communicationLogsSearchParamsCache.get("search")}
+                  member={communicationLogsSearchParamsCache.get("member")}
+                />
+              </Suspense>
+            </TabsContent>
+          )}
+          {customerTabItems
+            .filter((item) => activeTab === item.href)
+            .map((item) => (
+              <TabsContent
+                key={item.href}
+                value={item.href}
+                className="mt-0 flex min-h-0 flex-1 flex-col gap-4"
+              >
+                {item.view({
+                  props: item.props,
+                  appId: item.appId,
+                  customer,
+                  searchParams,
+                })}
               </TabsContent>
-              {activeTab === appointmentsTab && (
-                <TabsContent
-                  value={appointmentsTab}
-                  className="flex flex-1 flex-col gap-4"
-                >
-                  <div className="flex flex-col md:flex-row gap-2 w-full">
-                    <AppointmentsTableAction className="flex-1" />
-                    {!customer.isDeleted && (
-                      <HeaderActionButtonsPortal>
-                        <Link
-                          button
-                          href={`/dashboard/appointments/new?customer=${params.id}`}
-                          variant="default"
-                          aria-label={t("customers.scheduleAppointment")}
-                        >
-                          <CalendarClock className="h-4 w-4" />
-                          <span className="max-md:hidden">
-                            {t("customers.scheduleAppointment")}
-                          </span>
-                        </Link>
-                      </HeaderActionButtonsPortal>
-                    )}
-                  </div>
-                  <Suspense
-                    key={key}
-                    fallback={
-                      <DataTableSkeleton columnCount={9} rowCount={10} />
-                    }
-                  >
-                    <AppointmentsTable customerId={params.id} />
-                  </Suspense>
-                </TabsContent>
-              )}
-              {activeTab === paymentsTab && canUsePayments && (
-                <TabsContent
-                  value={paymentsTab}
-                  className="flex flex-1 flex-col gap-4"
-                >
-                  <div className="flex flex-col md:flex-row gap-2 w-full">
-                    <PaymentsTableAction
-                      className="flex-1"
-                      showCustomerFilter={false}
-                      customerIdLock={params.id}
-                    />
-                    {!customer.isDeleted && (
-                      <HeaderActionButtonsPortal>
-                        <AddPayment customerId={params.id} />
-                      </HeaderActionButtonsPortal>
-                    )}
-                  </div>
-                  <Suspense
-                    key={key}
-                    fallback={
-                      <DataTableSkeleton columnCount={10} rowCount={10} />
-                    }
-                  >
-                    <PaymentsTable customerId={params.id} />
-                  </Suspense>
-                </TabsContent>
-              )}
-              {activeTab === packagesTab && canUsePackages && (
-                <TabsContent
-                  value={packagesTab}
-                  className="flex flex-1 flex-col gap-4"
-                >
-                  <CustomerPackagesList customerId={params.id} />
-                </TabsContent>
-              )}
-              {activeTab === filesTab && (
-                <TabsContent
-                  value={filesTab}
-                  className="flex flex-1 flex-col gap-4"
-                >
-                  <div className="flex flex-col md:flex-row gap-2 w-full">
-                    <CustomerFilesTableAction />
-                    {!customer.isDeleted && canUpdateCustomer && (
-                      <HeaderActionButtonsPortal>
-                        <CustomerFileUpload customerId={params.id} />
-                      </HeaderActionButtonsPortal>
-                    )}
-                  </div>
-                  <Suspense
-                    key={key}
-                    fallback={
-                      <DataTableSkeleton columnCount={10} rowCount={10} />
-                    }
-                  >
-                    <CustomerFiles
-                      customerId={params.id}
-                      search={serializeAssetsSearchParams({
-                        search: assetsSearchParamsCache.get("search"),
-                      })}
-                    />
-                  </Suspense>
-                </TabsContent>
-              )}
-              {activeTab === communicationsTab && (
-                <TabsContent
-                  value={communicationsTab}
-                  className="flex flex-1 flex-col gap-4"
-                >
-                  <div className="flex flex-col md:flex-row gap-2 w-full">
-                    <CommunicationLogsTableAction className="flex-1" />
-                    {!customer.isDeleted && (
-                      <HeaderActionButtonsPortal>
-                        <SendCommunicationButton customerId={params.id} />
-                      </HeaderActionButtonsPortal>
-                    )}
-                  </div>
-                  <Suspense
-                    key={key}
-                    fallback={
-                      <DataTableSkeleton columnCount={10} rowCount={10} />
-                    }
-                  >
-                    <RecentCommunications
-                      customerId={params.id}
-                      direction={communicationLogsSearchParamsCache.get(
-                        "direction",
-                      )}
-                      channel={communicationLogsSearchParamsCache.get(
-                        "channel",
-                      )}
-                      status={communicationLogsSearchParamsCache.get("status")}
-                      start={communicationLogsSearchParamsCache.get("start")}
-                      end={communicationLogsSearchParamsCache.get("end")}
-                      search={communicationLogsSearchParamsCache.get("search")}
-                      member={communicationLogsSearchParamsCache.get("member")}
-                    />
-                  </Suspense>
-                </TabsContent>
-              )}
-              {customerTabItems
-                .filter((item) => activeTab === item.href)
-                .map((item) => (
-                  <TabsContent
-                    key={item.href}
-                    value={item.href}
-                    className="flex flex-1 flex-col gap-4"
-                  >
-                    {item.view({
-                      props: item.props,
-                      appId: item.appId,
-                      customer,
-                      searchParams,
-                    })}
-                  </TabsContent>
-                ))}
-            </TabsViaUrl>
-          </div>
-        </div>
-      </HeaderActionButtonsProvider>
+            ))}
+        </TabsViaUrl>
+      </div>
     </PageContainer>
   );
 }

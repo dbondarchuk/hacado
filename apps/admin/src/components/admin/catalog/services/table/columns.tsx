@@ -1,17 +1,16 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { AppointmentOption } from "@hacado/types/booking";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { hasPermission } from "@hacado/utils/permissions";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 export const columns: ColumnDef<AppointmentOption>[] = [
@@ -56,6 +55,7 @@ export const columns: ColumnDef<AppointmentOption>[] = [
         <Link
           href={`/dashboard/catalog/services/${row.original._id}`}
           variant="underline"
+          size="sm"
         >
           {row.original.name}
         </Link>
@@ -70,13 +70,7 @@ export const columns: ColumnDef<AppointmentOption>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.updatedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "catalog.services.table.columns.updatedAt",

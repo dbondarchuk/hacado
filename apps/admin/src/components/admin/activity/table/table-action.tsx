@@ -7,9 +7,8 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
 } from "@hacado/ui-admin/data-table";
-import { cn } from "@hacado/ui/cn";
-
 import React from "react";
 import { ActivityEventTypeAsyncFilterBox } from "./activity-event-type-async-filter";
 import { useActivityTableFilters } from "./use-activity-table-filters";
@@ -76,26 +75,19 @@ export const ActivityTableAction: React.FC<{ className?: string }> = ({
   );
 
   return (
-    <div
-      className={cn(
-        "flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row w-full",
-        className,
-      )}
-    >
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-        <DataTableSearch
-          searchKey="search"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-          placeholder={t("activity.table.searchPlaceholder")}
-        />
-        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-      </div>
-    </div>
+    <DataTableToolbar className={className}>
+      <DataTableSearch
+        searchKey="search"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setPage={setPage}
+        placeholder={t("activity.table.searchPlaceholder")}
+      />
+      <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+      <DataTableResetFilter
+        isFilterActive={isAnyFilterActive}
+        onReset={resetFilters}
+      />
+    </DataTableToolbar>
   );
 };

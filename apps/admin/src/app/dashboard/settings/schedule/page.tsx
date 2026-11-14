@@ -2,8 +2,8 @@ import { getServicesContainer } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { ScheduleSettingsForm } from "./form";
 
@@ -31,20 +31,16 @@ export default async function Page() {
     },
     {
       title: t("navigation.defaultSchedule"),
+      mobileTitle: t("settings.schedule.title"),
       link: "/dashboard/settings/schedule",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("settings.schedule.title")}
-            description={t("settings.schedule.description")}
-          />
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("settings.schedule.description")} />
         <ScheduleSettingsForm values={schedule} />
       </div>
     </PageContainer>

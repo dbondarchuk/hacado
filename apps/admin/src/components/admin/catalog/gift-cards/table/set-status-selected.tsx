@@ -62,18 +62,18 @@ export const SetStatusSelectedGiftCardsButton: React.FC<{
       ? "catalog.giftCards.setStatusSelected.confirmTitleActive"
       : "catalog.giftCards.setStatusSelected.confirmTitleInactive";
 
-  const buttonKey =
+  const buttonLabelKey =
     status === "active"
-      ? "catalog.giftCards.setStatusSelected.buttonActive"
-      : "catalog.giftCards.setStatusSelected.buttonInactive";
+      ? "catalog.giftCards.setStatusSelected.setActive"
+      : "catalog.giftCards.setStatusSelected.setInactive";
 
   return (
     <AlertDialog onOpenChange={setIsOpen} open={isOpen}>
       <AlertDialogTrigger asChild>
         <Button
-          variant="outline"
+          variant="secondary"
           disabled={disabled}
-          aria-label={t(buttonKey, { count: selected.length })}
+          aria-label={t(buttonLabelKey)}
         >
           {isLoading && <Spinner />}
           {status === "active" ? (
@@ -81,9 +81,7 @@ export const SetStatusSelectedGiftCardsButton: React.FC<{
           ) : (
             <ToggleLeft className="h-4 w-4" />
           )}
-          <span className="max-md:hidden">
-            {t(buttonKey, { count: selected.length })}
-          </span>
+          <span>{t(buttonLabelKey)}</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

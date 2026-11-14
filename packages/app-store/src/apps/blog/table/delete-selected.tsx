@@ -24,6 +24,7 @@ export const DeleteSelectedBlogPostsButton: React.FC<{
   const [isOpen, setIsOpen] = React.useState(false);
   const t = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
   const tAdmin = useI18n("admin");
+  const tUi = useI18n("ui");
 
   const { reload } = useReload();
   const action = async () => {
@@ -58,17 +59,11 @@ export const DeleteSelectedBlogPostsButton: React.FC<{
         variant="destructive"
         disabled={isLoading || !selected || !selected.length}
         onClick={() => setIsOpen(true)}
-        aria-label={t("table.deleteSelected.label", {
-          count: selected.length,
-        })}
+        aria-label={tUi("actions.delete")}
       >
         {isLoading && <Spinner />}
         <Trash className="h-4 w-4" />
-        <span className="max-md:hidden">
-          {t("table.deleteSelected.label", {
-            count: selected.length,
-          })}
-        </span>
+        <span>{tUi("actions.delete")}</span>
       </Button>
       <AlertModal
         isOpen={isOpen}

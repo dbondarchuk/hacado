@@ -1,87 +1,97 @@
 app:
-  displayName: Customer Appointment Updates
+  displayName: Actualizaciones de citas de clientes
   description: |-
-    Tell the customer as soon as their booking changes. For each event, turn the update on and send it by email, text, or both.
+    Mantenga informados a sus clientes con actualizaciones automáticas del estado de las citas.
+
+    La aplicación **Actualizaciones de citas del cliente** le permite enviar automáticamente correos electrónicos o mensajes SMS personalizados cada vez que se crea una cita o cambia su estado, sin necesidad de trabajo manual.
+
+    Úselo para:
+    - Notificar a los clientes cuando **se reciba** su solicitud de cita.
+    - Enviar actualizaciones cuando las citas sean **confirmadas o rechazadas**.
+    - Informar a los clientes cuando sus citas sean **reprogramadas o canceladas**.
+    - Personaliza plantillas de mensajes para canales de correo electrónico y SMS.
+    - Mantenga a los clientes informados durante todo el proceso de reserva, reduzca la confusión y brinde una mejor experiencia de reserva, todo de forma automática.
 navigation:
-  title: Customer Appointment Updates
+  title: Actualizaciones de citas de clientes
 form:
   events:
     pending:
-      label: Appointment is pending
-      description: Sent when a customer requests an appointment and it is waiting for confirmation.
+      label: La cita está pendiente
+      description: Enviado cuando un cliente solicita una cita y está esperando confirmación.
     confirmed:
-      label: Appointment is confirmed
-      description: Sent when a booking is confirmed right away, or when you later confirm a pending appointment.
+      label: La cita está confirmada.
+      description: Se envía cuando se confirma una reserva inmediatamente o cuando posteriormente confirmas una cita pendiente.
     declined:
-      label: Appointment is declined
-      description: Sent when you decline a booking request.
+      label: Se rechaza la cita
+      description: Enviado cuando rechaza una solicitud de reserva.
     canceled:
-      label: Appointment is canceled
-      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer.
+      label: Se cancela la cita
+      description: Se envía cuando el cliente cancela, o cuando registra la cita como cancelada por el cliente.
     noShow:
-      label: Customer does not show
-      description: Sent when you mark the customer as a no-show. You can still skip it on a single appointment.
+      label: El cliente no se presenta
+      description: Se envía cuando marcas al cliente como no presentado. Aún puedes omitirlo en una sola cita.
     rescheduled:
-      label: Appointment is rescheduled
-      description: Sent when the appointment time changes, unless that change is set not to notify the customer.
+      label: Se reprograma cita
+      description: Se envía cuando cambia el horario de la cita, a menos que ese cambio esté configurado para no notificar al cliente.
   howToSend:
-    label: How to send
+    label: como enviar
   email:
-    label: Email
-    description: Send the customer an email.
+    label: Correo electrónico
+    description: Envíe un correo electrónico al cliente.
   emailTemplate:
-    label: Email template
-    description: The email customers receive for this update.
+    label: Plantilla de correo electrónico
+    description: El correo electrónico que reciben los clientes para esta actualización.
   text:
-    label: Text message
-    description: Send the customer a text message. A built-in message is used unless you choose a custom template.
+    label: mensaje de texto
+    description: Enviar al cliente un mensaje de texto. Se utiliza un mensaje integrado a menos que elija una plantilla personalizada.
   packageEmails:
     pendingPackage:
       enabled:
-        label: Send a different email for pending package appointments
-        description: Used instead of the pending email when the appointment is covered by a package.
+        label: Envíe un correo electrónico diferente para citas de paquetes pendientes
+        description: Se utiliza en lugar del correo electrónico pendiente cuando la cita está cubierta por un paquete.
       templateId:
-        label: Email template
-        description: The email customers receive for a pending package appointment.
+        label: Plantilla de correo electrónico
+        description: El correo electrónico que reciben los clientes para una cita de paquete pendiente.
     confirmedPackage:
       enabled:
-        label: Send a different email for confirmed package appointments
-        description: Used instead of the confirmed email when the appointment is covered by a package.
+        label: Envíe un correo electrónico diferente para citas de paquetes confirmadas
+        description: Se utiliza en lugar del correo electrónico confirmado cuando la cita está cubierta por un paquete.
       templateId:
-        label: Email template
-        description: The email customers receive for a confirmed package appointment.
+        label: Plantilla de correo electrónico
+        description: El correo electrónico que reciben los clientes para una cita de paquete confirmada.
   calendarEventTemplate:
     enabled:
-      label: Include a calendar event
-      description: Added to emails so customers can save the appointment on their calendar. Text messages are not affected.
+      label: Incluir un evento de calendario
+      description: Agregado a los correos electrónicos para que los clientes puedan guardar la cita en su calendario. Los mensajes de texto no se ven afectados.
     templateId:
-      label: Calendar event template
-      description: The event customers see in their calendar.
+      label: Plantilla de eventos de calendario
+      description: El evento que los clientes ven en su calendario.
 statusText:
-  email_app_not_configured: Email sender default is not configured
-  text_message_app_not_configured: Text message sender default app is not configured
-  successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing configuration
-  error_sending_customer_appointment_updates_for_new_appointment: Error sending customer appointment update for new appointment
-  error_sending_customer_appointment_updates_for_status_change: Error sending customer appointment update for status change
-  error_sending_customer_appointment_updates_for_rescheduled_appointment: Error sending customer appointment update for rescheduled appointment
+  email_app_not_configured: El remitente de correo electrónico predeterminado no está configurado
+  text_message_app_not_configured: La aplicación predeterminada del remitente de mensajes de texto no está configurada
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Configuración de procesamiento de errores
+  error_sending_customer_appointment_updates_for_new_appointment: Error al enviar la actualización de la cita del cliente para una nueva cita
+  error_sending_customer_appointment_updates_for_status_change: Error al enviar la actualización de la cita del cliente para el cambio de estado
+  error_sending_customer_appointment_updates_for_rescheduled_appointment: Error al enviar la actualización de la cita del cliente para una cita reprogramada
 handlers:
-  newRequest: Customer Appointment Updates - New Request
-  pending: Customer Appointment Updates - Pending
-  confirmed: Customer Appointment Updates - Confirmed
-  declined: Customer Appointment Updates - Declined
-  canceled: Customer Appointment Updates - Canceled
-  noShow: Customer Appointment Updates - No-show
-  rescheduled: Customer Appointment Updates - Rescheduled
+  newRequest: "Actualizaciones de citas de clientes: nueva solicitud"
+  pending: "Actualizaciones de citas de clientes: pendientes"
+  confirmed: "Actualizaciones de citas de clientes: confirmadas"
+  declined: "Actualizaciones de citas de clientes: rechazadas"
+  canceled: "Actualizaciones de citas de clientes: canceladas"
+  noShow: "Actualizaciones de citas de clientes: no presentarse"
+  rescheduled: "Actualizaciones de citas de clientes: reprogramadas"
 validation:
   channel:
-    required: Choose at least one way to send, email or text message
+    required: Elija al menos una forma de enviar, correo electrónico o mensaje de texto
   eventTemplate:
     templateId:
-      required: Select a calendar event template
+      required: Seleccione una plantilla de evento de calendario
   emailTemplate:
     templateId:
-      required: Select an email template
+      required: Seleccione una plantilla de correo electrónico
   packageTemplate:
     templateId:
-      required: Select an email template
+      required: Seleccione una plantilla de correo electrónico
+

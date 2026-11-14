@@ -393,7 +393,7 @@ const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(
       <div
         ref={ref}
         className={cn(
-          "flex h-9 items-center justify-start rounded-md border border-input bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium file:text-foreground placeholder:text-muted-foreground  disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-9 w-full min-w-0 max-w-full items-center justify-start rounded-md border border-input bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
           invalidShellClass,
           isFocused ? "outline-none ring-2 ring-ring ring-offset-2" : "",
           isFocused && isInvalidProp(options) && "ring-destructive",

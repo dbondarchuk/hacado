@@ -9,6 +9,7 @@ import {
 import { DatabaseId } from "@hacado/types/database";
 import { AssetSelectorDialog } from "@hacado/ui-admin/assets-selector-dialog";
 import { useAuth } from "@hacado/ui-admin/context";
+import { CustomerName } from "@hacado/ui-admin/data-table";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import { Button } from "@hacado/ui/button";
@@ -39,7 +40,6 @@ import {
   RadioButtonGroupItem,
 } from "@hacado/ui/radio-button-group";
 import { toastPromise } from "@hacado/ui/sonner";
-import { Switch } from "@hacado/ui/switch";
 import { Textarea } from "@hacado/ui/textarea";
 import { DateTimeInput } from "@hacado/ui/time-picker";
 import { hasPermission } from "@hacado/utils/permissions";
@@ -98,6 +98,41 @@ function CustomerAvatar({
       )}
     >
       {initials || <User className="size-5" aria-hidden />}
+    </div>
+  );
+}
+
+export function CustomerIdentityHeader({
+  customer,
+}: {
+  customer: {
+    name: string;
+    email?: string | null;
+    phone?: string | null;
+    avatar?: string | null;
+    isDeleted?: boolean;
+  };
+}) {
+  const t = useI18n("admin");
+
+  return (
+    <div className="flex min-w-0 items-center gap-3">
+      <CustomerAvatar
+        name={customer.name}
+        src={customer.avatar}
+        alt={t("customers.form.customerPhotoAlt")}
+        className="size-9 text-xs shrink-0"
+      />
+      <div className="min-w-0">
+        <p className="truncate text-base font-medium leading-tight">
+          <CustomerName customer={customer} />
+        </p>
+        {customer.email || customer.phone ? (
+          <p className="truncate text-xs text-muted-foreground md:text-sm">
+            {[customer.email, customer.phone].filter(Boolean).join(" · ")}
+          </p>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -404,7 +439,7 @@ export const CustomerForm: React.FC<{
 
   const disabled = loading || initialData?.isDeleted || !canSave;
   const canChangePhoto = !initialData?.isDeleted;
-  const showIdentity = isEditing || Boolean(name || email);
+  const showIdentity = !isEditing && Boolean(name || email);
 
   return (
     <Form {...form}>
@@ -413,112 +448,99 @@ export const CustomerForm: React.FC<{
         className="w-full space-y-6 pb-4"
       >
         {showIdentity ? (
-          <div className="flex min-w-0 items-center gap-3">
-            <CustomerAvatar
-              name={name}
-              src={avatar}
-              alt={t("customers.form.customerPhotoAlt")}
-              className="size-12 text-sm"
-            />
-            <div className="min-w-0">
-              <p className="truncate text-xl font-semibold leading-tight">
-                {name}
-              </p>
-              {email ? (
-                <p className="truncate text-sm text-muted-foreground">
-                  {email}
-                </p>
-              ) : null}
-              {phone ? (
-                <p className="truncate text-sm text-muted-foreground">
-                  {phone}
-                </p>
-              ) : null}
-            </div>
-          </div>
+          <CustomerIdentityHeader
+            customer={{
+              name: name || "",
+              email,
+              phone,
+              avatar,
+            }}
+          />
         ) : null}
         <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-[minmax(0,1.65fr)_minmax(18rem,1fr)]">
           <div className="flex min-w-0 flex-col gap-4">
             <SectionCard title={t("customers.form.contactInformation")}>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator required>
-                        {t("customers.form.name")}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          disabled={disabled}
-                          placeholder={t("customers.form.namePlaceholder")}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="dateOfBirth"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("customers.form.dateOfBirth")}</FormLabel>
-                      <FormControl>
-                        <DateTimeInput
-                          disabled={disabled}
-                          clearable
-                          format="MM/dd/yyyy"
-                          hideTime
-                          {...field}
-                          value={field.value ?? undefined}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator required>
-                        {t("customers.form.phone")}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <PhoneInput
-                          label={t("customers.form.phone")}
-                          disabled={disabled}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator required>
-                        {t("customers.form.email")}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          disabled={disabled}
-                          placeholder={t("customers.form.emailPlaceholder")}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="@container min-w-0">
+                <div className="grid grid-cols-1 gap-4 @sm:grid-cols-2 [&>*]:min-w-0">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("customers.form.name")}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            disabled={disabled}
+                            placeholder={t("customers.form.namePlaceholder")}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="dateOfBirth"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("customers.form.dateOfBirth")}</FormLabel>
+                        <FormControl>
+                          <DateTimeInput
+                            disabled={disabled}
+                            clearable
+                            format="MM/dd/yyyy"
+                            hideTime
+                            {...field}
+                            value={field.value ?? undefined}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("customers.form.phone")}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <PhoneInput
+                            label={t("customers.form.phone")}
+                            disabled={disabled}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("customers.form.email")}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            disabled={disabled}
+                            placeholder={t("customers.form.emailPlaceholder")}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
             </SectionCard>
             <FormField
@@ -683,7 +705,7 @@ export const CustomerForm: React.FC<{
                         name={name}
                         src={field.value}
                         alt={t("customers.form.customerPhotoAlt")}
-                        className="size-14 text-base"
+                        className="size-14 text-base shrink-0"
                       />
                       {canChangePhoto ? (
                         <div className="flex flex-wrap items-center gap-2">
@@ -723,8 +745,9 @@ export const CustomerForm: React.FC<{
                               field.onChange(null);
                               void form.trigger("avatar");
                             }}
+                            aria-label={t("customers.form.remove")}
                           >
-                            {t("customers.form.remove")}
+                            <X className="size-3.5" />
                           </Button>
                         </div>
                       ) : null}
@@ -738,24 +761,13 @@ export const CustomerForm: React.FC<{
               control={form.control}
               name="dontAllowBookings"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border bg-card p-5 shadow-sm">
-                  <div className="flex min-w-0 flex-col gap-1">
-                    <FormLabel className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                      {t("customers.form.onlineBooking")}
-                    </FormLabel>
-                    <FormDescription>
-                      {t("customers.form.onlineBookingDescription")}
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={!field.value}
-                      disabled={disabled}
-                      onCheckedChange={(checked) => field.onChange(!checked)}
-                      // className="data-[state=checked]:bg-emerald-600"
-                    />
-                  </FormControl>
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("customers.form.onlineBooking")}
+                  description={t("customers.form.onlineBookingDescription")}
+                  checked={!field.value}
+                  disabled={disabled}
+                  onCheckedChange={(checked) => field.onChange(!checked)}
+                />
               )}
             />
             {smsConsent}

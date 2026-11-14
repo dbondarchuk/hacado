@@ -5,8 +5,6 @@ import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { ServiceFieldUpdateModel } from "@hacado/types/booking";
-import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 
@@ -21,7 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function NewServicePage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("new-service-field");
-  const t = await getI18nAsync("admin");
   await assertPageHasPermission("service", "create");
   const { from: fromParam } = await props.searchParams;
   const from = fromParam as string;
@@ -32,16 +29,6 @@ export default async function NewServicePage(props: Props) {
     },
     "Loading new service field page",
   );
-
-  const breadcrumbItems = [
-    { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
-    { title: t("navigation.fields"), link: "/dashboard/catalog/fields" },
-    {
-      title: t("catalog.fields.new"),
-      link: "/dashboard/catalog/fields/new",
-    },
-  ];
 
   let initialData: ServiceFieldUpdateModel | undefined = undefined;
   if (from) {
@@ -75,17 +62,7 @@ export default async function NewServicePage(props: Props) {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("catalog.fields.newTitle")}
-            description={t("catalog.fields.newDescription")}
-          />
-          {/* <Separator /> */}
-        </div>
-        <ServiceFieldForm initialData={initialData} />
-      </div>
+      <ServiceFieldForm initialData={initialData} />
     </PageContainer>
   );
 }

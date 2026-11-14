@@ -9,13 +9,20 @@ import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
+import React from "react";
 
 import { DeleteSelectedTemplatesButton } from "./delete-selected";
 import { useTemplatesTableFilters } from "./use-table-filters";
 
-export function TemplatesTableAction() {
+export function TemplatesTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const t = useI18n("admin");
   const {
     isAnyFilterActive,
@@ -48,8 +55,8 @@ export function TemplatesTableAction() {
   );
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={actions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -61,10 +68,10 @@ export function TemplatesTableAction() {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
+      </DataTableToolbar>
+      <SelectionActionBar count={rowSelection.length}>
         <DeleteSelectedTemplatesButton selected={rowSelection} />
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 }

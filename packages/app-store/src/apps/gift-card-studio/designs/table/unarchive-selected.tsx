@@ -62,17 +62,11 @@ export const UnarchiveSelectedDesignsButton: React.FC<{
         variant="secondary"
         disabled={disabled || isLoading || !selected?.length}
         onClick={() => setIsOpen(true)}
-        aria-label={t("designs.table.unarchiveSelected.label", {
-          count: selected.length,
-        })}
+        aria-label={t("designs.table.actions.unarchive")}
       >
         {isLoading && <Spinner />}
         <ArchiveRestore className="h-4 w-4" />
-        <span className="max-xl:hidden">
-          {t("designs.table.unarchiveSelected.label", {
-            count: selected.length,
-          })}
-        </span>
+        <span>{t("designs.table.actions.unarchive")}</span>
       </Button>
       <AlertModal
         isOpen={isOpen}

@@ -3,7 +3,7 @@ app:
   displayName: Notifications de rendez-vous
   description: |-
     Automatisez la communication avec vos clients avec des rappels et des suivis intelligents.
-    L'application **Appointment Notifications** vous permet d'envoyer automatiquement des e-mails ou des SMS personnalisés **avant ou après** les rendez-vous - aucun travail manuel n'est requis.
+    L'application **Notifications de rendez-vous** vous permet d'envoyer automatiquement des e-mails ou des SMS personnalisés **avant ou après** les rendez-vous - aucun travail manuel n'est requis.
     Utilisez-le pour :
     - Envoyez des **rappels de rendez-vous** quelques heures ou jours avant chaque réservation.
     - Planifiez des **messages de suivi** après les rendez-vous pour remercier les clients, demander des avis ou partager les prochaines étapes.
@@ -33,13 +33,13 @@ form:
     searchLabel: Sélectionnez le type
   appointmentCount:
     label: Nombre précis de rendez-vous
-    description: "Envoyer cette notification seulement lorsque le client a un nombre précis de rendez-vous."
+    description: Envoyer cette notification seulement lorsque le client a un nombre précis de rendez-vous.
     examples:
-      equalTo: "Lorsque c'est le {count, selectordinal, one {#er} other {#e}} rendez-vous du client"
-      lessThan: "Avant le {count, selectordinal, one {#er} other {#e}} rendez-vous du client"
-      lessThanOrEqualTo: "Jusqu'au {count, selectordinal, one {#er} other {#e}} rendez-vous du client"
-      greaterThan: "Pour le {count, selectordinal, one {#er} other {#e}} rendez-vous du client et les suivants"
-      greaterThanOrEqualTo: "Pour le {count, selectordinal, one {#er} other {#e}} rendez-vous du client et les suivants"
+      equalTo: Lorsque c'est le {count, selectordinal, one {#er} other {#e}} rendez-vous du client
+      lessThan: Avant le {count, selectordinal, one {#er} other {#e}} rendez-vous du client
+      lessThanOrEqualTo: Jusqu'au {count, selectordinal, one {#er} other {#e}} rendez-vous du client
+      greaterThan: Pour le {count, selectordinal, one {#er} other {#e}} rendez-vous du client et les suivants
+      greaterThanOrEqualTo: Pour le {count, selectordinal, one {#er} other {#e}} rendez-vous du client et les suivants
     type:
       label: Type de compte de rendez-vous
       description: Détermine si le client a besoin d'un nombre spécifique de rendez-vous
@@ -83,24 +83,24 @@ form:
     label: Temps
     description: A quelle heure du jour envoyer la notification de rendez-vous
   schedule:
-    label: "Moment d'envoi"
-    startsNow: "Si le rendez-vous commence maintenant ({now}), l'envoi a lieu le {when}."
-    endsNow: "Si le rendez-vous se termine maintenant ({now}), l'envoi a lieu le {when}."
+    label: Moment d'envoi
+    startsNow: Si le rendez-vous commence maintenant ({now}), l'envoi a lieu le {when}.
+    endsNow: Si le rendez-vous se termine maintenant ({now}), l'envoi a lieu le {when}.
   delivery:
     label: Comment envoyer
   channel:
-    required: "Au moins un canal est requis. Activez l'e-mail, le SMS, ou les deux."
+    required: Au moins un canal est requis. Activez l'e-mail, le SMS, ou les deux.
   email:
     label: E-mail
     description: Envoyer cette notification au client par e-mail.
     templateLabel: Modèle d'e-mail
-    templateDescription: "Obligatoire. C'est l'e-mail que le client reçoit."
+    templateDescription: Obligatoire. C'est l'e-mail que le client reçoit.
   textMessage:
     label: SMS
-    description: "Envoyer cette notification par SMS à l'heure choisie."
-    verify: "Pour envoyer des suivis SMS personnalisés, vérifiez les informations de votre entreprise. Cela active les modèles personnalisés."
+    description: Envoyer cette notification par SMS à l'heure choisie.
+    verify: Pour envoyer des suivis SMS personnalisés, vérifiez les informations de votre entreprise. Cela active les modèles personnalisés.
     verifyAction: Vérifier les informations de l'entreprise
-    smsDisabled: "Les SMS nécessitent l'activation de la messagerie texte. Tant qu'elle est désactivée, cette option reste indisponible."
+    smsDisabled: Les SMS nécessitent l'activation de la messagerie texte. Tant qu'elle est désactivée, cette option reste indisponible.
     smsDisabledAction: Activer la messagerie texte
   save: Sauvegarder
   update: Mise à jour
@@ -178,7 +178,7 @@ validation:
         min: La minute doit être comprise entre 0 et 59
         max: La minute doit être comprise entre 0 et 59
     channel:
-      required: "Au moins un canal est requis. Activez l'e-mail, le SMS, ou les deux."
+      required: Au moins un canal est requis. Activez l'e-mail, le SMS, ou les deux.
     templateId:
       required: Le modèle est requis
     atTimeBefore:
@@ -194,3 +194,4 @@ validation:
     appointmentCount:
       min: Le nombre minimum de rendez-vous est de 1
       type: Le type de décompte des rendez-vous est requis
+

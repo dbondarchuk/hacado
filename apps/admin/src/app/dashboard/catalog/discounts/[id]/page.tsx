@@ -1,6 +1,4 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 
 import { getServicesContainer } from "@/app/utils";
 import { DiscountForm } from "@/components/admin/catalog/discounts/form";
@@ -29,7 +27,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function EditDiscountPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-discount");
-  const t = await getI18nAsync("admin");
   await assertPageHasPermission("discount", "update");
   const params = await props.params;
 
@@ -57,31 +54,9 @@ export default async function EditDiscountPage(props: Props) {
     "Service discount edit page loaded",
   );
 
-  const breadcrumbItems = [
-    { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
-    {
-      title: t("navigation.discounts"),
-      link: "/dashboard/catalog/discounts",
-    },
-    {
-      title: discount.name,
-      link: `/dashboard/catalog/discounts/${params.id}`,
-    },
-  ];
-
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={discount.name}
-            description={t("catalog.discounts.editDescription")}
-          />
-        </div>
-        <DiscountForm initialData={discount} />
-      </div>
+      <DiscountForm initialData={discount} />
     </PageContainer>
   );
 }

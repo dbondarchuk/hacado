@@ -9,7 +9,6 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -42,17 +41,7 @@ export default async function CommunicationLogsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <div className="flex flex-col gap-2 justify-between">
-            <Breadcrumbs items={breadcrumbItems} />
-            <div className="flex items-center justify-between">
-              <Heading
-                title={t("navigation.communicationLogs")}
-                description={t("navigation.monitorMessages")}
-              />
-            </div>
-          </div>
-        </div>
+        <Breadcrumbs items={breadcrumbItems} />
         <CommunicationLogsTableAction
           allowClearAll
           showCustomerFilter

@@ -3,13 +3,15 @@
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels } from "@hacado/types/communication";
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
+  TableToolbarActionLabel,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import React from "react";
@@ -30,7 +32,6 @@ export const AppointmentRemindersTableAction: React.FC<{
     AppointmentRemindersAdminKeys
   >(appointmentRemindersAdminNamespace);
 
-  const tUi = useI18n("ui");
   const tAdmin = useI18n("admin");
 
   const {
@@ -72,9 +73,24 @@ export const AppointmentRemindersTableAction: React.FC<{
     </>
   );
 
+  const toolbarActions = (
+    <Link
+      button
+      size="sm"
+      variant="primary"
+      href="/dashboard/communications/appointment-reminders/new"
+      aria-label={t("table.actions.add")}
+    >
+      <Plus size={16} />
+      <TableToolbarActionLabel>
+        {t("table.actions.add")}
+      </TableToolbarActionLabel>
+    </Link>
+  );
+
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={toolbarActions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -86,24 +102,13 @@ export const AppointmentRemindersTableAction: React.FC<{
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-2 max-md:justify-between">
+      </DataTableToolbar>
+      <SelectionActionBar count={rowSelection.length}>
         <DeleteSelectedAppointmentRemindersButton
           selected={rowSelection}
           appId={appId}
         />
-        <HeaderActionButtonsPortal>
-          <Link
-            button
-            variant="primary"
-            href="/dashboard/communications/appointment-reminders/new"
-            aria-label={t("table.actions.add")}
-          >
-            <Plus size={16} />{" "}
-            <span className="max-md:hidden">{t("table.actions.add")}</span>
-          </Link>
-        </HeaderActionButtonsPortal>
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 };

@@ -1,18 +1,19 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Appointment,
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
-import { AppointmentDialog } from "@hacado/ui-admin-kit/appointments";
 import {
   CustomerName,
   MemberName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
+import { Badge, BadgeProps } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import {
   TooltipResponsive,
@@ -28,7 +29,6 @@ import {
   LucideProps,
   UserX,
 } from "lucide-react";
-import { DateTime } from "luxon";
 import React from "react";
 import { CustomerPackageDialog } from "./customer-package-dialog";
 
@@ -38,41 +38,35 @@ const StatusCell: React.FC<{ appointment: Appointment } & LucideProps> = ({
 }) => {
   const t = useI18n("admin");
   let child: React.ReactNode;
+  let variant: BadgeProps["variant"];
   switch (appointment.status) {
     case "confirmed":
       child = <CalendarCheck {...rest} />;
+      variant = "success";
       break;
 
     case "declined":
     case "canceled":
       child = <CalendarX {...rest} />;
+      variant = "error";
       break;
     case "noShow":
       child = <UserX {...rest} />;
+      variant = "error";
       break;
 
     case "pending":
     default:
       child = <CalendarClock {...rest} />;
+      variant = "warning";
       break;
   }
 
   return (
-    <TooltipResponsive>
-      <TooltipResponsiveTrigger>
-        <div
-          className="flex justify-center w-full"
-          aria-label={t("appointments.table.columns.statusAriaLabel", {
-            status: t(`appointments.status.${appointment.status}`),
-          })}
-        >
-          {child}
-        </div>
-      </TooltipResponsiveTrigger>
-      <TooltipResponsiveContent>
-        {t(`appointments.status.${appointment.status}`)}
-      </TooltipResponsiveContent>
-    </TooltipResponsive>
+    <Badge variant={variant} size="sm">
+      {child}
+      <span>{t(`appointments.status.${appointment.status}`)}</span>
+    </Badge>
   );
 };
 
@@ -82,7 +76,7 @@ const OptionCell: React.FC<{
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   return (
     <>
-      {isDialogOpen && (
+      {/* {isDialogOpen && (
         <AppointmentDialog
           defaultOpen={isDialogOpen}
           onOpenChange={(open) => !open && setIsDialogOpen(false)}
@@ -91,11 +85,21 @@ const OptionCell: React.FC<{
       )}
       <Button
         variant="link-dashed"
+        size="sm"
+        className="px-0"
         // href={`/dashboard/appointments/${appointment._id}`}
         onClick={() => setIsDialogOpen(true)}
       >
         {appointment.service.name}
-      </Button>
+      </Button> */}
+      <Link
+        variant="underline"
+        size="sm"
+        className="px-0 inline-flex min-w-0 items-center gap-1.5 whitespace-nowrap"
+        href={`/dashboard/appointments/${appointment._id}`}
+      >
+        {appointment.service.name}
+      </Link>
       {/* <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -190,6 +194,7 @@ const CustomerCell: React.FC<{
         <Link
           href={`/dashboard/customers/${appointment.customerId}`}
           variant="underline"
+          size="sm"
         >
           <CustomerName customer={appointment.customer} />
         </Link>
@@ -198,7 +203,7 @@ const CustomerCell: React.FC<{
         {appointment.customer.isDeleted ? (
           t("customers.deletedCustomer")
         ) : (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-[auto_1fr] gap-1">
             <div>{t("appointments.table.columns.customerName")}:</div>
             <div>{appointment.customer.name}</div>
             <div>{t("appointments.table.columns.customerEmail")}:</div>
@@ -239,6 +244,16 @@ export const columns: ColumnDef<Appointment>[] = [
   //   enableHiding: false,
   // },
   {
+    cell: ({ row }) => <OptionCell appointment={row.original} />,
+    id: "service.name",
+    header: tableSortHeader(
+      "appointments.table.columns.option",
+      "string",
+      "admin",
+    ),
+    sortingFn: tableSortNoopFunction,
+  },
+  {
     cell: ({ row }) => (
       <StatusCell appointment={row.original} className="size-4" />
     ),
@@ -253,16 +268,6 @@ export const columns: ColumnDef<Appointment>[] = [
     meta: {
       dontGrow: true,
     },
-  },
-  {
-    cell: ({ row }) => <OptionCell appointment={row.original} />,
-    id: "service.name",
-    header: tableSortHeader(
-      "appointments.table.columns.option",
-      "string",
-      "admin",
-    ),
-    sortingFn: tableSortNoopFunction,
   },
   {
     cell: ({ row }) => <CustomerCell appointment={row.original} />,
@@ -285,13 +290,7 @@ export const columns: ColumnDef<Appointment>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      const locale = useLocale();
-      return DateTime.fromJSDate(row.original.dateTime)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.dateTime} />,
     id: "dateTime",
     header: tableSortHeader(
       "appointments.table.columns.dateTime",
@@ -301,13 +300,7 @@ export const columns: ColumnDef<Appointment>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      const locale = useLocale();
-      return DateTime.fromJSDate(row.original.createdAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     id: "createdAt",
     header: tableSortHeader(
       "appointments.table.columns.requestedAt",
@@ -321,7 +314,11 @@ export const columns: ColumnDef<Appointment>[] = [
       const time = durationToTime(row.original.totalDuration);
       const t = useI18n("admin");
 
-      return <span>{t("common.timeDuration", time)}</span>;
+      return (
+        <span className="whitespace-nowrap">
+          {t("common.timeDuration", time)}
+        </span>
+      );
     },
     id: "totalDuration",
     header: tableSortHeader(
@@ -335,7 +332,11 @@ export const columns: ColumnDef<Appointment>[] = [
     cell: ({ row }) => {
       const t = useI18n("admin");
       return row.original.meetingInformation?.url ? (
-        <Link href={row.original.meetingInformation.url} variant="underline">
+        <Link
+          href={row.original.meetingInformation.url}
+          variant="underline"
+          size="sm"
+        >
           {t("appointments.table.columns.meetingLink")}
         </Link>
       ) : null;
@@ -403,7 +404,11 @@ function PackageCell({ appointment }: { appointment: Appointment }) {
           onOpenChange={setIsDialogOpen}
         />
       ) : null}
-      <Button variant="link-dashed" onClick={() => setIsDialogOpen(true)}>
+      <Button
+        variant="link-dashed"
+        size="sm"
+        onClick={() => setIsDialogOpen(true)}
+      >
         {name}
         {usage && !isAppointmentCoveredByPackage(appointment) ? (
           <span className="text-sm text-muted-foreground">
@@ -433,6 +438,7 @@ function DiscountCell({ appointment }: { appointment: Appointment }) {
       <TooltipResponsiveTrigger>
         <Link
           variant="underline"
+          size="sm"
           href={`/dashboard/catalog/discounts/${appointment.discount.id}`}
         >
           {appointment.discount.code}{" "}

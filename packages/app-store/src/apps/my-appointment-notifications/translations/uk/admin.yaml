@@ -1,85 +1,93 @@
 app:
-  displayName: My appointment notifications
+  displayName: Мої сповіщення про запис
   description: |-
-    Get an email when your bookings change. For each event, turn the alert on.
-    Coordinators and above can also send it as a text.
+    Будьте в курсі своїх зустрічей за допомогою автоматичних сповіщень електронною поштою та SMS.
+
+    Додаток **My Appointment Notifications** дозволяє вам отримувати персоналізовані оновлення щоразу, коли щось змінюється у ваших зустрічах, тримаючи вас у курсі подій, не перевіряючи свій календар Hacado.
+
+    Використовуйте його для:
+    - Отримуйте сповіщення про **створення** нових зустрічей.
+    - Будьте в курсі, коли зустрічі **підтверджуються або відхиляються**.
+    - Отримуйте сповіщення, коли зустрічі **перенесено або скасовано**.
+    - Виберіть, чи отримувати сповіщення **електронною поштою, SMS або обома способами**.
+    - Слідкуйте за діяльністю зустрічей і залишайтеся в курсі свого розкладу, навіть коли ви далеко від Hacado.
 navigation:
-  title: My appointment notifications
+  title: Мої сповіщення про запис
 form:
   email:
-    label: Send to email
-    tooltip: Email address for these alerts. Leave empty to use your default email address.
+    label: Надіслати на електронну пошту
+    tooltip: Електронна адреса для цих сповіщень. Залиште порожнім, щоб використовувати адресу електронної пошти за умовчанням.
     placeholder: john@example.com
   phone:
-    label: Phone number
-    tooltip: Optional phone number for text alerts. Your phone is used by default.
-    placeholder: Phone
+    label: Номер телефону
+    tooltip: Додатковий номер телефону для текстових сповіщень. Ваш телефон використовується за умовчанням.
+    placeholder: Телефон
   processOtherMembersAppointments:
-    label: Process other members' appointments
-    description: When enabled, also send notifications for appointments assigned to other team members.
+    label: Обробляти записи інших учасників
+    description: Якщо ввімкнено, також надсилати сповіщення про зустрічі, призначені іншим членам команди.
   schedule:
-    label: When to send
+    label: Коли надсилати
   delivery:
-    label: How to send
+    label: Як відправити
   channel:
-    required: At least one channel is required. Turn on email, text message, or both.
+    required: Потрібен принаймні один канал. Увімкніть електронну пошту, текстові повідомлення або обидва варіанти.
   emailChannel:
-    label: Email
-    description: Send this alert to your inbox, with a calendar attachment when available.
+    label: Електронна пошта
+    description: Надішліть це сповіщення у свою папку "Вхідні" з вкладенням календаря, якщо воно доступне.
   textMessage:
-    label: Text message
-    description: Send this alert by text message.
-    smsDisabled: Text messages need text messaging turned on. While it is off, this option stays unavailable.
-    smsDisabledAction: Turn on text messaging
+    label: Текстове повідомлення
+    description: Надішліть це сповіщення текстовим повідомленням.
+    smsDisabled: Текстові повідомлення потрібно ввімкнути. Поки він вимкнений, цей параметр залишається недоступним.
+    smsDisabledAction: Увімкніть текстові повідомлення
   events:
     pending:
       enabled:
-        label: New appointment request
-        description: Sent when a customer requests an appointment that still needs confirmation.
+        label: Новий запит на зустріч
+        description: Надсилається, коли клієнт запитує запис на зустріч, який ще потребує підтвердження.
     confirmed:
       enabled:
-        label: Appointment confirmed
-        description: Sent when an appointment is confirmed, including auto-confirmed bookings.
+        label: Запис підтверджено
+        description: Надсилається після підтвердження зустрічі, включаючи автоматично підтверджені бронювання.
     declined:
       enabled:
-        label: Appointment declined
-        description: Sent when you decline a booking request.
+        label: Запис відхилено
+        description: Надсилається, коли ви відхиляєте запит на бронювання.
     canceled:
       enabled:
-        label: Appointment canceled
-        description: Sent when the appointment is canceled.
+        label: Запис скасовується
+        description: Надсилається, коли зустріч скасовується.
     noShow:
       enabled:
-        label: Customer no-show
-        description: Sent when you mark the customer as a no-show.
+        label: Неявка клієнта
+        description: Надсилається, коли ви позначаєте клієнта як такого, що не з’явився.
     rescheduled:
       enabled:
-        label: Appointment rescheduled
-        description: Sent when the appointment time changes.
-  update: Update <app></app>
-  add: Add <app></app>
+        label: Запис перенесено
+        description: Надсилається при зміні часу запису.
+  update: Оновити <app></app>
+  add: Додати <app></app>
 statusText:
-  email_app_not_configured: Email sender default is not configured
-  text_message_app_not_configured: Text message sender default app is not configured
-  successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing my appointment notifications configuration
-  error_sending_email_notification_for_new_appointment: Error sending email notification for new appointment
-  error_sending_email_notification_for_status_change: Error sending email notification for status change
-  error_sending_email_notification_for_rescheduled_appointment: Error sending email notification for rescheduled appointment
-  error_sending_text_message_notification_for_new_appointment: Error sending text message notification for new appointment
-  error_sending_text_message_notification_for_status_change: Error sending text message notification for status change
-  error_sending_text_message_notification_for_rescheduled_appointment: Error sending text message notification for rescheduled appointment
-  error_processing_text_message_reply: Error processing text message reply
+  email_app_not_configured: Стандартний відправник електронної пошти не налаштовано
+  text_message_app_not_configured: Додаток відправника текстових повідомлень за умовчанням не налаштовано
+  successfully_set_up: Успішно налаштовано
+  error_processing_configuration: Помилка обробки моїх сповіщень про зустріч
+  error_sending_email_notification_for_new_appointment: Помилка надсилання сповіщення електронною поштою про нову зустріч
+  error_sending_email_notification_for_status_change: Помилка надсилання сповіщення електронною поштою про зміну статусу
+  error_sending_email_notification_for_rescheduled_appointment: Помилка надсилання сповіщення електронною поштою про перенесену зустріч
+  error_sending_text_message_notification_for_new_appointment: Помилка надсилання текстового повідомлення про нову зустріч
+  error_sending_text_message_notification_for_status_change: Помилка надсилання текстового повідомлення про зміну статусу
+  error_sending_text_message_notification_for_rescheduled_appointment: Помилка надсилання текстового повідомлення про перенесену зустріч
+  error_processing_text_message_reply: Помилка обробки текстового повідомлення
 handlers:
-  newRequest: My Appointment Notifications - New Request
-  pending: My Appointment Notifications - Pending
-  confirmed: My Appointment Notifications - Confirmed
-  declined: My Appointment Notifications - Declined
-  canceled: My Appointment Notifications - Canceled
-  noShow: My Appointment Notifications - No-show
-  rescheduled: My Appointment Notifications - Rescheduled
-  autoReply: My Appointment Notifications - Auto reply
+  newRequest: Мої сповіщення про запис - новий запит
+  pending: Мої сповіщення про запис - очікує на розгляд
+  confirmed: Мої сповіщення про запис - підтверджено
+  declined: Мої сповіщення про запис - відхилено
+  canceled: Мої сповіщення про запис - скасовано
+  noShow: Мої сповіщення про запис - неприбуття
+  rescheduled: Мої сповіщення про запис - перенесено
+  autoReply: Мої сповіщення про запис - автоматична відповідь
 validation:
   form:
     channel:
-      required: At least one channel is required. Turn on email, text message, or both.
+      required: Потрібен принаймні один канал. Увімкніть електронну пошту, текстові повідомлення або обидва варіанти.

@@ -1,7 +1,16 @@
 app:
   displayName: Customer Appointment Updates
   description: |-
-    Tell the customer as soon as their booking changes. For each event, turn the update on and send it by email, text, or both.
+    Keep your clients informed with automatic appointment status updates.
+
+    The **Customer Appointment Updates** app allows you to automatically send personalized emails or SMS messages whenever an appointment is created or its status changes—no manual work required.
+
+    Use it to:
+    - Notify clients when their appointment request is **received**.
+    - Send updates when appointments are **confirmed or declined**.
+    - Inform clients when their appointments are **rescheduled or cancelled**.
+    - Customize message templates for both email and SMS channels.
+    - Keep clients informed throughout the booking process, reduce confusion, and provide a better booking experience—all automatically.
 navigation:
   title: Customer Appointment Updates
 form:

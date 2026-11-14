@@ -8,8 +8,8 @@ import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
 } from "@hacado/ui-admin-kit/appointments";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { canReassignAppointment } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { searchParamsCache } from "./search-params";
@@ -47,6 +47,7 @@ export default async function NewAppointmentPage(props: Props) {
     },
     {
       title: t("appointments.new.title"),
+      mobileTitle: t("appointments.new.title"),
       link: "/dashboard/appointments/new",
     },
   ];
@@ -137,14 +138,9 @@ export default async function NewAppointmentPage(props: Props) {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
+      <div className="flex w-full flex-1 flex-col gap-4">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-row items-center gap-4 justify-between">
-          <Heading
-            title={t("appointments.new.title")}
-            description={t("appointments.new.description")}
-          />
-        </div>
+        <PageHeader text={t("appointments.new.description")} />
         <AppointmentScheduleForm
           options={choices}
           knownFields={fields.items || []}

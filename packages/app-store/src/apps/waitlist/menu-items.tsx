@@ -27,6 +27,7 @@ export const WaitlistMenuItems: AppMenuItem<
     id: "appointments-waitlist",
     order: 100,
     notScrollable: true,
+    hideHeading: true,
     notificationsCountKey: "waitlist_entries",
     label: "app_waitlist_admin.app.pages.main.label",
     icon: <CalendarClock />,

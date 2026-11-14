@@ -17,6 +17,7 @@ import {
   useSetSelectedScreenSize,
   ViewportSize,
 } from "../../../documents/editor/context";
+import { ToolbarSectionButtons } from "./toolbar-buttons";
 
 type ViewportSizeConfig = {
   icon: React.ComponentType<{ className?: string }>;
@@ -71,6 +72,7 @@ export const ToolbarViewportGroup = () => {
   const ViewportIcon = VIEWPORT_SIZES[selectedScreenSize].icon;
   return (
     <ToolbarGroup>
+      <ToolbarSectionButtons section="viewport" position="start" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <ToolbarButton
@@ -112,6 +114,7 @@ export const ToolbarViewportGroup = () => {
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
+      <ToolbarSectionButtons section="viewport" position="end" />
     </ToolbarGroup>
   );
 };

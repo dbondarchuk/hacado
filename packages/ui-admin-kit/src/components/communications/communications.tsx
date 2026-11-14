@@ -8,6 +8,7 @@ import {
   CommunicationLog,
   CommunicationLogStatus,
 } from "@hacado/types/communication";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { useTimeZone } from "@hacado/ui/context";
@@ -274,9 +275,15 @@ export const SendCommunicationButton: React.FC<CustomerOrAppointment> = (
       {...props}
       onSuccess={() => router.replace(`?key=${new Date().getTime()}`)}
     >
-      <Button variant="primary" aria-label={t("communications.sendNew")}>
+      <Button
+        variant="primary"
+        size="sm"
+        aria-label={t("communications.sendNew")}
+      >
         <Send />
-        <span className="max-md:hidden">{t("communications.sendNew")}</span>
+        <TableToolbarActionLabel>
+          {t("communications.sendNew")}
+        </TableToolbarActionLabel>
       </Button>
     </SendCommunicationDialog>
   );

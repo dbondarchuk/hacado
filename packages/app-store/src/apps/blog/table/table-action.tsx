@@ -1,12 +1,14 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
+  TableToolbarActionLabel,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import React from "react";
@@ -30,9 +32,24 @@ export const BlogTableAction: React.FC<{ appId: string }> = ({ appId }) => {
 
   const t = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
 
+  const toolbarActions = (
+    <Link
+      href="/dashboard/blog/new"
+      button
+      size="sm"
+      variant="default"
+      aria-label={t("table.actions.create")}
+    >
+      <Plus size={16} />
+      <TableToolbarActionLabel>
+        {t("table.actions.create")}
+      </TableToolbarActionLabel>
+    </Link>
+  );
+
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+    <>
+      <DataTableToolbar actions={toolbarActions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -43,21 +60,10 @@ export const BlogTableAction: React.FC<{ appId: string }> = ({ appId }) => {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-2 max-md:justify-between">
+      </DataTableToolbar>
+      <SelectionActionBar count={rowSelection.length}>
         <DeleteSelectedBlogPostsButton selected={rowSelection} appId={appId} />
-        <HeaderActionButtonsPortal>
-          <Link
-            href="/dashboard/blog/new"
-            button
-            variant="default"
-            aria-label={t("table.actions.create")}
-          >
-            <Plus size={16} />
-            <span className="max-md:hidden">{t("table.actions.create")}</span>
-          </Link>
-        </HeaderActionButtonsPortal>
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 };

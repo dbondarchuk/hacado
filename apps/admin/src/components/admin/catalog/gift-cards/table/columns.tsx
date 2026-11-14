@@ -1,5 +1,5 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
 import {
   GiftCardPaymentsDialog,
@@ -7,16 +7,16 @@ import {
 } from "@hacado/ui-admin-kit/payments";
 import {
   CustomerName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { parseAsString, useQueryState } from "nuqs";
 import { useCallback } from "react";
 import { CellAction } from "./cell-action";
@@ -52,6 +52,7 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
       <Link
         href={`/dashboard/catalog/gift-cards/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.code}
       </Link>
@@ -160,7 +161,9 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
           giftCardId={row.original._id}
           onRefund={onRefund}
         >
-          <Button variant="link-dashed">{row.original.paymentsCount}</Button>
+          <Button variant="link-dashed" size="sm">
+            {row.original.paymentsCount}
+          </Button>
         </GiftCardPaymentsDialog>
       );
     },
@@ -182,7 +185,11 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
 
       return (
         <PaymentDetailsDialog payment={payment}>
-          <Button variant="link-dashed" className="p-0 h-auto font-medium">
+          <Button
+            variant="link-dashed"
+            size="sm"
+            className="p-0 h-auto font-medium"
+          >
             {t(`common.labels.paymentMethod.${payment.method}`)}
           </Button>
         </PaymentDetailsDialog>
@@ -197,15 +204,9 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return row.original.expiresAt
-        ? DateTime.fromJSDate(row.original.expiresAt)
-            .setZone(timeZone)
-            .toLocaleString(DateTime.DATETIME_MED, { locale })
-        : "";
-    },
+    cell: ({ row }) => (
+      <TableDateTime value={row.original.expiresAt} empty="" />
+    ),
     id: "expiresAt",
     header: tableSortHeader(
       "catalog.giftCards.table.columns.expiresAt",
@@ -220,6 +221,7 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
         <Link
           href={`/dashboard/customers/${row.original.customerId}`}
           variant="underline"
+          size="sm"
         >
           <CustomerName customer={row.original.customer} />
         </Link>
@@ -234,15 +236,9 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return row.original.createdAt
-        ? DateTime.fromJSDate(row.original.createdAt)
-            .setZone(timeZone)
-            .toLocaleString(DateTime.DATETIME_MED, { locale })
-        : "";
-    },
+    cell: ({ row }) => (
+      <TableDateTime value={row.original.createdAt} empty="" />
+    ),
     id: "createdAt",
     header: tableSortHeader(
       "catalog.giftCards.table.columns.createdAt",
@@ -252,13 +248,7 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.updatedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "catalog.discounts.table.columns.updatedAt",

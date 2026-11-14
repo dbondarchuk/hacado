@@ -1,11 +1,11 @@
 app:
-  displayName: Gift Card Studio
+  displayName: Студія подарункових карт
   description: Керуйте дизайнами подарункових карт та продавайте їх через сайт.
   uninstallError:
     has_purchases: Неможливо видалити Gift Card Studio, оскільки існують покупки, створені через цей додаток
   pages:
     main:
-      title: Дизайни
+      title: Дизайни подарункових карток
       description: Керування дизайнами подарункових карт
     new:
       label: Новий дизайн
@@ -24,6 +24,7 @@ app:
     settings:
       title: Налаштування
       description: Налаштування Gift Card Studio
+      label: Налаштування
 designs:
   table:
     filters:
@@ -91,6 +92,7 @@ designs:
       updatedError: Не вдалося оновити дизайн
       created: Дизайн {name} успішно створений
       createdError: Не вдалося створити дизайн
+    nameTooltip: Унікальна назва дизайну
 designer:
   toolbar:
     validationTitle: Перевірка дизайну
@@ -133,7 +135,7 @@ designer:
     from: Від
     message: Повідомлення
   sampleValues:
-    code: GIFT-2026-ABCD
+    code: ПОДАРУНОК-2026-ABCD
     to: Іван Іваненко
     from: Петро Петренко
     message: Вітаю з днем народження!
@@ -177,9 +179,9 @@ designer:
     imageUrl: URL зображення
     imageUrlPlaceholder: https://...
     imageFit: Вписування
-    cover: Cover
-    contain: Contain
-    fill: Fill
+    cover: Обкладинка
+    contain: Містять
+    fill: Заповнити
     dynamicField: Динамічне поле
     fieldLabel: "Поле: {key}"
     content: Вміст
@@ -213,7 +215,7 @@ designer:
     rotation: Поворот
     elementSpecific: Елемент
     x: X
-    y: Y
+    y: Ю
     width: Ширина
     height: Висота
     fontFamily: Шрифт
@@ -444,13 +446,13 @@ handlers:
 events:
   designCreated:
     title: Створено дизайн подарункової карти
-    description: 'Дизайн "{designName}" створено'
+    description: Дизайн "{designName}" створено
   designUpdated:
     title: Оновлено дизайн подарункової карти
-    description: 'Дизайн "{designName}" оновлено'
+    description: Дизайн "{designName}" оновлено
   designDeleted:
     title: Видалено дизайн подарункової карти
-    description: 'Дизайн "{designName}" видалено'
+    description: Дизайн "{designName}" видалено
   purchaseCreated:
     title: Придбано подарункову карту
     description: '{customerName} придбав(ла) "{designName}" на суму {amount}'
@@ -477,3 +479,4 @@ emails:
       **Клієнт:** {customerName} ({customerEmail})
       **Отримувач:** {recipientName} ({recipientEmail})
     view: Переглянути покупку
+

@@ -46,7 +46,7 @@ export const SwitchCardFormItem: React.FC<SwitchCardFormItemProps> = ({
       className={cn(
         "flex flex-col gap-2",
         !noCard
-          ? "border p-4 rounded-lg"
+          ? "border p-4 rounded-lg bg-background"
           : noCard === "borderTop"
             ? "border-t py-4"
             : undefined,

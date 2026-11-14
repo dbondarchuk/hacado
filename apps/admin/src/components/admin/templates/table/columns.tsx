@@ -1,15 +1,14 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { TemplateListModel } from "@hacado/types/templates";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 export const columns: ColumnDef<TemplateListModel>[] = [
@@ -42,6 +41,7 @@ export const columns: ColumnDef<TemplateListModel>[] = [
     cell: ({ row }) => (
       <Link
         variant="underline"
+        size="sm"
         href={`/dashboard/templates/${row.original._id}`}
       >
         {row.original.name}
@@ -61,13 +61,7 @@ export const columns: ColumnDef<TemplateListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.updatedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "templates.table.columns.updatedAt",

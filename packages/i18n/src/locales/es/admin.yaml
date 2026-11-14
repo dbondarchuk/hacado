@@ -8,6 +8,7 @@ common:
   openMenu: abrir menú
   selectAll: Seleccionar todo
   selectRow: Seleccionar fila
+  editName: Editar nombre
   labels:
     languages:
       en: Inglés
@@ -973,9 +974,9 @@ appointments:
     fees: Honorarios
     cancel: Cancelar
     confirmAndRefund:
-      declined: Rechazar y reembolsar {count, plural, =1 {payment} other {# payments}}{monto, plural, =0 {} otro { for {amountFormatted}}}
-      canceled: Cancelar y reembolsar {count, plural, =1 {payment} other {# payments}}{monto, plural, =0 {} otro { for {amountFormatted}}}
-      noShow: No presentación y reembolso {count, plural, =1 {payment} other {# payments}}{monto, plural, =0 {} otro { for {amountFormatted}}}
+      declined: Rechazar y reembolsar {count, plural, =1 {payment} other {# payments}}{amount, plural, =0 {} other { for {amountFormatted}}}
+      canceled: Cancelar y reembolsar {count, plural, =1 {payment} other {# payments}}{amount, plural, =0 {} other { for {amountFormatted}}}
+      noShow: No presentación y reembolso {count, plural, =1 {payment} other {# payments}}{amount, plural, =0 {} other { for {amountFormatted}}}
     confirm:
       declined: Rechazar
       canceled: Cancelar
@@ -1516,6 +1517,7 @@ pages:
     settingsTabLabel: Ajustes
     header: Encabezamiento
     footer: Pie de página
+    pageNameTooltip: Nombre que se muestra en el administrador y se utiliza para generar la URL
   table:
     columns:
       title: Título
@@ -1790,7 +1792,7 @@ templates:
     subject: Asunto del correo electrónico
     subjectTooltip: Asunto del correo electrónico que se utilizará para enviar el mensaje.
     subjectPlaceholder: Sujeto
-    name: Nombre de la plantilla
+    name: Nombre
     nameTooltip: Nombre de plantilla único
     namePlaceholder: Nombre de la plantilla
     validation:
@@ -2244,6 +2246,7 @@ catalog:
         toasts:
           added: La disponibilidad de la opción ha sido actualizada.
           requestError: Hubo un problema con tu solicitud.
+      nameTooltip: Nombre de servicio único
     table:
       columns:
         name: Nombre
@@ -2901,6 +2904,7 @@ settings:
         requestError: Hubo un problema con tu solicitud.
   brand:
     title: Sitio y marca
+    breadcrumb: Configuración de marca
     description: Detalles comerciales, sitio web y SEO, enlaces sociales y estilo.
     form:
       visualSectionTitle: Identidad visual
@@ -4373,3 +4377,4 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
+

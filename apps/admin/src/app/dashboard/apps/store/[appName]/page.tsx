@@ -31,12 +31,15 @@ export default async function AppsStorePage(props: Params) {
     "Loading app store details page",
   );
 
+  const appDisplayName = t(AvailableApps[appName].displayName);
+
   const breadcrumbItems = [
     { title: tAdmin("navigation.dashboard"), link: "/dashboard" },
     { title: tAdmin("navigation.apps"), link: "/dashboard/apps" },
     { title: tAdmin("apps.appStore"), link: "/dashboard/apps/store" },
     {
-      title: t(AvailableApps[appName].displayName),
+      title: appDisplayName,
+      mobileTitle: appDisplayName,
       link: `/dashboard/apps/store/${appName}`,
     },
   ];
@@ -49,13 +52,12 @@ export default async function AppsStorePage(props: Params) {
     "App store details page loaded",
   );
 
-  console.log(breadcrumbItems);
-  console.log(appName);
-
   return (
     <PageContainer scrollable>
-      <Breadcrumbs items={breadcrumbItems} />
-      <AppDetails appName={appName} />
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <AppDetails appName={appName} />
+      </div>
     </PageContainer>
   );
 }

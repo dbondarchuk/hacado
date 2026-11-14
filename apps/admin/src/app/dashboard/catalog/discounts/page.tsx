@@ -7,9 +7,11 @@ import {
 } from "@hacado/api-sdk/admin/search-params/discounts";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
@@ -45,25 +47,23 @@ export default async function DiscountsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("catalog.discounts.title")}
-              description={t("catalog.discounts.description")}
-            />
-
+        <Breadcrumbs items={breadcrumbItems} />
+        <DiscountsTableAction
+          actions={
             <Link
               button
-              href={"/dashboard/catalog/discounts/new"}
+              href="/dashboard/catalog/discounts/new"
+              size="sm"
               variant="default"
+              aria-label={t("catalog.discounts.addNew")}
             >
-              <Plus /> {t("catalog.discounts.addNew")}
+              <Plus />
+              <TableToolbarActionLabel>
+                {t("catalog.discounts.addNew")}
+              </TableToolbarActionLabel>
             </Link>
-          </div>
-          {/* <Separator /> */}
-        </div>
-        <DiscountsTableAction />
+          }
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={11} rowCount={10} />}

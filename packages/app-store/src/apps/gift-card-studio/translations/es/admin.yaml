@@ -5,7 +5,7 @@ app:
     has_purchases: No se puede eliminar Gift Card Studio porque existen compras creadas con esta aplicación
   pages:
     main:
-      title: Diseños
+      title: Diseños de tarjetas de regalo
       description: Administrar diseños de tarjetas de regalo
     new:
       label: Nuevo diseño
@@ -24,6 +24,7 @@ app:
     settings:
       title: Ajustes
       description: Configuración de Gift Card Studio
+      label: Ajustes
 designs:
   table:
     filters:
@@ -91,6 +92,7 @@ designs:
       updatedError: No se pudo actualizar el diseño
       created: Diseño {name} creado exitosamente
       createdError: No se pudo crear el diseño
+    nameTooltip: Nombre de diseño único
 designer:
   toolbar:
     validationTitle: Validación de diseño
@@ -477,3 +479,4 @@ emails:
       **Cliente:** {customerName} ({customerEmail})
       **Destinatario:** {recipientName} ({recipientEmail})
     view: Ver compra
+

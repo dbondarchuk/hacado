@@ -1,85 +1,94 @@
 app:
-  displayName: My appointment notifications
+  displayName: Mis notificaciones de citas
   description: |-
-    Get an email when your bookings change. For each event, turn the alert on.
-    Coordinators and above can also send it as a text.
+    Manténgase informado sobre sus citas con notificaciones automáticas por correo electrónico y SMS.
+
+    La aplicación **Mis notificaciones de citas** te permite recibir actualizaciones personalizadas cada vez que algo cambia con tus citas, manteniéndote actualizado sin revisar constantemente tu calendario de Hacado.
+
+    Úselo para:
+    - Reciba notificaciones cuando se **creen** nuevas citas.
+    - Manténgase informado cuando las citas sean **confirmadas o rechazadas**.
+    - Reciba notificaciones cuando las citas sean **reprogramadas o canceladas**.
+    - Elija si desea recibir notificaciones por **correo electrónico, SMS o ambos**.
+    - Realice un seguimiento de la actividad de las citas y manténgase al tanto de su agenda, incluso cuando esté lejos de Hacado.
 navigation:
-  title: My appointment notifications
+  title: Mis notificaciones de citas
 form:
   email:
-    label: Send to email
-    tooltip: Email address for these alerts. Leave empty to use your default email address.
-    placeholder: john@example.com
+    label: Enviar al correo electrónico
+    tooltip: Dirección de correo electrónico para estas alertas. Déjelo vacío para usar su dirección de correo electrónico predeterminada.
+    placeholder: juan@ejemplo.com
   phone:
-    label: Phone number
-    tooltip: Optional phone number for text alerts. Your phone is used by default.
-    placeholder: Phone
+    label: Número de teléfono
+    tooltip: Número de teléfono opcional para alertas de texto. Su teléfono se utiliza de forma predeterminada.
+    placeholder: Teléfono
   processOtherMembersAppointments:
-    label: Process other members' appointments
-    description: When enabled, also send notifications for appointments assigned to other team members.
+    label: Procesar los nombramientos de otros miembros
+    description: Cuando esté habilitado, también envíe notificaciones de citas asignadas a otros miembros del equipo.
   schedule:
-    label: When to send
+    label: cuando enviar
   delivery:
-    label: How to send
+    label: como enviar
   channel:
-    required: At least one channel is required. Turn on email, text message, or both.
+    required: Se requiere al menos un canal. Active el correo electrónico, los mensajes de texto o ambos.
   emailChannel:
-    label: Email
-    description: Send this alert to your inbox, with a calendar attachment when available.
+    label: Correo electrónico
+    description: Envíe esta alerta a su bandeja de entrada, con un calendario adjunto cuando esté disponible.
   textMessage:
-    label: Text message
-    description: Send this alert by text message.
-    smsDisabled: Text messages need text messaging turned on. While it is off, this option stays unavailable.
-    smsDisabledAction: Turn on text messaging
+    label: mensaje de texto
+    description: Envía esta alerta por mensaje de texto.
+    smsDisabled: Los mensajes de texto necesitan estar activados. Mientras esté desactivada, esta opción no estará disponible.
+    smsDisabledAction: Activar mensajes de texto
   events:
     pending:
       enabled:
-        label: New appointment request
-        description: Sent when a customer requests an appointment that still needs confirmation.
+        label: Nueva solicitud de cita
+        description: Enviado cuando un cliente solicita una cita que aún necesita confirmación.
     confirmed:
       enabled:
-        label: Appointment confirmed
-        description: Sent when an appointment is confirmed, including auto-confirmed bookings.
+        label: Cita confirmada
+        description: Se envía cuando se confirma una cita, incluidas las reservas confirmadas automáticamente.
     declined:
       enabled:
-        label: Appointment declined
-        description: Sent when you decline a booking request.
+        label: Cita rechazada
+        description: Enviado cuando rechaza una solicitud de reserva.
     canceled:
       enabled:
-        label: Appointment canceled
-        description: Sent when the appointment is canceled.
+        label: Cita cancelada
+        description: Enviado cuando se cancela la cita.
     noShow:
       enabled:
-        label: Customer no-show
-        description: Sent when you mark the customer as a no-show.
+        label: Cliente no presentado
+        description: Se envía cuando marcas al cliente como no presentado.
     rescheduled:
       enabled:
-        label: Appointment rescheduled
-        description: Sent when the appointment time changes.
-  update: Update <app></app>
-  add: Add <app></app>
+        label: Cita reprogramada
+        description: Enviado cuando cambia el horario de la cita.
+  update: Actualización <app></app>
+  add: Agregar <app></app>
 statusText:
-  email_app_not_configured: Email sender default is not configured
-  text_message_app_not_configured: Text message sender default app is not configured
-  successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing my appointment notifications configuration
-  error_sending_email_notification_for_new_appointment: Error sending email notification for new appointment
-  error_sending_email_notification_for_status_change: Error sending email notification for status change
-  error_sending_email_notification_for_rescheduled_appointment: Error sending email notification for rescheduled appointment
-  error_sending_text_message_notification_for_new_appointment: Error sending text message notification for new appointment
-  error_sending_text_message_notification_for_status_change: Error sending text message notification for status change
-  error_sending_text_message_notification_for_rescheduled_appointment: Error sending text message notification for rescheduled appointment
-  error_processing_text_message_reply: Error processing text message reply
+  email_app_not_configured: El remitente de correo electrónico predeterminado no está configurado
+  text_message_app_not_configured: La aplicación predeterminada del remitente de mensajes de texto no está configurada
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Error al procesar la configuración de notificaciones de mi cita
+  error_sending_email_notification_for_new_appointment: Error al enviar una notificación por correo electrónico para una nueva cita
+  error_sending_email_notification_for_status_change: Error al enviar una notificación por correo electrónico para el cambio de estado
+  error_sending_email_notification_for_rescheduled_appointment: Error al enviar una notificación por correo electrónico para una cita reprogramada
+  error_sending_text_message_notification_for_new_appointment: Error al enviar notificación por mensaje de texto para nueva cita
+  error_sending_text_message_notification_for_status_change: Error al enviar notificación por mensaje de texto para cambio de estado
+  error_sending_text_message_notification_for_rescheduled_appointment: Error al enviar notificación por mensaje de texto para cita reprogramada
+  error_processing_text_message_reply: Error al procesar la respuesta del mensaje de texto
 handlers:
-  newRequest: My Appointment Notifications - New Request
-  pending: My Appointment Notifications - Pending
-  confirmed: My Appointment Notifications - Confirmed
-  declined: My Appointment Notifications - Declined
-  canceled: My Appointment Notifications - Canceled
-  noShow: My Appointment Notifications - No-show
-  rescheduled: My Appointment Notifications - Rescheduled
-  autoReply: My Appointment Notifications - Auto reply
+  newRequest: Notificaciones de Mis Citas - Nueva Solicitud
+  pending: Notificaciones de mis citas - Pendiente
+  confirmed: Notificaciones de Mis Citas - Confirmadas
+  declined: "Notificaciones de mis citas: rechazadas"
+  canceled: Mis notificaciones de citas - Canceladas
+  noShow: "Notificaciones de mis citas: no presentarse"
+  rescheduled: "Notificaciones de mis citas: reprogramadas"
+  autoReply: "Notificaciones de mis citas: respuesta automática"
 validation:
   form:
     channel:
-      required: At least one channel is required. Turn on email, text message, or both.
+      required: Se requiere al menos un canal. Active el correo electrónico, los mensajes de texto o ambos.
+

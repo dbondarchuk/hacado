@@ -8,6 +8,7 @@ common:
   openMenu: Відкрити меню
   selectAll: Вибрати все
   selectRow: Вибрати рядок
+  editName: Редагувати назву
   labels:
     languages:
       en: Англійська
@@ -265,10 +266,10 @@ platformEvents:
   page:
     created:
       title: Сторінку створено
-      description: "{назва}"
+      description: "{title}"
     updated:
       title: Сторінку оновлено
-      description: "{назва}"
+      description: "{title}"
     deleted:
       title: Сторінки видалено
       description: "{count, plural, =1 {# сторінка} few {# сторінки} other {# сторінок}}"
@@ -1516,6 +1517,7 @@ pages:
     settingsTabLabel: Налаштування
     header: Заголовок
     footer: Підвал
+    pageNameTooltip: Ім’я, яке відображається в адміністраторі та використовується для створення URL-адреси
   table:
     columns:
       title: Заголовок
@@ -1787,7 +1789,7 @@ templates:
     template: Шаблон
     close: Закрити
   form:
-    name: Назва шаблону
+    name: Назва
     nameTooltip: Унікальна назва шаблону
     subject: Тема повідомлення
     subjectPlaceholder: Тема
@@ -2242,6 +2244,7 @@ catalog:
         toasts:
           added: Доступність опції оновлено.
           requestError: Виникла проблема з вашим запитом.
+      nameTooltip: Унікальна назва служби
     table:
       columns:
         name: Назва
@@ -2780,7 +2783,7 @@ settings:
         incomplete_expired: Незавершено (закінчився)
         unpaid: Не сплачено
         revoked: Відкликано
-        other: "{статус}"
+        other: "{status}"
         label: Статус
         feesExempt:
           label: Підписка не потрібна
@@ -2875,7 +2878,7 @@ settings:
       currency: Валюта
       currencyTooltip: Валюта, яка використовується для платежів
       currencyPlaceholder: Вибрати валюту
-      currencyLabelFormat: "{валюта} ({код}, {символ})"
+      currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Часовий пояс
       timeZoneDescription: Часовий пояс бізнесу для розкладу та сторінки бронювання.
       selectTimeZone: Вибрати часовий пояс
@@ -2899,6 +2902,7 @@ settings:
         requestError: Виникла проблема з вашим запитом.
   brand:
     title: Сайт і бренд
+    breadcrumb: Налаштування бренду
     description: Бізнес-дані, сайт і SEO, соцмережі та стиль
     form:
       visualSectionTitle: Візуальна ідентичність
@@ -3688,7 +3692,7 @@ auth:
     rememberPassword: Пам'ятаєте пароль? <link>Увійти</link>
     progress:
       steps:
-        email: Email
+        email: Електронна пошта
         otp: Підтвердження email
         password: Новий пароль
   resetPassword:
@@ -3960,7 +3964,7 @@ payment:
         label: Додаток
       channel:
         label: Надіслати через
-        email: Email
+        email: Електронна пошта
         sms: SMS
         copy: Копіювати посилання
       to:
@@ -4371,3 +4375,4 @@ memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
+

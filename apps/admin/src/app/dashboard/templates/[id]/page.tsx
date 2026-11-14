@@ -1,10 +1,7 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Heading } from "@hacado/ui/heading";
-import { Link } from "@hacado/ui/link";
 import { Skeleton } from "@hacado/ui/skeleton";
-import { Copy } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { getTemplate } from "../cached";
@@ -23,7 +20,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function UpdateTemplatePage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-template");
-  const t = await getI18nAsync("admin");
   const { id } = await props.params;
 
   logger.debug(
@@ -36,18 +32,6 @@ export default async function UpdateTemplatePage(props: Props) {
   return (
     <PageContainer scrollable>
       <div className="flex flex-1 flex-col gap-4 w-full h-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <div className="flex items-center justify-between">
-            <Heading title={t("templates.editPage.title")} />
-            <Link
-              button
-              href={`/dashboard/templates/${id}/clone`}
-              variant="default"
-            >
-              <Copy /> {t("templates.editPage.clone")}
-            </Link>
-          </div>
-        </div>
         <Suspense fallback={<Skeleton className="w-full h-full" />}>
           <TemplateFormPage id={id} />
         </Suspense>

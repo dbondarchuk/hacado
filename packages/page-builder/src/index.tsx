@@ -1,6 +1,10 @@
 "use client";
 
-import { Builder, SidebarTab } from "@hacado/builder/builder";
+import {
+  Builder,
+  type SidebarTab,
+  type ToolbarButtonInjection,
+} from "@hacado/builder/builder";
 import { TEditorConfiguration } from "@hacado/builder/editor";
 import { generateId } from "@hacado/builder/helpers";
 import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
@@ -20,6 +24,11 @@ import { ReaderBlocks } from "./blocks/reader";
 import { EditorBlocksSchema } from "./blocks/schema";
 import { pageBuilderEditorTemplates } from "./templates";
 
+export type {
+  ToolbarButtonInjection,
+  ToolbarSection,
+} from "@hacado/builder/builder";
+
 export * from "./block-providers/editor";
 
 type PageBuilderProps = {
@@ -36,6 +45,7 @@ type PageBuilderProps = {
   footer?: React.ReactNode;
   blockRegistry?: BlockProviderRegistry<typeof EditorBlocksSchema>;
   type: "page" | "footer";
+  toolbarButtons?: ToolbarButtonInjection[];
 };
 
 const getImageBlock = (file: UploadedFile) => {
@@ -64,6 +74,7 @@ export const PageBuilder = deepMemo(
     footer,
     blockRegistry,
     type,
+    toolbarButtons,
   }: PageBuilderProps) => {
     const t = useI18n();
     const headerComponent = useMemo(() => {
@@ -133,6 +144,7 @@ export const PageBuilder = deepMemo(
         header={headerComponent}
         footer={footer}
         getImageBlock={getImageBlock}
+        toolbarButtons={toolbarButtons}
       />
     );
   },

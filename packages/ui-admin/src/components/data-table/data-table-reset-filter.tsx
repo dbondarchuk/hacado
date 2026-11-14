@@ -17,7 +17,7 @@ export function DataTableResetFilter({
   return (
     <>
       {isFilterActive ? (
-        <Button variant="outline" onClick={onReset}>
+        <Button variant="outline" size="sm" onClick={onReset}>
           <span className="max-md:hidden">{t("dataTable.resetFilters")}</span>
           <span className="md:hidden">
             <FilterX size={16} />

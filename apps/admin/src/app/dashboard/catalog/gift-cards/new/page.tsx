@@ -2,8 +2,8 @@ import { GiftCardForm } from "@/components/admin/catalog/gift-cards/form";
 import PageContainer from "@/components/admin/layout/page-container";
 import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@hacado/i18n/server";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next/types";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,20 +26,16 @@ export default async function NewGiftCardPage() {
     },
     {
       title: t("catalog.giftCards.new"),
+      mobileTitle: t("catalog.giftCards.newTitle"),
       link: "/dashboard/catalog/gift-cards/new",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("catalog.giftCards.newTitle")}
-            description={t("catalog.giftCards.newDescription")}
-          />
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("catalog.giftCards.newDescription")} />
         <GiftCardForm />
       </div>
     </PageContainer>

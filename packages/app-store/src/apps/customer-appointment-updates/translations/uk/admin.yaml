@@ -1,87 +1,96 @@
 app:
-  displayName: Customer Appointment Updates
+  displayName: Оновлення про запис для клієнтів
   description: |-
-    Tell the customer as soon as their booking changes. For each event, turn the update on and send it by email, text, or both.
+    Тримайте своїх клієнтів в курсі за допомогою автоматичного оновлення статусу записів.
+
+    Програма **Customer Appointment Updates** дозволяє вам автоматично надсилати персоналізовані електронні листи або SMS-повідомлення щоразу, коли записується на зустріч або змінюється її статус — ручна робота не потрібна.
+
+    Використовуйте його для:
+    - Повідомляйте клієнтів, коли їхній запит на зустріч буде **отримано**.
+    - Надсилати оновлення, коли зустрічі **підтверджуються або відхиляються**.
+    - Інформуйте клієнтів, коли їхні зустрічі **перенесено або скасовано**.
+    - Налаштуйте шаблони повідомлень як для каналів електронної пошти, так і для SMS.
+    - Інформуйте клієнтів протягом усього процесу бронювання, зменшуйте плутанину та забезпечуйте кращий досвід бронювання — усе автоматично.
 navigation:
-  title: Customer Appointment Updates
+  title: Оновлення про запис для клієнтів
 form:
   events:
     pending:
-      label: Appointment is pending
-      description: Sent when a customer requests an appointment and it is waiting for confirmation.
+      label: Очікує підтвердження
+      description: Надсилається, коли клієнт просить записатися на зустріч і очікує на підтвердження.
     confirmed:
-      label: Appointment is confirmed
-      description: Sent when a booking is confirmed right away, or when you later confirm a pending appointment.
+      label: Запис підтверджено
+      description: Надсилається, коли бронювання підтверджується одразу або коли ви пізніше підтверджуєте незавершену зустріч.
     declined:
-      label: Appointment is declined
-      description: Sent when you decline a booking request.
+      label: Запис відхилено
+      description: Надсилається, коли ви відхиляєте запит на бронювання.
     canceled:
-      label: Appointment is canceled
-      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer.
+      label: Запис скасовується
+      description: Надсилається, коли клієнт скасовує або коли ви записуєте зустріч як скасовану клієнтом.
     noShow:
-      label: Customer does not show
-      description: Sent when you mark the customer as a no-show. You can still skip it on a single appointment.
+      label: Клієнт не з'явився
+      description: Надсилається, коли ви позначаєте клієнта як такого, що не з’явився. Ви все одно можете пропустити це під час однієї зустрічі.
     rescheduled:
-      label: Appointment is rescheduled
-      description: Sent when the appointment time changes, unless that change is set not to notify the customer.
+      label: Запис перенесена
+      description: Надсилається, коли час зустрічі змінюється, якщо ця зміна не налаштована на сповіщення клієнта.
   howToSend:
-    label: How to send
+    label: Як відправити
   email:
-    label: Email
-    description: Send the customer an email.
+    label: Електронна пошта
+    description: Надішліть клієнту електронний лист.
   emailTemplate:
-    label: Email template
-    description: The email customers receive for this update.
+    label: Шаблон електронної пошти
+    description: Електронна пошта, яку клієнти отримують для цього оновлення.
   text:
-    label: Text message
-    description: Send the customer a text message. A built-in message is used unless you choose a custom template.
+    label: Текстове повідомлення
+    description: Надішліть клієнту текстове повідомлення. Використовується вбудоване повідомлення, якщо ви не виберете спеціальний шаблон.
   packageEmails:
     pendingPackage:
       enabled:
-        label: Send a different email for pending package appointments
-        description: Used instead of the pending email when the appointment is covered by a package.
+        label: Надішліть іншу електронну пошту для незавершених зустрічей
+        description: Використовується замість електронного листа, що очікує на розгляд, коли зустріч покривається пакетом.
       templateId:
-        label: Email template
-        description: The email customers receive for a pending package appointment.
+        label: Шаблон електронної пошти
+        description: Електронна пошта, яку клієнти отримують для незавершеної зустрічі з пакетом.
     confirmedPackage:
       enabled:
-        label: Send a different email for confirmed package appointments
-        description: Used instead of the confirmed email when the appointment is covered by a package.
+        label: Надішліть іншу електронну адресу для підтверджених записів на пакет
+        description: Використовується замість підтвердженої електронної пошти, коли зустріч покривається пакетом.
       templateId:
-        label: Email template
-        description: The email customers receive for a confirmed package appointment.
+        label: Шаблон електронної пошти
+        description: Електронна пошта, яку клієнти отримують для підтвердженого запису на пакет.
   calendarEventTemplate:
     enabled:
-      label: Include a calendar event
-      description: Added to emails so customers can save the appointment on their calendar. Text messages are not affected.
+      label: Додайте подію календаря
+      description: Додано до електронних листів, щоб клієнти могли зберегти зустріч у своєму календарі. Це не впливає на текстові повідомлення.
     templateId:
-      label: Calendar event template
-      description: The event customers see in their calendar.
+      label: Шаблон події календаря
+      description: Подія, яку клієнти бачать у своєму календарі.
 statusText:
-  email_app_not_configured: Email sender default is not configured
-  text_message_app_not_configured: Text message sender default app is not configured
-  successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing configuration
-  error_sending_customer_appointment_updates_for_new_appointment: Error sending customer appointment update for new appointment
-  error_sending_customer_appointment_updates_for_status_change: Error sending customer appointment update for status change
-  error_sending_customer_appointment_updates_for_rescheduled_appointment: Error sending customer appointment update for rescheduled appointment
+  email_app_not_configured: Стандартний відправник електронної пошти не налаштовано
+  text_message_app_not_configured: Додаток відправника текстових повідомлень за умовчанням не налаштовано
+  successfully_set_up: Успішно налаштовано
+  error_processing_configuration: Помилка обробки конфігурації
+  error_sending_customer_appointment_updates_for_new_appointment: Помилка надсилання оновлення запису клієнта для нового запису
+  error_sending_customer_appointment_updates_for_status_change: Помилка надсилання оновлення запису на прийом клієнта для зміни статусу
+  error_sending_customer_appointment_updates_for_rescheduled_appointment: Помилка надсилання оновлення запису клієнта для перенесеної зустрічі
 handlers:
-  newRequest: Customer Appointment Updates - New Request
-  pending: Customer Appointment Updates - Pending
-  confirmed: Customer Appointment Updates - Confirmed
-  declined: Customer Appointment Updates - Declined
-  canceled: Customer Appointment Updates - Canceled
-  noShow: Customer Appointment Updates - No-show
-  rescheduled: Customer Appointment Updates - Rescheduled
+  newRequest: Оновлення про запис для клієнта - новий запит
+  pending: Оновлення про запис для клієнта – очікується
+  confirmed: Оновлення про запис для клієнтів – підтверджено
+  declined: Оновлення про запис для клієнта - відхилено
+  canceled: Оновлення про запис для клієнта – скасовано
+  noShow: Оновлення про запис клієнта - неявка
+  rescheduled: Оновлення про запис для клієнтів – перенесено
 validation:
   channel:
-    required: Choose at least one way to send, email or text message
+    required: Виберіть принаймні один спосіб надсилання, електронною поштою чи текстовим повідомленням
   eventTemplate:
     templateId:
-      required: Select a calendar event template
+      required: Виберіть шаблон події календаря
   emailTemplate:
     templateId:
-      required: Select an email template
+      required: Виберіть шаблон електронної пошти
   packageTemplate:
     templateId:
-      required: Select an email template
+      required: Виберіть шаблон електронної пошти

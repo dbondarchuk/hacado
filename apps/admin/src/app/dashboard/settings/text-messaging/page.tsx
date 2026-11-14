@@ -9,8 +9,8 @@ import {
   requiresSmsVerification,
   SmsRegistrationStore,
 } from "@hacado/services/text-message";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -68,18 +68,16 @@ export default async function Page() {
     { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.textMessaging"),
+      mobileTitle: t("settings.textMessaging.title"),
       link: "/dashboard/settings/text-messaging",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
+      <div className="flex w-full flex-1 flex-col gap-4">
         <Breadcrumbs items={breadcrumbItems} />
-        <Heading
-          title={t("settings.textMessaging.title")}
-          description={t("settings.textMessaging.description")}
-        />
+        <PageHeader text={t("settings.textMessaging.description")} />
         <TextMessagingSettingsForm
           textMessaging={{
             enabled: textMessaging?.enabled === true,

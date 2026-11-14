@@ -10,7 +10,6 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -45,15 +44,8 @@ export default async function EmailTemplatesPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-start justify-between">
-            <Heading title={t("templates.page.title")} />
-
-            <AddNewTemplateButton />
-          </div>
-        </div>
-        <TemplatesTableAction />
+        <Breadcrumbs items={breadcrumbItems} />
+        <TemplatesTableAction actions={<AddNewTemplateButton />} />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={5} rowCount={10} />}

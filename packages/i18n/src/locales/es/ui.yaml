@@ -83,6 +83,7 @@ alertModal:
   continueButton: Continuar
 saveButton:
   defaultText: Ahorrar
+  saveChanges: Guardar cambios
   fixErrorsTitle: Por favor corrija los siguientes errores
   fixErrorsDescription: "Corrija los siguientes errores antes de guardar:"
   saving: Ahorro...

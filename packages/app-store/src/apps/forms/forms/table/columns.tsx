@@ -1,15 +1,14 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Lock } from "lucide-react";
-import { DateTime } from "luxon";
 import { FormListModel } from "../../models";
 import {
   FormsAdminKeys,
@@ -51,6 +50,7 @@ export const columns: ColumnDef<FormsTableRow>[] = [
       <Link
         href={`/dashboard/forms/edit?id=${row.original._id}`}
         variant="underline"
+        size="sm"
         className={
           row.original.isArchived
             ? "flex items-center gap-1.5 text-muted-foreground"
@@ -80,6 +80,7 @@ export const columns: ColumnDef<FormsTableRow>[] = [
       <Link
         href={`/dashboard/forms/responses?formId=${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.responsesCount || 0}
       </Link>
@@ -98,17 +99,17 @@ export const columns: ColumnDef<FormsTableRow>[] = [
         formsAdminNamespace,
       );
 
-      const timeZone = useTimeZone();
       return (
         <Link
           href={`/dashboard/forms/responses?formId=${row.original._id}`}
           variant="underline"
+          size="sm"
         >
-          {row.original.lastResponse
-            ? DateTime.fromJSDate(row.original.lastResponse)
-                .setZone(timeZone)
-                .toLocaleString(DateTime.DATETIME_MED)
-            : t("forms.table.columns.noResponses")}
+          {row.original.lastResponse ? (
+            <TableDateTime value={row.original.lastResponse} />
+          ) : (
+            t("forms.table.columns.noResponses")
+          )}
         </Link>
       );
     },
@@ -121,12 +122,7 @@ export const columns: ColumnDef<FormsTableRow>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.createdAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     id: "createdAt",
     header: tableSortHeader<FormsAdminNamespace, FormsAdminKeys>(
       "forms.table.columns.createdAt",

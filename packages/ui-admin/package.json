@@ -60,6 +60,7 @@
     "./gift-card-selector": "./src/components/gift-card-selector.tsx",
     "./member-selector": "./src/components/member-selector.tsx",
     "./member-selector-compact": "./src/components/member-selector-compact.tsx",
+    "./name-identity-bar": "./src/components/name-identity-bar.tsx",
     "./non-sortable": "./src/components/non-sortable.tsx",
     "./package-selector": "./src/components/package-selector.tsx",
     "./page-selector": "./src/components/page-selector.tsx",
@@ -68,7 +69,9 @@
     "./promo-code-selector": "./src/components/promo-code-selector.tsx",
     "./save-button": "./src/components/save-button.tsx",
     "./scheduler": "./src/components/scheduler/index.ts",
+    "./selection-action-bar": "./src/components/selection-action-bar.tsx",
     "./service-selector": "./src/components/service-selector.tsx",
+    "./page-header": "./src/components/page-header.tsx",
     "./sms-example": "./src/components/sms-example.tsx",
     "./sortable": "./src/components/sortable.tsx",
     "./supports-markdown-tooltip": "./src/components/supports-markdown-tooltip.tsx",
@@ -76,6 +79,7 @@
     "./switch-card-form-item": "./src/components/switch-card-form-item.tsx",
     "./template-selector": "./src/components/template-selector.tsx",
     "./textarea-mention": "./src/components/textarea-mention.tsx",
+    "./title-slug-identity-bar": "./src/components/title-slug-identity-bar.tsx",
     "./week-selector": "./src/components/week-selector.tsx"
   }
 }

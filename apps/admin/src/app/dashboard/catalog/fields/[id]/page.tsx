@@ -1,6 +1,4 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 
 import { getServicesContainer } from "@/app/utils";
 import { ServiceFieldForm } from "@/components/admin/catalog/fields/form";
@@ -29,7 +27,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function EditFieldPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-field");
-  const t = await getI18nAsync("admin");
   await assertPageHasPermission("service", "update");
   const params = await props.params;
 
@@ -57,30 +54,9 @@ export default async function EditFieldPage(props: Props) {
     "Service field edit page loaded",
   );
 
-  const breadcrumbItems = [
-    { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
-    { title: t("navigation.fields"), link: "/dashboard/catalog/fields" },
-    {
-      title: field.data.label,
-      link: `/dashboard/catalog/fields/${params.id}`,
-    },
-  ];
-
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={field.data.label}
-            description={t("catalog.fields.editDescription")}
-          />
-
-          {/* <Separator /> */}
-        </div>
-        <ServiceFieldForm initialData={field} />
-      </div>
+      <ServiceFieldForm initialData={field} />
     </PageContainer>
   );
 }

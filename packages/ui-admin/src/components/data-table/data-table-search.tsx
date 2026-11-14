@@ -60,8 +60,9 @@ export function DataTableSearch({
   };
 
   return (
-    <div className={cn("min-w-56 flex-1", className)}>
+    <div className={cn("min-w-40 flex-1", className)}>
       <Input
+        h="sm"
         placeholder={
           placeholder ?? t("dataTable.searchPlaceholder", { searchKey })
         }

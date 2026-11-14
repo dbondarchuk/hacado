@@ -1,14 +1,14 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
 import { IdName } from "@hacado/types/services";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import {
   Dialog,
   DialogClose,
@@ -20,7 +20,6 @@ import {
 import { Link } from "@hacado/ui/link";
 import { ScrollArea } from "@hacado/ui/scroll-area";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 export const columns: ColumnDef<
@@ -59,6 +58,7 @@ export const columns: ColumnDef<
       <Link
         href={`/dashboard/catalog/fields/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.name}
       </Link>
@@ -95,13 +95,7 @@ export const columns: ColumnDef<
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.updatedAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.updatedAt} />,
     id: "updatedAt",
     header: tableSortHeader(
       "catalog.fields.table.columns.updatedAt",
@@ -116,7 +110,9 @@ export const columns: ColumnDef<
       return row.original.addons?.length ? (
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="link-dashed">{row.original.addons.length}</Button>
+            <Button variant="link-dashed" size="sm">
+              {row.original.addons.length}
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>
@@ -131,6 +127,7 @@ export const columns: ColumnDef<
                     <Link
                       href={`/dashboard/catalog/addons/${addon._id}`}
                       variant="underline"
+                      size="sm"
                     >
                       {addon.name}
                     </Link>
@@ -148,7 +145,7 @@ export const columns: ColumnDef<
           </DialogContent>
         </Dialog>
       ) : (
-        <Button variant="link" disabled>
+        <Button variant="link" size="sm" disabled>
           0
         </Button>
       );
@@ -166,7 +163,9 @@ export const columns: ColumnDef<
       return row.original.options?.length ? (
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="link-dashed">{row.original.options.length}</Button>
+            <Button variant="link-dashed" size="sm">
+              {row.original.options.length}
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>
@@ -181,6 +180,7 @@ export const columns: ColumnDef<
                     <Link
                       href={`/dashboard/catalog/services/${option._id}`}
                       variant="underline"
+                      size="sm"
                     >
                       {option.name}
                     </Link>
@@ -198,7 +198,7 @@ export const columns: ColumnDef<
           </DialogContent>
         </Dialog>
       ) : (
-        <Button variant="link" disabled>
+        <Button variant="link" size="sm" disabled>
           0
         </Button>
       );

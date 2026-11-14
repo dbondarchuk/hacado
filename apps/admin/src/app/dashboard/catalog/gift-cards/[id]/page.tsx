@@ -1,12 +1,11 @@
-import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
-
 import { getServicesContainer } from "@/app/utils";
 import { GiftCardForm } from "@/components/admin/catalog/gift-cards/form";
+import PageContainer from "@/components/admin/layout/page-container";
 import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { PageHeader } from "@hacado/ui-admin/page-header";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 import { cache } from "react";
@@ -74,14 +73,9 @@ export default async function EditGiftCardPage(props: Props) {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={giftCard.code}
-            description={t("catalog.giftCards.editDescription")}
-          />
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader text={t("catalog.giftCards.editDescription")} />
         <GiftCardForm initialData={giftCard} />
       </div>
     </PageContainer>

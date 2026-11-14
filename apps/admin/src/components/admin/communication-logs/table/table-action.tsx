@@ -15,10 +15,11 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   MembersDataTableAsyncFilterBox,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
-import { cn } from "@hacado/ui/cn";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
 
 import React from "react";
@@ -32,12 +33,14 @@ export const CommunicationLogsTableAction: React.FC<{
   showCustomerFilter?: boolean;
   showParticipantTypeFilter?: boolean;
   className?: string;
+  actions?: React.ReactNode;
 }> = ({
   allowClearAll,
   showCustomerFilter,
   showParticipantTypeFilter,
   hideActions = true,
   className,
+  actions,
 }) => {
   const {
     directionFilter,
@@ -136,14 +139,18 @@ export const CommunicationLogsTableAction: React.FC<{
     </>
   );
 
+  const toolbarActions = (
+    <>
+      {!hideActions && allowClearAll ? (
+        <ClearAllCommunicationLogsButton />
+      ) : null}
+      {actions}
+    </>
+  );
+
   return (
-    <div
-      className={cn(
-        "flex w-full min-w-0 flex-wrap items-center gap-2",
-        className,
-      )}
-    >
-      <div className="flex w-full min-w-0 flex-nowrap items-center gap-2">
+    <>
+      <DataTableToolbar actions={toolbarActions} className={className}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -155,13 +162,12 @@ export const CommunicationLogsTableAction: React.FC<{
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      {!hideActions && (
-        <div className="flex flex-wrap items-center gap-4">
+      </DataTableToolbar>
+      {!hideActions ? (
+        <SelectionActionBar count={rowSelection.length}>
           <ClearSelectedCommunicationLogsButton selected={rowSelection} />
-          {allowClearAll && <ClearAllCommunicationLogsButton />}
-        </div>
-      )}
-    </div>
+        </SelectionActionBar>
+      ) : null}
+    </>
   );
 };

@@ -1,6 +1,4 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 
 import { getServicesContainer } from "@/app/utils";
 import { ServiceForm } from "@/components/admin/catalog/services/form";
@@ -29,7 +27,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function ServicePage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-option");
-  const t = await getI18nAsync("admin");
   await assertPageHasPermission("service", "update");
   const params = await props.params;
 
@@ -67,33 +64,9 @@ export default async function ServicePage(props: Props) {
     "Service option edit page loaded",
   );
 
-  const breadcrumbItems = [
-    { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.catalog"), link: "/dashboard/catalog" },
-    {
-      title: t("navigation.services"),
-      link: "/dashboard/catalog/services",
-    },
-    {
-      title: option.name,
-      link: `/dashboard/catalog/services/${params.id}`,
-    },
-  ];
-
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={option.name}
-            description={t("catalog.services.editDescription")}
-          />
-
-          {/* <Separator /> */}
-        </div>
-        <ServiceForm initialData={option} />
-      </div>
+      <ServiceForm initialData={option} />
     </PageContainer>
   );
 }

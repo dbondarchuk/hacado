@@ -17,7 +17,6 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Button } from "@hacado/ui/button";
-import { Heading } from "@hacado/ui/heading";
 import { canManageTeam } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -52,56 +51,26 @@ export default async function TeamSettingsPage(props: Params) {
   const feesExempt = org?.feesExempt === true;
   const availableUsers = org?.availableUsers ?? 1;
   const activeMemberCount = await services.teamService.getActiveMemberCount();
-  const allowAdditionalUsers = org?.allowAdditionalUsers ?? false;
+  const allowAdditionalUsers =
+    feesExempt || (org?.allowAdditionalUsers ?? false);
+
   const atCapacity = !feesExempt && activeMemberCount >= availableUsers;
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
     { title: t("navigation.settings"), link: "/dashboard/settings" },
-    { title: t("team.title"), link: "/dashboard/settings/team" },
+    {
+      title: t("team.title"),
+      mobileTitle: t("team.title"),
+      link: "/dashboard/settings/team",
+    },
   ];
 
   return (
     <PageContainer scrollable={false}>
       <SeatsPurchaseSuccessToast />
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between gap-3">
-            <div className="space-y-1">
-              <Heading
-                title={t("team.title")}
-                description={t("team.description")}
-              />
-              <p className="text-sm text-muted-foreground">
-                {feesExempt
-                  ? t("team.seatsUnlimited", { active: activeMemberCount })
-                  : t("team.seats", {
-                      active: activeMemberCount,
-                      available: availableUsers,
-                    })}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {atCapacity && allowAdditionalUsers ? (
-                <PurchaseSeatsDialog canPurchase triggerVariant="primary" />
-              ) : null}
-              {atCapacity && !allowAdditionalUsers ? (
-                <Button type="button" variant="primary" asChild>
-                  <Link href={BRAND_SETTINGS_UPGRADE_URL}>
-                    {t("team.upgradeLink")}
-                  </Link>
-                </Button>
-              ) : null}
-              {!atCapacity ? (
-                <InviteMemberButton
-                  atCapacity={false}
-                  allowAdditionalUsers={allowAdditionalUsers}
-                />
-              ) : null}
-            </div>
-          </div>
-        </div>
+      <div className="flex w-full flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
 
         {atCapacity ? (
           <TeamSeatsCapacityHint allowAdditionalUsers={allowAdditionalUsers} />
@@ -109,7 +78,24 @@ export default async function TeamSettingsPage(props: Params) {
 
         <PendingInvitations />
 
-        <TeamMembersTableAction />
+        <TeamMembersTableAction
+          actions={
+            !atCapacity && allowAdditionalUsers ? (
+              <InviteMemberButton
+                atCapacity={false}
+                allowAdditionalUsers={allowAdditionalUsers}
+              />
+            ) : !allowAdditionalUsers ? (
+              <Button type="button" variant="primary" asChild size="sm">
+                <Link href={BRAND_SETTINGS_UPGRADE_URL}>
+                  {t("team.upgradeLink")}
+                </Link>
+              </Button>
+            ) : atCapacity ? (
+              <PurchaseSeatsDialog canPurchase triggerVariant="primary" />
+            ) : null
+          }
+        />
         <Suspense
           key={key}
           fallback={
@@ -121,6 +107,14 @@ export default async function TeamSettingsPage(props: Params) {
         >
           <TeamMembersTable />
         </Suspense>
+        <p className="text-sm text-muted-foreground">
+          {feesExempt
+            ? t("team.seatsUnlimited", { active: activeMemberCount })
+            : t("team.seats", {
+                active: activeMemberCount,
+                available: availableUsers,
+              })}
+        </p>
       </div>
     </PageContainer>
   );

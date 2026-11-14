@@ -1,11 +1,21 @@
 title: Appointment Reminders
 app:
   displayName: Appointment Reminders
-  description: Send a reminder before a visit or a follow-up after it ends. Each rule has its own timing and can go by email, text, or both. This does not send the message that goes out the moment a booking is created or changed.
+  description: |-
+    Automate communication with your clients using smart reminders and follow-ups. 
+
+    The **Appointment Reminders** app allows you to automatically send personalized emails or SMS messages **before or after** appointments—no manual work required. 
+
+    Use it to:
+    - Send **appointment reminders** a few hours or days before each booking. 
+    - Schedule **follow-up messages** after appointments to thank clients, request reviews, or share next steps. 
+    - Choose from flexible timing options, such as "2 hours before," "1 day after," or "at 7:00 PM the day before." 
+    - Customize message templates for both email and SMS channels. 
+    - Keep your clients informed, reduce no-shows, and build stronger relationships after appointments—all automatically.
 navigation:
   main:
     title: Appointment Reminders
-    description: Send a reminder before a visit or a follow-up after it ends. Each rule has its own timing and can go by email, text, or both. This does not send the message that goes out the moment a booking is created or changed.
+    description: Send a reminder before a visit or a follow-up after it ends.
   new:
     title: New reminder or follow-up
     description: Create a new reminder or follow-up

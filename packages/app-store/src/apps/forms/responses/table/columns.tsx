@@ -3,15 +3,14 @@
 import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import React from "react";
 import { FormResponseListModel, FormResponseModel } from "../../models";
 import {
@@ -48,9 +47,10 @@ const AnswersPreviewCell: React.FC<{ response: ResponsesTableRow }> = ({
   return (
     <>
       <Button
+        variant="link-dashed"
+        size="sm"
         onClick={() => setPreviewOpen(true)}
         className="text-muted-foreground truncate max-w-[240px] block text-left focus:outline-none"
-        variant="link-dashed"
         title={t("responses.table.columns.previewTitle" as FormsAdminKeys)}
       >
         {answersPreview(response.answers)}
@@ -98,6 +98,7 @@ export const columns: ColumnDef<ResponsesTableRow>[] = [
       <Link
         href={`/dashboard/forms/edit?id=${row.original.formId}`}
         variant="underline"
+        size="sm"
       >
         {row.original.formName ?? row.original.formId}
       </Link>
@@ -126,6 +127,7 @@ export const columns: ColumnDef<ResponsesTableRow>[] = [
         <Link
           href={`/dashboard/customers/${row.original.customerId}`}
           variant="underline"
+          size="sm"
         >
           <CustomerName customer={row.original.customer} />
         </Link>
@@ -141,12 +143,7 @@ export const columns: ColumnDef<ResponsesTableRow>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.createdAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     id: "createdAt",
     header: tableSortHeader<FormsAdminNamespace, FormsAdminKeys>(
       "responses.table.columns.createdAt",

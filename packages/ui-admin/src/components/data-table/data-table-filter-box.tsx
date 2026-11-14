@@ -67,7 +67,7 @@ export function DataTableFilterBox<T extends boolean | string>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="border-dashed w-full">
+        <Button variant="outline" className="border-dashed w-full" size="sm">
           <PlusCircledIcon className="mr-2 size-3.5" />
           {title}
           {selectedValuesSet.size > 0 && (
@@ -75,7 +75,9 @@ export function DataTableFilterBox<T extends boolean | string>({
               <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
                 variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
+                // className="rounded-sm px-1 font-normal lg:hidden"
+                className="lg:hidden"
+                size="xs"
               >
                 {selectedValuesSet.size}
               </Badge>
@@ -83,7 +85,8 @@ export function DataTableFilterBox<T extends boolean | string>({
                 {selectedValuesSet.size > 2 ? (
                   <Badge
                     variant="secondary"
-                    className="rounded-sm px-1 font-normal"
+                    // className="rounded-sm px-1 font-normal"
+                    size="xs"
                   >
                     {t("dataTable.selectedCount", {
                       selected: selectedValuesSet.size,
@@ -94,7 +97,8 @@ export function DataTableFilterBox<T extends boolean | string>({
                     <Badge
                       variant="secondary"
                       key={value.toString()}
-                      className="rounded-sm px-1 font-normal"
+                      // className="rounded-sm px-1 font-normal"
+                      size="xs"
                     >
                       {options.find((option) => option.value === value)
                         ?.label || value}

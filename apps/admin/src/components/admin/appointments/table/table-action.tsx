@@ -11,6 +11,7 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   DiscountsDataTableAsyncFilterBox,
   MembersDataTableAsyncFilterBox,
   PackagesDataTableAsyncFilterBox,
@@ -26,7 +27,8 @@ export const AppointmentsTableAction: React.FC<{
   showCustomerFilter?: boolean;
   className?: string;
   soldPackageFilterName?: string | null;
-}> = ({ showCustomerFilter, className, soldPackageFilterName }) => {
+  actions?: React.ReactNode;
+}> = ({ showCustomerFilter, className, soldPackageFilterName, actions }) => {
   const t = useI18n("admin");
   const { user } = useAuth();
   const showMemberFilter = canFilterByMember(user);
@@ -105,7 +107,7 @@ export const AppointmentsTableAction: React.FC<{
   );
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
+    <div className={cn("flex min-w-0 flex-col gap-3", className)}>
       {customerPackageId ? (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm">
           <span>
@@ -130,21 +132,19 @@ export const AppointmentsTableAction: React.FC<{
           </Button>
         </div>
       ) : null}
-      <div className="flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row">
-        <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-          <DataTableSearch
-            searchKey="name"
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setPage={setPage}
-          />
-          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-          <DataTableResetFilter
-            isFilterActive={isAnyFilterActive}
-            onReset={resetFilters}
-          />
-        </div>
-      </div>
+      <DataTableToolbar actions={actions}>
+        <DataTableSearch
+          searchKey="name"
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setPage={setPage}
+        />
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+        <DataTableResetFilter
+          isFilterActive={isAnyFilterActive}
+          onReset={resetFilters}
+        />
+      </DataTableToolbar>
     </div>
   );
 };

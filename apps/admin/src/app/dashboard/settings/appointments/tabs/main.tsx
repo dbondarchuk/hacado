@@ -104,7 +104,7 @@ export const MainTab: React.FC<TabProps> = ({
 
   return (
     <div className="flex flex-col gap-2 md:gap-4 w-full">
-      <div className="flex flex-col gap-4 rounded-lg border p-4">
+      <div className="flex flex-col gap-4 rounded-lg border p-4 bg-background">
         <p className="text-sm font-medium">
           {t("settings.appointments.form.main.scheduleProviderLabel")}
         </p>
@@ -165,7 +165,7 @@ export const MainTab: React.FC<TabProps> = ({
           />
         </div>
       </div>
-      <div className="flex flex-col gap-4 rounded-lg border p-4">
+      <div className="flex flex-col gap-4 rounded-lg border p-4 bg-background">
         <p className="text-sm font-medium">
           {t("settings.appointments.form.main.scheduleSettingsLabel")}
         </p>
@@ -419,7 +419,7 @@ export const MainTab: React.FC<TabProps> = ({
         control={form.control}
         name="allowPromoCode"
         render={({ field }) => (
-          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full">
+          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full bg-background">
             <FormLabelWithRequiredIndicator required>
               {t("settings.appointments.form.main.showPromoCodeField")}
             </FormLabelWithRequiredIndicator>

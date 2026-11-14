@@ -2,13 +2,15 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
+  TableToolbarActionLabel,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { ButtonGroup } from "@hacado/ui/button-group";
 import { Link } from "@hacado/ui/link";
 import { Plus, RectangleEllipsis } from "lucide-react";
@@ -55,9 +57,38 @@ export const FormsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
     />
   );
 
+  const toolbarActions = (
+    <>
+      <Link
+        href="/dashboard/forms/responses"
+        button
+        size="sm"
+        variant="outline"
+        aria-label={t("forms.table.actions.viewResponses")}
+      >
+        <RectangleEllipsis size={16} />
+        <TableToolbarActionLabel>
+          {t("forms.table.actions.viewResponses")}
+        </TableToolbarActionLabel>
+      </Link>
+      <Link
+        href="/dashboard/forms/new"
+        button
+        size="sm"
+        variant="default"
+        aria-label={t("forms.table.actions.create")}
+      >
+        <Plus size={16} />
+        <TableToolbarActionLabel>
+          {t("forms.table.actions.create")}
+        </TableToolbarActionLabel>
+      </Link>
+    </>
+  );
+
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={toolbarActions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -69,8 +100,17 @@ export const FormsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap max-md:flex-row-reverse items-center gap-2 max-md:justify-between">
+      </DataTableToolbar>
+      <SelectionActionBar
+        count={rowSelection.length}
+        primary={
+          <DeleteSelectedFormsButton
+            selected={rowSelection}
+            appId={appId}
+            disabled={!canDeleteAll}
+          />
+        }
+      >
         <ButtonGroup>
           <UnarchiveSelectedFormsButton
             selected={rowSelection}
@@ -82,37 +122,8 @@ export const FormsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
             appId={appId}
             disabled={!allPublic}
           />
-          <DeleteSelectedFormsButton
-            selected={rowSelection}
-            appId={appId}
-            disabled={!canDeleteAll}
-          />
         </ButtonGroup>
-        <HeaderActionButtonsPortal>
-          <Link
-            href="/dashboard/forms/responses"
-            button
-            variant="outline"
-            aria-label={t("forms.table.actions.viewResponses")}
-          >
-            <RectangleEllipsis size={16} />
-            <span className="max-md:hidden">
-              {t("forms.table.actions.viewResponses")}
-            </span>
-          </Link>
-          <Link
-            href="/dashboard/forms/new"
-            button
-            variant="default"
-            aria-label={t("forms.table.actions.create")}
-          >
-            <Plus size={16} />
-            <span className="max-md:hidden">
-              {t("forms.table.actions.create")}
-            </span>
-          </Link>
-        </HeaderActionButtonsPortal>
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 };

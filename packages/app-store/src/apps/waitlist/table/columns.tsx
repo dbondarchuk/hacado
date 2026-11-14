@@ -1,8 +1,9 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerName,
   MemberName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
@@ -62,6 +63,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
       <Link
         href={`/dashboard/catalog/services/${row.original.optionId}`}
         variant="underline"
+        size="sm"
       >
         {row.original.service?.name}
       </Link>
@@ -79,6 +81,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
       <Link
         href={`/dashboard/customers/${row.original.customerId}`}
         variant="underline"
+        size="sm"
       >
         <CustomerName
           customer={row.original.customer ?? { name: row.original.name }}
@@ -133,13 +136,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const locale = useLocale();
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(row.original.createdAt)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale });
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     id: "createdAt",
     header: tableSortHeader<WaitlistAdminNamespace, WaitlistAdminKeys>(
       "table.columns.createdAt",
@@ -194,7 +191,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="link-dashed">
+              <Button variant="link-dashed" size="sm">
                 {t("table.actions.viewNote")}
               </Button>
             </DialogTrigger>
@@ -231,6 +228,7 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
         <Link
           href={`/dashboard/waitlist/appointment/new?id=${row.original._id}`}
           variant="primary"
+          size="sm"
           button
         >
           <CalendarPlus /> {t("table.actions.createAppointment")}

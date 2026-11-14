@@ -8,11 +8,17 @@ import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   PackagesDataTableAsyncFilterBox,
 } from "@hacado/ui-admin/data-table";
+import React from "react";
 import { useSoldPackagesTableFilters } from "./use-table-filters";
 
-export function SoldPackagesTableAction() {
+export function SoldPackagesTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const t = useI18n("admin");
   const {
     isAnyFilterActive,
@@ -55,20 +61,18 @@ export function SoldPackagesTableAction() {
   );
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
-        <DataTableSearch
-          searchKey="name"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-        />
-        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-      </div>
-    </div>
+    <DataTableToolbar actions={actions}>
+      <DataTableSearch
+        searchKey="name"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setPage={setPage}
+      />
+      <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
+      <DataTableResetFilter
+        isFilterActive={isAnyFilterActive}
+        onReset={resetFilters}
+      />
+    </DataTableToolbar>
   );
 }

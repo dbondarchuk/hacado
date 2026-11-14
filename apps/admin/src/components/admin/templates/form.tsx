@@ -11,6 +11,8 @@ import {
 } from "@hacado/types/templates";
 import { TextMessageBuilder } from "@hacado/ui-admin-kit/templates";
 import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   Form,
@@ -22,9 +24,10 @@ import {
   FormMessage,
 } from "@hacado/ui/form";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
-import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -117,86 +120,98 @@ export const TemplateForm: React.FC<
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full h-full space-y-8"
-      >
-        <div className="flex flex-col gap-4 w-full h-full">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabelWithRequiredIndicator required>
-                  {t("templates.form.name")}
-                </FormLabelWithRequiredIndicator>
-                <FormControl>
-                  <Input
-                    disabled={loading}
-                    placeholder={t("templates.form.namePlaceholder")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  {t("templates.form.nameTooltip")}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {type === "email" && (
-            <FormField
-              control={form.control}
-              name="subject"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabelWithRequiredIndicator required>
-                    {t("templates.form.subject")}
-                  </FormLabelWithRequiredIndicator>
-                  <FormControl>
-                    <ArgumentsAutocomplete
-                      args={args}
-                      disabled={loading}
-                      asInput
-                      placeholder={t("templates.form.subjectPlaceholder")}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t("templates.form.subjectTooltip")}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
-          <FormField
-            control={form.control}
-            name="value"
-            render={({ field }) => (
-              <>
-                {type === "email" && (
-                  <FormItem className="w-full flex-grow relative h-full">
+      <div className="flex flex-1 flex-col gap-4">
+        <PageHeader
+          className="mb-0"
+          text={
+            <div className="my-2 w-full min-w-0">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={!initialData?._id}
+                label={t("templates.form.name")}
+                placeholder={t("templates.form.namePlaceholder")}
+                description={t("templates.form.nameTooltip")}
+              />
+            </div>
+          }
+          actions={
+            initialData?._id ? (
+              <Link
+                button
+                href={`/dashboard/templates/new/${initialData.type}?cloneFrom=${initialData._id}`}
+                variant="default"
+                size="sm"
+                className="self-center"
+                aria-label={t("templates.editPage.clone")}
+              >
+                <Copy />
+                <span className="hidden md:inline">
+                  {t("templates.editPage.clone")}
+                </span>
+              </Link>
+            ) : undefined
+          }
+        />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="h-full w-full space-y-8"
+        >
+          <div className="flex flex-col gap-4 w-full h-full">
+            {type === "email" && (
+              <FormField
+                control={form.control}
+                name="subject"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("templates.form.subject")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
-                      <EmailBuilder
+                      <ArgumentsAutocomplete
                         args={args}
-                        value={field.value}
-                        onIsValidChange={onEmailBuilderValidChange}
-                        onChange={field.onChange}
+                        disabled={loading}
+                        asInput
+                        placeholder={t("templates.form.subjectPlaceholder")}
+                        {...field}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("templates.form.subjectTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
-                {type === "text-message" && (
-                  <TextMessageBuilder args={args} field={field} />
-                )}
-              </>
+              />
             )}
-          />
-        </div>
-        <SaveButton form={form} />
-      </form>
+            <FormField
+              control={form.control}
+              name="value"
+              render={({ field }) => (
+                <>
+                  {type === "email" && (
+                    <FormItem className="w-full flex-grow relative h-full">
+                      <FormControl>
+                        <EmailBuilder
+                          args={args}
+                          value={field.value}
+                          onIsValidChange={onEmailBuilderValidChange}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                  {type === "text-message" && (
+                    <TextMessageBuilder args={args} field={field} />
+                  )}
+                </>
+              )}
+            />
+          </div>
+          <SaveButton form={form} />
+        </form>
+      </div>
     </Form>
   );
 };

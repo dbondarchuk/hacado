@@ -3,6 +3,7 @@
 import { TeamSeatsCapacityHint } from "@/components/admin/team/team-seats-capacity-hint";
 import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import {
   Dialog,
@@ -85,8 +86,15 @@ export function InviteMemberButton({
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} disabled={atCapacity}>
-        <Plus /> {t("team.invite")}
+      <Button
+        onClick={() => setOpen(true)}
+        disabled={atCapacity}
+        size="sm"
+        variant="default"
+        aria-label={t("team.invite")}
+      >
+        <Plus />
+        <TableToolbarActionLabel>{t("team.invite")}</TableToolbarActionLabel>
       </Button>
       <Dialog
         open={open}

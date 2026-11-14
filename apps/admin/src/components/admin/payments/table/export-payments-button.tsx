@@ -4,6 +4,7 @@ import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { paymentsSearchParams } from "@hacado/api-sdk/admin/search-params/payments";
 import { useI18n } from "@hacado/i18n/client";
 import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types/booking";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { toast } from "@hacado/ui/sonner";
 import { FileDown, Loader2 } from "lucide-react";
@@ -90,19 +91,25 @@ export function ExportPaymentsButton({
     <Button
       type="button"
       variant="outline"
+      size="sm"
       onClick={onExport}
       disabled={isExporting}
+      aria-label={
+        isExporting
+          ? t("paymentsList.exportCsvLoading")
+          : t("paymentsList.exportCsv")
+      }
     >
       {isExporting ? (
         <Loader2 className="size-4 animate-spin" />
       ) : (
         <FileDown className="size-4" />
       )}
-      <span className="max-md:hidden">
+      <TableToolbarActionLabel>
         {isExporting
           ? t("paymentsList.exportCsvLoading")
           : t("paymentsList.exportCsv")}
-      </span>
+      </TableToolbarActionLabel>
     </Button>
   );
 }

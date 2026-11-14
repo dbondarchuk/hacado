@@ -29,9 +29,9 @@ export const SettingsDialog = ({ appId }: { appId: string }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" aria-label={t("settings.tooltip")}>
+        <Button variant="outline" size="sm" aria-label={t("settings.tooltip")}>
           <Settings className="size-4" />
-          <span className="max-md:hidden">{t("settings.tooltip")}</span>
+          <span className="max-sm:sr-only">{t("settings.tooltip")}</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

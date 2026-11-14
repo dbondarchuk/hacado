@@ -105,13 +105,13 @@ export const ResponsiveFilterBar: React.FC<{
   return (
     <div
       className={cn(
-        "relative flex w-max min-w-0 max-w-full shrink items-center gap-2",
+        "relative flex min-w-0 max-w-full shrink items-center gap-2",
         className,
       )}
     >
       <div
         ref={containerRef}
-        className="flex min-w-0 shrink items-center gap-2 overflow-hidden"
+        className="flex min-w-0 items-center gap-2 overflow-hidden"
       >
         {filters.slice(0, visibleCount).map((filter, index) => (
           <div
@@ -131,6 +131,7 @@ export const ResponsiveFilterBar: React.FC<{
             <Button
               type="button"
               variant="outline"
+              size="sm"
               className="shrink-0"
               aria-label={t("common.labels.filters")}
             >

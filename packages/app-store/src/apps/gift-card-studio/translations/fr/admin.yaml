@@ -5,7 +5,7 @@ app:
     has_purchases: Impossible de supprimer Gift Card Studio, car les achats créés avec cette application existent
   pages:
     main:
-      title: Dessins
+      title: Modèles de cartes-cadeaux
       description: Gérer les conceptions de cartes-cadeaux
     new:
       label: Nouveau design
@@ -24,6 +24,7 @@ app:
     settings:
       title: Paramètres
       description: Paramètres du studio de cartes-cadeaux
+      label: Paramètres
 designs:
   table:
     filters:
@@ -91,6 +92,7 @@ designs:
       updatedError: Échec de la mise à jour de la conception
       created: Conception {name} créée avec succès
       createdError: Échec de la création du design
+    nameTooltip: Nom de conception unique
 designer:
   toolbar:
     validationTitle: Validation de la conception
@@ -477,3 +479,4 @@ emails:
       **Client :** {customerName} ({customerEmail})
       **Destinataire :** {recipientName} ({recipientEmail})
     view: Voir l'achat
+

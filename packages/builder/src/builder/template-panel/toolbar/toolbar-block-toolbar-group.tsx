@@ -13,6 +13,10 @@ import {
   useSelectedSlot,
 } from "../../../documents/editor/context";
 import { useSelectedSlotStyleHandlers } from "../../inspector-drawer/slot-styles-panel";
+import {
+  ToolbarSectionButtons,
+  useHasToolbarSectionButtons,
+} from "./toolbar-buttons";
 
 export const ToolbarBlockToolbarGroup = () => {
   const selectedBlock = useSelectedBlock();
@@ -80,13 +84,16 @@ export const ToolbarBlockToolbarGroup = () => {
     [selectedSlot, setSlotStyles, setBlockData],
   );
 
-  if (!BlockToolbar) {
+  const hasToolbarButtons = useHasToolbarSectionButtons("block");
+
+  if (!BlockToolbar && !hasToolbarButtons) {
     return null;
   }
 
   return (
     <ToolbarGroup>
-      {BlockToolbar && (
+      <ToolbarSectionButtons section="block" position="start" />
+      {BlockToolbar ? (
         <BlockToolbar
           data={toolbarData}
           setData={setToolbarData}
@@ -101,7 +108,8 @@ export const ToolbarBlockToolbarGroup = () => {
             });
           }}
         />
-      )}
+      ) : null}
+      <ToolbarSectionButtons section="block" position="end" />
     </ToolbarGroup>
   );
 };

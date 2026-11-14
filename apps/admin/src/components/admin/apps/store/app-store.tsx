@@ -5,6 +5,7 @@ import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import { App } from "@hacado/types/apps";
 import { ConnectedAppNameAndLogo } from "@hacado/ui-admin/connected-app-properties";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Button } from "@hacado/ui/button";
 import { Card, CardContent } from "@hacado/ui/card";
 import {
@@ -14,7 +15,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@hacado/ui/carousel";
-import { Heading } from "@hacado/ui/heading";
 import { Input } from "@hacado/ui/input";
 import { Link } from "@hacado/ui/link";
 import { Markdown } from "@hacado/ui/markdown";
@@ -105,19 +105,20 @@ export const AppStore: React.FC<AppStoreProps> = ({}) => {
   );
 
   return (
-    <div className="flex flex-col w-full gap-8">
-      <div className="flex flex-col md:flex-row justify-between gap-2">
-        <Heading
-          title={tApps("common.appStore")}
-          description={tApps("common.addNewApps")}
-        />
-        <Input
-          placeholder={tApps("common.search")}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-96"
-        />
-      </div>
+    <div className="flex w-full flex-col gap-8">
+      <PageHeader
+        text={tApps("common.addNewApps")}
+        actions={
+          <div className="flex justify-end py-2">
+            <Input
+              placeholder={tApps("common.search")}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="h-8 max-w-96"
+            />
+          </div>
+        }
+      />
       <Carousel
         opts={{
           align: "start",

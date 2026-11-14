@@ -53,15 +53,14 @@ export const ApproveSelectedBlogCommentsButton: React.FC<{
 
   return (
     <Button
-      variant="primary"
+      variant="secondary"
       disabled={isLoading || disabled || ids.length === 0}
       onClick={action}
+      aria-label={t("comments.table.actions.approve")}
     >
       {isLoading && <Spinner />}
       <Check className="h-4 w-4" />
-      <span className="max-md:hidden">
-        {t("comments.table.approveSelected.label", { count: ids.length })}
-      </span>
+      <span>{t("comments.table.actions.approve")}</span>
     </Button>
   );
 };

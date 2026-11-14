@@ -1,5 +1,6 @@
 import { I18nKey, I18nNamespaces, useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import { HeaderContext, Row, SortDirection } from "@tanstack/react-table";
 import {
   ArrowDown10,
@@ -66,12 +67,21 @@ export const tableSortHeader = <
     const ButtonIcon = buttons[type][column.getIsSorted() || "false"];
     return (
       <Button
+        type="button"
         variant="ghost"
-        className={column.getIsSorted() ? "underline" : ""}
+        size="none"
+        className={cn(
+          "h-auto justify-start gap-1 rounded-none p-0 text-sm font-medium text-muted-foreground [&>svg]:size-3.5",
+          "hover:bg-transparent hover:text-foreground",
+          "active:bg-transparent",
+          "focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0",
+          column.getIsSorted() &&
+            "underline text-foreground font-semibold hover:text-foreground/80",
+        )}
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
         {t(title)}
-        <ButtonIcon className="ml-2 h-4 w-4" />
+        <ButtonIcon />
       </Button>
     );
   };

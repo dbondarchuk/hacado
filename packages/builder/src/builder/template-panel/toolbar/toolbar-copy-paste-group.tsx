@@ -19,6 +19,7 @@ import { TEditorBlock } from "../../../documents/editor/core";
 import { cloneBlock } from "../../../documents/helpers/blocks";
 import { matchesRule } from "../../../documents/utils";
 import { usePortalContext } from "../portal-context";
+import { ToolbarSectionButtons } from "./toolbar-buttons";
 
 const useParentData = (blockId: string | null | undefined) => {
   const parentData = useBlockParentData(blockId ?? null);
@@ -213,6 +214,7 @@ export const ToolbarCopyPasteGroup = ({
 
   return (
     <ToolbarGroup>
+      <ToolbarSectionButtons section="clipboard" position="start" />
       <ToolbarButton
         tooltip={t("baseBuilder.builderToolbar.copy")}
         disabled={
@@ -241,6 +243,7 @@ export const ToolbarCopyPasteGroup = ({
           <ClipboardPaste />
         </ToolbarButton>
       )}
+      <ToolbarSectionButtons section="clipboard" position="end" />
     </ToolbarGroup>
   );
 };

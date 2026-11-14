@@ -1,28 +1,18 @@
 "use client";
 
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import type { ActivityListItem } from "@hacado/types/activity";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { ResolvedI18nText } from "@hacado/ui-admin/hooks";
 import { Badge } from "@hacado/ui/badge";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import React from "react";
 import { ActivityActorDisplayView } from "../actor-display";
-
-const CreatedAtCell: React.FC<{ value: Date }> = ({ value }) => {
-  const locale = useLocale();
-  const timeZone = useTimeZone();
-  return DateTime.fromJSDate(value instanceof Date ? value : new Date(value))
-    .setZone(timeZone)
-    .setLocale(locale)
-    .toLocaleString(DateTime.DATETIME_MED);
-};
 
 const SeverityCell: React.FC<{ severity: ActivityListItem["severity"] }> = ({
   severity,
@@ -43,7 +33,7 @@ export const columns: ColumnDef<ActivityListItem>[] = [
       "date",
       "admin",
     ),
-    cell: ({ row }) => <CreatedAtCell value={row.original.createdAt} />,
+    cell: ({ row }) => <TableDateTime value={row.original.createdAt} />,
     sortingFn: tableSortNoopFunction,
   },
   {
@@ -109,7 +99,7 @@ export const columns: ColumnDef<ActivityListItem>[] = [
       if (!href) return null;
 
       return (
-        <Link href={href} variant="underline">
+        <Link href={href} variant="underline" size="sm">
           {t("activity.table.columns.link")}
         </Link>
       );

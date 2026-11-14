@@ -31,6 +31,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   PaginationState,
+  RowSelectionState,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -38,6 +39,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSelectedRowsStore } from "./use-data-table-context";
+
+function isCenteredTableColumn(columnId: string) {
+  return columnId === "select" || columnId === "actions";
+}
 
 // function getSize(size = 100, max = Number.MAX_SAFE_INTEGER, min = 40) {
 //   return Math.max(Math.min(size, max), min);
@@ -167,8 +172,22 @@ export function DataTable<TData, TValue>({
     setSort(sorting);
   };
 
-  const { setRowSelection } = useSelectedRowsStore((state) => state);
+  const setRowSelection = useSelectedRowsStore(
+    (state) => state.setRowSelection,
+  );
+
+  const selectionResetKey = useSelectedRowsStore(
+    (state) => state.selectionResetKey,
+  );
+
   const [colSizing, setColSizing] = useState<ColumnSizingState>({});
+  const [rowSelectionState, setRowSelectionState] = useState<RowSelectionState>(
+    {},
+  );
+
+  useEffect(() => {
+    setRowSelectionState({});
+  }, [selectionResetKey]);
 
   const table = useReactTable({
     data,
@@ -180,9 +199,12 @@ export function DataTable<TData, TValue>({
       pagination: paginationState,
       sorting: sortingState,
       columnSizing: colSizing,
+      rowSelection: rowSelectionState,
     },
     onPaginationChange: handlePaginationChange,
     onSortingChange: handleSortingChange,
+    onRowSelectionChange: setRowSelectionState,
+    enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     // onColumnSizingChange: setColSizing,
@@ -199,7 +221,7 @@ export function DataTable<TData, TValue>({
 
   useEffect(() => {
     setRowSelection(selectedRows);
-  }, [selectedRows]);
+  }, [selectedRows, setRowSelection]);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   // const windowDimensions = useWindowSize();
@@ -236,7 +258,11 @@ export function DataTable<TData, TValue>({
                     {headerGroup.headers.map((header) => (
                       <TableHead
                         key={header.id}
-                        className="relative group/thead"
+                        className={cn(
+                          "relative group/thead",
+                          isCenteredTableColumn(header.column.id) &&
+                            "text-center",
+                        )}
                         // style={{
                         //   width: header.getSize(),
                         // }}
@@ -264,6 +290,8 @@ export function DataTable<TData, TValue>({
                         <TableCell
                           key={cell.id}
                           className={cn(
+                            isCenteredTableColumn(cell.column.id) &&
+                              "text-center [&>*]:mx-auto",
                             cell.column.getIsResizing() &&
                               "border-r border-dashed",
                           )}

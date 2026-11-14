@@ -62,18 +62,12 @@ export const MergeSelectedCustomersButton: React.FC<{
       <DialogTrigger asChild>
         <Button
           variant="secondary"
-          aria-label={t("customers.table.merge.selectedCount", {
-            count: selected.length,
-          })}
+          aria-label={t("customers.table.actions.merge")}
           disabled={isLoading || !selected || !selected.length}
         >
           {isLoading && <Spinner />}
           <Merge className="h-4 w-4" />
-          <span className="max-md:hidden">
-            {t("customers.table.merge.selectedCount", {
-              count: selected.length,
-            })}
-          </span>
+          <span>{t("customers.table.actions.merge")}</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

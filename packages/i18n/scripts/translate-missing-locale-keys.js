@@ -18,6 +18,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
+import { restorePlaceholderTokens } from "./placeholder-tokens.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const i18nDir = path.join(__dirname, "..");
@@ -455,14 +456,31 @@ async function translateText(text, options) {
     return text;
   }
 
-  const { shielded, tokens } = shieldTranslatableTokens(trimmed);
   const targetLang = providerLanguageCode(options.language);
-
   const cacheKey = `en|${options.language}|${options.provider}|${trimmed}`;
   if (options.cache[cacheKey]) {
-    console.log("Cache hit for:", cacheKey);
-    return options.cache[cacheKey];
+    const restored = restorePlaceholderTokens(trimmed, options.cache[cacheKey]);
+    if (restored != null) {
+      if (restored !== options.cache[cacheKey]) {
+        console.log("Restored placeholder tokens in cached translation");
+        options.cache[cacheKey] = restored;
+        saveCache(options.cachePath, options.cache);
+      } else {
+        console.log("Cache hit for:", cacheKey);
+      }
+
+      return restored;
+    }
+
+    console.log(
+      "Discarded cached translation; placeholder tokens inside {} did not match",
+    );
+
+    delete options.cache[cacheKey];
+    saveCache(options.cachePath, options.cache);
   }
+
+  const { shielded, tokens } = shieldTranslatableTokens(trimmed);
 
   let translated = "";
   for (let i = 0; i < shielded.length; i += MAX_CHUNK) {
@@ -479,10 +497,19 @@ async function translateText(text, options) {
   }
 
   translated = unshieldTranslatableTokens(translated, tokens);
-  console.log("Final translated text:", translated);
-  options.cache[cacheKey] = translated;
+  const restored = restorePlaceholderTokens(trimmed, translated);
+  if (restored == null) {
+    console.log(
+      "Translation damaged placeholder tokens inside {}; not caching",
+    );
+
+    return translated;
+  }
+
+  console.log("Final translated text:", restored);
+  options.cache[cacheKey] = restored;
   saveCache(options.cachePath, options.cache);
-  return translated;
+  return restored;
 }
 
 function currentGoogleClient() {

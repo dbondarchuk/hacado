@@ -40,7 +40,12 @@ export const MemberName: React.FC<{
 
   if (compact) {
     return (
-      <div className={cn("flex items-center gap-1.5 min-w-0", className)}>
+      <div
+        className={cn(
+          "inline-flex min-w-0 items-center gap-1.5 whitespace-nowrap",
+          className,
+        )}
+      >
         <Avatar className="size-5 shrink-0">
           <AvatarImage src={member.image ?? undefined} alt={name} />
           <AvatarFallback className="text-[10px] bg-white/90 text-current">
@@ -53,7 +58,12 @@ export const MemberName: React.FC<{
   }
 
   return (
-    <div className={cn("flex items-center gap-2 min-w-0", className)}>
+    <div
+      className={cn(
+        "inline-flex min-w-0 items-center gap-2 whitespace-nowrap",
+        className,
+      )}
+    >
       <Avatar className="size-7">
         <AvatarImage src={member.image ?? undefined} alt={name} />
         <AvatarFallback className="text-xs">

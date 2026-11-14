@@ -2,13 +2,15 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
+  TableToolbarActionLabel,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { ButtonGroup } from "@hacado/ui/button-group";
 import { Link } from "@hacado/ui/link";
 import { Plus, Receipt } from "lucide-react";
@@ -57,33 +59,38 @@ export const DesignsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
   const allActive =
     rowSelection.length > 0 && rowSelection.every((d) => !d.isArchived);
 
+  const toolbarActions = (
+    <>
+      <Link
+        href="/dashboard/gift-card-studio/purchases"
+        button
+        size="sm"
+        variant="outline"
+        aria-label={t("app.pages.purchases.title")}
+      >
+        <Receipt size={16} />
+        <TableToolbarActionLabel>
+          {t("app.pages.purchases.title")}
+        </TableToolbarActionLabel>
+      </Link>
+      <Link
+        href="/dashboard/gift-card-studio/new"
+        button
+        size="sm"
+        variant="default"
+        aria-label={t("designs.table.actions.create")}
+      >
+        <Plus size={16} />
+        <TableToolbarActionLabel>
+          {t("designs.table.actions.create")}
+        </TableToolbarActionLabel>
+      </Link>
+    </>
+  );
+
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <HeaderActionButtonsPortal>
-        <Link
-          href="/dashboard/gift-card-studio/purchases"
-          button
-          variant="outline"
-          aria-label={t("app.pages.purchases.title")}
-        >
-          <Receipt size={16} />
-          <span className="max-md:hidden">
-            {t("app.pages.purchases.title")}
-          </span>
-        </Link>
-        <Link
-          href="/dashboard/gift-card-studio/new"
-          button
-          variant="default"
-          aria-label={t("designs.table.actions.create")}
-        >
-          <Plus size={16} />
-          <span className="max-md:hidden">
-            {t("designs.table.actions.create")}
-          </span>
-        </Link>
-      </HeaderActionButtonsPortal>
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={toolbarActions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -95,8 +102,17 @@ export const DesignsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap max-md:flex-row-reverse items-center gap-4 max-md:justify-between">
+      </DataTableToolbar>
+      <SelectionActionBar
+        count={rowSelection.length}
+        primary={
+          <DeleteSelectedDesignsButton
+            appId={appId}
+            selected={rowSelection}
+            disabled={!canDeleteAll}
+          />
+        }
+      >
         <ButtonGroup>
           <UnarchiveSelectedDesignsButton
             appId={appId}
@@ -108,13 +124,8 @@ export const DesignsTableAction: React.FC<{ appId: string }> = ({ appId }) => {
             selected={rowSelection}
             disabled={!allActive}
           />
-          <DeleteSelectedDesignsButton
-            appId={appId}
-            selected={rowSelection}
-            disabled={!canDeleteAll}
-          />
         </ButtonGroup>
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 };

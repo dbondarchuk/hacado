@@ -5,7 +5,7 @@ app:
     has_purchases: Cannot remove Gift Card Studio because purchases created with this app exist
   pages:
     main:
-      title: Designs
+      title: Gift Card Designs
       description: Manage gift card designs
     new:
       label: New Design
@@ -22,8 +22,9 @@ app:
       title: Manual Gift Card Purchase
       description: Create a gift card purchase manually
     settings:
-      title: Settings
+      title: Gift Card Studio settings
       description: Gift Card Studio settings
+      label: Settings
 designs:
   table:
     filters:
@@ -84,6 +85,7 @@ designs:
   form:
     name: Name
     namePlaceholder: Design name
+    nameTooltip: Unique design name
     design: Card design
     archivedNotice: This design is archived and will not be visible to customers.
     toasts:

@@ -8,9 +8,9 @@ import {
 } from "@/lib/billing/subscription-plan-access";
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { NavItem } from "@hacado/types/admin";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Card, CardDescription, CardHeader, CardTitle } from "@hacado/ui/card";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Metadata } from "next";
 
@@ -51,12 +51,9 @@ export default async function Page() {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
+      <div className="flex w-full flex-1 flex-col gap-4">
         <Breadcrumbs items={breadcrumbItems} />
-        <Heading
-          title={t("admin.navigation.settings")}
-          description={t("admin.settings.hub.description")}
-        />
+        <PageHeader text={t("admin.settings.hub.description")} />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((item) => (
             <Link

@@ -150,7 +150,7 @@ export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({
         control={form.control}
         name="payments.fullPaymentAmountThreshold"
         render={({ field }) => (
-          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full">
+          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full bg-background">
             <FormLabel>
               {t(
                 "settings.appointments.form.payments.fullPaymentAmountThreshold",
@@ -193,7 +193,7 @@ export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({
         control={form.control}
         name="payments.tipsMode"
         render={({ field }) => (
-          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full">
+          <FormItem className="flex flex-col gap-2 border p-4 rounded-lg w-full bg-background">
             <FormLabel>
               {t("settings.appointments.form.payments.tipsMode.label")}
             </FormLabel>

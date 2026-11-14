@@ -1,11 +1,9 @@
 import { getI18nAsync } from "@hacado/i18n/server";
 import {
   AppointmentView,
-  AppointmentViewButtons,
   AppointmentViewProvider,
 } from "@hacado/ui-admin-kit/appointments";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";
 import React from "react";
 import { AppointmentDeclineDialogWrapper } from "./appointment-decline-dialog";
@@ -28,26 +26,21 @@ export const AppointmentViewWrapper: React.FC<{
       title: t("navigation.appointments"),
       link: "/dashboard/appointments",
     },
-    { title: appointment.service.name, link: "/dashboard/appointments" },
+    {
+      title: appointment.service.name,
+      mobileTitle: appointment.service.name,
+      link: `/dashboard/appointments/${appointmentId}`,
+    },
   ];
 
   return (
     <AppointmentViewProvider appointment={appointment}>
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-col gap-4">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-row gap-4 justify-between">
-          <Heading
-            title={appointment.service.name}
-            description={t("appointments.detail.by", {
-              name: appointment.fields.name,
-            })}
-          />
-          <AppointmentViewButtons />
-        </div>
-        <AppointmentView />
-        {shouldShowDeclineModal && (
+        <AppointmentView layout="page" />
+        {shouldShowDeclineModal ? (
           <AppointmentDeclineDialogWrapper appointment={appointment} />
-        )}
+        ) : null}
       </div>
     </AppointmentViewProvider>
   );

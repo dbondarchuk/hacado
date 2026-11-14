@@ -8,11 +8,12 @@ import {
 } from "@hacado/types/booking";
 import {
   CustomerName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
@@ -30,6 +31,7 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
       <Link
         href={`/dashboard/catalog/packages/${row.original.packageId}`}
         variant="underline"
+        size="sm"
       >
         {row.original.name}
       </Link>
@@ -48,6 +50,7 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
         <Link
           href={`/dashboard/customers/${row.original.customerId}/packages`}
           variant="underline"
+          size="sm"
         >
           <CustomerName customer={row.original.customer} />
         </Link>
@@ -80,6 +83,7 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
       <Link
         href={soldPackageAppointmentsHref(row.original._id)}
         variant="underline"
+        size="sm"
       >
         {row.original.usedCredits} / {row.original.totalCredits}
       </Link>
@@ -123,12 +127,7 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return DateTime.fromJSDate(new Date(row.original.purchasedAt))
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED);
-    },
+    cell: ({ row }) => <TableDateTime value={row.original.purchasedAt} />,
     id: "purchasedAt",
     header: tableSortHeader(
       "catalog.packages.sold.table.columns.purchasedAt",
@@ -138,14 +137,12 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => {
-      const timeZone = useTimeZone();
-      return row.original.expiresAt
-        ? DateTime.fromJSDate(new Date(row.original.expiresAt))
-            .setZone(timeZone)
-            .toLocaleString(DateTime.DATE_MED)
-        : "-";
-    },
+    cell: ({ row }) => (
+      <TableDateTime
+        value={row.original.expiresAt}
+        format={DateTime.DATE_MED}
+      />
+    ),
     id: "expiresAt",
     header: tableSortHeader(
       "catalog.packages.sold.table.columns.expiresAt",

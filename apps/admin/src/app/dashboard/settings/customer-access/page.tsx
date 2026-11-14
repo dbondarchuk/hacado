@@ -2,8 +2,8 @@ import { getServicesContainer } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { normalizeCustomerAuthConfiguration } from "@hacado/types/configuration/customer-auth";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { CustomerAccessSettingsForm } from "./form";
 
@@ -26,18 +26,16 @@ export default async function Page() {
     { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.customerAccess"),
+      mobileTitle: t("settings.customerAccess.title"),
       link: "/dashboard/settings/customer-access",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
+      <div className="flex w-full flex-1 flex-col gap-4">
         <Breadcrumbs items={breadcrumbItems} />
-        <Heading
-          title={t("settings.customerAccess.title")}
-          description={t("settings.customerAccess.description")}
-        />
+        <PageHeader text={t("settings.customerAccess.description")} />
         <CustomerAccessSettingsForm
           values={normalizeCustomerAuthConfiguration(customerAuth)}
           smsEnabled={smsEnabled}

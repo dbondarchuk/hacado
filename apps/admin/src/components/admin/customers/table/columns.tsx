@@ -1,19 +1,18 @@
 "use client";
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { AppointmentEntity } from "@hacado/types/booking";
 import { CustomerListModel } from "@hacado/types/customers";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomerName,
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { hasPermission } from "@hacado/utils/permissions";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 // import Image from "next/image";
 import React from "react";
 import { CellAction } from "./cell-action";
@@ -21,18 +20,14 @@ import { CellAction } from "./cell-action";
 const AppointmentCell: React.FC<{ appointment?: AppointmentEntity }> = ({
   appointment,
 }) => {
-  const locale = useLocale();
-  const timeZone = useTimeZone();
-
   return appointment && appointment.service ? (
     <Link
       href={`/dashboard/appointments/${appointment._id}`}
       variant="underline"
+      size="sm"
     >
       {appointment.service.name} at{" "}
-      {DateTime.fromJSDate(appointment.dateTime)
-        .setZone(timeZone)
-        .toLocaleString(DateTime.DATETIME_MED, { locale })}
+      <TableDateTime value={appointment.dateTime} />
     </Link>
   ) : (
     ""
@@ -99,6 +94,7 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       <Link
         href={`/dashboard/customers/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         <CustomerName customer={row.original} />
       </Link>
@@ -112,6 +108,7 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       <Link
         href={`/dashboard/customers/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.email}
       </Link>
@@ -125,6 +122,7 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       <Link
         href={`/dashboard/customers/${row.original._id}`}
         variant="underline"
+        size="sm"
       >
         {row.original.phone}
       </Link>
@@ -162,6 +160,7 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       <Link
         href={`/dashboard/customers/${row.original._id}/appointments`}
         variant="underline"
+        size="sm"
       >
         {row.original.appointmentsCount}
       </Link>

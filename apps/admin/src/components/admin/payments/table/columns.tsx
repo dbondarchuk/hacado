@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import type { AdminKeys } from "@hacado/i18n/keys";
 import { PaymentSummary } from "@hacado/types/booking";
 import {
@@ -10,43 +10,28 @@ import {
   PaymentDetailsDialog,
 } from "@hacado/ui-admin-kit/payments";
 import {
+  TableDateTime,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin/data-table";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
-import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 
 function PaymentDateCell({ payment }: { payment: PaymentSummary }) {
-  const locale = useLocale();
-  const timeZone = useTimeZone();
   const rawDate = payment.paidAt ?? payment.createdAt;
-  if (!rawDate) {
-    return (
-      <PaymentDetailsDialog payment={payment}>
-        <Button variant="link-dashed" className="p-0 h-auto font-medium">
-          -
-        </Button>
-      </PaymentDetailsDialog>
-    );
-  }
-
-  const dateTime = (
-    typeof rawDate === "string"
-      ? DateTime.fromISO(rawDate)
-      : DateTime.fromJSDate(rawDate)
-  ).setZone(timeZone);
 
   return (
     <PaymentDetailsDialog payment={payment}>
-      <Button variant="link-dashed" className="p-0 h-auto font-medium">
-        {dateTime.isValid
-          ? dateTime.toLocaleString(DateTime.DATETIME_MED, { locale })
-          : "-"}
+      <Button
+        variant="link-dashed"
+        size="sm"
+        className="p-0 h-auto font-medium"
+      >
+        <TableDateTime value={rawDate} />
       </Button>
     </PaymentDetailsDialog>
   );
@@ -102,6 +87,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
             <Link
               href={`/dashboard/catalog/gift-cards/${payment.giftCardId}`}
               variant="underline"
+              size="sm"
             >
               {payment.giftCardCode}
             </Link>
@@ -123,7 +109,11 @@ export const columns: ColumnDef<PaymentSummary>[] = [
       }
 
       return (
-        <Link href={`/dashboard/customers/${customerId}`} variant="underline">
+        <Link
+          href={`/dashboard/customers/${customerId}`}
+          variant="underline"
+          size="sm"
+        >
           {customerName}
         </Link>
       );
@@ -147,6 +137,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
         <Link
           href={`/dashboard/appointments/${appointmentId}`}
           variant="underline"
+          size="sm"
         >
           {serviceName}
         </Link>

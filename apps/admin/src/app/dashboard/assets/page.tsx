@@ -7,9 +7,11 @@ import {
 } from "@hacado/api-sdk/admin/search-params/assets";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import {
+  DataTableSkeleton,
+  TableToolbarActionLabel,
+} from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Upload } from "lucide-react";
 import { Metadata } from "next";
@@ -41,18 +43,24 @@ export default async function AssetsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading title={t("assets.title")} />
-
-            <Link button href={"/dashboard/assets/new"} variant="default">
-              <Upload /> {t("assets.addNew")}
+        <Breadcrumbs items={breadcrumbItems} />
+        <AssetsTableAction
+          showCustomerFilter
+          actions={
+            <Link
+              button
+              href="/dashboard/assets/new"
+              size="sm"
+              variant="default"
+              aria-label={t("assets.addNew")}
+            >
+              <Upload />
+              <TableToolbarActionLabel>
+                {t("assets.addNew")}
+              </TableToolbarActionLabel>
             </Link>
-          </div>
-          {/* <Separator /> */}
-        </div>
-        <AssetsTableAction showCustomerFilter />
+          }
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={10} rowCount={10} />}

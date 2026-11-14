@@ -7,6 +7,7 @@ import {
   bookingConfigurationSchema,
   normalizeCatalogNodes,
 } from "@hacado/types/configuration/booking";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { cn } from "@hacado/ui/cn";
 import { Form } from "@hacado/ui/form";
@@ -107,62 +108,77 @@ export const AppointmentsSettingsForm: React.FC<{
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-8 relative flex flex-col gap-2 pb-4"
+        className="relative flex w-full flex-col gap-6"
       >
         <Tabs
           onValueChange={triggerValidation}
-          defaultValue={"main"}
-          className="space-y-4"
+          defaultValue="main"
           orientation="vertical"
         >
-          <ResponsiveTabsList className="w-full flex flex-row gap-2">
-            <TabsTrigger
-              value="main"
-              className={cn(mainTabInvalid ? "text-destructive" : "")}
-            >
-              {t("settings.appointments.form.tabs.main")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="options"
-              className={cn(
-                form.getFieldState("catalog").invalid ? "text-destructive" : "",
-              )}
-            >
-              {t("settings.appointments.form.tabs.catalog")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="payments"
-              className={cn(
-                form.getFieldState("payments").invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("settings.appointments.form.tabs.payments")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="cancellations"
-              className={cn(
-                form.getFieldState("cancellationsAndReschedules.cancellations")
-                  .invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("settings.appointments.form.tabs.cancellations")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="reschedules"
-              className={cn(
-                form.getFieldState("cancellationsAndReschedules.reschedules")
-                  .invalid
-                  ? "text-destructive"
-                  : "",
-              )}
-            >
-              {t("settings.appointments.form.tabs.reschedules")}
-            </TabsTrigger>
-          </ResponsiveTabsList>
+          <PageHeader
+            text={t("settings.appointments.description")}
+            innerClassName="max-md:flex-col max-md:gap-0"
+            titleClassName="max-md:w-full max-md:max-w-full"
+            actionsClassName="max-md:w-full max-md:max-w-full"
+            actions={
+              <ResponsiveTabsList
+                variant="line"
+                dontScrollIntoView
+                className="min-w-0 border-b-0"
+              >
+                <TabsTrigger
+                  value="main"
+                  className={cn(mainTabInvalid ? "text-destructive" : "")}
+                >
+                  {t("settings.appointments.form.tabs.main")}
+                </TabsTrigger>
+                <TabsTrigger
+                  value="options"
+                  className={cn(
+                    form.getFieldState("catalog").invalid
+                      ? "text-destructive"
+                      : "",
+                  )}
+                >
+                  {t("settings.appointments.form.tabs.catalog")}
+                </TabsTrigger>
+                <TabsTrigger
+                  value="payments"
+                  className={cn(
+                    form.getFieldState("payments").invalid
+                      ? "text-destructive"
+                      : "",
+                  )}
+                >
+                  {t("settings.appointments.form.tabs.payments")}
+                </TabsTrigger>
+                <TabsTrigger
+                  value="cancellations"
+                  className={cn(
+                    form.getFieldState(
+                      "cancellationsAndReschedules.cancellations",
+                    ).invalid
+                      ? "text-destructive"
+                      : "",
+                  )}
+                >
+                  {t("settings.appointments.form.tabs.cancellations")}
+                </TabsTrigger>
+                <TabsTrigger
+                  value="reschedules"
+                  className={cn(
+                    form.getFieldState(
+                      "cancellationsAndReschedules.reschedules",
+                    ).invalid
+                      ? "text-destructive"
+                      : "",
+                  )}
+                >
+                  {t("settings.appointments.form.tabs.reschedules")}
+                </TabsTrigger>
+              </ResponsiveTabsList>
+            }
+          />
           <TabsContent value="main">
             <MainTab form={form} showTeamSettings={showTeamSettings} />
           </TabsContent>
@@ -179,7 +195,7 @@ export const AppointmentsSettingsForm: React.FC<{
             <ReschedulesTab form={form} />
           </TabsContent>
         </Tabs>
-        <SaveButton form={form} disabled={loading} />
+        <SaveButton form={form} disabled={loading} isLoading={loading} />
       </form>
     </Form>
   );

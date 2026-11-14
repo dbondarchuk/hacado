@@ -9,10 +9,13 @@ import {
 } from "@hacado/types/booking";
 import { DatabaseId } from "@hacado/types/database";
 import { AddonSelector } from "@hacado/ui-admin/addon-selector";
+import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
 import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import { PackageSelector } from "@hacado/ui-admin/package-selector";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +27,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
-import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Button } from "@hacado/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
@@ -55,7 +58,7 @@ import { DateTimeInput } from "@hacado/ui/time-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 
@@ -395,453 +398,460 @@ export const DiscountForm: React.FC<{
   };
 
   const codesState = form.getFieldState("codes");
+  const isNew = !initialData?._id;
+  const breadcrumbItems = useMemo(
+    () => [
+      { title: t("admin.navigation.dashboard"), link: "/dashboard" },
+      { title: t("admin.navigation.catalog"), link: "/dashboard/catalog" },
+      {
+        title: t("admin.navigation.discounts"),
+        link: "/dashboard/catalog/discounts",
+      },
+      {
+        title: isNew
+          ? t("admin.catalog.discounts.newTitle")
+          : t("admin.catalog.discounts.editDescription"),
+        link: isNew
+          ? "/dashboard/catalog/discounts/new"
+          : `/dashboard/catalog/discounts/${initialData?._id}`,
+      },
+    ],
+    [initialData?._id, isNew, t],
+  );
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <div className="flex flex-col gap-4">
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("admin.catalog.discounts.form.details")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("admin.catalog.discounts.form.name")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder={t(
-                          "admin.catalog.discounts.form.namePlaceholder",
-                        )}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.nameTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+      <div className="flex flex-1 flex-col gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
+        <PageHeader
+          text={
+            <div className="my-2 w-full min-w-0">
+              <NameIdentityBar
+                layout="inline"
+                loading={loading}
+                isNew={isNew}
+                label={t("admin.catalog.discounts.form.name")}
+                placeholder={t("admin.catalog.discounts.form.namePlaceholder")}
+                description={t("admin.catalog.discounts.form.nameTooltip")}
               />
-              <FormField
-                control={form.control}
-                name="enabled"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.status")}
-                    </FormLabel>
-                    <FormControl>
-                      <BooleanSelect
-                        className="w-full"
-                        trueLabel={t("admin.catalog.discounts.form.active")}
-                        falseLabel={t("admin.catalog.discounts.form.disabled")}
-                        value={field.value}
-                        onValueChange={(item) => {
-                          field.onChange(item);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.enabledTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("admin.catalog.discounts.form.type")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <Combobox
-                        disabled={loading}
-                        className="flex w-full font-normal text-lg"
-                        values={discountTypes.map((type) => ({
-                          value: type,
-                          label: t(`admin.common.labels.discountType.${type}`),
-                        }))}
-                        searchLabel={t(
-                          "admin.catalog.discounts.form.typePlaceholder",
-                        )}
-                        value={field.value}
-                        onItemSelect={(item) => {
-                          field.onChange(item);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.typeTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="value"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.value")}
-                    </FormLabel>
-                    <FormControl>
-                      <InputGroup>
-                        {discountType === "amount" && (
-                          <InputGroupAddon
-                            className={InputGroupAddonClasses({
-                              variant: "prefix",
-                            })}
-                          >
-                            {currencySymbol}
-                          </InputGroupAddon>
-                        )}
-                        <InputGroupInput>
-                          <Input
-                            disabled={loading}
-                            placeholder="15"
-                            type="number"
-                            className={InputGroupInputClasses({
-                              variant:
-                                discountType === "percentage"
-                                  ? "suffix"
-                                  : "prefix",
-                            })}
-                            {...field}
-                            onBlur={() => {
-                              field.onBlur();
-                              form.trigger("type");
-                            }}
-                          />
-                        </InputGroupInput>
-                        {discountType === "percentage" && (
-                          <InputGroupAddon
-                            className={InputGroupAddonClasses({
-                              variant: "suffix",
-                            })}
-                          >
-                            %
-                          </InputGroupAddon>
-                        )}
-                      </InputGroup>
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.valueTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("admin.catalog.discounts.form.dates")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.startDate")}
-                    </FormLabel>
-                    <FormControl>
-                      <DateTimeInput
-                        disabled={loading}
-                        clearable
-                        format={timeFormat}
-                        use12HourFormat={uses12HourFormat}
-                        {...field}
-                        onChange={(date) => {
-                          field.onChange(date);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.startDateTooltip")}
-                      <span className="block">
-                        {t("admin.common.optional")}
-                      </span>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="endDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.endDate")}
-                    </FormLabel>
-                    <FormControl>
-                      <DateTimeInput
-                        disabled={loading}
-                        clearable
-                        format={timeFormat}
-                        use12HourFormat={uses12HourFormat}
-                        {...field}
-                        onChange={(date) => {
-                          field.onChange(date);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.endDateTooltip")}
-                      <span className="block">
-                        {t("admin.common.optional")}
-                      </span>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="appointmentStartDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.appointmentStartDate")}
-                    </FormLabel>
-                    <FormControl>
-                      <DateTimeInput
-                        disabled={loading}
-                        clearable
-                        format={timeFormat}
-                        use12HourFormat={uses12HourFormat}
-                        {...field}
-                        onChange={(date) => {
-                          field.onChange(date);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t(
-                        "admin.catalog.discounts.form.appointmentStartDateTooltip",
-                      )}
-                      <span className="block">
-                        {t("admin.common.optional")}
-                      </span>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="appointmentEndDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.appointmentEndDate")}
-                    </FormLabel>
-                    <FormControl>
-                      <DateTimeInput
-                        disabled={loading}
-                        clearable
-                        format={timeFormat}
-                        use12HourFormat={uses12HourFormat}
-                        {...field}
-                        onChange={(date) => {
-                          field.onChange(date);
-                          field.onBlur();
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t(
-                        "admin.catalog.discounts.form.appointmentEndDateTooltip",
-                      )}
-                      <span className="block">
-                        {t("admin.common.optional")}
-                      </span>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("admin.catalog.discounts.form.maximumUses")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="maxUsage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.maxUsage")}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder="3"
-                        type="number"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("admin.catalog.discounts.form.maxUsageTooltip")}
-                      <span className="block">
-                        {t("admin.common.optional")}
-                      </span>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="maxUsagePerCustomer"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("admin.catalog.discounts.form.maxUsagePerCustomer")}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder="3"
-                        type="number"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t(
-                        "admin.catalog.discounts.form.maxUsagePerCustomerTooltip",
-                      )}
-                      <span className="block">
-                        {t("admin.common.optional")}
-                      </span>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-
-          <FormField
-            control={form.control}
-            name="codes"
-            render={(codesField) => (
-              <NonSortable
-                title={
-                  <span
-                    className={cn(codesState.invalid && "text-destructive")}
-                  >
-                    {t("admin.catalog.discounts.form.codes")}
-                  </span>
-                }
-                ids={codes || []}
-                onAdd={() => onAddCode()}
-                disabled={loading}
-                disabledAdd={codes && codes.length >= 10}
-              >
-                <div className="flex flex-col px-2 py-2 gap-4">
-                  {(codes || []).map((code, index) => (
-                    <FormField
-                      key={index}
-                      control={form.control}
-                      name={`codes.${index}`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <InputGroup>
-                              <Input
-                                disabled={loading}
-                                placeholder="SALE15"
-                                className={cn(
-                                  InputGroupInputClasses(),
-                                  "flex-1",
-                                )}
-                                {...field}
-                              />
-                              <InputGroupAddon>
-                                <Button
-                                  variant="ghost-destructive"
-                                  size="icon"
-                                  className={cn(
-                                    InputGroupAddonClasses(),
-                                    "px-2",
-                                  )}
-                                  onClick={() => onCodeRemove(index)}
-                                >
-                                  <Trash />
-                                </Button>
-                              </InputGroupAddon>
-                            </InputGroup>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  ))}
-                  <FormMessage />
-                </div>
-              </NonSortable>
-            )}
-          />
-
-          <NonSortable
-            title={t("admin.catalog.discounts.form.limitTo")}
-            ids={limitTo.fields.map((f) => f.id)}
-            onAdd={() => limitTo.append({})}
-            disabled={loading}
-          >
-            <div className="flex flex-col gap-4">
-              {limitTo.fields.map((limit, index) => (
-                <DiscountLimitCard
-                  key={index}
-                  form={form}
-                  index={index}
-                  limit={limit}
-                  disabled={loading}
-                  remove={() => limitTo.remove(index)}
-                />
-              ))}
-              {!limitTo.fields?.length && (
-                <div className="flex flex-col gap-4 px-2 py-4 border rounded bg-card text-base">
-                  {t("admin.catalog.discounts.form.anyOptionOrAddon")}
-                </div>
-              )}
-
-              <div className="text-sm text-muted-foreground">
-                {t("admin.catalog.discounts.form.limitToDescription")}
-              </div>
             </div>
-          </NonSortable>
-        </div>
-        <SaveButton form={form} />
-      </form>
+          }
+        />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-8"
+        >
+          <div className="flex flex-col gap-4">
+            <FormField
+              control={form.control}
+              name="enabled"
+              render={({ field }) => (
+                <SwitchCardFormItem
+                  label={t("admin.catalog.discounts.form.active")}
+                  description={t("admin.catalog.discounts.form.enabledTooltip")}
+                  checked={field.value === true}
+                  disabled={loading}
+                  onCheckedChange={(checked) => {
+                    field.onChange(checked);
+                    field.onBlur();
+                  }}
+                />
+              )}
+            />
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("admin.catalog.discounts.form.details")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("admin.catalog.discounts.form.type")}
+                      </FormLabelWithRequiredIndicator>
+                      <FormControl>
+                        <Combobox
+                          disabled={loading}
+                          className="flex w-full font-normal text-lg"
+                          values={discountTypes.map((type) => ({
+                            value: type,
+                            label: t(
+                              `admin.common.labels.discountType.${type}`,
+                            ),
+                          }))}
+                          searchLabel={t(
+                            "admin.catalog.discounts.form.typePlaceholder",
+                          )}
+                          value={field.value}
+                          onItemSelect={(item) => {
+                            field.onChange(item);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("admin.catalog.discounts.form.typeTooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="value"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.value")}
+                      </FormLabel>
+                      <FormControl>
+                        <InputGroup>
+                          {discountType === "amount" && (
+                            <InputGroupAddon
+                              className={InputGroupAddonClasses({
+                                variant: "prefix",
+                              })}
+                            >
+                              {currencySymbol}
+                            </InputGroupAddon>
+                          )}
+                          <InputGroupInput>
+                            <Input
+                              disabled={loading}
+                              placeholder="15"
+                              type="number"
+                              className={InputGroupInputClasses({
+                                variant:
+                                  discountType === "percentage"
+                                    ? "suffix"
+                                    : "prefix",
+                              })}
+                              {...field}
+                              onBlur={() => {
+                                field.onBlur();
+                                form.trigger("type");
+                              }}
+                            />
+                          </InputGroupInput>
+                          {discountType === "percentage" && (
+                            <InputGroupAddon
+                              className={InputGroupAddonClasses({
+                                variant: "suffix",
+                              })}
+                            >
+                              %
+                            </InputGroupAddon>
+                          )}
+                        </InputGroup>
+                      </FormControl>
+                      <FormDescription>
+                        {t("admin.catalog.discounts.form.valueTooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("admin.catalog.discounts.form.dates")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="startDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.startDate")}
+                      </FormLabel>
+                      <FormControl>
+                        <DateTimeInput
+                          disabled={loading}
+                          clearable
+                          format={timeFormat}
+                          use12HourFormat={uses12HourFormat}
+                          {...field}
+                          onChange={(date) => {
+                            field.onChange(date);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("admin.catalog.discounts.form.startDateTooltip")}
+                        <span className="block">
+                          {t("admin.common.optional")}
+                        </span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="endDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.endDate")}
+                      </FormLabel>
+                      <FormControl>
+                        <DateTimeInput
+                          disabled={loading}
+                          clearable
+                          format={timeFormat}
+                          use12HourFormat={uses12HourFormat}
+                          {...field}
+                          onChange={(date) => {
+                            field.onChange(date);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("admin.catalog.discounts.form.endDateTooltip")}
+                        <span className="block">
+                          {t("admin.common.optional")}
+                        </span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="appointmentStartDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.appointmentStartDate")}
+                      </FormLabel>
+                      <FormControl>
+                        <DateTimeInput
+                          disabled={loading}
+                          clearable
+                          format={timeFormat}
+                          use12HourFormat={uses12HourFormat}
+                          {...field}
+                          onChange={(date) => {
+                            field.onChange(date);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t(
+                          "admin.catalog.discounts.form.appointmentStartDateTooltip",
+                        )}
+                        <span className="block">
+                          {t("admin.common.optional")}
+                        </span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="appointmentEndDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.appointmentEndDate")}
+                      </FormLabel>
+                      <FormControl>
+                        <DateTimeInput
+                          disabled={loading}
+                          clearable
+                          format={timeFormat}
+                          use12HourFormat={uses12HourFormat}
+                          {...field}
+                          onChange={(date) => {
+                            field.onChange(date);
+                            field.onBlur();
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t(
+                          "admin.catalog.discounts.form.appointmentEndDateTooltip",
+                        )}
+                        <span className="block">
+                          {t("admin.common.optional")}
+                        </span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("admin.catalog.discounts.form.maximumUses")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="maxUsage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.maxUsage")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={loading}
+                          placeholder="3"
+                          type="number"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("admin.catalog.discounts.form.maxUsageTooltip")}
+                        <span className="block">
+                          {t("admin.common.optional")}
+                        </span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="maxUsagePerCustomer"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("admin.catalog.discounts.form.maxUsagePerCustomer")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={loading}
+                          placeholder="3"
+                          type="number"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t(
+                          "admin.catalog.discounts.form.maxUsagePerCustomerTooltip",
+                        )}
+                        <span className="block">
+                          {t("admin.common.optional")}
+                        </span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+
+            <FormField
+              control={form.control}
+              name="codes"
+              render={(codesField) => (
+                <NonSortable
+                  title={
+                    <span
+                      className={cn(codesState.invalid && "text-destructive")}
+                    >
+                      {t("admin.catalog.discounts.form.codes")}
+                    </span>
+                  }
+                  ids={codes || []}
+                  onAdd={() => onAddCode()}
+                  disabled={loading}
+                  disabledAdd={codes && codes.length >= 10}
+                >
+                  <div className="flex flex-col px-2 py-2 gap-4">
+                    {(codes || []).map((code, index) => (
+                      <FormField
+                        key={index}
+                        control={form.control}
+                        name={`codes.${index}`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <InputGroup>
+                                <Input
+                                  disabled={loading}
+                                  placeholder="SALE15"
+                                  className={cn(
+                                    InputGroupInputClasses(),
+                                    "flex-1",
+                                  )}
+                                  {...field}
+                                />
+                                <InputGroupAddon>
+                                  <Button
+                                    variant="ghost-destructive"
+                                    size="icon"
+                                    className={cn(
+                                      InputGroupAddonClasses(),
+                                      "px-2",
+                                    )}
+                                    onClick={() => onCodeRemove(index)}
+                                  >
+                                    <Trash />
+                                  </Button>
+                                </InputGroupAddon>
+                              </InputGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ))}
+                    <FormMessage />
+                  </div>
+                </NonSortable>
+              )}
+            />
+
+            <NonSortable
+              title={t("admin.catalog.discounts.form.limitTo")}
+              ids={limitTo.fields.map((f) => f.id)}
+              onAdd={() => limitTo.append({})}
+              disabled={loading}
+            >
+              <div className="flex flex-col gap-4">
+                {limitTo.fields.map((limit, index) => (
+                  <DiscountLimitCard
+                    key={index}
+                    form={form}
+                    index={index}
+                    limit={limit}
+                    disabled={loading}
+                    remove={() => limitTo.remove(index)}
+                  />
+                ))}
+                {!limitTo.fields?.length && (
+                  <div className="flex flex-col gap-4 px-2 py-4 border rounded bg-card text-base">
+                    {t("admin.catalog.discounts.form.anyOptionOrAddon")}
+                  </div>
+                )}
+
+                <div className="text-sm text-muted-foreground">
+                  {t("admin.catalog.discounts.form.limitToDescription")}
+                </div>
+              </div>
+            </NonSortable>
+          </div>
+          <SaveButton form={form} />
+        </form>
+      </div>
     </Form>
   );
 };

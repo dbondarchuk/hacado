@@ -80,9 +80,20 @@ export const BreadcrumbsRender = () => {
               {index === items.length - 1 && (
                 <BreadcrumbPage
                   className="grid min-w-0 pr-1"
-                  title={item.title}
+                  title={item.mobileTitle ?? item.title}
                 >
-                  <span className="truncate">{item.title}</span>
+                  {item.mobileTitle ? (
+                    <>
+                      <span className="truncate md:hidden">
+                        {item.mobileTitle}
+                      </span>
+                      <span className="hidden truncate md:inline">
+                        {item.title}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="truncate">{item.title}</span>
+                  )}
                 </BreadcrumbPage>
               )}
             </Fragment>

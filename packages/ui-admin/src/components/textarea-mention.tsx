@@ -12,6 +12,7 @@ import { Input } from "@hacado/ui/input";
 import { Textarea, TextareaProps } from "@hacado/ui/textarea";
 import { mergeRefs } from "@hacado/ui/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { positionMentionDropdown } from "./mention-dropdown-position";
 
 // https://github.com/component/textarea-caret-position
 
@@ -376,9 +377,10 @@ export const TextareaMentions = React.forwardRef<
           setTextValue?.(text);
           if (currentWord.startsWith(trigger)) {
             setCommandValue(currentWord.substring(trigger.length));
-            dropdown.style.left = caret.left + "px";
-            dropdown.style.top = caret.top + caret.height + "px";
-            dropdown.classList.remove("hidden");
+            positionMentionDropdown(dropdown, caret, {
+              mode: "absolute",
+              anchor: textarea,
+            });
           } else {
             // REMINDER: apparently, we need it when deleting
             if (commandValue !== "") {

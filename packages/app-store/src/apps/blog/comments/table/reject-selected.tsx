@@ -56,12 +56,11 @@ export const RejectSelectedBlogCommentsButton: React.FC<{
       variant="secondary"
       disabled={isLoading || disabled || ids.length === 0}
       onClick={action}
+      aria-label={t("comments.table.actions.reject")}
     >
       {isLoading && <Spinner />}
       <X className="h-4 w-4" />
-      <span className="max-md:hidden">
-        {t("comments.table.rejectSelected.label", { count: ids.length })}
-      </span>
+      <span>{t("comments.table.actions.reject")}</span>
     </Button>
   );
 };

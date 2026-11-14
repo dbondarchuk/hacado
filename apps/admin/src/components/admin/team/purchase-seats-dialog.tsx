@@ -189,7 +189,7 @@ export function PurchaseSeatsDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button type="button" variant={triggerVariant}>
+        <Button type="button" variant={triggerVariant} size="sm">
           <BadgeDollarSign />
           {t("team.seatsPurchase.buyButton")}
         </Button>

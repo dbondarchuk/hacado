@@ -9,15 +9,22 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
+import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
 import { ButtonGroup } from "@hacado/ui/button-group";
+import React from "react";
 
 import { DeleteSelectedGiftCardsButton } from "./delete-selected";
 import { SetStatusSelectedGiftCardsButton } from "./set-status-selected";
 import { useGiftCardsTableFilters } from "./use-table-filters";
 
-export function GiftCardsTableAction() {
+export function GiftCardsTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const {
     statusFilter,
     setStatusFilter,
@@ -65,8 +72,8 @@ export function GiftCardsTableAction() {
   );
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
+    <>
+      <DataTableToolbar actions={actions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -78,8 +85,11 @@ export function GiftCardsTableAction() {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
+      </DataTableToolbar>
+      <SelectionActionBar
+        count={rowSelection.length}
+        primary={<DeleteSelectedGiftCardsButton selected={rowSelection} />}
+      >
         <ButtonGroup>
           <SetStatusSelectedGiftCardsButton
             selected={rowSelection}
@@ -89,9 +99,8 @@ export function GiftCardsTableAction() {
             selected={rowSelection}
             status="inactive"
           />
-          <DeleteSelectedGiftCardsButton selected={rowSelection} />
         </ButtonGroup>
-      </div>
-    </div>
+      </SelectionActionBar>
+    </>
   );
 }

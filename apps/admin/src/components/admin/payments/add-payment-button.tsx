@@ -3,6 +3,7 @@
 import { useI18n } from "@hacado/i18n/client";
 import { Payment } from "@hacado/types/booking";
 import { AddUpdatePaymentDialog } from "@hacado/ui-admin-kit/payments";
+import { TableToolbarActionLabel } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -26,9 +27,9 @@ export function AddPaymentButton({
       {...(customerId ? { customerId } : {})}
       onSuccess={onSuccess}
     >
-      <Button variant="default" aria-label={t(labelKey)}>
+      <Button variant="default" size="sm" aria-label={t(labelKey)}>
         <Plus className="h-4 w-4" />
-        <span className="max-md:hidden">{t(labelKey)}</span>
+        <TableToolbarActionLabel>{t(labelKey)}</TableToolbarActionLabel>
       </Button>
     </AddUpdatePaymentDialog>
   );

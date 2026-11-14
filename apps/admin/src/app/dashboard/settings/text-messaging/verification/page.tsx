@@ -14,8 +14,8 @@ import {
   toSmsRegistrationView,
 } from "@hacado/services/text-message";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
+import { PageHeader } from "@hacado/ui-admin/page-header";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { getWebsiteUrl } from "@hacado/utils/website";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -87,17 +87,17 @@ export default async function Page() {
     },
     {
       title: t("settings.textMessaging.verification.title"),
+      mobileTitle: t("settings.textMessaging.verification.title"),
       link: "/dashboard/settings/text-messaging/verification",
     },
   ];
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
+      <div className="flex w-full flex-1 flex-col gap-4">
         <Breadcrumbs items={breadcrumbItems} />
-        <Heading
-          title={t("settings.textMessaging.verification.title")}
-          description={t("settings.textMessaging.verification.description")}
+        <PageHeader
+          text={t("settings.textMessaging.verification.description")}
         />
         {smsEnabled ? null : (
           <p className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 text-sm">

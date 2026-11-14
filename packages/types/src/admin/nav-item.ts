@@ -12,6 +12,8 @@ export interface NavItem {
   icon?: ReactElement;
   label?: AllKeys;
   description?: AllKeys;
+  /** Sidebar label for the self-link when this item becomes a parent with children. */
+  pageTitle?: AllKeys;
   removeIfBecameParent?: boolean;
   /** Key matching `DashboardNotificationBadge.key` from the notifications SSE stream. */
   notificationsCountKey?: string;

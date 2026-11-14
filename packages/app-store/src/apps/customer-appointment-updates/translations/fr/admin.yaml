@@ -1,87 +1,97 @@
 app:
-  displayName: Customer Appointment Updates
+  displayName: Mises à jour des rendez-vous clients
   description: |-
-    Tell the customer as soon as their booking changes. For each event, turn the update on and send it by email, text, or both.
+    Tenez vos clients informés grâce aux mises à jour automatiques de l'état des rendez-vous.
+
+    L'application **Mises à jour des rendez-vous clients** vous permet d'envoyer automatiquement des e-mails ou des SMS personnalisés chaque fois qu'un rendez-vous est créé ou que son statut change, aucun travail manuel n'est requis.
+
+    Utilisez-le pour :
+    - Informer les clients lorsque leur demande de rendez-vous est **reçue**.
+    - Envoyez des mises à jour lorsque les rendez-vous sont **confirmés ou refusés**.
+    - Informer les clients lorsque leurs rendez-vous sont **reprogrammés ou annulés**.
+    - Personnalisez les modèles de messages pour les canaux e-mail et SMS.
+    - Tenez les clients informés tout au long du processus de réservation, réduisez la confusion et offrez une meilleure expérience de réservation, le tout automatiquement.
 navigation:
-  title: Customer Appointment Updates
+  title: Mises à jour des rendez-vous clients
 form:
   events:
     pending:
-      label: Appointment is pending
-      description: Sent when a customer requests an appointment and it is waiting for confirmation.
+      label: Le rendez-vous est en attente
+      description: Envoyé lorsqu'un client demande un rendez-vous et qu'il attend une confirmation.
     confirmed:
-      label: Appointment is confirmed
-      description: Sent when a booking is confirmed right away, or when you later confirm a pending appointment.
+      label: Le rendez-vous est confirmé
+      description: Envoyé lorsqu'une réservation est confirmée immédiatement ou lorsque vous confirmez ultérieurement un rendez-vous en attente.
     declined:
-      label: Appointment is declined
-      description: Sent when you decline a booking request.
+      label: Le rendez-vous est refusé
+      description: Envoyé lorsque vous refusez une demande de réservation.
     canceled:
-      label: Appointment is canceled
-      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer.
+      label: Le rendez-vous est annulé
+      description: Envoyé lorsque le client annule ou lorsque vous enregistrez le rendez-vous comme annulé par le client.
     noShow:
-      label: Customer does not show
-      description: Sent when you mark the customer as a no-show. You can still skip it on a single appointment.
+      label: Le client ne se présente pas
+      description: Envoyé lorsque vous marquez le client comme non-présenté. Vous pouvez toujours l’ignorer sur un seul rendez-vous.
     rescheduled:
-      label: Appointment is rescheduled
-      description: Sent when the appointment time changes, unless that change is set not to notify the customer.
+      label: Le rendez-vous est reporté
+      description: Envoyé lorsque l'heure du rendez-vous change, sauf si ce changement est configuré pour ne pas informer le client.
   howToSend:
-    label: How to send
+    label: Comment envoyer
   email:
-    label: Email
-    description: Send the customer an email.
+    label: E-mail
+    description: Envoyez un e-mail au client.
   emailTemplate:
-    label: Email template
-    description: The email customers receive for this update.
+    label: Modèle d'e-mail
+    description: L'e-mail que les clients reçoivent pour cette mise à jour.
   text:
-    label: Text message
-    description: Send the customer a text message. A built-in message is used unless you choose a custom template.
+    label: SMS
+    description: Envoyez un SMS au client. Un message intégré est utilisé sauf si vous choisissez un modèle personnalisé.
   packageEmails:
     pendingPackage:
       enabled:
-        label: Send a different email for pending package appointments
-        description: Used instead of the pending email when the appointment is covered by a package.
+        label: Envoyer un e-mail différent pour les rendez-vous en attente
+        description: Utilisé à la place de l'email en attente lorsque le rendez-vous est couvert par un forfait.
       templateId:
-        label: Email template
-        description: The email customers receive for a pending package appointment.
+        label: Modèle d'e-mail
+        description: L'e-mail que les clients reçoivent pour un rendez-vous de package en attente.
     confirmedPackage:
       enabled:
-        label: Send a different email for confirmed package appointments
-        description: Used instead of the confirmed email when the appointment is covered by a package.
+        label: Envoyer un e-mail différent pour les rendez-vous confirmés pour les forfaits
+        description: Utilisé à la place de l'email confirmé lorsque le rendez-vous est couvert par un forfait.
       templateId:
-        label: Email template
-        description: The email customers receive for a confirmed package appointment.
+        label: Modèle d'e-mail
+        description: L'e-mail que les clients reçoivent pour un rendez-vous confirmé pour un forfait.
   calendarEventTemplate:
     enabled:
-      label: Include a calendar event
-      description: Added to emails so customers can save the appointment on their calendar. Text messages are not affected.
+      label: Inclure un événement de calendrier
+      description: Ajouté aux e-mails afin que les clients puissent enregistrer le rendez-vous sur leur calendrier. Les messages texte ne sont pas affectés.
     templateId:
-      label: Calendar event template
-      description: The event customers see in their calendar.
+      label: Modèle d'événement de calendrier
+      description: L'événement que les clients voient dans leur calendrier.
 statusText:
-  email_app_not_configured: Email sender default is not configured
-  text_message_app_not_configured: Text message sender default app is not configured
-  successfully_set_up: Successfully set up
-  error_processing_configuration: Error processing configuration
-  error_sending_customer_appointment_updates_for_new_appointment: Error sending customer appointment update for new appointment
-  error_sending_customer_appointment_updates_for_status_change: Error sending customer appointment update for status change
-  error_sending_customer_appointment_updates_for_rescheduled_appointment: Error sending customer appointment update for rescheduled appointment
+  email_app_not_configured: L'expéditeur d'e-mail par défaut n'est pas configuré
+  text_message_app_not_configured: L'application par défaut de l'expéditeur de messages texte n'est pas configurée
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Configuration du traitement des erreurs
+  error_sending_customer_appointment_updates_for_new_appointment: Erreur lors de l'envoi de la mise à jour du rendez-vous client pour un nouveau rendez-vous
+  error_sending_customer_appointment_updates_for_status_change: Erreur lors de l'envoi de la mise à jour du rendez-vous client pour le changement de statut
+  error_sending_customer_appointment_updates_for_rescheduled_appointment: Erreur lors de l'envoi de la mise à jour du rendez-vous client pour un rendez-vous reprogrammé
 handlers:
-  newRequest: Customer Appointment Updates - New Request
-  pending: Customer Appointment Updates - Pending
-  confirmed: Customer Appointment Updates - Confirmed
-  declined: Customer Appointment Updates - Declined
-  canceled: Customer Appointment Updates - Canceled
-  noShow: Customer Appointment Updates - No-show
-  rescheduled: Customer Appointment Updates - Rescheduled
+  newRequest: Mises à jour des rendez-vous clients – Nouvelle demande
+  pending: Mises à jour des rendez-vous clients - En attente
+  confirmed: Mises à jour des rendez-vous clients – Confirmé
+  declined: Mises à jour des rendez-vous clients – Refusé
+  canceled: Mises à jour des rendez-vous clients - Annulé
+  noShow: Mises à jour des rendez-vous clients – Non-présentation
+  rescheduled: Mises à jour des rendez-vous clients - Reprogrammés
 validation:
   channel:
-    required: Choose at least one way to send, email or text message
+    required: Choisissez au moins une façon d'envoyer un e-mail ou un SMS
   eventTemplate:
     templateId:
-      required: Select a calendar event template
+      required: Sélectionnez un modèle d'événement de calendrier
   emailTemplate:
     templateId:
-      required: Select an email template
+      required: Sélectionnez un modèle d'e-mail
   packageTemplate:
     templateId:
-      required: Select an email template
+      required: Sélectionnez un modèle d'e-mail
+

@@ -36,6 +36,8 @@ function ButtonGroup({
   );
 }
 
+ButtonGroup.displayName = "ButtonGroup";
+
 function ButtonGroupText({
   className,
   asChild = false,

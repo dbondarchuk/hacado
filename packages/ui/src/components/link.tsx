@@ -15,9 +15,9 @@ const linkVariants = {
 
 const linkSizes = {
   none: "",
-  xs: "text-sm",
-  sm: "text-base",
-  md: "text-md",
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
   lg: "text-xl",
   xl: "text-2xl",
 };

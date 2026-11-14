@@ -12,7 +12,6 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import { Heading } from "@hacado/ui/heading";
 import { hasPermission } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -62,21 +61,12 @@ export default async function ServicesPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex items-center justify-between">
-            <Heading
-              title={t("catalog.services.title")}
-              description={t("catalog.services.description")}
-            />
-
-            {canCreate ? (
-              <AddServiceSplitButton canAddMore={canAddMore} />
-            ) : null}
-          </div>
-          {/* <Separator /> */}
-        </div>
-        <ServicesTableAction />
+        <Breadcrumbs items={breadcrumbItems} />
+        <ServicesTableAction
+          actions={
+            canCreate ? <AddServiceSplitButton canAddMore={canAddMore} /> : null
+          }
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={4} rowCount={10} />}

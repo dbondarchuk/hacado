@@ -3,10 +3,16 @@
 import {
   DataTableResetFilter,
   DataTableSearch,
+  DataTableToolbar,
 } from "@hacado/ui-admin/data-table";
+import React from "react";
 import { usePackagesTableFilters } from "./use-table-filters";
 
-export function PackagesTableAction() {
+export function PackagesTableAction({
+  actions,
+}: {
+  actions?: React.ReactNode;
+}) {
   const {
     isAnyFilterActive,
     resetFilters,
@@ -16,19 +22,17 @@ export function PackagesTableAction() {
   } = usePackagesTableFilters();
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2">
-      <div className="flex flex-1 flex-wrap items-center gap-2">
-        <DataTableSearch
-          searchKey="name"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-        />
-        <DataTableResetFilter
-          isFilterActive={isAnyFilterActive}
-          onReset={resetFilters}
-        />
-      </div>
-    </div>
+    <DataTableToolbar actions={actions}>
+      <DataTableSearch
+        searchKey="name"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setPage={setPage}
+      />
+      <DataTableResetFilter
+        isFilterActive={isAnyFilterActive}
+        onReset={resetFilters}
+      />
+    </DataTableToolbar>
   );
 }
