@@ -1,3 +1,2 @@
-export * from "./bannerContext";
-export * from "./popupContext";
+export * from "./modalContext";
 export * from "./readerContext";

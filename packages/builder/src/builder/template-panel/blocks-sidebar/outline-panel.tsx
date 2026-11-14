@@ -12,6 +12,9 @@ import {
   useBlockChildrenIds,
   useBlockSchema,
   useBlockType,
+  useEnableModalsView,
+  useFocusedModalId,
+  useIsModalBlockType,
   useIsSelectedBlock,
   useRootBlockId,
   useSetSelectedBlockId,
@@ -21,10 +24,11 @@ type DocumentOutlineItemProps = {
   blockId: string;
   depth: number;
   searchQuery?: string;
+  hideModals?: boolean;
 };
 
 const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
-  ({ blockId, depth, searchQuery }) => {
+  ({ blockId, depth, searchQuery, hideModals }) => {
     const tBuilder = useI18n("builder");
     const t = useI18n();
 
@@ -32,6 +36,7 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
     const schema = useBlockSchema(blockId);
     const block = useBlock(blockId);
     const blockType = useBlockType(blockId);
+    const isModalBlock = useIsModalBlockType(blockType);
     const isSelected = useIsSelectedBlock(blockId);
     const outlineItemRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +45,10 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
       () => Object.values(children || {}).flat(),
       [children],
     );
+
+    if (hideModals && isModalBlock) {
+      return null;
+    }
 
     // Auto-scroll to outline item when it becomes selected
     useEffect(() => {
@@ -142,6 +151,7 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
                 blockId={childId}
                 depth={depth + 1}
                 searchQuery={searchQuery}
+                hideModals={hideModals}
               />
             ))}
           </>
@@ -153,7 +163,10 @@ const DocumentOutlineItem: React.FC<DocumentOutlineItemProps> = memo(
 
 export const OutlinePanel = () => {
   const rootBlockId = useRootBlockId();
+  const focusedModalId = useFocusedModalId();
   const t = useI18n("builder");
+  const hideModals = useEnableModalsView() && !focusedModalId;
+  const outlineRootId = focusedModalId || rootBlockId;
   const [searchQuery, setSearchQuery] = useState("");
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -183,10 +196,11 @@ export const OutlinePanel = () => {
       <ScrollArea className="py-2 pr-2 h-[calc(100vh-400px)] min-h-0">
         <div className="space-y-1">
           <DocumentOutlineItem
-            key={rootBlockId}
-            blockId={rootBlockId}
+            key={outlineRootId}
+            blockId={outlineRootId}
             depth={0}
             searchQuery={debouncedSearchQuery}
+            hideModals={hideModals}
           />
         </div>
       </ScrollArea>

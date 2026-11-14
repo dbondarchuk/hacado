@@ -1,7 +1,7 @@
 "use client";
 
 import { usePortalContext } from "@hacado/builder/portal";
-import { PopupProvider } from "@hacado/page-builder-base/reader";
+import { ModalProvider } from "@hacado/page-builder-base/reader";
 import { Dialog, DialogContent } from "@hacado/ui/dialog";
 import { DateTime } from "luxon";
 import { useState } from "react";
@@ -57,7 +57,7 @@ export const Popup: React.FC<{
   };
 
   return (
-    <PopupProvider id={popupId} isOpen={isOpen} setIsOpen={onOpenChange}>
+    <ModalProvider id={popupId} isOpen={isOpen} setIsOpen={onOpenChange}>
       <Dialog open={isOpen} modal onOpenChange={onOpenChange}>
         <DialogContent
           container={container}
@@ -69,6 +69,6 @@ export const Popup: React.FC<{
           {children}
         </DialogContent>
       </Dialog>
-    </PopupProvider>
+    </ModalProvider>
   );
 };

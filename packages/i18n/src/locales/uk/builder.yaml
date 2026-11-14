@@ -43,6 +43,24 @@ baseBuilder:
     toggleBlocksPanel: Перемкнути панель блоків
     copied: Скопійовано
     copyPath: Скопіювати шлях
+  modals:
+    title: Модалки
+    subtitle: Керуйте спливаючими вікнами та липкими банерами цієї сторінки
+    tabs:
+      layout: Макет
+      modals: Модалки
+    add: Додати модалку
+    addPopup: Додати спливаюче вікно
+    addStickyBanner: Додати липкий банер
+    edit: Редагувати
+    delete: Видалити
+    backToList: Назад до сторінки
+    emptyTitle: Модалок ще немає
+    emptyDescription: Додайте спливаюче вікно або липкий банер, щоб показувати його поза вмістом сторінки.
+    show:
+      always: Завжди
+      oneTime: Один раз
+      onClick: За кліком
   navMenu:
     moveUp: Перемістити вгору
     moveDown: Перемістити вниз
@@ -884,6 +902,7 @@ pageBuilder:
   base:
     title: Базові властивості
     id: ID
+    idInvalid: Використовуйте CSS-безпечний ID (починається з літери або _; лише літери, цифри, дефіси та _)
     className: CSS класи
   marketingDefaults:
     templates:
@@ -1262,6 +1281,14 @@ pageBuilder:
         auto: Авто
         full: Повна ширина
       actions:
+        openModal:
+          label: Відкрити модалку
+          modalId: Модалка
+          helperText: Оберіть модалку з цієї сторінки
+        closeModal:
+          label: Закрити модалку
+          current: Поточна модалка
+          helperText: Оберіть модалку або залиште порожнім, щоб закрити поточну
         openPopup:
           label: Відкрити попап
           popupId: ID попапа

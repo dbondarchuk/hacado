@@ -76,7 +76,7 @@ export const ToolbarViewGroups = memo(
             tooltip={t("baseBuilder.builderToolbar.preview")}
             onClick={() =>
               setSelectedView((prev) =>
-                prev === "editor" ? "preview" : "editor",
+                prev === "preview" ? "editor" : "preview",
               )
             }
           >

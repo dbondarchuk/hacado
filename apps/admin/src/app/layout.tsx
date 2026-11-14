@@ -40,7 +40,14 @@ export const metadata: Metadata = {
     template: "%s | Hacado",
   },
   icons: {
-    icon: "/icon.ico",
+    icon: [
+      { url: "/icon.ico", sizes: "any" },
+      {
+        url: "/logo-notification.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
     apple: "/logo-notification.png",
   },
   manifest: "/manifest.webmanifest",

@@ -63,8 +63,11 @@ export type EditorBlockIndexes = {
 const DEFAULT_SCREEN_SIZE = "laptop";
 const SCREEN_SIZE_STORAGE_KEY = "builder-screen-size";
 
-type View = "editor" | "preview";
+export type View = "editor" | "preview";
 const DEFAULT_VIEW: View = "editor";
+
+export type BlocksSidebarTab = "layout" | "modals";
+const DEFAULT_BLOCKS_SIDEBAR_TAB: BlocksSidebarTab = "layout";
 
 type EditorState = {
   blocks: EditorDocumentBlocksDictionary<any>;
@@ -72,6 +75,8 @@ type EditorState = {
   templates?: TemplatesConfiguration;
   rootBlock: TEditorBlock;
   schemas: BuilderSchema;
+  /** Optional builder-specific schema for `block.base` (e.g. page HTML id/className). */
+  basePropsSchema?: z.ZodTypeAny;
 
   errors: Record<
     string,
@@ -89,6 +94,9 @@ type EditorState = {
   selectedBlockId: string | null;
   selectedSlot: SelectedSlotRef | null;
   selectedView: View;
+  enableModalsView: boolean;
+  blocksSidebarTab: BlocksSidebarTab;
+  focusedModalId: string | null;
   showBlocksPanel: boolean;
   selectedSidebarTab: "block-configuration" | "styles";
   selectedScreenSize: ViewportSize;
@@ -127,6 +135,8 @@ type EditorState = {
     setDisableAnimation: (disableAnimation: boolean) => void;
     toggleDisableAnimation: () => void;
     setSelectedView: (fn: (prev: View) => View) => void;
+    setBlocksSidebarTab: (tab: BlocksSidebarTab) => void;
+    setFocusedModalId: (focusedModalId: string | null) => void;
     setActiveDragBlockId: (
       activeDragBlockId: string | null,
       activeDragBlockTemplate?: TEditorBlock | null,
@@ -172,19 +182,23 @@ const createEditorStateStore = ({
   templates,
   document,
   schemas,
+  basePropsSchema,
   defaultScreenSize,
   persistScreenSize,
   getImageBlock,
+  enableModalsView = false,
 }: {
   blocks: EditorDocumentBlocksDictionary<any>;
   readerBlocks: ReaderDocumentBlocksDictionary<any>;
   rootBlock: TEditorBlock;
   schemas: BuilderSchema;
+  basePropsSchema?: z.ZodTypeAny;
   templates?: TemplatesConfiguration;
   document?: TEditorConfiguration;
   defaultScreenSize?: ViewportSize;
   persistScreenSize?: (screenSize: ViewportSize) => void;
   getImageBlock?: (file: UploadedFile) => TEditorBlock;
+  enableModalsView?: boolean;
 }) => {
   const defaultDocument = document || rootBlock;
   const defaultRootBlock = defaultDocument || rootBlock;
@@ -203,6 +217,7 @@ const createEditorStateStore = ({
     templates: templates,
     rootBlock: defaultRootBlock,
     schemas,
+    basePropsSchema,
     disableAnimation: false,
     errors: {},
     history: {
@@ -222,6 +237,9 @@ const createEditorStateStore = ({
     showBlocksPanel: false,
     selectedSidebarTab: "styles",
     selectedView: DEFAULT_VIEW,
+    enableModalsView,
+    blocksSidebarTab: DEFAULT_BLOCKS_SIDEBAR_TAB,
+    focusedModalId: null,
     // selectedScreenSize: "original",
     selectedScreenSize: defaultScreenSize || DEFAULT_SCREEN_SIZE,
     fullScreen: false,
@@ -264,6 +282,20 @@ const createEditorStateStore = ({
       },
       setSelectedView: (fn: (prev: View) => View) => {
         set({ selectedView: fn(get().selectedView) });
+      },
+      setBlocksSidebarTab: (blocksSidebarTab: BlocksSidebarTab) => {
+        set({
+          blocksSidebarTab,
+          ...(blocksSidebarTab === "layout" ? { focusedModalId: null } : {}),
+        });
+      },
+      setFocusedModalId: (focusedModalId: string | null) => {
+        set({
+          focusedModalId,
+          ...(focusedModalId
+            ? { blocksSidebarTab: "modals" as BlocksSidebarTab }
+            : {}),
+        });
       },
       setToggleInspectorDrawer: (toggleInspectorDrawer: () => void) => {
         set({ toggleInspectorDrawer });
@@ -414,7 +446,12 @@ const createEditorStateStore = ({
           newAction,
         ];
 
-        const errors = validateStoreState(result.document, schemas);
+        const errors = validateStoreState(
+          result.document,
+          schemas,
+          state.basePropsSchema,
+        );
+
         const newIndexes = buildIndexes(result.document, schemas);
 
         // Selective update to prevent unnecessary re-renders
@@ -460,7 +497,14 @@ const createEditorStateStore = ({
         });
       },
       redoHistory: () => {
-        const { document, history, selectedBlockId, schemas, onChange } = get();
+        const {
+          document,
+          history,
+          selectedBlockId,
+          schemas,
+          basePropsSchema,
+          onChange,
+        } = get();
 
         if (!canRedoHistory(history)) return;
 
@@ -473,7 +517,12 @@ const createEditorStateStore = ({
 
         if (!result) return;
 
-        const errors = validateStoreState(result.document, schemas);
+        const errors = validateStoreState(
+          result.document,
+          schemas,
+          basePropsSchema,
+        );
+
         const newIndexes = buildIndexes(result.document, schemas);
 
         set({
@@ -490,8 +539,14 @@ const createEditorStateStore = ({
         onChange?.(result.document);
       },
       undoHistory: () => {
-        let { originalDocument, history, selectedBlockId, schemas, onChange } =
-          get();
+        let {
+          originalDocument,
+          history,
+          selectedBlockId,
+          schemas,
+          basePropsSchema,
+          onChange,
+        } = get();
 
         if (!canUndoHistory(history)) return;
 
@@ -511,7 +566,7 @@ const createEditorStateStore = ({
           selectedBlockId = result.selectedBlockId;
         }
 
-        const errors = validateStoreState(document, schemas);
+        const errors = validateStoreState(document, schemas, basePropsSchema);
         const newIndexes = buildIndexes(document, schemas);
 
         set({
@@ -544,8 +599,9 @@ export function useDeep<S, U>(selector: (state: S) => U): (state: S) => U {
 function validateStoreState(
   document: EditorState["document"],
   schemas: BuilderSchema,
+  basePropsSchema?: z.ZodTypeAny,
 ) {
-  return validateBlocks(document, schemas);
+  return validateBlocks(document, schemas, basePropsSchema);
 }
 
 function buildIndexes(
@@ -829,7 +885,9 @@ export const EditorStateProvider: FC<
     rootBlock: TEditorBlock;
     document?: TEditorConfiguration;
     schemas: BuilderSchema;
+    basePropsSchema?: z.ZodTypeAny;
     getImageBlock?: (file: UploadedFile) => TEditorBlock;
+    enableModalsView?: boolean;
   }>
 > = ({ children, ...props }) => {
   const storeRef = useRef<EditorStateStore | null>(null);
@@ -1255,6 +1313,93 @@ export function useSelectedView() {
 export function useSetSelectedView() {
   const store = useEditorStateStore();
   return useStore(store, (s) => s.actions.setSelectedView);
+}
+
+export function useEnableModalsView() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.enableModalsView);
+}
+
+export function useBlocksSidebarTab() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.blocksSidebarTab);
+}
+
+export function useSetBlocksSidebarTab() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.actions.setBlocksSidebarTab);
+}
+
+export function useFocusedModalId() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.focusedModalId);
+}
+
+export function useSetFocusedModalId() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.actions.setFocusedModalId);
+}
+
+export type RootModalBlockInfo = {
+  id: string;
+  type: string;
+  actionId: string;
+  show?: string;
+};
+
+export function useIsModalBlockType(type: string | null | undefined) {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => !!type && !!s.blocks[type]?.isModal);
+}
+
+/** Block definitions marked `isModal` (built-in or app-provided). */
+export function useModalBlockDefinitions() {
+  const store = useEditorStateStore();
+  return useStore(
+    store,
+    useDeep((s) =>
+      Object.entries(s.blocks)
+        .filter(([, block]) => block.isModal)
+        .map(([type, block]) => ({
+          type,
+          displayName: block.displayName,
+          icon: block.icon,
+          defaultValue: block.defaultValue,
+        })),
+    ),
+  );
+}
+
+/** Root children whose block definition has `isModal`. */
+export function useRootModalBlocks(type?: string) {
+  const store = useEditorStateStore();
+  const rootBlockId = useRootBlockId();
+
+  return useStore(
+    store,
+    useDeep((s) => {
+      const childIds = s.indexes[rootBlockId]?.childrenBlockIds[""] || [];
+
+      return childIds.flatMap((id) => {
+        const entry = s.indexes[id];
+        if (!entry || !s.blocks[entry.blockType]?.isModal) return [];
+        if (type && entry.blockType !== type) return [];
+
+        const data = entry.noChildrenBlock.data as
+          | { props?: { show?: string } }
+          | undefined;
+
+        return [
+          {
+            id,
+            type: entry.blockType,
+            show: data?.props?.show,
+            actionId: entry.block.base?.id || id,
+          } satisfies RootModalBlockInfo,
+        ];
+      });
+    }),
+  );
 }
 
 export function useToggleInspectorDrawer() {

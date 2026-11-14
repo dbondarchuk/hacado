@@ -43,6 +43,24 @@ baseBuilder:
     toggleBlocksPanel: Basculer le panneau des blocs
     copied: Copié
     copyPath: Copier le chemin
+  modals:
+    title: Modales
+    subtitle: Gérez les popups et bannières sticky de cette page
+    tabs:
+      layout: Mise en page
+      modals: Modales
+    add: Ajouter une modale
+    addPopup: Ajouter une popup
+    addStickyBanner: Ajouter une bannière sticky
+    edit: Modifier
+    delete: Supprimer
+    backToList: Retour à la page
+    emptyTitle: Aucune modale pour le moment
+    emptyDescription: Ajoutez une popup ou une bannière sticky à afficher en dehors du contenu de la page.
+    show:
+      always: Toujours
+      oneTime: Une fois
+      onClick: Au clic
   navMenu:
     moveUp: Monter
     moveDown: Descendre
@@ -883,7 +901,8 @@ pageBuilder:
       full: Complet
   base:
     title: Propriétés de base
-    id: IDENTIFIANT
+    id: ID
+    idInvalid: Utilisez un ID compatible CSS (commence par une lettre ou _; lettres, chiffres, tirets et _ uniquement)
     className: Classes CSS
   marketingDefaults:
     templates:
@@ -4944,6 +4963,14 @@ pageBuilder:
       type: Taper
       action: Action
       actions:
+        openModal:
+          label: Ouvrir la modale
+          modalId: Modale
+          helperText: Choisissez une modale de cette page
+        closeModal:
+          label: Fermer la modale
+          current: Modale actuelle
+          helperText: Choisissez une modale, ou laissez vide pour fermer l'actuelle
         openPopup:
           label: Ouvrir la fenêtre contextuelle
           popupId: Identifiant contextuel

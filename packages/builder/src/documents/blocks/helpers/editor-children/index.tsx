@@ -13,8 +13,11 @@ import { DndContext } from "../../../../types/dndContext";
 import {
   useBlockChildrenBlockIds,
   useBlockDepth,
+  useBlockType,
   useBlocksDefinitions,
+  useEnableModalsView,
   useHasActiveDragBlock,
+  useIsModalBlockType,
   useSetAllowedRule,
 } from "../../../editor/context";
 import {
@@ -133,6 +136,55 @@ export const EditorChildren = memo(
   },
 );
 
+const EditorChildSlot = memo(
+  ({
+    childId,
+    index,
+    currentBlockId,
+    property,
+    additionalProps,
+    allow,
+    ChildWrapper,
+    hideModals,
+  }: {
+    childId: string;
+    index: number;
+    currentBlockId: string;
+    property: string;
+    additionalProps?: Record<string, any>;
+    allow?: BlockFilterRule;
+    ChildWrapper: React.ElementType;
+    hideModals: boolean;
+  }) => {
+    const blockType = useBlockType(childId);
+    const isModalBlock = useIsModalBlockType(blockType);
+
+    if (hideModals && isModalBlock) {
+      return null;
+    }
+
+    return (
+      <Fragment>
+        <OverlayBlock
+          blockId={currentBlockId}
+          property={property}
+          index={index}
+        />
+        <ChildWrapper>
+          <EditorBlock
+            blockId={childId}
+            index={index}
+            parentBlockId={currentBlockId}
+            parentProperty={property}
+            additionalProps={additionalProps}
+            allow={allow}
+          />
+        </ChildWrapper>
+      </Fragment>
+    );
+  },
+);
+
 const EditorChildrenRender = deepMemo(
   ({
     childrenIds,
@@ -158,35 +210,47 @@ const EditorChildrenRender = deepMemo(
 
     const setAllowedRule = useSetAllowedRule();
     const isCurrentOverlay = useIsCurrentBlockOverlay();
+    const hideModals = useEnableModalsView();
+    const effectiveAllow = useMemo((): BlockFilterRule | undefined => {
+      if (!hideModals) return allow;
+
+      return {
+        ...allow,
+        not: {
+          ...allow?.not,
+          type: [...(allow?.not?.type || []), "Popup", "StickyBanner"],
+        },
+      };
+    }, [allow, hideModals]);
 
     useEffect(() => {
       if (isCurrentOverlay) return;
 
-      setAllowedRule(currentBlockId, property, allow ?? {});
-    }, [allow, currentBlockId, property, setAllowedRule, isCurrentOverlay]);
+      setAllowedRule(currentBlockId, property, effectiveAllow ?? {});
+    }, [
+      effectiveAllow,
+      currentBlockId,
+      property,
+      setAllowedRule,
+      isCurrentOverlay,
+    ]);
 
     return (
       <>
         {childrenIds
           ?.filter((blockId) => !!blockId)
           .map((childId, i) => (
-            <Fragment key={childId}>
-              <OverlayBlock
-                blockId={currentBlockId}
-                property={property}
-                index={i}
-              />
-              <ChildWrapper>
-                <EditorBlock
-                  blockId={childId}
-                  index={i}
-                  parentBlockId={currentBlockId}
-                  parentProperty={property}
-                  additionalProps={additionalProps}
-                  allow={allow}
-                />
-              </ChildWrapper>
-            </Fragment>
+            <EditorChildSlot
+              key={childId}
+              childId={childId}
+              index={i}
+              currentBlockId={currentBlockId}
+              property={property}
+              additionalProps={additionalProps}
+              allow={effectiveAllow}
+              ChildWrapper={ChildWrapper}
+              hideModals={hideModals}
+            />
           ))}
         {!childrenIds?.length ? (
           <Placeholder
@@ -194,7 +258,7 @@ const EditorChildrenRender = deepMemo(
             property={property}
             index={0}
             depth={depth + 1}
-            allow={allow}
+            allow={effectiveAllow}
           />
         ) : (
           <OverlayBlock

@@ -9,7 +9,9 @@ import {
   CollapsibleTrigger,
 } from "@hacado/ui/collapsible";
 import { ChevronRight, Eclipse, Hash } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const CSS_ID_REGEX = /^(?:|-?[_a-zA-Z][_a-zA-Z0-9-]*)$/;
 
 const BaseBlockPropsInput = ({
   label,
@@ -17,27 +19,54 @@ const BaseBlockPropsInput = ({
   base,
   onBaseChange,
   property,
+  validate,
+  invalidMessage,
 }: {
   label: BuilderKeys;
   icon: ({ className }: { className: string }) => React.ReactNode;
   base?: BaseBlockPropsType;
   onBaseChange: (base: BaseBlockPropsType) => void;
   property: keyof BaseBlockPropsType;
+  validate?: (value: string) => boolean;
+  invalidMessage?: string;
 }) => {
   const t = useI18n("builder");
+  const storedValue = base?.[property] || "";
+  const [localValue, setLocalValue] = useState(storedValue);
+
+  useEffect(() => {
+    setLocalValue(storedValue);
+  }, [storedValue]);
+
+  const isInvalid = !!validate && !!localValue && !validate(localValue);
+
   return (
     <div className="space-y-2">
       <TextInput
         placeholder={t(label)}
         nullable
-        defaultValue={base?.[property] || ""}
+        defaultValue={localValue}
         label={
           <div className="flex items-center gap-2">
             <Icon className="h-4 w-4 text-muted-foreground" />
             <span>{t(label)}</span>
           </div>
         }
-        onChange={(id) => onBaseChange({ ...base, [property]: id })}
+        helperText={
+          isInvalid ? (
+            <span className="text-destructive">{invalidMessage}</span>
+          ) : undefined
+        }
+        onChange={(next) => {
+          const nextValue = next || "";
+          setLocalValue(nextValue);
+
+          if (validate && nextValue && !validate(nextValue)) {
+            return;
+          }
+
+          onBaseChange({ ...base, [property]: nextValue || undefined });
+        }}
       />
     </div>
   );
@@ -74,6 +103,8 @@ export const BaseBlockProps = ({
             base={base}
             onBaseChange={onBaseChange}
             property="id"
+            validate={(value) => CSS_ID_REGEX.test(value)}
+            invalidMessage={t("pageBuilder.base.idInvalid")}
           />
           <BaseBlockPropsInput
             label="pageBuilder.base.className"

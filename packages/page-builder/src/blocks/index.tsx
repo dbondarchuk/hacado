@@ -576,6 +576,8 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.objects" satisfies BaseAllKeys,
     capabilities: ["popup", "block"],
     tags: ["popup"],
+    hideInBlocksPanel: true,
+    isModal: true,
     allowedIn: {
       type: ["PageLayout"],
     },
@@ -593,10 +595,12 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.objects" satisfies BaseAllKeys,
     capabilities: ["banner", "block"],
     tags: ["banner", "sticky"],
+    hideInBlocksPanel: true,
+    isModal: true,
     allowedIn: {
       type: ["PageLayout"],
     },
-    allowedBuilderTypes: ["page", "footer"],
+    allowedBuilderTypes: ["page"],
   },
   InlineText: {
     displayName:

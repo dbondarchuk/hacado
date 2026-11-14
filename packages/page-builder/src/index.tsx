@@ -14,6 +14,7 @@ import { UploadedFile } from "@hacado/types/assets";
 import { PageHeader } from "@hacado/types/pages";
 import { deepMemo } from "@hacado/ui/utils";
 import { useMemo } from "react";
+import { PageBaseBlockPropsSchema } from "./base-props-schema";
 import {
   BlockProviderRegistry,
   resolveProviders,
@@ -22,6 +23,7 @@ import { EditorBlocks, RootBlock } from "./blocks";
 import { ImagePropsDefaults } from "./blocks/image";
 import { ReaderBlocks } from "./blocks/reader";
 import { EditorBlocksSchema } from "./blocks/schema";
+import { ModalsPanel } from "./modals/modals-panel";
 import { pageBuilderEditorTemplates } from "./templates";
 
 export type {
@@ -145,6 +147,9 @@ export const PageBuilder = deepMemo(
         footer={footer}
         getImageBlock={getImageBlock}
         toolbarButtons={toolbarButtons}
+        enableModalsView={type === "page"}
+        modalsPanel={type === "page" ? <ModalsPanel /> : undefined}
+        basePropsSchema={PageBaseBlockPropsSchema}
       />
     );
   },

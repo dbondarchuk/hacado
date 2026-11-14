@@ -1,7 +1,7 @@
 "use client";
 
 import { usePortalContext } from "@hacado/builder/portal";
-import { BannerProvider } from "@hacado/page-builder-base/reader";
+import { ModalProvider } from "@hacado/page-builder-base/reader";
 import { cn } from "@hacado/ui/cn";
 import { X } from "lucide-react";
 import { DateTime } from "luxon";
@@ -87,7 +87,7 @@ export const StickyBanner: React.FC<{
   ) : null;
 
   const content = (
-    <BannerProvider id={bannerId} isOpen={isOpen} setIsOpen={onOpenChange}>
+    <ModalProvider id={bannerId} isOpen={isOpen} setIsOpen={onOpenChange}>
       {isOpen ? (
         <div
           id={id}
@@ -104,7 +104,7 @@ export const StickyBanner: React.FC<{
           </div>
         </div>
       ) : null}
-    </BannerProvider>
+    </ModalProvider>
   );
 
   if (isEditor || !container) {

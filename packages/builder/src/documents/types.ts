@@ -130,6 +130,11 @@ export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
     allowedIn?: BlockFilterRule;
     /** When true, block is omitted from the blocks panel (e.g. child-only or template-only blocks). */
     hideInBlocksPanel?: boolean;
+    /**
+     * When true, block is managed via the Modals tab (hidden from layout canvas /
+     * outline unless focused). Hosts/apps can mark any block this way.
+     */
+    isModal?: boolean;
     tags?: string[];
     capabilities?: string[];
     disable?: BlockEditorDisableOptions;

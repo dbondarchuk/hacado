@@ -6,6 +6,9 @@
  *
  * The email lockup is composited onto a white rounded plate so it stays
  * readable when a client forces a dark background and leaves image pixels alone.
+ *
+ * Favicons and the notification/PWA icon use the dark mark on an opaque white
+ * field so they stay readable on dark browser chrome and OS trays.
  */
 
 import fs from "node:fs";
@@ -116,6 +119,33 @@ await writePng(
   "apps/admin/public/email-logo-dark.png",
 );
 
+/**
+ * Dark mark flattened onto opaque white — same treatment as push notifications.
+ * @param {number} size
+ */
+async function rasterizeWhiteBgIcon(size) {
+  const logo = await rasterize(symbol, size, size);
+
+  return sharp({
+    create: {
+      width: size,
+      height: size,
+      channels: 3,
+      background: { r: 255, g: 255, b: 255 },
+    },
+  })
+    .composite([{ input: logo }])
+    .png()
+    .toBuffer();
+}
+
+const notificationPng = await rasterizeWhiteBgIcon(512);
+fs.writeFileSync(
+  path.join(root, "apps/admin/public/logo-notification.png"),
+  notificationPng,
+);
+console.log("apps/admin/public/logo-notification.png 512x512");
+
 const faviconSizes = [16, 32, 48, 64, 128, 256];
 const faviconPngs = [];
 for (const size of faviconSizes) {
@@ -128,7 +158,8 @@ for (const size of faviconSizes) {
 for (const out of [
   "apps/admin/public/favicon.ico",
   "apps/admin/src/app/icon.ico",
-  "docs/static/img/favicon.ico",
+  "docs/public/favicon.ico",
+  "docs/public/img/favicon.ico",
 ]) {
   writeIco(faviconPngs, out);
 }

@@ -1,5 +1,4 @@
-export * from "./context/bannerContext";
-export * from "./context/popupContext";
+export * from "./context/modalContext";
 export * from "./context/readerContext";
 export * from "./header";
 export * from "./helpers/background-video-layer";

@@ -323,6 +323,7 @@ const recursiveFindPreviousBlockId = (
 const recursiveValidateBlocks = (
   block: TEditorBlock,
   schemas: BuilderSchema,
+  basePropsSchema?: z.ZodTypeAny,
 ): Record<
   string,
   {
@@ -341,9 +342,23 @@ const recursiveValidateBlocks = (
   if (!block || !schemas[block?.type]) return results;
 
   const parseResult = schemas[block.type].safeParse(block.data);
-  if (!parseResult.success) {
+  const baseResult = basePropsSchema
+    ? basePropsSchema.safeParse(block.base)
+    : null;
+
+  const issues = [
+    ...(parseResult.success ? [] : parseResult.error.issues),
+    ...(baseResult && !baseResult.success
+      ? baseResult.error.issues.map((issue) => ({
+          ...issue,
+          path: ["base", ...issue.path],
+        }))
+      : []),
+  ];
+
+  if (issues.length > 0) {
     results[block.id] = {
-      error: parseResult.error,
+      error: new z.ZodError(issues),
       type: block.type,
     };
   }
@@ -355,7 +370,7 @@ const recursiveValidateBlocks = (
   for (const child of childrenProps || []) {
     if (!child || !("id" in child)) continue;
 
-    const result = recursiveValidateBlocks(child, schemas);
+    const result = recursiveValidateBlocks(child, schemas, basePropsSchema);
     results = { ...results, ...result };
   }
 
@@ -433,8 +448,9 @@ export const findPreviousBlockId = (
 export const validateBlocks = (
   document: TEditorConfiguration,
   schemas: BuilderSchema,
+  basePropsSchema?: z.ZodTypeAny,
 ) => {
-  return recursiveValidateBlocks(document, schemas);
+  return recursiveValidateBlocks(document, schemas, basePropsSchema);
 };
 
 export const findBlockHierarchy = (

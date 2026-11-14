@@ -45,6 +45,24 @@ baseBuilder:
     toggleBlocksPanel: Toggle blocks panel
     copied: Copied
     copyPath: Copy path
+  modals:
+    title: Modals
+    subtitle: Manage popups and sticky banners for this page
+    tabs:
+      layout: Layout
+      modals: Modals
+    add: Add modal
+    addPopup: Add popup
+    addStickyBanner: Add sticky banner
+    edit: Edit
+    delete: Delete
+    backToList: Back to page
+    emptyTitle: No modals yet
+    emptyDescription: Add a popup or sticky banner to show outside the page content.
+    show:
+      always: Always
+      oneTime: One time
+      onClick: On click
   navMenu:
     moveUp: Move up
     moveDown: Move down
@@ -892,6 +910,7 @@ pageBuilder:
   base:
     title: Basic Properties
     id: ID
+    idInvalid: Use a CSS-safe ID (start with a letter or underscore; letters, digits, hyphens, underscores only)
     className: CSS Classes
   marketingDefaults:
     templates:
@@ -4930,16 +4949,24 @@ pageBuilder:
       type: Type
       action: Action
       actions:
+        openModal:
+          label: Open modal
+          modalId: Modal
+          helperText: Choose a modal from this page
+        closeModal:
+          label: Close modal
+          current: Current modal
+          helperText: Choose a modal, or leave empty to close the current one
         openPopup:
           label: Open Popup
-          popupId: Popup ID
-          helperText: Use base ID of popup block
+          popupId: Popup
+          helperText: Choose a popup from this page's Modals
         closeCurrentPopup:
           label: Close Current Popup
         openBanner:
           label: Open Banner
-          bannerId: Banner ID
-          helperText: Use base ID of sticky banner block
+          bannerId: Sticky banner
+          helperText: Choose a sticky banner from this page's Modals
         closeCurrentBanner:
           label: Close Current Banner
       url: URL

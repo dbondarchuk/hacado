@@ -203,7 +203,7 @@ function cookieAcknowledgmentBanner(
                         ...btn,
                         props: {
                           type: "action",
-                          action: "close-current-banner",
+                          action: "close-modal",
                           children: btn.props?.children ?? [
                             {
                               type: "InlineContainer",

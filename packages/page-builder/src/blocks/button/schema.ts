@@ -36,7 +36,7 @@ export type ButtonReaderProps = BaseReaderBlockProps<any> & ButtonProps;
 
 export const ButtonDefaultUrl = "/";
 export const ButtonDefaultTarget = "_self";
-export const ButtonDefaultAction = "open-popup";
+export const ButtonDefaultAction = "open-modal";
 
 export const ButtonPropsDefaults = () =>
   ({

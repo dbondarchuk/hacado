@@ -15,6 +15,7 @@ import {
   useDisableAnimation,
   useDispatchAction,
   useEditorStateStore,
+  useFocusedModalId,
   useSelectedScreenSize,
   useSelectedView,
   useSetActiveDragBlockId,
@@ -42,6 +43,7 @@ type TemplatePanelProps = {
   readerBlocks: ReaderDocumentBlocksDictionary<any>;
   header?: React.ReactNode;
   footer?: React.ReactNode;
+  modalsPanel?: React.ReactNode;
 };
 
 const EnableDisableAnimations = memo(
@@ -84,7 +86,7 @@ const sensors = [
 ];
 
 export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
-  ({ args, readerBlocks, header, footer }) => {
+  ({ args, readerBlocks, header, footer, modalsPanel }) => {
     const t = useI18n();
     const dispatchAction = useDispatchAction();
     const setActiveDragBlock = useSetActiveDragBlockId();
@@ -93,6 +95,8 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
 
     const selectedScreenSize = useSelectedScreenSize();
     const selectedView = useSelectedView();
+    const focusedModalId = useFocusedModalId();
+    const showPageChrome = selectedView === "preview" || !focusedModalId;
 
     const setDisableAnimation = useSetDisableAnimation();
     const setDragIntoNestedModifier = useSetDragIntoNestedModifier();
@@ -302,20 +306,19 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
           >
             <DragIntoNestedModifierTracker />
             <div className="relative flex h-full">
-              {selectedView === "editor" && (
+              {selectedView === "editor" ? (
                 <>
-                  <BlocksSidebar className="h-full" />
+                  <BlocksSidebar className="h-full" modalsPanel={modalsPanel} />
                   <BlockDragOverlay />
                 </>
-              )}
+              ) : null}
               <div className="flex-1">
                 <ViewportEmulator viewportSize={selectedScreenSize}>
                   <EnableDisableAnimations>
-                    {/* Main Editor Area */}
-                    {header}
+                    {showPageChrome ? header : null}
                     <Editor selectedView={selectedView} />
                     <Preview args={args} readerBlocks={readerBlocks} />
-                    {footer}
+                    {showPageChrome ? footer : null}
                   </EnableDisableAnimations>
                 </ViewportEmulator>
               </div>

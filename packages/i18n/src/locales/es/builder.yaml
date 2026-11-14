@@ -43,6 +43,24 @@ baseBuilder:
     toggleBlocksPanel: Panel de alternar bloques
     copied: Copiado
     copyPath: Copiar ruta
+  modals:
+    title: Modales
+    subtitle: Administra ventanas emergentes y banners fijos de esta página
+    tabs:
+      layout: Diseño
+      modals: Modales
+    add: Añadir modal
+    addPopup: Añadir ventana emergente
+    addStickyBanner: Añadir banner fijo
+    edit: Editar
+    delete: Eliminar
+    backToList: Volver a la página
+    emptyTitle: Aún no hay modales
+    emptyDescription: Añade una ventana emergente o un banner fijo para mostrar fuera del contenido de la página.
+    show:
+      always: Siempre
+      oneTime: Una vez
+      onClick: Al hacer clic
   navMenu:
     moveUp: Subir
     moveDown: Bajar
@@ -883,7 +901,8 @@ pageBuilder:
       full: Lleno
   base:
     title: Propiedades básicas
-    id: IDENTIFICACIÓN
+    id: ID
+    idInvalid: Usa un ID válido para CSS (empieza con letra o _; solo letras, dígitos, guiones y _)
     className: Clases CSS
   marketingDefaults:
     templates:
@@ -4944,6 +4963,14 @@ pageBuilder:
       type: Tipo
       action: Acción
       actions:
+        openModal:
+          label: Abrir modal
+          modalId: Modal
+          helperText: Elige un modal de esta página
+        closeModal:
+          label: Cerrar modal
+          current: Modal actual
+          helperText: Elige un modal, o déjalo vacío para cerrar el actual
         openPopup:
           label: Abrir ventana emergente
           popupId: ID emergente

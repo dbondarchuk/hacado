@@ -8,41 +8,25 @@ type Overlay = {
   setIsOpen: (isOpen: boolean) => void;
 };
 
-type ReaderPopupContextType = {
-  openPopup: (popupId: string) => void;
-  closePopup: (popupId: string) => void;
-  isPopupOpen: (popupId: string) => boolean;
-  registerPopup: (popup: Overlay) => void;
-  unregisterPopup: (popupId: string) => void;
-};
-
-type ReaderBannerContextType = {
-  openBanner: (bannerId: string) => void;
-  closeBanner: (bannerId: string) => void;
-  isBannerOpen: (bannerId: string) => boolean;
-  registerBanner: (banner: Overlay) => void;
-  unregisterBanner: (bannerId: string) => void;
+type ReaderModalContextType = {
+  open: (modalId: string) => void;
+  close: (modalId: string) => void;
+  isOpen: (modalId: string) => boolean;
+  register: (modal: Overlay) => void;
+  unregister: (modalId: string) => void;
 };
 
 type ReaderContextType = {
-  popup: ReaderPopupContextType;
-  banner: ReaderBannerContextType;
+  modal: ReaderModalContextType;
 };
 
 export const ReaderContext = createContext<ReaderContextType>({
-  popup: {
-    openPopup: () => {},
-    closePopup: () => {},
-    isPopupOpen: () => false,
-    registerPopup: () => {},
-    unregisterPopup: () => {},
-  },
-  banner: {
-    openBanner: () => {},
-    closeBanner: () => {},
-    isBannerOpen: () => false,
-    registerBanner: () => {},
-    unregisterBanner: () => {},
+  modal: {
+    open: () => {},
+    close: () => {},
+    isOpen: () => false,
+    register: () => {},
+    unregister: () => {},
   },
 });
 
@@ -55,114 +39,60 @@ export const useReaderContext = () => {
   return context;
 };
 
-export const useReaderPopupContext = () => {
+export const useReaderModalContext = () => {
   const context = useContext(ReaderContext);
   if (!context) {
     return null;
   }
 
-  return context.popup;
+  return context.modal;
 };
 
-export const useReaderBannerContext = () => {
-  const context = useContext(ReaderContext);
-  if (!context) {
-    return null;
-  }
+const useModalRegistry = () => {
+  const modals = useRef<Map<string, Overlay>>(new Map());
 
-  return context.banner;
-};
-
-const usePopupContext = () => {
-  const popups = useRef<Map<string, Overlay>>(new Map());
-
-  const openPopup = (popupId: string) => {
-    const popup = popups.current.get(popupId);
-    if (popup) {
-      popup.setIsOpen(true);
+  const open = (modalId: string) => {
+    const modal = modals.current.get(modalId);
+    if (modal) {
+      modal.setIsOpen(true);
     }
   };
 
-  const closePopup = (popupId: string) => {
-    const popup = popups.current.get(popupId);
-    if (popup) {
-      popup.setIsOpen(false);
+  const close = (modalId: string) => {
+    const modal = modals.current.get(modalId);
+    if (modal) {
+      modal.setIsOpen(false);
     }
   };
 
-  const isPopupOpen = (popupId: string) =>
-    popups.current.get(popupId)?.isOpen ?? false;
+  const isOpen = (modalId: string) =>
+    modals.current.get(modalId)?.isOpen ?? false;
 
-  const registerPopup = (popup: Overlay) => {
-    popups.current.set(popup.id, popup);
+  const register = (modal: Overlay) => {
+    modals.current.set(modal.id, modal);
   };
 
-  const unregisterPopup = (popupId: string) => {
-    popups.current.delete(popupId);
+  const unregister = (modalId: string) => {
+    modals.current.delete(modalId);
   };
 
-  const popup = useMemo(
+  return useMemo(
     () => ({
-      openPopup,
-      closePopup,
-      isPopupOpen,
-      registerPopup,
-      unregisterPopup,
+      open,
+      close,
+      isOpen,
+      register,
+      unregister,
     }),
-    [popups],
+    [modals],
   );
-
-  return popup;
-};
-
-const useBannerContext = () => {
-  const banners = useRef<Map<string, Overlay>>(new Map());
-
-  const openBanner = (bannerId: string) => {
-    const banner = banners.current.get(bannerId);
-    if (banner) {
-      banner.setIsOpen(true);
-    }
-  };
-
-  const closeBanner = (bannerId: string) => {
-    const banner = banners.current.get(bannerId);
-    if (banner) {
-      banner.setIsOpen(false);
-    }
-  };
-
-  const isBannerOpen = (bannerId: string) =>
-    banners.current.get(bannerId)?.isOpen ?? false;
-
-  const registerBanner = (banner: Overlay) => {
-    banners.current.set(banner.id, banner);
-  };
-
-  const unregisterBanner = (bannerId: string) => {
-    banners.current.delete(bannerId);
-  };
-
-  const banner = useMemo(
-    () => ({
-      openBanner,
-      closeBanner,
-      isBannerOpen,
-      registerBanner,
-      unregisterBanner,
-    }),
-    [banners],
-  );
-
-  return banner;
 };
 
 export const ReaderProvider = ({ children }: { children: React.ReactNode }) => {
-  const popup = usePopupContext();
-  const banner = useBannerContext();
+  const modal = useModalRegistry();
 
   return (
-    <ReaderContext.Provider value={{ popup, banner }}>
+    <ReaderContext.Provider value={{ modal }}>
       {children}
     </ReaderContext.Provider>
   );

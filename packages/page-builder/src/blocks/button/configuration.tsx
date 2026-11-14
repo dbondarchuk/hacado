@@ -1,13 +1,16 @@
 "use client";
 
-import { PageInput, SelectInput, TextInput } from "@hacado/builder/inputs";
+import { useModalBlockDefinitions } from "@hacado/builder/editor";
+import { PageInput, SelectInput } from "@hacado/builder/inputs";
 import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
 import { Combobox } from "@hacado/ui/combobox";
 import { Label } from "@hacado/ui/label";
 import { deepMemo } from "@hacado/ui/utils";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { usePageModals } from "../../modals/use-page-modals";
 import {
   ButtonDefaultAction,
   ButtonDefaultTarget,
@@ -32,6 +35,19 @@ const isActionProps = (
 export const ButtonConfiguration = deepMemo(
   ({ data, setData, base, onBaseChange }: ConfigurationProps<ButtonProps>) => {
     const t = useI18n("builder");
+    const modals = usePageModals();
+    const modalDefinitions = useModalBlockDefinitions();
+    const modalLabelsByType = useMemo(
+      () =>
+        Object.fromEntries(
+          modalDefinitions.map((definition) => [
+            definition.type,
+            t(definition.displayName as BuilderKeys),
+          ]),
+        ),
+      [modalDefinitions, t],
+    );
+
     const updateProps = useCallback(
       (p: unknown) => setData({ ...data, props: p as ButtonProps["props"] }),
       [setData, data],
@@ -59,6 +75,49 @@ export const ButtonConfiguration = deepMemo(
     const actionData = isActionProps(data.props)
       ? data.props.actionData
       : undefined;
+
+    const modalId = (actionData?.modalId as string | undefined) ?? "";
+
+    const closeCurrentValue = "__current__";
+
+    const modalOptions = useMemo(
+      () =>
+        modals.map((modal) => ({
+          value: modal.actionId,
+          label: (
+            <span className="flex min-w-0 items-center gap-1.5 truncate">
+              <span className="truncate">
+                {modalLabelsByType[modal.type] ?? modal.type}
+              </span>
+              <span className="truncate text-muted-foreground">
+                {modal.actionId}
+              </span>
+            </span>
+          ),
+        })),
+      [modalLabelsByType, modals],
+    );
+
+    const closeModalOptions = useMemo(
+      () => [
+        {
+          value: closeCurrentValue,
+          label: t("pageBuilder.blocks.button.actions.closeModal.current"),
+        },
+        ...modalOptions,
+      ],
+      [modalOptions, t],
+    );
+
+    const setModalAction = (nextAction: string, nextModalId?: string) => {
+      updateProps({
+        ...data.props,
+        action: nextAction,
+        actionData: {
+          modalId: nextModalId ?? modalId,
+        },
+      });
+    };
 
     return (
       <StylesConfigurationPanel
@@ -121,60 +180,56 @@ export const ButtonConfiguration = deepMemo(
                 label={t("pageBuilder.blocks.button.action")}
                 options={[
                   {
-                    value: "open-popup",
+                    value: "open-modal",
                     label: t(
-                      "pageBuilder.blocks.button.actions.openPopup.label",
+                      "pageBuilder.blocks.button.actions.openModal.label",
                     ),
                   },
                   {
-                    value: "close-current-popup",
+                    value: "close-modal",
                     label: t(
-                      "pageBuilder.blocks.button.actions.closeCurrentPopup.label",
-                    ),
-                  },
-                  {
-                    value: "open-banner",
-                    label: t(
-                      "pageBuilder.blocks.button.actions.openBanner.label",
-                    ),
-                  },
-                  {
-                    value: "close-current-banner",
-                    label: t(
-                      "pageBuilder.blocks.button.actions.closeCurrentBanner.label",
+                      "pageBuilder.blocks.button.actions.closeModal.label",
                     ),
                   },
                 ]}
                 defaultValue={action ?? ButtonDefaultAction}
-                onChange={(action) => updateProps({ ...data.props, action })}
+                onChange={(nextAction) => setModalAction(nextAction)}
               />
-              {action === "open-popup" && (
-                <TextInput
-                  label={t(
-                    "pageBuilder.blocks.button.actions.openPopup.popupId",
-                  )}
-                  defaultValue={actionData?.popupId}
-                  helperText={t(
-                    "pageBuilder.blocks.button.actions.openPopup.helperText",
-                  )}
-                  onChange={(popupId) =>
-                    updateProps({ ...data.props, actionData: { popupId } })
-                  }
-                />
+              {action === "open-modal" && (
+                <div className="flex flex-col gap-2">
+                  <Label>
+                    {t("pageBuilder.blocks.button.actions.openModal.modalId")}
+                  </Label>
+                  <Combobox
+                    values={modalOptions}
+                    value={modalId || undefined}
+                    size="sm"
+                    className="w-full"
+                    placeholder={t(
+                      "pageBuilder.blocks.button.actions.openModal.helperText",
+                    )}
+                    onItemSelect={(value) => setModalAction(action, value)}
+                  />
+                </div>
               )}
-              {action === "open-banner" && (
-                <TextInput
-                  label={t(
-                    "pageBuilder.blocks.button.actions.openBanner.bannerId",
-                  )}
-                  defaultValue={actionData?.bannerId}
-                  helperText={t(
-                    "pageBuilder.blocks.button.actions.openBanner.helperText",
-                  )}
-                  onChange={(bannerId) =>
-                    updateProps({ ...data.props, actionData: { bannerId } })
-                  }
-                />
+              {action === "close-modal" && (
+                <div className="flex flex-col gap-2">
+                  <Label>
+                    {t("pageBuilder.blocks.button.actions.openModal.modalId")}
+                  </Label>
+                  <Combobox
+                    values={closeModalOptions}
+                    value={modalId || closeCurrentValue}
+                    size="sm"
+                    className="w-full"
+                    onItemSelect={(value) =>
+                      setModalAction(
+                        action,
+                        value === closeCurrentValue ? "" : value,
+                      )
+                    }
+                  />
+                </div>
               )}
             </>
           )}

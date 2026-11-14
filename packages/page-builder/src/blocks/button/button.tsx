@@ -1,8 +1,7 @@
 "use client";
 
 import {
-  useCurrentBanner,
-  useCurrentPopup,
+  useCurrentModal,
   useReaderContext,
 } from "@hacado/page-builder-base/reader";
 import { ButtonProps } from "./schema";
@@ -15,8 +14,7 @@ type Props = Omit<NonNullable<ButtonProps["props"]>, "children"> & {
 
 export const Button = ({ children, type, ...props }: Props) => {
   const readerContext = useReaderContext();
-  const currentPopup = useCurrentPopup();
-  const currentBanner = useCurrentBanner();
+  const currentModal = useCurrentModal();
 
   if (type === "action") {
     const { action, actionData, ...rest } = props as ButtonProps["props"] & {
@@ -24,24 +22,22 @@ export const Button = ({ children, type, ...props }: Props) => {
     };
 
     const onClick = () => {
-      if (action === "open-popup") {
-        const popupId = actionData?.popupId;
-        if (popupId && readerContext) {
-          readerContext.popup.openPopup(popupId);
+      const modalId = actionData?.modalId as string | undefined;
+
+      if (action === "open-modal") {
+        if (!modalId || !readerContext) return;
+
+        readerContext.modal.open(modalId);
+        return;
+      }
+
+      if (action === "close-modal") {
+        if (modalId && readerContext) {
+          readerContext.modal.close(modalId);
+          return;
         }
-      } else if (action === "close-current-popup") {
-        if (currentPopup) {
-          currentPopup.setIsOpen(false);
-        }
-      } else if (action === "open-banner") {
-        const bannerId = actionData?.bannerId;
-        if (bannerId && readerContext) {
-          readerContext.banner.openBanner(bannerId);
-        }
-      } else if (action === "close-current-banner") {
-        if (currentBanner) {
-          currentBanner.setIsOpen(false);
-        }
+
+        currentModal?.setIsOpen(false);
       }
     };
 

@@ -6,6 +6,7 @@ import { SidebarInset, SidebarProvider, useSidebar } from "@hacado/ui/sidebar";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { createPortal } from "react-dom";
+import type { ZodTypeAny } from "zod";
 import {
   EditorArgsContext,
   EditorStateProvider,
@@ -50,6 +51,10 @@ export type BuilderProps<T extends BaseZodDictionary> = {
   footer?: React.ReactNode;
   getImageBlock?: (file: UploadedFile) => TEditorBlock;
   toolbarButtons?: ToolbarButtonInjection[];
+  enableModalsView?: boolean;
+  modalsPanel?: React.ReactNode;
+  /** Optional host schema for `block.base` (page-builder HTML id/className, etc.). */
+  basePropsSchema?: ZodTypeAny;
 };
 
 const SIDEBAR_COOKIE_NAME = "builder-sidebar-open";
@@ -130,6 +135,7 @@ const BuilderInternal = ({
   header,
   footer,
   toolbarButtons,
+  modalsPanel,
 }: Omit<BuilderProps<any>, "editorBlocks" | "rootBlock" | "schemas">) => {
   const resetDocument = useResetDocument();
   const errors = useEditorStateErrors();
@@ -155,6 +161,7 @@ const BuilderInternal = ({
               readerBlocks={readerBlocks}
               header={header}
               footer={footer}
+              modalsPanel={modalsPanel}
             />
           </SidebarInset>
           <InspectorDrawer extraTabs={extraTabs} />
@@ -171,6 +178,8 @@ export const Builder = <T extends BaseZodDictionary>({
   rootBlock,
   getImageBlock,
   schemas,
+  enableModalsView,
+  basePropsSchema,
   ...rest
 }: BuilderProps<T>) => {
   return (
@@ -181,7 +190,9 @@ export const Builder = <T extends BaseZodDictionary>({
       rootBlock={rootBlock}
       document={defaultValue}
       schemas={schemas}
+      basePropsSchema={basePropsSchema}
       getImageBlock={getImageBlock}
+      enableModalsView={enableModalsView}
     >
       <EditorArgsContext.Provider value={args || {}}>
         <BuilderInternal args={args} defaultValue={defaultValue} {...rest} />

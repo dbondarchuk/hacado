@@ -247,7 +247,7 @@ export const PopupPropsDefaults = () =>
                     data: {
                       props: {
                         type: "action",
-                        action: "close-current-popup",
+                        action: "close-modal",
                         children: [
                           {
                             type: "InlineContainer",
