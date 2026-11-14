@@ -10,7 +10,13 @@ import {
 import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import { Badge } from "@hacado/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+  CardTitle,
+} from "@hacado/ui/card";
 import { FormField } from "@hacado/ui/form";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
@@ -63,7 +69,7 @@ const CancellationSection: React.FC<TabProps & { withDeposit: boolean }> = ({
     //   </CardHeader>
     // <CardContent className="flex flex-col gap-4 py-6">
     <div className="flex flex-col gap-4">
-      <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      <div className={cardSectionTitleClassName}>
         {t(
           `cancellationsAndReschedules.cancellationPolicy.${withDeposit ? "withDeposit" : "withoutDeposit"}.title`,
         )}
@@ -113,13 +119,16 @@ const CancellationSection: React.FC<TabProps & { withDeposit: boolean }> = ({
                 />
                 <Card>
                   <CardHeader className="border-b">
-                    <CardTitle className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm text-muted-foreground">
-                      <span className="font-semibold uppercase tracking-wide">
+                    <CardTitle
+                      variant="section"
+                      className="flex min-w-0 flex-1 flex-col items-start gap-0.5"
+                    >
+                      <span>
                         {t(
                           "cancellationsAndReschedules.cancellationPolicy.default.title",
                         )}
                       </span>
-                      <span>
+                      <span className="font-normal normal-case tracking-normal text-muted-foreground">
                         {t(
                           "cancellationsAndReschedules.cancellationPolicy.default.label",
                         )}

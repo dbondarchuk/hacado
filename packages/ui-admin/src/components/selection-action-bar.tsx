@@ -18,11 +18,12 @@ const bar = cva(
   "flex max-w-[calc(100vw-2rem)] w-full md:max-w-3xl items-center justify-between gap-3 rounded-xl border border-transparent bg-primary px-4 py-3 text-sm text-primary-foreground shadow-lg animate-in fade-in slide-in-from-bottom-4",
 );
 
-function getComponentName(type: React.ElementType): string {
+function getComponentName(type: React.ReactElement["type"]): string {
   if (typeof type === "string") return type;
 
   if (typeof type === "function") {
-    return type.displayName || type.name || "";
+    const component = type as { displayName?: string; name?: string };
+    return component.displayName || component.name || "";
   }
 
   if (typeof type === "object" && type !== null) {
@@ -184,7 +185,7 @@ export function SelectionActionBar({
             <MobileSelectionActions
               primary={mobilePrimary}
               secondary={mobileSecondary}
-              primaryVariant={primaryVariant}
+              primaryVariant={primaryVariant ?? "destructive"}
             />
           ) : null}
         </div>

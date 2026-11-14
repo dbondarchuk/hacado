@@ -153,9 +153,7 @@ function SectionCard({
   return (
     <Card className={className}>
       <CardHeader className="space-y-1 border-b">
-        <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-          {title}
-        </CardTitle>
+        <CardTitle variant="section">{title}</CardTitle>
         {description ? (
           <p className="text-sm font-normal normal-case tracking-normal text-muted-foreground">
             {description}

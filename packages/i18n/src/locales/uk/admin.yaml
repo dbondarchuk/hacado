@@ -1479,12 +1479,12 @@ pages:
     pageSlug: Адреса сторінки
     pageSlugTooltip: Відносний URL сторінки. Наприклад, сторінка з адресою 'my-new-page' буде доступна за повноюадресою 'yourdomain.com/my-new-page'
     pageSlugPlaceholder: Адреса сторінки
-    pageName: Назва сторінки
+    pageName: Заголовок
     pageNamePlaceholder: напр. Політики
     url: URL
     editUrl: Редагувати URL
-    slugGeneratedPlaceholder: stvoreno-z-nazvy
-    slugAutoHint: Заповнюється, коли ви вводите назву. Ви можете змінити його.
+    slugGeneratedPlaceholder: stvoreno-z-zagolovka
+    slugAutoHint: Заповнюється, коли ви вводите заголовок. Ви можете змінити його.
     slugChangeWarning: Зміна URL може зламати посилання, якими ви вже поділилися.
     published: Опубліковано?
     publishedTooltip: Чи видима сторінка для ваших відвідувачів
@@ -1517,7 +1517,7 @@ pages:
     settingsTabLabel: Налаштування
     header: Заголовок
     footer: Підвал
-    pageNameTooltip: Ім’я, яке відображається в адміністраторі та використовується для створення URL-адреси
+    pageNameTooltip: Показується у вкладці браузера та в результатах пошуку, в адмінці, і використовується для створення URL-адреси
   table:
     columns:
       title: Заголовок
@@ -2275,9 +2275,9 @@ catalog:
     form:
       details: Деталі
       fileSettings: Налаштування файлів
-      name: Назва
-      namePlaceholder: Назва поля
-      nameTooltip: Унікальний ID поля. Може містити тільки літери, цифри та підкреслення
+      name: ID поля
+      namePlaceholder: notatky
+      nameTooltip: Ідентифікатор поля, а не текст, який бачать відвідувачі. Відповіді зберігаються під цим ID, тож не змінюйте його. Лише літери, цифри та підкреслення.
       label: Мітка
       labelPlaceholder: Мітка поля
       labelTooltip: Мітка, яка буде показана користувачу
@@ -2294,7 +2294,7 @@ catalog:
       fileTypes: Типи файлів
       fileTypesTooltip: Дозволені типи файлів для завантаження
       validation:
-        nameUnique: Назва поля повинна бути унікальною
+        nameUnique: ID поля має бути унікальним
       toasts:
         changesSaved: Ваші зміни були збережені.
         requestError: Виникла проблема з вашим запитом.
@@ -2307,7 +2307,7 @@ catalog:
       acceptedFilesPlaceholder: Натисніть кнопку плюс, щоб додати новий тип файлу
     table:
       columns:
-        name: Назва
+        name: ID поля
         type: Тип
         label: Мітка
         updatedAt: Оновлено
@@ -4375,4 +4375,3 @@ memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
-

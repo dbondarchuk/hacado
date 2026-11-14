@@ -445,7 +445,7 @@ export const GiftCardForm: React.FC<{
         <div className="flex flex-col gap-4">
           <Card>
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("catalog.giftCards.form.giftCard")}
               </CardTitle>
             </CardHeader>
@@ -540,7 +540,7 @@ export const GiftCardForm: React.FC<{
           </Card>
           <Card>
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("catalog.giftCards.form.amountAndExpiry")}
               </CardTitle>
             </CardHeader>
@@ -617,7 +617,7 @@ export const GiftCardForm: React.FC<{
           </Card>
           <Card>
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("catalog.giftCards.form.customerAndPayment")}
               </CardTitle>
             </CardHeader>

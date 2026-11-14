@@ -5,6 +5,8 @@ import { PolarBillingPlanSlug } from "@/config/polar-billing";
 import { useI18n } from "@hacado/i18n/client";
 import type { InstallKeys } from "@hacado/i18n/keys";
 import { Button } from "@hacado/ui/button";
+import { cardSectionTitleClassName } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
 import { Check, Sparkles } from "lucide-react";
@@ -116,7 +118,7 @@ export function CheckoutPlans({
               </div>
             ) : null}
 
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            <p className={cn("mb-3", cardSectionTitleClassName)}>
               {plan.includesLowerTierLabel ?? t("checkout.includedLabel")}
             </p>
             <ul className="mb-6 flex flex-1 flex-col gap-2.5">

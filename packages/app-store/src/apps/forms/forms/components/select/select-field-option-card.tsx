@@ -14,7 +14,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import {
   FormControl,
@@ -128,7 +133,7 @@ export const SelectFieldOptionCard: React.FC<SelectFieldOptionProps> = ({
             </span>
             <GripVertical />
           </Button>
-          <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className={cardSectionTitleClassName}>
             {option || t("form.fields.select.options.option")}
           </span>
         </div>

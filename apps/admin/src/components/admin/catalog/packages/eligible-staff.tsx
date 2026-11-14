@@ -15,7 +15,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import {
   FormControl,
   FormField,
@@ -58,7 +63,7 @@ export const EligibleStaff: React.FC<{
           {staffFields.map((item, index) => (
             <Card key={item.fields_id}>
               <CardHeader className="justify-between relative flex flex-row border-b px-3 py-3 w-full items-center">
-                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <span className={cardSectionTitleClassName}>
                   {t("catalog.packages.form.eligibleStaff.member")}
                 </span>
                 <AlertDialog>

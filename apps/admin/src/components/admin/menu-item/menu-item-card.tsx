@@ -9,7 +9,12 @@ import {
   MenuItemWithSubMenu,
 } from "@hacado/types/configuration/styling";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Combobox } from "@hacado/ui/combobox";
 import {
@@ -159,7 +164,8 @@ export function MenuItemCard({
             >
               <span
                 className={cn(
-                  "text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate",
+                  cardSectionTitleClassName,
+                  "truncate",
                   !itemType ? "text-destructive" : "",
                 )}
               >
@@ -179,7 +185,8 @@ export function MenuItemCard({
           ) : (
             <span
               className={cn(
-                "text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate",
+                cardSectionTitleClassName,
+                "truncate",
                 !itemType ? "text-destructive" : "",
               )}
             >

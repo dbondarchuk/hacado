@@ -23,7 +23,13 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+  CardTitle,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
@@ -167,9 +173,7 @@ export const StylingTab: React.FC<{
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader className="border-b">
-            <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-              Fonts
-            </CardTitle>
+            <CardTitle variant="section">Fonts</CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="gap-2 flex flex-col md:grid md:grid-cols-3 md:gap-4">
@@ -274,7 +278,8 @@ export const StylingTab: React.FC<{
                   <CardHeader className="justify-between relative flex flex-row items-center border-b px-3 py-3 w-full">
                     <div
                       className={cn(
-                        "flex flex-col text-sm font-semibold uppercase tracking-wide text-muted-foreground",
+                        "flex flex-col",
+                        cardSectionTitleClassName,
                         (!rowType || hasMultipleTypes) && "text-destructive",
                       )}
                     >

@@ -32,7 +32,10 @@ const PackageCard = ({ pkg }: { pkg: CustomerPackageListModel }) => {
   return (
     <Card key={pkg._id} id={`package-${pkg._id}`}>
       <CardHeader>
-        <CardTitle className="text-base justify-between flex items-center gap-2 flex-wrap">
+        <CardTitle
+          variant="section"
+          className="justify-between flex items-center gap-2 flex-wrap"
+        >
           <span>{pkg.name}</span>
           <Badge variant="outline">
             <I18nText
@@ -91,7 +94,10 @@ export const PackageCardSkeleton = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base justify-between flex items-center gap-2 flex-wrap mb-2">
+        <CardTitle
+          variant="section"
+          className="justify-between flex items-center gap-2 flex-wrap mb-2"
+        >
           <Skeleton className="w-40 max-w-full h-4" />
           <Skeleton className="w-20 h-4" />
         </CardTitle>

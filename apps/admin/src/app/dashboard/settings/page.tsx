@@ -64,7 +64,10 @@ export default async function Page() {
             >
               <Card className="h-full transition-colors hover:bg-accent/40">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base font-medium">
+                  <CardTitle
+                    variant="section"
+                    className="flex items-center gap-2"
+                  >
                     {item.icon ? (
                       <span className="text-muted-foreground [&>svg]:size-5 [&>svg]:shrink-0">
                         {item.icon}

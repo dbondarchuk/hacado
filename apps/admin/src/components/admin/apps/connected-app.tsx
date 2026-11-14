@@ -10,6 +10,7 @@ import {
   ConnectedAppStatusMessage,
 } from "@hacado/ui-admin/connected-app-properties";
 import { Button } from "@hacado/ui/button";
+import { cardSectionTitleClassName } from "@hacado/ui/card";
 import { Link } from "@hacado/ui/link";
 import {
   TooltipResponsive,
@@ -102,15 +103,11 @@ export const ConnectedAppRow: React.FC<ConnectedAppRowProps> = ({ app }) => {
       </div>
       <div className="grid gap-2.5 px-3 py-2.5 md:px-4 md:py-3 md:grid-cols-2 flex-1">
         <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Account
-          </p>
+          <p className={cardSectionTitleClassName}>Account</p>
           <ConnectedAppAccount account={app.account} className="break-all" />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Status
-          </p>
+          <p className={cardSectionTitleClassName}>Status</p>
           <ConnectedAppStatusMessage
             status={app.status}
             statusText={app.statusText}

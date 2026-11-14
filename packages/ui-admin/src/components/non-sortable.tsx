@@ -40,7 +40,10 @@ export function NonSortable({
   return (
     <Card className={variants({ className })}>
       <CardHeader className="border-b">
-        <CardTitle className="text-xs font-semibold uppercase tracking-wide text-muted-foreground flex items-center justify-between">
+        <CardTitle
+          variant="section"
+          className="flex items-center justify-between"
+        >
           <span>{title}</span>
           <div className="flex flex-row gap-2 items-center">
             {collapse && (

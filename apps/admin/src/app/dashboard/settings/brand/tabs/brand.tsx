@@ -7,7 +7,13 @@ import { languages, useI18n } from "@hacado/i18n/client";
 import { zNonEmptyString } from "@hacado/types/utils";
 import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+  CardTitle,
+} from "@hacado/ui/card";
 import { Combobox } from "@hacado/ui/combobox";
 import {
   Dialog,
@@ -215,7 +221,7 @@ export const BrandTab: React.FC<{
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         <Card className="lg:col-span-4">
           <CardHeader className="border-b">
-            <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            <CardTitle variant="section">
               {t("settings.brand.form.visualSectionTitle")}
             </CardTitle>
           </CardHeader>
@@ -230,7 +236,7 @@ export const BrandTab: React.FC<{
                   />
                 ) : (
                   <div className="h-20 w-20 rounded-lg object-contain border bg-muted/40 flex items-center justify-center">
-                    <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    <span className={cardSectionTitleClassName}>
                       {t("settings.brand.form.noLogo")}
                     </span>
                   </div>
@@ -266,7 +272,7 @@ export const BrandTab: React.FC<{
 
         <Card className="lg:col-span-8">
           <CardHeader className="border-b">
-            <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            <CardTitle variant="section">
               {t("settings.brand.form.websiteSectionTitle")}
             </CardTitle>
           </CardHeader>
@@ -367,7 +373,7 @@ export const BrandTab: React.FC<{
 
       <Card className="mt-4">
         <CardHeader className="border-b">
-          <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <CardTitle variant="section">
             {t("settings.brand.form.seoSectionTitle")}
           </CardTitle>
         </CardHeader>
@@ -429,7 +435,7 @@ export const BrandTab: React.FC<{
 
       <Card className="mt-4">
         <CardHeader className="border-b">
-          <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <CardTitle variant="section">
             {t("settings.brand.form.hacadoAddress.sectionTitle")}
           </CardTitle>
         </CardHeader>

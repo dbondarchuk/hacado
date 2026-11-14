@@ -11,7 +11,12 @@ import {
 import { PackageSelector } from "@hacado/ui-admin/package-selector";
 import { ServiceSelector } from "@hacado/ui-admin/service-selector";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import {
   FormControl,
@@ -196,7 +201,9 @@ export const CatalogNodeCard: React.FC<{
         >
           <GripVertical className="h-4 w-4 text-muted-foreground" />
         </button>
-        <div className="min-w-0 flex-1 truncate text-sm font-medium">
+        <div
+          className={cn(cardSectionTitleClassName, "min-w-0 flex-1 truncate")}
+        >
           <CatalogNodeHeader node={node} selectedName={selectedName} />
         </div>
         <Button

@@ -14,7 +14,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import {
   FormControl,
@@ -116,7 +121,7 @@ export const AddonSelectCard: React.FC<AddonSelectProps> = ({
             </span>
             <GripVertical />
           </Button>
-          <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className={cardSectionTitleClassName}>
             {t("services.addonSelectCard.addon")}
           </span>
         </div>

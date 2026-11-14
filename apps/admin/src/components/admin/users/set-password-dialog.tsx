@@ -109,7 +109,7 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" size="sm">
           {t("users.profile.security.setPassword")}
         </Button>
       </DialogTrigger>

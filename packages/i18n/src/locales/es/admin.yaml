@@ -1479,12 +1479,12 @@ pages:
     pageSlug: Babosa de página
     pageSlugTooltip: URL relativa a la página. Por ejemplo, la página con el slug 'mi-nueva-página' estará disponible en 'tudominio.com/mi-nueva-página'
     pageSlugPlaceholder: Babosa de página
-    pageName: Nombre de la página
+    pageName: Título
     pageNamePlaceholder: p. ej. Políticas
     url: URL
     editUrl: Editar URL
-    slugGeneratedPlaceholder: creado-a-partir-del-nombre
-    slugAutoHint: Se completa al escribir el nombre. Puedes cambiarlo.
+    slugGeneratedPlaceholder: creado-a-partir-del-titulo
+    slugAutoHint: Se completa al escribir el título. Puedes cambiarlo.
     slugChangeWarning: Cambiar la URL puede romper los enlaces que ya has compartido.
     published: ¿Publicado?
     publishedTooltip: ¿La página es visible para sus visitantes?
@@ -1517,7 +1517,7 @@ pages:
     settingsTabLabel: Ajustes
     header: Encabezamiento
     footer: Pie de página
-    pageNameTooltip: Nombre que se muestra en el administrador y se utiliza para generar la URL
+    pageNameTooltip: Se muestra en la pestaña del navegador y en los resultados de búsqueda, en el administrador, y se usa para generar la URL
   table:
     columns:
       title: Título
@@ -2277,9 +2277,9 @@ catalog:
     form:
       details: Detalles
       fileSettings: Configuración de archivos
-      name: Nombre
-      namePlaceholder: Nombre del campo
-      nameTooltip: ID único del campo. Solo puede contener letras, dígitos y guiones bajos.
+      name: ID del campo
+      namePlaceholder: notas_alergia
+      nameTooltip: Identificador del campo, no el texto que ven los visitantes. Las respuestas se guardan con este ID, así que no lo cambies. Solo letras, dígitos y guiones bajos.
       label: Etiqueta
       labelPlaceholder: Etiqueta de campo
       labelTooltip: Etiqueta que se mostrará al usuario
@@ -2296,7 +2296,7 @@ catalog:
       fileTypes: Tipos de archivos
       fileTypesTooltip: Tipos de archivos permitidos para cargar
       validation:
-        nameUnique: El nombre del campo debe ser único.
+        nameUnique: El ID del campo debe ser único.
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
@@ -2309,7 +2309,7 @@ catalog:
       acceptedFilesPlaceholder: Haga clic en el botón más para agregar un nuevo tipo de archivo
     table:
       columns:
-        name: Nombre
+        name: ID del campo
         type: Tipo
         label: Etiqueta
         updatedAt: Actualizado en
@@ -4377,4 +4377,3 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
-

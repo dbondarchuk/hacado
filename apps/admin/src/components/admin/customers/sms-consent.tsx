@@ -49,7 +49,7 @@ export const CustomerSmsConsent = ({
   return (
     <Card>
       <CardHeader className="border-b">
-        <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <CardTitle variant="section">
           {t("customers.smsConsent.title")}
         </CardTitle>
       </CardHeader>

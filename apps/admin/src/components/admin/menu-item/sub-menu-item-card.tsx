@@ -3,7 +3,12 @@ import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
 import { SubMenuItem } from "@hacado/types/configuration/styling";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { cva } from "class-variance-authority";
 import { ChevronDown, GripVertical, Trash } from "lucide-react";
@@ -124,7 +129,8 @@ export function SubMenuItemCard({
           )}
           <span
             className={cn(
-              "text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate",
+              cardSectionTitleClassName,
+              "truncate",
               !label || invalid ? "text-destructive" : "",
             )}
           >

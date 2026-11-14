@@ -217,12 +217,12 @@ fields:
     min: Field description should be at least 3 characters long
     max: Field description must be no more than 1024 characters long
   name:
-    required: Field name must be at least 2 characters long
-    max: Field name must be no more than 64 characters long
-    unique: Field name must be unique
+    required: Field ID must be at least 2 characters long
+    max: Field ID must be no more than 64 characters long
+    unique: Field ID must be unique
     invalid: >-
-      Field name must start with letter and contain only letters, digits, and
-      underscore (_)
+      Field ID must start with a letter and contain only letters, digits, and
+      underscores (_)
   options:
     min: At least one option is required
   option:

@@ -14,7 +14,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
@@ -118,7 +123,7 @@ export const FormFieldCard: FC<FormFieldCardProps> = ({
           </Button>
           <span
             className={cn(
-              "text-xs font-semibold uppercase tracking-wide text-muted-foreground",
+              cardSectionTitleClassName,
               invalid ? "text-destructive" : "",
             )}
           >

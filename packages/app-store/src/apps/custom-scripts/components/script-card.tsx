@@ -20,7 +20,12 @@ import {
 } from "@hacado/ui/alert-dialog";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
@@ -226,7 +231,7 @@ export const ScriptCard = ({
               onClick={() => onCollapsedChange(!collapsed)}
               aria-expanded={!collapsed}
             >
-              <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate">
+              <span className={cn(cardSectionTitleClassName, "truncate")}>
                 {headerLabel}
               </span>
               <ChevronDown
@@ -237,7 +242,7 @@ export const ScriptCard = ({
               />
             </Button>
           ) : (
-            <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate">
+            <span className={cn(cardSectionTitleClassName, "truncate")}>
               {headerLabel}
             </span>
           )}

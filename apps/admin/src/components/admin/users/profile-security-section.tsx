@@ -149,35 +149,33 @@ export const ProfileSecuritySection = ({
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-3 min-w-0">
           <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
             <Mail className="h-5 w-5 text-muted-foreground" />
           </div>
           <div className="flex flex-col min-w-0">
             <p className="font-medium">{t("users.profile.security.phone")}</p>
-            <p className="text-base text-muted-foreground truncate">{email}</p>
+            <p className="text-muted-foreground truncate">{email}</p>
           </div>
         </div>
         <EmailChangeDialog currentEmail={email} />
       </div>
       <div className="h-px w-full bg-border" />
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-3 min-w-0">
           <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
             <Phone className="h-5 w-5 text-muted-foreground" />
           </div>
           <div className="flex flex-col min-w-0">
             <p className="font-medium">{t("users.profile.security.phone")}</p>
-            <p className="text-base text-muted-foreground truncate">
-              {phone || "-"}
-            </p>
+            <p className="text-muted-foreground truncate">{phone || "-"}</p>
           </div>
         </div>
         <PhoneChangeDialog currentPhone={phone || ""} />
       </div>
       <div className="h-px w-full bg-border" />
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-3 min-w-0">
           <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
             <Lock className="h-5 w-5 text-muted-foreground" />
@@ -186,7 +184,7 @@ export const ProfileSecuritySection = ({
             <p className="font-medium">
               {t("users.profile.security.password")}
             </p>
-            <p className="text-base text-muted-foreground">
+            <p className="text-muted-foreground">
               {hasCredential
                 ? t("users.profile.security.passwordDescription")
                 : t("users.profile.security.setPasswordDescription")}
@@ -203,7 +201,7 @@ export const ProfileSecuritySection = ({
       {enabledSocialProviders.length > 0 ? (
         <>
           <div className="h-px w-full bg-border" />
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-sm">
             <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
               <Link2 className="h-5 w-5 text-muted-foreground" />
             </div>
@@ -223,7 +221,7 @@ export const ProfileSecuritySection = ({
                   key={provider}
                   className="flex flex-col py-2 sm:flex-row sm:items-center justify-between gap-4"
                 >
-                  <p className="text-base text-muted-foreground truncate">
+                  <p className="text-muted-foreground truncate">
                     {linkedAccount
                       ? t(keys.connected as Parameters<typeof t>[0])
                       : t(keys.notConnected as Parameters<typeof t>[0])}
@@ -236,13 +234,14 @@ export const ProfileSecuritySection = ({
                           onSuccess={loadAccounts}
                         />
                       ) : (
-                        <Button variant="outline" disabled>
+                        <Button variant="outline" disabled size="sm">
                           {t(keys.unlink as Parameters<typeof t>[0])}
                         </Button>
                       )
                     ) : (
                       <Button
                         variant="outline"
+                        size="sm"
                         disabled={linkingProvider === provider}
                         onClick={() => void onLinkProvider(provider)}
                       >

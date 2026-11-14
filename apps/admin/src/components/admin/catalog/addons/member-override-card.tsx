@@ -14,7 +14,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { useCurrencySymbol } from "@hacado/ui/context";
 import { DurationInput } from "@hacado/ui/duration-input";
@@ -69,7 +74,7 @@ export const MemberOverrideCard: React.FC<MemberOverrideCardProps> = ({
   return (
     <Card>
       <CardHeader className="justify-between relative flex flex-row border-b px-3 py-3 w-full items-center">
-        <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <span className={cardSectionTitleClassName}>
           {t("catalog.addons.form.staffOverrides.memberOverrideCard.member")}
         </span>
         <div className="flex flex-row items-start">

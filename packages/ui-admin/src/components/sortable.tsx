@@ -89,19 +89,24 @@ export function Sortable({
   return (
     <Card className={variants({ className })}>
       <CardHeader className="border-b">
-        <CardTitle className="text-xs font-semibold uppercase tracking-wide text-muted-foreground flex items-center justify-between">
+        <CardTitle
+          variant="section"
+          className="flex items-center justify-between"
+        >
           <div
             className={cn(
-              "flex flex-col gap-1 text-left text-xs text-muted-foreground",
+              "flex flex-col gap-1 text-left",
               isInvalid ? "text-destructive" : "",
             )}
           >
-            <div className="font-semibold uppercase tracking-wide">
+            <div>
               {title}{" "}
               {required ? <span className="text-destructive">*</span> : null}
             </div>
             {invalidMessage && (
-              <div className="text-[10px]">{invalidMessage}</div>
+              <div className="text-[10px] font-normal normal-case tracking-normal">
+                {invalidMessage}
+              </div>
             )}
           </div>
           <div className="flex flex-row gap-2 items-center">

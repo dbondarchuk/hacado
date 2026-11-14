@@ -1479,12 +1479,12 @@ pages:
     pageSlug: Limace de page
     pageSlugTooltip: URL relative de la page. Par exemple, la page avec le slug « ma-nouvelle-page » sera disponible sur « votredomaine.com/my-new-page ».
     pageSlugPlaceholder: Limace de page
-    pageName: Nom de la page
+    pageName: Titre
     pageNamePlaceholder: p. ex. Politiques
     url: URL
     editUrl: Modifier l'URL
-    slugGeneratedPlaceholder: cree-a-partir-du-nom
-    slugAutoHint: Rempli automatiquement à partir du nom. Vous pouvez le modifier.
+    slugGeneratedPlaceholder: cree-a-partir-du-titre
+    slugAutoHint: Rempli automatiquement à partir du titre. Vous pouvez le modifier.
     slugChangeWarning: Modifier l'URL peut casser les liens que vous avez déjà partagés.
     published: Publié ?
     publishedTooltip: La page est-elle visible par vos visiteurs
@@ -1517,7 +1517,7 @@ pages:
     settingsTabLabel: Paramètres
     header: En-tête
     footer: Pied de page
-    pageNameTooltip: Nom affiché dans l'administrateur et utilisé pour générer l'URL
+    pageNameTooltip: Affiché dans l'onglet du navigateur et les résultats de recherche, dans l'administration, et utilisé pour générer l'URL
   table:
     columns:
       title: Titre
@@ -2277,9 +2277,9 @@ catalog:
     form:
       details: Détails
       fileSettings: Paramètres des fichiers
-      name: Nom
-      namePlaceholder: Nom du champ
-      nameTooltip: ID unique du champ. Ne peut contenir que des lettres, des chiffres et un trait de soulignement
+      name: ID du champ
+      namePlaceholder: notes_allergie
+      nameTooltip: Identifiant du champ, et non le texte affiché aux visiteurs. Les réponses sont enregistrées sous cet ID, alors gardez-le stable. Lettres, chiffres et underscores uniquement.
       label: Étiquette
       labelPlaceholder: Libellé du champ
       labelTooltip: Étiquette qui sera montrée à l'utilisateur
@@ -2296,7 +2296,7 @@ catalog:
       fileTypes: Types de fichiers
       fileTypesTooltip: Types de fichiers autorisés pour le téléchargement
       validation:
-        nameUnique: Le nom du champ doit être unique
+        nameUnique: L'ID du champ doit être unique
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
@@ -2309,7 +2309,7 @@ catalog:
       acceptedFilesPlaceholder: Cliquez sur le bouton plus pour ajouter un nouveau type de fichier
     table:
       columns:
-        name: Nom
+        name: ID du champ
         type: Taper
         label: Étiquette
         updatedAt: Mis à jour à
@@ -4377,4 +4377,3 @@ smsConsent:
   attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
-

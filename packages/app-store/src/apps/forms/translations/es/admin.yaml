@@ -191,9 +191,9 @@ form:
     deleteConfirmTitle: ¿Estás absolutamente seguro?
     deleteConfirmDescription: ¿Está seguro de que desea eliminar este campo?
     name:
-      label: Nombre del campo
-      placeholder: mi campo
-      description: ID único del campo. Solo puede contener letras, dígitos y guiones bajos (_)
+      label: ID del campo
+      placeholder: notas_alergia
+      description: Identificador del campo, no el texto que ven las personas. Las respuestas se guardan con este ID, así que no lo cambies. Solo letras, dígitos y guiones bajos.
     label:
       label: Etiqueta de campo
       placeholder: mi campo
@@ -273,9 +273,9 @@ validation:
   form:
     fields:
       name:
-        required: El nombre del campo debe tener al menos 2 caracteres.
-        max: El nombre del campo no debe tener más de 64 caracteres.
-        invalid: El nombre del campo debe comenzar con letra y contener solo letras, dígitos y guión bajo (_)
+        required: El ID del campo debe tener al menos 2 caracteres
+        max: El ID del campo no debe tener más de 64 caracteres
+        invalid: El ID del campo debe empezar por una letra y contener solo letras, dígitos y guiones bajos (_)
       label:
         required: Se requiere etiqueta
         max: La etiqueta no debe exceder los 64 caracteres.

@@ -18,7 +18,12 @@ import {
 } from "@hacado/ui/alert-dialog";
 import { BooleanSelect } from "@hacado/ui/boolean-select";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { useCurrencySymbol } from "@hacado/ui/context";
 import { DurationInput } from "@hacado/ui/duration-input";
@@ -379,7 +384,7 @@ export const ReschedulePolicyCard: React.FC<
         <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5">
           <span
             className={cn(
-              "text-sm font-semibold uppercase tracking-wide text-muted-foreground",
+              cardSectionTitleClassName,
               !isValid && "text-destructive",
             )}
           >

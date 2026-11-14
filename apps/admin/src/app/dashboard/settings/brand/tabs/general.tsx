@@ -86,9 +86,7 @@ export const GeneralTab: React.FC<{
     <>
       <Card>
         <CardHeader className="border-b">
-          <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            {t("navigation.general")}
-          </CardTitle>
+          <CardTitle variant="section">{t("navigation.general")}</CardTitle>
         </CardHeader>
         <CardContent className="pt-6 gap-2 md:gap-4 flex flex-col">
           <div className="gap-2 flex flex-col md:grid md:grid-cols-2 md:gap-4">

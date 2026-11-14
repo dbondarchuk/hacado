@@ -11,7 +11,13 @@ import {
   OrganizationSubscriptionStatus,
 } from "@hacado/types/billing";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+  CardTitle,
+} from "@hacado/ui/card";
 import { useTimeZone } from "@hacado/ui/context";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
@@ -153,7 +159,7 @@ export function GeneralBillingCard({
     <Card className="mt-4">
       <SeatsPurchaseSuccessToast />
       <CardHeader className="border-b">
-        <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <CardTitle variant="section">
           {t("settings.general.billing.sectionTitle")}
         </CardTitle>
       </CardHeader>
@@ -257,12 +263,12 @@ export function GeneralBillingCard({
         ) : null}
         {seats ? (
           <div className="flex flex-col gap-4 border-t pt-4">
-            <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            <span className={cardSectionTitleClassName}>
               {t("settings.general.billing.seatsSectionTitle")}
             </span>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-3">
-                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <span className={cardSectionTitleClassName}>
                   {t("settings.general.billing.seatsIncluded.title")}
                 </span>
                 <div className="grid sm:grid-cols-2 gap-3">
@@ -289,7 +295,7 @@ export function GeneralBillingCard({
                 </div>
               </div>
               <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-3">
-                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <span className={cardSectionTitleClassName}>
                   {t("settings.general.billing.seatsAdditional.title")}
                 </span>
                 <div className="flex min-w-0 flex-col gap-1">
@@ -377,12 +383,12 @@ export function GeneralBillingCard({
         ) : null}
         {details.benefits.sms ? (
           <div className="flex flex-col gap-4 border-t pt-4">
-            <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            <span className={cardSectionTitleClassName}>
               {t("settings.general.billing.smsCreditsSectionTitle")}
             </span>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-3">
-                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <span className={cardSectionTitleClassName}>
                   {t("settings.general.billing.smsIncluded.title")}
                 </span>
                 <div className="grid sm:grid-cols-3 gap-3">
@@ -425,7 +431,7 @@ export function GeneralBillingCard({
                 </div>
               </div>
               <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-3">
-                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <span className={cardSectionTitleClassName}>
                   {t("settings.general.billing.smsTopupPool.title")}
                 </span>
                 <div className="flex min-w-0 flex-col gap-1">

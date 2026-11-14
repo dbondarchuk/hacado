@@ -87,6 +87,7 @@ export const InspectorDrawer: React.FC<{ extraTabs?: SidebarTab[] }> = ({
             <div className="w-full sticky top-0 z-10">
               <ResponsiveTabsList
                 dontScrollIntoView
+                variant="line"
                 className="w-full flex flex-row gap-2 items-center"
               >
                 {allTabs.map((tab) => (

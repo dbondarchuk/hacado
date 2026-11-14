@@ -29,7 +29,13 @@ import {
 } from "@hacado/ui/alert-dialog";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+  CardTitle,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Combobox } from "@hacado/ui/combobox";
 import { useCurrencySymbol } from "@hacado/ui/context";
@@ -89,7 +95,7 @@ const DiscountLimitCard: React.FC<{
     <Card>
       <CardHeader className="justify-between relative flex flex-row border-b px-3 py-3 w-full items-center">
         <div className="flex flex-row items-center gap-2">
-          <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className={cardSectionTitleClassName}>
             {t("catalog.discounts.form.limitTo")}
           </span>
         </div>
@@ -174,7 +180,7 @@ const DiscountLimitCard: React.FC<{
               />
             ))}
             {!options.fields?.length && (
-              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+              <div className={cn(cardSectionTitleClassName, "text-center")}>
                 {t("catalog.discounts.form.anyOption")}
               </div>
             )}
@@ -186,7 +192,7 @@ const DiscountLimitCard: React.FC<{
               <PlusCircle /> {t("catalog.discounts.form.addNew")}
             </Button>
           </div>
-          <Label className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+          <Label className={cn(cardSectionTitleClassName, "text-center")}>
             {t("catalog.discounts.form.withLabel")}
           </Label>
           <div className="flex flex-col gap-4">
@@ -236,7 +242,7 @@ const DiscountLimitCard: React.FC<{
               />
             ))}
             {!addons.fields?.length && (
-              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+              <div className={cn(cardSectionTitleClassName, "text-center")}>
                 {t("catalog.discounts.form.anyAddon")}
               </div>
             )}
@@ -249,7 +255,7 @@ const DiscountLimitCard: React.FC<{
             </Button>
           </div>
         </div>
-        <Label className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+        <Label className={cn(cardSectionTitleClassName, "text-center")}>
           {t("catalog.discounts.form.orLabel")}
         </Label>
         <div className="flex flex-col gap-4">
@@ -293,7 +299,7 @@ const DiscountLimitCard: React.FC<{
             />
           ))}
           {!packages.fields?.length && (
-            <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+            <div className={cn(cardSectionTitleClassName, "text-center")}>
               {t("catalog.discounts.form.anyPackage")}
             </div>
           )}
@@ -460,7 +466,7 @@ export const DiscountForm: React.FC<{
             />
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("admin.catalog.discounts.form.details")}
                 </CardTitle>
               </CardHeader>
@@ -559,7 +565,7 @@ export const DiscountForm: React.FC<{
             </Card>
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("admin.catalog.discounts.form.dates")}
                 </CardTitle>
               </CardHeader>
@@ -696,7 +702,7 @@ export const DiscountForm: React.FC<{
             </Card>
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("admin.catalog.discounts.form.maximumUses")}
                 </CardTitle>
               </CardHeader>

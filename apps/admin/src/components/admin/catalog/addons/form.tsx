@@ -176,7 +176,7 @@ export const AddonForm: React.FC<{
           <div className="flex min-w-0 flex-col gap-4">
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("catalog.addons.form.details")}
                 </CardTitle>
               </CardHeader>
@@ -211,7 +211,7 @@ export const AddonForm: React.FC<{
             </Card>
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("catalog.addons.form.durationAndPrice")}
                 </CardTitle>
               </CardHeader>

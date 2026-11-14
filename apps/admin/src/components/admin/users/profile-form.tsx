@@ -154,7 +154,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
           <Card className="lg:col-span-4">
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("users.profile.form.photoSectionTitle")}
               </CardTitle>
             </CardHeader>
@@ -231,7 +231,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
 
           <Card className="lg:col-span-8">
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("users.profile.form.detailsSectionTitle")}
               </CardTitle>
             </CardHeader>
@@ -319,7 +319,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         >
           <Card>
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("users.profile.form.bio")}
               </CardTitle>
             </CardHeader>
@@ -390,7 +390,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               {canManageMeetingUrlProvider ? (
                 <Card>
                   <CardHeader className="border-b">
-                    <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    <CardTitle variant="section">
                       {t("users.profile.form.meetingUrlProvider.title")}
                     </CardTitle>
                   </CardHeader>
@@ -433,7 +433,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         {showSecuritySection ? (
           <Card>
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("users.profile.security.title")}
               </CardTitle>
             </CardHeader>
@@ -451,7 +451,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         {isSelfProfile ? (
           <Card>
             <CardHeader className="border-b">
-              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <CardTitle variant="section">
                 {t("users.profile.push.sectionTitle")}
               </CardTitle>
             </CardHeader>

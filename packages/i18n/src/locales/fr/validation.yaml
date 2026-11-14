@@ -155,10 +155,10 @@ fields:
     min: La description du champ doit comporter au moins 3 caractères
     max: La description du champ ne doit pas contenir plus de 1 024 caractères.
   name:
-    required: Le nom du champ doit comporter au moins 2 caractères
-    max: Le nom du champ ne doit pas comporter plus de 64 caractères
-    invalid: Le nom du champ doit commencer par une lettre et contenir uniquement des lettres, des chiffres et un trait de soulignement (_).
-    unique: Le nom du champ doit être unique
+    required: L'ID du champ doit comporter au moins 2 caractères
+    max: L'ID du champ ne doit pas comporter plus de 64 caractères
+    invalid: L'ID du champ doit commencer par une lettre et contenir uniquement des lettres, des chiffres et des underscores (_)
+    unique: L'ID du champ doit être unique
   option:
     required: La valeur de l'option est requise
     unique: Les valeurs des options doivent être uniques

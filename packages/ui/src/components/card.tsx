@@ -1,6 +1,21 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React from "react";
 
 import { cn } from "../utils";
+
+export const cardSectionTitleClassName = "text-sm font-medium";
+
+const cardTitleVariants = cva("wrap-anywhere", {
+  variants: {
+    variant: {
+      default: "text-2xl font-semibold leading-none tracking-tight",
+      section: cardSectionTitleClassName,
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -27,19 +42,18 @@ const CardHeader = React.forwardRef<
 
 CardHeader.displayName = "CardHeader";
 
-const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight wrap-anywhere",
-      className,
-    )}
-    {...props}
-  />
-));
+type CardTitleProps = React.HTMLAttributes<HTMLHeadingElement> &
+  VariantProps<typeof cardTitleVariants>;
+
+const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(
+  ({ className, variant, ...props }, ref) => (
+    <h3
+      ref={ref}
+      className={cn(cardTitleVariants({ variant }), className)}
+      {...props}
+    />
+  ),
+);
 
 CardTitle.displayName = "CardTitle";
 

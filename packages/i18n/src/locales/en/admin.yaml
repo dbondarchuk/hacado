@@ -1531,13 +1531,13 @@ pages:
       Page relative URL. For example, page with slug 'my-new-page'
       will be available at 'yourdomain.com/my-new-page'
     pageSlugPlaceholder: Page slug
-    pageName: Page name
+    pageName: Title
     pageNamePlaceholder: e.g. Policies
-    pageNameTooltip: Name shown in the admin and used to generate the URL
+    pageNameTooltip: Shown in the browser tab and search results, in the admin, and used to generate the URL
     url: URL
     editUrl: Edit URL
-    slugGeneratedPlaceholder: created-from-the-name
-    slugAutoHint: Filled in as you type the name. You can change it.
+    slugGeneratedPlaceholder: created-from-the-title
+    slugAutoHint: Filled in as you type the title. You can change it.
     slugChangeWarning: Changing the URL can break links you have already shared.
     published: Published?
     publishedTooltip: Is page visible to your visitors
@@ -2397,9 +2397,9 @@ catalog:
     form:
       details: Details
       fileSettings: File settings
-      name: Name
-      namePlaceholder: Field name
-      nameTooltip: Unique ID of the field. Can contain only letter, digits, and underscore
+      name: Field ID
+      namePlaceholder: allergy_notes
+      nameTooltip: ID for this field, not the text visitors see. Answers are stored under it, so keep it stable. Letters, digits, and underscores only.
       label: Label
       labelPlaceholder: Field label
       labelTooltip: Label that will be shown to the user
@@ -2416,7 +2416,7 @@ catalog:
       fileTypes: File types
       fileTypesTooltip: Allowed file types for upload
       validation:
-        nameUnique: Field name must be unique
+        nameUnique: Field ID must be unique
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
@@ -2429,7 +2429,7 @@ catalog:
       acceptedFilesPlaceholder: Click plus button to add new file type
     table:
       columns:
-        name: Name
+        name: Field ID
         type: Type
         label: Label
         updatedAt: Updated at

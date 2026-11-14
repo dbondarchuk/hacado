@@ -106,13 +106,16 @@ const RescheduleSection: React.FC<TabProps> = ({ form, disabled }) => {
                 />
                 <Card>
                   <CardHeader className="border-b">
-                    <CardTitle className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm text-muted-foreground">
-                      <span className="font-semibold uppercase tracking-wide">
+                    <CardTitle
+                      variant="section"
+                      className="flex min-w-0 flex-1 flex-col items-start gap-0.5"
+                    >
+                      <span>
                         {t(
                           "cancellationsAndReschedules.reschedulePolicy.default.title",
                         )}
                       </span>
-                      <span>
+                      <span className="font-normal normal-case tracking-normal text-muted-foreground">
                         {t(
                           "cancellationsAndReschedules.reschedulePolicy.default.label",
                         )}

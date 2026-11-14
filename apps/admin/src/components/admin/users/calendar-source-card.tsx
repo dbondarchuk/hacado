@@ -14,7 +14,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -68,7 +73,7 @@ export const CalendarSourceCard: React.FC<CalendarSourceCardProps> = ({
     <Card>
       <CardHeader className="justify-between relative flex flex-row border-b px-3 py-3 w-full items-center">
         <div className="flex flex-row items-center gap-2">
-          <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <div className={cardSectionTitleClassName}>
             {appDisplayName ? (
               tAll.has(appDisplayName) ? (
                 tAll(appDisplayName)

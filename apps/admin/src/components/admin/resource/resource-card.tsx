@@ -20,7 +20,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
@@ -149,7 +154,7 @@ export const ResourceCard = ({
           </Button>
           <span
             className={cn(
-              "text-sm font-semibold uppercase tracking-wide text-muted-foreground",
+              cardSectionTitleClassName,
               !resourceSourceTypeLabels[itemSourceType] && "text-destructive",
             )}
           >

@@ -193,7 +193,7 @@ export const PackageForm: React.FC<{
           <div className="flex min-w-0 flex-col gap-4">
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("catalog.packages.form.details")}
                 </CardTitle>
               </CardHeader>
@@ -228,7 +228,7 @@ export const PackageForm: React.FC<{
             </Card>
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("catalog.packages.form.service")}
                 </CardTitle>
               </CardHeader>
@@ -290,7 +290,7 @@ export const PackageForm: React.FC<{
             </Card>
             <Card>
               <CardHeader className="border-b">
-                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle variant="section">
                   {t("catalog.packages.form.priceAndLimits")}
                 </CardTitle>
               </CardHeader>

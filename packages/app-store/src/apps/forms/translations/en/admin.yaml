@@ -191,9 +191,9 @@ form:
     deleteConfirmTitle: Are you absolutely sure?
     deleteConfirmDescription: Are you sure you want to remove this field?
     name:
-      label: Field name
-      placeholder: myField
-      description: Unique ID of the field. Can contain only letter, digits, and underscore (_)
+      label: Field ID
+      placeholder: allergy_notes
+      description: ID for this field, not the text people see. Answers are stored under it, so keep it stable. Letters, digits, and underscores only.
     label:
       label: Field label
       placeholder: My Field
@@ -273,9 +273,9 @@ validation:
   form:
     fields:
       name:
-        required: Field name should be at least 2 characters long
-        max: Field name should be no more than 64 characters long
-        invalid: Field name should start with letter and contain only letters, digits, and underscore (_)
+        required: Field ID should be at least 2 characters long
+        max: Field ID should be no more than 64 characters long
+        invalid: Field ID should start with a letter and contain only letters, digits, and underscores (_)
       label:
         required: Label is required
         max: Label should not exceed 64 characters

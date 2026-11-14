@@ -19,7 +19,12 @@ import {
   AlertDialogTrigger,
 } from "@hacado/ui/alert-dialog";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+} from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Combobox } from "@hacado/ui/combobox";
 import {
@@ -134,7 +139,8 @@ export function SocialLinkCard<
           </Button>
           <div
             className={cn(
-              "w-full text-center flex flex-col text-sm font-semibold uppercase tracking-wide text-muted-foreground",
+              "w-full text-center flex flex-col",
+              cardSectionTitleClassName,
               !type && "text-destructive",
             )}
           >

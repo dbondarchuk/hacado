@@ -104,7 +104,7 @@ export const PhoneChangeDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" size="sm">
           {t("users.profile.security.changePhone")}
         </Button>
       </DialogTrigger>

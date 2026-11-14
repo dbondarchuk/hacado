@@ -191,9 +191,9 @@ form:
     deleteConfirmTitle: Etes-vous absolument sûr ?
     deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce champ ?
     name:
-      label: Nom du champ
-      placeholder: monChamp
-      description: ID unique du champ. Ne peut contenir que des lettres, des chiffres et un trait de soulignement (_).
+      label: ID du champ
+      placeholder: notes_allergie
+      description: Identifiant du champ, et non le texte affiché aux visiteurs. Les réponses sont enregistrées sous cet ID, alors gardez-le stable. Lettres, chiffres et underscores uniquement.
     label:
       label: Libellé du champ
       placeholder: Mon domaine
@@ -273,9 +273,9 @@ validation:
   form:
     fields:
       name:
-        required: Le nom du champ doit comporter au moins 2 caractères
-        max: Le nom du champ ne doit pas comporter plus de 64 caractères
-        invalid: Le nom du champ doit commencer par une lettre et contenir uniquement des lettres, des chiffres et un trait de soulignement (_).
+        required: L'ID du champ doit comporter au moins 2 caractères
+        max: L'ID du champ ne doit pas comporter plus de 64 caractères
+        invalid: L'ID du champ doit commencer par une lettre et contenir uniquement des lettres, des chiffres et des underscores (_)
       label:
         required: L'étiquette est obligatoire
         max: L'étiquette ne doit pas dépasser 64 caractères

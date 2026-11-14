@@ -50,7 +50,7 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
     <div className="flex min-w-0 flex-col gap-4">
       <Card>
         <CardHeader className="border-b">
-          <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <CardTitle variant="section">
             {t("catalog.services.form.details")}
           </CardTitle>
         </CardHeader>
@@ -85,7 +85,7 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
       </Card>
       <Card>
         <CardHeader className="border-b">
-          <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <CardTitle variant="section">
             {t("catalog.services.form.durationAndPrice")}
           </CardTitle>
         </CardHeader>

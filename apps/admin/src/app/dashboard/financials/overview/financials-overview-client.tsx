@@ -8,7 +8,13 @@ import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import { PaymentCard } from "@hacado/ui-admin-kit/payments";
 import { useReload } from "@hacado/ui-admin/hooks";
 import { Button } from "@hacado/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  cardSectionTitleClassName,
+  CardTitle,
+} from "@hacado/ui/card";
 import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
 import { CalendarDateRangePicker } from "@hacado/ui/date-range-picker";
 import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
@@ -393,7 +399,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium">
+              <CardTitle variant="section">
                 {t("financialOverview.view.estimatedRevenue")}
               </CardTitle>
             </CardHeader>
@@ -410,7 +416,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium">
+              <CardTitle variant="section">
                 {t("financialOverview.view.totalPayments")}
               </CardTitle>
             </CardHeader>
@@ -427,7 +433,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium">
+              <CardTitle variant="section">
                 {t("financialOverview.view.netPayments")}
               </CardTitle>
             </CardHeader>
@@ -444,7 +450,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium">
+              <CardTitle variant="section">
                 {t("financialOverview.view.activeAppointments")}
               </CardTitle>
             </CardHeader>
@@ -461,7 +467,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium">
+              <CardTitle variant="section">
                 {t("financialOverview.view.canceledAppointments")}
               </CardTitle>
             </CardHeader>
@@ -478,7 +484,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium">
+              <CardTitle variant="section">
                 {t("financialOverview.view.noShowAppointments")}
               </CardTitle>
             </CardHeader>
@@ -498,7 +504,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           {/* Revenue Over Time Line Chart */}
           <Card>
             <CardHeader className="px-4 pt-4 pb-2">
-              <CardTitle className="text-base font-semibold leading-tight">
+              <CardTitle variant="section">
                 {t("financialOverview.view.revenueAndPayments")}
               </CardTitle>
             </CardHeader>
@@ -568,7 +574,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           {/* Appointment Status Distribution Chart */}
           <Card>
             <CardHeader className="px-4 pt-4 pb-2">
-              <CardTitle className="text-base font-semibold leading-tight">
+              <CardTitle variant="section">
                 {t("financialOverview.view.appointmentStatusDistribution")}
               </CardTitle>
             </CardHeader>
@@ -647,7 +653,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           {/* Service Distribution Pie Chart */}
           <Card>
             <CardHeader className="px-4 pt-4 pb-2">
-              <CardTitle className="text-base font-semibold leading-tight">
+              <CardTitle variant="section">
                 {t("financialOverview.view.serviceDistribution")}
               </CardTitle>
             </CardHeader>
@@ -707,7 +713,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           {/* Customer Acquisition vs Retention Chart */}
           <Card>
             <CardHeader className="px-4 pt-4 pb-2">
-              <CardTitle className="text-base font-semibold leading-tight">
+              <CardTitle variant="section">
                 {t("financialOverview.view.customerAcquisitionVsRetention")}
               </CardTitle>
             </CardHeader>
@@ -766,7 +772,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
         {/* Booking Tracking Section */}
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold leading-tight tracking-tight wrap-anywhere">
+          <h3 className={cardSectionTitleClassName}>
             {t("financialOverview.view.bookingTracking.title")}
           </h3>
 
@@ -774,7 +780,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">
+                <CardTitle variant="section">
                   {t("financialOverview.view.bookingTracking.totalBookings")}
                 </CardTitle>
               </CardHeader>
@@ -791,7 +797,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">
+                <CardTitle variant="section">
                   {t("financialOverview.view.bookingTracking.converted")}
                 </CardTitle>
               </CardHeader>
@@ -808,7 +814,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">
+                <CardTitle variant="section">
                   {t("financialOverview.view.bookingTracking.abandoned")}
                 </CardTitle>
               </CardHeader>
@@ -825,7 +831,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">
+                <CardTitle variant="section">
                   {t("financialOverview.view.bookingTracking.conversionRate")}
                 </CardTitle>
               </CardHeader>
@@ -844,7 +850,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">
+                <CardTitle variant="section">
                   {t("financialOverview.view.bookingTracking.abandonmentRate")}
                 </CardTitle>
               </CardHeader>
@@ -866,7 +872,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
             {/* Booking Completion vs Abandonment Over Time */}
             <Card>
               <CardHeader className="px-4 pt-4 pb-2">
-                <CardTitle className="text-base font-semibold leading-tight">
+                <CardTitle variant="section">
                   {t(
                     "financialOverview.view.bookingTracking.completionVsAbandonment",
                   )}
@@ -948,7 +954,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
             {/* Reached / entered by Step */}
             <Card>
               <CardHeader className="px-4 pt-4 pb-2">
-                <CardTitle className="text-base font-semibold leading-tight">
+                <CardTitle variant="section">
                   {t(
                     "financialOverview.view.bookingTracking.enteredByStep.title",
                   )}
@@ -1010,7 +1016,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
             {/* Abandonment by Step */}
             <Card>
               <CardHeader className="px-4 pt-4 pb-2">
-                <CardTitle className="text-base font-semibold leading-tight">
+                <CardTitle variant="section">
                   {t(
                     "financialOverview.view.bookingTracking.abandonmentByStep.title",
                   )}
@@ -1087,7 +1093,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
             {/* Conversion by Type */}
             <Card>
               <CardHeader className="px-4 pt-4 pb-2">
-                <CardTitle className="text-base font-semibold leading-tight">
+                <CardTitle variant="section">
                   {t(
                     "financialOverview.view.bookingTracking.conversionByType.title",
                   )}
@@ -1164,7 +1170,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
       </div>
 
       <div className="flex flex-col gap-4 @container/recent-payments">
-        <h3 className="text-base font-semibold leading-tight tracking-tight wrap-anywhere">
+        <h3 className={cardSectionTitleClassName}>
           {t("financialOverview.view.recentPayments")}
         </h3>
         <div className="grid grid-cols-1 @2xl/recent-payments:grid-cols-2 @4xl/recent-payments:grid-cols-3 gap-4">

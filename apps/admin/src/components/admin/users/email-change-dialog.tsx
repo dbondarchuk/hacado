@@ -202,7 +202,7 @@ export const EmailChangeDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange} modal>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" size="sm">
           {t("users.profile.security.changeEmail")}
         </Button>
       </DialogTrigger>
