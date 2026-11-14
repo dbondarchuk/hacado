@@ -40,15 +40,15 @@ On the dashboard home, three tabs sit under the greeting. Installed apps can add
 - The number cards show today’s appointments, this week’s count, revenue, and average booking value.
 - Quick links under the tabs jump to common places such as **Customers**, **Services**, and **Store**.
 
-![Upcoming appointments list with pending and confirmed visits](/img/first-steps/dashboard-upcoming.png)
+![Upcoming appointments list with confirmed visits](/img/first-steps/dashboard-upcoming.png)
 
 - **Upcoming appointments** lists the next visits. Click a row to open that booking.
 - **This week** shows a small chart of how busy the week looks.
-- **Needs attention** calls out work that waits on you, such as pending requests.
+- **Needs attention** calls out work that waits on you, such as pending requests. When you are caught up, it says so.
 
-![Needs attention banner for pending appointment requests](/img/first-steps/dashboard-needs-attention.png)
+![Needs attention with pending appointment requests](/img/first-steps/dashboard-needs-attention.png)
 
-Click **Review** on that banner to jump to the Pending Appointments tab.
+When there are pending requests, use **Review** on that banner to jump to the Pending Appointments tab.
 
 ### Calendar
 
@@ -58,9 +58,9 @@ Click **Review** on that banner to jump to the Pending Appointments tab.
 
 ### Pending Appointments
 
-**Pending Appointments** lists booking requests that still need your answer. Each card shows the service, client, time, and price. Use **Confirm** to accept or **Decline** to turn it down.
+**Pending Appointments** lists booking requests that still need your answer. Each card shows the service, client, time, and price. Use **Confirm** to accept or **Decline** to turn it down. When the queue is empty, you see a caught-up message.
 
-![Three pending portrait session cards with Confirm and Decline](/img/first-steps/dashboard-pending.png)
+![Pending Appointments tab with requests waiting to confirm or decline](/img/first-steps/dashboard-pending.png)
 
 If you turn on **Auto-confirm bookings** in payments settings, new bookings skip this list and land as confirmed. You can still open any booking later under **Appointments**.
 

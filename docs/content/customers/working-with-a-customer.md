@@ -72,19 +72,19 @@ Empty state: **No results found**.
 
 Available when payments are on your plan. Shows payment rows for this customer with filters for **Type**, **Method**, **Status**, **Appointment**, and date range.
 
-![Customer Payments tab empty state](/img/customers/tab-payments.png)
+![Customer Payments tab with paid cash and card rows](/img/customers/tab-payments.png)
 
 1. Click **Add payment** in the header to record a payment for this customer.
 2. Click **Export to CSV** in the header when you need a spreadsheet of the current filters.
 3. Open a row to see payment detail when results exist.
 
-Empty state: **No results found**.
+If nothing matches the filters, the table shows **No results found**.
 
 ## Packages
 
 Available on Solo+ when packages are enabled. Shows sold packages for this customer as cards (status, remaining and used credits).
 
-![Customer Packages tab with no packages](/img/customers/tab-packages.png)
+![Customer Packages tab with an active Portrait pack](/img/customers/tab-packages.png)
 
 From a package card you can typically:
 
@@ -92,7 +92,7 @@ From a package card you can typically:
 - **Schedule appointment** when credits remain
 - **Adjust used credits**, **Reactivate package**, or **Cancel package** when those actions apply
 
-Empty state: **No packages**.
+If the customer has none yet, the tab shows **No packages**.
 
 For selling and managing packages broadly, see [Sold packages](/docs/catalog/sold-packages).
 
@@ -100,17 +100,21 @@ For selling and managing packages broadly, see [Sold packages](/docs/catalog/sol
 
 Store release forms, inspiration photos, and other assets on the customer.
 
-![Customer Files tab with search and Add New](/img/customers/tab-files.png)
+![Customer Files tab with uploaded assets](/img/customers/tab-files.png)
 
 1. Click **Add New** to open **Upload files**.
 2. Drop files (up to 10 at a time), optionally set a **File description**, then **Upload**.
-3. Use search to find files; select rows and **Delete selected** when you have permission.
+3. Use search to find files.
+
+Select one or more files to open the selection bar. From there you can **Clear** the selection or **Delete** the selected files (when you have permission).
+
+![Files selection bar with Clear and Delete](/img/customers/tab-files-selected.png)
 
 ## Communications
 
 Shows recent email and text activity for this customer. Filter by **Direction** (Outbound / Inbound), **Channel** (Email / Text message), status, and date range.
 
-![Customer Communications tab with Send new](/img/customers/tab-communications.png)
+![Customer Communications tab with email and text logs](/img/customers/tab-communications.png)
 
 1. Click **Send new** to open the send dialog and message this customer.
 2. Open a card’s **View more** when you need the full log entry.

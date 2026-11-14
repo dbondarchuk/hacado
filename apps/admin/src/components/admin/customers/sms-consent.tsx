@@ -53,14 +53,14 @@ export const CustomerSmsConsent = ({
           {t("customers.smsConsent.title")}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col items-stretch gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <CardContent className="flex flex-col items-stretch gap-3 pt-6">
         {!hasPhone ? (
           <p className="text-sm text-muted-foreground">
             {t("customers.smsConsent.noPhone")}
           </p>
         ) : (
           <>
-            <p className="min-w-0 text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               {status.optedOut
                 ? t("smsConsent.optedOut")
                 : status.consented
@@ -77,14 +77,12 @@ export const CustomerSmsConsent = ({
                     ? t("customers.smsConsent.revoke")
                     : t("smsConsent.attest")
                 }
-                className="w-full min-w-0 justify-start overflow-hidden sm:w-auto sm:max-w-lg sm:shrink-0"
+                className="w-full justify-start whitespace-normal text-left h-auto py-2"
                 onClick={() => update(!status.consented)}
               >
-                <span className="truncate">
-                  {status.consented
-                    ? t("customers.smsConsent.revoke")
-                    : t("smsConsent.attest")}
-                </span>
+                {status.consented
+                  ? t("customers.smsConsent.revoke")
+                  : t("smsConsent.attest")}
               </Button>
             ) : null}
           </>

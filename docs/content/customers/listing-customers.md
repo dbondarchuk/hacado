@@ -41,12 +41,18 @@ See [Creating a customer](./creating-a-customer).
 
 Click the customer **Name** (or choose **Edit** from the row menu) to open the profile on the **Details** tab. See [Working with a customer](./working-with-a-customer).
 
+## Selection bar
+
+Check one or more rows to open the selection bar at the bottom of the list. It shows how many customers are selected, plus **Merge** and **Delete**. Use the **X** (or **Clear**) to drop the selection.
+
+![Customers list with two rows selected and Merge and Delete actions](/img/customers/listing-selected.png)
+
 ## Merge selected customers
 
 Use merge when the same person appears more than once (for example they booked with a different email, then you added them by hand).
 
 1. Check two or more customer rows.
-2. Click **Merge selected**.
+2. Click **Merge** on the selection bar.
 3. Choose the **Target customer** - the profile that remains.
 4. Confirm **Merge selected**.
 
@@ -55,7 +61,7 @@ Hacado moves history onto the target and combines known names, emails, and phone
 ## Delete selected customers
 
 1. Check one or more rows.
-2. Click **Delete selected**.
+2. Click **Delete** on the selection bar.
 3. Confirm in the dialog.
 
 You cannot delete a row that is already marked deleted. If delete fails because appointments are still linked, resolve or reassign those appointments first, then try again.
