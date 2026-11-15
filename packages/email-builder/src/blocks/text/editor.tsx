@@ -7,6 +7,7 @@ import {
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { usePortalContext } from "@hacado/builder/portal";
 import { PlateEditor, PlateStaticEditor } from "@hacado/rte";
+import { coerceEmailTextValue } from "./coerce-value";
 import { TextProps } from "./schema";
 import { getStyles } from "./styles";
 
@@ -19,6 +20,9 @@ export const TextEditor = ({ props, style }: TextProps) => {
   const overlayProps = useBlockEditor(currentBlockId);
   const { document } = usePortalContext();
   const isSelected = useIsSelectedBlock(currentBlockId);
+  const plateValue = coerceEmailTextValue(
+    currentBlock?.data?.props?.value ?? props?.value,
+  );
 
   const onChange = (value: any) => {
     dispatchAction({
@@ -40,7 +44,7 @@ export const TextEditor = ({ props, style }: TextProps) => {
     <div {...overlayProps} style={styles} className="min-w-0 max-w-full">
       {isSelected ? (
         <PlateEditor
-          value={currentBlock?.data?.props?.value}
+          value={plateValue}
           onChange={onChange}
           overlayToolbar
           document={document}
@@ -48,7 +52,7 @@ export const TextEditor = ({ props, style }: TextProps) => {
           usesAbsoluteUrl
         />
       ) : (
-        <PlateStaticEditor value={props?.value} />
+        <PlateStaticEditor value={plateValue as any} />
       )}
     </div>
   );

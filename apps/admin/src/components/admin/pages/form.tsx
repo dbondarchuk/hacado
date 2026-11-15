@@ -3,11 +3,9 @@
 import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { pagesApi } from "@hacado/api-sdk/admin/pages";
-import {
-  AppsBlocksEditors,
-  AppsBlocksTemplates,
-} from "@hacado/app-store/blocks/editors";
+import { AppsBlocksEditors } from "@hacado/app-store/blocks/editors";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
+import { AppsBlocksTemplates } from "@hacado/app-store/blocks/templates";
 import { Language, useI18n } from "@hacado/i18n/client";
 import {
   BlockProviderRegistry,
@@ -42,11 +40,17 @@ import { ToolbarButton } from "@hacado/ui/toolbar";
 import { formatArguments } from "@hacado/utils/format-arguments";
 import { generateSlugPreview } from "@hacado/utils/page";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ExternalLink, Settings as SettingsIcon } from "lucide-react";
+import { ExternalLink, Settings as SettingsIcon, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
+import {
+  BUILDER_AI_TAB,
+  BuilderAIAssistantPanel,
+  useBuilderAIStore,
+  useBuilderAIToolbarButtons,
+} from "../builder-ai";
 import { NavigationGuardDialog, useIsDirty } from "../navigation-guard/dialog";
 import { PageIdentityBar } from "./page-identity-bar";
 import { PageSettingsPanel } from "./page-settings-panel";
@@ -158,6 +162,25 @@ export const PageForm: React.FC<{
     }
   }, [title, isNewPage, slugManuallyChanged, slug, form]);
 
+  React.useEffect(() => {
+    return useBuilderAIStore
+      .getState()
+      .registerApplyDocumentSettings((patch) => {
+        for (const [key, value] of Object.entries(patch)) {
+          if (value === undefined) continue;
+
+          form.setValue(key as keyof PageFormValues, value as never, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }
+
+        if (patch.slug !== undefined) {
+          setSlugManuallyChanged(true);
+        }
+      });
+  }, [form]);
+
   const breadcrumbItems = useMemo(
     () => [
       { title: t("assets.dashboard"), link: "/dashboard" },
@@ -222,12 +245,24 @@ export const PageForm: React.FC<{
     }
   };
 
-  const [description, published, publishDate, tags, fullWidth] = form.watch([
+  const [
+    description,
+    keywords,
+    featuredImage,
+    published,
+    publishDate,
+    tags,
+    fullWidth,
+    doNotCombine,
+  ] = form.watch([
     "description",
+    "keywords",
+    "featuredImage",
     "published",
     "publishDate",
     "tags",
     "fullWidth",
+    "doNotCombine",
   ]);
 
   const demoAppointment = useDemoArguments();
@@ -333,6 +368,57 @@ export const PageForm: React.FC<{
     ) : undefined;
   }, [footer, args]);
 
+  const connectedApps = useMemo(
+    () =>
+      apps?.map((app) => ({
+        appId: app.appId,
+        appName: app.appName,
+      })),
+    [apps],
+  );
+
+  const documentSettings = useMemo(
+    () => ({
+      title,
+      slug,
+      description,
+      keywords,
+      featuredImage: featuredImage ?? null,
+      published,
+      publishDate: publishDate
+        ? new Date(publishDate).toISOString()
+        : undefined,
+      language: language ?? null,
+      tags,
+      doNotCombine,
+      headerId: headerId || undefined,
+      footerId: footerId || undefined,
+      fullWidth,
+    }),
+    [
+      title,
+      slug,
+      description,
+      keywords,
+      featuredImage,
+      published,
+      publishDate,
+      language,
+      tags,
+      doNotCombine,
+      headerId,
+      footerId,
+      fullWidth,
+    ],
+  );
+
+  const builderAIToolbarButtons = useBuilderAIToolbarButtons({
+    builder: "page",
+    documentId: initialData?._id,
+    apps: connectedApps,
+    documentSettings,
+  });
+
   const extraTabs = useMemo(() => {
     return [
       {
@@ -345,6 +431,12 @@ export const PageForm: React.FC<{
         icon: <SettingsIcon size={16} />,
         content: <PageSettingsPanel form={form} loading={loading} />,
       },
+      {
+        value: BUILDER_AI_TAB,
+        label: "AI",
+        icon: <Sparkles size={16} />,
+        content: <BuilderAIAssistantPanel />,
+      },
     ];
   }, [form, loading, t, hasSettingsErrors]);
 
@@ -355,6 +447,7 @@ export const PageForm: React.FC<{
 
   const toolbarButtons = useMemo<ToolbarButtonInjection[]>(
     () => [
+      ...builderAIToolbarButtons,
       {
         id: "view-page",
         section: "view",
@@ -377,7 +470,7 @@ export const PageForm: React.FC<{
         ),
       },
     ],
-    [t, viewPageHref],
+    [t, viewPageHref, builderAIToolbarButtons],
   );
 
   return (

@@ -26,7 +26,11 @@ export const fontFamilyStyle = {
   renderToCSS: (value) => {
     if (!value) return null;
 
-    return `font-family: ${FONT_FAMILIES[value].value};`;
+    const font = FONT_FAMILIES[value as keyof typeof FONT_FAMILIES];
+
+    if (!font) return null;
+
+    return `font-family: ${font.value};`;
   },
   component: ({ value, onChange }) => {
     const t = useI18n();

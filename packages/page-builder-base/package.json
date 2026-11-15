@@ -18,6 +18,7 @@
     "./plain-text": "./src/plain-text/index.ts",
     "./reader": "./src/reader.ts",
     "./shortcuts": "./src/shortcuts/index.tsx",
+    "./shortcuts/common": "./src/shortcuts/common/index.ts",
     "./slot-panel": "./src/slots/configuration-panel.tsx",
     "./slots": "./src/slots-base.ts",
     "./style": "./src/style/index.ts",

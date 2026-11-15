@@ -14,7 +14,7 @@ export const TextPropsSchema = z.object({
 export type TextProps = z.infer<typeof TextPropsSchema>;
 
 export const TextPropsDefaults = {
-  props: { value: "" },
+  props: { value: [{ type: "p", children: [{ text: "" }] }] },
   style: {
     padding: { top: 16, bottom: 16, left: 24, right: 24 },
     fontWeight: "normal",

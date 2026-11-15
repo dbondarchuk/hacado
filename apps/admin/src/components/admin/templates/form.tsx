@@ -10,28 +10,32 @@ import {
   TemplatesTemplate,
 } from "@hacado/types/templates";
 import { TextMessageBuilder } from "@hacado/ui-admin-kit/templates";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
 import { NameIdentityBar } from "@hacado/ui-admin/name-identity-bar";
 import { PageHeader } from "@hacado/ui-admin/page-header";
 import { SaveButton } from "@hacado/ui-admin/save-button";
+import { TwoFieldIdentityBar } from "@hacado/ui-admin/two-field-identity-bar";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabelWithRequiredIndicator,
   FormMessage,
 } from "@hacado/ui/form";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
 import { Link } from "@hacado/ui/link";
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Copy } from "lucide-react";
+import { Copy, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  BUILDER_AI_TAB,
+  BuilderAIAssistantPanel,
+  useBuilderAIStore,
+  useBuilderAIToolbarButtons,
+} from "../builder-ai";
 import { NavigationGuardDialog, useIsDirty } from "../navigation-guard/dialog";
 
 export const TemplateForm: React.FC<
@@ -117,6 +121,57 @@ export const TemplateForm: React.FC<
     [setError, trigger, t],
   );
 
+  const watchedTemplate = form.watch();
+  const documentSettings = useMemo(() => {
+    const settings: {
+      name?: string;
+      subject?: string;
+    } = {
+      name: watchedTemplate.name,
+    };
+
+    if (type === "email" && "subject" in watchedTemplate) {
+      settings.subject = String(
+        (watchedTemplate as { subject?: string }).subject ?? "",
+      );
+    }
+
+    return settings;
+  }, [type, watchedTemplate]);
+
+  React.useEffect(() => {
+    return useBuilderAIStore
+      .getState()
+      .registerApplyDocumentSettings((patch) => {
+        for (const [key, value] of Object.entries(patch)) {
+          if (value === undefined) continue;
+
+          form.setValue(key as keyof TemplateFormValues, value as never, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }
+      });
+  }, [form]);
+
+  const builderAIToolbarButtons = useBuilderAIToolbarButtons({
+    builder: "email",
+    documentId: initialData?._id,
+    documentSettings,
+  });
+
+  const builderAIExtraTabs = useMemo(
+    () => [
+      {
+        value: BUILDER_AI_TAB,
+        label: "AI",
+        icon: <Sparkles size={16} />,
+        content: <BuilderAIAssistantPanel />,
+      },
+    ],
+    [],
+  );
+
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
@@ -125,14 +180,31 @@ export const TemplateForm: React.FC<
           className="mb-0"
           text={
             <div className="my-2 w-full min-w-0">
-              <NameIdentityBar
-                layout="inline"
-                loading={loading}
-                isNew={!initialData?._id}
-                label={t("templates.form.name")}
-                placeholder={t("templates.form.namePlaceholder")}
-                description={t("templates.form.nameTooltip")}
-              />
+              {type === "email" ? (
+                <TwoFieldIdentityBar
+                  loading={loading}
+                  isNew={!initialData?._id}
+                  primaryName="name"
+                  secondaryName="subject"
+                  primaryLabel={t("templates.form.name")}
+                  primaryPlaceholder={t("templates.form.namePlaceholder")}
+                  primaryDescription={t("templates.form.nameTooltip")}
+                  secondaryLabel={t("templates.form.subject")}
+                  secondaryPlaceholder={t(
+                    "templates.form.subjectPlaceholder",
+                  )}
+                  secondaryDescription={t("templates.form.subjectTooltip")}
+                />
+              ) : (
+                <NameIdentityBar
+                  layout="inline"
+                  loading={loading}
+                  isNew={!initialData?._id}
+                  label={t("templates.form.name")}
+                  placeholder={t("templates.form.namePlaceholder")}
+                  description={t("templates.form.nameTooltip")}
+                />
+              )}
             </div>
           }
           actions={
@@ -158,32 +230,6 @@ export const TemplateForm: React.FC<
           className="h-full w-full space-y-8"
         >
           <div className="flex flex-col gap-4 w-full h-full">
-            {type === "email" && (
-              <FormField
-                control={form.control}
-                name="subject"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabelWithRequiredIndicator required>
-                      {t("templates.form.subject")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <ArgumentsAutocomplete
-                        args={args}
-                        disabled={loading}
-                        asInput
-                        placeholder={t("templates.form.subjectPlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("templates.form.subjectTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
             <FormField
               control={form.control}
               name="value"
@@ -197,6 +243,8 @@ export const TemplateForm: React.FC<
                           value={field.value}
                           onIsValidChange={onEmailBuilderValidChange}
                           onChange={field.onChange}
+                          toolbarButtons={builderAIToolbarButtons}
+                          extraTabs={builderAIExtraTabs}
                         />
                       </FormControl>
                       <FormMessage />

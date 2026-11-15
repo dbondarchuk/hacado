@@ -2,20 +2,14 @@ import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { AllKeys } from "@hacado/i18n";
 import { FileInput } from "lucide-react";
 import { FormsAdminKeys, FormsAdminNamespace } from "../translations/types";
+import { FormsBlocksAllowedInFooter, FormsBlocksSchema } from "./block-schemas";
 import {
   FormBlockConfiguration,
   FormBlockEditor,
   FormBlockPropsDefaults,
-  FormBlockPropsSchema,
 } from "./form";
 
-export const FormsBlocksSchema = {
-  Form: FormBlockPropsSchema,
-};
-
-export const FormsBlocksAllowedInFooter = {
-  Form: false,
-};
+export { FormsBlocksAllowedInFooter, FormsBlocksSchema };
 
 export const FormsBlocksDefaultMetadata = (
   _appName: string,

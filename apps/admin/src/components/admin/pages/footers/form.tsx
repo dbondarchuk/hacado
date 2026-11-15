@@ -1,11 +1,9 @@
 "use client";
 
 import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
-import {
-  AppsBlocksEditors,
-  AppsBlocksTemplates,
-} from "@hacado/app-store/blocks/editors";
+import { AppsBlocksEditors } from "@hacado/app-store/blocks/editors";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
+import { AppsBlocksTemplates } from "@hacado/app-store/blocks/templates";
 import { useI18n } from "@hacado/i18n/client";
 import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
 import {
@@ -26,10 +24,17 @@ import {
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  BUILDER_AI_TAB,
+  BuilderAIAssistantPanel,
+  useBuilderAIStore,
+  useBuilderAIToolbarButtons,
+} from "../../builder-ai";
 import {
   NavigationGuardDialog,
   useIsDirty,
@@ -133,6 +138,57 @@ export const PageFooterForm: React.FC<{
     [setError, trigger, t],
   );
 
+  const connectedApps = useMemo(
+    () =>
+      apps?.map((app) => ({
+        appId: app.appId,
+        appName: app.appName,
+      })),
+    [apps],
+  );
+
+  const footerName = form.watch("name");
+  const documentSettings = useMemo(
+    () => ({
+      name: footerName,
+    }),
+    [footerName],
+  );
+
+  React.useEffect(() => {
+    return useBuilderAIStore
+      .getState()
+      .registerApplyDocumentSettings((patch) => {
+        for (const [key, value] of Object.entries(patch)) {
+          if (value === undefined) continue;
+
+          form.setValue(key as keyof PageFormValues, value as never, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }
+      });
+  }, [form]);
+
+  const builderAIToolbarButtons = useBuilderAIToolbarButtons({
+    builder: "footer",
+    documentId: initialData?._id,
+    apps: connectedApps,
+    documentSettings,
+  });
+
+  const extraTabs = useMemo(
+    () => [
+      {
+        value: BUILDER_AI_TAB,
+        label: "AI",
+        icon: <Sparkles size={16} />,
+        content: <BuilderAIAssistantPanel />,
+      },
+    ],
+    [],
+  );
+
   const { isFormDirty, onFormSubmit } = useIsDirty(form);
   const onSubmit = async (data: PageFormValues) => {
     try {
@@ -205,6 +261,8 @@ export const PageFooterForm: React.FC<{
                     onIsValidChange={onPageBuilderValidChange}
                     onChange={field.onChange}
                     blockRegistry={blockRegistry}
+                    toolbarButtons={builderAIToolbarButtons}
+                    extraTabs={extraTabs}
                   />
                 </FormControl>
                 <FormMessage />

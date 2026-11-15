@@ -1,10 +1,8 @@
 import {
   BaseZodDictionary,
   EditorDocumentBlocksDictionary,
-  TemplateDefinition,
 } from "@hacado/builder/types";
 import { BlogBlocks } from "../apps/blog/blocks/schema";
-import { BlogTemplates } from "../apps/blog/blocks/templates";
 import { BLOG_APP_NAME } from "../apps/blog/const";
 import { FormsBlocks } from "../apps/forms/blocks/schema";
 import { FORMS_APP_NAME } from "../apps/forms/const";
@@ -31,28 +29,4 @@ export const AppsBlocksEditors: Record<
   [GIFT_CARD_STUDIO_APP_NAME]: GiftCardStudioBlocks,
   [WAITLIST_APP_NAME]: WaitlistBlocks,
   [MY_CABINET_APP_NAME]: MyCabinetBlocks,
-};
-
-export const AppsBlocksTemplates: Record<
-  string,
-  (
-    appName: string,
-    appId: string,
-  ) => {
-    [name: string]: {
-      configuration: TemplateDefinition;
-      allowedInFooter: boolean;
-    };
-  }
-> = {
-  [BLOG_APP_NAME]: (appName: string, appId: string) =>
-    Object.fromEntries(
-      Object.entries(BlogTemplates(appName, appId)).map(([name, template]) => [
-        name,
-        {
-          configuration: template,
-          allowedInFooter: false,
-        },
-      ]),
-    ),
 };

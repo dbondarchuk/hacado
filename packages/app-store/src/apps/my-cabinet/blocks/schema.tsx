@@ -4,15 +4,16 @@ import type { BuilderKeys } from "@hacado/i18n/keys";
 import { UserRound } from "lucide-react";
 import { MyCabinetAdminAllKeys } from "../translations/types";
 import {
+  MyCabinetBlocksAllowedInFooter,
+  MyCabinetBlocksSchema,
+} from "./block-schemas";
+import {
   MyCabinetBlockConfiguration,
   MyCabinetBlockEditor,
   MyCabinetBlockPropsDefaults,
-  MyCabinetBlockPropsSchema,
 } from "./my-cabinet";
 
-export const MyCabinetBlocksSchema = {
-  MyCabinet: MyCabinetBlockPropsSchema,
-};
+export { MyCabinetBlocksAllowedInFooter, MyCabinetBlocksSchema };
 
 export const MyCabinetEditors: EditorDocumentBlocksDictionary<
   typeof MyCabinetBlocksSchema
@@ -40,6 +41,6 @@ export const MyCabinetBlocks = {
     defaultMetadata: (_appName: string, appId: string) => ({
       myCabinetAppId: appId,
     }),
-    allowedInFooter: false,
+    allowedInFooter: MyCabinetBlocksAllowedInFooter.MyCabinet,
   },
 };

@@ -11,6 +11,8 @@
   },
   "exports": {
     ".": "./src/index.tsx",
+    "./blocks": "./src/blocks/index.tsx",
+    "./blocks/schema": "./src/blocks/schema.ts",
     "./static": "./src/static/index.tsx"
   },
   "devDependencies": {

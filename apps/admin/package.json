@@ -16,6 +16,7 @@
   "dependencies": {
     "@hacado/api-sdk": "*",
     "@hacado/app-store": "*",
+    "@hacado/builder-ai": "*",
     "@hacado/email-builder": "*",
     "@hacado/i18n": "*",
     "@hacado/logger": "*",

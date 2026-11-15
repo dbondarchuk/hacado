@@ -35,16 +35,16 @@ export const BuilderToolbar: React.FC<BuilderToolbarProps> = ({
       >
         <div
           className={cn(
-            "flex w-max items-start gap-2 p-1 md:w-full md:justify-between",
+            "flex w-max min-w-full items-center justify-between gap-2 p-1",
             "[[data-page-shell]_&]:px-4 md:[[data-page-shell]_&]:px-6",
           )}
         >
-          <Toolbar className="shrink-0 flex-nowrap md:min-w-0 md:shrink md:flex-1 md:has-[button]:flex-wrap">
+          <Toolbar className="shrink-0 flex-nowrap">
             <ToolbarHistoryGroup />
             <ToolbarBlockGroups />
             <ToolbarBlockToolbarGroup />
           </Toolbar>
-          <Toolbar className="shrink-0 flex-nowrap md:shrink md:has-[button]:flex-wrap">
+          <Toolbar className="shrink-0 flex-nowrap">
             <ToolbarViewportGroup />
             <ToolbarErrorGroup />
             <ToolbarViewGroups args={args} />

@@ -79,24 +79,31 @@ const SidebarProvider = React.forwardRef<
     const open = openProp ?? _open;
     const setOpen = React.useCallback(
       (value: boolean | ((value: boolean) => boolean)) => {
-        const openState = typeof value === "function" ? value(open) : value;
-        if (setOpenProp) {
-          setOpenProp(openState);
-        } else {
-          _setOpen(openState);
-        }
+        const apply = (current: boolean) => {
+          const openState =
+            typeof value === "function" ? value(current) : value;
 
-        // This sets the cookie to keep the sidebar state.
-        document.cookie = `${cookieName ?? SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+          // This sets the cookie to keep the sidebar state.
+          document.cookie = `${cookieName ?? SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+
+          return openState;
+        };
+
+        if (setOpenProp) {
+          setOpenProp(apply(open));
+        } else {
+          // Use the real React updater so toggle never reads a stale `open`.
+          _setOpen((current) => apply(current));
+        }
       },
-      [setOpenProp, open],
+      [cookieName, open, setOpenProp],
     );
 
     // Helper to toggle the sidebar.
     const toggleSidebar = React.useCallback(() => {
       return isMobile
-        ? setOpenMobile((open) => !open)
-        : setOpen((open) => !open);
+        ? setOpenMobile((current) => !current)
+        : setOpen((current) => !current);
     }, [isMobile, setOpen, setOpenMobile]);
 
     // Adds a keyboard shortcut to toggle the sidebar.

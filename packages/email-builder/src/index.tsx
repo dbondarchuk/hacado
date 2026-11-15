@@ -1,6 +1,10 @@
 "use client";
 
-import { Builder } from "@hacado/builder/builder";
+import {
+  Builder,
+  type SidebarTab,
+  type ToolbarButtonInjection,
+} from "@hacado/builder/builder";
 import { TEditorConfiguration } from "@hacado/builder/editor";
 import { generateId } from "@hacado/builder/helpers";
 import { UploadedFile } from "@hacado/types/assets";
@@ -9,11 +13,15 @@ import { ImagePropsDefaults } from "./blocks/image";
 import { ReaderBlocks } from "./blocks/reader";
 import { EditorBlocksSchema } from "./blocks/schema";
 
+export type { ToolbarButtonInjection, SidebarTab };
+
 type EmailBuilderProps = {
   value?: TEditorConfiguration;
   onChange?: (value: TEditorConfiguration) => void;
   onIsValidChange?: (isValid: boolean) => void;
   args?: Record<string, any>;
+  toolbarButtons?: ToolbarButtonInjection[];
+  extraTabs?: SidebarTab[];
 };
 
 const getImageBlock = (file: UploadedFile) => {
@@ -36,6 +44,8 @@ export const EmailBuilder = ({
   value,
   onChange,
   onIsValidChange,
+  toolbarButtons,
+  extraTabs,
 }: EmailBuilderProps) => {
   return (
     <Builder
@@ -48,6 +58,8 @@ export const EmailBuilder = ({
       readerBlocks={ReaderBlocks}
       rootBlock={RootBlock}
       getImageBlock={getImageBlock}
+      toolbarButtons={toolbarButtons}
+      extraTabs={extraTabs}
     />
   );
 };

@@ -36,4 +36,5 @@ export * from "./switch-card-form-item";
 export * from "./template-selector";
 export * from "./textarea-mention";
 export * from "./title-slug-identity-bar";
+export * from "./two-field-identity-bar";
 export * from "./week-selector";
