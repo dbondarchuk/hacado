@@ -1,6 +1,7 @@
 import { Appointment } from "@hacado/types/booking";
 import { DateTime } from "luxon";
 import { AppointmentReminder } from "./models";
+import { AppointmentRemindersAdminAllKeys } from "./translations/types";
 
 type AppointmentReminderTiming = {
   type: AppointmentReminder["type"];
@@ -54,6 +55,27 @@ export const calculateAppointmentReminderTime = (
     appointmentReminder,
     DateTime.fromJSDate(appointment.dateTime).setZone(appointment.timeZone),
   );
+};
+
+export const isFollowUpAppointmentReminderType = (
+  type: AppointmentReminder["type"],
+) => type === "timeAfter" || type === "atTimeAfter";
+
+export const getAppointmentReminderHandledBy = (
+  appointmentReminder: Pick<AppointmentReminder, "type" | "name">,
+) => {
+  const key = (
+    isFollowUpAppointmentReminderType(appointmentReminder.type)
+      ? "app_appointment-reminders_admin.handlers.followUp"
+      : "app_appointment-reminders_admin.handlers.reminder"
+  ) satisfies AppointmentRemindersAdminAllKeys;
+
+  return {
+    key,
+    args: {
+      appointmentReminderName: appointmentReminder.name,
+    },
+  };
 };
 
 export const compareAppointmentCount = (

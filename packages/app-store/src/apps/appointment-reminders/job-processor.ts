@@ -23,10 +23,10 @@ import {
   readAppointmentReminderChannels,
 } from "./models";
 import { AppointmentRemindersRepository } from "./repository";
-import { AppointmentRemindersAdminAllKeys } from "./translations/types";
 import {
   calculateAppointmentReminderTime,
   compareAppointmentCount,
+  getAppointmentReminderHandledBy,
 } from "./utils";
 
 export const BATCH_SIZE = 100;
@@ -274,12 +274,7 @@ export class AppointmentRemindersJobProcessor {
               to: appointment.fields.email,
             },
             participantType: "customer",
-            handledBy: {
-              key: `app_appointment-reminders_admin.handler` satisfies AppointmentRemindersAdminAllKeys,
-              args: {
-                appointmentReminderName: appointmentReminder.name,
-              },
-            },
+            handledBy: getAppointmentReminderHandledBy(appointmentReminder),
             appointmentId: appointment._id,
             memberId: appointment.memberId,
           });
@@ -389,12 +384,7 @@ export class AppointmentRemindersJobProcessor {
           appId: appData._id,
         },
         participantType: "customer",
-        handledBy: {
-          key: `app_appointment-reminders_admin.handler` satisfies AppointmentRemindersAdminAllKeys,
-          args: {
-            appointmentReminderName: appointmentReminder.name,
-          },
-        },
+        handledBy: getAppointmentReminderHandledBy(appointmentReminder),
         appointmentId: appointment._id,
         memberId: appointment.memberId,
       });

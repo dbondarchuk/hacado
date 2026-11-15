@@ -152,6 +152,9 @@ statusText:
   error_loading_appointment_reminders: Сталася помилка при завантаженні сповіщень про запис
   error_loading_appointment_reminder: Не вдалося завантажити сповіщення про запис
 handler: Сповіщення про запис - {appointmentReminderName}
+handlers:
+  reminder: Нагадування - {appointmentReminderName}
+  followUp: Подальше повідомлення - {appointmentReminderName}
 validation:
   form:
     name:

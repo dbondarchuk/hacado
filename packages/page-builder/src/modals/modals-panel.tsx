@@ -10,7 +10,6 @@ import {
 } from "@hacado/builder/editor";
 import { generateId } from "@hacado/builder/helpers";
 import { useI18n } from "@hacado/i18n/client";
-import type { BuilderKeys } from "@hacado/i18n/keys";
 import { Button } from "@hacado/ui/button";
 import { cn } from "@hacado/ui/cn";
 import {
@@ -104,6 +103,7 @@ const ModalRow = memo(
 
 export const ModalsPanel = memo(() => {
   const t = useI18n("builder");
+  const tAll = useI18n();
   const rootBlockId = useRootBlockId();
   const dispatchAction = useDispatchAction();
   const focusedModalId = useFocusedModalId();
@@ -187,7 +187,7 @@ export const ModalsPanel = memo(() => {
                 onClick={() => addModal(definition.type)}
               >
                 {definition.icon}
-                {t(definition.displayName as BuilderKeys)}
+                {tAll(definition.displayName)}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -211,11 +211,7 @@ export const ModalsPanel = memo(() => {
               <ModalRow
                 key={item.id}
                 item={item}
-                label={
-                  definition
-                    ? t(definition.displayName as BuilderKeys)
-                    : item.type
-                }
+                label={definition ? tAll(definition.displayName) : item.type}
                 icon={definition?.icon}
                 isActive={focusedModalId === item.id}
                 onEdit={editModal}

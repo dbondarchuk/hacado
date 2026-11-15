@@ -152,6 +152,9 @@ statusText:
   error_loading_appointment_reminders: Une erreur s'est produite lors du chargement des notifications de rendez-vous
   error_loading_appointment_reminder: Échec du chargement de la notification de rendez-vous
 handler: Notification de rendez-vous - {appointmentReminderName}
+handlers:
+  reminder: Rappel - {appointmentReminderName}
+  followUp: Suivi - {appointmentReminderName}
 validation:
   form:
     name:

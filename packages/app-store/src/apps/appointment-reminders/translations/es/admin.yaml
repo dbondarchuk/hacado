@@ -152,6 +152,9 @@ statusText:
   error_loading_appointment_reminders: Hubo un error al cargar las notificaciones de citas.
   error_loading_appointment_reminder: No se pudo cargar la notificación de la cita
 handler: "Notificación de cita: {appointmentReminderName}"
+handlers:
+  reminder: "Recordatorio: {appointmentReminderName}"
+  followUp: "Seguimiento: {appointmentReminderName}"
 validation:
   form:
     name:

@@ -154,6 +154,9 @@ statusText:
   error_loading_appointment_reminders: There was an error while loading reminders and follow-ups
   error_loading_appointment_reminder: Failed to load the reminder or follow-up
 handler: Reminder or follow-up - {appointmentReminderName}
+handlers:
+  reminder: Reminder - {appointmentReminderName}
+  followUp: Follow-up - {appointmentReminderName}
 validation:
   form:
     name:
