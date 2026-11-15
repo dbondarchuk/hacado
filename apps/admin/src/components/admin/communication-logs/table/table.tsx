@@ -14,6 +14,7 @@ export const CommunicationLogsTable: React.FC<{
   const page = communicationLogsSearchParamsCache.get("page");
   const search = communicationLogsSearchParamsCache.get("search") || undefined;
   const limit = communicationLogsSearchParamsCache.get("limit");
+  const id = communicationLogsSearchParamsCache.get("id") || undefined;
   const direction = communicationLogsSearchParamsCache.get("direction");
   const participantType =
     communicationLogsSearchParamsCache.get("participantType");
@@ -38,6 +39,7 @@ export const CommunicationLogsTable: React.FC<{
   const servicesContainer = await getServicesContainer();
   const res =
     await servicesContainer.communicationLogsService.getCommunicationLogs({
+      id,
       range: { start, end },
       channel,
       direction,

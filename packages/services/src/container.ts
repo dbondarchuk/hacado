@@ -193,6 +193,7 @@ export const ServicesContainer: (
       organizationId,
       getBullMQNotificationConfig(),
       communicationLogsService,
+      eventService,
     );
 
     const giftCardsService = new GiftCardsService(

@@ -22,6 +22,7 @@ export const communicationLogsSearchParams = {
   ...baseSearchParams,
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
+  id: parseAsString,
   direction: parseAsArrayOf(
     parseAsStringLiteral(communicationDirectionSchema),
   ).withDefault([...communicationDirectionSchema]),

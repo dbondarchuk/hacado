@@ -29,6 +29,7 @@ import type {
   AppointmentOptionUpdateModel,
 } from "../booking/service";
 import type { SyncedPayment } from "../booking/synced-payment";
+import type { CommunicationChannel } from "../communication";
 import type { ConfigurationKey } from "../configuration";
 import type { Customer, CustomerUpdateModel } from "../customers/customer";
 import type { Page, PageFooter, PageHeader } from "../pages";
@@ -59,6 +60,7 @@ import {
   ASSET_CREATED_EVENT_TYPE,
   ASSET_DELETED_EVENT_TYPE,
   ASSET_UPDATED_EVENT_TYPE,
+  COMMUNICATION_FAILED_EVENT_TYPE,
   CUSTOMER_CREATED_EVENT_TYPE,
   CUSTOMER_DELETED_EVENT_TYPE,
   CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
@@ -451,6 +453,17 @@ export type SmsVerificationStatusPayload = {
   reason?: string;
 };
 
+export type CommunicationFailedPayload = {
+  logId: string;
+  channel: CommunicationChannel;
+  participant: string;
+  memberId?: string;
+  appointmentId?: string;
+  customerId?: string;
+  reason?: string;
+  cause: "send" | "delivery";
+};
+
 /** Maps core platform event type strings to their payload shapes (services emits). */
 export type CoreEventPayloadByType = {
   [CUSTOMER_CREATED_EVENT_TYPE]: CustomerCreatedPayload;
@@ -537,6 +550,7 @@ export type CoreEventPayloadByType = {
   [SMS_VERIFICATION_PENDING_EVENT_TYPE]: SmsVerificationStatusPayload;
   [SMS_VERIFICATION_FAILED_EVENT_TYPE]: SmsVerificationStatusPayload;
   [SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE]: SmsVerificationStatusPayload;
+  [COMMUNICATION_FAILED_EVENT_TYPE]: CommunicationFailedPayload;
 };
 
 export type CoreEventTypeString = keyof CoreEventPayloadByType;

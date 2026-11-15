@@ -6,6 +6,7 @@ import { APPOINTMENT_OPTION_EVENT_DEFINITIONS } from "./appointment-option/appoi
 import { APPOINTMENT_EVENT_DEFINITIONS } from "./appointment/appointment-event-definitions";
 import { ASSET_EVENT_DEFINITIONS } from "./asset/asset-event-definitions";
 import { BILLING_EVENT_DEFINITIONS } from "./billing/billing-event-definitions";
+import { COMMUNICATION_EVENT_DEFINITIONS } from "./communication/communication-event-definitions";
 import { CUSTOMER_EVENT_DEFINITIONS } from "./customer/customer-event-definitions";
 import { DISCOUNT_EVENT_DEFINITIONS } from "./discount/discount-event-definitions";
 import { FIELD_EVENT_DEFINITIONS } from "./field/field-event-definitions";
@@ -40,6 +41,7 @@ export const DOMAIN_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   ...APPOINTMENT_OPTION_EVENT_DEFINITIONS,
   ...DISCOUNT_EVENT_DEFINITIONS,
   ...BILLING_EVENT_DEFINITIONS,
+  ...COMMUNICATION_EVENT_DEFINITIONS,
   ...SUBSCRIPTION_EVENT_DEFINITIONS,
   ...TEMPLATE_EVENT_DEFINITIONS,
   ...PAGE_EVENT_DEFINITIONS,

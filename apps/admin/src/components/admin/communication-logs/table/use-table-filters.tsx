@@ -12,6 +12,11 @@ export function useCommunicationLogsTableFilters() {
       .withDefault(""),
   );
 
+  const [idFilter, setIdFilter] = useQueryState(
+    "id",
+    communicationLogsSearchParams.id.withOptions({ shallow: false }),
+  );
+
   const [directionFilter, setDirectionFilter] = useQueryState(
     "direction",
     communicationLogsSearchParams.direction
@@ -67,6 +72,7 @@ export function useCommunicationLogsTableFilters() {
 
   const resetFilters = useCallback(() => {
     setSearchQuery(null);
+    setIdFilter(null);
     setDirectionFilter(null);
     setChannelFilter(null);
     setStatusFilter(null);
@@ -79,6 +85,7 @@ export function useCommunicationLogsTableFilters() {
     setPage(1);
   }, [
     setSearchQuery,
+    setIdFilter,
     setDirectionFilter,
     setChannelFilter,
     setStatusFilter,
@@ -93,6 +100,7 @@ export function useCommunicationLogsTableFilters() {
   const isAnyFilterActive = useMemo(() => {
     return (
       !!searchQuery ||
+      !!idFilter ||
       directionFilter !==
         communicationLogsSearchParams.direction.defaultValue ||
       channelFilter !== communicationLogsSearchParams.channel.defaultValue ||
@@ -105,6 +113,7 @@ export function useCommunicationLogsTableFilters() {
     );
   }, [
     searchQuery,
+    idFilter,
     directionFilter,
     channelFilter,
     statusFilter,
@@ -117,6 +126,8 @@ export function useCommunicationLogsTableFilters() {
   return {
     searchQuery,
     setSearchQuery,
+    idFilter,
+    setIdFilter,
     page,
     setPage,
     resetFilters,

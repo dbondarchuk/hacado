@@ -352,6 +352,10 @@ platformEvents:
     smsTopupPurchased:
       title: Recharge SMS ajoutée
       description: "{credits, plural, =1 {1 top-up message credit} other {# top-up message credits}} ajouté à votre compte."
+  communication:
+    failed:
+      title: Le message n'a pas pu être envoyé
+      description: "{channel} à {participant}"
 billing:
   emails:
     subscriptionAlert:
@@ -1336,6 +1340,8 @@ communicationLogs:
       participant: Participant
       member: Membre de l'équipe
       status: Statut
+      logIdActive: Affichage du journal "{id}"
+      clearLogId: Clair
 customers:
   title: Clients
   new: Nouveau client
@@ -3549,6 +3555,11 @@ communications:
   content: Contenu
   send: Envoyer
   participant: "Participant : {participant}"
+  notifications:
+    failed:
+      title: Le message n'a pas pu être envoyé
+      message: "{channel} à {participant}"
+      action: Afficher le journal
 calendar:
   today: Aujourd'hui
   selectView: Sélectionnez la vue
@@ -4377,3 +4388,4 @@ smsConsent:
   attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
+

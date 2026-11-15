@@ -36,6 +36,7 @@ import { maskify } from "@hacado/utils/string";
 import { convert } from "html-to-text";
 import type { Redis } from "ioredis";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
+import { emitCommunicationFailed } from "./events/emit-communication-failed";
 import {
   appendRatesSentence,
   canSendCustomerSms,
@@ -561,6 +562,10 @@ export class NotificationService implements INotificationService {
           logId: props.communicationLogId,
           reason: response.error || "SMS send failed",
           attempt: props.deliveryAttempt,
+          participant: trimmedPhone,
+          memberId,
+          appointmentId,
+          customerId,
         });
 
         return response;
@@ -696,6 +701,10 @@ export class NotificationService implements INotificationService {
     logId?: string;
     reason: string;
     attempt?: { made: number; max: number };
+    participant: string;
+    memberId?: string;
+    appointmentId?: string;
+    customerId?: string;
   }) {
     if (!input.logId) {
       return;
@@ -706,6 +715,17 @@ export class NotificationService implements INotificationService {
         status: "failed",
         reason: smsFailureReason(input.reason),
         ...permanentFailureCounts(input.attempt),
+      });
+
+      await emitCommunicationFailed(this.eventService, {
+        logId: input.logId,
+        channel: "text-message",
+        participant: input.participant,
+        memberId: input.memberId,
+        appointmentId: input.appointmentId,
+        customerId: input.customerId,
+        reason: input.reason,
+        cause: "send",
       });
     } catch (error) {
       this.loggerFactory("recordFailed").error(

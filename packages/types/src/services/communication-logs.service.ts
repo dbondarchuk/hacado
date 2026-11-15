@@ -16,6 +16,7 @@ export interface ICommunicationLogsService {
   update(logId: string, patch: CommunicationLogUpdate): Promise<void>;
   getCommunicationLogs(
     query: Query & {
+      id?: string;
       direction?: CommunicationDirection[];
       channel?: CommunicationChannel[];
       status?: CommunicationLogStatus[];

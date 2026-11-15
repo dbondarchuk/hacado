@@ -32,6 +32,7 @@ export async function GET(request: NextRequest) {
   const search = params.search ?? undefined;
   const limit = params.limit;
   const sort = params.sort;
+  const id = params.id ?? undefined;
   const customerId = params.customer ?? undefined;
   const appointmentId = params.appointmentId ?? undefined;
   const direction = params.direction;
@@ -51,6 +52,7 @@ export async function GET(request: NextRequest) {
       page,
       limit,
       offset,
+      id,
       memberIds,
     },
     "Fetching communication logs with parameters",
@@ -58,6 +60,7 @@ export async function GET(request: NextRequest) {
 
   const res =
     await servicesContainer.communicationLogsService.getCommunicationLogs({
+      id,
       offset,
       limit,
       search,

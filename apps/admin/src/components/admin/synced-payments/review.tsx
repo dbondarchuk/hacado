@@ -38,7 +38,7 @@ import { Spinner } from "@hacado/ui/spinner";
 import { canManageSyncedPayments } from "@hacado/utils/permissions";
 import { Check, FilterX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const NEEDS_REVIEW: SyncedPaymentStatus[] = ["matched", "unmatched"];
 const PAGE_SIZE = 20;
@@ -71,8 +71,10 @@ export const SyncedPaymentsReview = () => {
 
   const [approvingAll, setApprovingAll] = useState(false);
   const [approveAllOpen, setApproveAllOpen] = useState(false);
+  const loadRequest = useRef(0);
 
   const load = useCallback(async () => {
+    const requestId = ++loadRequest.current;
     setLoading(true);
     try {
       const result = await syncedPaymentsApi.listSyncedPayments({
@@ -84,13 +86,23 @@ export const SyncedPaymentsReview = () => {
         externalId,
       });
 
+      if (requestId !== loadRequest.current) {
+        return;
+      }
+
       setItems(result.items);
       setTotal(result.total);
     } catch {
+      if (requestId !== loadRequest.current) {
+        return;
+      }
+
       setItems([]);
       setTotal(0);
     } finally {
-      setLoading(false);
+      if (requestId === loadRequest.current) {
+        setLoading(false);
+      }
     }
   }, [showAll, page, range, externalId]);
 
@@ -121,9 +133,7 @@ export const SyncedPaymentsReview = () => {
       );
 
       if (result.count > 0) {
-        setTimeout(async () => {
-          await load();
-        }, 300);
+        await load();
       }
 
       setApproveAllOpen(false);
@@ -143,9 +153,7 @@ export const SyncedPaymentsReview = () => {
           error: t("syncedPayments.toast.error"),
         });
 
-        setTimeout(async () => {
-          await load();
-        }, 300);
+        await load();
       } catch {
         // toastPromise already surfaced the error
       } finally {

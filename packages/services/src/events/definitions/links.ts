@@ -45,4 +45,7 @@ export const dashboardUrls = {
   textMessagingVerification: "/dashboard/settings/text-messaging/verification",
   /** Brand settings; opens the SMS top-up purchase dialog (see `SmsTopupPurchaseDialog`). */
   billingPurchaseSmsTopup: "/dashboard/settings/brand?purchase_sms_topup=true",
+  communicationLogs: "/dashboard/communication-logs",
+  communicationLog: (id: string) =>
+    `/dashboard/communication-logs?id=${encodeURIComponent(id)}`,
 };

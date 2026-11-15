@@ -10,12 +10,14 @@ import { WithOrganizationId } from "@hacado/types/database";
 import {
   EmailNotificationRequest,
   ICommunicationLogsService,
+  IEventService,
   INotificationService,
   ISystemNotificationService,
   TextMessageNotificationRequest,
 } from "@hacado/types/services";
 import { Job } from "bullmq";
 import { convert } from "html-to-text";
+import { emitCommunicationFailed } from "../../events/emit-communication-failed";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQNotificationConfig } from "./types";
 
@@ -83,6 +85,7 @@ export class BullMQNotificationService
     protected readonly organizationId: string,
     config: BullMQNotificationConfig,
     private readonly communicationLogsService: ICommunicationLogsService,
+    private readonly eventService: IEventService,
   ) {
     super(
       config,
@@ -374,12 +377,27 @@ export class BullMQNotificationService
         },
       );
     } catch (error) {
+      const reason = error instanceof Error ? error.message : "Failed to queue";
+
       await this.communicationLogsService.update(communicationLogId, {
         status: "failed",
-        reason: error instanceof Error ? error.message : "Failed to queue",
+        reason,
         retryable: false,
         retriesDone: 0,
         retriesLeft: 0,
+      });
+
+      await emitCommunicationFailed(this.eventService, {
+        logId: communicationLogId,
+        channel: "email",
+        participant: Array.isArray(data.email.to)
+          ? data.email.to.join("; ")
+          : data.email.to,
+        memberId: data.memberId,
+        appointmentId: data.appointmentId,
+        customerId: data.customerId,
+        reason,
+        cause: "send",
       });
 
       throw error;
@@ -430,12 +448,25 @@ export class BullMQNotificationService
         return null;
       }
 
+      const reason = error instanceof Error ? error.message : "Failed to queue";
+
       await this.communicationLogsService.update(communicationLogId, {
         status: "failed",
-        reason: error instanceof Error ? error.message : "Failed to queue",
+        reason,
         retryable: false,
         retriesDone: 0,
         retriesLeft: 0,
+      });
+
+      await emitCommunicationFailed(this.eventService, {
+        logId: communicationLogId,
+        channel: "text-message",
+        participant: data.phone,
+        memberId: data.memberId,
+        appointmentId: data.appointmentId,
+        customerId: data.customerId,
+        reason,
+        cause: "send",
       });
 
       throw error;

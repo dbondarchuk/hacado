@@ -352,6 +352,10 @@ platformEvents:
     smsTopupPurchased:
       title: Recarga por SMS agregada
       description: Se agregó {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}} a su cuenta.
+  communication:
+    failed:
+      title: No se pudo enviar el mensaje
+      description: "{channel} a {participant}"
 billing:
   emails:
     subscriptionAlert:
@@ -1336,6 +1340,8 @@ communicationLogs:
       participant: Partícipe
       member: Miembro del equipo
       status: Estado
+      logIdActive: Mostrando el registro "{id}"
+      clearLogId: Claro
 customers:
   title: Clientes
   new: Nuevo cliente
@@ -3549,6 +3555,11 @@ communications:
   content: Contenido
   send: Enviar
   participant: "Participante: {participant}"
+  notifications:
+    failed:
+      title: No se pudo enviar el mensaje
+      message: "{channel} a {participant}"
+      action: Ver registro
 calendar:
   today: Hoy
   selectView: Seleccionar vista
@@ -4377,3 +4388,4 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
+

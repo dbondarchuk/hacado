@@ -181,6 +181,10 @@ export class S3AssetsStorageService implements IAssetsStorage {
       "Deleting multiple files from S3",
     );
 
+    if (!filenames.length) {
+      return;
+    }
+
     try {
       let totalDeleted = 0;
       const client = this.getClient();
@@ -192,15 +196,42 @@ export class S3AssetsStorageService implements IAssetsStorage {
           "Deleting batch of files from S3",
         );
 
-        await client.send(
-          new DeleteObjectsCommand({
-            Bucket: bucket,
-            Delete: {
-              Objects: batch.map((Key) => ({ Key })),
-              Quiet: true,
+        try {
+          await client.send(
+            new DeleteObjectsCommand({
+              Bucket: bucket,
+              Delete: {
+                Objects: batch.map((filename) => ({
+                  Key: this.getKey(filename),
+                })),
+                Quiet: true,
+              },
+            }),
+          );
+        } catch (error: any) {
+          // Some S3-compatible stores (e.g. local SeaweedFS) return a body the
+          // AWS SDK cannot deserialize for DeleteObjects. Fall back per key.
+          logger.warn(
+            {
+              startIndex: i,
+              batchCount: batch.length,
+              error: error?.message || error?.toString(),
             },
-          }),
-        );
+            "Batch DeleteObjects failed; falling back to individual deletes",
+          );
+
+          await Promise.all(
+            batch.map(async (filename) => {
+              const fileKey = this.getKey(filename);
+              await client.send(
+                new DeleteObjectCommand({
+                  Bucket: bucket,
+                  Key: fileKey,
+                }),
+              );
+            }),
+          );
+        }
 
         totalDeleted += batch.length;
       }

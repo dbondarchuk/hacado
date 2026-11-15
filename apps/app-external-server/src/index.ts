@@ -129,6 +129,14 @@ async function handlePlatformTelnyxWebhook(
         services.teamService,
       );
     },
+    new SmsRegistrationStore(),
+    async (organizationId, type, payload) => {
+      await ServicesContainer(organizationId).eventService.emit(
+        type,
+        payload,
+        systemEventSource,
+      );
+    },
   );
 
   return webhook.processWebhook(request);
@@ -155,7 +163,13 @@ const routes: Route[] = [
   {
     pattern: /^\/api\/webhooks\/platform\/resend\/?$/,
     process: async (_match, request) =>
-      new ResendWebhookService().processWebhook(request),
+      new ResendWebhookService(async (organizationId, type, payload) => {
+        await ServicesContainer(organizationId).eventService.emit(
+          type,
+          payload,
+          systemEventSource,
+        );
+      }).processWebhook(request),
   },
   {
     pattern: /^\/api\/webhooks\/platform\/telnyx\/messaging\/?$/,

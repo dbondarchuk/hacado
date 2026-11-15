@@ -4,10 +4,8 @@ import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/communication-logs/delete")(
-    "DELETE",
-  );
+export async function POST(request: NextRequest) {
+  const logger = getLoggerFactory("AdminAPI/communication-logs/delete")("POST");
 
   const servicesContainer = await getServicesContainer();
   logger.debug(

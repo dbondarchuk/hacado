@@ -173,3 +173,5 @@ export const SMS_VERIFICATION_FAILED_EVENT_TYPE =
 
 export const SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE =
   "smsVerification.succeeded" as const;
+
+export const COMMUNICATION_FAILED_EVENT_TYPE = "communication.failed" as const;

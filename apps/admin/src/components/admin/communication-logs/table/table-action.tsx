@@ -20,7 +20,10 @@ import {
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
 import { SelectionActionBar } from "@hacado/ui-admin/selection-action-bar";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
+import { X } from "lucide-react";
 
 import React from "react";
 import { ClearAllCommunicationLogsButton } from "./clear-all";
@@ -29,7 +32,6 @@ import { useCommunicationLogsTableFilters } from "./use-table-filters";
 
 export const CommunicationLogsTableAction: React.FC<{
   allowClearAll?: boolean;
-  hideActions?: boolean;
   showCustomerFilter?: boolean;
   showParticipantTypeFilter?: boolean;
   className?: string;
@@ -38,7 +40,6 @@ export const CommunicationLogsTableAction: React.FC<{
   allowClearAll,
   showCustomerFilter,
   showParticipantTypeFilter,
-  hideActions = true,
   className,
   actions,
 }) => {
@@ -56,6 +57,8 @@ export const CommunicationLogsTableAction: React.FC<{
     searchQuery,
     setPage,
     setSearchQuery,
+    idFilter,
+    setIdFilter,
     start,
     end,
     setStartValue,
@@ -139,18 +142,42 @@ export const CommunicationLogsTableAction: React.FC<{
     </>
   );
 
-  const toolbarActions = (
-    <>
-      {!hideActions && allowClearAll ? (
-        <ClearAllCommunicationLogsButton />
-      ) : null}
-      {actions}
-    </>
-  );
+  const toolbarActions =
+    allowClearAll || actions ? (
+      <>
+        {allowClearAll ? <ClearAllCommunicationLogsButton /> : null}
+        {actions}
+      </>
+    ) : undefined;
 
   return (
-    <>
-      <DataTableToolbar actions={toolbarActions} className={className}>
+    <div className={cn("flex min-w-0 flex-col gap-3", className)}>
+      {idFilter ? (
+        <div className="flex min-w-0 flex-nowrap items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm">
+          <span className="min-w-0 flex-1 truncate">
+            {t("communicationLogs.table.filters.logIdActive", {
+              id: idFilter,
+            })}
+          </span>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="h-7 shrink-0 px-2"
+            aria-label={t("communicationLogs.table.filters.clearLogId")}
+            onClick={() => {
+              void setIdFilter(null);
+              void setPage(1);
+            }}
+          >
+            <X className="size-3.5" />
+            <span className="ml-1 hidden sm:inline">
+              {t("communicationLogs.table.filters.clearLogId")}
+            </span>
+          </Button>
+        </div>
+      ) : null}
+      <DataTableToolbar actions={toolbarActions}>
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
@@ -163,11 +190,9 @@ export const CommunicationLogsTableAction: React.FC<{
           onReset={resetFilters}
         />
       </DataTableToolbar>
-      {!hideActions ? (
-        <SelectionActionBar count={rowSelection.length}>
-          <ClearSelectedCommunicationLogsButton selected={rowSelection} />
-        </SelectionActionBar>
-      ) : null}
-    </>
+      <SelectionActionBar count={rowSelection.length}>
+        <ClearSelectedCommunicationLogsButton selected={rowSelection} />
+      </SelectionActionBar>
+    </div>
   );
 };

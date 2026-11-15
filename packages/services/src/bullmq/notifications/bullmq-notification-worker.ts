@@ -4,6 +4,7 @@ import {
   PushNotificationRequest,
   TextMessage,
 } from "@hacado/types/apps";
+import type { CommunicationChannel } from "@hacado/types/communication";
 import {
   EmailNotificationRequest,
   IServicesContainer,
@@ -11,6 +12,7 @@ import {
 } from "@hacado/types/services";
 import { Job } from "bullmq";
 import { createDefaultEmailService } from "../../email/factory";
+import { emitCommunicationFailed } from "../../events/emit-communication-failed";
 import {
   NotificationService,
   SystemNotificationService,
@@ -19,6 +21,14 @@ import { createDefaultTextMessageSender } from "../../text-message";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { NotificationJobData } from "./bullmq-notification-service";
 import { BullMQNotificationConfig } from "./types";
+
+type CommunicationFailedContext = {
+  channel: CommunicationChannel;
+  participant: string;
+  memberId?: string;
+  appointmentId?: string;
+  customerId?: string;
+};
 
 export class BullMQNotificationWorker extends BaseBullMQClient {
   protected readonly config: BullMQNotificationConfig;
@@ -267,6 +277,15 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         emailData.communicationLogId,
         job,
         error,
+        {
+          channel: "email",
+          participant: Array.isArray(emailData.email.to)
+            ? emailData.email.to.join("; ")
+            : emailData.email.to,
+          memberId: emailData.memberId,
+          appointmentId: emailData.appointmentId,
+          customerId: emailData.customerId,
+        },
       );
 
       throw error;
@@ -384,6 +403,13 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         textData.communicationLogId,
         job,
         error,
+        {
+          channel: "text-message",
+          participant: textData.phone,
+          memberId: textData.memberId,
+          appointmentId: textData.appointmentId,
+          customerId: textData.customerId,
+        },
       );
 
       throw error;
@@ -647,24 +673,38 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     logId: string | undefined,
     job: Job,
     error: unknown,
+    context: CommunicationFailedContext,
     retryableError = true,
   ) {
     if (!logId) {
       return;
     }
 
+    const services = this.getServices(organizationId);
     const counts = this.attemptCounts(job, true, retryableError);
     const reason = error instanceof Error ? error.message : "Send failed";
-    await this.getServices(organizationId).communicationLogsService.update(
+    await services.communicationLogsService.update(logId, {
+      status: "failed",
+      reason,
+      retryable: counts.retryable,
+      retriesDone: counts.retriesDone,
+      retriesLeft: counts.retriesLeft,
+    });
+
+    if (counts.retryable) {
+      return;
+    }
+
+    await emitCommunicationFailed(services.eventService, {
       logId,
-      {
-        status: "failed",
-        reason,
-        retryable: counts.retryable,
-        retriesDone: counts.retriesDone,
-        retriesLeft: counts.retriesLeft,
-      },
-    );
+      channel: context.channel,
+      participant: context.participant,
+      memberId: context.memberId,
+      appointmentId: context.appointmentId,
+      customerId: context.customerId,
+      reason,
+      cause: "send",
+    });
   }
 
   private getNotificationService(organizationId: string): NotificationService {

@@ -1,6 +1,10 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { COMMUNICATION_FAILED_EVENT_TYPE } from "@hacado/types/events";
 import { Resend } from "resend";
-import { markCommunicationLogDeliveryFailed } from "../../communication-logs.service";
+import {
+  markCommunicationLogDeliveryFailed,
+  type CommunicationLogDeliveryFailedResult,
+} from "../../communication-logs.service";
 import { getResendConfiguration } from "./utils";
 
 const deliveryFailureTypes = new Set([
@@ -37,8 +41,27 @@ const failureDetail = (event: { type: string; data: object }) => {
   return event.type;
 };
 
+type EmitCommunicationFailed = (
+  organizationId: string,
+  type: typeof COMMUNICATION_FAILED_EVENT_TYPE,
+  payload: {
+    logId: string;
+    channel: CommunicationLogDeliveryFailedResult["channel"];
+    participant: string;
+    memberId?: string;
+    appointmentId?: string;
+    customerId?: string;
+    reason?: string;
+    cause: "delivery";
+  },
+) => Promise<void>;
+
 export class ResendWebhookService {
   protected readonly loggerFactory = getLoggerFactory("ResendWebhookService");
+
+  constructor(
+    private readonly emitCommunicationFailedEvent?: EmitCommunicationFailed,
+  ) {}
 
   public async processWebhook(request: Request): Promise<Response> {
     const logger = this.loggerFactory("processWebhook");
@@ -76,16 +99,42 @@ export class ResendWebhookService {
       return Response.json({ success: true });
     }
 
-    await markCommunicationLogDeliveryFailed({
+    const detail = failureDetail(event);
+    const affected = await markCommunicationLogDeliveryFailed({
       providerMessageId: event.data.email_id,
       reason: {
         key: "admin.communications.reason.deliveryFailed",
-        args: { detail: failureDetail(event) },
+        args: { detail },
       },
     });
 
+    if (this.emitCommunicationFailedEvent) {
+      await Promise.all(
+        affected.map((log) =>
+          this.emitCommunicationFailedEvent!(
+            log.organizationId,
+            COMMUNICATION_FAILED_EVENT_TYPE,
+            {
+              logId: log.logId,
+              channel: log.channel,
+              participant: log.participant,
+              memberId: log.memberId,
+              appointmentId: log.appointmentId,
+              customerId: log.customerId,
+              reason: detail,
+              cause: "delivery",
+            },
+          ),
+        ),
+      );
+    }
+
     logger.info(
-      { type: event.type, emailId: event.data.email_id },
+      {
+        type: event.type,
+        emailId: event.data.email_id,
+        count: affected.length,
+      },
       "Marked communication log failed from Resend",
     );
 

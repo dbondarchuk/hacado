@@ -44,6 +44,7 @@ export const listSyncedPayments = async (params?: {
   const query = searchParams.toString();
   const response = await fetchAdminApi(
     `/synced-payments${query ? `?${query}` : ""}`,
+    { cache: "no-store" },
   );
 
   return response.json<WithTotal<HydratedSyncedPayment>>();

@@ -291,6 +291,7 @@ export class CommunicationLogsService
 
   public async getCommunicationLogs(
     query: Query & {
+      id?: string;
       direction?: CommunicationDirection[];
       channel?: CommunicationChannel[];
       status?: CommunicationLogStatus[];
@@ -317,6 +318,10 @@ export class CommunicationLogsService
     const filter: Filter<CommunicationLogSearchable> = {
       organizationId: this.organizationId,
     };
+
+    if (query.id) {
+      filter._id = query.id;
+    }
 
     if (query.range?.start || query.range?.end) {
       filter.dateTime = {};
@@ -645,31 +650,62 @@ export class CommunicationLogsService
     }
 
     logger.debug({ fileCount: ids.length }, "Deleting payload files");
-    await this.assetsStorage.deleteFiles(
-      ids.map(communicationLogPayloadFilename),
-    );
 
-    logger.debug(
-      { fileCount: ids.length },
-      "Successfully deleted payload files",
-    );
+    try {
+      await this.assetsStorage.deleteFiles(
+        ids.map(communicationLogPayloadFilename),
+      );
+
+      logger.debug(
+        { fileCount: ids.length },
+        "Successfully deleted payload files",
+      );
+    } catch (error) {
+      // Clear must still remove Mongo rows even if payload blobs are missing
+      // or the object store rejects the batch delete.
+      logger.error(
+        { fileCount: ids.length, error },
+        "Failed to delete payload files; continuing with log deletion",
+      );
+    }
   }
 }
+
+export type CommunicationLogDeliveryFailedResult = {
+  organizationId: string;
+  logId: string;
+  channel: CommunicationChannel;
+  participant: string;
+  memberId?: string;
+  appointmentId?: string;
+  customerId?: string;
+};
 
 export async function markCommunicationLogDeliveryFailed(input: {
   providerMessageId: string;
   reason: CommunicationLogReason;
-}): Promise<void> {
+}): Promise<CommunicationLogDeliveryFailedResult[]> {
   if (!input.providerMessageId) {
-    return;
+    return [];
   }
 
   const db = await getDbConnection();
-  await db.collection<CommunicationLogEntity>(LOG_COLLECTION_NAME).updateMany(
-    {
+  const collection = db.collection<CommunicationLogEntity>(LOG_COLLECTION_NAME);
+
+  const matching = await collection
+    .find({
       providerMessageId: input.providerMessageId,
       direction: "outbound",
-    },
+      $or: [{ status: { $ne: "failed" } }, { retryable: true }],
+    })
+    .toArray();
+
+  if (!matching.length) {
+    return [];
+  }
+
+  await collection.updateMany(
+    { _id: { $in: matching.map((log) => log._id) } },
     {
       $set: {
         status: "failed",
@@ -679,4 +715,14 @@ export async function markCommunicationLogDeliveryFailed(input: {
       },
     },
   );
+
+  return matching.map((log) => ({
+    organizationId: log.organizationId,
+    logId: log._id,
+    channel: log.channel,
+    participant: log.participant,
+    memberId: log.memberId,
+    appointmentId: log.appointmentId,
+    customerId: log.customerId,
+  }));
 }

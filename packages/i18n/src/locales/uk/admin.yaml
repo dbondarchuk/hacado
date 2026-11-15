@@ -352,6 +352,10 @@ platformEvents:
     smsTopupPurchased:
       title: Додано SMS-докупку
       description: На рахунок додано {credits, plural, one {кредит} few {# кредити} many {# кредитів} other {# кредиту}} (докупка).
+  communication:
+    failed:
+      title: Не вдалося надіслати повідомлення
+      description: "{channel} до {participant}"
 billing:
   emails:
     subscriptionAlert:
@@ -1336,6 +1340,8 @@ communicationLogs:
       participant: Учасник
       member: Член команди
       status: Статус
+      logIdActive: Показано журнал "{id}"
+      clearLogId: ясно
 customers:
   title: Клієнти
   new: Новий клієнт
@@ -3547,6 +3553,11 @@ communications:
   content: Вміст
   send: Надіслати
   participant: "Учасник: {participant}"
+  notifications:
+    failed:
+      title: Не вдалося надіслати повідомлення
+      message: "{channel} до {participant}"
+      action: Переглянути журнал
 calendar:
   today: Сьогодні
   selectView: Вибрати вигляд
@@ -4375,3 +4386,4 @@ memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
+

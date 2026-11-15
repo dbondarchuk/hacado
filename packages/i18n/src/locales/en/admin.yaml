@@ -102,6 +102,10 @@ platformEvents:
     succeeded:
       title: Custom text messaging verified
       description: "Customer texts use {phoneNumber}."
+  communication:
+    failed:
+      title: Message failed to send
+      description: "{channel} to {participant}"
   customer:
     created:
       title: New customer
@@ -1374,6 +1378,8 @@ communicationLogs:
       participant: Participant
       member: Team member
       status: Status
+      logIdActive: Showing log "{id}"
+      clearLogId: Clear
 customers:
   title: Customers
   new: New customer
@@ -3775,6 +3781,11 @@ communications:
     numberNotReady: Text number is not ready
     linkOnly: Message had only a link
     deliveryFailed: "Delivery failed: {detail}"
+  notifications:
+    failed:
+      title: Message failed to send
+      message: "{channel} to {participant}"
+      action: View log
   retries: "{done} retries used, {left} left"
   retryable: Can be retried
   notRetryable: Will not be retried

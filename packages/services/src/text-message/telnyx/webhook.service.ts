@@ -1,5 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
 import { ITextMessageSender } from "@hacado/types/apps";
+import type { CommunicationChannel } from "@hacado/types/communication";
+import { COMMUNICATION_FAILED_EVENT_TYPE } from "@hacado/types/events";
 import { normalizeToE164 } from "@hacado/utils/phone";
 import { maskify } from "@hacado/utils/string";
 import { markCommunicationLogDeliveryFailed } from "../../communication-logs.service";
@@ -10,6 +12,21 @@ import { SmsRegistrationStore } from "../registration-store";
 import { SmsStore } from "../sms-store";
 import { TelnyxService } from "./service";
 import { TelnyxWebhookConfigError, unwrapTelnyxWebhook } from "./verify";
+
+type EmitCommunicationFailed = (
+  organizationId: string,
+  type: typeof COMMUNICATION_FAILED_EVENT_TYPE,
+  payload: {
+    logId: string;
+    channel: CommunicationChannel;
+    participant: string;
+    memberId?: string;
+    appointmentId?: string;
+    customerId?: string;
+    reason?: string;
+    cause: "delivery";
+  },
+) => Promise<void>;
 
 type TelnyxMessagingEvent = {
   data?: {
@@ -39,6 +56,7 @@ export class TelnyxMessagingWebhookService {
       throw new Error("Inbound text handler is not configured");
     },
     private readonly registrationStore = new SmsRegistrationStore(),
+    private readonly emitCommunicationFailedEvent?: EmitCommunicationFailed,
   ) {}
 
   public async processWebhook(request: Request): Promise<Response> {
@@ -104,13 +122,34 @@ export class TelnyxMessagingWebhookService {
 
     if (failed) {
       const detail = errorCode || status || "delivery failed";
-      await markCommunicationLogDeliveryFailed({
+      const affected = await markCommunicationLogDeliveryFailed({
         providerMessageId: textId,
         reason: {
           key: "admin.communications.reason.deliveryFailed",
           args: { detail },
         },
       });
+
+      if (this.emitCommunicationFailedEvent) {
+        await Promise.all(
+          affected.map((log) =>
+            this.emitCommunicationFailedEvent!(
+              log.organizationId,
+              COMMUNICATION_FAILED_EVENT_TYPE,
+              {
+                logId: log.logId,
+                channel: log.channel,
+                participant: log.participant,
+                memberId: log.memberId,
+                appointmentId: log.appointmentId,
+                customerId: log.customerId,
+                reason: detail,
+                cause: "delivery",
+              },
+            ),
+          ),
+        );
+      }
     }
 
     if (errorCode === "40300") {
