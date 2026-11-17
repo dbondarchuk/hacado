@@ -26,6 +26,7 @@ import {
 } from "./primitives";
 import { badge, ctaSpark, section } from "./layout";
 import { browserCarousel } from "./media";
+import { statementList } from "./widgets";
 
 function typewriter(phrases: string[], style: Record<string, unknown> = {}) {
   return block("TypewriterText", {
@@ -512,6 +513,105 @@ export function templatesBrowseSection(
         borderColor: sv(C.border),
         width: size(100, "%"),
       }),
+    ],
+    { padding: pad(2, 1.5, 2, 1.5), alignItems: sv("center") },
+  );
+}
+
+/** Accent band: chat builds pages in the website builder. */
+export function builderAiSection(
+  opts: {
+    eyebrow?: string;
+    titleLead?: string;
+    titleEm?: string;
+    body?: string;
+    bullets?: string[];
+    ctaLabel?: string;
+  } = {},
+) {
+  const eyebrow = opts.eyebrow ?? "AI";
+  const titleLead = opts.titleLead ?? "Describe the page.";
+  const titleEm = opts.titleEm ?? "AI builds it.";
+  const body =
+    opts.body ??
+    "Tell the builder what you need - a services page, gallery, FAQ, or a full home layout. AI writes the blocks and copy into the editor. Keep editing by chat or drag and drop until it feels like your studio.";
+  const bullets = opts.bullets ?? [
+    "Build or rewrite whole pages from a short description",
+    "Change layout, headlines, and images by chatting in the builder",
+    "Keep drag and drop whenever you want full control",
+  ];
+
+  return section(
+    [
+      container(
+        [
+          badge(eyebrow),
+          heading(
+            "h2",
+            titleLead,
+            {
+              fontSize: [
+                { value: { value: 2.25, unit: "rem" } },
+                { value: { value: 3, unit: "rem" }, breakpoint: ["md"] },
+              ],
+              fontWeight: sv("500"),
+              letterSpacing: sv({ value: -0.04, unit: "rem" }),
+              textAlign: sv("center"),
+              maxWidth: size(36, "rem"),
+              width: size(100, "%"),
+            },
+            [
+              inlineText(titleEm, {
+                fontStyle: sv("italic"),
+                color: sv(C.foreground),
+              }),
+            ],
+            {
+              display: sv("flex"),
+              flexDirection: sv("column"),
+              alignItems: sv("center"),
+              width: size(100, "%"),
+            },
+          ),
+          text(body, {
+            textAlign: sv("center"),
+            maxWidth: size(40, "rem"),
+            color: sv(C.accentFg),
+            lineHeight: sv({ value: 1.65, unit: "" }),
+          }),
+          container([statementList(bullets)], {
+            width: size(100, "%"),
+            maxWidth: size(36, "rem"),
+          }),
+          button(
+            opts.ctaLabel ?? "Try AI on Free",
+            SIGNUP_URL,
+            "primary",
+            undefined,
+            { width: ctaButtonWidth },
+          ),
+        ],
+        {
+          alignItems: sv("center"),
+          textAlign: sv("center"),
+          gap: gap(1.5),
+          padding: [
+            ...pad(2.5, 1.5, 2.5, 1.5),
+            {
+              value: {
+                top: { value: 3.25, unit: "rem" },
+                right: { value: 2.5, unit: "rem" },
+                bottom: { value: 3.25, unit: "rem" },
+                left: { value: 2.5, unit: "rem" },
+              },
+              breakpoint: ["md"],
+            },
+          ],
+          backgroundColor: sv(C.accent),
+          borderRadius: radius(16),
+          width: size(100, "%"),
+        },
+      ),
     ],
     { padding: pad(2, 1.5, 2, 1.5), alignItems: sv("center") },
   );

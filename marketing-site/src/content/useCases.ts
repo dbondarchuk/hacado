@@ -964,6 +964,7 @@ export const useCases: UseCase[] = [
     bullets: [
       "No separate hosting or theme shop",
       "Pages + booking + email in one admin",
+      "AI that builds pages and messages when you are stuck",
       "Free subdomain to start",
       "Custom domain later on Solo",
       "Grow into payments, gift cards, packages, team",
@@ -972,7 +973,7 @@ export const useCases: UseCase[] = [
     sections: [
       {
         title: "Launch is a page, not a vendor list",
-        body: "Setup asks what you do and when you are free. You pick colors and a logo. You publish. That path is the same whether the first client is a manicure, a consult, or a piano lesson.",
+        body: "Setup asks what you do and when you are free. You pick colors and a logo - or ask AI to build the page. You publish. That path is the same whether the first client is a manicure, a consult, or a piano lesson.",
       },
       {
         title: "Pay for complexity when you have it",
@@ -985,7 +986,10 @@ export const useCases: UseCase[] = [
     ],
     steps: [
       { title: "Tell us what you do", body: "About two minutes in setup." },
-      { title: "Make it yours", body: "Logo, colors, a welcome line." },
+      {
+        title: "Make it yours",
+        body: "Logo, colors, a welcome line - or ask AI to build the page.",
+      },
       {
         title: "Share the link",
         body: "Instagram, Google Business Profile, or a paper card.",
@@ -1014,7 +1018,7 @@ export const useCases: UseCase[] = [
       },
       {
         q: "Do I need a designer?",
-        a: "No. Drag and drop. Hire a designer later for photos if you want - the builder will not block launch.",
+        a: "No. Drag and drop, or ask AI to build the page. Hire a designer later for photos if you want - the builder will not block launch.",
       },
     ],
     related: [

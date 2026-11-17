@@ -192,7 +192,7 @@ export const stepsHome = [
   {
     n: "02",
     title: "Make it yours",
-    body: "Choose colors, add your logo, write a welcome message. Drag and drop to build the page.",
+    body: "Choose colors, add your logo, write a welcome message. Drag and drop - or ask AI to build the page.",
   },
   {
     n: "03",
@@ -239,6 +239,7 @@ export const plans: Plan[] = [
       "1 bookable service",
       "Up to 10 pages",
       "Custom booking page with your branding",
+      "AI that builds pages, email, and SMS",
       "Calendar sync (Google, Outlook, CalDAV, ICS import)",
       "Email notifications",
       "Confirm, reschedule, decline, and no-show",
@@ -312,6 +313,12 @@ export const planComparisonRows: {
   { feature: "Services", free: "1", solo: "Unlimited", studio: "Unlimited" },
   { feature: "Pages", free: "10", solo: "Unlimited", studio: "Unlimited" },
   { feature: "Website builder", free: "Yes", solo: "Yes", studio: "Yes" },
+  {
+    feature: "AI builder (pages, email, SMS)",
+    free: "Yes",
+    solo: "Yes",
+    studio: "Yes",
+  },
   {
     feature: "Staff appointment actions",
     free: "Yes",
@@ -1332,11 +1339,15 @@ export function compareAlternativeRedirects() {
 export const homeFaqs = [
   {
     q: "Do I need to know how to code?",
-    a: "No. If you can use email, you can publish a Hacado site. Drag, drop, and share the link.",
+    a: "No. If you can use email, you can publish a Hacado site. Drag and drop, ask AI to build a page, then share the link.",
+  },
+  {
+    q: "Can AI help me build my site and messages?",
+    a: "Yes. In the website builder you describe a page and AI builds it in the editor - keep editing by chat or drag and drop. The same AI writes email templates, SMS, and one-off sends from communications. Available on Free, Solo, and Studio.",
   },
   {
     q: "Is there a free plan?",
-    a: "Yes. Free includes a branded site (up to 10 pages), one service, 15 appointments per cycle, calendar sync, email, and 30 days of activity history. Payments and custom domain start on Solo.",
+    a: "Yes. Free includes a branded site (up to 10 pages), one service, 15 appointments per cycle, calendar sync, email, AI for pages and messages, and 30 days of activity history. Payments and custom domain start on Solo.",
   },
   {
     q: "Can I use my own domain?",
@@ -1344,7 +1355,7 @@ export const homeFaqs = [
   },
   {
     q: "Will ChatGPT find my business?",
-    a: "Hacado can publish a plain-language summary of your pages, services, and team for ChatGPT and similar assistants, plus structured details that help Google understand your site. Turn those apps on in the store - nothing technical to install.",
+    a: "Hacado can publish a plain-language summary of your pages, services, and team for ChatGPT and similar assistants, plus structured details that help Google understand your site. Turn those apps on in the store - nothing technical to install. That is separate from the builder AI that builds your pages and messages.",
   },
   {
     q: "Is this only for beauty?",
