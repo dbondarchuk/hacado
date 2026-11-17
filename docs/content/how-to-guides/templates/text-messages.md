@@ -8,6 +8,8 @@ A text template is one short message about one thing that already happened for t
 
 Custom text templates need the Solo plan or higher. In the United States and Canada they also have to be verified. Until then, customer texts use Hacado's built-in wording. See [Text message templates](/docs/communications/templates/text-messages) and [Text messaging](/docs/settings/text-messaging).
 
+On the template form, **Ask AI…** and the rewrite shortcuts can draft or shorten the text. Keep placeholders, keep it short, and read Preview before you save.
+
 The paths below are explained in [Using template expressions](./template-expressions).
 
 ## What the text has to do

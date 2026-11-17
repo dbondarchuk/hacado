@@ -42,6 +42,27 @@ Turn texts on, buy credits, and complete US or Canada verification under **[Text
 
 ![Text message content, the braces button, and a preview with the name and business filled in](/img/communications/text-message-context-button.png)
 
+### Hacado AI
+
+Above **Text message content**, Hacado AI offers shortcuts while you write.
+
+| Control | What it does |
+| --- | --- |
+| **Ask AI…** | Open the Hacado AI panel so you can type a request. |
+| **Shorten** | Ask AI to shorten the current text. |
+| **Rewrite** | Ask AI to rephrase the text. |
+| **Make friendlier** | Soften the tone. |
+| **Make more professional** | Tighten the tone. |
+| **Use template variables** | Remind AI to keep Mustache placeholders such as `{{fields.name}}`. |
+
+![Ask AI and the rewrite shortcuts above the text message content](/img/communications/text-ai-toolbar.png)
+
+**Ask AI…** opens the **Hacado AI** panel beside the preview. Ask it to rewrite, shorten, or draft the text. Variables stay intact unless you ask to remove them. Type in **Message Hacado AI…**, then send.
+
+![Hacado AI panel next to the text message preview](/img/communications/text-ai-panel.png)
+
+Read **Preview** after every AI change. Keep the text short enough for one or two segments when you can, and follow the same wording rules as every other customer text.
+
 ### Placeholders
 
 Placeholders use [Mustache](https://mustache.github.io/mustache.5.html). `{{customer.name}}` is replaced with that value. A `{{#member.jobTitle}}...{{/member.jobTitle}}` block is included only when that value is present, and a list repeats the block once per item. The patterns, and the paths you can copy, are in [Using template expressions](/docs/how-to-guides/templates/template-expressions).

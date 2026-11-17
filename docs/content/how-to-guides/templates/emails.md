@@ -8,7 +8,7 @@ An excellent email is easy to scan on a phone. The subject says what happened. O
 
 Open **Preview** in the builder before you save. On a new template, Preview fills the sample booking: **John Smith**, **Demo service**, **Joe Doe** (**Senior Hair Specialist**), **November 20, 2024 at 9:00 AM EST**, and a total of **$90.00**. `{{config.name}}` is your business name. A real send uses that customer's appointment.
 
-How to add blocks, and what each block's fields do, is in the [Email builder](/docs/communications/templates/emails).
+How to add blocks, and what each block's fields do, is in the [Email builder](/docs/communications/templates/emails). You can also ask **Hacado AI** in that builder to rewrite copy or fill gaps—still check the result before you save.
 
 ## Subject
 

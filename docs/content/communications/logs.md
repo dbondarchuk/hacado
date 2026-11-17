@@ -55,7 +55,13 @@ This list is already limited to that customer, and only to messages whose partic
 
 The messages are cards, not a table. There is no **Customer** filter and no **Participant** filter, because both are already decided. Search, **Direction**, **Channel**, **Status**, **Team member** (when your role can see every team member’s messages), and the date range still apply.
 
-**Send new** sits at the top of the customer page. It is hidden when the customer has been deleted. A message you send from there is added to this list and to **Logs** once Hacado records it.
+**Send new** sits at the top of the customer page. It is hidden when the customer has been deleted. It opens **Send new message**, where you write an email to this customer. You can start from a blank canvas or click **Select template** to load an existing email template. A message you send from there is added to this list and to **Logs** once Hacado records it.
+
+The send dialog uses the same email builder as a template, including **Hacado AI**. Open the sparkles control on the toolbar for quick document actions, or open the **AI** tab in the inspector to chat.
+
+![Send new message with the Hacado AI menu open](/img/communications/send-email-ai-menu.png)
+
+![Send new message with the AI inspector tab open](/img/communications/send-email-ai-panel.png)
 
 If this customer has no messages, the area under the filters stays empty. There is no “no results” line on the card list.
 

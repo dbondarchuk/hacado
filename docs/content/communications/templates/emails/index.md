@@ -39,6 +39,7 @@ On the right:
 | Preview | Switch between editing and a read-only preview. |
 | Full screen | Use the whole window for the builder. |
 | Pause | Turn canvas animation off or on. |
+| **Hacado AI** | Open quick AI actions for the selected block or the whole email, or open the **AI** chat. |
 | Braces | Open the sample data for placeholders. Copy a path from a value when you need the exact name. |
 | Blocks | Show or hide the **Blocks** panel. |
 | Inspector | Show or hide the right-hand panel. |
@@ -82,6 +83,7 @@ The right panel is the inspector.
 
 - **Styles** is always the **Email layout**: backdrop, canvas, default font, and preview text. It stays on the layout even when another block is selected.
 - **Inspect** is the block you selected. Its title is the block type (**Heading**, **Text**, **Button**, and so on).
+- **AI** is the chat with Hacado AI for this email. See [Hacado AI](#hacado-ai).
 - Color fields have a swatch, a clear control, and sometimes a reset.
 - Padding is four sliders: top, right, bottom, and left.
 - **Font family** lists faces such as Modern sans, Book sans, Book serif, and Monospace. **Inherit** on the toolbar keeps the font from the email layout.
@@ -115,6 +117,27 @@ Style controls that repeat on blocks:
 | **Font weight** | How heavy the type is. |
 | **Text align** | Left, center, or right. |
 | **Padding** | Space inside the block. |
+
+## Hacado AI
+
+Use Hacado AI to rewrite copy, fill gaps, or change the tone of the email. It works on the saved layout and on the blocks you select. Placeholders such as `{{customer.name}}` stay in the message unless you ask to remove them.
+
+Open the sparkles control on the builder toolbar. The menu has two groups:
+
+- **Block** — actions for the selected block. When nothing is selected, the menu says **No block selected**.
+- **Document** — actions for the whole email, such as **Improve this document**, **Generate missing content**, and **Make more professional**. **Open AI chat…** switches the inspector to the **AI** tab.
+
+![Hacado AI menu on the email builder toolbar with document actions](/img/communications/email-ai-menu.png)
+
+The **AI** tab is the chat. Type a request in **Message Hacado AI…**, then send it. You can attach the selected block so the next message focuses on that part of the email. If no block is selected, the hint under the box says **Select a block to attach**.
+
+![AI inspector tab with the Hacado AI chat](/img/communications/email-ai-panel.png)
+
+### Good to know
+
+- Review every AI change before you save. You are still responsible for the wording that goes out.
+- AI does not replace [template expressions](/docs/how-to-guides/templates/template-expressions). Keep placeholders for names, times, and codes.
+- The same AI controls appear when you write a one-off email from **Send new** on a customer. See [Communication logs](/docs/communications/logs#on-a-customer).
 
 ## Related
 
