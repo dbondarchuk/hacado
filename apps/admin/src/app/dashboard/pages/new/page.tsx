@@ -88,6 +88,7 @@ export default async function NewPagesPage(props: Props) {
       <div className="flex min-h-0 flex-1 flex-col gap-4 w-full">
         <Styling styling={styling} />
         <PageForm
+          key={from ? `clone-${from}` : "new"}
           config={{ general, brand, social }}
           apps={apps}
           websiteUrl={websiteUrl}

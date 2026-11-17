@@ -1814,7 +1814,10 @@ templates:
     copyPath: Копіювати шлях
     close: Закрити
     characterCount: "{count, plural, =1 {1 символ} other {# символів}}"
+    segmentCount: "{count, plural, =1 {1 SMS-сегмент} other {# SMS-сегменти}}"
     preview: Попередній перегляд
+    emptyPreview: Тут з’явиться попередній перегляд повідомлення
+    sentMinutesAgo: "{count, plural, =1 {Надіслано 1 хвилину тому} other {Надіслано # хвилини тому}}"
   table:
     filters:
       type: Тип

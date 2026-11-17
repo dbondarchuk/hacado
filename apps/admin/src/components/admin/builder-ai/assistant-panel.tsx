@@ -8,7 +8,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@hacado/ui/collapsible";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { Textarea } from "@hacado/ui/textarea";
+import {
+  TextareaGroup,
+  TextareaGroupFooter,
+  textareaGroupControlClassName,
+} from "@hacado/ui/textarea-group";
 import {
   ArrowUp,
   Check,
@@ -534,12 +540,16 @@ function MessageBubble(props: {
 export function BuilderAIAssistantPanel() {
   const ai = useBuilderAI();
   const t = useI18n("builder");
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const elapsedMs = useElapsedMs(ai.loading);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    const viewport = viewportRef.current;
+
+    if (!viewport) return;
+
+    viewport.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
   }, [ai.messages, ai.loading, ai.progressSteps]);
 
   useEffect(() => {
@@ -557,64 +567,69 @@ export function BuilderAIAssistantPanel() {
         {t("ai.title")}
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-1 pb-2">
-        {ai.messages.length === 0 && !ai.loading ? (
-          <div className="text-muted-foreground px-1 text-xs leading-relaxed">
-            {t("ai.emptyHint")}
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        <ScrollArea
+          className="absolute inset-0 h-full"
+          viewportRef={viewportRef}
+        >
+          <div className="flex flex-col gap-4 px-1 pb-2">
+            {ai.messages.length === 0 && !ai.loading ? (
+              <div className="text-muted-foreground px-1 text-xs leading-relaxed">
+                {ai.builder === "text-message"
+                  ? t("ai.textMessage.emptyHint")
+                  : t("ai.emptyHint")}
+              </div>
+            ) : null}
+
+            {ai.messages.map((message, index) => {
+              const isLatestAssistant =
+                message.role === "assistant" &&
+                !ai.messages
+                  .slice(index + 1)
+                  .some((entry) => entry.role === "assistant");
+
+              return (
+                <MessageBubble
+                  key={message.id}
+                  message={message}
+                  onFocusBlock={ai.focusBlock}
+                  onApply={(item) => {
+                    if (item.proposal) ai.applyProposal(item.proposal, item.id);
+                  }}
+                  onDiscard={ai.discardProposal}
+                  onRetry={(messageId) => void ai.retryFromMessage(messageId)}
+                  onConfirmSlug={ai.confirmPendingSlug}
+                  onDismissSlug={ai.dismissPendingSlug}
+                  onAnswerAskUser={ai.answerAskUser}
+                  onSkipAskUser={ai.skipAskUser}
+                  showRetry={isLatestAssistant && !ai.loading}
+                  retryDisabled={ai.loading}
+                  thinkingActive={ai.loading && isLatestAssistant}
+                  liveProgressSteps={ai.progressSteps}
+                  elapsedLabel={formatElapsed(elapsedMs)}
+                />
+              );
+            })}
+
+            {ai.applyError && !ai.loading ? (
+              <BuilderAIApplyErrorCard error={ai.applyError} />
+            ) : null}
           </div>
-        ) : null}
-
-        {ai.messages.map((message, index) => {
-          const isLatestAssistant =
-            message.role === "assistant" &&
-            !ai.messages
-              .slice(index + 1)
-              .some((entry) => entry.role === "assistant");
-
-          return (
-            <MessageBubble
-              key={message.id}
-              message={message}
-              onFocusBlock={ai.focusBlock}
-              onApply={(item) => {
-                if (item.proposal) ai.applyProposal(item.proposal, item.id);
-              }}
-              onDiscard={ai.discardProposal}
-              onRetry={(messageId) => void ai.retryFromMessage(messageId)}
-              onConfirmSlug={ai.confirmPendingSlug}
-              onDismissSlug={ai.dismissPendingSlug}
-              onAnswerAskUser={ai.answerAskUser}
-              onSkipAskUser={ai.skipAskUser}
-              showRetry={isLatestAssistant && !ai.loading}
-              retryDisabled={ai.loading}
-              thinkingActive={ai.loading && isLatestAssistant}
-              liveProgressSteps={ai.progressSteps}
-              elapsedLabel={formatElapsed(elapsedMs)}
-            />
-          );
-        })}
-
-        {ai.applyError && !ai.loading ? (
-          <BuilderAIApplyErrorCard error={ai.applyError} />
-        ) : null}
-
-        <div ref={bottomRef} />
+        </ScrollArea>
       </div>
 
       <div className="border-border shrink-0 border-t px-1 pt-3 pb-1">
-        <div
-          className={cn(
-            "border-input bg-background rounded-md border",
-            "focus-within:ring-ring focus-within:ring-offset-background focus-within:ring-2 focus-within:ring-offset-2",
-          )}
-        >
+        <TextareaGroup>
           <Textarea
             ref={textareaRef}
             value={ai.draft}
             onChange={(event) => ai.setDraft(event.target.value)}
             placeholder={t("ai.placeholder")}
             rows={3}
-            className="min-h-[72px] resize-none border-0 bg-transparent text-[13px] shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+            className={cn(
+              textareaGroupControlClassName,
+              "min-h-[72px] resize-none text-[13px]",
+            )}
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
                 event.preventDefault();
@@ -625,9 +640,9 @@ export function BuilderAIAssistantPanel() {
               }
             }}
           />
-          <div className="flex items-end justify-between gap-2 px-2 pb-2">
+          <TextareaGroupFooter>
             <div className="min-w-0 flex-1 pb-0.5">
-              {ai.attachedBlock ? (
+              {ai.builder === "text-message" ? null : ai.attachedBlock ? (
                 <div className="flex min-w-0 items-center gap-2">
                   <span className="text-muted-foreground shrink-0 text-[11px]">
                     {t("ai.attached")}
@@ -676,8 +691,8 @@ export function BuilderAIAssistantPanel() {
                 {ai.loading ? t("ai.stop") : t("ai.send")}
               </span>
             </Button>
-          </div>
-        </div>
+          </TextareaGroupFooter>
+        </TextareaGroup>
       </div>
     </div>
   );

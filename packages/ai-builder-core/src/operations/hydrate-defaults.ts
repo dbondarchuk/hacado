@@ -2,9 +2,10 @@ import type {
   EditorHistoryEntry,
   TEditorBlock,
 } from "@hacado/builder/editor-types";
+import { generateId } from "@hacado/builder/helpers";
 import { normalizePlateBodyValue } from "@hacado/rte/plate-value";
 
-/** Matches page-builder-base `breakpoints` — keep in sync. */
+/** Matches page-builder-base `breakpoints` - keep in sync. */
 const VALID_BREAKPOINTS = new Set([
   "sm",
   "max-sm",
@@ -41,6 +42,26 @@ function isEditorBlock(value: unknown): value is TEditorBlock {
     typeof value.id === "string" &&
     "data" in value
   );
+}
+
+/** Block-shaped node (may be missing `id` when authored by the model). */
+function isBlockLike(
+  value: unknown,
+): value is { type: string; data: unknown; id?: string } {
+  return (
+    isPlainObject(value) &&
+    typeof value.type === "string" &&
+    "data" in value &&
+    value.data !== undefined
+  );
+}
+
+function withBlockId<T extends { id?: string }>(block: T): T & { id: string } {
+  if (typeof block.id === "string" && block.id.trim()) {
+    return block as T & { id: string };
+  }
+
+  return { ...block, id: generateId() };
 }
 
 /**
@@ -344,8 +365,12 @@ function hydrateNestedValue(
     );
   }
 
-  if (isEditorBlock(value)) {
-    return hydrateEditorBlock(value, defaultsByType, metadataByType);
+  if (isBlockLike(value)) {
+    return hydrateEditorBlock(
+      value as TEditorBlock,
+      defaultsByType,
+      metadataByType,
+    );
   }
 
   if (isPlainObject(value)) {
@@ -384,7 +409,7 @@ export function hydrateEditorBlock(
         }
       : undefined;
 
-  return {
+  return withBlockId({
     ...block,
     ...(metadata ? { metadata } : {}),
     data: hydrateNestedValue(
@@ -392,7 +417,7 @@ export function hydrateEditorBlock(
       defaultsByType,
       metadataByType,
     ) as TEditorBlock["data"],
-  };
+  });
 }
 
 export function hydrateEditorOperations(

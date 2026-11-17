@@ -1814,7 +1814,10 @@ templates:
     copyPath: Copiar ruta
     close: Cerca
     characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    segmentCount: "{count, plural, =1 {1 segmento SMS} other {# segmentos SMS}}"
     preview: Avance
+    emptyPreview: La vista previa del mensaje aparecerá aquí
+    sentMinutesAgo: "{count, plural, =1 {Enviado hace 1 minuto} other {Enviado hace # minutos}}"
   table:
     filters:
       type: Tipo

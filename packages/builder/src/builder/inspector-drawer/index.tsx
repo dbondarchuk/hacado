@@ -103,7 +103,7 @@ function InspectorTabs(props: {
 
 /**
  * Builder inspector panel. Uses SidebarProvider open state (same as the
- * toolbar toggle) but owns its own layout — width collapse + overflow clip,
+ * toolbar toggle) but owns its own layout - width collapse + overflow clip,
  * not offcanvas translate (which left a peeking sliver).
  */
 export const InspectorDrawer: React.FC<{ extraTabs?: SidebarTab[] }> = ({

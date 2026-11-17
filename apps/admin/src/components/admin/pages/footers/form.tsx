@@ -25,13 +25,14 @@ import { useDebounceCacheFn } from "@hacado/ui/hooks";
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
   BUILDER_AI_TAB,
   BuilderAIAssistantPanel,
+  useBuilderAIHostLifecycle,
   useBuilderAIStore,
   useBuilderAIToolbarButtons,
 } from "../../builder-ai";
@@ -100,12 +101,20 @@ export const PageFooterForm: React.FC<{
 
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const documentId = initialData?._id;
   const form = useForm<PageFormValues>({
     resolver: zodResolver(formSchema),
     mode: "all",
     reValidateMode: "onChange",
     defaultValues: initialData || {},
   });
+
+  useBuilderAIHostLifecycle(documentId);
+
+  React.useEffect(() => {
+    form.reset(initialData || {});
+  }, [pathname, documentId, form, initialData]);
 
   const breadcrumbItems = React.useMemo(
     () => [
@@ -258,6 +267,7 @@ export const PageFooterForm: React.FC<{
                 <FormControl>
                   <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
                     <PageBuilder
+                      key={`${pathname}:${documentId ?? "new"}`}
                       args={args}
                       type="footer"
                       value={field.value}

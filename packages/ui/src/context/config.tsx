@@ -8,6 +8,16 @@ import { createContext, useContext } from "react";
 
 const disabledTextMessaging: TextMessagingConfig = { enabled: false };
 
+export type SmsLinkShorteningConfig = {
+  enabled: boolean;
+  shortDomain: string;
+};
+
+const disabledSmsLinkShortening: SmsLinkShorteningConfig = {
+  enabled: false,
+  shortDomain: "haca.do",
+};
+
 export const TextMessagingContext = createContext<TextMessagingConfig | null>(
   null,
 );
@@ -29,6 +39,7 @@ export const ConfigContext = createContext<{
     BrandConfiguration & { domain: string | null | undefined };
   websiteUrl: string;
   textMessaging: TextMessagingConfig;
+  smsLinkShortening: SmsLinkShorteningConfig;
 }>({
   config: {
     name: "",
@@ -45,6 +56,7 @@ export const ConfigContext = createContext<{
   },
   websiteUrl: "",
   textMessaging: disabledTextMessaging,
+  smsLinkShortening: disabledSmsLinkShortening,
 });
 
 export const ConfigProvider = ({
@@ -54,6 +66,7 @@ export const ConfigProvider = ({
   domain,
   websiteUrl,
   textMessaging = disabledTextMessaging,
+  smsLinkShortening = disabledSmsLinkShortening,
 }: {
   children: React.ReactNode;
   generalConfiguration: GeneralConfiguration;
@@ -61,6 +74,7 @@ export const ConfigProvider = ({
   domain: string | null | undefined;
   websiteUrl: string;
   textMessaging?: TextMessagingConfig;
+  smsLinkShortening?: SmsLinkShorteningConfig;
 }) => {
   return (
     <ConfigContext.Provider
@@ -68,6 +82,7 @@ export const ConfigProvider = ({
         config: { ...generalConfiguration, ...brandConfiguration, domain },
         websiteUrl,
         textMessaging,
+        smsLinkShortening,
       }}
     >
       {children}
@@ -86,6 +101,10 @@ export const useWebsiteUrl = () => {
 export const useTextMessaging = () => {
   const override = useContext(TextMessagingContext);
   return override ?? useContext(ConfigContext).textMessaging;
+};
+
+export const useSmsLinkShortening = () => {
+  return useContext(ConfigContext).smsLinkShortening;
 };
 
 export const useTimeZone = () => {

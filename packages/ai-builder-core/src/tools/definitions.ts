@@ -1,4 +1,12 @@
-import type { AIToolDefinition } from "../types";
+import type { AIToolDefinition, BuilderKind } from "../types";
+
+const TEXT_MESSAGE_TOOL_NAMES = new Set([
+  "getBusinessProfile",
+  "getDocumentSettings",
+  "getTemplateArgs",
+  "askUser",
+  "proposeDocumentSettings",
+]);
 
 export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
@@ -19,7 +27,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getBlockSchemas",
     description:
-      "Retrieve props schemas + defaultValue (+ defaultMetadata) for block types. Read prop JSON Schema description fields. Returns supportedStyles, allowedIn, and allowedChildren (nesting rules). Style value schemas are NOT inlined. Required before proposing props: use only schema fields + defaultValue shape — never invent aliases. Heading/Button children must follow allowedChildren (inline only — never nest Text). For style values call searchStyleProperties / getStyleSchema.",
+      "Retrieve props schemas + defaultValue (+ defaultMetadata) for block types. Read prop JSON Schema description fields. Returns supportedStyles, allowedIn, and allowedChildren (nesting rules). Style value schemas are NOT inlined. Required before proposing props: use only schema fields + defaultValue shape - never invent aliases. Heading/Button children must follow allowedChildren (inline only - never nest Text). For style values call searchStyleProperties / getStyleSchema.",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,7 +43,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getBlockRelationships",
     description:
-      'Retrieve parent/child hierarchy rules for block types: allowedIn (where the block may be placed) and allowedChildren (which child types/capabilities may nest under it). Heading/Button/Link only allow children with capability "inline" (InlineContainer, InlineText, Icon, …) — never Text.',
+      'Retrieve parent/child hierarchy rules for block types: allowedIn (where the block may be placed) and allowedChildren (which child types/capabilities may nest under it). Heading/Button/Link only allow children with capability "inline" (InlineContainer, InlineText, Icon, …) - never Text.',
     inputSchema: {
       type: "object",
       properties: {
@@ -83,7 +91,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getDesignTokens",
     description:
-      'Retrieve allowed design tokens (color: var(--value-*-color); font: PRIMARY/SECONDARY/…). Call on create/design/redesign before inventing styles. Pair with getBusinessProfile({ needs: ["branding"] }) for org-specific color/font choices — never invent hex or raw CSS font names when tokens exist.',
+      'Retrieve allowed design tokens (color: var(--value-*-color); font: PRIMARY/SECONDARY/…). Call on create/design/redesign before inventing styles. Pair with getBusinessProfile({ needs: ["branding"] }) for org-specific color/font choices - never invent hex or raw CSS font names when tokens exist.',
     inputSchema: {
       type: "object",
       properties: {
@@ -145,7 +153,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getBusinessProfile",
     description:
-      "Retrieve selective business profile / catalog slices. Call this whenever you need business facts — they are not preloaded in runtime context. Use needs:summary for counts and short name lists.",
+      "Retrieve selective business profile / catalog slices. Call this whenever you need business facts - they are not preloaded in runtime context. Use needs:summary for counts and short name lists.",
     inputSchema: {
       type: "object",
       properties: {
@@ -173,7 +181,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getDocumentSettings",
     description:
-      "Retrieve host-form document settings (page title/slug/description/keywords/headerId/footerId, email name/subject, footer name) plus availableHeaders/availableFooters when provided. Not preloaded in context.",
+      "Retrieve host-form document settings (page title/slug/description/keywords/headerId/footerId, email name/subject, text-message name/value, footer name) plus availableHeaders/availableFooters when provided. Not preloaded in context.",
     inputSchema: {
       type: "object",
       properties: {},
@@ -183,7 +191,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getTemplateArgs",
     description:
-      "Retrieve Mustache template argument paths and sample preview values for the current document. Call when writing dynamic email/page copy.",
+      "Retrieve Mustache template argument roots/paths and sample preview values for the current document (includes installed-app extras like waitlistEntry when present). Formatted Date/DateTime values are listed once as a root path; use formatting.dateTime keys (sms, short, full, date, time, ...) in Mustache, e.g. {{dateTime.sms}}. Link vars may include websiteUrl, manageLink, bookingUrl, leaveWaitlistUrl, paymentLinkUrl - prefer those over asking the user for URLs. Call when writing dynamic email/page/text-message copy.",
     inputSchema: {
       type: "object",
       properties: {},
@@ -193,7 +201,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "searchDesignPatterns",
     description:
-      "Search real design patterns from the live document sections and/or built-in templates. Returns real block trees to clone/adapt — never invent skinny patterns.",
+      "Search real design patterns from the live document sections and/or built-in templates. Returns real block trees to clone/adapt - never invent skinny patterns.",
     inputSchema: {
       type: "object",
       properties: {
@@ -207,7 +215,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "searchStockImages",
     description:
-      "Search stock photos from Unsplash/Pexels (when configured). Call before filling Image or gallery src props. Use returned url + alt only — never invent Unsplash/Pexels CDN URLs or placeholder photo links.",
+      "Search stock photos from Unsplash/Pexels (when configured). Call before filling Image or gallery src props. Use returned url + alt only - never invent Unsplash/Pexels CDN URLs or placeholder photo links.",
     inputSchema: {
       type: "object",
       properties: {
@@ -221,7 +229,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "searchStockVideos",
     description:
-      "Search stock videos from Pexels (when configured). Call before filling Video props.src / props.poster or backgroundVideo style src/poster. Use returned urls only — never invent Pexels CDN URLs.",
+      "Search stock videos from Pexels (when configured). Call before filling Video props.src / props.poster or backgroundVideo style src/poster. Use returned urls only - never invent Pexels CDN URLs.",
     inputSchema: {
       type: "object",
       properties: {
@@ -320,7 +328,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "proposeDocumentSettings",
     description:
-      'Propose host-form document settings outside the block tree. Pages: title, slug, description, keywords, and optionally headerId/footerId from getDocumentSettings available lists. Page title must NOT include brand/site suffixes (no "| Studio Name") — the host appends those. Derive slug from the short page title. Emails: name (admin label) and subject (Mustache when useful). Footers: name. Required on create/design/redesign. Page slug may need user confirmation. Can combine with proposeDocumentOperations in the same turn.',
+      'Propose host-form document settings outside the block tree. Pages: title, slug, description, keywords, and optionally headerId/footerId from getDocumentSettings available lists. Page title must NOT include brand/site suffixes (no "| Studio Name") - the host appends those. Derive slug from the short page title. Emails: name (admin label) and subject (Mustache when useful). Text messages: name (admin label) and value (Mustache SMS body). Footers: name. Required on create/design/redesign. Page slug may need user confirmation. Can combine with proposeDocumentOperations in the same turn (not for text-message).',
     inputSchema: {
       type: "object",
       properties: {
@@ -334,6 +342,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
             description: { type: "string" },
             keywords: { type: "string" },
             subject: { type: "string" },
+            value: { type: "string" },
             headerId: { type: "string" },
             footerId: { type: "string" },
           },
@@ -360,3 +369,13 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
     },
   },
 ];
+
+export function toolsForBuilder(builder: BuilderKind): AIToolDefinition[] {
+  if (builder === "text-message") {
+    return BUILDER_AI_TOOL_DEFINITIONS.filter((tool) =>
+      TEXT_MESSAGE_TOOL_NAMES.has(tool.name),
+    );
+  }
+
+  return BUILDER_AI_TOOL_DEFINITIONS;
+}

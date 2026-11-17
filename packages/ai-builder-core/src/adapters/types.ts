@@ -27,7 +27,7 @@ export type BlockCatalogEntry = {
   /** Builder AI quick actions declared on the block (preferred over tag heuristics). */
   aiCapabilities?: BlockAICapability[];
   allowedIn?: BlockFilterRule;
-  /** EditorChildren allow rule — which child blocks may nest under this type. */
+  /** EditorChildren allow rule - which child blocks may nest under this type. */
   allowedChildren?: BlockFilterRule;
   allowedBuilderTypes?: string[];
   hideInBlocksPanel?: boolean;

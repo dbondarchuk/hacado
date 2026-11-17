@@ -6,6 +6,7 @@ import type {
   BuilderKind,
   SelectionContextPayload,
 } from "@hacado/ai-builder-core/client";
+import { replaceUndefinedWithNull } from "@hacado/ai-builder-core/client";
 import type { TEditorBlock } from "@hacado/builder/editor";
 
 export type BuilderAIDocumentAction = {
@@ -91,7 +92,7 @@ export async function runBuilderAIChat(input: {
   documentRevision: string;
   selection: SelectionContextPayload;
   message: string;
-  /** Prior turns only — current `message` is appended by the orchestrator. */
+  /** Prior turns only - current `message` is appended by the orchestrator. */
   messages?: AIMessage[];
   actionId?: string;
   conversationId?: string;
@@ -109,7 +110,11 @@ export async function runBuilderAIChat(input: {
       "Content-Type": "application/json",
       Accept: "text/event-stream",
     },
-    body: JSON.stringify(input),
+    body: JSON.stringify({
+      ...input,
+      // Keep empty Mustache keys (JSON drops `undefined`).
+      args: input.args ? replaceUndefinedWithNull(input.args) : input.args,
+    }),
     signal: input.signal,
   });
 

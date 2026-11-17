@@ -67,18 +67,30 @@ function processFile({ schemaPath, exportName, typeName, extraImports = [] }) {
   }
 
   const decl = src.slice(start, end).trim();
-  if (/\bCOLORS\b/.test(decl) && !extraImports.some((i) => i.includes("COLORS"))) {
-    // Still allow if we rewrite — for now skip UI color package
+  if (
+    /\bCOLORS\b/.test(decl) &&
+    !extraImports.some((i) => i.includes("COLORS"))
+  ) {
+    // Still allow if we rewrite - for now skip UI color package
     console.log("SKIP COLORS", schemaPath, exportName);
     return false;
   }
 
-  const assigned = decl.replace(new RegExp(`^export const ${exportName}\\s*=\\s*`), "");
+  const assigned = decl.replace(
+    new RegExp(`^export const ${exportName}\\s*=\\s*`),
+    "",
+  );
   const value = stripTypeSuffix(assigned.replace(/;$/, ""));
 
-  const imports = [`import type { ${typeName} } from "./schema";`, ...extraImports];
+  const imports = [
+    `import type { ${typeName} } from "./schema";`,
+    ...extraImports,
+  ];
 
-  if (/generateId\(/.test(decl) && !imports.some((i) => i.includes("generateId"))) {
+  if (
+    /generateId\(/.test(decl) &&
+    !imports.some((i) => i.includes("generateId"))
+  ) {
     imports.push(`import { generateId } from "@hacado/builder/helpers";`);
   }
 
@@ -90,9 +102,7 @@ function processFile({ schemaPath, exportName, typeName, extraImports = [] }) {
       .relative(dir, path.join(dir, "..", "inline-container", "defaults"))
       .replaceAll("\\", "/");
     const rel = from.startsWith(".") ? from : `./${from}`;
-    imports.push(
-      `import { InlineContainerPropsDefaults } from "${rel}";`,
-    );
+    imports.push(`import { InlineContainerPropsDefaults } from "${rel}";`);
   }
 
   if (/ImagePropsDefaults/.test(decl) && exportName !== "ImagePropsDefaults") {
@@ -144,17 +154,41 @@ const pageBlocks = [
   ["lightbox", "LightboxPropsDefaults", "LightboxProps"],
   ["custom-html", "CustomHTMLPropsDefaults", "CustomHTMLProps"],
   ["catalog-value", "CatalogValuePropsDefaults", "CatalogValueProps"],
-  ["conditional-container", "ConditionalContainerPropsDefaults", "ConditionalContainerProps"],
-  ["foreach-container", "ForeachContainerPropsDefaults", "ForeachContainerProps"],
+  [
+    "conditional-container",
+    "ConditionalContainerPropsDefaults",
+    "ConditionalContainerProps",
+  ],
+  [
+    "foreach-container",
+    "ForeachContainerPropsDefaults",
+    "ForeachContainerProps",
+  ],
   ["fluid-layout", "FluidLayoutPropsDefaults", "FluidLayoutProps"],
   ["page-layout", "PageLayoutDefaultProps", "PageLayoutProps"],
   ["typewriter-text", "TypewriterTextPropsDefaults", "TypewriterTextProps"],
   ["phrase-cycle", "PhraseCyclePropsDefaults", "PhraseCycleProps"],
   ["table", "TablePropsDefaults", "TableProps"],
-  ["marketing-features-showcase", "MarketingFeaturesShowcasePropsDefaults", "MarketingFeaturesShowcaseProps"],
-  ["marketing-scrolling-logos", "MarketingScrollingLogosPropsDefaults", "MarketingScrollingLogosProps"],
-  ["marketing-feature-item", "MarketingFeatureItemPropsDefaults", "MarketingFeatureItemProps"],
-  ["marketing-browser-carousel", "MarketingBrowserCarouselPropsDefaults", "MarketingBrowserCarouselProps"],
+  [
+    "marketing-features-showcase",
+    "MarketingFeaturesShowcasePropsDefaults",
+    "MarketingFeaturesShowcaseProps",
+  ],
+  [
+    "marketing-scrolling-logos",
+    "MarketingScrollingLogosPropsDefaults",
+    "MarketingScrollingLogosProps",
+  ],
+  [
+    "marketing-feature-item",
+    "MarketingFeatureItemPropsDefaults",
+    "MarketingFeatureItemProps",
+  ],
+  [
+    "marketing-browser-carousel",
+    "MarketingBrowserCarouselPropsDefaults",
+    "MarketingBrowserCarouselProps",
+  ],
 ];
 
 // Process non-COLORS first; order matters for deps (inline-container before heading)
@@ -241,9 +275,21 @@ const emailBlocks = [
   ["spacer", "SpacerPropsDefaults", "SpacerProps"],
   ["divider", "DividerPropsDefaults", "DividerProps"],
   ["button", "ButtonPropsDefaults", "ButtonProps"],
-  ["columns-container", "ColumnsContainerPropsDefaults", "ColumnsContainerProps"],
-  ["conditional-container", "ConditionalContainerPropsDefaults", "ConditionalContainerProps"],
-  ["foreach-container", "ForeachContainerPropsDefaults", "ForeachContainerProps"],
+  [
+    "columns-container",
+    "ColumnsContainerPropsDefaults",
+    "ColumnsContainerProps",
+  ],
+  [
+    "conditional-container",
+    "ConditionalContainerPropsDefaults",
+    "ConditionalContainerProps",
+  ],
+  [
+    "foreach-container",
+    "ForeachContainerPropsDefaults",
+    "ForeachContainerProps",
+  ],
   ["custom-html", "CustomHTMLPropsDefaults", "CustomHTMLProps"],
   ["online-meeting", "OnlineMeetingPropsDefaults", "OnlineMeetingProps"],
   ["email-layout", "EmailLayoutDefaultProps", "EmailLayoutProps"],

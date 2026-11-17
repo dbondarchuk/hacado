@@ -179,6 +179,7 @@
     "./tag-input": "./src/components/tag-input.tsx",
     "./text": "./src/components/text.tsx",
     "./textarea": "./src/components/textarea.tsx",
+    "./textarea-group": "./src/components/textarea-group.tsx",
     "./time-picker": "./src/components/time-picker/index.tsx",
     "./tips-picker": "./src/components/tips-picker.tsx",
     "./toaster": "./src/components/toaster.tsx",

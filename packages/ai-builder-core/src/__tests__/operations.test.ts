@@ -121,6 +121,34 @@ describe("operations", () => {
     ]);
   });
 
+  it("assigns ids when add-block omits them", () => {
+    const result = normalizeEditorOperations([
+      {
+        type: "add-block",
+        value: {
+          parentBlockId: "root",
+          index: 0,
+          block: {
+            type: "Text",
+            data: {
+              props: {
+                value: [{ type: "p", children: [{ text: "Hello" }] }],
+              },
+            },
+          },
+        },
+      },
+    ]);
+
+    assert.deepEqual(result.issues, []);
+    assert.equal(result.operations.length, 1);
+    const operation = result.operations[0];
+    assert.equal(operation.type, "add-block");
+    if (operation.type === "add-block") {
+      assert.match(String(operation.value.block.id), /^block-/);
+    }
+  });
+
   it("rejects unknown operation types", () => {
     const result = validateOperationsAgainstDocument({
       document,

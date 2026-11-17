@@ -41,7 +41,7 @@ function buildGatewayProviderOptions(promptCacheKey?: string) {
 }
 
 /**
- * Vercel AI Gateway provider. App does not need to be hosted on Vercel —
+ * Vercel AI Gateway provider. App does not need to be hosted on Vercel -
  * only an AI Gateway API key (and a Vercel account for billing) is required.
  * Model ids use `provider/model` form, e.g. `openai/gpt-6-luna`.
  */

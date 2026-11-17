@@ -47,7 +47,7 @@ function assertPageTextComposition(
   issues.push({
     path: `${block.id}.props.value`,
     blockId: block.id,
-    message: `Text must not use "${headingType}" Plate nodes — use a Heading block for titles (props.level + InlineContainer/InlineText children)`,
+    message: `Text must not use "${headingType}" Plate nodes - use a Heading block for titles (props.level + InlineContainer/InlineText children)`,
   });
 }
 
@@ -271,7 +271,7 @@ export function validateOperationsAgainstDocument(input: {
           message: "add-block is missing a block",
         });
       } else {
-        // Nested children use z.any() on container schemas — walk the full tree.
+        // Nested children use z.any() on container schemas - walk the full tree.
         validateBlockTree(block, input.schemas, issues, input.catalogByType);
       }
     }

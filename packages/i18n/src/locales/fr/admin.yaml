@@ -1814,7 +1814,10 @@ templates:
     copyPath: Copier le chemin
     close: Fermer
     characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    segmentCount: "{count, plural, =1 {1 segment SMS} other {# segments SMS}}"
     preview: Aperçu
+    emptyPreview: L’aperçu de votre message apparaîtra ici
+    sentMinutesAgo: "{count, plural, =1 {Envoyé il y a 1 minute} other {Envoyé il y a # minutes}}"
   table:
     filters:
       type: Taper

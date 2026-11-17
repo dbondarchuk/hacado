@@ -32,7 +32,7 @@ export function PageHeader({
     >
       <div
         className={cn(
-          "flex min-w-0 items-center gap-2 md:gap-4",
+          "flex min-w-0 items-center gap-2 md:gap-4 py-1",
           innerClassName,
         )}
       >

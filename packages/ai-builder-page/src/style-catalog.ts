@@ -11,7 +11,7 @@ import {
 } from "@hacado/page-builder-base/style";
 import { FONT_FAMILIES } from "@hacado/page-builder-base/style-inputs";
 
-const breakpointHint = `Responsive tokens (${breakpoints.join(", ")}). Always an array of tokens — never a bare string like "mobile".`;
+const breakpointHint = `Responsive tokens (${breakpoints.join(", ")}). Always an array of tokens - never a bare string like "mobile".`;
 
 /** Wrap a style value schema as the variant array the editor expects. */
 function styleVariantsSchema(valueSchema: unknown, name: string) {

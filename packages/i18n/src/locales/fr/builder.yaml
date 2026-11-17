@@ -6015,6 +6015,14 @@ ai:
     improveDocument: Améliorer ce document
     generateMissing: Générer du contenu manquant
     makeProfessional: Rendre plus professionnel
+    shorten: Raccourcir
+    rewrite: Réécrire
+    friendlier: Rendre plus amical
+    ensureVariables: Utiliser les variables du modèle
+  textMessage:
+    emptyHint: Demandez une réécriture, un raccourcissement ou une rédaction de ce SMS. Les variables comme '{{fields.name}}' restent intactes.
+    openChat: Demander à l’IA…
+    quickActions: Actions rapides
   blockActions:
     rewrite: Récrire
     improveClarity: Améliorer la clarté

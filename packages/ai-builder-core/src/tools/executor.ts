@@ -168,10 +168,12 @@ async function executeBuilderAIToolInner(
           ...(deps.documentChrome ?? {}),
           hint:
             deps.adapter.builder === "page"
-              ? 'On create/design/redesign: proposeDocumentSettings with title, slug, description, keywords; set headerId/footerId from availableHeaders/availableFooters when choosing a chrome. Title is page-only (no "| Brand" suffix — host adds brand automatically). Slug should match that short title.'
+              ? 'On create/design/redesign: proposeDocumentSettings with title, slug, description, keywords; set headerId/footerId from availableHeaders/availableFooters when choosing a chrome. Title is page-only (no "| Brand" suffix - host adds brand automatically). Slug should match that short title.'
               : deps.adapter.builder === "email"
                 ? "On create/design/redesign: proposeDocumentSettings with name and subject."
-                : "On create/rename: proposeDocumentSettings with name.",
+                : deps.adapter.builder === "text-message"
+                  ? "On create/rewrite: proposeDocumentSettings with name (admin label) and value (Mustache SMS body). Prefer short clear copy; keep Mustache variables from getTemplateArgs."
+                  : "On create/rename: proposeDocumentSettings with name.",
         }),
       });
     case "getTemplateArgs":

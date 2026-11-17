@@ -16,11 +16,15 @@ const PAGE_KEYS = new Set([
 ]);
 
 const EMAIL_KEYS = new Set(["name", "subject"]);
+const TEXT_MESSAGE_KEYS = new Set(["name", "value"]);
 const FOOTER_KEYS = new Set(["name"]);
+
+const TEXT_MESSAGE_VALUE_MAX = 500;
 
 function allowedKeysForBuilder(builder: BuilderKind): Set<string> {
   if (builder === "page") return PAGE_KEYS;
   if (builder === "email") return EMAIL_KEYS;
+  if (builder === "text-message") return TEXT_MESSAGE_KEYS;
 
   return FOOTER_KEYS;
 }
@@ -81,6 +85,15 @@ export function normalizeDocumentSettingsPatch(
       issues.push({
         path: `settings.${key}`,
         message: `Setting "${key}" must not be empty`,
+      });
+
+      continue;
+    }
+
+    if (key === "value" && trimmed.length > TEXT_MESSAGE_VALUE_MAX) {
+      issues.push({
+        path: `settings.value`,
+        message: `Setting "value" must be at most ${TEXT_MESSAGE_VALUE_MAX} characters`,
       });
 
       continue;

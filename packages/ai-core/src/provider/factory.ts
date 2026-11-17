@@ -14,7 +14,7 @@ export function registerAIProvider(provider: AIProvider) {
 
 export function getAIProvider(id?: string): AIProvider {
   const providerId =
-    id ?? process.env.BUILDER_AI_PROVIDER?.trim().toLowerCase() ?? "gateway";
+    id ?? process.env.AI_PROVIDER?.trim().toLowerCase() ?? "gateway";
 
   const existing = providers.get(providerId);
 
@@ -48,7 +48,7 @@ export function registerImageGenerationProvider(
 export function getImageGenerationProvider(): ImageGenerationProvider | null {
   if (imageProvider) return imageProvider;
 
-  if (process.env.BUILDER_AI_IMAGE_GENERATION_ENABLED === "true") {
+  if (process.env.AI_IMAGE_GENERATION_ENABLED === "true") {
     return null;
   }
 

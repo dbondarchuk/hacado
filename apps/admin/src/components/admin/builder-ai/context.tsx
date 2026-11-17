@@ -176,7 +176,7 @@ function isAbortError(error: unknown): boolean {
 
 const actionsBridge: { current: BuilderAIActions | null } = { current: null };
 
-function setBuilderAIActions(actions: BuilderAIActions | null) {
+export function registerBuilderAIActions(actions: BuilderAIActions | null) {
   actionsBridge.current = actions;
 }
 
@@ -269,6 +269,8 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
   const document = useDocument();
   const editorArgs = useEditorArgs();
   const selectedBlockId = useSelectedBlockId();
+  const selectedBlockType = useSelectedBlockType();
+  const setSelectedBlockId = useSetSelectedBlockId();
   const dispatch = useDispatchAction();
   const editorStore = useEditorStateStore();
   const t = useI18n("builder");
@@ -311,6 +313,13 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
     props.documentSettings,
     setConfig,
   ]);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     return registerOpenPanel(() => {
@@ -497,7 +506,11 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
 
   const applyProposalSafely = useCallback(
     (nextProposal: DocumentProposal) => {
-      if (!document) {
+      // Prefer live store document over the render-closure snapshot so apply
+      // matches what the canvas is actually showing after async chat.
+      const liveDocument = editorStore.getState().document ?? document;
+
+      if (!liveDocument) {
         setApplyError({
           message: t("ai.applyFailed"),
           details: t("ai.documentNotReady"),
@@ -507,11 +520,11 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
       }
 
       setApplyError(null);
-      beginDocumentApply(document);
+      beginDocumentApply(liveDocument);
 
       try {
         const result = applyDocumentProposal({
-          document,
+          document: liveDocument,
           expectedRevision: nextProposal.documentRevision,
           operations: nextProposal.operations,
           dispatch,
@@ -536,7 +549,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
         return { ok: false as const, reason: "empty" as const };
       }
     },
-    [dispatch, document, setApplyError, t],
+    [dispatch, document, editorStore, setApplyError, t],
   );
 
   const applySettingsProposalSafely = useCallback(
@@ -650,7 +663,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
 
       try {
         const documentRevision = computeDocumentRevision(document);
-        // Only the explicit chat attachment scopes selection — live canvas
+        // Only the explicit chat attachment scopes selection - live canvas
         // selection alone does not, so asking about another block still works.
         const selectedBlockIds = attachment ? [attachment.id] : [];
 
@@ -926,8 +939,22 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
     openPanel();
   }, [attachBlockById, openPanel, selectedBlockId]);
 
+  const setEditorSelection = useBuilderAIStore((s) => s.setEditorSelection);
+  const registerFocusBlock = useBuilderAIStore((s) => s.registerFocusBlock);
+
   useEffect(() => {
-    setBuilderAIActions({
+    setEditorSelection({
+      selectedBlockId: selectedBlockId ?? null,
+      selectedBlockType: selectedBlockType ? String(selectedBlockType) : null,
+    });
+  }, [selectedBlockId, selectedBlockType, setEditorSelection]);
+
+  useEffect(() => {
+    return registerFocusBlock((blockId) => setSelectedBlockId(blockId));
+  }, [registerFocusBlock, setSelectedBlockId]);
+
+  useEffect(() => {
+    registerBuilderAIActions({
       run: (message, actionId, attachmentOverride, options) =>
         run(message, actionId, attachmentOverride, options),
       stop,
@@ -965,7 +992,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
       },
     });
 
-    return () => setBuilderAIActions(null);
+    return () => registerBuilderAIActions(null);
   }, [
     applyProposalSafely,
     attachBlockById,
@@ -993,18 +1020,17 @@ export function useBuilderAI() {
   const attachedBlock = useBuilderAIStore((s) => s.attachedBlock);
   const conversationId = useBuilderAIStore((s) => s.conversationId);
   const applyError = useBuilderAIStore((s) => s.applyError);
+  const selectedBlockId = useBuilderAIStore((s) => s.selectedBlockId);
+  const selectedBlockType = useBuilderAIStore((s) => s.selectedBlockType);
   const setDraft = useBuilderAIStore((s) => s.setDraft);
   const clearApplyError = useBuilderAIStore((s) => s.clearApplyError);
   const openPanel = useBuilderAIStore((s) => s.openPanel);
   const discardProposal = useBuilderAIStore((s) => s.discardProposal);
   const updateMessage = useBuilderAIStore((s) => s.updateMessage);
+  const focusBlock = useBuilderAIStore((s) => s.focusBlock);
   const applyDocumentSettings = useBuilderAIStore(
     (s) => s.applyDocumentSettings,
   );
-
-  const selectedBlockId = useSelectedBlockId();
-  const selectedBlockType = useSelectedBlockType();
-  const setSelectedBlockId = useSetSelectedBlockId();
 
   return {
     builder: config?.builder ?? ("page" as const),
@@ -1021,13 +1047,11 @@ export function useBuilderAI() {
     clearApplyError,
     openPanel,
     selectedBlockId,
-    selectedBlockType: selectedBlockType
-      ? String(selectedBlockType)
-      : undefined,
+    selectedBlockType: selectedBlockType ?? undefined,
     focusAttachedBlock: () => {
-      if (attachedBlock) setSelectedBlockId(attachedBlock.id);
+      if (attachedBlock) focusBlock(attachedBlock.id);
     },
-    focusBlock: (blockId: string) => setSelectedBlockId(blockId),
+    focusBlock,
     attachSelectedBlock: () => {
       actionsBridge.current?.attachSelectedBlock();
     },

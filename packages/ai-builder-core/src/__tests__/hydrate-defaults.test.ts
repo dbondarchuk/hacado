@@ -401,4 +401,44 @@ describe("hydrate-defaults", () => {
 
     assert.deepEqual(gift.metadata, { giftCardStudioAppId: "custom-id" });
   });
+
+  it("assigns ids to AI blocks that omit them", () => {
+    const hydrated = hydrateEditorBlock(
+      {
+        type: "Text",
+        data: {
+          props: {
+            value: [{ type: "p", children: [{ text: "Happy Birthday!" }] }],
+          },
+        },
+      } as any,
+      new Map(),
+    );
+
+    assert.match(hydrated.id, /^block-/);
+
+    const [operation] = hydrateEditorOperations(
+      [
+        {
+          type: "add-block",
+          value: {
+            parentBlockId: "root",
+            index: 0,
+            block: {
+              type: "Button",
+              data: {
+                props: { text: "Book now", url: "{{websiteUrl}}" },
+              },
+            },
+          },
+        } as any,
+      ],
+      new Map(),
+    );
+
+    assert.equal(operation.type, "add-block");
+    if (operation.type === "add-block") {
+      assert.match(String(operation.value.block.id), /^block-/);
+    }
+  });
 });

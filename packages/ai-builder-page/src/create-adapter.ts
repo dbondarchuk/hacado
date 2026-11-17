@@ -24,7 +24,7 @@ export {
 
 /**
  * Build AI catalog entries from installed apps using each app's editor registry
- * (capabilities, tags, allowedIn/allowedChildren) — not a parallel hand-maintained map.
+ * (capabilities, tags, allowedIn/allowedChildren) - not a parallel hand-maintained map.
  */
 function appBlockCatalog(
   apps: ConnectedAppRef[] | undefined,

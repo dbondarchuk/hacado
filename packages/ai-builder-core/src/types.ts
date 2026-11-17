@@ -154,7 +154,7 @@ export type ValidationResult = {
 
 /**
  * Host-form fields outside the block tree (page SEO/settings, email subject, etc.).
- * Live unsaved values from the admin form — not loaded from DB in the chat route.
+ * Live unsaved values from the admin form - not loaded from DB in the chat route.
  */
 export type BuilderDocumentSettings = {
   name?: string;
@@ -175,8 +175,10 @@ export type BuilderDocumentSettings = {
   headerId?: string;
   footerId?: string;
   fullWidth?: boolean;
-  /** Email template subject — supports Mustache (`{{...}}`). */
+  /** Email template subject - supports Mustache (`{{...}}`). */
   subject?: string;
+  /** Text-message template body - Mustache (`{{...}}`), max 500 chars. */
+  value?: string;
 };
 
 /** Partial host-form settings patch (page SEO, email subject, etc.). */
@@ -193,7 +195,7 @@ export type AskUserOption = {
   value: string;
 };
 
-/** Structured user interaction — not a document operation. */
+/** Structured user interaction - not a document operation. */
 export type AskUserRequest = {
   question: string;
   reason: string;

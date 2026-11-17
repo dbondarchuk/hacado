@@ -11,7 +11,7 @@ import type { BuilderAIAdapter } from "../adapters/types";
 import { assembleAIContext } from "../context/assembler";
 import type { BusinessContextSlice } from "../context/types";
 import { parseAskUserArgs } from "../tools/ask-user";
-import { BUILDER_AI_TOOL_DEFINITIONS } from "../tools/definitions";
+import { toolsForBuilder } from "../tools/definitions";
 import { executeBuilderAITool } from "../tools/executor";
 import type {
   AIMessage,
@@ -168,7 +168,10 @@ function looksLikeFalseCompletion(text: string): boolean {
 }
 
 const PROPOSE_NUDGE =
-  "No document changes were applied yet. Use available tools and call proposeDocumentOperations and/or proposeDocumentSettings now. Prefer cloneBlockForInsert when mirroring an existing section; otherwise build from defaults. Do not ask the user for data tools can provide, and do not ask them to edit the document manually. If a required fact is only known by the user and tools do not have it, call askUser (structured) and stop — do not invent placeholders or ask only in free text. Do not say Done until a propose tool succeeds.";
+  "No document changes were applied yet. Use available tools and call proposeDocumentOperations and/or proposeDocumentSettings now. Prefer cloneBlockForInsert when mirroring an existing section; otherwise build from defaults. Do not ask the user for data tools can provide, and do not ask them to edit the document manually. If a required fact is only known by the user and tools do not have it, call askUser (structured) and stop - do not invent placeholders or ask only in free text. Do not say Done until a propose tool succeeds.";
+
+const PROPOSE_NUDGE_TEXT_MESSAGE =
+  "No message changes were applied yet. Call getTemplateArgs and getDocumentSettings as needed, then proposeDocumentSettings with value (Mustache SMS body) and name when empty. Do not call proposeDocumentOperations. Do not ask the user for data tools can provide. If a required fact is only known by the user, call askUser and stop.";
 
 const SETTINGS_NUDGE =
   "Block changes alone are not enough for create/design/redesign. Call getDocumentSettings, then proposeDocumentSettings now (page: title, slug, description, keywords, and headerId/footerId when choosing chrome; email: name + subject; footer: name). Keep any valid proposeDocumentOperations.";
@@ -211,10 +214,14 @@ function requestNeedsHostSettings(input: {
     text.includes("design") ||
     text.includes("create page") ||
     text.includes("create email") ||
+    text.includes("create text") ||
+    text.includes("create sms") ||
     text.includes("new page") ||
     text.includes("new email") ||
+    text.includes("new text") ||
     text.includes("build a page") ||
-    text.includes("build an email")
+    text.includes("build an email") ||
+    text.includes("build a text")
   );
 }
 
@@ -234,7 +241,17 @@ function settingsProposalComplete(
     return Boolean(settings.name && settings.subject);
   }
 
+  if (builder === "text-message") {
+    return Boolean(settings.value);
+  }
+
   return Boolean(settings.name);
+}
+
+function proposeNudgeFor(builder: BuilderAIRequest["builder"]): string {
+  return builder === "text-message"
+    ? PROPOSE_NUDGE_TEXT_MESSAGE
+    : PROPOSE_NUDGE;
 }
 
 async function runModelTurn(input: {
@@ -242,6 +259,7 @@ async function runModelTurn(input: {
   task: AITask;
   model: string;
   messages: AIMessage[];
+  builder: BuilderAIRequest["builder"];
   temperature?: number;
   maxOutputTokens?: number;
   promptCacheKey?: string;
@@ -252,7 +270,7 @@ async function runModelTurn(input: {
     task: input.task,
     model: input.model,
     messages: input.messages,
-    tools: BUILDER_AI_TOOL_DEFINITIONS,
+    tools: toolsForBuilder(input.builder),
     temperature: input.temperature,
     maxOutputTokens: input.maxOutputTokens,
     promptCacheKey: input.promptCacheKey,
@@ -331,9 +349,9 @@ export async function runBuilderAIOrchestrator(
   /** Only a validated, non-empty proposal is returned to the client. */
   let proposal: DocumentProposal | undefined;
   let settingsProposal: DocumentSettingsProposal | undefined;
-  /** Structured pause — not a document operation. */
+  /** Structured pause - not a document operation. */
   let askUser: AskUserRequest | undefined;
-  /** Last propose attempt (may be invalid) — drives correction / nudge. */
+  /** Last propose attempt (may be invalid) - drives correction / nudge. */
   let lastProposeAttempt: DocumentProposal | undefined;
   let lastSettingsAttempt: DocumentSettingsProposal | undefined;
   let lastModel = "";
@@ -439,6 +457,10 @@ export async function runBuilderAIOrchestrator(
     const proposalReady = () => {
       if (qualityNeedsFix(qualityInput())) return false;
 
+      if (request.builder === "text-message") {
+        return settingsProposalComplete(request.builder, settingsProposal);
+      }
+
       if (needsHostSettings) {
         return (
           isValidProposal(proposal) &&
@@ -448,6 +470,8 @@ export async function runBuilderAIOrchestrator(
 
       return hasApplyableProposal(proposal, settingsProposal);
     };
+
+    const proposeNudge = proposeNudgeFor(request.builder);
 
     while (correctionAttempt <= maxCorrections) {
       const resolved = resolveModelForTask(task, { escalate });
@@ -469,6 +493,7 @@ export async function runBuilderAIOrchestrator(
           task,
           model: resolved.model,
           messages,
+          builder: request.builder,
           temperature: resolved.temperature,
           maxOutputTokens: resolved.maxOutputTokens,
           promptCacheKey,
@@ -500,7 +525,7 @@ export async function runBuilderAIOrchestrator(
 
             messages.push({
               role: "user",
-              content: PROPOSE_NUDGE,
+              content: proposeNudge,
             });
 
             continue;
@@ -664,6 +689,7 @@ export async function runBuilderAIOrchestrator(
 
         if (
           needsHostSettings &&
+          request.builder !== "text-message" &&
           isValidProposal(proposal) &&
           !settingsProposalComplete(request.builder, settingsProposal) &&
           !settingsNudged &&
@@ -683,7 +709,9 @@ export async function runBuilderAIOrchestrator(
           !proposalReady() &&
           !discoverySpiralNudged &&
           discoveryToolCalls >= discoveryBudgetBeforeProposeNudge &&
-          !isValidProposal(proposal) &&
+          !(request.builder === "text-message"
+            ? isValidSettingsProposal(settingsProposal)
+            : isValidProposal(proposal)) &&
           iteration < maxIterations
         ) {
           discoverySpiralNudged = true;
@@ -691,7 +719,7 @@ export async function runBuilderAIOrchestrator(
           retries += 1;
           messages.push({
             role: "user",
-            content: PROPOSE_NUDGE,
+            content: proposeNudge,
           });
 
           continue;
@@ -773,7 +801,7 @@ export async function runBuilderAIOrchestrator(
           content:
             qualityNudge && qualityNeedsFix(qualityInput())
               ? qualityNudge
-              : PROPOSE_NUDGE,
+              : proposeNudge,
         });
 
         continue;

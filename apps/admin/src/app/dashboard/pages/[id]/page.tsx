@@ -77,6 +77,7 @@ export default async function EditPagesPage(props: Props) {
       <div className="flex min-h-0 flex-1 flex-col gap-4 w-full">
         <Styling styling={styling} />
         <PageForm
+          key={page._id}
           initialData={page}
           config={{ general, brand, social }}
           apps={apps}

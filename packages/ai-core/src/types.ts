@@ -1,4 +1,4 @@
-export type BuilderKind = "page" | "footer" | "email";
+export type BuilderKind = "page" | "footer" | "email" | "text-message";
 
 export type AITask =
   | "intent_classification"

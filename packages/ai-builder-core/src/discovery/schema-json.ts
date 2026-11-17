@@ -174,7 +174,7 @@ export function blockSchemaForAi(
         type: "object",
         properties,
         description: supportedStyleProperties?.length
-          ? "Block data schema. Style value definitions are omitted — use supportedStyles + getStyleSchema. Prop field descriptions come from the schema."
+          ? "Block data schema. Style value definitions are omitted - use supportedStyles + getStyleSchema. Prop field descriptions come from the schema."
           : undefined,
       },
       supportedStyleProperties,

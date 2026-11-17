@@ -1,4 +1,5 @@
 import type { EditorHistoryEntry } from "@hacado/builder/editor-types";
+import { generateId } from "@hacado/builder/helpers";
 
 const NATIVE_OPERATION_TYPES = new Set<EditorHistoryEntry["type"]>([
   "document",
@@ -66,6 +67,16 @@ function normalizeBlockTreeData(value: unknown): unknown {
         },
       };
     }
+  }
+
+  // Editor indexes/outline require block ids. Models often omit them.
+  if (
+    typeof next.type === "string" &&
+    "data" in next &&
+    next.data !== undefined &&
+    (typeof next.id !== "string" || !String(next.id).trim())
+  ) {
+    next.id = generateId();
   }
 
   return next;

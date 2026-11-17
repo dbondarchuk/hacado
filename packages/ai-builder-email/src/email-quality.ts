@@ -22,7 +22,7 @@ export function isValidOpsProposal(
   );
 }
 
-/** User only wants host-form subject/name changed — settings-only is enough. */
+/** User only wants host-form subject/name changed - settings-only is enough. */
 export function looksLikeSubjectOnlyAsk(message: string): boolean {
   const text = message.toLowerCase();
   if (!/\bsubject\b/.test(text)) return false;
@@ -93,4 +93,4 @@ export function emailNeedsQualityFix(input: {
 }
 
 export const EMAIL_QUALITY_NUDGE =
-  "Email create is incomplete. Call proposeDocumentOperations with Heading + Text (appointment Mustache when it applies: {{fields.name}}, {{service.name}}, {{dateTime.full}}, {{member.name}}, {{config.name}}). Via proposeDocumentSettings: set name when empty (plain label, e.g. Appointment reminder); prefer a Mustache subject when date/service belong in the inbox line — static subjects (e.g. OTP) are fine. Do not hard-code business or Preview sample values.";
+  "Email create is incomplete. Call proposeDocumentOperations with Heading + Text (appointment Mustache when it applies: {{fields.name}}, {{service.name}}, {{dateTime.full}}, {{member.name}}, {{config.name}}). Via proposeDocumentSettings: set name when empty (plain label, e.g. Appointment reminder); prefer a Mustache subject when date/service belong in the inbox line - static subjects (e.g. OTP) are fine. Do not hard-code business or Preview sample values.";

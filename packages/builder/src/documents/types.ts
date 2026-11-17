@@ -123,7 +123,7 @@ export function isSectionTemplate(
 export type EditorBlockAICapability = {
   id: string;
   label: string;
-  /** Full i18n key for `useI18n()` — apps may use their own namespace. */
+  /** Full i18n key for `useI18n()` - apps may use their own namespace. */
   labelKey: AllKeys;
   description: string;
   kind: "deterministic" | "generative";
@@ -159,11 +159,11 @@ export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
      */
     isModal?: boolean;
     tags?: string[];
-    /** Nesting / search taxonomy — not Builder AI quick actions. */
+    /** Nesting / search taxonomy - not Builder AI quick actions. */
     capabilities?: string[];
     /**
      * Builder AI quick actions for this block. Declare packs in the host builder
-     * (or app) — `@hacado/ai-core` stays abstract. Each action needs a full i18n
+     * (or app) - `@hacado/ai-core` stays abstract. Each action needs a full i18n
      * `labelKey` for `useI18n()`.
      */
     aiCapabilities?: EditorBlockAICapability[];

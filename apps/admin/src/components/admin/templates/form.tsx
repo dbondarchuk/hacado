@@ -26,13 +26,15 @@ import { Link } from "@hacado/ui/link";
 import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Sparkles } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
   BUILDER_AI_TAB,
   BuilderAIAssistantPanel,
+  TextMessageAIChrome,
+  useBuilderAIHostLifecycle,
   useBuilderAIStore,
   useBuilderAIToolbarButtons,
 } from "../builder-ai";
@@ -65,15 +67,29 @@ export const TemplateForm: React.FC<
 
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const documentId = initialData?._id;
+  const emptyTemplateValues = React.useMemo(
+    () =>
+      ({
+        ...(template || {}),
+        type,
+      }) as TemplateFormValues,
+    [template, type],
+  );
+
   const form = useForm<TemplateFormValues>({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
     reValidateMode: "onChange",
-    defaultValues: initialData || {
-      ...(template || {}),
-      type,
-    },
+    defaultValues: initialData || emptyTemplateValues,
   });
+
+  useBuilderAIHostLifecycle(documentId);
+
+  React.useEffect(() => {
+    form.reset(initialData || emptyTemplateValues);
+  }, [pathname, documentId, form, emptyTemplateValues, initialData]);
 
   const { isFormDirty, onFormSubmit } = useIsDirty(form);
 
@@ -126,6 +142,7 @@ export const TemplateForm: React.FC<
     const settings: {
       name?: string;
       subject?: string;
+      value?: string;
     } = {
       name: watchedTemplate.name,
     };
@@ -134,6 +151,10 @@ export const TemplateForm: React.FC<
       settings.subject = String(
         (watchedTemplate as { subject?: string }).subject ?? "",
       );
+    }
+
+    if (type === "text-message") {
+      settings.value = String(watchedTemplate.value ?? "");
     }
 
     return settings;
@@ -238,6 +259,7 @@ export const TemplateForm: React.FC<
                       <FormControl>
                         <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
                           <EmailBuilder
+                            key={`${pathname}:${documentId ?? "new"}`}
                             args={args}
                             value={field.value}
                             onIsValidChange={onEmailBuilderValidChange}
@@ -251,8 +273,21 @@ export const TemplateForm: React.FC<
                     </FormItem>
                   )}
                   {type === "text-message" && (
-                    <div className="min-h-0 flex-1 overflow-y-auto">
-                      <TextMessageBuilder args={args} field={field} />
+                    <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto p-1 md:max-h-[800px] md:overflow-hidden">
+                      <TextMessageAIChrome
+                        key={`${pathname}:${documentId ?? "new"}`}
+                        documentId={initialData?._id}
+                        args={args}
+                        documentSettings={documentSettings}
+                      >
+                        {(toolbar) => (
+                          <TextMessageBuilder
+                            args={args}
+                            field={field}
+                            toolbar={toolbar}
+                          />
+                        )}
+                      </TextMessageAIChrome>
                     </div>
                   )}
                 </>

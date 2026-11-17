@@ -83,8 +83,8 @@ function deepMerge(target: any, source: any): any {
               "type" in item,
           );
 
-          // UI config often strips children — keep existing tree.
-          // AI / nested edits send full block trees — merge by id.
+          // UI config often strips children - keep existing tree.
+          // AI / nested edits send full block trees - merge by id.
           if (!sourceHasBlocks || sourceValue.length === 0) {
             result[key] = targetValue;
           } else {

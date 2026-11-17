@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-/** Page HTML id/className on blocks — page-builder only, not core builder. */
+/** Page HTML id/className on blocks - page-builder only, not core builder. */
 export const PageBaseBlockPropsSchema = z
   .object({
     id: z

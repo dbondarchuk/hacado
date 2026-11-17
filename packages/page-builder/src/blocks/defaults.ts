@@ -1,6 +1,6 @@
 /**
  * Server-safe block defaults barrel for editors and Builder AI.
- * Import only from this map (or per-block defaults.ts) — never from schema for defaults.
+ * Import only from this map (or per-block defaults.ts) - never from schema for defaults.
  */
 import { AccordionItemPropsDefaults } from "./accordion-item/defaults";
 import { AccordionPropsDefaults } from "./accordion/defaults";

@@ -30,7 +30,7 @@ export type BuilderAIChatMessage = {
   proposal?: DocumentProposal | null;
   settingsProposal?: DocumentSettingsProposal | null;
   status?: AssistantStatus;
-  /** Structured question from askUser — waits for answer/skip. */
+  /** Structured question from askUser - waits for answer/skip. */
   askUser?: AskUserRequest | null;
   askUserAnswered?: boolean;
   /** When this user message answers an askUser question, show that question. */

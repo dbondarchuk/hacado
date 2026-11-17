@@ -9,7 +9,7 @@ export function computeDocumentRevision(document: unknown): string {
 }
 
 function hashString(value: string): string {
-  // FNV-1a 64-bit-ish hex via two 32-bit lanes — deterministic across runtimes.
+  // FNV-1a 64-bit-ish hex via two 32-bit lanes - deterministic across runtimes.
   let h1 = 0x811c9dc5;
   let h2 = 0x811c9dc5;
 

@@ -57,7 +57,7 @@ export const plateBodyValueSchema = z
     z
       .string()
       .describe(
-        'Markdown body copy (preferred for AI). Paragraphs, "- "/numbered lists, **bold**, _italic_, [label](url) links. Do not use # headings — titles belong in Heading blocks. Converted to Plate on apply.',
+        'Markdown body copy (preferred for AI). Paragraphs, "- "/numbered lists, **bold**, _italic_, [label](url) links. Do not use # headings - titles belong in Heading blocks. Converted to Plate on apply.',
       ),
     z
       .array(plateBodyNodeSchema)

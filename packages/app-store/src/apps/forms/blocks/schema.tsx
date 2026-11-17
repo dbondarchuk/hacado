@@ -36,7 +36,7 @@ export const FormsEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["block", "form"],
     tags: ["form"],
-    // App-owned AI actions — declare on the block instead of the central registry.
+    // App-owned AI actions - declare on the block instead of the central registry.
     aiCapabilities: [
       {
         id: "improve_form_copy",

@@ -1,11 +1,13 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { TemplateForm } from "@/components/admin/templates/form";
 import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
+import { replaceUndefinedWithNull } from "@hacado/ai-builder-core";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
 import { CommunicationChannel } from "@hacado/types/communication";
 import { Template, TemplatesTemplate } from "@hacado/types/templates";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { withDemoTemplateLinkArgs } from "@hacado/utils/demo-template-links";
 import { demoAppointment, demoOtp } from "@hacado/utils/fixtures";
 import { getArguments } from "@hacado/utils/get-arguments";
 import { getAdminUrl } from "@hacado/utils/website";
@@ -54,15 +56,20 @@ export const TemplateFormPage: React.FC<
       return { ...acc, ...curr };
     }, {});
 
-  const demoArguments = getArguments({
-    appointment: demoAppointment,
-    config,
-    adminUrl,
-    websiteUrl,
-    customer: demoAppointment.customer,
-    locale: config.brand.language,
-    additionalProperties: { otp: demoOtp, ...demoEmailArguments },
-  });
+  const demoArguments = replaceUndefinedWithNull(
+    withDemoTemplateLinkArgs(
+      getArguments({
+        appointment: demoAppointment,
+        config,
+        adminUrl,
+        websiteUrl,
+        customer: demoAppointment.customer,
+        locale: config.brand.language,
+        additionalProperties: { otp: demoOtp, ...demoEmailArguments },
+      }) as Record<string, unknown>,
+      websiteUrl,
+    ),
+  );
 
   let initialData: Template | undefined;
   let type: CommunicationChannel;

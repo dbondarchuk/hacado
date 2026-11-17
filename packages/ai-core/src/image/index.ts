@@ -13,7 +13,7 @@ export type {
 
 export function isImageGenerationEnabled(): boolean {
   return (
-    process.env.BUILDER_AI_IMAGE_GENERATION_ENABLED === "true" &&
+    process.env.AI_IMAGE_GENERATION_ENABLED === "true" &&
     getImageGenerationProvider() != null
   );
 }

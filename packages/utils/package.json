@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/schedule-resolve.test.ts src/short-links.test.ts src/server/custom-domain-dns.test.ts src/sms-date.test.ts src/permissions.test.ts"
+    "test": "node --import tsx --test src/schedule-resolve.test.ts src/short-links.test.ts src/demo-template-links.test.ts src/server/custom-domain-dns.test.ts src/sms-date.test.ts src/permissions.test.ts"
   },
   "main": "./src/index.ts",
   "exports": {
@@ -20,6 +20,7 @@
     "./colors": "./src/colors.ts",
     "./csv": "./src/csv.ts",
     "./currency": "./src/currency.ts",
+    "./demo-template-links": "./src/demo-template-links.ts",
     "./deep-equal": "./src/deep-equal.ts",
     "./email": "./src/email.ts",
     "./favicon": "./src/favicon.ts",
@@ -49,6 +50,7 @@
     "./short-links": "./src/short-links.ts",
     "./sms": "./src/sms.ts",
     "./sms-date": "./src/sms-date.ts",
+    "./sms-segments": "./src/sms-segments.ts",
     "./stream": "./src/stream.ts",
     "./string": "./src/string.ts",
     "./strip-object": "./src/strip-object.ts",

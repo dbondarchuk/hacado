@@ -2,7 +2,7 @@ import { getAIProvider, resolveModelForTask } from "@hacado/ai-core";
 import type { TokenUsage } from "../types";
 
 export const OFF_TOPIC_REFUSAL =
-  "I can only help with this builder document — editing blocks, layout, styles, copy, and related page/email/footer changes. Ask something about the current document or selection.";
+  "I can only help with this builder document - editing blocks, layout, styles, copy, and related page/email/footer changes. Ask something about the current document or selection.";
 
 export type ScopeGateResult = {
   allowed: boolean;
@@ -109,7 +109,7 @@ export async function classifyBuilderScope(input: {
   const relevant = parseRelevance(result.text);
 
   return {
-    // Fail open only when the classifier output is unreadable — prefer allowing
+    // Fail open only when the classifier output is unreadable - prefer allowing
     // the main prompt's refusal rules over blocking legitimate builder asks.
     allowed: relevant !== false,
     source: "model",

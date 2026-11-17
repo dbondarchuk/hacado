@@ -27,6 +27,12 @@ import {
   describeConnectedApps,
   searchLiveDesignPatterns,
 } from "@hacado/ai-builder-page";
+import {
+  buildTextMessageSystemPrompt,
+  createTextMessageBuilderAIAdapter,
+  TEXT_MESSAGE_QUALITY_NUDGE,
+  textMessageNeedsQualityFix,
+} from "@hacado/ai-builder-text-message";
 import { getLoggerFactory } from "@hacado/logger";
 import { getRedisClient } from "@hacado/services/bullmq";
 import { getTranslations } from "next-intl/server";
@@ -35,8 +41,8 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-const RATE_LIMIT = Number(process.env.BUILDER_AI_RATE_LIMIT ?? 30);
-const RATE_WINDOW_MS = Number(process.env.BUILDER_AI_RATE_WINDOW_MS ?? 60_000);
+const RATE_LIMIT = Number(process.env.AI_RATE_LIMIT ?? 30);
+const RATE_WINDOW_MS = Number(process.env.AI_RATE_WINDOW_MS ?? 60_000);
 
 function createRedisToolCache(): ToolResultCache {
   return {
@@ -112,9 +118,11 @@ export async function POST(request: NextRequest) {
     }
 
     const services = await getServicesContainer();
+    const isTextMessage = builder === "text-message";
+    const isEmail = builder === "email";
     const connectedApps =
       body.apps ??
-      (builder === "email"
+      (isEmail || isTextMessage
         ? []
         : (
             await services.connectedAppsService.getAppsByScope("ui-components")
@@ -129,8 +137,9 @@ export async function POST(request: NextRequest) {
         ? await listPageChromeForAI(services.pagesService)
         : undefined;
 
-    const adapter =
-      builder === "email"
+    const adapter = isTextMessage
+      ? createTextMessageBuilderAIAdapter()
+      : isEmail
         ? createEmailBuilderAIAdapter()
         : createPageBuilderAIAdapter({
             builder,
@@ -149,8 +158,9 @@ export async function POST(request: NextRequest) {
     });
 
     const t = await getTranslations("builder.ai");
-    const systemPrompt =
-      builder === "email"
+    const systemPrompt = isTextMessage
+      ? buildTextMessageSystemPrompt(language)
+      : isEmail
         ? buildEmailSystemPrompt(language)
         : buildPageSystemPrompt(
             builder === "footer" ? "footer" : "page",
@@ -202,7 +212,7 @@ export async function POST(request: NextRequest) {
               businessRaw,
               cache: createRedisToolCache(),
               searchDesignPatterns:
-                builder === "email"
+                isEmail || isTextMessage
                   ? undefined
                   : ({ query, limit }) =>
                       searchLiveDesignPatterns({
@@ -210,18 +220,37 @@ export async function POST(request: NextRequest) {
                         query,
                         limit,
                       }),
-              searchStockImages: ({ query, count }) =>
-                searchStockImagesForAI(services.redisClient, { query, count }),
-              searchStockVideos: ({ query, count }) =>
-                searchStockVideosForAI(services.redisClient, { query, count }),
+              searchStockImages: isTextMessage
+                ? undefined
+                : ({ query, count }) =>
+                    searchStockImagesForAI(services.redisClient, {
+                      query,
+                      count,
+                    }),
+              searchStockVideos: isTextMessage
+                ? undefined
+                : ({ query, count }) =>
+                    searchStockVideosForAI(services.redisClient, {
+                      query,
+                      count,
+                    }),
               searchPages:
-                builder === "email"
+                isEmail || isTextMessage
                   ? undefined
                   : (input) => searchPagesForAI(services.pagesService, input),
-              connectedApps: connectedAppsForAi,
+              connectedApps: isTextMessage ? [] : connectedAppsForAi,
               documentChrome,
-              qualityGate:
-                builder === "email"
+              qualityGate: isTextMessage
+                ? {
+                    needsFix: (input) =>
+                      textMessageNeedsQualityFix({
+                        ...input,
+                        args: body.args,
+                        language,
+                      }),
+                    nudge: TEXT_MESSAGE_QUALITY_NUDGE,
+                  }
+                : isEmail
                   ? {
                       needsFix: emailNeedsQualityFix,
                       nudge: EMAIL_QUALITY_NUDGE,

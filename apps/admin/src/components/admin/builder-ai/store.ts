@@ -28,6 +28,8 @@ type ApplyDocumentSettingsFn = (
   options?: ApplyDocumentSettingsOptions,
 ) => void;
 
+type FocusBlockFn = (blockId: string) => void;
+
 type BuilderAIStore = {
   config: BuilderAIConfig | null;
   loading: boolean;
@@ -39,6 +41,10 @@ type BuilderAIStore = {
   applyError: BuilderAIApplyError | null;
   openPanelFn: OpenPanelFn | null;
   applyDocumentSettingsFn: ApplyDocumentSettingsFn | null;
+  /** Synced from the block editor host; null for settings-only hosts. */
+  selectedBlockId: string | null;
+  selectedBlockType: string | null;
+  focusBlockFn: FocusBlockFn | null;
   setConfig: (config: BuilderAIConfig) => void;
   setLoading: (loading: boolean) => void;
   setProgressSteps: (steps: string[]) => void;
@@ -52,6 +58,12 @@ type BuilderAIStore = {
   setConversationId: (id: string | undefined) => void;
   setApplyError: (error: BuilderAIApplyError | null) => void;
   clearApplyError: () => void;
+  setEditorSelection: (selection: {
+    selectedBlockId: string | null;
+    selectedBlockType: string | null;
+  }) => void;
+  registerFocusBlock: (fn: FocusBlockFn) => () => void;
+  focusBlock: (blockId: string) => void;
   registerOpenPanel: (fn: OpenPanelFn) => () => void;
   openPanel: () => void;
   registerApplyDocumentSettings: (fn: ApplyDocumentSettingsFn) => () => void;
@@ -79,6 +91,9 @@ export const useBuilderAIStore = create<BuilderAIStore>((set, get) => ({
   applyError: null,
   openPanelFn: null,
   applyDocumentSettingsFn: null,
+  selectedBlockId: null,
+  selectedBlockType: null,
+  focusBlockFn: null,
   setConfig: (config) => {
     const prev = get().config;
     const documentChanged =
@@ -113,6 +128,23 @@ export const useBuilderAIStore = create<BuilderAIStore>((set, get) => ({
   setConversationId: (conversationId) => set({ conversationId }),
   setApplyError: (applyError) => set({ applyError }),
   clearApplyError: () => set({ applyError: null }),
+  setEditorSelection: (selection) =>
+    set({
+      selectedBlockId: selection.selectedBlockId,
+      selectedBlockType: selection.selectedBlockType,
+    }),
+  registerFocusBlock: (fn) => {
+    set({ focusBlockFn: fn });
+
+    return () => {
+      if (get().focusBlockFn === fn) {
+        set({ focusBlockFn: null });
+      }
+    };
+  },
+  focusBlock: (blockId) => {
+    get().focusBlockFn?.(blockId);
+  },
   registerOpenPanel: (fn) => {
     set({ openPanelFn: fn });
 
@@ -142,6 +174,7 @@ export const useBuilderAIStore = create<BuilderAIStore>((set, get) => ({
       messages: [],
       conversationId: undefined,
       draft: "",
+      attachedBlock: null,
       applyError: null,
       progressSteps: [],
       loading: false,

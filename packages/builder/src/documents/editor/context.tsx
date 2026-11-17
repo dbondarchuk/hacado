@@ -19,6 +19,7 @@ import {
   isSlotLikeObject,
   SelectedSlotRef,
 } from "../embedded-slot";
+import { createFreshRootDocument } from "../helpers/block-id";
 import { cloneBlock, validateBlocks } from "../helpers/blocks";
 import { ReaderDocumentBlocksDictionary } from "../reader/core";
 import {
@@ -201,8 +202,8 @@ const createEditorStateStore = ({
   getImageBlock?: (file: UploadedFile) => TEditorBlock;
   enableModalsView?: boolean;
 }) => {
-  const defaultDocument = document || rootBlock;
-  const defaultRootBlock = defaultDocument || rootBlock;
+  const defaultDocument = document ?? createFreshRootDocument(rootBlock);
+  const defaultRootBlock = rootBlock;
   const initialIndexes = buildIndexes(defaultDocument, schemas);
 
   // const [cookie, setCookie] = useCookies([
@@ -475,9 +476,10 @@ const createEditorStateStore = ({
         document?: EditorState["document"],
         onChange?: EditorState["onChange"],
       ) => {
-        const newDocument = document || get().rootBlock;
-        const newIndexes = buildIndexes(newDocument, schemas);
+        const newDocument =
+          document ?? createFreshRootDocument(get().rootBlock);
 
+        const newIndexes = buildIndexes(newDocument, schemas);
         set({
           document: newDocument,
           originalDocument: newDocument,

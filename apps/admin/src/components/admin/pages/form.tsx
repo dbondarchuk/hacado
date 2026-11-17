@@ -41,13 +41,14 @@ import { formatArguments } from "@hacado/utils/format-arguments";
 import { generateSlugPreview } from "@hacado/utils/page";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExternalLink, Settings as SettingsIcon, Sparkles } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
 import {
   BUILDER_AI_TAB,
   BuilderAIAssistantPanel,
+  useBuilderAIHostLifecycle,
   useBuilderAIStore,
   useBuilderAIToolbarButtons,
 } from "../builder-ai";
@@ -132,22 +133,41 @@ export const PageForm: React.FC<{
   }
 
   const [loading, setLoading] = React.useState(false);
-  const [slugManuallyChanged, setSlugManuallyChanged] = React.useState(false);
+  const [slugManuallyChanged, setSlugManuallyChanged] = React.useState(
+    Boolean(initialData?.slug) && Boolean(initialData?._id),
+  );
+
   const router = useRouter();
+  const pathname = usePathname();
+  const emptyPageValues = React.useMemo(
+    () => ({
+      publishDate: new Date(),
+      published: true,
+    }),
+    [],
+  );
+
   const form = useForm<PageFormValues>({
     resolver: zodResolver(formSchema),
     mode: "all",
     reValidateMode: "onChange",
-    defaultValues: initialData || {
-      publishDate: new Date(),
-      published: true,
-    },
+    defaultValues: initialData || emptyPageValues,
   });
 
   const slug = form.watch("slug");
   const title = form.watch("title");
   const language = form.watch("language");
   const isNewPage = !initialData?._id;
+  const documentId = initialData?._id;
+
+  useBuilderAIHostLifecycle(documentId);
+
+  // Soft-nav back to /new (or between pages) can reuse client state — force a
+  // clean form for the current route + document identity.
+  React.useEffect(() => {
+    form.reset(initialData || emptyPageValues);
+    setSlugManuallyChanged(Boolean(initialData?.slug) && Boolean(documentId));
+  }, [pathname, documentId, form, emptyPageValues, initialData]);
 
   const { path, params } = useMemo(() => generateSlugPreview(slug), [slug]);
 
@@ -507,6 +527,7 @@ export const PageForm: React.FC<{
                 <FormControl>
                   <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
                     <PageBuilder
+                      key={`${pathname}:${documentId ?? "new"}`}
                       args={args}
                       value={field.value}
                       onIsValidChange={onPageBuilderValidChange}
