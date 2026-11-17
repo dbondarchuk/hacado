@@ -10,20 +10,17 @@ export const LightboxPropsSchema = z.object({
       overlay: z
         .enum(overlayType)
         .describe("Backdrop style behind the lightbox"),
-      showAltAsDescription: z
-        .coerce
+      showAltAsDescription: z.coerce
         .boolean<boolean>()
         .optional()
         .nullable()
         .describe("Show image alt text as a caption below the slide"),
-      navigation: z
-        .coerce
+      navigation: z.coerce
         .boolean<boolean>()
         .optional()
         .nullable()
         .describe("Show previous/next controls"),
-      loop: z
-        .coerce
+      loop: z.coerce
         .boolean<boolean>()
         .optional()
         .nullable()

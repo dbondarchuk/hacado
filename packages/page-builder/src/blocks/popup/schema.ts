@@ -18,9 +18,7 @@ export const PopupPropsSchema = z.object({
       show: z
         .enum(showPopupType)
         .describe("When the popup appears (always, once, or on click)"),
-      overlay: z
-        .enum(overlayType)
-        .describe("Backdrop style behind the modal"),
+      overlay: z.enum(overlayType).describe("Backdrop style behind the modal"),
       title: z
         .object({
           children: z

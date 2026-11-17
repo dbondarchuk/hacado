@@ -155,6 +155,7 @@ describe("hydrate-defaults", () => {
         ],
       },
     ]);
+
     assert.equal((wrapped[1] as { type: string }).type, "ul");
   });
 
@@ -170,16 +171,21 @@ describe("hydrate-defaults", () => {
       text?: string;
       children: Array<{
         type: string;
-        data: { props: { children: Array<{ type: string; data: { props: { text: string } } }> } };
+        data: {
+          props: {
+            children: Array<{
+              type: string;
+              data: { props: { text: string } };
+            }>;
+          };
+        };
       }>;
     };
 
     assert.equal(props.text, undefined);
     assert.equal(props.children[0]?.type, "InlineContainer");
-    assert.equal(
-      props.children[0]?.data.props.children[0]?.type,
-      "InlineText",
-    );
+    assert.equal(props.children[0]?.data.props.children[0]?.type, "InlineText");
+
     assert.equal(
       props.children[0]?.data.props.children[0]?.data.props.text,
       "Meet our team",
@@ -196,7 +202,9 @@ describe("hydrate-defaults", () => {
             type: "Text",
             data: {
               props: {
-                value: [{ type: "p", children: [{ text: "Gel strengthening" }] }],
+                value: [
+                  { type: "p", children: [{ text: "Gel strengthening" }] },
+                ],
               },
             },
           },
@@ -213,6 +221,7 @@ describe("hydrate-defaults", () => {
       headingChildren[0]?.data.props.children[0]?.type,
       "InlineText",
     );
+
     assert.equal(
       headingChildren[0]?.data.props.children[0]?.data.props.text,
       "Gel strengthening",
@@ -342,7 +351,9 @@ describe("hydrate-defaults", () => {
             blockId: "h1",
             data: {
               style: {
-                height: [{ value: { value: 1, unit: "px" }, breakpoint: "mobile" }],
+                height: [
+                  { value: { value: 1, unit: "px" }, breakpoint: "mobile" },
+                ],
               },
             },
           },

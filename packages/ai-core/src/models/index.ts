@@ -1,3 +1,3 @@
 export * from "./registry";
-export * from "./tasks";
 export * from "./router";
+export * from "./tasks";

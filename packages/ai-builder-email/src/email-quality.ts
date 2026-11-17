@@ -68,8 +68,8 @@ export function emailNeedsQualityFix(input: {
   task: AITask;
   message: string;
   documentSettings?: BuilderDocumentSettings;
-  proposal: DocumentProposal | undefined;
-  settingsProposal?: DocumentSettingsProposal | undefined;
+  proposal?: DocumentProposal;
+  settingsProposal?: DocumentSettingsProposal;
 }): boolean {
   if (input.builder !== "email") return false;
   if (input.task !== "document_generation") return false;

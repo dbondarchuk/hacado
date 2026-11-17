@@ -1,14 +1,15 @@
 import { getImageGenerationProvider } from "../provider/factory";
 
+export {
+  getImageGenerationProvider,
+  registerImageGenerationProvider,
+} from "../provider/factory";
+
 export type {
   ImageGenerationInput,
   ImageGenerationProvider,
   ImageGenerationResult,
 } from "../provider/types";
-export {
-  getImageGenerationProvider,
-  registerImageGenerationProvider,
-} from "../provider/factory";
 
 export function isImageGenerationEnabled(): boolean {
   return (

@@ -1,4 +1,7 @@
-import type { EditorHistoryEntry, TEditorBlock } from "@hacado/builder/editor";
+import type {
+  EditorHistoryEntry,
+  TEditorBlock,
+} from "@hacado/builder/editor-types";
 import type { BuilderSchema } from "@hacado/builder/types";
 import { getBlockAICapabilitiesFromEntry } from "../capabilities/registry";
 import {

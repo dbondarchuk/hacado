@@ -1,6 +1,6 @@
+import type { Redis } from "ioredis";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import type { Redis } from "ioredis";
 import { searchStockImagesForAI } from "./search-stock-images-for-ai";
 
 const fakeRedis = {

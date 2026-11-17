@@ -1,6 +1,3 @@
-import assert from "node:assert/strict";
-import { beforeEach, describe, it } from "node:test";
-import * as z from "zod";
 import {
   MockAIProvider,
   registerAIProvider,
@@ -10,6 +7,9 @@ import {
   setTaskConfiguration,
   setUsageTracker,
 } from "@hacado/ai-core";
+import assert from "node:assert/strict";
+import { beforeEach, describe, it } from "node:test";
+import * as z from "zod";
 import { createRegistryAdapter } from "../adapters";
 import { computeDocumentRevision } from "../operations/revision";
 import { runBuilderAIOrchestrator } from "../orchestration/orchestrator";
@@ -385,6 +385,7 @@ describe("orchestrator", () => {
       response.askUser?.question,
       "What are the exact start and end dates of your vacation, including the year?",
     );
+
     assert.equal(generateCalls, 2);
   });
 
@@ -594,6 +595,7 @@ describe("orchestrator", () => {
           event.phase === "start",
       ),
     );
+
     assert.ok(
       streamEvents.some(
         (event) =>

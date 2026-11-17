@@ -12,7 +12,9 @@ export const ContainerPropsSchema = z.object({
         .optional()
         .nullable()
         .describe("Inner padding around container content."),
-      borderColor: zColorNullable.describe("Border color around the container."),
+      borderColor: zColorNullable.describe(
+        "Border color around the container.",
+      ),
       borderRadius: z.coerce
         .number<number>()
         .int("emailBuilder.common.container.validation.borderRadius")

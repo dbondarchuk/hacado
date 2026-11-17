@@ -23,14 +23,18 @@ export const BlogPostContentPropsSchema = z.object({
         showShort: z
           .literal(true)
           .optional()
-          .describe("Render a truncated excerpt instead of the full post body."),
+          .describe(
+            "Render a truncated excerpt instead of the full post body.",
+          ),
         maxParagraphs: z.coerce
           .number(maxParagraphsValidation)
           .int(maxParagraphsValidation)
           .min(1, maxParagraphsValidation)
           .max(10, maxParagraphsValidation)
           .optional()
-          .describe("Maximum paragraphs to include in the short excerpt (1-10)."),
+          .describe(
+            "Maximum paragraphs to include in the short excerpt (1-10).",
+          ),
         showOnlyTextParagraphs: z
           .boolean()
           .optional()

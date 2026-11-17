@@ -35,7 +35,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getBlockRelationships",
     description:
-      "Retrieve parent/child hierarchy rules for block types: allowedIn (where the block may be placed) and allowedChildren (which child types/capabilities may nest under it). Heading/Button/Link only allow children with capability \"inline\" (InlineContainer, InlineText, Icon, …) — never Text.",
+      'Retrieve parent/child hierarchy rules for block types: allowedIn (where the block may be placed) and allowedChildren (which child types/capabilities may nest under it). Heading/Button/Link only allow children with capability "inline" (InlineContainer, InlineText, Icon, …) — never Text.',
     inputSchema: {
       type: "object",
       properties: {
@@ -66,7 +66,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getStyleSchema",
     description:
-      "Retrieve JSON schemas for specific style properties (not returned by getBlockSchemas). Prefer names from getBlockSchemas.supportedStyles. Pass blockType to ensure the block supports them. Call before custom style overrides; values are variant arrays ({ value, breakpoint?, state? }[]), not bare CSS strings. breakpoint/state must be arrays of schema tokens (e.g. [\"max-md\"]), never strings like \"mobile\".",
+      'Retrieve JSON schemas for specific style properties (not returned by getBlockSchemas). Prefer names from getBlockSchemas.supportedStyles. Pass blockType to ensure the block supports them. Call before custom style overrides; values are variant arrays ({ value, breakpoint?, state? }[]), not bare CSS strings. breakpoint/state must be arrays of schema tokens (e.g. ["max-md"]), never strings like "mobile".',
     inputSchema: {
       type: "object",
       properties: {
@@ -83,7 +83,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "getDesignTokens",
     description:
-      "Retrieve allowed design tokens (color: var(--value-*-color); font: PRIMARY/SECONDARY/…). Call on create/design/redesign before inventing styles. Pair with getBusinessProfile({ needs: [\"branding\"] }) for org-specific color/font choices — never invent hex or raw CSS font names when tokens exist.",
+      'Retrieve allowed design tokens (color: var(--value-*-color); font: PRIMARY/SECONDARY/…). Call on create/design/redesign before inventing styles. Pair with getBusinessProfile({ needs: ["branding"] }) for org-specific color/font choices — never invent hex or raw CSS font names when tokens exist.',
     inputSchema: {
       type: "object",
       properties: {
@@ -320,7 +320,7 @@ export const BUILDER_AI_TOOL_DEFINITIONS: AIToolDefinition[] = [
   {
     name: "proposeDocumentSettings",
     description:
-      "Propose host-form document settings outside the block tree. Pages: title, slug, description, keywords, and optionally headerId/footerId from getDocumentSettings available lists. Page title must NOT include brand/site suffixes (no \"| Studio Name\") — the host appends those. Derive slug from the short page title. Emails: name (admin label) and subject (Mustache when useful). Footers: name. Required on create/design/redesign. Page slug may need user confirmation. Can combine with proposeDocumentOperations in the same turn.",
+      'Propose host-form document settings outside the block tree. Pages: title, slug, description, keywords, and optionally headerId/footerId from getDocumentSettings available lists. Page title must NOT include brand/site suffixes (no "| Studio Name") — the host appends those. Derive slug from the short page title. Emails: name (admin label) and subject (Mustache when useful). Footers: name. Required on create/design/redesign. Page slug may need user confirmation. Can combine with proposeDocumentOperations in the same turn.',
     inputSchema: {
       type: "object",
       properties: {

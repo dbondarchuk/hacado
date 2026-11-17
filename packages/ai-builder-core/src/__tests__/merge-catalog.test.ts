@@ -41,6 +41,7 @@ describe("catalog merge and business slice", () => {
       merged.find((block) => block.type === "BookingModern")?.providerName,
       "waitlist",
     );
+
     assert.deepEqual(
       merged.find((block) => block.type === "BookingModern")?.defaultMetadata,
       { waitlistAppId: "app-1" },

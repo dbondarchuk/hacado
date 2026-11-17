@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { EMAIL_BRAND } from "../../brand";
 import { zColorNullable, zStyles } from "../../style-inputs/helpers/zod";
 
 export const ButtonPropsSchema = z.object({
@@ -16,7 +15,9 @@ export const ButtonPropsSchema = z.object({
         .optional()
         .nullable()
         .describe("Corner style of the button shape."),
-      buttonTextColor: zColorNullable.describe("Color of the button label text."),
+      buttonTextColor: zColorNullable.describe(
+        "Color of the button label text.",
+      ),
       width: z
         .enum(["auto", "full"])
         .optional()

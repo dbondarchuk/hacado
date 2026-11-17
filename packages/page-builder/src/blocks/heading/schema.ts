@@ -9,7 +9,7 @@ export const HeadingPropsSchema = z.object({
       children: z
         .array(z.any())
         .describe(
-          "Inline children only (capability \"inline\"): typically InlineContainer → InlineText. Never nest Text/Container/Image here — copy defaultValue shape.",
+          'Inline children only (capability "inline"): typically InlineContainer → InlineText. Never nest Text/Container/Image here — copy defaultValue shape.',
         ),
       level: z
         .enum(["h1", "h2", "h3", "h4", "h5", "h6"])

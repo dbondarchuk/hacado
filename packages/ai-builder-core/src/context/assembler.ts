@@ -1,5 +1,5 @@
 import type { BusinessContextSlice } from "@hacado/ai-core";
-import type { TEditorBlock } from "@hacado/builder/editor";
+import type { TEditorBlock } from "@hacado/builder/editor-types";
 import type { BuilderAIAdapter } from "../adapters/types";
 import { computeDocumentRevision } from "../operations/revision";
 import type {

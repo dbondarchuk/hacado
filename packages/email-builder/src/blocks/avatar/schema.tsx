@@ -4,6 +4,7 @@ import { zPadding, zTextAlign } from "../../style-inputs/helpers/zod";
 export const shape = z
   .enum(["circle", "square", "rounded"])
   .describe("Avatar crop shape");
+
 export type AvatarShape = z.infer<typeof shape>;
 
 export const AvatarPropsSchema = z.object({

@@ -328,9 +328,11 @@ function MessageBubble(props: {
   const hasPendingAskUser = Boolean(
     message.askUser && !message.askUserAnswered,
   );
+
   const showActionRow =
     !props.thinkingActive &&
     (hasProposalActions || hasSlugActions || Boolean(props.showRetry));
+
   const segments = message.segments;
   const hasSegments = Boolean(segments?.length);
   const thinkingSteps = !hasSegments
@@ -355,7 +357,9 @@ function MessageBubble(props: {
           removeLabel={t("ai.removeAttachment")}
         />
       ) : null}
-      {!isUser && !hasSegments && (thinkingSteps.length || props.thinkingActive) ? (
+      {!isUser &&
+      !hasSegments &&
+      (thinkingSteps.length || props.thinkingActive) ? (
         <ThinkingSteps
           steps={thinkingSteps}
           active={props.thinkingActive}
@@ -401,6 +405,7 @@ function MessageBubble(props: {
               const textSegments = segments!.filter(
                 (entry) => entry.type === "text" && entry.text.trim(),
               );
+
               const isLatestText =
                 textSegments[textSegments.length - 1] === segment;
 

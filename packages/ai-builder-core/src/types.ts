@@ -4,7 +4,10 @@ import type {
   BuilderKind,
   TokenUsage,
 } from "@hacado/ai-core";
-import type { EditorHistoryEntry, TEditorBlock } from "@hacado/builder/editor";
+import type {
+  EditorHistoryEntry,
+  TEditorBlock,
+} from "@hacado/builder/editor-types";
 import type { BlockFilterRule } from "@hacado/builder/types";
 import type { AllKeys } from "@hacado/i18n";
 

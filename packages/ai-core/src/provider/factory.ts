@@ -14,9 +14,8 @@ export function registerAIProvider(provider: AIProvider) {
 
 export function getAIProvider(id?: string): AIProvider {
   const providerId =
-    id ??
-    process.env.BUILDER_AI_PROVIDER?.trim().toLowerCase() ??
-    "gateway";
+    id ?? process.env.BUILDER_AI_PROVIDER?.trim().toLowerCase() ?? "gateway";
+
   const existing = providers.get(providerId);
 
   if (existing) return existing;

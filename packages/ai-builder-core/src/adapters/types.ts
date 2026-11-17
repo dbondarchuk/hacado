@@ -1,4 +1,7 @@
-import type { EditorHistoryEntry, TEditorBlock } from "@hacado/builder/editor";
+import type {
+  EditorHistoryEntry,
+  TEditorBlock,
+} from "@hacado/builder/editor-types";
 import type { BlockFilterRule, BuilderSchema } from "@hacado/builder/types";
 import type * as z from "zod";
 import type {

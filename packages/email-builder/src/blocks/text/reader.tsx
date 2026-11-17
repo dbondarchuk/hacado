@@ -9,7 +9,7 @@ export const TextReader = ({ style, props }: TextProps) => {
 
   return (
     <div style={styles}>
-      <PlateStaticEditor value={value as any} />
+      <PlateStaticEditor value={value} />
     </div>
   );
 };

@@ -34,9 +34,7 @@ export function BuilderAIApplyErrorCard(props: {
       {details ? (
         <Collapsible open={open} onOpenChange={setOpen} className="mt-1">
           <CollapsibleTrigger className="text-destructive/80 hover:text-destructive inline-flex items-center gap-1 underline-offset-2 hover:underline">
-            {open
-              ? t("ai.hideErrorDetails")
-              : t("ai.showErrorDetails")}
+            {open ? t("ai.hideErrorDetails") : t("ai.showErrorDetails")}
             <ChevronDown
               className={cn(
                 "size-3 transition-transform",

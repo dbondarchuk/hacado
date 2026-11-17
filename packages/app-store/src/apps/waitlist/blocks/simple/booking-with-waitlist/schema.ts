@@ -6,7 +6,9 @@ export const flowOrderSchema = z
   .enum(["service-first", "specialist-first"])
   .default("service-first")
   .optional()
-  .describe("Whether users pick service or specialist first in the booking steps.");
+  .describe(
+    "Whether users pick service or specialist first in the booking steps.",
+  );
 
 export type FlowOrder = z.infer<typeof flowOrderSchema>;
 

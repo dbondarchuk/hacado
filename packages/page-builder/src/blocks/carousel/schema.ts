@@ -29,20 +29,17 @@ export const CarouselPropsSchema = z.object({
         .optional()
         .nullable()
         .describe("Scroll direction of the carousel"),
-      navigation: z
-        .coerce
+      navigation: z.coerce
         .boolean<boolean>()
         .optional()
         .nullable()
         .describe("Show previous/next navigation controls"),
-      loop: z
-        .coerce
+      loop: z.coerce
         .boolean<boolean>()
         .optional()
         .nullable()
         .describe("Allow infinite wrap from last slide to first"),
-      scale: z
-        .coerce
+      scale: z.coerce
         .boolean<boolean>()
         .optional()
         .nullable()
@@ -52,8 +49,7 @@ export const CarouselPropsSchema = z.object({
         .optional()
         .nullable()
         .describe("How slides align within the viewport"),
-      startIndex: z
-        .coerce
+      startIndex: z.coerce
         .number<number>()
         .int()
         .min(0)

@@ -1,6 +1,6 @@
+import { createAdapterFromCatalog } from "@hacado/ai-builder-core";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { createAdapterFromCatalog } from "@hacado/ai-builder-core";
 import {
   designTokensFromPageBuilder,
   styleCatalogFromPageBuilder,
@@ -13,10 +13,7 @@ describe("page-builder style catalog for AI", () => {
 
     assert.ok(fontFamily);
     assert.ok(fontFamily.schema);
-    assert.notEqual(
-      (fontFamily.schema as { type?: string }).type,
-      "unknown",
-    );
+    assert.notEqual((fontFamily.schema as { type?: string }).type, "unknown");
 
     const adapter = createAdapterFromCatalog({
       builder: "page",
@@ -33,10 +30,7 @@ describe("page-builder style catalog for AI", () => {
 
     for (const entry of schemas) {
       assert.ok(entry.schema);
-      assert.notEqual(
-        (entry.schema as { type?: string }).type,
-        "unknown",
-      );
+      assert.notEqual((entry.schema as { type?: string }).type, "unknown");
 
       const schemaText = JSON.stringify(entry.schema);
 
@@ -73,6 +67,7 @@ describe("page-builder style catalog for AI", () => {
     const colorOnly = await adapter.getDesignTokens({
       categories: ["color"],
     });
+
     const fontOnly = await adapter.getDesignTokens({ categories: ["font"] });
 
     assert.ok(all.length > 0);

@@ -11,11 +11,7 @@ export const LinkPropsSchema = z.object({
       children: z
         .array(z.any())
         .describe("Child blocks for the link label/content"),
-      url: z
-        .string()
-        .optional()
-        .nullable()
-        .describe("Destination URL"),
+      url: z.string().optional().nullable().describe("Destination URL"),
       target: z
         .enum(["_self", "_blank"])
         .optional()

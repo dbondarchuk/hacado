@@ -40,7 +40,9 @@ export const MarketingFeatureItemPropsSchema = z.object({
         title: zSlot.describe("Feature title on the card"),
         description: zSlot.describe("Short description on the card"),
         detailHeadline: zSlot.describe("Headline in the expanded detail panel"),
-        detailBullets: zSlot.describe("Bullet list in the expanded detail panel"),
+        detailBullets: zSlot.describe(
+          "Bullet list in the expanded detail panel",
+        ),
       })
       .describe("Block configuration props"),
   ),

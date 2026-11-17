@@ -24,9 +24,11 @@ const plateTextLeafSchema = z
   })
   .passthrough();
 
-type PlateBodyNode = z.infer<typeof plateTextLeafSchema> | PlateBodyElement;
+export type PlateBodyNode =
+  | z.infer<typeof plateTextLeafSchema>
+  | PlateBodyElement;
 
-type PlateBodyElement = {
+export type PlateBodyElement = {
   type: string;
   children: PlateBodyNode[];
   url?: string;

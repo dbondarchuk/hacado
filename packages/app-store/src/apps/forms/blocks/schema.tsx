@@ -41,11 +41,10 @@ export const FormsEditors: EditorDocumentBlocksDictionary<
       {
         id: "improve_form_copy",
         label: "Improve form copy",
-        labelKey:
-          "app_forms_admin.block.ai.improveFormCopy" satisfies AllKeys<
-            FormsAdminNamespace,
-            FormsAdminKeys
-          >,
+        labelKey: "app_forms_admin.block.ai.improveFormCopy" satisfies AllKeys<
+          FormsAdminNamespace,
+          FormsAdminKeys
+        >,
         description: "Improve field labels, placeholders, and helper text",
         kind: "generative",
       },

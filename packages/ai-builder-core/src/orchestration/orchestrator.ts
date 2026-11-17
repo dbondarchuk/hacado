@@ -1,18 +1,16 @@
-import type {
-  AIProvider,
-  ToolResultCache,
-} from "@hacado/ai-core";
+import type { AIProvider, ToolResultCache } from "@hacado/ai-core";
 import {
   BuilderAIError,
   getAIProvider,
   resolveModelForTask,
   trackUsage,
 } from "@hacado/ai-core";
-import type { TEditorBlock } from "@hacado/builder/editor";
+import type { TEditorBlock } from "@hacado/builder/editor-types";
 import { randomUUID } from "node:crypto";
 import type { BuilderAIAdapter } from "../adapters/types";
 import { assembleAIContext } from "../context/assembler";
 import type { BusinessContextSlice } from "../context/types";
+import { parseAskUserArgs } from "../tools/ask-user";
 import { BUILDER_AI_TOOL_DEFINITIONS } from "../tools/definitions";
 import { executeBuilderAITool } from "../tools/executor";
 import type {
@@ -27,11 +25,7 @@ import type {
   GenerateResult,
   TokenUsage,
 } from "../types";
-import { parseAskUserArgs } from "../tools/ask-user";
-import {
-  createToolStepEvent,
-  type BuilderAIStreamEvent,
-} from "./events";
+import { createToolStepEvent, type BuilderAIStreamEvent } from "./events";
 import {
   buildContextMessage,
   buildSystemPrompt,
@@ -180,7 +174,7 @@ const SETTINGS_NUDGE =
   "Block changes alone are not enough for create/design/redesign. Call getDocumentSettings, then proposeDocumentSettings now (page: title, slug, description, keywords, and headerId/footerId when choosing chrome; email: name + subject; footer: name). Keep any valid proposeDocumentOperations.";
 
 const SUMMARY_NUDGE =
-  "Changes are proposed. Reply with ONLY a short past-tense summary of what you did for the user (e.g. \"Created a gel strengthening service page with overview, inclusions, and a Book CTA.\"). Do not call tools. Do not describe plans or future tense.";
+  'Changes are proposed. Reply with ONLY a short past-tense summary of what you did for the user (e.g. "Created a gel strengthening service page with overview, inclusions, and a Book CTA."). Do not call tools. Do not describe plans or future tense.';
 
 const MISSING_PROPOSAL_TEXT =
   "I couldn't produce valid document changes. Please try again or say where the section should go.";
@@ -366,6 +360,7 @@ export async function runBuilderAIOrchestrator(
     const language = options.language ?? "en";
     const offTopicRefusal =
       options.localizedStrings?.offTopicRefusal ?? OFF_TOPIC_REFUSAL;
+
     const missingProposalText =
       options.localizedStrings?.missingProposal ?? MISSING_PROPOSAL_TEXT;
 
@@ -408,8 +403,8 @@ export async function runBuilderAIOrchestrator(
     ];
 
     const promptCacheKey = `hacado-ai:${options.organizationId}:${request.builder}`;
-    const qualityNeedsFix =
-      options.qualityGate?.needsFix ?? (() => false);
+    const qualityNeedsFix = options.qualityGate?.needsFix ?? (() => false);
+
     const qualityNudge = options.qualityGate?.nudge ?? "";
 
     const maxIterations = options.maxToolIterations ?? 12;
@@ -524,11 +519,14 @@ export async function runBuilderAIOrchestrator(
         const askUserCall = result.toolCalls.find(
           (toolCall) => toolCall.name === "askUser",
         );
+
         // If askUser is present, run it first and skip document mutations.
         const orderedToolCalls = askUserCall
           ? [
               askUserCall,
-              ...result.toolCalls.filter((toolCall) => toolCall !== askUserCall),
+              ...result.toolCalls.filter(
+                (toolCall) => toolCall !== askUserCall,
+              ),
             ]
           : result.toolCalls;
 
@@ -542,6 +540,7 @@ export async function runBuilderAIOrchestrator(
           const isProposeTool =
             toolCall.name === "proposeDocumentOperations" ||
             toolCall.name === "proposeDocumentSettings";
+
           const isAskUserTool = toolCall.name === "askUser";
 
           if (!isProposeTool && !isAskUserTool) {
@@ -810,8 +809,9 @@ export async function runBuilderAIOrchestrator(
 
     const fallbackDoneSummary =
       settingsProposal?.summary || proposal?.summary
-        ? String(settingsProposal?.summary || proposal?.summary)
-            .replace(/^(create|update|redesign|build|add|set)\b/i, (match) => {
+        ? String(settingsProposal?.summary || proposal?.summary).replace(
+            /^(create|update|redesign|build|add|set)\b/i,
+            (match) => {
               const map: Record<string, string> = {
                 create: "Created",
                 update: "Updated",
@@ -822,7 +822,8 @@ export async function runBuilderAIOrchestrator(
               };
 
               return map[match.toLowerCase()] ?? match;
-            })
+            },
+          )
         : "Done.";
 
     const failedText = failedWarnings.length

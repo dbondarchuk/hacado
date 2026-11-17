@@ -1,6 +1,5 @@
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import * as z from "zod";
-import { EMAIL_BRAND } from "../../brand";
 import {
   zColor,
   zColorNullable,
@@ -9,7 +8,9 @@ import {
 } from "../../style-inputs/helpers/zod";
 
 const EmailLayoutPropsSchema = z.object({
-  backdropColor: zColor.describe("Page background color outside the email canvas."),
+  backdropColor: zColor.describe(
+    "Page background color outside the email canvas.",
+  ),
   borderColor: zColorNullable.describe("Border color around the email canvas."),
   borderRadius: z.coerce
     .number<number>()
@@ -17,7 +18,9 @@ const EmailLayoutPropsSchema = z.object({
     .optional()
     .nullable()
     .describe("Corner radius of the email canvas in pixels."),
-  canvasColor: zColor.describe("Background color of the main email content area."),
+  canvasColor: zColor.describe(
+    "Background color of the main email content area.",
+  ),
   textColor: zColor.describe("Default text color for blocks in the layout."),
   fontFamily: zFontFamily.describe("Default font family for the email."),
   maxWidth: z.coerce

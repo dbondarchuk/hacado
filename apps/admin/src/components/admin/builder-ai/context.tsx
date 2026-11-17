@@ -197,9 +197,7 @@ function formatApplyFailureReason(
   if (result.reason === "invalid_operations") {
     return {
       message: t("ai.applyFailed"),
-      details: (result.issues ?? [t("ai.noValidOperations")]).join(
-        "\n",
-      ),
+      details: (result.issues ?? [t("ai.noValidOperations")]).join("\n"),
     };
   }
 
@@ -283,6 +281,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
   const progressIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
+
   const progressFillerIndexRef = useRef(0);
   const abortControllerRef = useRef<AbortController | null>(null);
   const liveAssistantIdRef = useRef<string | null>(null);
@@ -433,6 +432,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
         liveSegmentsRef.current,
         label,
       );
+
       setProgressSteps(next);
       syncLiveAssistantProgress();
     },
@@ -446,6 +446,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
       const fillers = PROGRESS_FILLER_KEYS.map((key) =>
         t(`ai.progress.${key}`),
       );
+
       let attempts = 0;
       let label = fillers[progressFillerIndexRef.current % fillers.length]!;
 
@@ -548,8 +549,8 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
       const immediate: Partial<BuilderDocumentSettings> = { ...rest };
       const proposedSlug =
         typeof slug === "string" && slug.trim() ? slug.trim() : null;
-      const slugChanged =
-        Boolean(proposedSlug) && proposedSlug !== currentSlug;
+
+      const slugChanged = Boolean(proposedSlug) && proposedSlug !== currentSlug;
 
       // New pages: apply AI slug immediately (locked against title auto-gen).
       // Existing pages: keep slug pending confirmation so links aren't broken.
@@ -644,6 +645,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
         userMessage,
         liveAssistant,
       ]);
+
       setDraft("");
 
       try {
@@ -687,6 +689,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
               liveSegmentsRef.current,
               text,
             );
+
             setMessages((current) =>
               current.map((message) =>
                 message.id === liveAssistantId
@@ -707,6 +710,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
           liveSegmentsRef.current,
           response.text,
         );
+
         liveSegmentsRef.current = completedSegments;
 
         const completedSteps =
@@ -775,6 +779,7 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
           setMessages((current) =>
             current.filter((message) => {
               if (message.id !== liveAssistantId) return true;
+
               return Boolean(message.content.trim());
             }),
           );

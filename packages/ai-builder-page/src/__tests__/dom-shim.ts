@@ -76,10 +76,8 @@ if (!g.navigator) {
 }
 
 if (!g.getComputedStyle) {
-  g.getComputedStyle = () => new Proxy({}, { get: () => "" }) as Record<
-    string,
-    string
-  >;
+  g.getComputedStyle = () =>
+    new Proxy({}, { get: () => "" }) as Record<string, string>;
 }
 
 if (!g.requestAnimationFrame) {

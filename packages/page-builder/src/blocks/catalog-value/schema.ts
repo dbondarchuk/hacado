@@ -21,7 +21,9 @@ export const CatalogValuePropsSchema = z.object({
         .string()
         .optional()
         .nullable()
-        .describe("Which field on the item to render (name, price, duration, etc.)"),
+        .describe(
+          "Which field on the item to render (name, price, duration, etc.)",
+        ),
       stripFormatting: z
         .boolean()
         .optional()

@@ -539,13 +539,15 @@ export function buildBeforeAfter(
     defaults.props?.after?.children?.[0]?.data?.props?.children?.[0];
 
   if (beforeImage?.data?.props) {
-    beforeImage.data.props.src = beforeSrc;
-    beforeImage.data.props.alt = beforeAlt;
+    const props = beforeImage.data.props as { src?: string; alt?: string };
+    props.src = beforeSrc;
+    props.alt = beforeAlt;
   }
 
   if (afterImage?.data?.props) {
-    afterImage.data.props.src = afterSrc;
-    afterImage.data.props.alt = afterAlt;
+    const props = afterImage.data.props as { src?: string; alt?: string };
+    props.src = afterSrc;
+    props.alt = afterAlt;
   }
 
   return {
@@ -715,13 +717,16 @@ export function accordionItem(
   const contentText = contentContainer?.data?.props?.children?.[0];
 
   if (titleBlock?.data?.props?.children?.[0]?.data?.props) {
-    titleBlock.data.props.children[0].data.props.text = t(titleKey);
+    const props = titleBlock.data.props.children[0].data.props as {
+      text?: string;
+    };
+
+    props.text = String(t(titleKey));
   }
 
   if (contentText?.data?.props) {
-    contentText.data.props.value = [
-      { type: "p", children: [{ text: t(contentKey) }] },
-    ] as any;
+    const props = contentText.data.props as { value?: unknown };
+    props.value = [{ type: "p", children: [{ text: String(t(contentKey)) }] }];
   }
 
   return {

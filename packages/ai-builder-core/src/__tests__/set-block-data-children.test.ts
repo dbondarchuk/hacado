@@ -1,4 +1,4 @@
-import { editorHistoryReducer } from "@hacado/builder/editor";
+import { editorHistoryReducer } from "@hacado/builder/editor-reducer";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 

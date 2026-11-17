@@ -1,16 +1,16 @@
 import assert from "node:assert/strict";
-import { describe, it, beforeEach } from "node:test";
-import {
-  resetAIProvidersForTests,
-  registerAIProvider,
-  MockAIProvider,
-} from "../provider";
+import { beforeEach, describe, it } from "node:test";
 import { resolveModelForTask } from "../models/router";
 import {
   getTaskConfiguration,
   resetTaskConfigurationForTests,
   setTaskConfiguration,
 } from "../models/tasks";
+import {
+  MockAIProvider,
+  registerAIProvider,
+  resetAIProvidersForTests,
+} from "../provider";
 
 describe("task model router", () => {
   beforeEach(() => {
@@ -22,6 +22,7 @@ describe("task model router", () => {
       model: "openai/gpt-6-luna",
       temperature: 0.2,
     });
+
     setTaskConfiguration("document_generation", {
       provider: "mock",
       model: "openai/gpt-6-luna",
@@ -43,6 +44,7 @@ describe("task model router", () => {
     const resolved = resolveModelForTask("document_generation", {
       escalate: true,
     });
+
     assert.equal(resolved.model, "openai/gpt-6.1-terra");
   });
 

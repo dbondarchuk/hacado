@@ -33,6 +33,7 @@ export function parseAskUserArgs(
 ): AskUserRequest | null {
   const question =
     typeof args.question === "string" ? args.question.trim() : "";
+
   const reason = typeof args.reason === "string" ? args.reason.trim() : "";
   const kind = args.kind;
 

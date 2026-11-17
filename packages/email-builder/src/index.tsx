@@ -13,7 +13,7 @@ import { ImagePropsDefaults } from "./blocks/image";
 import { ReaderBlocks } from "./blocks/reader";
 import { EditorBlocksSchema } from "./blocks/schema";
 
-export type { ToolbarButtonInjection, SidebarTab };
+export type { SidebarTab, ToolbarButtonInjection };
 
 type EmailBuilderProps = {
   value?: TEditorConfiguration;

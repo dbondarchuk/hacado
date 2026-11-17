@@ -35,6 +35,7 @@ export function normalizeProviderError(
 
   const message =
     error instanceof Error ? error.message : "Unknown provider error";
+
   const lower = message.toLowerCase();
 
   if (

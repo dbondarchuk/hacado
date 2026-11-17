@@ -22,7 +22,7 @@ export const BlogPostContainerPropsSchema = z.object({
           "app_blog_admin.block.postContainer.errors.postUrl.slug",
         )
         .describe(
-          'Post detail URL template; must include the [slug] placeholder.',
+          "Post detail URL template; must include the [slug] placeholder.",
         ),
     })
     .describe("Block configuration props"),

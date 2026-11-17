@@ -74,11 +74,7 @@ function deepMerge(target: any, source: any): any {
       if (sourceValue === null) {
         result[key] = null;
       } else if (Array.isArray(sourceValue)) {
-        if (
-          key === "children" &&
-          targetValue &&
-          Array.isArray(targetValue)
-        ) {
+        if (key === "children" && targetValue && Array.isArray(targetValue)) {
           const sourceHasBlocks = sourceValue.some(
             (item) =>
               item &&

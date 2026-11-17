@@ -1,9 +1,12 @@
 import type { ToolResultCache } from "@hacado/ai-core";
 import { withToolCache } from "@hacado/ai-core";
-import type { EditorHistoryEntry, TEditorBlock } from "@hacado/builder/editor";
+import type {
+  EditorHistoryEntry,
+  TEditorBlock,
+} from "@hacado/builder/editor-types";
 import type { BuilderAIAdapter } from "../adapters/types";
-import { selectBusinessSlice } from "../context/assembler";
 import { summarizeTemplateArgs } from "../context/args-summary";
+import { selectBusinessSlice } from "../context/assembler";
 import type {
   BusinessContextNeed,
   BusinessContextSlice,
@@ -165,7 +168,7 @@ async function executeBuilderAIToolInner(
           ...(deps.documentChrome ?? {}),
           hint:
             deps.adapter.builder === "page"
-              ? "On create/design/redesign: proposeDocumentSettings with title, slug, description, keywords; set headerId/footerId from availableHeaders/availableFooters when choosing a chrome. Title is page-only (no \"| Brand\" suffix — host adds brand automatically). Slug should match that short title."
+              ? 'On create/design/redesign: proposeDocumentSettings with title, slug, description, keywords; set headerId/footerId from availableHeaders/availableFooters when choosing a chrome. Title is page-only (no "| Brand" suffix — host adds brand automatically). Slug should match that short title.'
               : deps.adapter.builder === "email"
                 ? "On create/design/redesign: proposeDocumentSettings with name and subject."
                 : "On create/rename: proposeDocumentSettings with name.",
@@ -175,7 +178,8 @@ async function executeBuilderAIToolInner(
       return withToolCache({
         cache: deps.cache,
         key: `builder-ai:template-args:${deps.organizationId ?? "anon"}:${computeDocumentRevision(deps.document)}`,
-        compute: () => summarizeTemplateArgs(deps.templateArgs) ?? { paths: [] },
+        compute: () =>
+          summarizeTemplateArgs(deps.templateArgs) ?? { paths: [] },
       });
     case "searchDesignPatterns": {
       if (deps.searchDesignPatterns) {
@@ -249,9 +253,7 @@ async function executeBuilderAIToolInner(
           query: typeof args.query === "string" ? args.query : undefined,
           limit: typeof args.limit === "number" ? args.limit : 20,
           publishedOnly:
-            typeof args.publishedOnly === "boolean"
-              ? args.publishedOnly
-              : true,
+            typeof args.publishedOnly === "boolean" ? args.publishedOnly : true,
         });
       }
 

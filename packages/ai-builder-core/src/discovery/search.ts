@@ -74,9 +74,7 @@ export function searchStyleCatalog(
 ): StylePropertyHit[] {
   const tokens = tokenize(input.query);
   const limit = input.limit ?? 20;
-  const allowlist = input.allowlist?.length
-    ? new Set(input.allowlist)
-    : null;
+  const allowlist = input.allowlist?.length ? new Set(input.allowlist) : null;
 
   return catalog
     .filter((entry) => (allowlist ? allowlist.has(entry.name) : true))

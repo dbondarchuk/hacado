@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { IServicesContainer } from "@hacado/types";
+import { IServicesContainer } from "@hacado/types/services";
 import type { BusinessContextRaw } from "./types";
 
 type CatalogItem = {

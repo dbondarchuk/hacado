@@ -99,7 +99,8 @@ export const NavMenu: React.FC<Props> = memo(
     }, [blockHierarchy, blocks]);
 
     const current = hierarchy[hierarchy.length - 1];
-    const parent = hierarchy.length > 1 ? hierarchy[hierarchy.length - 2] : null;
+    const parent =
+      hierarchy.length > 1 ? hierarchy[hierarchy.length - 2] : null;
 
     const toolbarRef = useRef<HTMLDivElement>(null);
     const widthsRef = useRef<Partial<Record<CompactLevel, number>>>({});
@@ -211,13 +212,7 @@ export const NavMenu: React.FC<Props> = memo(
           setCompactLevel("full");
         }
       }
-    }, [
-      align,
-      compactLevel,
-      hostWidth,
-      overflowFor,
-      spareFor,
-    ]);
+    }, [align, compactLevel, hostWidth, overflowFor, spareFor]);
 
     useLayoutEffect(() => {
       recomputeLayout();
@@ -488,9 +483,7 @@ export const NavMenu: React.FC<Props> = memo(
                     <span
                       className="hover:underline cursor-pointer"
                       role="link"
-                      onClick={(event) =>
-                        handleBlockIdClick(event, current.id)
-                      }
+                      onClick={(event) => handleBlockIdClick(event, current.id)}
                     >
                       {t(current.displayName)}
                     </span>

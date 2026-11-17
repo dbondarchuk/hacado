@@ -190,9 +190,7 @@ export const TemplateForm: React.FC<
                   primaryPlaceholder={t("templates.form.namePlaceholder")}
                   primaryDescription={t("templates.form.nameTooltip")}
                   secondaryLabel={t("templates.form.subject")}
-                  secondaryPlaceholder={t(
-                    "templates.form.subjectPlaceholder",
-                  )}
+                  secondaryPlaceholder={t("templates.form.subjectPlaceholder")}
                   secondaryDescription={t("templates.form.subjectTooltip")}
                 />
               ) : (

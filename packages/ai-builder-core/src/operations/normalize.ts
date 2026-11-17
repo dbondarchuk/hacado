@@ -1,4 +1,4 @@
-import type { EditorHistoryEntry } from "@hacado/builder/editor";
+import type { EditorHistoryEntry } from "@hacado/builder/editor-types";
 
 const NATIVE_OPERATION_TYPES = new Set<EditorHistoryEntry["type"]>([
   "document",

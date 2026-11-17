@@ -4,11 +4,7 @@ import { zStyles } from "../../style-inputs/helpers/zod";
 export const HeadingPropsSchema = z.object({
   props: z
     .object({
-      text: z
-        .string()
-        .optional()
-        .nullable()
-        .describe("Heading title text."),
+      text: z.string().optional().nullable().describe("Heading title text."),
       level: z
         .enum(["h1", "h2", "h3"])
         .optional()

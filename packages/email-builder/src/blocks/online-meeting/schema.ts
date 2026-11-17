@@ -60,7 +60,9 @@ export const OnlineMeetingPropsSchema = z.object({
     .describe("Online meeting details, labels, and button styling."),
   style: z
     .object({
-      color: zColorNullable.describe("Default text color in the meeting block."),
+      color: zColorNullable.describe(
+        "Default text color in the meeting block.",
+      ),
       backgroundColor: zColorNullable.describe(
         "Background color of the meeting block.",
       ),

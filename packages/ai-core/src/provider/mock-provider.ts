@@ -8,7 +8,9 @@ import type { AIProvider } from "./types";
 
 export type MockProviderHandler = (
   input: GenerateInput & { model: string },
-) => Promise<Partial<GenerateResult> & { text: string }> | (Partial<GenerateResult> & { text: string });
+) =>
+  | Promise<Partial<GenerateResult> & { text: string }>
+  | (Partial<GenerateResult> & { text: string });
 
 export class MockAIProvider implements AIProvider {
   readonly id = "mock";

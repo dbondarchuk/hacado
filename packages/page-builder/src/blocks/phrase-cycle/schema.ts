@@ -1,6 +1,4 @@
-import { generateId } from "@hacado/builder/helpers";
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
-import type { I18nFn } from "@hacado/i18n";
 import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { zStyles } from "./styles";
@@ -24,6 +22,7 @@ export const phraseMotions = [
 export const phraseMotionSchema = z
   .enum(phraseMotions)
   .describe("CSS-style motion preset for phrase enter/exit");
+
 export type PhraseMotion = z.infer<typeof phraseMotionSchema>;
 
 export const PhraseCyclePropsSchema = z.object({
@@ -38,9 +37,7 @@ export const PhraseCyclePropsSchema = z.object({
       enterMotion: phraseMotionSchema.describe(
         "Animation when a phrase becomes visible",
       ),
-      exitMotion: phraseMotionSchema.describe(
-        "Animation when a phrase leaves",
-      ),
+      exitMotion: phraseMotionSchema.describe("Animation when a phrase leaves"),
       enterDurationMs: z.coerce
         .number()
         .min(0)

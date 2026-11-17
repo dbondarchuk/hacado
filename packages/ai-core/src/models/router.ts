@@ -1,6 +1,10 @@
-import type { AITask, AITaskConfiguration, ProviderCapabilities } from "../types";
 import { BuilderAIError } from "../provider/errors";
 import { getAIProvider } from "../provider/factory";
+import type {
+  AITask,
+  AITaskConfiguration,
+  ProviderCapabilities,
+} from "../types";
 import { getModel } from "./registry";
 import { getTaskConfiguration } from "./tasks";
 
@@ -8,10 +12,7 @@ export type ResolvedModel = AITaskConfiguration & {
   capabilities: ProviderCapabilities;
 };
 
-const TASK_REQUIREMENTS: Record<
-  AITask,
-  Partial<ProviderCapabilities>
-> = {
+const TASK_REQUIREMENTS: Record<AITask, Partial<ProviderCapabilities>> = {
   intent_classification: { textGeneration: true },
   capability_discovery: { textGeneration: true, toolCalling: true },
   document_planning: { textGeneration: true, toolCalling: true },
@@ -64,6 +65,7 @@ export function resolveModelForTask(
         model: config.fallback!.model,
       }
     : config;
+
   const modelMeta = getModel(selected.model);
   const provider = getAIProvider(selected.provider);
   const capabilities = modelMeta ?? {

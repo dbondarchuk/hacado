@@ -1,10 +1,10 @@
+import type { TEditorBlock } from "@hacado/builder/editor-types";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import type { TEditorBlock } from "@hacado/builder/editor";
+import * as z from "zod";
 import { createRegistryAdapter } from "../adapters";
 import { executeBuilderAITool } from "../tools/executor";
 import type { SelectionContextPayload } from "../types";
-import * as z from "zod";
 
 const document = {
   id: "root",

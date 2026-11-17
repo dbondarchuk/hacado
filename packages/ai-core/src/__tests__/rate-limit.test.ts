@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { describe, it, beforeEach } from "node:test";
+import { beforeEach, describe, it } from "node:test";
 import { checkRateLimit, resetRateLimitsForTests } from "../rate-limit/memory";
 
 describe("rate limit", () => {
@@ -14,12 +14,14 @@ describe("rate limit", () => {
       windowMs: 60_000,
       now: 1000,
     });
+
     const second = checkRateLimit({
       key: "org-1",
       limit: 2,
       windowMs: 60_000,
       now: 1001,
     });
+
     assert.equal(first.allowed, true);
     assert.equal(second.allowed, true);
     assert.equal(second.remaining, 0);
@@ -33,6 +35,7 @@ describe("rate limit", () => {
       windowMs: 60_000,
       now: 1001,
     });
+
     assert.equal(blocked.allowed, false);
   });
 });

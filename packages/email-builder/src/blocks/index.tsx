@@ -1,9 +1,4 @@
 import { TEditorBlock } from "@hacado/builder/editor";
-import {
-  IMAGE_AI_CAPABILITIES,
-  LAYOUT_AI_CAPABILITIES,
-  TEXT_AI_CAPABILITIES,
-} from "./ai-capabilities";
 import { generateId } from "@hacado/builder/helpers";
 import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import {
@@ -22,6 +17,11 @@ import {
   Text,
   Video,
 } from "lucide-react";
+import {
+  IMAGE_AI_CAPABILITIES,
+  LAYOUT_AI_CAPABILITIES,
+  TEXT_AI_CAPABILITIES,
+} from "./ai-capabilities";
 import {
   AvatarConfiguration,
   AvatarEditor,
@@ -288,7 +288,6 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     tags: ["online-meeting"],
   },
 };
-
 
 export const RootBlock: TEditorBlock<Partial<EmailLayoutProps>> = {
   data: EmailLayoutDefaultProps,

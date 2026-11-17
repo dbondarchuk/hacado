@@ -1,4 +1,7 @@
-import type { PlateBodyValue } from "./schema";
+import type { Value } from "@udecode/plate";
+
+/** Plate editor document value (top-level element array). */
+export type PlateEditorValue = Value;
 
 /** Common AI / Slate aliases → Hacado Plate keys. */
 const TYPE_ALIASES: Record<string, string> = {
@@ -19,6 +22,7 @@ const LINK_TOKEN_RE = /\[[^\]\n]+\]\([^)\n]+\)/;
 const INLINE_MARKDOWN_RE = new RegExp(
   `(${LINK_TOKEN_RE.source}|${MARK_TOKEN_RE.source})`,
 );
+
 const BLOCK_MARKDOWN_RE = /^([-*]\s+|\d+\.\s+)/m;
 
 function parseMarkToken(token: string): Record<string, unknown> {
@@ -49,6 +53,7 @@ function parseInlineMarkdown(
   const pattern = allowLinks
     ? new RegExp(INLINE_MARKDOWN_RE.source, "g")
     : new RegExp(`(${MARK_TOKEN_RE.source})`, "g");
+
   let last = 0;
   let match: RegExpExecArray | null;
 
@@ -71,6 +76,7 @@ function parseInlineMarkdown(
           url,
           children: parseInlineMarkdown(label, false),
         });
+
         last = match.index + token.length;
         continue;
       }
@@ -117,6 +123,7 @@ function markdownToPlateBody(markdown: string): unknown[] {
           ],
         })),
       });
+
       continue;
     }
 
@@ -135,6 +142,7 @@ function markdownToPlateBody(markdown: string): unknown[] {
           ],
         })),
       });
+
       continue;
     }
 
@@ -266,19 +274,17 @@ function expandMarkdownPlateNode(node: unknown): unknown[] {
  * - type aliases (`paragraph` → `p`, etc.)
  * - `li` children wrapped in `lic` when needed
  */
-export function normalizePlateBodyValue(
-  value: unknown,
-): NonNullable<PlateBodyValue> | unknown[] {
+export function normalizePlateBodyValue(value: unknown): PlateEditorValue {
   if (value == null) {
     return [{ type: "p", children: [{ text: "" }] }];
   }
 
   if (typeof value === "string") {
-    return markdownToPlateBody(value);
+    return markdownToPlateBody(value) as PlateEditorValue;
   }
 
   if (Array.isArray(value)) {
-    return value.flatMap(expandMarkdownPlateNode);
+    return value.flatMap(expandMarkdownPlateNode) as PlateEditorValue;
   }
 
   return [{ type: "p", children: [{ text: "" }] }];

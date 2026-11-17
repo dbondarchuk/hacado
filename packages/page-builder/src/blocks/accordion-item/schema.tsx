@@ -1,7 +1,5 @@
-import { generateId } from "@hacado/builder/helpers";
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import * as z from "zod";
-import { InlineContainerPropsDefaults } from "../inline-container/schema";
 import { zStyles } from "./styles";
 
 export const AccordionItemPropsSchema = z.object({
@@ -17,7 +15,9 @@ export const AccordionItemPropsSchema = z.object({
             .max(1)
             .describe("Single slot for the clickable header label."),
         })
-        .describe("Header region shown when the item is collapsed or expanded."),
+        .describe(
+          "Header region shown when the item is collapsed or expanded.",
+        ),
       content: z
         .object({
           children: z

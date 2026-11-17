@@ -18,9 +18,7 @@ export const InlineContainerPropsSchema = z.object({
   ),
   props: z
     .object({
-      children: z
-        .array(z.any())
-        .describe("Inline-level child blocks"),
+      children: z.array(z.any()).describe("Inline-level child blocks"),
     })
     .describe("Block configuration props"),
 });

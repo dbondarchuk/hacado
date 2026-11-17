@@ -59,6 +59,7 @@ describe("block discovery", () => {
       builder: "footer",
       blocks,
     });
+
     const hits = await adapter.searchBlocks({ query: "blog" });
     assert.equal(hits.length, 0);
 
@@ -71,9 +72,11 @@ describe("block discovery", () => {
       builder: "page",
       blocks,
     });
+
     const schemas = await adapter.getBlockSchemas({
       blockTypes: ["Text", "Missing"],
     });
+
     assert.equal(schemas.length, 1);
     assert.equal(schemas[0]?.type, "Text");
   });
@@ -139,6 +142,7 @@ describe("block discovery", () => {
     const [result] = await adapter.getBlockSchemas({
       blockTypes: ["BookingModern"],
     });
+
     const raw = JSON.stringify(result);
 
     assert.ok(result);
@@ -157,6 +161,7 @@ describe("block discovery", () => {
         category: "spacing",
       },
     ]);
+
     assert.ok(
       result.supportedStyles?.some((style) => style.name === "styleProp39"),
     );
@@ -169,7 +174,10 @@ describe("block discovery", () => {
     };
 
     assert.equal(schema.properties?.style?.additionalProperties, true);
-    assert.ok(schema.properties?.style?.description?.includes("supportedStyles"));
+    assert.ok(
+      schema.properties?.style?.description?.includes("supportedStyles"),
+    );
+
     assert.equal(
       JSON.stringify(schema.properties?.style).includes("styleProp"),
       false,
@@ -185,6 +193,7 @@ describe("block discovery", () => {
       styleHits.some((hit) => hit.name === "unrelatedStyle"),
       false,
     );
+
     assert.equal(
       styleHits.find((hit) => hit.name === "styleProp0")?.description,
       "CSS padding-like style prop 0",

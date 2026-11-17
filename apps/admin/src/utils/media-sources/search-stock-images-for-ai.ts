@@ -61,7 +61,9 @@ export async function searchStockImagesForAI(
     for (const photo of result.items) {
       if (items.length >= count) break;
 
-      void unsplash.trackDownload(photo.downloadLocation).catch(() => undefined);
+      void unsplash
+        .trackDownload(photo.downloadLocation)
+        .catch(() => undefined);
 
       items.push({
         id: `unsplash:${photo.id}`,

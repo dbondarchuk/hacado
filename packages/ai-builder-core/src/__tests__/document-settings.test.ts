@@ -48,6 +48,8 @@ describe("document settings proposals", () => {
       headerId: "header-1",
     });
 
-    assert.ok(normalized.issues.some((issue) => issue.path === "settings.headerId"));
+    assert.ok(
+      normalized.issues.some((issue) => issue.path === "settings.headerId"),
+    );
   });
 });

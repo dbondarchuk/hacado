@@ -10,10 +10,7 @@ import {
 import { AppsBlocksEditors } from "@hacado/app-store/blocks/editors";
 import { EditorBlocks } from "@hacado/page-builder/blocks";
 import { EditorBlocksSchema as PageSchemas } from "@hacado/page-builder/blocks/schema";
-import {
-  connectedAppMetadata,
-  type ConnectedAppRef,
-} from "./connected-apps";
+import { connectedAppMetadata, type ConnectedAppRef } from "./connected-apps";
 import {
   designTokensFromPageBuilder,
   styleCatalogFromPageBuilder,

@@ -5,8 +5,8 @@ import {
   type BuilderKind,
 } from "@hacado/ai-builder-core";
 import { createEmailBuilderAIAdapter } from "@hacado/ai-builder-email";
-import { getLoggerFactory } from "@hacado/logger";
 import { createPageBuilderAIAdapter } from "@hacado/ai-builder-page";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
 
     const builder = (request.nextUrl.searchParams.get("builder") ||
       "page") as BuilderKind;
+
     const blockType = request.nextUrl.searchParams.get("blockType");
     const services = await getServicesContainer();
     const apps =

@@ -1,4 +1,7 @@
-import type { EditorHistoryEntry, TEditorBlock } from "@hacado/builder/editor";
+import type {
+  EditorHistoryEntry,
+  TEditorBlock,
+} from "@hacado/builder/editor-types";
 import { normalizePlateBodyValue } from "@hacado/rte/plate-value";
 
 /** Matches page-builder-base `breakpoints` — keep in sync. */
@@ -213,7 +216,10 @@ function normalizeStyleVariant(variant: unknown): unknown {
   if ("state" in next && next.state != null && !Array.isArray(next.state)) {
     if (typeof next.state === "string") {
       next.state = [{ state: next.state }];
-    } else if (isPlainObject(next.state) && typeof next.state.state === "string") {
+    } else if (
+      isPlainObject(next.state) &&
+      typeof next.state.state === "string"
+    ) {
       next.state = [next.state];
     } else {
       delete next.state;

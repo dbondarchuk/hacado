@@ -40,12 +40,6 @@ import {
   Zap,
 } from "lucide-react";
 import {
-  IMAGE_AI_CAPABILITIES,
-  LAYOUT_AI_CAPABILITIES,
-  TEXT_AI_CAPABILITIES,
-} from "./ai-capabilities";
-import { INLINE_CHILDREN_ALLOW } from "./child-allow";
-import {
   AccordionConfiguration,
   AccordionEditor,
   AccordionPropsDefaults,
@@ -58,6 +52,11 @@ import {
   AccordionItemToolbar,
 } from "./accordion-item";
 import {
+  IMAGE_AI_CAPABILITIES,
+  LAYOUT_AI_CAPABILITIES,
+  TEXT_AI_CAPABILITIES,
+} from "./ai-capabilities";
+import {
   BeforeAfterConfiguration,
   BeforeAfterEditor,
   BeforeAfterPropsDefaults,
@@ -69,6 +68,7 @@ import {
   ButtonPropsDefaults,
   ButtonToolbar,
 } from "./button";
+import { INLINE_CHILDREN_ALLOW } from "./child-allow";
 import {
   LinkConfiguration,
   LinkEditor,
@@ -921,7 +921,6 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     tags: ["marketing", "carousel", "media"],
   },
 };
-
 
 export const RootBlock: TEditorBlock<Partial<PageLayoutProps>> = {
   data: PageLayoutDefaultProps,

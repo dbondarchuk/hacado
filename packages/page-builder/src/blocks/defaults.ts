@@ -2,8 +2,8 @@
  * Server-safe block defaults barrel for editors and Builder AI.
  * Import only from this map (or per-block defaults.ts) — never from schema for defaults.
  */
-import { AccordionPropsDefaults } from "./accordion/defaults";
 import { AccordionItemPropsDefaults } from "./accordion-item/defaults";
+import { AccordionPropsDefaults } from "./accordion/defaults";
 import { ButtonPropsDefaults } from "./button/defaults";
 import { CatalogValuePropsDefaults } from "./catalog-value/defaults";
 import { ConditionalContainerPropsDefaults } from "./conditional-container/defaults";
@@ -53,8 +53,8 @@ export const EditorBlockDefaults: Record<string, unknown> = {
 };
 
 export {
-  AccordionPropsDefaults,
   AccordionItemPropsDefaults,
+  AccordionPropsDefaults,
   ButtonPropsDefaults,
   CatalogValuePropsDefaults,
   ConditionalContainerPropsDefaults,

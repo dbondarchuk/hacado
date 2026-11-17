@@ -73,8 +73,10 @@ const SidebarAccordion = memo(
       "data-[state=open]:[&>[role=region]]:animate-none",
       "data-[state=open]:[&>[role=region]]:!h-full",
     );
+
     const sectionTriggerClassName =
       "shrink-0 px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180";
+
     const sectionContentClassName = "h-full min-h-0 px-4 pb-2";
 
     return (

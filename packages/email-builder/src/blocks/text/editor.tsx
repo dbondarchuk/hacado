@@ -52,7 +52,7 @@ export const TextEditor = ({ props, style }: TextProps) => {
           usesAbsoluteUrl
         />
       ) : (
-        <PlateStaticEditor value={plateValue as any} />
+        <PlateStaticEditor value={plateValue} />
       )}
     </div>
   );

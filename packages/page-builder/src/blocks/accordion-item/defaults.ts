@@ -1,6 +1,6 @@
-import type { AccordionItemProps } from "./schema";
 import { generateId } from "@hacado/builder/helpers";
 import { InlineContainerPropsDefaults } from "../inline-container/defaults";
+import type { AccordionItemProps } from "./schema";
 
 export const AccordionItemPropsDefaults = () =>
   ({

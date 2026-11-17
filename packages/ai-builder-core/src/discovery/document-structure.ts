@@ -1,4 +1,4 @@
-import type { TEditorBlock } from "@hacado/builder/editor";
+import type { TEditorBlock } from "@hacado/builder/editor-types";
 import { randomUUID } from "node:crypto";
 import type { DocumentStructureNode } from "../types";
 
@@ -118,33 +118,33 @@ export function buildDocumentSectionPatterns(
   const byId = new Map(structure.map((node) => [node.id, node]));
   const pageLayout = structure.find((node) => node.type === "PageLayout");
   const emailLayout = structure.find((node) => node.type === "EmailLayout");
-  const root = pageLayout ?? emailLayout ?? structure.find((node) => node.depth === 0);
+  const root =
+    pageLayout ?? emailLayout ?? structure.find((node) => node.depth === 0);
+
   const sectionIds = root?.childIds ?? [];
 
-  return sectionIds
-    .slice(0, limit)
-    .flatMap((id): DocumentSectionPattern[] => {
-      const node = byId.get(id);
+  return sectionIds.slice(0, limit).flatMap((id): DocumentSectionPattern[] => {
+    const node = byId.get(id);
 
-      if (!node) return [];
+    if (!node) return [];
 
-      const childTypes = node.childIds
-        .map((childId) => byId.get(childId)?.type)
-        .filter((type): type is string => Boolean(type));
+    const childTypes = node.childIds
+      .map((childId) => byId.get(childId)?.type)
+      .filter((type): type is string => Boolean(type));
 
-      return [
-        {
-          id: node.id,
-          type: node.type,
-          summary: node.summary,
-          childTypes,
-          signature:
-            childTypes.length > 0
-              ? `${node.type} > ${childTypes.join(", ")}`
-              : node.type,
-        },
-      ];
-    });
+    return [
+      {
+        id: node.id,
+        type: node.type,
+        summary: node.summary,
+        childTypes,
+        signature:
+          childTypes.length > 0
+            ? `${node.type} > ${childTypes.join(", ")}`
+            : node.type,
+      },
+    ];
+  });
 }
 
 export function findBlockById(

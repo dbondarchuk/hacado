@@ -100,9 +100,7 @@ export const FluidLayoutPropsSchema = z.object({
       placements: z
         .record(z.string(), fluidPlacementSchema)
         .default({})
-        .describe(
-          "Default desktop placements keyed by child block id",
-        ),
+        .describe("Default desktop placements keyed by child block id"),
       placementOverrides: fluidPlacementOverridesSchema
         .default({})
         .describe("Responsive placement overrides per viewport"),
@@ -127,4 +125,3 @@ export type FluidLayoutReaderProps = BaseReaderBlockProps<any> &
   FluidLayoutProps;
 
 export { FluidLayoutPropsDefaults } from "./defaults";
-

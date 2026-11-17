@@ -1,5 +1,5 @@
-import { ScrollArea } from "@hacado/ui/scroll-area";
 import { cn } from "@hacado/ui/cn";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import React from "react";
 
 const viewportHeightClassName =

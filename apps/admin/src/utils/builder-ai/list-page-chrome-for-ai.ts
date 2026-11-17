@@ -1,4 +1,4 @@
-import type { IPagesService } from "@hacado/types";
+import type { IPagesService } from "@hacado/types/services";
 
 export type PageChromeItem = {
   id: string;

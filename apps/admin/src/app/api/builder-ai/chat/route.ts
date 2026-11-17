@@ -21,13 +21,13 @@ import {
   EMAIL_QUALITY_NUDGE,
   emailNeedsQualityFix,
 } from "@hacado/ai-builder-email";
-import { getLoggerFactory } from "@hacado/logger";
 import {
   buildPageSystemPrompt,
   createPageBuilderAIAdapter,
   describeConnectedApps,
   searchLiveDesignPatterns,
 } from "@hacado/ai-builder-page";
+import { getLoggerFactory } from "@hacado/logger";
 import { getRedisClient } from "@hacado/services/bullmq";
 import { getTranslations } from "next-intl/server";
 import { NextRequest, NextResponse } from "next/server";
@@ -54,10 +54,7 @@ function createRedisToolCache(): ToolResultCache {
   };
 }
 
-function encodeSse(
-  event: string,
-  data: unknown,
-): Uint8Array {
+function encodeSse(event: string, data: unknown): Uint8Array {
   const encoder = new TextEncoder();
   return encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
 }
@@ -145,6 +142,7 @@ export async function POST(request: NextRequest) {
       typeof businessRaw.brand?.language === "string"
         ? businessRaw.brand.language
         : null;
+
     const language = resolveContentLanguage({
       documentLanguage: body.documentSettings?.language,
       brandLanguage,

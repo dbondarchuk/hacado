@@ -36,7 +36,10 @@ type ResolvedAction = {
   options?: Array<{ id: string; label: string; message: string }>;
 };
 
-type I18nT = ReturnType<typeof useI18n>;
+type I18nT = {
+  (key: AllKeys, args?: Record<string, any>): string;
+  has: (key: string) => boolean;
+};
 
 function resolveActionLabel(
   t: I18nT,

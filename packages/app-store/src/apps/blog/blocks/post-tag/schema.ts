@@ -13,9 +13,7 @@ export const BlogPostTagPropsSchema = z.object({
         .string()
         .optional()
         .nullable()
-        .describe(
-          "URL of the blog index used when the tag chip is clicked.",
-        ),
+        .describe("URL of the blog index used when the tag chip is clicked."),
     })
     .optional()
     .nullable()

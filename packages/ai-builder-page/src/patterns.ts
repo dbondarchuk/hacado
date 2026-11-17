@@ -1,8 +1,8 @@
-import type { TEditorBlock } from "@hacado/builder/editor";
 import {
   buildDocumentSectionPatterns,
   buildDocumentStructure,
 } from "@hacado/ai-builder-core";
+import type { TEditorBlock } from "@hacado/builder/editor-types";
 
 /**
  * v1 pattern discovery: live document section signatures.

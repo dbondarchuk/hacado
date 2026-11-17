@@ -1,4 +1,4 @@
-import type { EditorHistoryEntry } from "@hacado/builder/editor";
+import type { EditorHistoryEntry } from "@hacado/builder/editor-types";
 import { normalizeEditorOperations } from "./normalize";
 import { assertDocumentRevision } from "./revision";
 
