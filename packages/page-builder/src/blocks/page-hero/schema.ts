@@ -7,18 +7,37 @@ import { InlineContainerPropsDefaults } from "../inline-container/schema";
 import { zStyles } from "./styles";
 
 export const PageHeroPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    title: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-    subtitle: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-    buttons: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      title: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single heading block for the hero title"),
+        })
+        .describe("Hero title slot"),
+      subtitle: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single block for the hero subtitle"),
+        })
+        .describe("Hero subtitle slot"),
+      buttons: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single container for call-to-action buttons"),
+        })
+        .describe("Hero actions slot"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type PageHeroProps = z.infer<typeof PageHeroPropsSchema>;

@@ -292,8 +292,11 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
     };
 
     return (
-      <Tabs value={selectedView}>
-        <div className="flex flex-col w-full mt-2">
+      <Tabs
+        value={selectedView}
+        className="flex h-full min-h-0 flex-1 flex-col overflow-hidden"
+      >
+        <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden">
           <DragDropProvider
             sensors={sensors}
             onDragStart={onDragStart}
@@ -305,14 +308,17 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
             }}
           >
             <DragIntoNestedModifierTracker />
-            <div className="relative flex h-full">
+            <div className="relative flex min-h-0 flex-1 overflow-hidden">
               {selectedView === "editor" ? (
                 <>
-                  <BlocksSidebar className="h-full" modalsPanel={modalsPanel} />
+                  <BlocksSidebar
+                    className="h-full min-h-0"
+                    modalsPanel={modalsPanel}
+                  />
                   <BlockDragOverlay />
                 </>
               ) : null}
-              <div className="flex-1">
+              <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
                 <ViewportEmulator viewportSize={selectedScreenSize}>
                   <EnableDisableAnimations>
                     {showPageChrome ? header : null}

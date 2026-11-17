@@ -6,20 +6,22 @@ import { zStyles } from "./styles";
 export const InlineTextPropsSchema = z.object({
   props: z
     .object({
-      text: z.any().optional().nullable(),
+      text: z
+        .any()
+        .optional()
+        .nullable()
+        .describe("Plain or rich inline text content"),
       // url: z.string().optional().nullable(),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
 });
 
 export type InlineTextProps = Prettify<z.infer<typeof InlineTextPropsSchema>>;
 export type InlineTextReaderProps = BaseReaderBlockProps<any> & InlineTextProps;
 
-export const InlineTextPropsDefaults = {
-  props: {
-    text: "Hello friend",
-  },
-  style: {},
-} as const satisfies InlineTextProps;
+export { InlineTextPropsDefaults } from "./defaults";

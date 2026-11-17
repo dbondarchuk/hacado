@@ -6,10 +6,16 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const BlogCommentContainerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    children: z.array(z.any()),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
+  props: z
+    .object({
+      children: z
+        .array(z.any())
+        .describe("Nested blocks rendered inside a single comment."),
+    })
+    .describe("Block configuration props"),
 });
 
 export type BlogCommentContainerProps = z.infer<

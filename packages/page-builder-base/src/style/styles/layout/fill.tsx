@@ -9,6 +9,7 @@ const FillSchema = zColor;
 export const fillStyle = {
   name: "fill",
   label: "builder.pageBuilder.styles.properties.fill",
+  description: "SVG/CSS fill color",
   category: "layout" as const,
   icon: ({ className }: { className?: string }) => (
     <Paintbrush className={className} />

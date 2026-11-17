@@ -19,6 +19,7 @@ const AlignContentSchema = z.enum(alignContentKeys);
 export const alignContentStyle = {
   name: "alignContent",
   label: "builder.pageBuilder.styles.properties.alignContent",
+  description: "CSS align-content for flex/grid",
   category: "layout",
   schema: AlignContentSchema,
   icon: ({ className }) => <AlignVerticalSpaceBetween className={className} />,

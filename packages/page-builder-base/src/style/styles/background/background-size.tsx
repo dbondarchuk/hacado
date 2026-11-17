@@ -10,6 +10,7 @@ const BackgroundSizeSchema = z.enum(options);
 export const backgroundSizeStyle = {
   name: "backgroundSize",
   label: "builder.pageBuilder.styles.properties.backgroundSize",
+  description: "CSS background-size",
   category: "background",
   icon: ({ className }) => <Maximize2 className={className} />,
   schema: BackgroundSizeSchema,

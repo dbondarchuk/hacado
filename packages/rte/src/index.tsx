@@ -10,3 +10,4 @@ export {
 } from "./components/editor/plate-static-plain-text";
 
 export * from "./components/editor/settings";
+export * from "./plate-value";

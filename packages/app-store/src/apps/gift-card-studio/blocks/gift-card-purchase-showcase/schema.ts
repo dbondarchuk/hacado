@@ -22,22 +22,47 @@ export const GiftCardPurchaseShowcaseBlockPropsSchema = z.object({
       val && typeof val === "object"
         ? migratePropsSlots(val as Record<string, unknown>, [...SLOT_KEYS])
         : val,
-    z.object({
-      hideTitle: z.boolean().optional().nullable(),
-      hideSteps: z.boolean().optional().nullable(),
-      previewPosition: z.enum(["left", "right"]).optional().nullable(),
-      abovePreviewFirstOnMobile: z.boolean().optional().nullable(),
-      amountPresets: z
-        .array(z.number().positive())
-        .max(MAX_AMOUNT_PRESETS)
-        .optional()
-        .nullable(),
-      title: zSlot,
-      abovePreview: zSlot,
-      belowPreview: zSlot,
-    }),
+    z
+      .object({
+        hideTitle: z
+          .boolean()
+          .optional()
+          .nullable()
+          .describe("Hide the showcase title."),
+        hideSteps: z
+          .boolean()
+          .optional()
+          .nullable()
+          .describe("Hide the purchase step indicator."),
+        previewPosition: z
+          .enum(["left", "right"])
+          .optional()
+          .nullable()
+          .describe("Which side of the form the card preview appears on."),
+        abovePreviewFirstOnMobile: z
+          .boolean()
+          .optional()
+          .nullable()
+          .describe("Stack content above the preview first on small screens."),
+        amountPresets: z
+          .array(z.number().positive())
+          .max(MAX_AMOUNT_PRESETS)
+          .optional()
+          .nullable()
+          .describe("Quick-select gift card amount buttons shown to buyers."),
+        title: zSlot.describe("Embedded slot for the showcase title area."),
+        abovePreview: zSlot.describe(
+          "Embedded slot for content above the card preview.",
+        ),
+        belowPreview: zSlot.describe(
+          "Embedded slot for content below the card preview.",
+        ),
+      })
+      .describe("Block configuration props"),
   ),
-  style: zStyles,
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type GiftCardPurchaseShowcaseBlockProps = Prettify<

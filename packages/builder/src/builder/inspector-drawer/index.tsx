@@ -60,40 +60,43 @@ function InspectorTabs(props: {
   onTabChange: (value: string) => void;
 }) {
   return (
-    <div className="bg-background relative flex h-full w-full flex-col overflow-hidden border-b border-secondary">
-      <div className="px-2 py-2">
-        <Tabs
-          defaultValue={props.tabs[0]?.value}
-          value={props.selectedTab}
-          onValueChange={props.onTabChange}
-        >
-          <SelectBlockListener />
-          <div className="sticky top-0 z-10 w-full">
-            <ResponsiveTabsList
-              dontScrollIntoView
-              variant="line"
-              className="flex w-full flex-row items-center gap-2"
-            >
-              {props.tabs.map((tab) => (
-                <TabsTrigger
-                  key={tab.value}
-                  value={tab.value}
-                  className="flex flex-1 gap-2"
-                >
-                  {tab.icon} {tab.label}
-                </TabsTrigger>
-              ))}
-            </ResponsiveTabsList>
-          </div>
-          <div className="max-h-[calc(100dvh-140px)] overflow-y-auto">
+    <div className="bg-background relative flex h-full min-h-0 w-full flex-col overflow-hidden border-b border-secondary">
+      <Tabs
+        defaultValue={props.tabs[0]?.value}
+        value={props.selectedTab}
+        onValueChange={props.onTabChange}
+        className="flex h-full min-h-0 flex-col px-2 py-2"
+      >
+        <SelectBlockListener />
+        <div className="sticky top-0 z-10 w-full shrink-0">
+          <ResponsiveTabsList
+            dontScrollIntoView
+            variant="line"
+            className="flex w-full flex-row items-center gap-2"
+          >
             {props.tabs.map((tab) => (
-              <TabsContent key={tab.value} value={tab.value}>
-                {tab.content}
-              </TabsContent>
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className="flex flex-1 gap-2"
+              >
+                {tab.icon} {tab.label}
+              </TabsTrigger>
             ))}
-          </div>
-        </Tabs>
-      </div>
+          </ResponsiveTabsList>
+        </div>
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          {props.tabs.map((tab) => (
+            <TabsContent
+              key={tab.value}
+              value={tab.value}
+              className="mt-0 h-full min-h-0 overflow-y-auto data-[state=inactive]:hidden"
+            >
+              {tab.content}
+            </TabsContent>
+          ))}
+        </div>
+      </Tabs>
     </div>
   );
 }
@@ -144,7 +147,7 @@ export const InspectorDrawer: React.FC<{ extraTabs?: SidebarTab[] }> = ({
       <Sheet open={openMobile} onOpenChange={setOpenMobile}>
         <SheetContent
           side="right"
-          className="w-[var(--sidebar-width)] p-0 [&>button]:hidden"
+          className="flex h-full w-[var(--sidebar-width)] flex-col overflow-hidden p-0 [&>button]:hidden"
         >
           {tabs}
         </SheetContent>
@@ -156,12 +159,12 @@ export const InspectorDrawer: React.FC<{ extraTabs?: SidebarTab[] }> = ({
     <div
       data-state={open ? "expanded" : "collapsed"}
       className={cn(
-        "relative hidden h-full shrink-0 overflow-hidden md:block",
+        "relative hidden h-full min-h-0 shrink-0 overflow-hidden md:block",
         "transition-[width] duration-200 ease-linear",
         open ? "w-[var(--sidebar-width)]" : "w-0",
       )}
     >
-      <aside className="flex h-full w-[var(--sidebar-width)] flex-col border-l border-secondary bg-background">
+      <aside className="flex h-full min-h-0 w-[var(--sidebar-width)] flex-col overflow-hidden border-l border-secondary bg-background">
         {tabs}
       </aside>
     </div>

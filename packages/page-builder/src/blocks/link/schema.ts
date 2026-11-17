@@ -8,13 +8,26 @@ import { zStyles } from "./styles";
 export const LinkPropsSchema = z.object({
   props: z
     .object({
-      children: z.array(z.any()),
-      url: z.string().optional().nullable(),
-      target: z.enum(["_self", "_blank"]).optional().nullable(),
+      children: z
+        .array(z.any())
+        .describe("Child blocks for the link label/content"),
+      url: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Destination URL"),
+      target: z
+        .enum(["_self", "_blank"])
+        .optional()
+        .nullable()
+        .describe("Whether the link opens in the same tab or a new tab"),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
 });
 
 export type LinkProps = Prettify<z.infer<typeof LinkPropsSchema>>;

@@ -36,6 +36,9 @@ block:
     preview: Bloc de formulaire (le formulaire sera affiché sur la page)
     selectForm: Sélectionnez un formulaire à afficher
     loadError: Impossible de charger le formulaire
+  ai:
+    improveFormCopy: Améliorer la copie du formulaire
+    askAi: Demandez à l'IA
 forms:
   table:
     filters:

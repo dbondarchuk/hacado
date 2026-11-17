@@ -66,6 +66,7 @@ const getLinearGradientDirection = (
 export const backgroundImageStyle = {
   name: "backgroundImage",
   label: "builder.pageBuilder.styles.properties.backgroundImage",
+  description: "Background image, gradient, or asset URL",
   category: "background",
   icon: ({ className }) => <Image className={className} />,
   schema: BackgroundImageSchema,

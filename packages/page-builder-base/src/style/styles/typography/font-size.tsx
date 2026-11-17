@@ -9,6 +9,7 @@ const FontSizeSchema = zNumberValueWithUnit;
 export const fontSizeStyle = {
   name: "fontSize",
   label: "builder.pageBuilder.styles.properties.fontSize",
+  description: "CSS font-size",
   category: "typography",
   schema: FontSizeSchema,
   icon: ({ className }) => <ALargeSmall className={className} />,

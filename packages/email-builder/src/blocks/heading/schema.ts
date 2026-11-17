@@ -4,24 +4,25 @@ import { zStyles } from "../../style-inputs/helpers/zod";
 export const HeadingPropsSchema = z.object({
   props: z
     .object({
-      text: z.string().optional().nullable(),
-      level: z.enum(["h1", "h2", "h3"]).optional().nullable(),
+      text: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Heading title text."),
+      level: z
+        .enum(["h1", "h2", "h3"])
+        .optional()
+        .nullable()
+        .describe("Semantic heading level (largest to smallest)."),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Heading text and level."),
+  style: zStyles.describe(
+    "Typography, colors, spacing, and alignment for the heading.",
+  ),
 });
 
 export type HeadingProps = z.infer<typeof HeadingPropsSchema>;
 
-export const HeadingPropsDefaults = {
-  props: {
-    level: "h2",
-    text: "Hello friend",
-  },
-  style: {
-    padding: { top: 16, bottom: 16, left: 24, right: 24 },
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-} as const satisfies HeadingProps;
+export { HeadingPropsDefaults } from "./defaults";

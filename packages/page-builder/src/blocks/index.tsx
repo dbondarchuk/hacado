@@ -40,6 +40,12 @@ import {
   Zap,
 } from "lucide-react";
 import {
+  IMAGE_AI_CAPABILITIES,
+  LAYOUT_AI_CAPABILITIES,
+  TEXT_AI_CAPABILITIES,
+} from "./ai-capabilities";
+import { INLINE_CHILDREN_ALLOW } from "./child-allow";
+import {
   AccordionConfiguration,
   AccordionEditor,
   AccordionPropsDefaults,
@@ -296,6 +302,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.objects" satisfies BaseAllKeys,
     capabilities: ["image", "media", "block"],
+    aiCapabilities: IMAGE_AI_CAPABILITIES,
     tags: ["image", "media"],
   },
   Button: {
@@ -310,6 +317,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.buttons" satisfies BaseAllKeys,
     capabilities: ["button", "action", "link", "block"],
     tags: ["button", "action", "link"],
+    allowedChildren: INLINE_CHILDREN_ALLOW,
   },
   Link: {
     displayName:
@@ -323,6 +331,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.buttons" satisfies BaseAllKeys,
     capabilities: ["link", "inline", "action"],
     tags: ["link"],
+    allowedChildren: INLINE_CHILDREN_ALLOW,
   },
   Heading: {
     displayName:
@@ -335,7 +344,9 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.text" satisfies BaseAllKeys,
     capabilities: ["heading", "title", "block"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["heading", "title"],
+    allowedChildren: INLINE_CHILDREN_ALLOW,
   },
   Text: {
     displayName:
@@ -357,6 +368,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       },
     },
     capabilities: ["text", "block"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["text", "block"],
   },
   Icon: {
@@ -405,6 +417,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["layout"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["layout"],
   },
   Container: {
@@ -418,6 +431,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["container", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["container", "layout"],
   },
   GridContainer: {
@@ -431,6 +445,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["grid", "layout", "block", "container"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["grid", "container"],
   },
   FluidLayout: {
@@ -444,6 +459,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["layout", "block", "fluid"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["fluid", "layout", "grid"],
     allowedIn: {
       type: ["PageLayout"],
@@ -460,6 +476,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["page-hero"],
     allowedBuilderTypes: ["page"],
   },
@@ -482,6 +499,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["conditional", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["conditional"],
   },
   ForeachContainer: {
@@ -495,6 +513,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["foreach", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["foreach"],
   },
   BookingSimple: {
@@ -536,6 +555,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["carousel", "layout", "block", "container"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["carousel"],
   },
   Video: {
@@ -620,6 +640,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       },
     },
     capabilities: ["text", "inline"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["text", "inline"],
   },
   CatalogValue: {
@@ -633,6 +654,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.text" satisfies BaseAllKeys,
     capabilities: ["text", "inline", "block"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["text", "catalog", "service", "price"],
   },
   TypewriterText: {
@@ -653,6 +675,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       },
     },
     capabilities: ["text", "inline"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["text", "typewriter", "inline"],
   },
   PhraseCycle: {
@@ -673,6 +696,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       },
     },
     capabilities: ["text", "inline"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["text", "phrase", "animation", "inline"],
   },
   Accordion: {
@@ -686,6 +710,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["accordion", "layout", "block", "container"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["accordion"],
   },
   AccordionItem: {
@@ -699,6 +724,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["accordion-item", "layout", "block", "container"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["accordion-item", "accordion"],
     allowedIn: {
       type: ["Accordion"],
@@ -715,7 +741,9 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["inline", "layout", "block", "container"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["inline-container", "inline", "container"],
+    allowedChildren: INLINE_CHILDREN_ALLOW,
   },
   CustomHTML: {
     displayName:
@@ -831,6 +859,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.marketing" satisfies BaseAllKeys,
     capabilities: ["marketing", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["marketing", "logos"],
   },
   MarketingFeatureItem: {
@@ -860,6 +889,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.marketing" satisfies BaseAllKeys,
     capabilities: ["marketing", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["marketing", "features"],
   },
   Table: {
@@ -873,6 +903,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["layout", "table"],
   },
   MarketingBrowserCarousel: {
@@ -886,9 +917,11 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     category:
       "builder.pageBuilder.blocks.categories.marketing" satisfies BaseAllKeys,
     capabilities: ["marketing", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["marketing", "carousel", "media"],
   },
 };
+
 
 export const RootBlock: TEditorBlock<Partial<PageLayoutProps>> = {
   data: PageLayoutDefaultProps,

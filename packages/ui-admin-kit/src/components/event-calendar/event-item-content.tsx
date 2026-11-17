@@ -30,7 +30,7 @@ export const EventItemContent: React.FC<EventItemContentProps> = ({
   const timeZone = useTimeZone();
   const start = DateTime.fromJSDate(event.start).setZone(timeZone);
   const end = DateTime.fromJSDate(event.end).setZone(timeZone);
-  const timeLabel = `${start.toLocaleString(DateTime.TIME_SIMPLE, { locale })} – ${end.toLocaleString(DateTime.TIME_SIMPLE, { locale })}`;
+  const timeLabel = `${start.toLocaleString(DateTime.TIME_SIMPLE, { locale })} - ${end.toLocaleString(DateTime.TIME_SIMPLE, { locale })}`;
 
   if (density === "compact") {
     return (

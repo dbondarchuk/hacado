@@ -7,13 +7,25 @@ import { ImagePropsDefaults } from "../image/schema";
 import { zStyles } from "./styles";
 
 export const MarketingScrollingLogosPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    screenReaderText: z.string().optional().nullable(),
-    items: z.object({
-      children: z.array(z.any()),
-    }),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      screenReaderText: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Accessible label for the scrolling logo strip"),
+      items: z
+        .object({
+          children: z
+            .array(z.any())
+            .describe("Logo card blocks repeated in the marquee"),
+        })
+        .describe("Marquee item slot"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type MarketingScrollingLogosProps = z.infer<

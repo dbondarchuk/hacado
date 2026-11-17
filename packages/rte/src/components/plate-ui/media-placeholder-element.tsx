@@ -171,7 +171,7 @@ export const MediaPlaceholderElement = withHOC(
                 {loading && !isImage && (
                   <div className="mt-1 flex items-center gap-1.5">
                     <div>{formatBytes(uploadingFiles[0]?.size ?? 0)}</div>
-                    <div>–</div>
+                    <div>-</div>
                     <div className="flex items-center">
                       <Spinner className="mr-1 size-3.5" />
                       {progress ?? 0}%

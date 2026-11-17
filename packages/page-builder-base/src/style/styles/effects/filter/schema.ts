@@ -79,7 +79,7 @@ export const isFilterFunctionWithUnits = (
 ): func is (typeof filterFunctionsWithUnits)[number] =>
   (filterFunctionsWithUnits as readonly string[]).includes(func);
 
-/** Unitless multiplier functions (number, typically 0–∞ where 1 is identity). */
+/** Unitless multiplier functions (number, typically 0-∞ where 1 is identity). */
 export const filterFunctionsUnitless = [
   "brightness",
   "contrast",

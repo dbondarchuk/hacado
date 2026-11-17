@@ -8,27 +8,64 @@ import { InlineContainerPropsDefaults } from "../inline-container/schema";
 import { zStyles } from "./styles";
 
 export const BeforeAfterPropsSchema = z.object({
-  style: zStyles.optional().nullable(),
+  style: zStyles
+    .optional()
+    .nullable()
+    .describe(
+      "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+    ),
   props: z
     .object({
-      before: z.object({
-        children: z.array(z.any()).length(1),
-      }),
-      after: z.object({
-        children: z.array(z.any()).length(1),
-      }),
-      beforeLabel: z.object({
-        children: z.array(z.any()).length(1),
-      }),
-      afterLabel: z.object({
-        children: z.array(z.any()).length(1),
-      }),
-      sliderPosition: z.number().min(0).max(100).default(50),
-      showLabels: z.boolean().default(true),
-      orientation: z.enum(["horizontal", "vertical"]).default("horizontal"),
+      before: z
+        .object({
+          children: z
+            .array(z.any())
+            .length(1)
+            .describe("Single Image block for the before side."),
+        })
+        .describe("Before image slot on the left or top."),
+      after: z
+        .object({
+          children: z
+            .array(z.any())
+            .length(1)
+            .describe("Single Image block for the after side."),
+        })
+        .describe("After image slot on the right or bottom."),
+      beforeLabel: z
+        .object({
+          children: z
+            .array(z.any())
+            .length(1)
+            .describe("Single block for the before caption overlay."),
+        })
+        .describe("Label overlay on the before side."),
+      afterLabel: z
+        .object({
+          children: z
+            .array(z.any())
+            .length(1)
+            .describe("Single block for the after caption overlay."),
+        })
+        .describe("Label overlay on the after side."),
+      sliderPosition: z
+        .number()
+        .min(0)
+        .max(100)
+        .default(50)
+        .describe("Initial divider position as a percentage (0-100)."),
+      showLabels: z
+        .boolean()
+        .default(true)
+        .describe("Show the before and after label overlays."),
+      orientation: z
+        .enum(["horizontal", "vertical"])
+        .default("horizontal")
+        .describe("Drag direction of the comparison divider."),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Block configuration props"),
 });
 
 export type BeforeAfterProps = Prettify<z.infer<typeof BeforeAfterPropsSchema>>;

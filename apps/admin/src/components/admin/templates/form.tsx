@@ -175,9 +175,9 @@ export const TemplateForm: React.FC<
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <PageHeader
-          className="mb-0"
+          className="mb-0 shrink-0"
           text={
             <div className="my-2 w-full min-w-0">
               {type === "email" ? (
@@ -227,37 +227,43 @@ export const TemplateForm: React.FC<
         />
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="h-full w-full space-y-8"
+          className="flex min-h-0 flex-1 flex-col overflow-hidden"
         >
-          <div className="flex flex-col gap-4 w-full h-full">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
             <FormField
               control={form.control}
               name="value"
               render={({ field }) => (
                 <>
                   {type === "email" && (
-                    <FormItem className="w-full flex-grow relative h-full">
+                    <FormItem className="relative flex min-h-0 flex-1 flex-col content-normal overflow-hidden">
                       <FormControl>
-                        <EmailBuilder
-                          args={args}
-                          value={field.value}
-                          onIsValidChange={onEmailBuilderValidChange}
-                          onChange={field.onChange}
-                          toolbarButtons={builderAIToolbarButtons}
-                          extraTabs={builderAIExtraTabs}
-                        />
+                        <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
+                          <EmailBuilder
+                            args={args}
+                            value={field.value}
+                            onIsValidChange={onEmailBuilderValidChange}
+                            onChange={field.onChange}
+                            toolbarButtons={builderAIToolbarButtons}
+                            extraTabs={builderAIExtraTabs}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                   {type === "text-message" && (
-                    <TextMessageBuilder args={args} field={field} />
+                    <div className="min-h-0 flex-1 overflow-y-auto">
+                      <TextMessageBuilder args={args} field={field} />
+                    </div>
                   )}
                 </>
               )}
             />
           </div>
-          <SaveButton form={form} />
+          <div className="shrink-0 pt-4">
+            <SaveButton form={form} />
+          </div>
         </form>
       </div>
     </Form>

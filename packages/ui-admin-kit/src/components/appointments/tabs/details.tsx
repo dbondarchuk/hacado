@@ -226,7 +226,7 @@ export const AppointmentDetails = ({
               {DateTime.fromJSDate(appointment.dateTime, {
                 zone: timeZone,
               }).toFormat(uses12HourFormat ? "h:mm" : "HH:mm", { locale })}
-              –
+              -
               {DateTime.fromJSDate(appointment.dateTime, {
                 zone: timeZone,
               })

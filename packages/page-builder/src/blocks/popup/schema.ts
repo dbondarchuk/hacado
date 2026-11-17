@@ -10,24 +10,54 @@ export const showPopupType = ["always", "one-time", "on-click"] as const;
 export const overlayType = ["blur", "default"] as const;
 
 export const PopupPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    show: z.enum(showPopupType),
-    overlay: z.enum(overlayType),
-    title: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-    subtitle: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-    content: z.object({
-      children: z.array(z.any()),
-    }),
-    buttons: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-    noClose: z.boolean().optional(),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      show: z
+        .enum(showPopupType)
+        .describe("When the popup appears (always, once, or on click)"),
+      overlay: z
+        .enum(overlayType)
+        .describe("Backdrop style behind the modal"),
+      title: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single slot for the popup title"),
+        })
+        .describe("Title region"),
+      subtitle: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single slot for the popup subtitle"),
+        })
+        .describe("Subtitle region"),
+      content: z
+        .object({
+          children: z
+            .array(z.any())
+            .describe("Main body blocks inside the popup"),
+        })
+        .describe("Content region"),
+      buttons: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single row container for action buttons"),
+        })
+        .describe("Footer buttons region"),
+      noClose: z
+        .boolean()
+        .optional()
+        .describe("Hide the close control when true"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type PopupProps = z.infer<typeof PopupPropsSchema>;

@@ -9,12 +9,25 @@ export const zStyles = getStylesSchema(styles);
 export const BlogPostReadTimePropsSchema = z.object({
   props: z
     .object({
-      format: z.string().optional().nullable(),
-      wordsPerMinute: z.number().optional().nullable(),
+      format: z
+        .string()
+        .optional()
+        .nullable()
+        .describe(
+          'How read time is labeled (e.g. "minRead" or a custom pattern).',
+        ),
+      wordsPerMinute: z
+        .number()
+        .optional()
+        .nullable()
+        .describe("Average reading speed used to estimate read time."),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostReadTimeProps = Prettify<

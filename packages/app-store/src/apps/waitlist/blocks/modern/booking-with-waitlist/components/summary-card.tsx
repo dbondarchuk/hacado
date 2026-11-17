@@ -89,7 +89,7 @@ function formatWaitlistDateRange(
     return start.toLocaleString({ month: "short", day: "numeric" });
   }
 
-  return `${start.toLocaleString({ month: "short", day: "numeric" })} – ${end.toLocaleString({ month: "short", day: "numeric" })}`;
+  return `${start.toLocaleString({ month: "short", day: "numeric" })} - ${end.toLocaleString({ month: "short", day: "numeric" })}`;
 }
 
 function WaitlistWhenValue() {

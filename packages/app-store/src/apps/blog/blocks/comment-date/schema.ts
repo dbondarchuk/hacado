@@ -8,11 +8,20 @@ export const zStyles = getStylesSchema(styles);
 export const BlogCommentDatePropsSchema = z.object({
   props: z
     .object({
-      format: z.string().optional().nullable(),
+      format: z
+        .string()
+        .optional()
+        .nullable()
+        .describe(
+          "Date/time format for the comment timestamp (e.g. Luxon preset name).",
+        ),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogCommentDateProps = z.infer<typeof BlogCommentDatePropsSchema>;

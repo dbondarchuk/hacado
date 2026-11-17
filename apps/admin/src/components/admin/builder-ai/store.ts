@@ -4,7 +4,7 @@ import type {
   BuilderDocumentSettings,
   BuilderKind,
   DocumentProposal,
-} from "@hacado/builder-ai/client";
+} from "@hacado/ai-builder-core/client";
 import { create } from "zustand";
 import type { BuilderAIApplyError } from "./apply-error";
 import type { AttachedBlock, BuilderAIChatMessage } from "./types";
@@ -17,8 +17,15 @@ export type BuilderAIConfig = {
 };
 
 type OpenPanelFn = () => void;
+
+export type ApplyDocumentSettingsOptions = {
+  /** Stop title→slug auto-generation (AI proposed its own slug). */
+  preserveSlug?: boolean;
+};
+
 type ApplyDocumentSettingsFn = (
   patch: Partial<BuilderDocumentSettings>,
+  options?: ApplyDocumentSettingsOptions,
 ) => void;
 
 type BuilderAIStore = {
@@ -48,7 +55,10 @@ type BuilderAIStore = {
   registerOpenPanel: (fn: OpenPanelFn) => () => void;
   openPanel: () => void;
   registerApplyDocumentSettings: (fn: ApplyDocumentSettingsFn) => () => void;
-  applyDocumentSettings: (patch: Partial<BuilderDocumentSettings>) => void;
+  applyDocumentSettings: (
+    patch: Partial<BuilderDocumentSettings>,
+    options?: ApplyDocumentSettingsOptions,
+  ) => void;
   resetConversation: () => void;
   appendMessage: (message: BuilderAIChatMessage) => void;
   updateMessage: (
@@ -124,8 +134,8 @@ export const useBuilderAIStore = create<BuilderAIStore>((set, get) => ({
       }
     };
   },
-  applyDocumentSettings: (patch) => {
-    get().applyDocumentSettingsFn?.(patch);
+  applyDocumentSettings: (patch, options) => {
+    get().applyDocumentSettingsFn?.(patch, options);
   },
   resetConversation: () =>
     set({

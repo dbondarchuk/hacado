@@ -17,6 +17,7 @@ const ObjectFitSchema = z.enum(objectFitKeys);
 export const objectFitStyle = {
   name: "objectFit",
   label: "builder.pageBuilder.styles.properties.objectFit",
+  description: "CSS object-fit for replaced content",
   icon: ({ className }: { className?: string }) => (
     <ImageIcon className={className} />
   ),

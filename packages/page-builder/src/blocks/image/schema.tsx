@@ -4,64 +4,36 @@ import * as z from "zod";
 import { zStyles } from "./styles";
 
 export const ImagePropsSchema = z.object({
-  style: zStyles.optional().nullable(),
+  style: zStyles
+    .optional()
+    .nullable()
+    .describe(
+      "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+    ),
   props: z
     .object({
-      src: z.string().optional().nullable(),
-      alt: z.string().optional().nullable(),
-      linkHref: z.string().optional().nullable(),
+      src: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Image source URL; set this for the image to render."),
+      alt: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Accessible alt text; use for SEO and screen readers."),
+      linkHref: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Optional URL opened when the image is clicked."),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Block configuration props"),
 });
 
 export type ImageProps = Prettify<z.infer<typeof ImagePropsSchema>>;
 export type ImageReaderProps = BaseReaderBlockProps<any> & ImageProps;
 
-export const ImagePropsDefaults = {
-  props: {
-    src: "/assets/placeholder/400x200.jpg",
-    alt: "Sample image",
-    linkHref: null,
-  },
-  style: {
-    textAlign: [
-      {
-        value: "center",
-      },
-    ],
-    objectFit: [
-      {
-        value: "cover",
-      },
-    ],
-    objectPosition: [
-      {
-        value: { x: 50, y: 50 },
-      },
-    ],
-    verticalAlign: [
-      {
-        value: "middle",
-      },
-    ],
-    maxWidth: [
-      {
-        value: {
-          value: 100,
-          unit: "%",
-        },
-      },
-    ],
-    display: [
-      {
-        value: "inline-block",
-      },
-    ],
-    textDecoration: [
-      {
-        value: "none",
-      },
-    ],
-  },
-} satisfies ImageProps;
+export { ImagePropsDefaults } from "./defaults";

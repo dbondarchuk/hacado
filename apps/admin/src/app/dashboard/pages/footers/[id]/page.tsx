@@ -85,9 +85,11 @@ export default async function EditPageFooterPage(props: Props) {
   );
 
   return (
-    <PageContainer scrollable>
-      <Styling styling={styling} />
-      <PageFooterForm initialData={pageFooter} args={args} apps={apps} />
+    <PageContainer fill>
+      <div className="flex min-h-0 flex-1 flex-col gap-4 w-full">
+        <Styling styling={styling} />
+        <PageFooterForm initialData={pageFooter} args={args} apps={apps} />
+      </div>
     </PageContainer>
   );
 }

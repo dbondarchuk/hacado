@@ -19,6 +19,7 @@ const fontFamilies = FONT_FAMILIES_LIST.map((font) => ({
 export const fontFamilyStyle = {
   name: "fontFamily",
   label: "builder.pageBuilder.styles.properties.fontFamily",
+  description: "CSS font-family; prefer design tokens when available",
   category: "typography",
   icon: ({ className }) => <Type className={className} />,
   schema: FontFamilySchema,

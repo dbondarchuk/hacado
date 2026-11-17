@@ -62,15 +62,30 @@ const SidebarAccordion = memo(
       };
     }, [templates]);
 
+    const sectionItemClassName = cn(
+      "flex flex-col border-none",
+      "data-[state=open]:min-h-0 data-[state=open]:flex-1 data-[state=open]:overflow-hidden",
+      "[&>h3]:shrink-0",
+      // Fill remaining height and scroll inside the open section body only.
+      "data-[state=open]:[&>[role=region]]:min-h-0",
+      "data-[state=open]:[&>[role=region]]:flex-1",
+      "data-[state=open]:[&>[role=region]]:overflow-y-auto",
+      "data-[state=open]:[&>[role=region]]:animate-none",
+      "data-[state=open]:[&>[role=region]]:!h-full",
+    );
+    const sectionTriggerClassName =
+      "shrink-0 px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180";
+    const sectionContentClassName = "h-full min-h-0 px-4 pb-2";
+
     return (
       <Accordion
         type="single"
         defaultValue={defaultOpen}
-        className="flex w-full flex-col justify-between"
+        className="flex h-full min-h-0 w-full flex-col"
       >
         {modalsSection ? (
-          <AccordionItem value="modals" className="border-none">
-            <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+          <AccordionItem value="modals" className={sectionItemClassName}>
+            <AccordionTrigger className={sectionTriggerClassName}>
               <div className="flex items-center gap-2">
                 <AppWindow className="h-4 w-4" />
                 <span className="text-sm font-medium">
@@ -78,14 +93,14 @@ const SidebarAccordion = memo(
                 </span>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="px-4 pb-2">
+            <AccordionContent className={sectionContentClassName}>
               {modalsSection}
             </AccordionContent>
           </AccordionItem>
         ) : null}
 
-        <AccordionItem value="blocks" className="border-none">
-          <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+        <AccordionItem value="blocks" className={sectionItemClassName}>
+          <AccordionTrigger className={sectionTriggerClassName}>
             <div className="flex items-center gap-2">
               <Blocks className="h-4 w-4" />
               <span className="text-sm font-medium">
@@ -93,14 +108,14 @@ const SidebarAccordion = memo(
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="px-4 pb-2">
+          <AccordionContent className={sectionContentClassName}>
             <BlocksPanel allowOnly={allowOnly} />
           </AccordionContent>
         </AccordionItem>
 
         {showSectionTemplates ? (
-          <AccordionItem value="templates" className="border-none">
-            <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+          <AccordionItem value="templates" className={sectionItemClassName}>
+            <AccordionTrigger className={sectionTriggerClassName}>
               <div className="flex items-center gap-2">
                 <Layers className="h-4 w-4" />
                 <span className="text-sm font-medium">
@@ -108,15 +123,15 @@ const SidebarAccordion = memo(
                 </span>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="px-4 pb-2">
+            <AccordionContent className={sectionContentClassName}>
               <TemplatesPanel />
             </AccordionContent>
           </AccordionItem>
         ) : null}
 
         {showLayouts && showLayoutTemplates ? (
-          <AccordionItem value="layouts" className="border-none">
-            <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+          <AccordionItem value="layouts" className={sectionItemClassName}>
+            <AccordionTrigger className={sectionTriggerClassName}>
               <div className="flex items-center gap-2">
                 <LayoutTemplate className="h-4 w-4" />
                 <span className="text-sm font-medium">
@@ -124,17 +139,20 @@ const SidebarAccordion = memo(
                 </span>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="px-4 pb-2">
+            <AccordionContent className={sectionContentClassName}>
               <LayoutsPanel />
             </AccordionContent>
           </AccordionItem>
         ) : null}
 
-        <AccordionItem value="outline" className="border-none">
-          <AccordionContent className="px-4 pb-2">
+        <AccordionItem
+          value="outline"
+          className={cn(sectionItemClassName, "mt-auto")}
+        >
+          <AccordionContent className={sectionContentClassName}>
             <OutlinePanel />
           </AccordionContent>
-          <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+          <AccordionTrigger className={sectionTriggerClassName}>
             <div className="flex items-center gap-2">
               <ListTree className="h-4 w-4" />
               <span className="text-sm font-medium">
@@ -161,15 +179,14 @@ export const BlocksSidebar = memo(
     const setBlocksSidebarTab = useSetBlocksSidebarTab();
 
     const shellClassName = cn(
-      "w-0 opacity-0 border-r bg-background transition-all flex flex-col",
-      "max-h-[calc(100vh-250px)] min-h-72",
+      "w-0 opacity-0 border-r bg-background transition-all flex h-full min-h-0 flex-col",
       show && "w-80 opacity-100",
       className,
     );
 
     if (!enableModalsView || !modalsPanel) {
       return (
-        <div className={cn(shellClassName, "overflow-y-auto")}>
+        <div className={cn(shellClassName, "overflow-hidden")}>
           <SidebarAccordion
             allowOnly={allowOnly as string[] | undefined}
             showLayouts
@@ -186,7 +203,7 @@ export const BlocksSidebar = memo(
           onValueChange={(value) =>
             setBlocksSidebarTab(value as "layout" | "modals")
           }
-          className="flex h-full min-h-0 flex-col"
+          className="flex h-full min-h-0 flex-col overflow-hidden"
         >
           <div className="shrink-0 px-3 pt-0">
             <TabsList variant="line" className="w-full">
@@ -200,7 +217,7 @@ export const BlocksSidebar = memo(
           </div>
           <TabsContent
             value="layout"
-            className="mt-0 flex-1 min-h-0 overflow-y-auto data-[state=inactive]:hidden"
+            className="mt-0 flex min-h-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden"
             forceMount
           >
             <SidebarAccordion
@@ -211,7 +228,7 @@ export const BlocksSidebar = memo(
           </TabsContent>
           <TabsContent
             value="modals"
-            className="mt-0 flex-1 min-h-0 overflow-y-auto data-[state=inactive]:hidden"
+            className="mt-0 flex min-h-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden"
             forceMount
           >
             <SidebarAccordion

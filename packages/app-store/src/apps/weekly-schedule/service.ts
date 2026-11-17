@@ -90,7 +90,7 @@ function singleWeekExceptionFilter(args: {
   };
 }
 
-/** Mongo stores object keys as strings; normalize weekdays back to 1–7 numbers. */
+/** Mongo stores object keys as strings; normalize weekdays back to 1-7 numbers. */
 function normalizeExceptionEntity(
   exception: ScheduleExceptionEntity,
 ): ScheduleExceptionEntity {

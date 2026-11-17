@@ -36,9 +36,12 @@ export const SelectedBlockOverlay = forwardRef<
       }}
     >
       {!disable?.drag && <DragHandle handleRef={handleRef} />}
-      <div className="absolute -translate-y-full left-[-2px] top-[-2px]  z-[10] hover:z-50 pointer-events-auto">
-        <NavMenu blockId={id} disable={disable} />
-      </div>
+      <NavMenu
+        blockId={id}
+        disable={disable}
+        blockLeft={left}
+        blockWidth={width}
+      />
 
       {!!onResize && !disable?.resize && (
         <>

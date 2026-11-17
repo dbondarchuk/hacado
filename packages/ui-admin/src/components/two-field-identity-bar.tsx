@@ -41,7 +41,7 @@ export function TwoFieldIdentityBar({
   });
 
   return (
-    <div className="flex w-full min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+    <div className="flex w-full min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 py-1">
       <FormField
         control={form.control}
         name={primaryName}

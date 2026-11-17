@@ -56,7 +56,7 @@ export const paymentsConfigurationSchema = z
     ),
     /** Tip collection during booking. Defaults to off when omitted. */
     tipsMode: bookingTipsModeSchema.optional(),
-    /** Percentage presets (1–100). Max 4. Used when tipsMode is not off. */
+    /** Percentage presets (1-100). Max 4. Used when tipsMode is not off. */
     tipPresets: bookingTipPresetsSchema.optional(),
   })
   .and(

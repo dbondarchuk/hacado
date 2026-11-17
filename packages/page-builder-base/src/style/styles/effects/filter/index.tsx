@@ -29,6 +29,7 @@ const renderFilterFunctionValue = (
 export const filterStyle = {
   name: "filter",
   label: "builder.pageBuilder.styles.properties.filter",
+  description: "CSS filter effects (blur, brightness, etc.)",
   category: "effects",
   schema: FilterSchema,
   icon: ({ className }) => <Sparkles className={className} />,

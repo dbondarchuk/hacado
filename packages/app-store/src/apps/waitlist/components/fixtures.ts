@@ -1,3 +1,5 @@
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import {
   AvailabilityByMember,
   GetAppointmentOptionsResponse,
@@ -180,3 +182,35 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   ],
   hasActiveCustomerPackages: false,
 };
+
+/** Template previews are public pages with no organization behind them. */
+function isTemplatePreview(): boolean {
+  if (typeof window === "undefined") return false;
+
+  return (
+    window.location.pathname.startsWith("/template-previews") ||
+    !!document.querySelector("[data-template-preview]")
+  );
+}
+
+/**
+ * Editor previews use the organization's services, addons, and members.
+ * Template previews and any other no-organization context keep the demo catalog.
+ * Step progression stays faked by the schedule.
+ */
+export async function loadEditorBookingOptions(): Promise<GetAppointmentOptionsResponse> {
+  if (isTemplatePreview()) return demoBookingOptionsResponse;
+
+  try {
+    return await bookingApi.getBookingOptions();
+  } catch (error) {
+    if (
+      error instanceof ClientApiError &&
+      (error.status === 401 || error.status === 403)
+    ) {
+      return demoBookingOptionsResponse;
+    }
+
+    throw error;
+  }
+}

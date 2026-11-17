@@ -30,6 +30,7 @@ const renderTransformFunctionValue = (
 export const transformStyle = {
   name: "transform",
   label: "builder.pageBuilder.styles.properties.transform",
+  description: "CSS transform (translate/rotate/scale/skew)",
   category: "effects",
   schema: TransformSchema,
   icon: ({ className }) => <Move className={className} />,

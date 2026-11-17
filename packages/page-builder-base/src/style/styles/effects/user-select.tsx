@@ -11,6 +11,7 @@ const UserSelectSchema = z.enum(userSelectKeys);
 export const userSelectStyle = {
   name: "userSelect",
   label: "builder.pageBuilder.styles.properties.userSelect",
+  description: "CSS user-select",
   category: "effects",
   icon: ({ className }) => <TextSelect className={className} />,
   schema: UserSelectSchema,

@@ -1,9 +1,6 @@
-import { generateId } from "@hacado/builder/helpers";
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
-import { COLORS } from "@hacado/page-builder-base/style";
 import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
-import { InlineContainerPropsDefaults } from "../inline-container";
 import { zStyles } from "./styles";
 
 export const ButtonType = z.enum(["action", "link"]);
@@ -12,123 +9,62 @@ export const ButtonPropsSchema = z.object({
   props: z
     .discriminatedUnion("type", [
       z.object({
-        type: z.literal("action"),
-        action: z.string({
-          error: "pageBuilder.blocks.button.errors.action",
-        }),
-        actionData: z.any().optional().nullable(),
-        children: z.array(z.any()),
+        type: z
+          .literal("action")
+          .describe("Button runs a built-in or custom action"),
+        action: z
+          .string({
+            error: "pageBuilder.blocks.button.errors.action",
+          })
+          .describe("Action identifier (e.g. close-modal, submit)"),
+        actionData: z
+          .any()
+          .optional()
+          .nullable()
+          .describe("Optional JSON payload passed to the action handler"),
+        children: z
+          .array(z.any())
+          .describe(
+            "Inline label children only (InlineContainer → InlineText). Never nest Text here.",
+          ),
       }),
       z.object({
-        type: z.literal("link").optional().nullable(),
-        children: z.array(z.any()),
-        url: z.string().optional().nullable(),
-        target: z.enum(["_self", "_blank"]).optional().nullable(),
+        type: z
+          .literal("link")
+          .optional()
+          .nullable()
+          .describe("Button navigates like a link"),
+        children: z
+          .array(z.any())
+          .describe(
+            "Inline label children only (InlineContainer → InlineText). Never nest Text here.",
+          ),
+        url: z
+          .string()
+          .optional()
+          .nullable()
+          .describe("Destination URL when used as a link"),
+        target: z
+          .enum(["_self", "_blank"])
+          .optional()
+          .nullable()
+          .describe("Link target window"),
       }),
     ])
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
 });
 
 export type ButtonProps = Prettify<z.infer<typeof ButtonPropsSchema>>;
 export type ButtonReaderProps = BaseReaderBlockProps<any> & ButtonProps;
 
-export const ButtonDefaultUrl = "/";
-export const ButtonDefaultTarget = "_self";
-export const ButtonDefaultAction = "open-modal";
-
-export const ButtonPropsDefaults = () =>
-  ({
-    props: {
-      url: ButtonDefaultUrl,
-      target: ButtonDefaultTarget,
-      children: [
-        {
-          type: "InlineContainer",
-          id: generateId(),
-          data: {
-            style: InlineContainerPropsDefaults.style,
-            props: {
-              children: [
-                {
-                  type: "InlineText",
-                  id: generateId(),
-                  data: {
-                    props: {
-                      text: "Button",
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
-      ],
-    },
-    style: {
-      color: [
-        {
-          value: COLORS["primary-foreground"].value,
-        },
-      ],
-      padding: [
-        {
-          value: {
-            top: { value: 0.75, unit: "rem" },
-            right: { value: 1.5, unit: "rem" },
-            bottom: { value: 0.75, unit: "rem" },
-            left: { value: 1.5, unit: "rem" },
-          },
-        },
-      ],
-      backgroundColor: [
-        {
-          value: COLORS["primary"].value,
-        },
-      ],
-      filter: [
-        {
-          value: "brightness(1.1)",
-          state: [
-            { state: "hover", target: { type: "self" } },
-            { state: "focus", target: { type: "self" } },
-            { state: "active", target: { type: "self" } },
-          ],
-        },
-      ],
-      transition: [
-        {
-          value: "all 0.3s ease",
-        },
-      ],
-      fontSize: [
-        {
-          value: {
-            value: 1,
-            unit: "rem",
-          },
-        },
-      ],
-      fontWeight: [
-        {
-          value: "normal",
-        },
-      ],
-      textAlign: [
-        {
-          value: "center",
-        },
-      ],
-      width: [
-        {
-          value: "max-content",
-        },
-      ],
-      display: [
-        {
-          value: "inline-flex",
-        },
-      ],
-    },
-  }) as const satisfies ButtonProps;
+export {
+  ButtonDefaultAction,
+  ButtonDefaultTarget,
+  ButtonDefaultUrl,
+  ButtonPropsDefaults,
+} from "./defaults";

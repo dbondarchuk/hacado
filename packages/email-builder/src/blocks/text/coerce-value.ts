@@ -1,14 +1,13 @@
+import { normalizePlateBodyValue } from "@hacado/rte/plate-value";
+
 /**
  * Email Text blocks store Plate rich-text nodes in `props.value`.
- * AI / defaults sometimes provide a plain string — coerce so static preview
- * and unselected editor state still render.
+ * AI / defaults may provide markdown, plain string, or aliased node types.
  */
 export function coerceEmailTextValue(value: unknown): unknown[] {
-  if (Array.isArray(value)) return value;
+  const normalized = normalizePlateBodyValue(value);
 
-  if (typeof value === "string") {
-    return [{ type: "p", children: [{ text: value }] }];
-  }
-
-  return [{ type: "p", children: [{ text: "" }] }];
+  return Array.isArray(normalized)
+    ? normalized
+    : [{ type: "p", children: [{ text: "" }] }];
 }

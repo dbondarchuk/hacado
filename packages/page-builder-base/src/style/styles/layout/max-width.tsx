@@ -12,6 +12,7 @@ const MaxWidthSchema = getZNumberValueWithUnitOrKeyword(
 export const maxWidthStyle = {
   name: "maxWidth",
   label: "builder.pageBuilder.styles.properties.maxWidth",
+  description: "CSS max-width",
   category: "layout",
   schema: MaxWidthSchema,
   icon: ({ className }) => <RulerDimensionLine className={className} />,

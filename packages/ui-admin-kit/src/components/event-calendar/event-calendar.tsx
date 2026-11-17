@@ -80,7 +80,7 @@ function formatDateLabel(
       const end = date.endOf("week");
       const startLabel = start.toLocaleString(format, { locale });
       const endLabel = end.toLocaleString(format, { locale });
-      return `${startLabel} – ${endLabel}`;
+      return `${startLabel} - ${endLabel}`;
     }
     case "monthly": {
       return date.toLocaleString(
@@ -90,7 +90,7 @@ function formatDateLabel(
     }
     case "agenda": {
       const end = date.plus({ days: daysToShow - 1 });
-      return `${date.toLocaleString(format, { locale })} – ${end.toLocaleString(format, { locale })}`;
+      return `${date.toLocaleString(format, { locale })} - ${end.toLocaleString(format, { locale })}`;
     }
     case "days-around": {
       const start = date.minus({ days: daysAround });
@@ -99,7 +99,7 @@ function formatDateLabel(
       const endLabel = end.toLocaleString(format, { locale });
       return startLabel === endLabel
         ? startLabel
-        : `${startLabel} – ${endLabel}`;
+        : `${startLabel} - ${endLabel}`;
     }
     default:
       return date.toLocaleString(format, { locale });

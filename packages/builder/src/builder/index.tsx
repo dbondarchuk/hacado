@@ -29,7 +29,10 @@ import { InspectorDrawer, SidebarTab } from "./inspector-drawer";
 import { TemplatePanel } from "./template-panel";
 import { PortalProvider } from "./template-panel/portal-context";
 import { BuilderToolbar } from "./template-panel/toolbar/builder-toolbar";
-import type { ToolbarButtonInjection } from "./template-panel/toolbar/toolbar-buttons";
+import {
+  ToolbarButtonsProvider,
+  type ToolbarButtonInjection,
+} from "./template-panel/toolbar/toolbar-buttons";
 
 export type { SidebarTab } from "./inspector-drawer";
 export type {
@@ -106,7 +109,9 @@ const BuilderSidebarProvider = ({
       defaultOpen={defaultOpen}
       // suppressHydrationWarning for open/close state
       suppressHydrationWarning
-      className={cn("!bg-transparent h-full min-h-full w-full relative")}
+      className={cn(
+        "!bg-transparent relative flex h-full min-h-0 w-full overflow-hidden",
+      )}
       style={
         {
           "--sidebar-width": `${sidebarWidth}rem`,
@@ -129,7 +134,7 @@ const BuilderFullScreenProvider = ({
   const Element = (
     <div
       className={cn(
-        "flex min-w-0 flex-col w-full h-full min-h-full",
+        "flex h-full min-h-0 min-w-0 w-full flex-col overflow-hidden",
         fullScreen && "fixed inset-0 z-50 pointer-events-auto bg-background",
       )}
       data-shimmer-no-children
@@ -168,33 +173,35 @@ const BuilderInternal = ({
 
   return (
     <BuilderFullScreenProvider>
-      <PortalProvider>
-        <BuilderToolbar args={args} toolbarButtons={toolbarButtons} />
-        <DocumentApplyErrorBoundary
-          onRollback={(document) => {
-            dispatch({
-              type: "document",
-              value: { document },
-            });
-          }}
-        >
-          <BuilderSidebarProvider sidebarWidth={sidebarWidth}>
-            <SidebarInset
-              className="flex min-h-full min-w-0 flex-1 flex-col"
-              asDiv
-            >
-              <TemplatePanel
-                args={args}
-                readerBlocks={readerBlocks}
-                header={header}
-                footer={footer}
-                modalsPanel={modalsPanel}
-              />
-            </SidebarInset>
-            <InspectorDrawer extraTabs={extraTabs} />
-          </BuilderSidebarProvider>
-        </DocumentApplyErrorBoundary>
-      </PortalProvider>
+      <ToolbarButtonsProvider buttons={toolbarButtons}>
+        <PortalProvider>
+          <BuilderToolbar args={args} />
+          <DocumentApplyErrorBoundary
+            onRollback={(document) => {
+              dispatch({
+                type: "document",
+                value: { document },
+              });
+            }}
+          >
+            <BuilderSidebarProvider sidebarWidth={sidebarWidth}>
+              <SidebarInset
+                className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
+                asDiv
+              >
+                <TemplatePanel
+                  args={args}
+                  readerBlocks={readerBlocks}
+                  header={header}
+                  footer={footer}
+                  modalsPanel={modalsPanel}
+                />
+              </SidebarInset>
+              <InspectorDrawer extraTabs={extraTabs} />
+            </BuilderSidebarProvider>
+          </DocumentApplyErrorBoundary>
+        </PortalProvider>
+      </ToolbarButtonsProvider>
     </BuilderFullScreenProvider>
   );
 };

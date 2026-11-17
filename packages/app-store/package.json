@@ -19,6 +19,7 @@
     "./injectors/customer-tab": "./src/injectors/customer-tab.ts",
     "./blocks/editors": "./src/blocks/editors.ts",
     "./blocks/schemas": "./src/blocks/schemas.ts",
+    "./blocks/defaults": "./src/blocks/defaults.ts",
     "./blocks/templates": "./src/blocks/templates.ts",
     "./blocks/readers": "./src/blocks/readers.ts",
     "./translations": "./src/translations.ts",

@@ -165,7 +165,12 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     return useBuilderAIStore
       .getState()
-      .registerApplyDocumentSettings((patch) => {
+      .registerApplyDocumentSettings((patch, options) => {
+        // Freeze before applying title so auto-slug cannot overwrite an AI slug.
+        if (patch.slug !== undefined || options?.preserveSlug) {
+          setSlugManuallyChanged(true);
+        }
+
         for (const [key, value] of Object.entries(patch)) {
           if (value === undefined) continue;
 
@@ -173,10 +178,6 @@ export const PageForm: React.FC<{
             shouldDirty: true,
             shouldValidate: true,
           });
-        }
-
-        if (patch.slug !== undefined) {
-          setSlugManuallyChanged(true);
         }
       });
   }, [form]);
@@ -476,10 +477,12 @@ export const PageForm: React.FC<{
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <Breadcrumbs items={breadcrumbItems} />
-      <div className="flex flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="shrink-0">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
         <AdminPageHeader
-          className="mb-0"
+          className="mb-0 shrink-0"
           text={
             <div className="my-2 w-full min-w-0">
               <PageIdentityBar
@@ -494,15 +497,15 @@ export const PageForm: React.FC<{
         />
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-8"
+          className="flex min-h-0 flex-1 flex-col overflow-hidden"
         >
-          <div className="flex flex-col-reverse lg:flex-row gap-4 w-full">
-            <FormField
-              control={form.control}
-              name="content"
-              render={({ field }) => (
-                <FormItem className="w-full flex-grow relative">
-                  <FormControl>
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem className="relative flex min-h-0 flex-1 flex-col content-normal overflow-hidden">
+                <FormControl>
+                  <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
                     <PageBuilder
                       args={args}
                       value={field.value}
@@ -515,13 +518,15 @@ export const PageForm: React.FC<{
                       blockRegistry={blockRegistry}
                       type="page"
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="shrink-0 pt-4">
+            <SaveButton form={form} />
           </div>
-          <SaveButton form={form} />
         </form>
       </div>
     </Form>

@@ -12,19 +12,18 @@ export const CustomHTMLPropsSchema = z.object({
         })
         .min(1, {
           message: "builder.pageBuilder.blocks.customHtml.errors.required",
-        }),
+        })
+        .describe("Raw HTML markup injected into the page"),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
 });
 
 export type CustomHTMLProps = Prettify<z.infer<typeof CustomHTMLPropsSchema>>;
 export type CustomHTMLReaderProps = BaseReaderBlockProps<any> & CustomHTMLProps;
 
-export const CustomHTMLPropsDefaults = {
-  props: {
-    html: "",
-  },
-  style: {},
-} as const satisfies CustomHTMLProps;
+export { CustomHTMLPropsDefaults } from "./defaults";

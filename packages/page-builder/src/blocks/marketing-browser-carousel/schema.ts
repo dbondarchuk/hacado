@@ -6,10 +6,14 @@ import * as z from "zod";
 import { zStyles } from "./styles";
 
 export const marketingBrowserCarouselSlideSchema = z.object({
-  id: z.string(),
-  label: z.string(),
-  src: z.string(),
-  addressBar: z.string().optional().nullable(),
+  id: z.string().describe("Stable id for this slide"),
+  label: z.string().describe("Tab label shown when tabs are enabled"),
+  src: z.string().describe("Screenshot or image URL for the slide"),
+  addressBar: z
+    .string()
+    .optional()
+    .nullable()
+    .describe("Fake browser address bar text for chrome styling"),
 });
 
 export type MarketingBrowserCarouselSlide = z.infer<
@@ -17,14 +21,27 @@ export type MarketingBrowserCarouselSlide = z.infer<
 >;
 
 export const MarketingBrowserCarouselPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    slides: z.array(marketingBrowserCarouselSlideSchema),
-    showTabs: z.coerce.boolean(),
-    showDots: z.coerce.boolean(),
-    showBrowserChrome: z.coerce.boolean(),
-    autoRotateMs: z.coerce.number().min(0),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      slides: z
+        .array(marketingBrowserCarouselSlideSchema)
+        .describe("Slides in the faux browser carousel"),
+      showTabs: z.coerce
+        .boolean()
+        .describe("Show clickable tabs to switch slides"),
+      showDots: z.coerce.boolean().describe("Show dot indicators"),
+      showBrowserChrome: z.coerce
+        .boolean()
+        .describe("Render browser window chrome around slides"),
+      autoRotateMs: z.coerce
+        .number()
+        .min(0)
+        .describe("Ms between automatic slide changes; 0 disables autoplay"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type MarketingBrowserCarouselProps = Prettify<

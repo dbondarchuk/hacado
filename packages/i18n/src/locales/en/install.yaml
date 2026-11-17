@@ -222,7 +222,7 @@ wizard:
   schedule:
     title: Your working hours
     subtitle: >-
-      Set when clients can book you. We start with Monday–Friday, 9:00 AM–5:00 PM;
+      Set when clients can book you. We start with Monday-Friday, 9:00 AM-5:00 PM;
       adjust any day or add shifts as needed.
     editLater: "You can change hours, breaks, and overrides anytime under Settings → Schedule."
     weeklyScheduleAppHint: >-
@@ -368,7 +368,7 @@ wizard:
       privacy:
         title: Privacy Policy
         updated: "Last Updated: {date}"
-        intro: "{businessName} (\"we,\" \"us,\" or \"our\") respects your privacy and is committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your information when you book services or interact with us online through our website provided by our scheduling platform partner, Hacado."
+        intro: '{businessName} ("we," "us," or "our") respects your privacy and is committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your information when you book services or interact with us online through our website provided by our scheduling platform partner, Hacado.'
         collectTitle: Information We Collect
         collectBody: When you book an appointment, join a waitlist, or communicate with us, we may collect personal details including your name, email address, and mobile phone number.
         useTitle: How We Use Your Information
@@ -733,7 +733,7 @@ catalog:
           name: Lash Fill
           description: >-
             **Maintenance refill** to restore fullness and replace grown-out
-            lashes. Best every 2–3 weeks.
+            lashes. Best every 2-3 weeks.
           addons:
             lash_fill-addon-beauty-1:
               name: Color tint refresh

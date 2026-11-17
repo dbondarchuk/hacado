@@ -1,4 +1,5 @@
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
+import { plateBodyValueSchema } from "@hacado/rte/plate-value";
 import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { zStyles } from "./styles";
@@ -6,50 +7,19 @@ import { zStyles } from "./styles";
 export const TextPropsSchema = z.object({
   props: z
     .object({
-      value: z.any().optional().nullable(),
+      value: plateBodyValueSchema.describe(
+        "Rich text body (Plate editor document value)",
+      ),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
 });
 
 export type TextProps = Prettify<z.infer<typeof TextPropsSchema>>;
 export type TextReaderProps = BaseReaderBlockProps<any> & TextProps;
 
-export const TextPropsDefaults = {
-  props: {
-    value: [],
-  },
-  style: {
-    padding: [
-      {
-        value: {
-          top: {
-            value: 1,
-            unit: "rem",
-          },
-          bottom: {
-            value: 1,
-            unit: "rem",
-          },
-          left: {
-            value: 1.5,
-            unit: "rem",
-          },
-          right: {
-            value: 1.5,
-            unit: "rem",
-          },
-        },
-      },
-    ],
-    fontSize: [
-      {
-        value: {
-          value: 1,
-          unit: "rem",
-        },
-      },
-    ],
-  },
-} as const satisfies TextProps;
+export { TextPropsDefaults } from "./defaults";

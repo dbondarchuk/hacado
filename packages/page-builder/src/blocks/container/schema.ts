@@ -6,52 +6,19 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const ContainerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    children: z.array(z.any()),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      children: z
+        .array(z.any())
+        .describe("Nested child blocks inside the container"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type ContainerProps = z.infer<typeof ContainerPropsSchema>;
 export type ContainerReaderProps = BaseReaderBlockProps<any> & ContainerProps;
 
-export const ContainerPropsDefaults = {
-  style: {
-    padding: [
-      {
-        value: {
-          top: { value: 1, unit: "rem" },
-          bottom: { value: 1, unit: "rem" },
-          left: { value: 1.5, unit: "rem" },
-          right: { value: 1.5, unit: "rem" },
-        },
-      },
-    ],
-    display: [
-      {
-        value: "flex",
-      },
-    ],
-    flexDirection: [
-      {
-        value: "column",
-      },
-    ],
-    width: [
-      {
-        value: { value: 100, unit: "%" },
-      },
-    ],
-    gap: [
-      {
-        value: {
-          value: 0.5,
-          unit: "rem",
-        },
-      },
-    ],
-  },
-  props: {
-    children: [],
-  },
-} as const satisfies ContainerProps;
+export { ContainerPropsDefaults } from "./defaults";

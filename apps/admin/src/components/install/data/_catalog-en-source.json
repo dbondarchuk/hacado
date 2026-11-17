@@ -222,7 +222,7 @@
         },
         "lash_fill": {
           "name": "Lash Fill",
-          "description": "**Maintenance refill** to restore fullness and replace grown-out lashes. Best every 2–3 weeks.",
+          "description": "**Maintenance refill** to restore fullness and replace grown-out lashes. Best every 2-3 weeks.",
           "addons": {
             "lash_fill-addon-beauty-1": {
               "name": "Color tint refresh",

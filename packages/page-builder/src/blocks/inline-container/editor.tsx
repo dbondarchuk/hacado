@@ -1,18 +1,14 @@
 import { EditorChildren } from "@hacado/builder/blocks";
 import { useCurrentBlock } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
-import { BlockFilterRule } from "@hacado/builder/types";
 import {
   BackgroundVideoLayer,
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
 } from "@hacado/page-builder-base/helpers";
+import { INLINE_CHILDREN_ALLOW } from "../child-allow";
 import { InlineContainerProps, styles } from "./schema";
-
-const allowOnly: BlockFilterRule = {
-  capabilities: ["inline"],
-};
 
 export const InlineContainerEditor = ({
   style,
@@ -38,7 +34,7 @@ export const InlineContainerEditor = ({
         <EditorChildren
           blockId={currentBlock.id}
           property="props"
-          allow={allowOnly}
+          allow={INLINE_CHILDREN_ALLOW}
         />
       </span>
     </>

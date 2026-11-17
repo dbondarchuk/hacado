@@ -9,6 +9,7 @@ const GapSchema = zNumberValueWithUnit;
 export const gapStyle = {
   name: "gap",
   label: "builder.pageBuilder.styles.properties.gap",
+  description: "CSS gap for flex/grid",
   category: "spacing",
   schema: GapSchema,
   icon: ({ className }) => <RulerDimensionLine className={className} />,

@@ -36,6 +36,9 @@ block:
     preview: Блок форми (форма буде показана на сторінці)
     selectForm: Оберіть форму для відображення
     loadError: Не вдалося завантажити форму
+  ai:
+    improveFormCopy: Покращити копію форми
+    askAi: Запитайте AI
 forms:
   table:
     filters:

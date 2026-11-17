@@ -9,6 +9,7 @@ const InsetSchema = zFourSideValues;
 export const insetStyle = {
   name: "inset",
   label: "builder.pageBuilder.styles.properties.inset",
+  description: "CSS inset (top/right/bottom/left shorthand)",
   category: "layout",
   schema: InsetSchema,
   icon: ({ className }) => <Move className={className} />,

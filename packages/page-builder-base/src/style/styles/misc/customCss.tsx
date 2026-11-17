@@ -8,6 +8,7 @@ const CustomCSSSchema = z.string();
 export const customCssStyle = {
   name: "customCss",
   label: "builder.pageBuilder.styles.properties.customCss",
+  description: "Raw custom CSS declarations (use sparingly)",
   category: "misc",
   icon: ({ className }) => <Code className={className} />,
   schema: CustomCSSSchema,

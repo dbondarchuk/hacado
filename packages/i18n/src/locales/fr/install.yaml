@@ -35,7 +35,7 @@ checkout:
       badge: Recommandé
       cta: Abonnez-vous à Solo
       benefits:
-        payments: Acceptez les paiements en ligne – Square, Stripe, PayPal et plus encore
+        payments: Acceptez les paiements en ligne - Square, Stripe, PayPal et plus encore
         syncedPayments: Synchronisez automatiquement les paiements par carte en magasin - suivez comment vous êtes payé
         domain: Connectez votre propre domaine pour vous démarquer de vos concurrents
         unlimited: Réservations, services et clients illimités, toujours
@@ -276,7 +276,7 @@ wizard:
     autoConfirmBookingsHint: Confirmez automatiquement les nouvelles réservations sans approbation manuelle.
     cancelPolicy: Autoriser les annulations et les reprogrammations
     cancelHelp: Vous pourrez définir des fenêtres et des frais dans les paramètres de rendez-vous ultérieurement.
-    flex: Tout cela peut être modifié à tout moment – ​​nous ne faisons que commencer.
+    flex: Tout cela peut être modifié à tout moment - ​​nous ne faisons que commencer.
     acceptPaymentsUpgradeHint: Passez à Solo pour accepter les paiements en ligne.
   website:
     title: Choisissez votre site Web
@@ -2251,4 +2251,3 @@ catalog:
             wellness_package_3_sessions-addon-holistic-2:
               name: Plan de pratique à domicile
               description: "**Fiche d'orientation** pour accompagner la progression après le Forfait Bien-être (3 séances)."
-

@@ -74,10 +74,49 @@ function deepMerge(target: any, source: any): any {
       if (sourceValue === null) {
         result[key] = null;
       } else if (Array.isArray(sourceValue)) {
-        // For arrays, we need to be careful with children
-        if (key === "children" && targetValue && Array.isArray(targetValue)) {
-          // Preserve children array structure
-          result[key] = targetValue;
+        if (
+          key === "children" &&
+          targetValue &&
+          Array.isArray(targetValue)
+        ) {
+          const sourceHasBlocks = sourceValue.some(
+            (item) =>
+              item &&
+              typeof item === "object" &&
+              "id" in item &&
+              "type" in item,
+          );
+
+          // UI config often strips children — keep existing tree.
+          // AI / nested edits send full block trees — merge by id.
+          if (!sourceHasBlocks || sourceValue.length === 0) {
+            result[key] = targetValue;
+          } else {
+            const max = Math.max(sourceValue.length, targetValue.length);
+            result[key] = Array.from({ length: max }, (_, i) => {
+              const src = sourceValue[i];
+              const tgt = targetValue[i];
+              if (!src) return tgt;
+              if (!tgt) return src;
+              if (
+                typeof src === "object" &&
+                typeof tgt === "object" &&
+                "id" in src &&
+                "id" in tgt &&
+                (src as { id: unknown }).id === (tgt as { id: unknown }).id &&
+                "type" in src &&
+                "type" in tgt
+              ) {
+                return {
+                  ...deepMerge(tgt, src),
+                  id: (tgt as { id: unknown }).id,
+                  type: (tgt as { type: unknown }).type,
+                };
+              }
+
+              return src ?? tgt;
+            });
+          }
         } else if (
           (key === "cellBlocks" || key === "cells") &&
           Array.isArray(sourceValue)
@@ -89,38 +128,6 @@ function deepMerge(target: any, source: any): any {
         ) {
           // Index-aligned with flat cells; follow source order/length on grid edits.
           result[key] = sourceValue;
-        } else if (
-          key === "children" &&
-          targetValue &&
-          Array.isArray(targetValue) &&
-          sourceValue.some(
-            (item) =>
-              item &&
-              typeof item === "object" &&
-              "id" in item &&
-              "type" in item,
-          )
-        ) {
-          const max = Math.max(sourceValue.length, targetValue.length);
-          result[key] = Array.from({ length: max }, (_, i) => {
-            const src = sourceValue[i];
-            const tgt = targetValue[i];
-            if (!src) return tgt;
-            if (!tgt) return src;
-            if (
-              typeof src === "object" &&
-              typeof tgt === "object" &&
-              "id" in src &&
-              "id" in tgt &&
-              (src as { id: unknown }).id === (tgt as { id: unknown }).id &&
-              "type" in src &&
-              "type" in tgt
-            ) {
-              return deepMerge(tgt, src);
-            }
-
-            return src ?? tgt;
-          });
         } else {
           // For other arrays, merge or replace based on context
           result[key] = sourceValue;

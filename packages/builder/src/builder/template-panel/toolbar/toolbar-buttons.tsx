@@ -14,6 +14,7 @@ import { Fragment, createContext, useContext, useMemo } from "react";
  * - errors: validation status
  * - view: preview, full screen, and animation
  * - panels: context, blocks panel, and sidebar
+ * - selection: floating selected-block overlay toolbar
  */
 export type ToolbarSection =
   | "history"
@@ -24,7 +25,8 @@ export type ToolbarSection =
   | "viewport"
   | "errors"
   | "view"
-  | "panels";
+  | "panels"
+  | "selection";
 
 export type ToolbarButtonInjection = {
   id: string;

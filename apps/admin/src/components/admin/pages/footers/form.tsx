@@ -227,10 +227,12 @@ export const PageFooterForm: React.FC<{
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <Breadcrumbs items={breadcrumbItems} />
-      <div className="flex flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="shrink-0">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
         <PageHeader
-          className="mb-0"
+          className="mb-0 shrink-0"
           text={
             <div className="my-2 w-full min-w-0">
               <NameIdentityBar
@@ -246,30 +248,34 @@ export const PageFooterForm: React.FC<{
         />
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="relative w-full space-y-8"
+          className="relative flex min-h-0 flex-1 flex-col overflow-hidden"
         >
           <FormField
             control={form.control}
             name="content"
             render={({ field }) => (
-              <FormItem className="w-full flex-grow relative">
+              <FormItem className="relative flex min-h-0 flex-1 flex-col content-normal overflow-hidden">
                 <FormControl>
-                  <PageBuilder
-                    args={args}
-                    type="footer"
-                    value={field.value}
-                    onIsValidChange={onPageBuilderValidChange}
-                    onChange={field.onChange}
-                    blockRegistry={blockRegistry}
-                    toolbarButtons={builderAIToolbarButtons}
-                    extraTabs={extraTabs}
-                  />
+                  <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
+                    <PageBuilder
+                      args={args}
+                      type="footer"
+                      value={field.value}
+                      onIsValidChange={onPageBuilderValidChange}
+                      onChange={field.onChange}
+                      blockRegistry={blockRegistry}
+                      toolbarButtons={builderAIToolbarButtons}
+                      extraTabs={extraTabs}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <SaveButton form={form} disabled={loading} />
+          <div className="shrink-0 pt-4">
+            <SaveButton form={form} disabled={loading} />
+          </div>
         </form>
       </div>
     </Form>

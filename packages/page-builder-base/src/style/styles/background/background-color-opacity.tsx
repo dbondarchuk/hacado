@@ -14,6 +14,7 @@ export const BackgroundColorOpacityVar = "background-color-opacity";
 export const backgroundColorOpacityStyle = {
   name: "backgroundColorOpacity",
   label: "builder.pageBuilder.styles.properties.backgroundColorOpacity",
+  description: "Background color opacity overlay",
   category: "background",
   schema: BackgroundColorOpacitySchema,
   icon: ({ className }) => <Blend className={className} />,

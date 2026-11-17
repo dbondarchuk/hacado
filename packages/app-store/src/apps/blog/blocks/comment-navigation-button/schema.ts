@@ -10,10 +10,16 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const BlogCommentNavigationButtonPropsSchema = z.object({
-  props: z.object({
-    direction: z.enum(["prev", "next"]),
-  }),
-  style: zStyles,
+  props: z
+    .object({
+      direction: z
+        .enum(["prev", "next"])
+        .describe("Which adjacent comment page the button navigates to."),
+    })
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogCommentNavigationButtonProps = z.infer<

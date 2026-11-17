@@ -9,6 +9,7 @@ const ContentSchema = z.string();
 export const contentStyle = {
   name: "content",
   label: "builder.pageBuilder.styles.properties.content",
+  description: "CSS content for ::before/::after",
   category: "misc",
   icon: ({ className }) => <Quote className={className} />,
   schema: ContentSchema,

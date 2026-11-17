@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@hacado/i18n/client";
 import { cn } from "@hacado/ui/cn";
 import {
   Collapsible,
@@ -18,6 +19,7 @@ export function BuilderAIApplyErrorCard(props: {
   error: BuilderAIApplyError;
   className?: string;
 }) {
+  const t = useI18n("builder");
   const [open, setOpen] = useState(false);
   const details = props.error.details?.trim();
 
@@ -32,7 +34,9 @@ export function BuilderAIApplyErrorCard(props: {
       {details ? (
         <Collapsible open={open} onOpenChange={setOpen} className="mt-1">
           <CollapsibleTrigger className="text-destructive/80 hover:text-destructive inline-flex items-center gap-1 underline-offset-2 hover:underline">
-            {open ? "Hide error details" : "Show error details"}
+            {open
+              ? t("ai.hideErrorDetails")
+              : t("ai.showErrorDetails")}
             <ChevronDown
               className={cn(
                 "size-3 transition-transform",

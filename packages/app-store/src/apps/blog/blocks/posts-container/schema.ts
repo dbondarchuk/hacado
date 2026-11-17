@@ -6,11 +6,20 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const BlogPostsContainerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    children: z.array(z.any()),
-    postsPerPage: z.number().optional(),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
+  props: z
+    .object({
+      children: z
+        .array(z.any())
+        .describe("Nested post card blocks for the current page."),
+      postsPerPage: z
+        .number()
+        .optional()
+        .describe("Number of blog posts shown per page."),
+    })
+    .describe("Block configuration props"),
 });
 
 export type BlogPostsContainerProps = z.infer<

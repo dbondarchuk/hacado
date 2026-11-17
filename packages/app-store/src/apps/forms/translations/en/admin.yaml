@@ -27,6 +27,9 @@ app:
 block:
   category: Forms
   displayName: Form
+  ai:
+    improveFormCopy: Improve form copy
+    askAi: Ask AI
   formsAppId:
     label: Forms app
     helperText: Select the Forms app that provides the form.

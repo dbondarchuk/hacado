@@ -28,6 +28,7 @@ const defaultBorderStyle = "solid" as const;
 export const borderStyleStyle = {
   name: "borderStyle",
   label: "builder.pageBuilder.styles.properties.borderStyle",
+  description: "CSS border-style",
   category: "border",
   icon: ({ className }) => <Square className={className} />,
   schema: BorderStyleSchema,

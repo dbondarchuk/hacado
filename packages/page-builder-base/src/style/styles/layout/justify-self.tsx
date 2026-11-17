@@ -11,6 +11,7 @@ const JustifySelfSchema = z.enum(justifySelfKeys);
 export const justifySelfStyle = {
   name: "justifySelf",
   label: "builder.pageBuilder.styles.properties.justifySelf",
+  description: "CSS justify-self for grid item",
   category: "layout",
   schema: JustifySelfSchema,
   icon: ({ className }) => <AlignHorizontalSpaceAround className={className} />,

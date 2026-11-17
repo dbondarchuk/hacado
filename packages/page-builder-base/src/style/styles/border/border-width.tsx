@@ -26,6 +26,7 @@ const turn: Record<PerSideKey, string> = {
 export const borderWidthStyle = {
   name: "borderWidth",
   label: "builder.pageBuilder.styles.properties.borderWidth",
+  description: "CSS border-width",
   icon: ({ className }) => <Square className={className} />,
   category: "border",
   schema: BorderWidthSchema,

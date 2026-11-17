@@ -17,6 +17,7 @@ const OverflowWrapSchema = z.enum(overflowWrapKeys);
 export const overflowWrapStyle = {
   name: "overflowWrap",
   label: "builder.pageBuilder.styles.properties.overflowWrap",
+  description: "CSS overflow-wrap / word-wrap",
   category: "typography",
   icon: ({ className }) => <WrapText className={className} />,
   schema: OverflowWrapSchema,

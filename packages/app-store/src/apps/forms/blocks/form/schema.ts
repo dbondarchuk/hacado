@@ -9,53 +9,21 @@ export const zStyles = getStylesSchema(styles);
 export const FormBlockPropsSchema = z.object({
   props: z
     .object({
-      formId: z.string().nullable().optional(),
+      formId: z
+        .string()
+        .nullable()
+        .optional()
+        .describe("MongoDB ObjectId of the form to render in this block."),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type FormBlockProps = Prettify<z.infer<typeof FormBlockPropsSchema>>;
 export type FormBlockReaderProps = BaseReaderBlockProps<any> & FormBlockProps;
 
-export const FormBlockPropsDefaults = {
-  props: {
-    formId: null as string | null,
-  },
-  style: {
-    padding: [
-      {
-        value: {
-          top: { value: 1, unit: "rem" },
-          bottom: { value: 1, unit: "rem" },
-          left: { value: 1.5, unit: "rem" },
-          right: { value: 1.5, unit: "rem" },
-        },
-      },
-    ],
-    display: [
-      {
-        value: "flex",
-      },
-    ],
-    flexDirection: [
-      {
-        value: "column",
-      },
-    ],
-    width: [
-      {
-        value: { value: 100, unit: "%" },
-      },
-    ],
-    gap: [
-      {
-        value: {
-          value: 0.5,
-          unit: "rem",
-        },
-      },
-    ],
-  },
-} as const satisfies FormBlockProps;
+export { FormBlockPropsDefaults } from "./defaults";

@@ -13,58 +13,20 @@ export const styles = getAllStylesWithAdditionalStyles({
 export const zStyles = getStylesSchema(styles);
 
 export const InlineContainerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    children: z.array(z.any()),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      children: z
+        .array(z.any())
+        .describe("Inline-level child blocks"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type InlineContainerProps = z.infer<typeof InlineContainerPropsSchema>;
 export type InlineContainerReaderProps = BaseReaderBlockProps<any> &
   InlineContainerProps;
 
-export const InlineContainerPropsDefaults = {
-  style: {
-    padding: [
-      {
-        value: {
-          top: { value: 0, unit: "rem" },
-          bottom: { value: 0, unit: "rem" },
-          left: { value: 0, unit: "rem" },
-          right: { value: 0, unit: "rem" },
-        },
-      },
-    ],
-    display: [
-      {
-        value: "inline-flex",
-      },
-    ],
-    flexDirection: [
-      {
-        value: "row",
-      },
-    ],
-    alignItems: [
-      {
-        value: "center",
-      },
-    ],
-    justifyContent: [
-      {
-        value: "center",
-      },
-    ],
-    gap: [
-      {
-        value: {
-          value: 0.5,
-          unit: "rem",
-        },
-      },
-    ],
-  },
-  props: {
-    children: [],
-  },
-} as const satisfies InlineContainerProps;
+export { InlineContainerPropsDefaults } from "./defaults";

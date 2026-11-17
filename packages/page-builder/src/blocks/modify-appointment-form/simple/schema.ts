@@ -3,8 +3,10 @@ import * as z from "zod";
 import { zStyles } from "./styles";
 
 export const ModifyAppointmentFormPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({}),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z.object({}).describe("Block configuration props"),
 });
 
 export type ModifyAppointmentFormProps = z.infer<

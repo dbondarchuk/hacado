@@ -11,7 +11,7 @@ Add a discount when clients should pay less by entering a promo code during book
 ## Before you start
 
 - Know whether the discount is a **Percentage** or a **Fixed amount**, and the value.
-- Decide which promo codes clients will enter (1–10, unique across your discounts).
+- Decide which promo codes clients will enter (1-10, unique across your discounts).
 - Optionally decide which [services](/docs/catalog/services), [add-ons](/docs/catalog/addons), or [packages](/docs/catalog/packages) the code may apply to.
 
 ## Create the discount
@@ -36,7 +36,7 @@ You can also open an existing row menu and choose **Clone**.
    - **Active** - codes can apply when other rules allow.
    - **Disabled** - codes never apply, even if dates and limits would match.
 3. Choose **Type**:
-   - **Percentage** - take a percent off the eligible price (for example **15** → 15%). Value must be 1–100.
+   - **Percentage** - take a percent off the eligible price (for example **15** → 15%). Value must be 1-100.
    - **Fixed amount** - take a set currency amount off (for example **50** → $50). Hacado never reduces a line below zero.
 4. Enter **Value** for that type.
 
@@ -48,12 +48,12 @@ All four date fields are optional. Leave them empty when the discount should not
 
 ![Discount validity and appointment eligibility dates](/img/catalog/discounts/dates.png)
 
-| Field | What it controls | Example |
-| --- | --- | --- |
-| **Start date** | Earliest moment a client may **enter the code** | Promo opens 28 Feb |
-| **End date** | Latest moment a client may **enter the code** | Promo closes 31 May |
-| **Earliest eligible appointment date** | Appointment (or package-related booking) datetime must be on or after this | Only sessions on/after 15 Mar |
-| **Latest eligible appointment date** | Appointment datetime must be on or before this | Only sessions on/before 30 Jun |
+| Field                                  | What it controls                                                           | Example                        |
+| -------------------------------------- | -------------------------------------------------------------------------- | ------------------------------ |
+| **Start date**                         | Earliest moment a client may **enter the code**                            | Promo opens 28 Feb             |
+| **End date**                           | Latest moment a client may **enter the code**                              | Promo closes 31 May            |
+| **Earliest eligible appointment date** | Appointment (or package-related booking) datetime must be on or after this | Only sessions on/after 15 Mar  |
+| **Latest eligible appointment date**   | Appointment datetime must be on or before this                             | Only sessions on/before 30 Jun |
 
 **Start / End** gate when the code can be redeemed. **Earliest / Latest eligible appointment** gate which appointment times the discount may cover. You can sell a spring booking sale in March that only applies to sessions in late spring.
 
@@ -63,10 +63,10 @@ Example with both: clients may apply `SPRING15` from late February through May, 
 
 ![Maximum total uses and per customer](/img/catalog/discounts/max-uses.png)
 
-| Field | What it does | Example |
-| --- | --- | --- |
-| **Maximum total uses** | Cap across **all** customers (confirmed + pending appointments that used this discount). When reached, nobody else can use it. | **100** total redemptions workspace-wide |
-| **Maximum uses per customer** | Cap for one customer. Further attempts by that person fail. | **1** → each client uses the code once |
+| Field                         | What it does                                                                                                                   | Example                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
+| **Maximum total uses**        | Cap across **all** customers (confirmed + pending appointments that used this discount). When reached, nobody else can use it. | **100** total redemptions workspace-wide |
+| **Maximum uses per customer** | Cap for one customer. Further attempts by that person fail.                                                                    | **1** → each client uses the code once   |
 
 Leave empty for no usage caps beyond dates, status, and **Limit to**.
 
@@ -100,11 +100,11 @@ Use **Limit to** when the code should only work for specific items. Multiple lim
 
 Inside a card:
 
-| Area | Label in the UI | Matching rule |
-| --- | --- | --- |
-| Services | **Any of the following services** | Booking service must be one of the listed services. Empty = any service for this card’s service side. |
+| Area           | Label in the UI                                            | Matching rule                                                                                                            |
+| -------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Services       | **Any of the following services**                          | Booking service must be one of the listed services. Empty = any service for this card’s service side.                    |
 | Add-on bundles | **Any of following add-on bundles** (joined with **With**) | At least one bundle must fully match: every add-on in that bundle must be on the booking. Empty = no add-on requirement. |
-| Packages | **Any of following packages** (under **Or**) | For **package purchases**, the package must be one of the listed packages. Empty = no package list on this card. |
+| Packages       | **Any of following packages** (under **Or**)               | For **package purchases**, the package must be one of the listed packages. Empty = no package list on this card.         |
 
 Service bookings and package purchases are separate:
 

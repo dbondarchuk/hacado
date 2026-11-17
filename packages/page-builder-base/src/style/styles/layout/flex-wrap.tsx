@@ -11,6 +11,7 @@ const FlexWrapSchema = z.enum(flexWrapKeys);
 export const flexWrapStyle = {
   name: "flexWrap",
   label: "builder.pageBuilder.styles.properties.flexWrap",
+  description: "CSS flex-wrap",
   category: "layout",
   schema: FlexWrapSchema,
   icon: ({ className }) => <WrapText className={className} />,

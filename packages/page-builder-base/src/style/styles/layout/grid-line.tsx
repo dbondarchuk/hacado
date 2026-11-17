@@ -21,16 +21,19 @@ const gridLineOptions: GridLineValue[] = ["auto", ...gridLineNumbers];
 export const createGridLineStyle = <TName extends string>({
   name,
   label,
+  description,
   cssProperty,
   icon: Icon,
 }: {
   name: TName;
   label: BaseAllKeys;
+  description?: string;
   cssProperty: string;
   icon: LucideIcon;
 }): StyleDefinition<typeof GridLineSchema, TName> => ({
   name,
   label,
+  description,
   category: "layout",
   schema: GridLineSchema,
   icon: ({ className }: { className?: string }) => (

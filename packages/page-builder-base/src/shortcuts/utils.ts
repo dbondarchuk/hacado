@@ -319,7 +319,7 @@ export const getShortcutCurrentValue = <T extends BaseStyleDictionary>(
 
       if (isVariantsArrayObject(targetValue)) {
         // For variants array, check how many variants match
-        const currentVariants = styles[styleName] || [];
+        const currentVariants = styles?.[styleName] || [];
         const targetVariants = targetValue.variants;
 
         if (currentVariants.length === 0 && targetVariants.length === 0) {

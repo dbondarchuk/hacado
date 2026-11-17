@@ -1,11 +1,12 @@
 import { getOrganizationIdAndSlug, getServicesContainer } from "@/app/utils";
-import { createAdminBuilderAIAdapter } from "@/lib/builder-ai/create-adapter";
 import {
   checkRateLimit,
   isImageGenerationEnabled,
   type BuilderKind,
-} from "@hacado/builder-ai";
+} from "@hacado/ai-builder-core";
+import { createEmailBuilderAIAdapter } from "@hacado/ai-builder-email";
 import { getLoggerFactory } from "@hacado/logger";
+import { createPageBuilderAIAdapter } from "@hacado/ai-builder-page";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -39,9 +40,13 @@ export async function GET(request: NextRequest) {
             await services.connectedAppsService.getAppsByScope("ui-components")
           ).map((app) => ({
             appId: String(app._id),
-            appName: app.appName,
+            appName: app.name,
           }));
-    const adapter = createAdminBuilderAIAdapter({ builder, apps });
+
+    const adapter =
+      builder === "email"
+        ? createEmailBuilderAIAdapter()
+        : createPageBuilderAIAdapter({ builder, apps });
 
     if (blockType) {
       const capabilities = await adapter.getBlockAICapabilities({ blockType });
@@ -62,19 +67,19 @@ export async function GET(request: NextRequest) {
         {
           id: "improve_page",
           label: "Improve this document",
-          description: "Improve the overall document quality",
+          labelKey: "builder.ai.actions.improveDocument",
           kind: "generative",
         },
         {
           id: "generate_missing",
           label: "Generate missing content",
-          description: "Fill in incomplete sections using business context",
+          labelKey: "builder.ai.actions.generateMissing",
           kind: "generative",
         },
         {
           id: "make_professional",
           label: "Make more professional",
-          description: "Adjust tone and layout for a more professional result",
+          labelKey: "builder.ai.actions.makeProfessional",
           kind: "generative",
         },
       ],

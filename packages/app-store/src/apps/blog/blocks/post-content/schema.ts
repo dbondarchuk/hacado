@@ -13,23 +13,38 @@ const maxParagraphsValidation =
 export const BlogPostContentPropsSchema = z.object({
   props: z
     .object({
-      showShort: z.literal(false).optional(),
+      showShort: z
+        .literal(false)
+        .optional()
+        .describe("Render the full post body instead of a short excerpt."),
     })
     .or(
       z.object({
-        showShort: z.literal(true).optional(),
+        showShort: z
+          .literal(true)
+          .optional()
+          .describe("Render a truncated excerpt instead of the full post body."),
         maxParagraphs: z.coerce
           .number(maxParagraphsValidation)
           .int(maxParagraphsValidation)
           .min(1, maxParagraphsValidation)
           .max(10, maxParagraphsValidation)
-          .optional(),
-        showOnlyTextParagraphs: z.boolean().optional(),
+          .optional()
+          .describe("Maximum paragraphs to include in the short excerpt (1-10)."),
+        showOnlyTextParagraphs: z
+          .boolean()
+          .optional()
+          .describe(
+            "Include only text paragraphs in the excerpt, skipping media blocks.",
+          ),
       }),
     )
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostContentProps = Prettify<

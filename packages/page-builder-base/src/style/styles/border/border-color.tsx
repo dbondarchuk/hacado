@@ -14,6 +14,7 @@ const defaultBorderColor = COLORS.primary.value;
 export const borderColorStyle = {
   name: "borderColor",
   label: "builder.pageBuilder.styles.properties.borderColor",
+  description: "CSS border-color; prefer brand/design tokens",
   icon: ({ className }) => <Brush className={className} />,
   category: "border",
   schema: BorderColorSchema,

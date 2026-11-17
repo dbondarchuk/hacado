@@ -6,12 +6,24 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const BlogCommentsContainerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    children: z.array(z.any()),
-    commentsPerPage: z.number().optional(),
-    sort: z.enum(["newest", "oldest"]).optional(),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
+  props: z
+    .object({
+      children: z
+        .array(z.any())
+        .describe("Nested comment blocks for the current page of comments."),
+      commentsPerPage: z
+        .number()
+        .optional()
+        .describe("Number of comments shown per page."),
+      sort: z
+        .enum(["newest", "oldest"])
+        .optional()
+        .describe("Default sort order for comments."),
+    })
+    .describe("Block configuration props"),
 });
 
 export type BlogCommentsContainerProps = z.infer<

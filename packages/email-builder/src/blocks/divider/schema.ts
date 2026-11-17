@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { EMAIL_BRAND } from "../../brand";
 import {
   zColor,
   zColorNullable,
@@ -9,31 +8,30 @@ import {
 export const DividerPropsSchema = z.object({
   style: z
     .object({
-      backgroundColor: zColorNullable,
-      padding: zPadding,
+      backgroundColor: zColorNullable.describe(
+        "Background color of the area around the divider line.",
+      ),
+      padding: zPadding.describe("Padding around the divider block."),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Surrounding background and padding for the divider."),
   props: z
     .object({
-      lineColor: zColor,
+      lineColor: zColor.describe("Color of the horizontal divider line."),
       lineHeight: z.coerce
         .number<number>()
         .int("Should be the integer value")
         .positive()
         .optional()
-        .nullable(),
+        .nullable()
+        .describe("Thickness of the divider line in pixels."),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Divider line color and thickness."),
 });
 
 export type DividerProps = z.infer<typeof DividerPropsSchema>;
 
-export const DividerPropsDefaults = {
-  props: {
-    lineHeight: 1,
-    lineColor: EMAIL_BRAND.ink,
-  },
-  style: { padding: { top: 16, right: 0, bottom: 16, left: 0 } },
-};
+export { DividerPropsDefaults } from "./defaults";

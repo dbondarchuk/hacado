@@ -9,6 +9,7 @@ const WordSpacingSchema = zNumberValueWithUnit;
 export const wordSpacingStyle = {
   name: "wordSpacing",
   label: "builder.pageBuilder.styles.properties.wordSpacing",
+  description: "CSS word-spacing",
   category: "typography",
   icon: ({ className }) => <TextCursor className={className} />,
   schema: WordSpacingSchema,

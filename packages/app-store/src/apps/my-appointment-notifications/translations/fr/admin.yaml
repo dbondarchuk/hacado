@@ -79,16 +79,15 @@ statusText:
   error_sending_text_message_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par SMS pour un rendez-vous reprogrammé
   error_processing_text_message_reply: Erreur lors du traitement de la réponse au message texte
 handlers:
-  newRequest: Mes notifications de rendez-vous – Nouvelle demande
+  newRequest: Mes notifications de rendez-vous - Nouvelle demande
   pending: Mes notifications de rendez-vous - En attente
   confirmed: Mes notifications de rendez-vous - Confirmé
-  declined: Mes notifications de rendez-vous – Refusé
+  declined: Mes notifications de rendez-vous - Refusé
   canceled: Mes notifications de rendez-vous - Annulé
   noShow: Mes notifications de rendez-vous - Non-présentation
-  rescheduled: Mes notifications de rendez-vous – Reprogrammé
+  rescheduled: Mes notifications de rendez-vous - Reprogrammé
   autoReply: Mes notifications de rendez-vous - Réponse automatique
 validation:
   form:
     channel:
       required: Au moins un canal est requis. Activez le courrier électronique, les SMS ou les deux.
-

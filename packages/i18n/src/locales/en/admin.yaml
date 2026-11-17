@@ -2727,7 +2727,7 @@ catalog:
       creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
     adjust:
       title: Adjust used credits
-      description: Set how many credits of {name} have been used (0–{total}).
+      description: Set how many credits of {name} have been used (0-{total}).
       usedLabel: Used credits
       reason: Reason
       reasonPlaceholder: Optional note

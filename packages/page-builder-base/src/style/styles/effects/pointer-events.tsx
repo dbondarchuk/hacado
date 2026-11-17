@@ -11,6 +11,7 @@ const PointerEventsSchema = z.enum(pointerEventsKeys);
 export const pointerEventsStyle = {
   name: "pointerEvents",
   label: "builder.pageBuilder.styles.properties.pointerEvents",
+  description: "CSS pointer-events",
   category: "effects",
   icon: ({ className }) => <PointerOff className={className} />,
   schema: PointerEventsSchema,

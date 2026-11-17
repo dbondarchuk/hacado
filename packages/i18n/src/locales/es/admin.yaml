@@ -2589,7 +2589,7 @@ catalog:
       creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
     adjust:
       title: Ajustar créditos usados
-      description: Establezca cuántos créditos de {name} se han utilizado (0–{total}).
+      description: Establezca cuántos créditos de {name} se han utilizado (0-{total}).
       usedLabel: Créditos usados
       reason: Razón
       reasonPlaceholder: Nota opcional
@@ -4388,4 +4388,3 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
-

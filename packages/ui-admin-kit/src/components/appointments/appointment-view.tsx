@@ -95,7 +95,7 @@ export function AppointmentIdentityHeader({
   const start = DateTime.fromJSDate(appointment.dateTime, { zone: timeZone });
   const end = start.plus({ minutes: appointment.totalDuration });
   const dateLabel = start.toLocaleString(DateTime.DATE_MED, { locale });
-  const timeLabel = `${start.toFormat(uses12HourFormat ? "h:mm a" : "HH:mm", { locale })} – ${end.toFormat(uses12HourFormat ? "h:mm a" : "HH:mm", { locale })}`;
+  const timeLabel = `${start.toFormat(uses12HourFormat ? "h:mm a" : "HH:mm", { locale })} - ${end.toFormat(uses12HourFormat ? "h:mm a" : "HH:mm", { locale })}`;
 
   const title = (
     <span className="block truncate text-base font-medium leading-tight">

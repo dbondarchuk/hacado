@@ -58,7 +58,7 @@ You can add more services later from the dashboard.
 
 This is when clients are allowed to book you. Hacado starts with Monday through Friday, 9:00 AM to 5:00 PM. Saturday and Sunday have no hours, so clients cannot book those days.
 
-![Monday through Wednesday set to 9:00 AM–5:00 PM](/img/getting-started/schedule.png)
+![Monday through Wednesday set to 9:00 AM-5:00 PM](/img/getting-started/schedule.png)
 
 1. Open a day if it is closed.
 2. Click **Edit** to change the start or end time.

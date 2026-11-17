@@ -75,12 +75,12 @@ statusText:
   error_sending_customer_appointment_updates_for_status_change: Erreur lors de l'envoi de la mise à jour du rendez-vous client pour le changement de statut
   error_sending_customer_appointment_updates_for_rescheduled_appointment: Erreur lors de l'envoi de la mise à jour du rendez-vous client pour un rendez-vous reprogrammé
 handlers:
-  newRequest: Mises à jour des rendez-vous clients – Nouvelle demande
+  newRequest: Mises à jour des rendez-vous clients - Nouvelle demande
   pending: Mises à jour des rendez-vous clients - En attente
-  confirmed: Mises à jour des rendez-vous clients – Confirmé
-  declined: Mises à jour des rendez-vous clients – Refusé
+  confirmed: Mises à jour des rendez-vous clients - Confirmé
+  declined: Mises à jour des rendez-vous clients - Refusé
   canceled: Mises à jour des rendez-vous clients - Annulé
-  noShow: Mises à jour des rendez-vous clients – Non-présentation
+  noShow: Mises à jour des rendez-vous clients - Non-présentation
   rescheduled: Mises à jour des rendez-vous clients - Reprogrammés
 validation:
   channel:
@@ -94,4 +94,3 @@ validation:
   packageTemplate:
     templateId:
       required: Sélectionnez un modèle d'e-mail
-

@@ -3,16 +3,12 @@
 import { EditorChildren } from "@hacado/builder/blocks";
 import { useCurrentBlock } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
-import { BlockFilterRule } from "@hacado/builder/types";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui/cn";
+import { INLINE_CHILDREN_ALLOW } from "../child-allow";
 import { LinkProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";
-
-const allowOnly: BlockFilterRule = {
-  capabilities: ["inline"],
-};
 
 export const LinkEditor = ({ props, style }: LinkProps) => {
   const currentBlock = useCurrentBlock<LinkProps>();
@@ -39,7 +35,7 @@ export const LinkEditor = ({ props, style }: LinkProps) => {
         <EditorChildren
           blockId={currentBlock.id}
           property="props"
-          allow={allowOnly}
+          allow={INLINE_CHILDREN_ALLOW}
         />
       </span>
     </>

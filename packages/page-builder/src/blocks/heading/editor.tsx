@@ -3,16 +3,13 @@
 import { EditorChildren } from "@hacado/builder/blocks";
 import { useCurrentBlockId } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
-import { BaseBlockProps, BlockFilterRule } from "@hacado/builder/types";
+import { BaseBlockProps } from "@hacado/builder/types";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui/cn";
+import { INLINE_CHILDREN_ALLOW } from "../child-allow";
 import { DefaultHeadingLevel, HeadingProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";
-
-const allowOnly: BlockFilterRule = {
-  capabilities: ["inline"],
-};
 
 export function HeadingEditor({
   props,
@@ -46,7 +43,7 @@ export function HeadingEditor({
         <EditorChildren
           blockId={currentBlockId}
           property="props"
-          allow={allowOnly}
+          allow={INLINE_CHILDREN_ALLOW}
         />
       </Element>
     </>

@@ -1,7 +1,7 @@
 import type { StylingConfiguration } from "@hacado/types/configuration/styling";
 import type { WebsitePackId } from "./types";
 
-/** Suggested brand tokens from Series A–D HTML mockups. */
+/** Suggested brand tokens from Series A-D HTML mockups. */
 export type PackTheme = {
   /** City / location eyebrow for galleryFirst heroes. */
   city?: string;

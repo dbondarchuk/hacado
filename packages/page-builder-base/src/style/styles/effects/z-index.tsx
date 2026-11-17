@@ -8,6 +8,7 @@ const ZIndexSchema = z.coerce.number<number>().int();
 export const zIndexStyle = {
   name: "zIndex",
   label: "builder.pageBuilder.styles.properties.zIndex",
+  description: "CSS z-index stacking order",
   category: "layout",
   icon: ({ className }) => <Layers className={className} />,
   schema: ZIndexSchema,

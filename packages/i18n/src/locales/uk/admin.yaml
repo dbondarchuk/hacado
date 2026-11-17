@@ -2587,7 +2587,7 @@ catalog:
       creditsUsed: "{credits, plural, =1 {# кредит використано} few {# кредити використано} many {# кредитів використано} other {# кредиту використано}}"
     adjust:
       title: Змінити використані кредити
-      description: Вкажіть, скільки кредитів з {name} використано (0–{total}).
+      description: Вкажіть, скільки кредитів з {name} використано (0-{total}).
       usedLabel: Використані кредити
       reason: Причина
       reasonPlaceholder: Необовʼязкова примітка
@@ -4386,4 +4386,3 @@ memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
-

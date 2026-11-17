@@ -23,6 +23,7 @@ const CursorSchema = z.enum(cursorKeys);
 export const cursorStyle = {
   name: "cursor",
   label: "builder.pageBuilder.styles.properties.cursor",
+  description: "CSS cursor",
   category: "effects",
   icon: ({ className }) => <MousePointer className={className} />,
   schema: CursorSchema,

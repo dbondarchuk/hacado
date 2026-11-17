@@ -51,6 +51,7 @@ type BackgroundPositionValue = z.infer<typeof BackgroundPositionSchema>;
 export const backgroundPositionStyle = {
   name: "backgroundPosition",
   label: "builder.pageBuilder.styles.properties.backgroundPosition",
+  description: "CSS background-position",
   category: "background",
   icon: ({ className }) => <Move className={className} />,
   schema: BackgroundPositionSchema,

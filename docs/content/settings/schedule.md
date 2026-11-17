@@ -6,7 +6,7 @@ description: Set the baseline weekly hours Hacado uses before apps or weekly ove
 
 The **default schedule** is the weekly pattern of hours when clients are allowed to book you. It lives under **Appointments → Schedule → Default schedule** in the side menu (not on the Settings hub cards), at **Settings → Schedule**.
 
-![Default schedule grid with Monday–Friday showing 09:00 AM – 05:00 PM](/img/daily-use/settings/schedule.png)
+![Default schedule grid with Monday-Friday showing 09:00 AM - 05:00 PM](/img/daily-use/settings/schedule.png)
 
 ## What you are editing
 
@@ -15,7 +15,7 @@ The **default schedule** is the weekly pattern of hours when clients are allowed
 - Each block shows its hours (for example **09:00 AM - 05:00 PM**) on that day’s column.
 - Scroll the grid to see morning or evening hours. Day names stay sticky at the top.
 
-Hacado often starts with Monday–Friday daytime hours and weekend closed, matching what you chose in first-time setup.
+Hacado often starts with Monday-Friday daytime hours and weekend closed, matching what you chose in first-time setup.
 
 ## Change hours
 
