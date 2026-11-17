@@ -5,7 +5,7 @@ import {
   GetAppointmentOptionsResponse,
 } from "@hacado/types/booking";
 import React from "react";
-import { demoBookingOptionsResponse } from "../../utils/fixtures";
+import { loadEditorBookingOptions } from "../../utils/fixtures";
 import { FlowOrder } from "./context";
 import { Schedule } from "./schedule";
 
@@ -57,9 +57,22 @@ export const Booking: React.FC<
   React.useEffect(() => {
     if (!isEditor) {
       void loadOptions();
-    } else {
-      setResponse(demoBookingOptionsResponse);
+      return;
     }
+
+    let cancelled = false;
+
+    void loadEditorBookingOptions()
+      .then((data) => {
+        if (!cancelled) setResponse(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [isEditor, loadOptions]);
 
   const locked = React.useMemo(

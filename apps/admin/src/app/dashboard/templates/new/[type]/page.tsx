@@ -41,8 +41,8 @@ export default async function NewTemplatePage({ params, searchParams }: Props) {
   );
 
   return (
-    <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full h-full">
+    <PageContainer fill>
+      <div className="flex min-h-0 flex-1 flex-col gap-4 w-full">
         <Suspense fallback={<Skeleton className="w-full h-full" />}>
           <TemplateFormPage
             type={type}

@@ -73,10 +73,11 @@ export default async function EditPagesPage(props: Props) {
   );
 
   return (
-    <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
+    <PageContainer fill>
+      <div className="flex min-h-0 flex-1 flex-col gap-4 w-full">
         <Styling styling={styling} />
         <PageForm
+          key={page._id}
           initialData={page}
           config={{ general, brand, social }}
           apps={apps}

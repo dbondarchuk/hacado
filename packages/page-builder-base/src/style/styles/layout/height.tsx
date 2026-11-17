@@ -14,6 +14,7 @@ const HeightSchema = getZNumberValueWithUnitOrKeyword(
 export const heightStyle = {
   name: "height",
   label: "builder.pageBuilder.styles.properties.height" satisfies BaseAllKeys,
+  description: "CSS height",
   category: "layout",
   schema: HeightSchema,
   icon: ({ className }) => <Ruler className={className} />,

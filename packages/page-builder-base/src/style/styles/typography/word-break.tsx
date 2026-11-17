@@ -23,6 +23,7 @@ const WordBreakSchema = z.enum(wordBreakKeys);
 export const wordBreakStyle = {
   name: "wordBreak",
   label: "builder.pageBuilder.styles.properties.wordBreak",
+  description: "CSS word-break for long words/URLs",
   category: "typography",
   icon: ({ className }) => <WholeWord className={className} />,
   schema: WordBreakSchema,

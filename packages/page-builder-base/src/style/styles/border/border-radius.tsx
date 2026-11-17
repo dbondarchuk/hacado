@@ -30,6 +30,7 @@ const turn: Record<PerCornerKey | "all", string> = {
 export const borderRadiusStyle = {
   name: "borderRadius",
   label: "builder.pageBuilder.styles.properties.borderRadius",
+  description: "CSS border-radius",
   icon: ({ className }) => <SquareRoundCorner className={className} />,
   category: "border",
   schema: BorderRadiusSchema,

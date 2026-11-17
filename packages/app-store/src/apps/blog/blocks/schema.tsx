@@ -11,170 +11,64 @@ import {
   User,
 } from "lucide-react";
 import { BlogAdminKeys, BlogAdminNamespace } from "../translations/types";
+import { BlogBlocksAllowedInFooter, BlogBlocksSchema } from "./block-schemas";
 import { BlogCommentAuthorConfiguration } from "./comment-author/configuration";
 import { BlogCommentAuthorEditor } from "./comment-author/editor";
-import {
-  BlogCommentAuthorPropsDefaults,
-  BlogCommentAuthorPropsSchema,
-} from "./comment-author/schema";
+import { BlogCommentAuthorPropsDefaults } from "./comment-author/schema";
 import { BlogCommentBodyConfiguration } from "./comment-body/configuration";
 import { BlogCommentBodyEditor } from "./comment-body/editor";
-import {
-  BlogCommentBodyPropsDefaults,
-  BlogCommentBodyPropsSchema,
-} from "./comment-body/schema";
+import { BlogCommentBodyPropsDefaults } from "./comment-body/schema";
 import { BlogCommentContainerConfiguration } from "./comment-container/configuration";
 import { BlogCommentContainerEditor } from "./comment-container/editor";
-import {
-  BlogCommentContainerPropsDefaults,
-  BlogCommentContainerPropsSchema,
-} from "./comment-container/schema";
+import { BlogCommentContainerPropsDefaults } from "./comment-container/schema";
 import { BlogCommentDateConfiguration } from "./comment-date/configuration";
 import { BlogCommentDateEditor } from "./comment-date/editor";
-import {
-  BlogCommentDatePropsDefaults,
-  BlogCommentDatePropsSchema,
-} from "./comment-date/schema";
+import { BlogCommentDatePropsDefaults } from "./comment-date/schema";
 import { BlogCommentNavigationButtonConfiguration } from "./comment-navigation-button/configuration";
 import { BlogCommentNavigationButtonEditor } from "./comment-navigation-button/editor";
-import {
-  BlogCommentNavigationButtonPropsDefaults,
-  BlogCommentNavigationButtonPropsSchema,
-} from "./comment-navigation-button/schema";
+import { BlogCommentNavigationButtonPropsDefaults } from "./comment-navigation-button/schema";
 import { BlogCommentsContainerConfiguration } from "./comments-container/configuration";
 import { BlogCommentsContainerEditor } from "./comments-container/editor";
-import {
-  BlogCommentsContainerPropsDefaults,
-  BlogCommentsContainerPropsSchema,
-} from "./comments-container/schema";
+import { BlogCommentsContainerPropsDefaults } from "./comments-container/schema";
 import { BlogPostAuthorConfiguration } from "./post-author/configuration";
 import { BlogPostAuthorEditor } from "./post-author/editor";
-import {
-  BlogPostAuthorPropsDefaults,
-  BlogPostAuthorPropsSchema,
-} from "./post-author/schema";
+import { BlogPostAuthorPropsDefaults } from "./post-author/schema";
 import { BlogPostCommentCountConfiguration } from "./post-comment-count/configuration";
 import { BlogPostCommentCountEditor } from "./post-comment-count/editor";
-import {
-  BlogPostCommentCountPropsDefaults,
-  BlogPostCommentCountPropsSchema,
-} from "./post-comment-count/schema";
+import { BlogPostCommentCountPropsDefaults } from "./post-comment-count/schema";
 import { BlogPostCommentFormConfiguration } from "./post-comment-form/configuration";
 import { BlogPostCommentFormEditor } from "./post-comment-form/editor";
-import {
-  BlogPostCommentFormPropsDefaults,
-  BlogPostCommentFormPropsSchema,
-} from "./post-comment-form/schema";
+import { BlogPostCommentFormPropsDefaults } from "./post-comment-form/schema";
 import { BlogPostContainerConfiguration } from "./post-container/configuration";
 import { BlogPostContainerEditor } from "./post-container/editor";
-import {
-  BlogPostContainerPropsDefaults,
-  BlogPostContainerPropsSchema,
-} from "./post-container/schema";
+import { BlogPostContainerPropsDefaults } from "./post-container/schema";
 import { BlogPostContainerToolbar } from "./post-container/toolbar";
 import { BlogPostContentConfiguration } from "./post-content/configuration";
 import { BlogPostContentEditor } from "./post-content/editor";
-import {
-  BlogPostContentPropsDefaults,
-  BlogPostContentPropsSchema,
-} from "./post-content/schema";
+import { BlogPostContentPropsDefaults } from "./post-content/schema";
 import { BlogPostNavigationButtonConfiguration } from "./post-navigation-button/configuration";
 import { BlogPostNavigationButtonEditor } from "./post-navigation-button/editor";
-import {
-  BlogPostNavigationButtonPropsDefaults,
-  BlogPostNavigationButtonPropsSchema,
-} from "./post-navigation-button/schema";
+import { BlogPostNavigationButtonPropsDefaults } from "./post-navigation-button/schema";
 import { BlogPostNavigationButtonToolbar } from "./post-navigation-button/toolbar";
 import { BlogPostPublishDateConfiguration } from "./post-publish-date/configuration";
 import { BlogPostPublishDateEditor } from "./post-publish-date/editor";
-import {
-  BlogPostPublishDatePropsDefaults,
-  BlogPostPublishDatePropsSchema,
-} from "./post-publish-date/schema";
+import { BlogPostPublishDatePropsDefaults } from "./post-publish-date/schema";
 import { BlogPostReadTimeConfiguration } from "./post-read-time/configuration";
 import { BlogPostReadTimeEditor } from "./post-read-time/editor";
-import {
-  BlogPostReadTimePropsDefaults,
-  BlogPostReadTimePropsSchema,
-} from "./post-read-time/schema";
+import { BlogPostReadTimePropsDefaults } from "./post-read-time/schema";
 import { BlogPostTagConfiguration } from "./post-tag/configuration";
 import { BlogPostTagEditor } from "./post-tag/editor";
-import {
-  BlogPostTagPropsDefaults,
-  BlogPostTagPropsSchema,
-} from "./post-tag/schema";
+import { BlogPostTagPropsDefaults } from "./post-tag/schema";
 import { BlogPostTitleConfiguration } from "./post-title/configuration";
 import { BlogPostTitleEditor } from "./post-title/editor";
-import {
-  BlogPostTitlePropsDefaults,
-  BlogPostTitlePropsSchema,
-} from "./post-title/schema";
+import { BlogPostTitlePropsDefaults } from "./post-title/schema";
 import { BlogPostsContainerConfiguration } from "./posts-container/configuration";
 import { BlogPostsContainerEditor } from "./posts-container/editor";
-import {
-  BlogPostsContainerPropsDefaults,
-  BlogPostsContainerPropsSchema,
-} from "./posts-container/schema";
+import { BlogPostsContainerPropsDefaults } from "./posts-container/schema";
 import { BlogPostsContainerToolbar } from "./posts-container/toolbar";
 import { BlogTextToolbar } from "./text-toolbar";
 
-export const BlogBlocksSchema = {
-  BlogPostContainer: BlogPostContainerPropsSchema,
-  BlogPostTitle: BlogPostTitlePropsSchema,
-  BlogPostContent: BlogPostContentPropsSchema,
-  BlogPostTag: BlogPostTagPropsSchema,
-  BlogPostPublishDate: BlogPostPublishDatePropsSchema,
-  BlogPostReadTime: BlogPostReadTimePropsSchema,
-  BlogPostAuthor: BlogPostAuthorPropsSchema,
-  BlogPostsContainer: BlogPostsContainerPropsSchema,
-  BlogPostNavigationButton: BlogPostNavigationButtonPropsSchema,
-  BlogPostCommentCount: BlogPostCommentCountPropsSchema,
-  BlogCommentsContainer: BlogCommentsContainerPropsSchema,
-  BlogCommentContainer: BlogCommentContainerPropsSchema,
-  BlogCommentAuthor: BlogCommentAuthorPropsSchema,
-  BlogCommentDate: BlogCommentDatePropsSchema,
-  BlogCommentBody: BlogCommentBodyPropsSchema,
-  BlogCommentNavigationButton: BlogCommentNavigationButtonPropsSchema,
-  BlogPostCommentForm: BlogPostCommentFormPropsSchema,
-} as {
-  BlogPostContainer: typeof BlogPostContainerPropsSchema;
-  BlogPostTitle: typeof BlogPostTitlePropsSchema;
-  BlogPostContent: typeof BlogPostContentPropsSchema;
-  BlogPostTag: typeof BlogPostTagPropsSchema;
-  BlogPostPublishDate: typeof BlogPostPublishDatePropsSchema;
-  BlogPostReadTime: typeof BlogPostReadTimePropsSchema;
-  BlogPostAuthor: typeof BlogPostAuthorPropsSchema;
-  BlogPostsContainer: typeof BlogPostsContainerPropsSchema;
-  BlogPostNavigationButton: typeof BlogPostNavigationButtonPropsSchema;
-  BlogPostCommentCount: typeof BlogPostCommentCountPropsSchema;
-  BlogCommentsContainer: typeof BlogCommentsContainerPropsSchema;
-  BlogCommentContainer: typeof BlogCommentContainerPropsSchema;
-  BlogCommentAuthor: typeof BlogCommentAuthorPropsSchema;
-  BlogCommentDate: typeof BlogCommentDatePropsSchema;
-  BlogCommentBody: typeof BlogCommentBodyPropsSchema;
-  BlogCommentNavigationButton: typeof BlogCommentNavigationButtonPropsSchema;
-  BlogPostCommentForm: typeof BlogPostCommentFormPropsSchema;
-};
-
-export const BlogBlocksAllowedInFooter = {
-  BlogPostContainer: false,
-  BlogPostTitle: false,
-  BlogPostContent: false,
-  BlogPostTag: false,
-  BlogPostPublishDate: false,
-  BlogPostReadTime: false,
-  BlogPostAuthor: false,
-  BlogPostsContainer: false,
-  BlogPostNavigationButton: false,
-  BlogPostCommentCount: false,
-  BlogCommentsContainer: false,
-  BlogCommentContainer: false,
-  BlogCommentAuthor: false,
-  BlogCommentDate: false,
-  BlogCommentBody: false,
-  BlogCommentNavigationButton: false,
-  BlogPostCommentForm: false,
-};
+export { BlogBlocksAllowedInFooter, BlogBlocksSchema };
 
 export const BlogBlocksDefaultMetadata = (
   appName: string,

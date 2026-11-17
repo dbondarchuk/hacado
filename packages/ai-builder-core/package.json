@@ -1,0 +1,38 @@
+{
+  "name": "@hacado/ai-builder-core",
+  "version": "0.0.1",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "type-check": "tsc --pretty --noEmit",
+    "type-check:ci": "tsc-absolute --pretty --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "node --import tsx --test src/__tests__/*.test.ts"
+  },
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./capabilities": "./src/capabilities/index.ts",
+    "./adapters": "./src/adapters/index.ts",
+    "./operations": "./src/operations/index.ts"
+  },
+  "dependencies": {
+    "@hacado/ai-core": "*",
+    "@hacado/builder": "*",
+    "@hacado/i18n": "*",
+    "@hacado/rte": "*",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
+    "@types/node": "^20",
+    "tsx": "4.19.0",
+    "typescript": "6.0.2"
+  },
+  "peerDependencies": {
+    "react": "19.2.8"
+  }
+}

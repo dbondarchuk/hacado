@@ -1363,7 +1363,7 @@ pageBuilder:
       nails_b:
         name: Clou à bord doux
         category: Dispositions des ongles
-        tagline: Luxe tranquille à la pointe – pastel, précis, réservé
+        tagline: Luxe tranquille à la pointe - pastel, précis, réservé
         installHint: Beauté
       lash_b:
         name: Soie Sourcils Co.
@@ -1450,7 +1450,7 @@ pageBuilder:
         booking: Conseillers ClearPath - Réservation
         service: Conseillers ClearPath - Service
         about: Conseillers ClearPath - À propos
-        terms: Conseillers ClearPath – Politiques
+        terms: Conseillers ClearPath - Politiques
       salon_b:
         home: Atelier Nord - Accueil
         booking: Atelier Nord - Réservation
@@ -1474,7 +1474,7 @@ pageBuilder:
         booking: Sentier du Sommet - Réservation
         service: Chemin du Sommet - Service
         about: Chemin du Sommet - À propos
-        terms: Chemin du Sommet – Politiques
+        terms: Chemin du Sommet - Politiques
       fitness_b:
         home: L'heure du fer - Accueil
         booking: L'Heure du Fer - Réservation
@@ -1486,7 +1486,7 @@ pageBuilder:
         booking: Cadre & Terrain - Réservation
         service: Cadre et terrain - Service
         about: Cadre et champ - À propos
-        terms: Cadre et champ – Politiques
+        terms: Cadre et champ - Politiques
       clinic_b:
         home: Soins Riverbend - Accueil
         booking: Soins Riverbend - Réservation
@@ -1510,7 +1510,7 @@ pageBuilder:
         booking: Grand livre et ligne - Réservation
         service: Grand livre et ligne - Service
         about: Grand livre et ligne - À propos
-        terms: Grand livre et ligne – Politiques
+        terms: Grand livre et ligne - Politiques
       salon_c:
         home: Maison Strand - Accueil
         booking: Strand House - Réservation
@@ -1534,7 +1534,7 @@ pageBuilder:
         booking: Clear Horizon - Réservation
         service: Horizon clair - Service
         about: Horizon clair - À propos
-        terms: Clear Horizon – Politiques
+        terms: Clear Horizon - Politiques
       fitness_c:
         home: Redline Athlétisme - Accueil
         booking: Redline Athletics - Réservation
@@ -1552,7 +1552,7 @@ pageBuilder:
         booking: Harbour Health - Réservation
         service: Harbour Health - Service
         about: Santé Harbour - À propos
-        terms: Harbour Health – Politiques
+        terms: Harbour Health - Politiques
       pet_c:
         home: Patte & Pin - Accueil
         booking: Paw & Pine - Réservation
@@ -1570,7 +1570,7 @@ pageBuilder:
         booking: Conseillers Meridian - Réservation
         service: Conseillers Meridian - Service
         about: Conseillers Meridian - À propos
-        terms: Conseillers Meridian – Politiques
+        terms: Conseillers Meridian - Politiques
       salon_d:
         home: Lumen Cut - Accueil
         booking: Lumen Cut - Réservation
@@ -1594,7 +1594,7 @@ pageBuilder:
         booking: Projet Nord - Réservation
         service: Tirage Nord - Service
         about: Projet Nord - À propos
-        terms: Projet Nord – Politiques
+        terms: Projet Nord - Politiques
       fitness_d:
         home: Salle Volt - Accueil
         booking: Chambre Volt - Réservation
@@ -1606,7 +1606,7 @@ pageBuilder:
         booking: Cadre & Terrain - Réservation
         service: Cadre et terrain - Service
         about: Cadre et champ - À propos
-        terms: Cadre et champ – Politiques
+        terms: Cadre et champ - Politiques
       clinic_d:
         home: Entretien du cèdre - Accueil
         booking: Entretien du cèdre - Réservation
@@ -1672,7 +1672,7 @@ pageBuilder:
         booking: Cuticule de verre - Réservation
         service: Cuticule de verre - Service
         about: Cuticule de verre - À propos
-        terms: Cuticule de verre – Politiques
+        terms: Cuticule de verre - Politiques
       lash_d:
         home: Atelier de Cils - Accueil
         booking: Atelier de cils - Réservation
@@ -1751,7 +1751,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Bench Salon est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -1794,7 +1794,7 @@ pageBuilder:
           description: Vernis gel longue tenue avec soin des cuticules et joint brillant.
         blowout:
           name: Éruption express
-          description: Lavez, coiffez et préparez – prêt pour le dîner ou une séance photo.
+          description: Lavez, coiffez et préparez - prêt pour le dîner ou une séance photo.
     tattoo:
       home:
         heroTitle: Des tatouages ​​personnalisés aux lignes épurées et aux histoires durables
@@ -1815,7 +1815,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Ink & Thorn Studio est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -1879,7 +1879,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Le Palm & Stone Spa est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -1943,7 +1943,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: North Star Coaching est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2007,7 +2007,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Forge Strength Studio est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2071,7 +2071,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Lens & Light Studio est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2135,7 +2135,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Harbour Family Clinic est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2199,7 +2199,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Happy Paws Care est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2263,7 +2263,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Reliable Home Co. est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2327,7 +2327,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: ClearPath Advisors est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2391,7 +2391,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: L'Atelier Nord est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2455,7 +2455,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Needle & Oak est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2519,7 +2519,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Cedar Rest est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2583,7 +2583,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Summit Path est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2647,7 +2647,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Iron Hour est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2711,7 +2711,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Frame & Field est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2775,7 +2775,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Riverbend Care est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2839,7 +2839,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Trail Tail Co. est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2903,7 +2903,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Steady Home Pros est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -2967,7 +2967,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Ledger & Line est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3031,7 +3031,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Strand House est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3065,7 +3065,7 @@ pageBuilder:
       services:
         blowout:
           name: Éruption de signature
-          description: Du volume, de la brillance et une finition adaptée à votre semaine – pas seulement pour la chaise.
+          description: Du volume, de la brillance et une finition adaptée à votre semaine - pas seulement pour la chaise.
         color:
           name: Couleur vécue
           description: Dimension douce et brillance qui se développe avec grâce.
@@ -3095,7 +3095,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Black Line Co. est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3159,7 +3159,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Moss & Mineral est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3223,7 +3223,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Clear Horizon est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3287,7 +3287,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Redline Athletics est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3351,7 +3351,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Aperture Field est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3415,7 +3415,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Harbour Health est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3479,7 +3479,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Paw & Pine est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3543,7 +3543,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: "Nest Fix Co. est facile à trouver : les directions sont incluses dans votre confirmation."
         pricingTitle: Forfaits simples
@@ -3607,7 +3607,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Meridian Advisors est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3654,13 +3654,13 @@ pageBuilder:
     salon_d:
       home:
         heroTitle: Des cheveux qui se photographient.
-        heroSubtitle: Coupes éditoriales et couleurs dans une chaise calme – pas de théâtre de vente incitative.
+        heroSubtitle: Coupes éditoriales et couleurs dans une chaise calme - pas de théâtre de vente incitative.
         bookCta: Réservez une chaise
         secondaryCta: Voir les prestations
         heroEyebrow: NASHVILLE
         announcement: Nouveaux clients bienvenus - ouvertures disponibles la même semaine
         servicesTitle: Des services en mouvement
-        servicesBody: Faites glisser la bande – chaque carte réserve le même calendrier.
+        servicesBody: Faites glisser la bande - chaque carte réserve le même calendrier.
         galleryTitle: Mur de galerie
         lookInsideTitle: Regardez à l'intérieur
         testimonialsTitle: Ce que disent les clients
@@ -3673,7 +3673,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Lumen Cut est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3690,7 +3690,7 @@ pageBuilder:
       about:
         title: L’histoire derrière Lumen Cut
         body1: Lumen Cut est un salon avant-gardiste pour les personnes qui souhaitent que leurs cheveux aient un aspect intentionnel à la lumière du jour, pas seulement sous les LED du studio.
-        body2: Des coupes qui captent la lumière – réservées en deux clics. Que ce soit votre première visite ou votre cinquantième, vous devriez repartir en vous sentant pris en charge.
+        body2: Des coupes qui captent la lumière - réservées en deux clics. Que ce soit votre première visite ou votre cinquantième, vous devriez repartir en vous sentant pris en charge.
       terms:
         title: Politiques de réservation
         intro: Ces espaces réservés sont uniquement destinés à un examen et ne constituent pas des conseils juridiques. Remplacez par des conditions approuvées par l’avocat avant de publier.
@@ -3726,7 +3726,7 @@ pageBuilder:
         heroEyebrow: PORTLAND
         announcement: Nouveaux clients bienvenus - ouvertures disponibles la même semaine
         servicesTitle: Des services en mouvement
-        servicesBody: Faites glisser la bande – chaque carte réserve le même calendrier.
+        servicesBody: Faites glisser la bande - chaque carte réserve le même calendrier.
         galleryTitle: Mur de galerie
         lookInsideTitle: Regardez à l'intérieur
         testimonialsTitle: Ce que disent les clients
@@ -3739,7 +3739,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Needle Atlas est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3792,7 +3792,7 @@ pageBuilder:
         heroEyebrow: SEATTLE
         announcement: Nouveaux clients bienvenus - ouvertures disponibles la même semaine
         servicesTitle: Des services en mouvement
-        servicesBody: Faites glisser la bande – chaque carte réserve le même calendrier.
+        servicesBody: Faites glisser la bande - chaque carte réserve le même calendrier.
         galleryTitle: Mur de galerie
         lookInsideTitle: Regardez à l'intérieur
         testimonialsTitle: Ce que disent les clients
@@ -3805,7 +3805,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Stillwater Baths est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Tarification transparente
@@ -3821,7 +3821,7 @@ pageBuilder:
         bullet3: Reprogrammation facile à partir de votre lien de réservation
       about:
         title: L’histoire derrière les bains Stillwater
-        body1: Nous gardons les pièces calmes, les lumières faibles et les menus courts – afin que vous repartiez avec un pouls plus lent, pas un sac de produits.
+        body1: Nous gardons les pièces calmes, les lumières faibles et les menus courts - afin que vous repartiez avec un pouls plus lent, pas un sac de produits.
         body2: Calme minéral en pleine ville. Que ce soit votre première visite ou votre cinquantième, vous devriez repartir en vous sentant pris en charge.
       terms:
         title: Politiques de réservation
@@ -3871,7 +3871,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: North Draft est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -3917,14 +3917,14 @@ pageBuilder:
           description: Enregistrement permanent pour les travaux d'expédition.
     fitness_d:
       home:
-        heroTitle: Entraînez-vous comme si la pièce vous regardait – parce que c’est le cas.
+        heroTitle: Entraînez-vous comme si la pièce vous regardait - parce que c’est le cas.
         heroSubtitle: Volt Room limite les cours à 12 heures. Les entraîneurs connaissent votre nom dès la deuxième semaine.
         bookCta: Réclamez une place
         secondaryCta: Voir les prestations
         heroEyebrow: AUSTIN
         announcement: Nouveaux clients bienvenus - ouvertures disponibles la même semaine
         servicesTitle: Des services en mouvement
-        servicesBody: Faites glisser la bande – chaque carte réserve le même calendrier.
+        servicesBody: Faites glisser la bande - chaque carte réserve le même calendrier.
         galleryTitle: Mur de galerie
         lookInsideTitle: Regardez à l'intérieur
         testimonialsTitle: Ce que disent les clients
@@ -3937,7 +3937,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Volt Room est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4003,7 +4003,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Frame & Field est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4056,7 +4056,7 @@ pageBuilder:
         heroEyebrow: CHUTES DE CÈDRE
         announcement: Nouveaux clients bienvenus - ouvertures disponibles la même semaine
         servicesTitle: Des services en mouvement
-        servicesBody: Faites glisser la bande – chaque carte réserve le même calendrier.
+        servicesBody: Faites glisser la bande - chaque carte réserve le même calendrier.
         galleryTitle: Mur de galerie
         lookInsideTitle: Regardez à l'intérieur
         testimonialsTitle: Ce que disent les clients
@@ -4069,7 +4069,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Cedar Care est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4122,7 +4122,7 @@ pageBuilder:
         heroEyebrow: ROCHER
         announcement: Nouveaux clients bienvenus - ouvertures disponibles la même semaine
         servicesTitle: Des services en mouvement
-        servicesBody: Faites glisser la bande – chaque carte réserve le même calendrier.
+        servicesBody: Faites glisser la bande - chaque carte réserve le même calendrier.
         galleryTitle: Mur de galerie
         lookInsideTitle: Regardez à l'intérieur
         testimonialsTitle: Ce que disent les clients
@@ -4135,7 +4135,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Trail & Tail est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4151,7 +4151,7 @@ pageBuilder:
         bullet3: Reprogrammation facile à partir de votre lien de réservation
       about:
         title: L'histoire derrière Trail & Tail
-        body1: Nous photographions après chaque toilettage (avec consentement) et vous envoyons un message lorsque votre chien est prêt – sans ajouts surprises.
+        body1: Nous photographions après chaque toilettage (avec consentement) et vous envoyons un message lorsque votre chien est prêt - sans ajouts surprises.
         body2: Grooms et promenades dans la boue autorisées. Que ce soit votre première visite ou votre cinquantième, vous devriez repartir en vous sentant pris en charge.
       terms:
         title: Politiques de réservation
@@ -4169,7 +4169,7 @@ pageBuilder:
       services:
         groom:
           name: Marié complet
-          description: Bain, coupe, ongles – prêts pour les sentiers.
+          description: Bain, coupe, ongles - prêts pour les sentiers.
         walk:
           name: Promenade Aventure
           description: 90 minutes hors du trottoir.
@@ -4201,7 +4201,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Threshold Co. est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4267,7 +4267,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Ledger Lane est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4314,7 +4314,7 @@ pageBuilder:
     nails:
       home:
         heroTitle: Des ongles qui se photographient.
-        heroSubtitle: Gel, acrylique et art dans un fauteuil calme – réservé en quelques clics.
+        heroSubtitle: Gel, acrylique et art dans un fauteuil calme - réservé en quelques clics.
         bookCta: Réservez un ensemble
         secondaryCta: En savoir plus sur nous
         heroEyebrow: BANC BRILLANT
@@ -4333,7 +4333,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Gloss Bench est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4342,7 +4342,7 @@ pageBuilder:
         ctaBody: Gel, acrylique et art qui se photographie
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Choisissez un service et une heure – la confirmation arrive immédiatement.
+        body: Choisissez un service et une heure - la confirmation arrive immédiatement.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -4399,7 +4399,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Soft Lash Room est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4408,7 +4408,7 @@ pageBuilder:
         ctaBody: Ensembles classiques, volume et sourcils avec une chaise calme
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Choisissez un service et une heure – la confirmation arrive immédiatement.
+        body: Choisissez un service et une heure - la confirmation arrive immédiatement.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -4446,7 +4446,7 @@ pageBuilder:
     nails_b:
       home:
         heroTitle: Luxe tranquille à la pointe.
-        heroSubtitle: Gels pastel, superpositions douces et micro-arts – réservés sur votre calendrier.
+        heroSubtitle: Gels pastel, superpositions douces et micro-arts - réservés sur votre calendrier.
         bookCta: Réservez une manucure
         secondaryCta: En savoir plus sur nous
         heroEyebrow: ONGLES À BORD DOUX
@@ -4465,16 +4465,16 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Soft Edge Nail est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
         comparisonTitle: Pourquoi réserver avec nous
         ctaTitle: Réservez une manucure
-        ctaBody: Luxe tranquille à la pointe – pastel, précis, réservé
+        ctaBody: Luxe tranquille à la pointe - pastel, précis, réservé
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Choisissez un service et une heure – la confirmation arrive immédiatement.
+        body: Choisissez un service et une heure - la confirmation arrive immédiatement.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -4482,7 +4482,7 @@ pageBuilder:
       about:
         title: L’histoire derrière Soft Edge Nail
         body1: Soft Edge Nail est conçu pour les indépendants qui souhaitent un beau site de réservation.
-        body2: Un luxe tranquille à la pointe – pastel, précis, réservé. Que ce soit votre première visite ou votre cinquantième, vous devriez repartir en vous sentant pris en charge.
+        body2: Un luxe tranquille à la pointe - pastel, précis, réservé. Que ce soit votre première visite ou votre cinquantième, vous devriez repartir en vous sentant pris en charge.
       terms:
         title: Politiques de réservation
         intro: Ces espaces réservés sont uniquement destinés à un examen et ne constituent pas des conseils juridiques. Remplacez par des conditions approuvées par l’avocat avant de publier.
@@ -4531,7 +4531,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Silk Brow Co. est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4540,7 +4540,7 @@ pageBuilder:
         ctaBody: Des cils et des sourcils qui encadrent tout le visage
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Choisissez un service et une heure – la confirmation arrive immédiatement.
+        body: Choisissez un service et une heure - la confirmation arrive immédiatement.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -4597,7 +4597,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: "Chrome Room est facile à trouver : les directions sont incluses dans votre confirmation."
         pricingTitle: Forfaits simples
@@ -4606,7 +4606,7 @@ pageBuilder:
         ctaBody: Conseils miroir, couleurs vives et ensembles de soirée
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Choisissez un service et une heure – la confirmation arrive immédiatement.
+        body: Choisissez un service et une heure - la confirmation arrive immédiatement.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -4631,7 +4631,7 @@ pageBuilder:
       services:
         chrome:
           name: Ensemble d'embouts Chrome
-          description: Finition miroir sur une pointe sculptée – prête à photographier sous tous les angles.
+          description: Finition miroir sur une pointe sculptée - prête à photographier sous tous les angles.
         color:
           name: Ensemble de couleurs vives
           description: Gels saturés avec des cuticules propres et un joint lisse comme du verre.
@@ -4663,7 +4663,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Volume Studio est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4672,7 +4672,7 @@ pageBuilder:
         ctaBody: Lits de cils cliniquement calmes et cartographie précise
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Choisissez un service et une heure – la confirmation arrive immédiatement.
+        body: Choisissez un service et une heure - la confirmation arrive immédiatement.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -4700,7 +4700,7 @@ pageBuilder:
           description: Cartographie de la forme des yeux avec courbure et longueur naturelles.
         volume:
           name: Méga volume
-          description: Des éventails denses pour une plénitude éditoriale – toujours légers.
+          description: Des éventails denses pour une plénitude éditoriale - toujours légers.
         hybrid:
           name: Actualisation hybride
           description: Mélangez classique et volume pour remplir uniformément les zones clairsemées.
@@ -4729,7 +4729,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Glass Cuticle est facile à trouver - les instructions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4776,7 +4776,7 @@ pageBuilder:
     lash_d:
       home:
         heroTitle: Les yeux d’abord. Tout le reste suit.
-        heroSubtitle: Lash Atelier est un studio de réservation pour les classiques, le volume et les remplissages – avec des sourcils assortis.
+        heroSubtitle: Lash Atelier est un studio de réservation pour les classiques, le volume et les remplissages - avec des sourcils assortis.
         bookCta: Cils de livre
         secondaryCta: En savoir plus sur nous
         heroEyebrow: ATELIER DE CILS
@@ -4795,7 +4795,7 @@ pageBuilder:
         faqQ2: Quelle est votre politique d’annulation ?
         faqA2: Veuillez annuler ou reprogrammer au moins 24 heures à l'avance afin que nous puissions proposer le créneau à quelqu'un d'autre.
         faqQ3: Acceptez-vous des visites sans rendez-vous ?
-        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne – consultez la page Réserver.
+        faqA3: Nous priorisons les rendez-vous réservés. Les ouvertures le jour même apparaissent parfois en ligne - consultez la page Réserver.
         faqQ4: Où es-tu situé?
         faqA4: Lash Atelier est facile à trouver - les directions sont incluses dans votre confirmation.
         pricingTitle: Forfaits simples
@@ -4804,7 +4804,7 @@ pageBuilder:
         ctaBody: Définit et remplit un mur de galerie d'yeux
       booking:
         title: Choisissez une heure qui fonctionne
-        body: Venez avec des cils propres – pas de mascara. Tests de patch disponibles sur demande.
+        body: Venez avec des cils propres - pas de mascara. Tests de patch disponibles sur demande.
       service:
         bullet1: Durée de rendez-vous dédiée - pas de clients qui se chevauchent
         bullet2: Confirmation et rappels par email
@@ -5970,3 +5970,126 @@ rte:
       destructive: Destructeur
       destructive-foreground: Texte destructeur
       border: Frontière
+
+ai:
+  title: Hackado IA
+  emptyHint: Demandez des réécritures, des modifications de mise en page ou de nouvelles sections. Attachez éventuellement un bloc sélectionné pour concentrer le message suivant.
+  placeholder: Message Hacado IA…
+  send: Envoyer
+  stop: Arrêt
+  copy: Copie
+  copied: Copié
+  working: Fonctionnement
+  thoughtProcess: Processus de pensée
+  attached: Ci-joint
+  attachSelected: Attacher le bloc sélectionné
+  selectToAttach: Sélectionnez un bloc à attacher
+  removeAttachment: Supprimer le bloc attaché
+  retry: Réessayer
+  reapply: Réappliquer
+  dismiss: Rejeter
+  applyUrl: Appliquer l'URL
+  keepCurrent: Restez à jour
+  suggestedSlug: "URL de page suggérée :"
+  slugWarning: Changer l'URL peut rompre les liens existants. Appliquez-le seulement si vous le souhaitez.
+  askUserSkip: Sauter
+  askUserCustomPlaceholder: Ou tapez votre réponse…
+  askUserSubmit: Envoyer la réponse
+  settingsApplied: Paramètres appliqués
+  operationsApplied: "{count, plural, one {# operation applied} other {# operations applied}}"
+  blockAi: Hackado IA
+  documentAi: Hackado IA
+  blockSection: Bloc
+  documentSection: Document
+  noBlockSelected: Aucun bloc sélectionné
+  noBlockActions: Aucune action de blocage
+  customInstruction: Instruction personnalisée…
+  showErrorDetails: Afficher les détails de l'erreur
+  hideErrorDetails: Masquer les détails de l'erreur
+  applyFailed: L'application des modifications de l'IA a échoué
+  staleDocument: Le document a changé pendant que l'IA fonctionnait. Réexécutez l'action ou appliquez-la à nouveau.
+  documentNotReady: Le document n'est pas prêt
+  noValidOperations: Aucune opération d'éditeur valide à appliquer
+  requestFailed: Une erreur s'est produite lors du contact avec Hacado AI.
+  actions:
+    improveDocument: Améliorer ce document
+    generateMissing: Générer du contenu manquant
+    makeProfessional: Rendre plus professionnel
+    shorten: Raccourcir
+    rewrite: Réécrire
+    friendlier: Rendre plus amical
+    ensureVariables: Utiliser les variables du modèle
+  textMessage:
+    emptyHint: Demandez une réécriture, un raccourcissement ou une rédaction de ce SMS. Les variables comme '{{fields.name}}' restent intactes.
+    openChat: Demander à l’IA…
+    quickActions: Actions rapides
+  blockActions:
+    rewrite: Récrire
+    improveClarity: Améliorer la clarté
+    changeTone: Changer de ton
+    expand: Développer
+    shorten: Raccourcir
+    writeAltText: Écrire un texte alternatif
+    replaceImage: Remplacer l'image
+    rotate: Tourner
+    rotate90: 90° dans le sens des aiguilles d'une montre
+    rotate180: 180°
+    rotate270: 270° dans le sens des aiguilles d'une montre
+    rotateNeg90: 90° dans le sens inverse des aiguilles d'une montre
+    improveLayout: Améliorer la mise en page
+    adjustSpacing: Ajuster l'espacement
+    askAi: Demandez à l'IA
+    noDocumentActions: Aucune action sur le document
+    openChat: Ouvrez le chat IA…
+    tones:
+      professional: Professionnel
+      friendly: Amical
+      casual: Occasionnel
+      formal: Officiel
+      confident: Confiant
+      empathetic: Empathique
+  progress:
+    understanding: Comprendre votre demande…
+    inspecting: Examen du document…
+    drafting: Rédiger une réponse…
+    preparing: Préparation des modifications proposées…
+    doubleChecking: Revérifier la mise en page…
+    polishing: Peaufiner la formulation…
+    styles: S’assurer que les styles ont toujours un sens…
+    pixels: Compter les pixels (pas vraiment)…
+    blocks: Demander aux blocs de coopérer…
+    margins: Négocier avec des marges tenaces…
+    lineBreaks: Rupture de ligne en cas de fuite en troupeau…
+    looseEnds: J’y suis presque - régler les détails…
+    stillThinking: "Je réfléchis toujours : les bonnes idées prennent une seconde…"
+    spirits: Consulter les esprits du design…
+    mustache: Réchauffer les variables Moustache…
+    hero: Convaincre le héros de ne pas voler la vedette…
+  tools:
+    working: Fonctionnement…
+    searchingBlocks: Recherche de blocs…
+    loadingSchemas: Chargement des schémas de blocs…
+    loadingRelationships: Vérification des relations entre les blocs…
+    searchingStyles: Recherche de styles…
+    loadingStyles: Chargement des schémas de style…
+    loadingTokens: Chargement des jetons de conception…
+    inspectingDocument: Examen du document…
+    inspectingSelection: Inspection de la sélection…
+    loadingBlocks: Chargement des blocs…
+    cloningBlock: Clonage d'une section…
+    loadingBusiness: Chargement du profil de l'entreprise…
+    loadingSettings: Chargement des paramètres du document…
+    loadingTemplateArgs: Chargement des variables du modèle…
+    searchingPatterns: Recherche de modèles de conception…
+    searchingImages: Recherche d’images d’archives…
+    searchingVideos: Recherche de vidéos d’archives…
+    searchingPages: Recherche de pages…
+    loadingApps: Chargement des applications connectées…
+    loadingCapabilities: Chargement des actions de bloc…
+    proposingChanges: Préparation des modifications proposées…
+    proposingSettings: Préparation des paramètres du document…
+    validatingChanges: Validation des modifications…
+    askingUser: Je vous pose une question…
+  responses:
+    offTopic: "Je ne peux qu'aider avec ce document de création : édition des blocs, de la mise en page, des styles, de la copie et des modifications associées de page/e-mail/pied de page. Posez des questions sur le document ou la sélection actuelle."
+    missingProposal: Je n'ai pas pu produire des modifications de document valides. Veuillez réessayer ou indiquer où doit se trouver la section.

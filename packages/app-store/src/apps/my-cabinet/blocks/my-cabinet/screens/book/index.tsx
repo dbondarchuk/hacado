@@ -3,7 +3,7 @@
 import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { GetAppointmentOptionsResponse } from "@hacado/types/booking";
 import React from "react";
-import { demoBookingOptionsResponse } from "../../../../../waitlist/components/fixtures";
+import { loadEditorBookingOptions } from "../../../../../waitlist/components/fixtures";
 import { Schedule } from "./schedule";
 
 export type CabinetBookScreenProps = {
@@ -28,16 +28,25 @@ export const CabinetBookScreen: React.FC<
     React.useState<GetAppointmentOptionsResponse | null>(null);
 
   React.useEffect(() => {
+    let cancelled = false;
+
     const loadOptions = async () => {
-      const data = await bookingApi.getBookingOptions();
-      setResponse(data);
+      try {
+        const data = isEditor
+          ? await loadEditorBookingOptions()
+          : await bookingApi.getBookingOptions();
+
+        if (!cancelled) setResponse(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    if (!isEditor) {
-      loadOptions();
-    } else {
-      setResponse(demoBookingOptionsResponse);
-    }
+    void loadOptions();
+
+    return () => {
+      cancelled = true;
+    };
   }, [isEditor]);
 
   return (

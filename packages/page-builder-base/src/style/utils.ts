@@ -95,16 +95,21 @@ export function getStylesSchema<T extends BaseStyleDictionary>(
           }),
         )
         .optional()
-        .nullable();
+        .nullable()
+        .describe(style.description ?? String(style.name));
 
       return map;
     },
     {} as Record<string, z.ZodType>,
   );
 
-  return z.object(baseSchema).optional().nullable() as z.ZodType<
-    BlockStyles<T> | null | undefined
-  >;
+  return z
+    .object(baseSchema)
+    .optional()
+    .nullable()
+    .describe(
+      "Optional responsive style map keyed by property name. Each value is a variant list with value/breakpoint/state. Prefer design tokens for colors and fonts.",
+    ) as z.ZodType<BlockStyles<T> | null | undefined>;
 }
 
 export const renderRawNumberWithUnitCss = (

@@ -1,6 +1,8 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
+import { replaceUndefinedWithNull } from "@hacado/ai-builder-core";
 import { getLoggerFactory } from "@hacado/logger";
 import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
+import { withDemoTemplateLinkArgs } from "@hacado/utils/demo-template-links";
 import { demoAppointment, demoOtp } from "@hacado/utils/fixtures";
 import { getArguments } from "@hacado/utils/get-arguments";
 import { getAdminUrl } from "@hacado/utils/website";
@@ -50,18 +52,23 @@ export async function GET(request: NextRequest) {
       return { ...acc, ...curr };
     }, {});
 
-  const demoArguments = getArguments({
-    appointment:
-      searchParams.get("noAppointment") !== "true"
-        ? demoAppointment
-        : undefined,
-    config,
-    customer: demoAppointment.customer,
-    locale: config.brand.language,
-    additionalProperties: { otp: demoOtp, ...demoEmailArguments },
-    adminUrl,
-    websiteUrl,
-  });
+  const demoArguments = replaceUndefinedWithNull(
+    withDemoTemplateLinkArgs(
+      getArguments({
+        appointment:
+          searchParams.get("noAppointment") !== "true"
+            ? demoAppointment
+            : undefined,
+        config,
+        customer: demoAppointment.customer,
+        locale: config.brand.language,
+        additionalProperties: { otp: demoOtp, ...demoEmailArguments },
+        adminUrl,
+        websiteUrl,
+      }) as Record<string, unknown>,
+      websiteUrl,
+    ),
+  );
 
   logger.debug({}, "Successfully retrieved demo template arguments");
 

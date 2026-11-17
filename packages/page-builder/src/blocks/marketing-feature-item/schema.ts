@@ -26,19 +26,25 @@ const SLOT_KEYS = [
 const zSlot = embeddedSlotSchema(zStyles);
 
 export const MarketingFeatureItemPropsSchema = z.object({
-  style: zStyles,
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
   props: z.preprocess(
     (val) =>
       val && typeof val === "object"
         ? migratePropsSlots(val as Record<string, unknown>, [...SLOT_KEYS])
         : val,
-    z.object({
-      cardIcon: zSlot,
-      title: zSlot,
-      description: zSlot,
-      detailHeadline: zSlot,
-      detailBullets: zSlot,
-    }),
+    z
+      .object({
+        cardIcon: zSlot.describe("Icon area on the feature card"),
+        title: zSlot.describe("Feature title on the card"),
+        description: zSlot.describe("Short description on the card"),
+        detailHeadline: zSlot.describe("Headline in the expanded detail panel"),
+        detailBullets: zSlot.describe(
+          "Bullet list in the expanded detail panel",
+        ),
+      })
+      .describe("Block configuration props"),
   ),
 });
 

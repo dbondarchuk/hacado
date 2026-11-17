@@ -19,6 +19,7 @@ import {
   isSlotLikeObject,
   SelectedSlotRef,
 } from "../embedded-slot";
+import { createFreshRootDocument } from "../helpers/block-id";
 import { cloneBlock, validateBlocks } from "../helpers/blocks";
 import { ReaderDocumentBlocksDictionary } from "../reader/core";
 import {
@@ -98,13 +99,15 @@ type EditorState = {
   blocksSidebarTab: BlocksSidebarTab;
   focusedModalId: string | null;
   showBlocksPanel: boolean;
-  selectedSidebarTab: "block-configuration" | "styles";
+  selectedSidebarTab: string;
   selectedScreenSize: ViewportSize;
   fullScreen: boolean;
 
   getImageBlock?: (file: UploadedFile) => TEditorBlock;
 
   toggleInspectorDrawer: () => void;
+  /** Opens the builder inspector sidebar (never toggles closed). */
+  openInspectorDrawer: () => void;
   activeOverBlockContextId: string | null;
   activeDragBlockId: string | null;
   activeDragBlockTemplate: TEditorBlock | null;
@@ -125,13 +128,12 @@ type EditorState = {
     setSelectedSlot: (selectedSlot: SelectedSlotRef | null) => void;
     setShowBlocksPanel: (showBlocksPanel: boolean) => void;
     toggleShowBlocksPanel: () => void;
-    setSelectedSidebarTab: (
-      selectedSidebarTab: "block-configuration" | "styles",
-    ) => void;
+    setSelectedSidebarTab: (selectedSidebarTab: string) => void;
     setSelectedScreenSize: (selectedScreenSize: ViewportSize) => void;
     setFullScreen: (fullScreen: boolean) => void;
     toggleFullScreen: () => void;
     setToggleInspectorDrawer: (toggleInspectorDrawer: () => void) => void;
+    setOpenInspectorDrawer: (openInspectorDrawer: () => void) => void;
     setDisableAnimation: (disableAnimation: boolean) => void;
     toggleDisableAnimation: () => void;
     setSelectedView: (fn: (prev: View) => View) => void;
@@ -200,8 +202,8 @@ const createEditorStateStore = ({
   getImageBlock?: (file: UploadedFile) => TEditorBlock;
   enableModalsView?: boolean;
 }) => {
-  const defaultDocument = document || rootBlock;
-  const defaultRootBlock = defaultDocument || rootBlock;
+  const defaultDocument = document ?? createFreshRootDocument(rootBlock);
+  const defaultRootBlock = rootBlock;
   const initialIndexes = buildIndexes(defaultDocument, schemas);
 
   // const [cookie, setCookie] = useCookies([
@@ -246,6 +248,7 @@ const createEditorStateStore = ({
     indexes: initialIndexes,
     templateBlockIndexes: null,
     toggleInspectorDrawer: () => {},
+    openInspectorDrawer: () => {},
     activeDragBlockId: null,
     activeDragBlockTemplate: null,
     dragIntoNestedModifier: false,
@@ -265,9 +268,7 @@ const createEditorStateStore = ({
       toggleShowBlocksPanel: () => {
         set({ showBlocksPanel: !get().showBlocksPanel });
       },
-      setSelectedSidebarTab: (
-        selectedSidebarTab: "block-configuration" | "styles",
-      ) => {
+      setSelectedSidebarTab: (selectedSidebarTab: string) => {
         set({ selectedSidebarTab });
       },
       setSelectedScreenSize: (selectedScreenSize: ViewportSize) => {
@@ -299,6 +300,9 @@ const createEditorStateStore = ({
       },
       setToggleInspectorDrawer: (toggleInspectorDrawer: () => void) => {
         set({ toggleInspectorDrawer });
+      },
+      setOpenInspectorDrawer: (openInspectorDrawer: () => void) => {
+        set({ openInspectorDrawer });
       },
       setDisableAnimation: (disableAnimation: boolean) => {
         set({ disableAnimation });
@@ -472,9 +476,10 @@ const createEditorStateStore = ({
         document?: EditorState["document"],
         onChange?: EditorState["onChange"],
       ) => {
-        const newDocument = document || get().rootBlock;
-        const newIndexes = buildIndexes(newDocument, schemas);
+        const newDocument =
+          document ?? createFreshRootDocument(get().rootBlock);
 
+        const newIndexes = buildIndexes(newDocument, schemas);
         set({
           document: newDocument,
           originalDocument: newDocument,
@@ -1407,9 +1412,19 @@ export function useToggleInspectorDrawer() {
   return useStore(store, (s) => s.toggleInspectorDrawer);
 }
 
+export function useOpenInspectorDrawer() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.openInspectorDrawer);
+}
+
 export function useSetToggleInspectorDrawer() {
   const store = useEditorStateStore();
   return useStore(store, (s) => s.actions.setToggleInspectorDrawer);
+}
+
+export function useSetOpenInspectorDrawer() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.actions.setOpenInspectorDrawer);
 }
 
 export function useSetSelectedScreenSize() {

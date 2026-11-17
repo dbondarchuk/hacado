@@ -115,6 +115,27 @@ export function isSectionTemplate(
   return template.kind !== "layout";
 }
 
+/**
+ * Builder AI quick actions for a block type.
+ * Kept structural (not imported from `@hacado/ai-builder-core`) so editor packages can declare
+ * actions without depending on the AI runtime. Shape matches `BlockAICapability`.
+ */
+export type EditorBlockAICapability = {
+  id: string;
+  label: string;
+  /** Full i18n key for `useI18n()` - apps may use their own namespace. */
+  labelKey: AllKeys;
+  description: string;
+  kind: "deterministic" | "generative";
+  requiresConfirmation?: boolean;
+  options?: Array<{
+    id: string;
+    label: string;
+    labelKey: AllKeys;
+    message?: string;
+  }>;
+};
+
 export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
   [K in keyof T]: {
     displayName: AllKeys;
@@ -128,6 +149,8 @@ export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
       | ((t: I18nFn<undefined, undefined>) => z.infer<T[K]>);
     category: AllKeys;
     allowedIn?: BlockFilterRule;
+    /** Which child blocks EditorChildren may insert under this block. */
+    allowedChildren?: BlockFilterRule;
     /** When true, block is omitted from the blocks panel (e.g. child-only or template-only blocks). */
     hideInBlocksPanel?: boolean;
     /**
@@ -136,7 +159,14 @@ export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
      */
     isModal?: boolean;
     tags?: string[];
+    /** Nesting / search taxonomy - not Builder AI quick actions. */
     capabilities?: string[];
+    /**
+     * Builder AI quick actions for this block. Declare packs in the host builder
+     * (or app) - `@hacado/ai-core` stays abstract. Each action needs a full i18n
+     * `labelKey` for `useI18n()`.
+     */
+    aiCapabilities?: EditorBlockAICapability[];
     disable?: BlockEditorDisableOptions;
     defaultMetadata?: Record<string, any>;
     /** Optional list of builder targets (eg. 'page', 'footer') where this block can be used. */

@@ -6,6 +6,7 @@ import { AnimationSchema } from "./schema";
 export const animationStyle = {
   name: "animation",
   label: "builder.pageBuilder.styles.properties.animation",
+  description: "CSS animation settings (name, duration, easing, etc.)",
   category: "effects",
   schema: AnimationSchema,
   icon: ({ className }) => <Play className={className} />,

@@ -13,9 +13,9 @@ export type LegalSection = {
   links?: { label: string; href: string }[];
 };
 
-export const privacyUpdated = "October 17, 2026";
-export const termsUpdated = "October 17, 2026";
-export const smsPolicyUpdated = "October 17, 2026";
+export const privacyUpdated = "November 17, 2026";
+export const termsUpdated = "November 17, 2026";
+export const smsPolicyUpdated = "November 17, 2026";
 
 export const smsPolicySections: LegalSection[] = [
   {
@@ -52,6 +52,7 @@ export const smsPolicySections: LegalSection[] = [
     paragraphs: [
       "When you opt in or opt out, we store the mobile number, whether you agreed, which business the choice applies to, the time, and the IP address of the request when one is available. We also store delivery status for texts we send, so we can avoid duplicate sends and apply the first-message notice below.",
       "Consent is per business. Agreeing with one business does not agree for every business on Hacado. An opt-out applies to the phone number across Hacado’s platform number.",
+      "When a business enables custom text messaging on Hacado’s platform number in the United States or Canada, we may collect and store business information required to register and send those texts. That can include business type, legal name, trade name, tax or business identification number where provided, website, business address, and a contact person’s name, email, and phone number. The same business information may be shared with vendors who provide text messaging so they can provision a number, meet carrier registration rules, and deliver texts. We keep it while the business uses platform texting and as required afterward for compliance, disputes, or security.",
       "We share the phone number and the message contents with our texting provider, Telnyx, so the text can be delivered to your carrier. We do not sell phone numbers.",
     ],
   },
@@ -110,9 +111,11 @@ export const privacySections: LegalSection[] = [
     bullets: [
       "Account information (name, email address, phone number where provided, password or SSO identifiers, authentication codes).",
       "Business information (business name, address, public booking URL, branding, timezone, language).",
+      "Business information required for text message sending and carrier registration when you enable platform texting (for example business type, legal name, trade name, tax or business identification number where provided, website, business address, and a contact person’s name, email, and phone number). The same information may be shared with vendors who provide text messaging.",
       "Calendar and scheduling data (availability, appointments, busy times synced from connected calendars).",
       "Payment and billing metadata (plan, subscription status, invoices). Card numbers are handled by Polar and/or your connected payment providers (Stripe, Square, PayPal); we do not store full card PANs.",
       "Communications you send through the Service (email and SMS templates, logs of messages sent to your clients, support emails).",
+      "Prompts and content you submit to Hacado AI features (for example page, email, or text-message drafts), and the generated suggestions returned to your workspace.",
       "Client records you enter or that your clients submit (profiles, intake forms, booking notes), on your behalf.",
       "Usage data, device and log information, and analytics (including cookies and similar technologies).",
     ],
@@ -124,6 +127,8 @@ export const privacySections: LegalSection[] = [
       "Provide, maintain, secure, and improve the Service.",
       "Process subscriptions and send billing-related notices.",
       "Send appointment confirmations, reminders, and other notifications you configure.",
+      "Register, provision, and operate text messaging for your business, including carrier and provider requirements for platform texts.",
+      "Provide optional AI-assisted features in the Service, such as drafting or rewriting website pages, email templates, and text messages.",
       "Respond to comments, questions, and support requests.",
       "Monitor and analyze trends, usage, and activities to keep the Service reliable.",
       "Detect, investigate, and prevent fraud, abuse, and security incidents.",
@@ -144,7 +149,8 @@ export const privacySections: LegalSection[] = [
     bullets: [
       "Billing: Polar (subscriptions, customer portal, tax invoices).",
       "Payments you enable: Stripe, Square, PayPal (and similar processors you connect).",
-      "Communications: email delivery (including SMTP you configure) and SMS providers (including Telnyx for platform texts, and TextBelt when a workspace uses that app).",
+      "Communications: email delivery (including SMTP you configure) and vendors who provide text messaging (including Telnyx for platform texts, and TextBelt when a workspace uses that app). The same business information collected for text message sending and registration may be shared with those vendors as needed to send texts from a platform or dedicated number.",
+      "AI providers that process prompts and related content so we can return drafts and edits in the product.",
       "Integrations you connect: Google, Microsoft, Zoom, and other calendar or video providers.",
       "Infrastructure, monitoring, and analytics providers (including Google Analytics on our marketing site where cookies are allowed).",
       "Professional advisers and authorities when required by law.",
@@ -195,9 +201,19 @@ export const privacySections: LegalSection[] = [
     paragraphs: [
       "If you book with a business on Hacado and you agree to texts, we send appointment, waitlist, and related account messages to your mobile number. For United States and Canada numbers, those texts come from Hacado’s toll-free number and name the business you booked with. The checkbox is optional. You can still complete the booking, and we email the confirmation and reminders to the address you entered.",
       "We store the phone number, whether you agreed, the business, the time, and the IP address when one is available. We also store opt-out requests and message delivery status. We share the number and the message with Telnyx so your carrier can deliver the text. We do not sell phone numbers, and these texts are not marketing.",
+      "If you are a business using Hacado’s platform texting, we may store business information required for text message sending and carrier registration (such as legal and trade names, tax or business identification numbers where provided, website, address, and contact details). The same business information may be shared with vendors who provide text messaging, as needed to enable, register, and operate texting for your workspace, and to meet carrier and legal requirements.",
       "Reply STOP to opt out and HELP for help. Message frequency varies with your appointments. Message and data rates may apply. The full description of what we text, how consent is stored, and how to opt back in is in the SMS Privacy and Policy.",
     ],
     links: [{ label: "SMS Privacy and Policy", href: "/sms-policy" }],
+  },
+  {
+    title: "Artificial intelligence (Hacado AI)",
+    paragraphs: [
+      "Hacado offers optional AI features in the Service. You can ask Hacado AI to help build or rewrite website pages, email templates, text-message templates, and one-off messages you send from the product. AI is assistive: you review and edit the result before you publish or send.",
+      "When you use these features, we process the prompt you enter and related workspace context needed to fulfill the request (for example selected blocks, template placeholders, subject lines, or the current draft). We send that information to third-party AI providers so they can generate a response. The output is returned to your workspace for you to accept, edit, or discard.",
+      "We use AI processing to provide the feature you requested, to operate and improve the Service (including reliability and abuse prevention), and to enforce our Terms. We do not sell AI prompts or generated content. Do not submit secrets, payment card numbers, government ID numbers, or other sensitive data in AI prompts unless that data is necessary for the draft you are creating and you are allowed to process it.",
+      "You remain responsible for content you publish or send after using AI, including accuracy, your clients’ privacy notices, and compliance with anti-spam and telecommunications rules. Generated copy may be imperfect; treat it as a draft.",
+    ],
   },
   {
     title: "Your clients’ rights",
@@ -253,6 +269,7 @@ export const termsSections: LegalSection[] = [
     ],
     bullets: [
       "Use the Service for any illegal or unauthorized purpose, including spam or deceptive booking practices.",
+      "Publish, upload, store, host, distribute, or transmit illegal materials or other content that is unlawful, harmful, fraudulent, or that infringes others’ rights.",
       "Transmit malware, harmful code, or content that infringes others’ rights.",
       "Attempt to gain unauthorized access to any part of the Service or other customers’ data.",
       "Interfere with or disrupt the proper working of the platform.",
@@ -266,6 +283,22 @@ export const termsSections: LegalSection[] = [
       "You retain ownership of content you submit, post, or display through the Service (including your website pages, branding, and client records). You grant us a worldwide, non-exclusive, royalty-free license to host, reproduce, and process that content solely to provide and improve the Service.",
       "You are responsible for the accuracy of your services, prices, availability, and the cancellation, reschedule, deposit, and refund policies you show to your clients. Those policies are between you and your clients; Hacado is not a party to those appointments.",
     ],
+  },
+  {
+    title: "Prohibited and illegal materials",
+    paragraphs: [
+      "You may not publish, upload, store, host, display, or otherwise make available on or through the Service any illegal materials or other content that violates applicable law. This includes, without limitation, content that is fraudulent, deceptive, defamatory, obscene where prohibited, that exploits or endangers minors, that promotes violence or terrorism, that infringes intellectual property or privacy rights, or that is otherwise unlawful in the jurisdictions where you or your clients are located.",
+      "You are solely responsible for content in your workspace, including website pages, assets, forms, client records, and message templates. We may remove or disable access to content, suspend texting or publishing features, or suspend or terminate accounts when we reasonably believe content or use violates these Terms or the law. We may also report illegal materials to authorities when required or appropriate.",
+    ],
+  },
+  {
+    title: "Communication templates and regulations",
+    paragraphs: [
+      "All communication templates you create, store, or send through the Service—including email templates, text message (SMS) templates, and one-off messages—must comply with applicable laws and regulations. That includes anti-spam, consumer-protection, privacy, and telecommunications rules in every jurisdiction where your messages are sent or received.",
+      "SMS templates are subject to stricter carrier and industry rules. Text templates must be transactional (about a booking, waitlist, payment, sign-in, or similar customer interaction you already have with the recipient). They must not be marketing, promotional, or unsolicited. You must obtain and honor consent, include required opt-out and help language where applicable, and keep wording consistent with the SMS Privacy and Policy and our text-messaging product rules. Built-in or AI-suggested wording does not excuse non-compliant templates; you must review every template before you save or send it.",
+      "We may refuse, block, or remove templates or sends that we reasonably believe violate these requirements, carrier rules, or the law.",
+    ],
+    links: [{ label: "SMS Privacy and Policy", href: "/sms-policy" }],
   },
   {
     title: "Plans, payment, and cancellation of Hacado",
@@ -286,9 +319,22 @@ export const termsSections: LegalSection[] = [
     paragraphs: [
       "Appointment texts are optional. A client opts in by checking the text box on a booking or waitlist form, or when a business records that the client agreed. Consent is not required to complete a booking. Reply STOP to opt out and HELP for help. Message frequency varies with appointments, and message and data rates may apply.",
       "If you are a business using Hacado, you may send texts only when the recipient has agreed, and you must honor opt-outs. You will not use the Service for marketing or unsolicited texts. Unused SMS credits typically do not constitute a cash refund except as required by law or stated at purchase.",
+      "SMS templates and other message templates you store or send must comply with the rules in Communication templates and regulations above, including carrier and telecommunications requirements for text messages.",
+      "To enable platform text messaging, you may need to provide business information required for sending and carrier registration. You represent that the information you submit is accurate and that you are authorized to provide it. The same business information may be shared with vendors who provide text messaging. How we store and share that information is described in the Privacy Policy and the SMS Privacy and Policy.",
       "The SMS Privacy and Policy is part of these Terms for text messages. It describes the message types, the consent record, and how to opt out.",
     ],
-    links: [{ label: "SMS Privacy and Policy", href: "/sms-policy" }],
+    links: [
+      { label: "SMS Privacy and Policy", href: "/sms-policy" },
+      { label: "Privacy Policy", href: "/privacy" },
+    ],
+  },
+  {
+    title: "Artificial intelligence features",
+    paragraphs: [
+      "Optional Hacado AI features can draft or rewrite website pages, emails, and text messages based on prompts and related content in your workspace. Outputs are suggestions. You must review them before publishing or sending, and you remain responsible for the final content and for complying with law and these Terms.",
+      "By using AI features, you authorize us to process your prompts and necessary workspace context with our AI providers as described in the Privacy Policy. Do not use AI features to generate illegal, deceptive, or unsolicited marketing content.",
+    ],
+    links: [{ label: "Privacy Policy", href: "/privacy" }],
   },
   {
     title: "Intellectual property",
@@ -299,7 +345,7 @@ export const termsSections: LegalSection[] = [
   {
     title: "Disclaimer",
     paragraphs: [
-      "The Service is provided “as is” and “as available.” To the fullest extent permitted by law, we disclaim warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not warrant that bookings, notifications, or payments will be uninterrupted or error-free.",
+      "The Service is provided “as is” and “as available.” To the fullest extent permitted by law, we disclaim warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not warrant that bookings, notifications, payments, or AI-generated drafts will be uninterrupted, error-free, or fit for a particular purpose without your review.",
     ],
   },
   {

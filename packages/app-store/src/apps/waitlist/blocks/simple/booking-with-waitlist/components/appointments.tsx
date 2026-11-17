@@ -140,6 +140,33 @@ export const Appointments: React.FC<
   >(lockMemberId ?? null);
 
   const [specialistFirstAny, setSpecialistFirstAny] = React.useState(false);
+  const appliedLocks = React.useRef({ lockServiceId, lockMemberId });
+
+  React.useEffect(() => {
+    const prev = appliedLocks.current;
+    if (
+      prev.lockServiceId === lockServiceId &&
+      prev.lockMemberId === lockMemberId
+    ) {
+      return;
+    }
+
+    appliedLocks.current = { lockServiceId, lockMemberId };
+
+    if (lockServiceId) {
+      setOption(lockServiceId);
+    } else if (isEditor && prev.lockServiceId) {
+      setOption(fromQuery);
+    }
+
+    if (lockMemberId) {
+      setSpecialistFirstMemberId(lockMemberId);
+      setSpecialistFirstAny(false);
+    } else if (isEditor && prev.lockMemberId) {
+      setSpecialistFirstMemberId(null);
+      setSpecialistFirstAny(false);
+    }
+  }, [lockServiceId, lockMemberId, isEditor, fromQuery]);
 
   React.useEffect(() => {
     if (!waitlistTokenParam || isEditor || !appId) return;

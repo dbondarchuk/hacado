@@ -348,7 +348,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
   const timeframeLabel = matchedRangeOption
     ? t(`financialOverview.view.rangeOptions.${matchedRangeOption}`)
     : start && end
-      ? `${DateTime.fromJSDate(start).setZone(timeZone).toLocaleString(DateTime.DATE_MED)} – ${DateTime.fromJSDate(end).setZone(timeZone).toLocaleString(DateTime.DATE_MED)}`
+      ? `${DateTime.fromJSDate(start).setZone(timeZone).toLocaleString(DateTime.DATE_MED)} - ${DateTime.fromJSDate(end).setZone(timeZone).toLocaleString(DateTime.DATE_MED)}`
       : t("financialOverview.view.dateRange");
 
   const timeGroupingLabel =

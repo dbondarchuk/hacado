@@ -8,6 +8,7 @@ const FlexGrowSchema = z.coerce.number<number>().min(0).int();
 export const flexGrowStyle = {
   name: "flexGrow",
   label: "builder.pageBuilder.styles.properties.flexGrow",
+  description: "CSS flex-grow",
   category: "layout",
   schema: FlexGrowSchema,
   icon: ({ className }) => <ArrowLeftRight className={className} />,

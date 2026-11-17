@@ -6,7 +6,7 @@ import {
   GetAppointmentOptionsResponse,
 } from "@hacado/types/booking";
 import React from "react";
-import { demoBookingOptionsResponse } from "../../../../components/fixtures";
+import { loadEditorBookingOptions } from "../../../../components/fixtures";
 import {
   WaitlistPublicKeys,
   WaitlistPublicNamespace,
@@ -71,9 +71,22 @@ export const BookingWithWaitlist: React.FC<
   React.useEffect(() => {
     if (!isEditor) {
       void loadOptions();
-    } else {
-      setResponse(demoBookingOptionsResponse);
+      return;
     }
+
+    let cancelled = false;
+
+    void loadEditorBookingOptions()
+      .then((data) => {
+        if (!cancelled) setResponse(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [isEditor, loadOptions]);
 
   if (!appId && isOnlyWaitlist) {

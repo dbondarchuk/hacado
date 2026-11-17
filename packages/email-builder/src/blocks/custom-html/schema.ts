@@ -11,17 +11,15 @@ export const CustomHTMLPropsSchema = z.object({
         })
         .min(1, {
           message: "emailBuilder.blocks.customHtml.errors.required",
-        }),
+        })
+        .describe("Raw HTML markup injected into the email at render time."),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Custom HTML block content."),
 });
 
 export type CustomHTMLProps = Prettify<z.infer<typeof CustomHTMLPropsSchema>>;
 export type CustomHTMLReaderProps = BaseReaderBlockProps<any> & CustomHTMLProps;
 
-export const CustomHTMLPropsDefaults = {
-  props: {
-    html: "",
-  },
-} as const satisfies CustomHTMLProps;
+export { CustomHTMLPropsDefaults } from "./defaults";

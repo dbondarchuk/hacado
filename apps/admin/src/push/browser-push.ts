@@ -95,7 +95,7 @@ export function isIosDevice(): boolean {
   );
 }
 
-/** @deprecated Prefer isIosDevice — Chrome on iOS also needs Home Screen install. */
+/** @deprecated Prefer isIosDevice - Chrome on iOS also needs Home Screen install. */
 export function isIosSafari(): boolean {
   return isIosDevice();
 }

@@ -1814,7 +1814,10 @@ templates:
     copyPath: Copiar ruta
     close: Cerca
     characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    segmentCount: "{count, plural, =1 {1 segmento SMS} other {# segmentos SMS}}"
     preview: Avance
+    emptyPreview: La vista previa del mensaje aparecerá aquí
+    sentMinutesAgo: "{count, plural, =1 {Enviado hace 1 minuto} other {Enviado hace # minutos}}"
   table:
     filters:
       type: Tipo
@@ -2589,7 +2592,7 @@ catalog:
       creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
     adjust:
       title: Ajustar créditos usados
-      description: Establezca cuántos créditos de {name} se han utilizado (0–{total}).
+      description: Establezca cuántos créditos de {name} se han utilizado (0-{total}).
       usedLabel: Créditos usados
       reason: Razón
       reasonPlaceholder: Nota opcional
@@ -4388,4 +4391,3 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
-

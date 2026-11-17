@@ -3,11 +3,9 @@
 import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { pagesApi } from "@hacado/api-sdk/admin/pages";
-import {
-  AppsBlocksEditors,
-  AppsBlocksTemplates,
-} from "@hacado/app-store/blocks/editors";
+import { AppsBlocksEditors } from "@hacado/app-store/blocks/editors";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
+import { AppsBlocksTemplates } from "@hacado/app-store/blocks/templates";
 import { Language, useI18n } from "@hacado/i18n/client";
 import {
   BlockProviderRegistry,
@@ -42,11 +40,18 @@ import { ToolbarButton } from "@hacado/ui/toolbar";
 import { formatArguments } from "@hacado/utils/format-arguments";
 import { generateSlugPreview } from "@hacado/utils/page";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ExternalLink, Settings as SettingsIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { ExternalLink, Settings as SettingsIcon, Sparkles } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
+import {
+  BUILDER_AI_TAB,
+  BuilderAIAssistantPanel,
+  useBuilderAIHostLifecycle,
+  useBuilderAIStore,
+  useBuilderAIToolbarButtons,
+} from "../builder-ai";
 import { NavigationGuardDialog, useIsDirty } from "../navigation-guard/dialog";
 import { PageIdentityBar } from "./page-identity-bar";
 import { PageSettingsPanel } from "./page-settings-panel";
@@ -128,22 +133,41 @@ export const PageForm: React.FC<{
   }
 
   const [loading, setLoading] = React.useState(false);
-  const [slugManuallyChanged, setSlugManuallyChanged] = React.useState(false);
+  const [slugManuallyChanged, setSlugManuallyChanged] = React.useState(
+    Boolean(initialData?.slug) && Boolean(initialData?._id),
+  );
+
   const router = useRouter();
+  const pathname = usePathname();
+  const emptyPageValues = React.useMemo(
+    () => ({
+      publishDate: new Date(),
+      published: true,
+    }),
+    [],
+  );
+
   const form = useForm<PageFormValues>({
     resolver: zodResolver(formSchema),
     mode: "all",
     reValidateMode: "onChange",
-    defaultValues: initialData || {
-      publishDate: new Date(),
-      published: true,
-    },
+    defaultValues: initialData || emptyPageValues,
   });
 
   const slug = form.watch("slug");
   const title = form.watch("title");
   const language = form.watch("language");
   const isNewPage = !initialData?._id;
+  const documentId = initialData?._id;
+
+  useBuilderAIHostLifecycle(documentId);
+
+  // Soft-nav back to /new (or between pages) can reuse client state — force a
+  // clean form for the current route + document identity.
+  React.useEffect(() => {
+    form.reset(initialData || emptyPageValues);
+    setSlugManuallyChanged(Boolean(initialData?.slug) && Boolean(documentId));
+  }, [pathname, documentId, form, emptyPageValues, initialData]);
 
   const { path, params } = useMemo(() => generateSlugPreview(slug), [slug]);
 
@@ -157,6 +181,26 @@ export const PageForm: React.FC<{
       }
     }
   }, [title, isNewPage, slugManuallyChanged, slug, form]);
+
+  React.useEffect(() => {
+    return useBuilderAIStore
+      .getState()
+      .registerApplyDocumentSettings((patch, options) => {
+        // Freeze before applying title so auto-slug cannot overwrite an AI slug.
+        if (patch.slug !== undefined || options?.preserveSlug) {
+          setSlugManuallyChanged(true);
+        }
+
+        for (const [key, value] of Object.entries(patch)) {
+          if (value === undefined) continue;
+
+          form.setValue(key as keyof PageFormValues, value as never, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }
+      });
+  }, [form]);
 
   const breadcrumbItems = useMemo(
     () => [
@@ -222,12 +266,24 @@ export const PageForm: React.FC<{
     }
   };
 
-  const [description, published, publishDate, tags, fullWidth] = form.watch([
+  const [
+    description,
+    keywords,
+    featuredImage,
+    published,
+    publishDate,
+    tags,
+    fullWidth,
+    doNotCombine,
+  ] = form.watch([
     "description",
+    "keywords",
+    "featuredImage",
     "published",
     "publishDate",
     "tags",
     "fullWidth",
+    "doNotCombine",
   ]);
 
   const demoAppointment = useDemoArguments();
@@ -333,6 +389,57 @@ export const PageForm: React.FC<{
     ) : undefined;
   }, [footer, args]);
 
+  const connectedApps = useMemo(
+    () =>
+      apps?.map((app) => ({
+        appId: app.appId,
+        appName: app.appName,
+      })),
+    [apps],
+  );
+
+  const documentSettings = useMemo(
+    () => ({
+      title,
+      slug,
+      description,
+      keywords,
+      featuredImage: featuredImage ?? null,
+      published,
+      publishDate: publishDate
+        ? new Date(publishDate).toISOString()
+        : undefined,
+      language: language ?? null,
+      tags,
+      doNotCombine,
+      headerId: headerId || undefined,
+      footerId: footerId || undefined,
+      fullWidth,
+    }),
+    [
+      title,
+      slug,
+      description,
+      keywords,
+      featuredImage,
+      published,
+      publishDate,
+      language,
+      tags,
+      doNotCombine,
+      headerId,
+      footerId,
+      fullWidth,
+    ],
+  );
+
+  const builderAIToolbarButtons = useBuilderAIToolbarButtons({
+    builder: "page",
+    documentId: initialData?._id,
+    apps: connectedApps,
+    documentSettings,
+  });
+
   const extraTabs = useMemo(() => {
     return [
       {
@@ -345,6 +452,12 @@ export const PageForm: React.FC<{
         icon: <SettingsIcon size={16} />,
         content: <PageSettingsPanel form={form} loading={loading} />,
       },
+      {
+        value: BUILDER_AI_TAB,
+        label: "AI",
+        icon: <Sparkles size={16} />,
+        content: <BuilderAIAssistantPanel />,
+      },
     ];
   }, [form, loading, t, hasSettingsErrors]);
 
@@ -355,6 +468,7 @@ export const PageForm: React.FC<{
 
   const toolbarButtons = useMemo<ToolbarButtonInjection[]>(
     () => [
+      ...builderAIToolbarButtons,
       {
         id: "view-page",
         section: "view",
@@ -377,16 +491,18 @@ export const PageForm: React.FC<{
         ),
       },
     ],
-    [t, viewPageHref],
+    [t, viewPageHref, builderAIToolbarButtons],
   );
 
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <Breadcrumbs items={breadcrumbItems} />
-      <div className="flex flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="shrink-0">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
         <AdminPageHeader
-          className="mb-0"
+          className="mb-0 shrink-0"
           text={
             <div className="my-2 w-full min-w-0">
               <PageIdentityBar
@@ -401,16 +517,17 @@ export const PageForm: React.FC<{
         />
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-8"
+          className="flex min-h-0 flex-1 flex-col overflow-hidden"
         >
-          <div className="flex flex-col-reverse lg:flex-row gap-4 w-full">
-            <FormField
-              control={form.control}
-              name="content"
-              render={({ field }) => (
-                <FormItem className="w-full flex-grow relative">
-                  <FormControl>
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem className="relative flex min-h-0 flex-1 flex-col content-normal overflow-hidden">
+                <FormControl>
+                  <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
                     <PageBuilder
+                      key={`${pathname}:${documentId ?? "new"}`}
                       args={args}
                       value={field.value}
                       onIsValidChange={onPageBuilderValidChange}
@@ -422,13 +539,15 @@ export const PageForm: React.FC<{
                       blockRegistry={blockRegistry}
                       type="page"
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="shrink-0 pt-4">
+            <SaveButton form={form} />
           </div>
-          <SaveButton form={form} />
         </form>
       </div>
     </Form>

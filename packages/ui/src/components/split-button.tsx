@@ -16,28 +16,36 @@ export type SplitButtonProps = ButtonProps & {
 
 export const SplitButton: React.FC<SplitButtonProps> = ({
   variant,
+  size,
   className,
   caretClassName,
   dropdownChildren,
   ...props
 }) => (
-  <div className="flex items-center">
+  <div className="inline-flex items-stretch">
     <Button
       variant={variant}
+      size={size}
       className={cn("rounded-r-none", className)}
       {...props}
     />
-    <Separator orientation="vertical" />
+    <Separator orientation="vertical" className="self-stretch h-auto" />
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          type="button"
           variant={variant}
-          className={cn("rounded-l-none border-l-0 px-2", caretClassName)}
+          size={size}
+          aria-label="More options"
+          className={cn(
+            "rounded-l-none border-l-0 px-2 self-stretch h-auto",
+            caretClassName,
+          )}
         >
           <CaretDownIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>{dropdownChildren}</DropdownMenuContent>
+      <DropdownMenuContent align="end">{dropdownChildren}</DropdownMenuContent>
     </DropdownMenu>
   </div>
 );

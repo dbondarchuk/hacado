@@ -9,40 +9,20 @@ const iconsEnum = z.enum(iconNames);
 export const IconPropsSchema = z.object({
   props: z
     .object({
-      icon: iconsEnum.optional().nullable(),
+      icon: iconsEnum
+        .optional()
+        .nullable()
+        .describe("Icon name from the design system icon set"),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
 });
 
 export type IconProps = Prettify<z.infer<typeof IconPropsSchema>>;
 export type IconReaderProps = BaseReaderBlockProps<any> & IconProps;
 
-export const IconPropsDefaults = {
-  props: {
-    icon: "star",
-  },
-  style: {
-    display: [
-      {
-        value: "inline-block",
-      },
-    ],
-    width: [
-      {
-        value: { value: 1, unit: "rem" },
-      },
-    ],
-    height: [
-      {
-        value: { value: 1, unit: "rem" },
-      },
-    ],
-    fill: [
-      {
-        value: "transparent",
-      },
-    ],
-  },
-} as const satisfies IconProps;
+export { IconPropsDefaults } from "./defaults";

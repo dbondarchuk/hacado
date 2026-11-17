@@ -4,12 +4,12 @@ import type {
 } from "@hacado/types/configuration/schedule";
 import { scheduleConfigurationSchema } from "@hacado/types/configuration/schedule";
 
-/** Mon–Fri 09:00–17:00, weekends closed (Luxon weekdays: 1 = Monday … 7 = Sunday). */
+/** Mon-Fri 09:00-17:00, weekends closed (Luxon weekdays: 1 = Monday … 7 = Sunday). */
 export function getDefaultInstallSchedule(): Schedule {
   return getDefaultScheduleConfiguration().schedule;
 }
 
-/** Mon–Fri 09:00–17:00, weekends closed (Luxon weekdays: 1 = Monday … 7 = Sunday). */
+/** Mon-Fri 09:00-17:00, weekends closed (Luxon weekdays: 1 = Monday … 7 = Sunday). */
 export function getDefaultScheduleConfiguration(): ScheduleConfiguration {
   const workShift = { start: "09:00", end: "17:00" };
   return scheduleConfigurationSchema.parse({

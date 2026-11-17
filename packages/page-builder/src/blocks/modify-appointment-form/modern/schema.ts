@@ -3,12 +3,28 @@ import * as z from "zod";
 import { zStyles } from "./styles";
 
 export const ModifyAppointmentFormPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    hideTitle: z.boolean().optional().nullable(),
-    hideSteps: z.boolean().optional().nullable(),
-    scrollToTop: z.boolean().optional().nullable(),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      hideTitle: z
+        .boolean()
+        .optional()
+        .nullable()
+        .describe("Hide the modify-appointment block title"),
+      hideSteps: z
+        .boolean()
+        .optional()
+        .nullable()
+        .describe("Hide step indicators in the modify flow"),
+      scrollToTop: z
+        .boolean()
+        .optional()
+        .nullable()
+        .describe("Scroll to top when moving between modify steps"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type ModifyAppointmentFormProps = z.infer<

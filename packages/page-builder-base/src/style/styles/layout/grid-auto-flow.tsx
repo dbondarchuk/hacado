@@ -25,6 +25,7 @@ const GridAutoFlowSchema = z.enum(gridAutoFlowKeys);
 export const gridAutoFlowStyle = {
   name: "gridAutoFlow",
   label: "builder.pageBuilder.styles.properties.gridAutoFlow",
+  description: "CSS grid-auto-flow",
   category: "layout",
   schema: GridAutoFlowSchema,
   icon: ({ className }) => <Grid2x2 className={className} />,

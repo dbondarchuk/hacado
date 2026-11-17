@@ -120,7 +120,7 @@ await writePng(
 );
 
 /**
- * Dark mark flattened onto opaque white — same treatment as push notifications.
+ * Dark mark flattened onto opaque white - same treatment as push notifications.
  * @param {number} size
  */
 async function rasterizeWhiteBgIcon(size) {

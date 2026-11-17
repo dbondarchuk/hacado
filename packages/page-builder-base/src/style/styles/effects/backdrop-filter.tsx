@@ -28,6 +28,7 @@ const renderFilterFunctionValue = (
 export const backdropFilterStyle = {
   name: "backdropFilter",
   label: "builder.pageBuilder.styles.properties.backdropFilter",
+  description: "CSS backdrop-filter",
   category: "effects",
   schema: FilterSchema,
   icon: ({ className }) => <Aperture className={className} />,

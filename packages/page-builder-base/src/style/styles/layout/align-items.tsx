@@ -17,6 +17,7 @@ const AlignItemsSchema = z.enum(alignItemsKeys);
 export const alignItemsStyle = {
   name: "alignItems",
   label: "builder.pageBuilder.styles.properties.alignItems",
+  description: "CSS align-items for flex/grid",
   category: "layout",
   schema: AlignItemsSchema,
   icon: ({ className }) => <AlignVerticalJustifyCenter className={className} />,

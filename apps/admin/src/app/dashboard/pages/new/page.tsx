@@ -84,14 +84,17 @@ export default async function NewPagesPage(props: Props) {
   logger.debug({ apps }, "Connected apps");
 
   return (
-    <PageContainer scrollable>
-      <Styling styling={styling} />
-      <PageForm
-        config={{ general, brand, social }}
-        apps={apps}
-        websiteUrl={websiteUrl}
-        initialData={initialData}
-      />
+    <PageContainer fill>
+      <div className="flex min-h-0 flex-1 flex-col gap-4 w-full">
+        <Styling styling={styling} />
+        <PageForm
+          key={from ? `clone-${from}` : "new"}
+          config={{ general, brand, social }}
+          apps={apps}
+          websiteUrl={websiteUrl}
+          initialData={initialData}
+        />
+      </div>
     </PageContainer>
   );
 }

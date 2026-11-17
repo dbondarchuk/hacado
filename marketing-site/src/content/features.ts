@@ -26,7 +26,7 @@ export const featureGroups: {
   {
     id: "core",
     title: "Run the book",
-    body: "A public site, a calendar that tells the truth, day-to-day appointment ops, an activity timeline, payments, reminders, and a funnel that shows where bookings stall.",
+    body: "A public site (with AI that builds pages), a calendar that tells the truth, day-to-day appointment ops, an activity timeline, payments, reminders and messages AI can write for you, and a funnel that shows where bookings stall.",
   },
   {
     id: "grow",
@@ -338,9 +338,9 @@ export const features: Feature[] = [
     title: "Website builder",
     eyebrow: "Your brand",
     summary:
-      "A full booking website - start from a ready template, or build your own.",
+      "A full booking website - templates, drag and drop, or describe a page and let AI build it.",
     description:
-      "Pick a ready-made look for nails, hair, lashes, spas, coaches, and more - or drag and drop your own pages for services, portfolio, FAQ, gift cards, and booking. Use yourbusiness.hacado.me for free, or connect your own domain on Solo. Clients see you, not a marketplace - and your site can be ready for ChatGPT and clearer Google results without a developer.",
+      "Pick a ready-made look for nails, hair, lashes, spas, coaches, and more - or drag and drop your own pages for services, portfolio, FAQ, gift cards, and booking. Prefer to talk it through? Ask AI to build the page - it writes layout and copy into the editor, and you keep editing until it feels like yours. Use yourbusiness.hacado.me for free, or connect your own domain on Solo. Clients see you, not a marketplace - and your site can be ready for ChatGPT and clearer Google results without a developer.",
     image: "/assets/generated/mock-booking-site.png",
     gallery: [
       "/assets/generated/hero-workspace.png",
@@ -353,6 +353,7 @@ export const features: Feature[] = [
     bullets: [
       "Browse full-site templates before you sign up - click through like a client",
       "Drag-and-drop pages, no code",
+      "AI builds and rewrites pages from a short description - keep editing by chat or drag and drop",
       "Ready for ChatGPT and clearer Google results - without hiring a developer",
       "Your colors, fonts, logo, and design",
       "Free yourbusiness.hacado.me address or your own domain on Solo and Studio",
@@ -363,6 +364,10 @@ export const features: Feature[] = [
       {
         title: "Start from a template - or from a blank page",
         body: "Not sure where to begin? Open the template gallery and walk through real booking sites for your kind of work. When you create an account you can start from a look you liked, then change photos, copy, and colors until it feels like yours.",
+      },
+      {
+        title: "Describe it - AI builds it",
+        body: "Ask for a services page, gallery, FAQ, or home layout in plain language. AI writes the blocks and copy into the builder. Keep chatting to rearrange, rewrite, or swap images - or grab the drag handles. Drag and drop never goes away; AI is how you get a real page built without starting from empty.",
       },
       {
         title: "The site is the product, not a wrapper",
@@ -388,7 +393,7 @@ export const features: Feature[] = [
       },
       {
         title: "Make it yours",
-        body: "Colors, logo, photos, and copy - about a few minutes once you pick a starting look.",
+        body: "Colors, logo, photos, and copy - or ask AI to build a page, then tweak.",
       },
       {
         title: "Publish",
@@ -405,8 +410,12 @@ export const features: Feature[] = [
         a: "Yes. Browse the full-site template gallery - open a demo and click through home, booking, services, and more the way clients will. When you are ready, start free and pick a look to customize.",
       },
       {
+        q: "Do I still drag and drop if I use AI?",
+        a: "Yes. AI builds the blocks and copy in the editor; you keep editing by chat or drag and drop whenever you want full control.",
+      },
+      {
         q: "How many pages on Free?",
-        a: "Up to 10 pages on Free. Unlimited on Solo and Studio.",
+        a: "Up to 10 pages on Free. Unlimited on Solo and Studio. Builder AI is available on every plan.",
       },
       {
         q: "Can I use my own domain?",
@@ -418,7 +427,7 @@ export const features: Feature[] = [
       },
       {
         q: "Will ChatGPT or Google understand my site?",
-        a: "Yes - turn on Automatic AI Discovery and Automatic Structured Data in Apps. One helps ChatGPT and similar assistants read a clear summary of your business; the other helps Google understand your pages and services. No coding, no snippets to maintain.",
+        a: "Yes - turn on Automatic AI Discovery and Automatic Structured Data in Apps. One helps ChatGPT and similar assistants read a clear summary of your business; the other helps Google understand your pages and services. No coding, no snippets to maintain. That is separate from the builder AI that builds your pages.",
       },
       {
         q: "Can I show a portfolio?",
@@ -630,9 +639,10 @@ export const features: Feature[] = [
     slug: "notifications",
     title: "Email & SMS",
     eyebrow: "Reduce no-shows",
-    summary: "Reminders that cut no-shows without you texting from your phone.",
+    summary:
+      "Reminders that cut no-shows - write them yourself, or ask AI to write them.",
     description:
-      "Branded emails and SMS before the appointment, aftercare after. Resend or SMTP lets mail come from your domain. SMS credits are included on Solo and Studio; Free can buy credits separately. Templates stay in your voice.",
+      "Branded emails and SMS before the appointment, aftercare after. Ask AI to write a template or a one-off message - it builds the email or SMS with placeholders for time and service, and you keep editing in your voice before you send. Resend or SMTP lets mail come from your domain. SMS credits are included on Solo and Studio; Free can buy credits separately.",
     image: "/assets/generated/mock-sms-phone.png",
     gallery: [
       "/assets/generated/mock-sms-phone.png",
@@ -646,6 +656,7 @@ export const features: Feature[] = [
       "Email confirmations and reminders",
       "SMS reminders with plan credits or bring your own SMS provider",
       "Custom templates that match your brand",
+      "AI writes email and SMS in the editor - keep editing, then send",
       "Waitlist: email or SMS when a matching slot opens, with a book link",
       "Logs when a client says they never got the message",
       "Resend or SMTP so mail can come from your domain",
@@ -656,6 +667,10 @@ export const features: Feature[] = [
       {
         title: "Write it once, send it on a schedule",
         body: "Confirmation when they book, reminder the day before, follow-up after. Timing is yours - 24 hours, 2 hours, or both. Aftercare for a tattoo or a lash fill is the same system as a coaching recap.",
+      },
+      {
+        title: "Ask AI to write it, keep your voice",
+        body: "Describe the reminder or aftercare note you need. AI writes the email layout or SMS copy with the same placeholders you already use for time, service, and links. Keep editing until it sounds like you, then save the template or send from communications - same logs and credits as hand-written messages.",
       },
       {
         title: "Email from you, not a no-reply void",
@@ -673,7 +688,7 @@ export const features: Feature[] = [
     steps: [
       {
         title: "Write it once",
-        body: "Confirmation, reminder, follow-up - your words, your tone.",
+        body: "Confirmation, reminder, follow-up - your words, or ask AI to write them.",
       },
       {
         title: "Schedule sends",
@@ -690,6 +705,10 @@ export const features: Feature[] = [
         a: "Email is included. SMS credits can be purchased on Free; Solo includes 100/month, Studio 300/month.",
       },
       {
+        q: "Can AI write my templates?",
+        a: "Yes. Ask for a confirmation, reminder, aftercare note, or a one-off send - AI writes it in the editor. Keep editing before you send; placeholders for time, service, and links stay intact.",
+      },
+      {
         q: "Can clients reply?",
         a: "You can set auto-replies for common questions and still see the thread in communications. Staff can message from the appointment as well.",
       },
@@ -703,7 +722,7 @@ export const features: Feature[] = [
       },
       {
         q: "Are templates editable?",
-        a: "Yes. Keep the placeholders for time, service, and video link; rewrite the rest in your voice.",
+        a: "Yes. Keep the placeholders for time, service, and video link; rewrite the rest in your voice - whether you wrote it yourself or asked AI to.",
       },
       {
         q: "Do coaches and tutors use the same reminders?",

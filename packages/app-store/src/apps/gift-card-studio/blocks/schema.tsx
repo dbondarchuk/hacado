@@ -2,27 +2,21 @@ import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { Gem, Gift } from "lucide-react";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 import {
+  GiftCardStudioBlocksAllowedInFooter,
+  GiftCardStudioBlocksSchema,
+} from "./block-schemas";
+import {
   GiftCardPurchaseBlockConfiguration,
   GiftCardPurchaseBlockEditor,
   GiftCardPurchaseBlockPropsDefaults,
-  GiftCardPurchaseBlockPropsSchema,
 } from "./gift-card-purchase";
 import {
   GiftCardPurchaseShowcaseBlockConfiguration,
   GiftCardPurchaseShowcaseBlockEditor,
   GiftCardPurchaseShowcaseBlockPropsDefaults,
-  GiftCardPurchaseShowcaseBlockPropsSchema,
 } from "./gift-card-purchase-showcase";
 
-export const GiftCardStudioBlocksSchema = {
-  GiftCardPurchase: GiftCardPurchaseBlockPropsSchema,
-  GiftCardPurchaseShowcase: GiftCardPurchaseShowcaseBlockPropsSchema,
-};
-
-export const GiftCardStudioBlocksAllowedInFooter = {
-  GiftCardPurchase: false,
-  GiftCardPurchaseShowcase: false,
-};
+export { GiftCardStudioBlocksAllowedInFooter, GiftCardStudioBlocksSchema };
 
 export const GiftCardStudioBlocksDefaultMetadata = (
   _appName: string,

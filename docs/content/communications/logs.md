@@ -26,22 +26,22 @@ The box at the start of a row selects that row. **Select all** checks the rows o
 
 ### What each column means
 
-| Column | What it tells you |
-| --- | --- |
-| **Direction** | **Outbound** means Hacado sent it. **Inbound** means a customer texted you. |
-| **Channel** | **Email** or **Text message**. |
-| **Status** | Where that message is in the send. Failed rows use a red badge. The [status section](#what-each-status-means) lists every value. |
-| **Reason** | Why a text was skipped, blocked, or why a send failed. Other statuses leave this blank. A long reason shows the first 50 characters, then **View more**. That opens a dialog titled **Reason**, with the full text and **Close**. |
-| **Participant** (first) | **Customer** or **Member**. Member means the message was for a team member. |
-| **Participant** (second) | The email address or phone number on that message. |
-| **Handler** | What produced the message: a booking notice, a reminder, a sign-in code, and so on. |
-| **Subject** | The email subject. A text usually has no subject, so this cell is empty. |
-| **Content** | A short preview of the message. At 50 characters or more, the cell shows the start and **View more**. |
-| **Data** | **View**, and only when extra technical detail was stored with the send. Most rows leave this blank. |
-| **Date & time** | When the log was written, in your business time zone. A typical value looks like Nov 4, 2026, 1:39 PM. Newest is first until you sort another way. |
-| **Appointment** | The service name, when the message belongs to an appointment. Click it to open that appointment. |
-| **Customer** | The customer’s name. Click it to open that customer. |
-| **Team member** | The team member tied to the message. |
+| Column                   | What it tells you                                                                                                                                                                                                                 |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Direction**            | **Outbound** means Hacado sent it. **Inbound** means a customer texted you.                                                                                                                                                       |
+| **Channel**              | **Email** or **Text message**.                                                                                                                                                                                                    |
+| **Status**               | Where that message is in the send. Failed rows use a red badge. The [status section](#what-each-status-means) lists every value.                                                                                                  |
+| **Reason**               | Why a text was skipped, blocked, or why a send failed. Other statuses leave this blank. A long reason shows the first 50 characters, then **View more**. That opens a dialog titled **Reason**, with the full text and **Close**. |
+| **Participant** (first)  | **Customer** or **Member**. Member means the message was for a team member.                                                                                                                                                       |
+| **Participant** (second) | The email address or phone number on that message.                                                                                                                                                                                |
+| **Handler**              | What produced the message: a booking notice, a reminder, a sign-in code, and so on.                                                                                                                                               |
+| **Subject**              | The email subject. A text usually has no subject, so this cell is empty.                                                                                                                                                          |
+| **Content**              | A short preview of the message. At 50 characters or more, the cell shows the start and **View more**.                                                                                                                             |
+| **Data**                 | **View**, and only when extra technical detail was stored with the send. Most rows leave this blank.                                                                                                                              |
+| **Date & time**          | When the log was written, in your business time zone. A typical value looks like Nov 4, 2026, 1:39 PM. Newest is first until you sort another way.                                                                                |
+| **Appointment**          | The service name, when the message belongs to an appointment. Click it to open that appointment.                                                                                                                                  |
+| **Customer**             | The customer’s name. Click it to open that customer.                                                                                                                                                                              |
+| **Team member**          | The team member tied to the message.                                                                                                                                                                                              |
 
 **View more** on **Content** opens a dialog titled **Message content**. An email is shown as the email the customer would see. A text is shown as the message. If the full message cannot be loaded, Hacado reports **Could not load the full message.** **View** on **Data** opens a dialog titled **Log data**. That dialog is the technical record of the send. You do not edit it there.
 
@@ -55,7 +55,13 @@ This list is already limited to that customer, and only to messages whose partic
 
 The messages are cards, not a table. There is no **Customer** filter and no **Participant** filter, because both are already decided. Search, **Direction**, **Channel**, **Status**, **Team member** (when your role can see every team member’s messages), and the date range still apply.
 
-**Send new** sits at the top of the customer page. It is hidden when the customer has been deleted. A message you send from there is added to this list and to **Logs** once Hacado records it.
+**Send new** sits at the top of the customer page. It is hidden when the customer has been deleted. It opens **Send new message**, where you write an email to this customer. You can start from a blank canvas or click **Select template** to load an existing email template. A message you send from there is added to this list and to **Logs** once Hacado records it.
+
+The send dialog uses the same email builder as a template, including **Hacado AI**. Open the sparkles control on the toolbar for quick document actions, or open the **AI** tab in the inspector to chat.
+
+![Send new message with the Hacado AI menu open](/img/communications/send-email-ai-menu.png)
+
+![Send new message with the AI inspector tab open](/img/communications/send-email-ai-panel.png)
 
 If this customer has no messages, the area under the filters stays empty. There is no “no results” line on the card list.
 
@@ -106,21 +112,21 @@ Direction, Channel, and Status sit beside search. Filters that do not fit move i
 
 ![Participant, Team member, Customer, and the date range inside Filters](/img/communications/logs-more-filters.png)
 
-| Filter | What it keeps |
-| --- | --- |
-| **Direction** | **Outbound**, **Inbound**, or both. |
-| **Channel** | **Email**, **Text message**, or both. |
-| **Status** | Any mix of the eight statuses. All eight on means every status. |
-| **Participant** | **Customer**, **Member**, or both. This filter is on the Logs page only. |
-| **Team member** | Messages tied to the people you check. The menu lists active team members, and shows the email under the name when both exist. |
-| **Customer** | Messages for the customers you check. The menu shows the email under the name. This filter is on the Logs page only. |
-| **Select date range** | Messages whose date falls in the range, in your business time zone. |
+| Filter                | What it keeps                                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Direction**         | **Outbound**, **Inbound**, or both.                                                                                            |
+| **Channel**           | **Email**, **Text message**, or both.                                                                                          |
+| **Status**            | Any mix of the eight statuses. All eight on means every status.                                                                |
+| **Participant**       | **Customer**, **Member**, or both. This filter is on the Logs page only.                                                       |
+| **Team member**       | Messages tied to the people you check. The menu lists active team members, and shows the email under the name when both exist. |
+| **Customer**          | Messages for the customers you check. The menu shows the email under the name. This filter is on the Logs page only.           |
+| **Select date range** | Messages whose date falls in the range, in your business time zone.                                                            |
 
 **Team member** is shown when your role can read every team member’s messages. If you do not see it, the list is already limited to your own messages.
 
 ![Date range with month, week, and year shortcuts](/img/communications/logs-date-range.png)
 
-**Select date range** offers **This Month**, **Last Month**, **This Week**, **Last Week**, **This Year**, **Last Year**, **Next Week**, **Next Month**, and **All Time**. **All Time** is a very wide span around today. You can also click a start day and an end day on the two months. The button then shows the range, such as Nov 01, 2026 – Nov 30, 2026.
+**Select date range** offers **This Month**, **Last Month**, **This Week**, **Last Week**, **This Year**, **Last Year**, **Next Week**, **Next Month**, and **All Time**. **All Time** is a very wide span around today. You can also click a start day and an end day on the two months. The button then shows the range, such as Nov 01, 2026 - Nov 30, 2026.
 
 On a customer, **Team member** usually fits on the row, and **Filters** then holds only **Select date range**. An appointment’s **Communications** tab has none of these controls.
 
@@ -148,16 +154,16 @@ The four buttons are the first page, the previous page, the next page, and the l
 
 ## What each status means
 
-| Status | Meaning |
-| --- | --- |
-| **Preparing** | Hacado has lined the email or text up. It has not gone out. |
-| **Sending** | A send is in progress. |
-| **Sent** | The email service or the phone carrier accepted it. Hacado is done with that attempt. A later bounce or delivery failure can still move the row to **Failed**. |
-| **Received** | A text the customer sent you. It is **Inbound** and **Text message**. |
-| **Failed** | The send did not succeed. See the retry wording below. |
-| **Skipped** | Hacado did not send the text. The reason says why. |
-| **No consent** | The customer has not agreed to texts, so the text was not sent. |
-| **Opted out** | The customer has opted out of texts, so the text was not sent. |
+| Status         | Meaning                                                                                                                                                        |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Preparing**  | Hacado has lined the email or text up. It has not gone out.                                                                                                    |
+| **Sending**    | A send is in progress.                                                                                                                                         |
+| **Sent**       | The email service or the phone carrier accepted it. Hacado is done with that attempt. A later bounce or delivery failure can still move the row to **Failed**. |
+| **Received**   | A text the customer sent you. It is **Inbound** and **Text message**.                                                                                          |
+| **Failed**     | The send did not succeed. See the retry wording below.                                                                                                         |
+| **Skipped**    | Hacado did not send the text. The reason says why.                                                                                                             |
+| **No consent** | The customer has not agreed to texts, so the text was not sent.                                                                                                |
+| **Opted out**  | The customer has opted out of texts, so the text was not sent.                                                                                                 |
 
 ### Failed
 
@@ -177,16 +183,16 @@ These are texts Hacado did not hand to the carrier. The status is chosen from th
 
 A skipped text uses one of these reasons when they apply:
 
-| Reason | What it means |
-| --- | --- |
-| **Text messaging is off** | Texting is turned off for the workspace. |
-| **Invalid phone number** | The number could not be used. |
-| **Text credits are used up** | There is no credit left to send another text. |
-| **Too many texts this minute.** | The short sending limit was hit. |
-| **Daily text limit reached.** | The day’s sending limit was hit. |
-| **Text limit reached.** | A sending limit was hit. |
-| **Text number is not ready** | The sending number is not set up to send yet. |
-| **Message had only a link** | The text had nothing in it except a link, so it was not sent. |
+| Reason                          | What it means                                                 |
+| ------------------------------- | ------------------------------------------------------------- |
+| **Text messaging is off**       | Texting is turned off for the workspace.                      |
+| **Invalid phone number**        | The number could not be used.                                 |
+| **Text credits are used up**    | There is no credit left to send another text.                 |
+| **Too many texts this minute.** | The short sending limit was hit.                              |
+| **Daily text limit reached.**   | The day’s sending limit was hit.                              |
+| **Text limit reached.**         | A sending limit was hit.                                      |
+| **Text number is not ready**    | The sending number is not set up to send yet.                 |
+| **Message had only a link**     | The text had nothing in it except a link, so it was not sent. |
 
 Any other skip reason is shown as the text Hacado stored. Credits, consent, and the sending number are covered in [Text messaging](/docs/settings/text-messaging).
 

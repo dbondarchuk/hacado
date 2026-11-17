@@ -47,7 +47,7 @@ const TemplatesPanelContent = memo(
     const t = useI18n();
 
     return (
-      <ScrollArea className="py-2 pr-2 h-[calc(100vh-400px)] min-h-60">
+      <ScrollArea className="min-h-0 py-2 pr-2">
         {Object.keys(filteredTemplates).length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <Search className="mb-3 h-12 w-12 text-muted-foreground" />

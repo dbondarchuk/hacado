@@ -3,8 +3,10 @@ import * as z from "zod";
 import { zStyles } from "./styles";
 
 export const WaitlistPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({}),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
+  props: z.object({}).describe("Block configuration props"),
 });
 
 export type WaitlistProps = z.infer<typeof WaitlistPropsSchema>;

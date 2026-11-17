@@ -260,7 +260,7 @@ export class FormsRepositoryService {
       const hasFalse = query.isArchived.includes(false);
       const hasTrue = query.isArchived.includes(true);
       if (hasFalse && hasTrue) {
-        // no filter – show all
+        // no filter - show all
       } else if (hasFalse) {
         $and.push({
           $or: [{ isArchived: false }, { isArchived: { $exists: false } }],

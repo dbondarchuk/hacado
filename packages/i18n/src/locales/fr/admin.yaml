@@ -359,7 +359,7 @@ platformEvents:
 billing:
   emails:
     subscriptionAlert:
-      subject: Action nécessaire – mise à jour de l'abonnement
+      subject: Action nécessaire - mise à jour de l'abonnement
       preview: Le statut de votre forfait a changé
       title: Mise à jour du statut de l'abonnement
       body: Le statut de votre abonnement est désormais {newStatus} (auparavant {oldStatus}) pour {product}. Vérifiez la facturation pour éviter toute interruption de service.
@@ -1814,7 +1814,10 @@ templates:
     copyPath: Copier le chemin
     close: Fermer
     characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    segmentCount: "{count, plural, =1 {1 segment SMS} other {# segments SMS}}"
     preview: Aperçu
+    emptyPreview: L’aperçu de votre message apparaîtra ici
+    sentMinutesAgo: "{count, plural, =1 {Envoyé il y a 1 minute} other {Envoyé il y a # minutes}}"
   table:
     filters:
       type: Taper
@@ -2589,7 +2592,7 @@ catalog:
       creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
     adjust:
       title: Ajuster les crédits utilisés
-      description: Définissez le nombre de crédits de {name} qui ont été utilisés (0–{total}).
+      description: Définissez le nombre de crédits de {name} qui ont été utilisés (0-{total}).
       usedLabel: Crédits utilisés
       reason: Raison
       reasonPlaceholder: Remarque facultative
@@ -2952,7 +2955,7 @@ settings:
         connectDialogDnsTitle: Configurez d'abord le DNS
         connectDialogDnsARecord: Chez votre fournisseur DNS, créez un enregistrement A pour @ (apex) ou votre sous-domaine pointant vers <value></value>.
         connectDialogDnsCname: Ou créez un enregistrement CNAME pointant vers <value></value> - le nom d'hôte de votre site Hacado.
-        connectDialogDnsAlias: Si votre fournisseur DNS prend en charge les enregistrements ALIAS ou ANAME, vous pouvez utiliser l'un de ceux pointant vers <value></value> à la place – utile pour le sommet (@) où CNAME ne peut souvent pas être utilisé.
+        connectDialogDnsAlias: Si votre fournisseur DNS prend en charge les enregistrements ALIAS ou ANAME, vous pouvez utiliser l'un de ceux pointant vers <value></value> à la place - utile pour le sommet (@) où CNAME ne peut souvent pas être utilisé.
         domainLabel: Domaine
         connectButton: Connecter
         connectButtonValidating: Validation...
@@ -4388,4 +4391,3 @@ smsConsent:
   attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
-

@@ -33,7 +33,7 @@ export const RemoveAllSchedulesActionType = "remove-all-schedules" as const;
 
 export const setCompanyHolidaysActionSchema = z.object({
   week: weekIdentifierSchema,
-  /** Luxon weekdays 1–7 marked as company holidays for this week. */
+  /** Luxon weekdays 1-7 marked as company holidays for this week. */
   holidays: z.array(z.coerce.number<number>().int().min(1).max(7)),
 });
 

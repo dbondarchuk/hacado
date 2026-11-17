@@ -18,6 +18,11 @@ import {
   Video,
 } from "lucide-react";
 import {
+  IMAGE_AI_CAPABILITIES,
+  LAYOUT_AI_CAPABILITIES,
+  TEXT_AI_CAPABILITIES,
+} from "./ai-capabilities";
+import {
   AvatarConfiguration,
   AvatarEditor,
   AvatarPropsDefaults,
@@ -115,6 +120,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: AvatarPropsDefaults,
     category: "builder.emailBuilder.blocks.categories.images",
     capabilities: ["image", "media", "block"],
+    aiCapabilities: IMAGE_AI_CAPABILITIES,
     tags: ["image", "media"],
   },
   Image: {
@@ -126,6 +132,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: ImagePropsDefaults,
     category: "builder.emailBuilder.blocks.categories.images",
     capabilities: ["image", "media", "block"],
+    aiCapabilities: IMAGE_AI_CAPABILITIES,
     tags: ["image", "media"],
   },
   Button: {
@@ -155,6 +162,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       },
     },
     capabilities: ["heading", "title", "block"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["heading", "title"],
   },
   Text: {
@@ -175,6 +183,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       },
     },
     capabilities: ["text", "block"],
+    aiCapabilities: TEXT_AI_CAPABILITIES,
     tags: ["text", "block"],
   },
   Divider: {
@@ -208,6 +217,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: EmailLayoutDefaultProps,
     category: "builder.emailBuilder.blocks.categories.layout",
     capabilities: ["layout"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["layout"],
   },
   Container: {
@@ -219,6 +229,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: ContainerPropsDefaults,
     category: "builder.emailBuilder.blocks.categories.containers",
     capabilities: ["container", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["container", "layout"],
   },
   Columns: {
@@ -230,6 +241,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: ColumnsContainerPropsDefaults,
     category: "builder.emailBuilder.blocks.categories.containers",
     capabilities: ["columns", "layout", "block", "container"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["columns", "container"],
   },
   ConditionalContainer: {
@@ -240,6 +252,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: ConditionalContainerPropsDefaults,
     category: "builder.emailBuilder.blocks.categories.containers",
     capabilities: ["conditional", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["conditional"],
   },
   ForeachContainer: {
@@ -250,6 +263,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     defaultValue: ForeachContainerPropsDefaults,
     category: "builder.emailBuilder.blocks.categories.containers",
     capabilities: ["foreach", "layout", "block"],
+    aiCapabilities: LAYOUT_AI_CAPABILITIES,
     tags: ["foreach"],
   },
   CustomHTML: {

@@ -24,6 +24,7 @@ type AspectRatioValue = z.infer<typeof AspectRatioSchema>;
 export const aspectRatioStyle = {
   name: "aspectRatio",
   label: "builder.pageBuilder.styles.properties.aspectRatio",
+  description: "CSS aspect-ratio",
   category: "layout",
   icon: ({ className }) => <Proportions className={className} />,
   schema: AspectRatioSchema,

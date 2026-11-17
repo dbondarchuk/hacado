@@ -9,11 +9,20 @@ export const zStyles = getStylesSchema(styles);
 export const BlogPostAuthorPropsSchema = z.object({
   props: z
     .object({
-      format: z.string().optional().nullable(),
+      format: z
+        .string()
+        .optional()
+        .nullable()
+        .describe(
+          'How the author name is displayed (e.g. "name" or a custom pattern).',
+        ),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostAuthorProps = Prettify<

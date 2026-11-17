@@ -15,6 +15,7 @@ export type BackgroundVideoValue = z.infer<typeof BackgroundVideoSchema>;
 export const backgroundVideoStyle = {
   name: "backgroundVideo",
   label: "builder.pageBuilder.styles.properties.backgroundVideo",
+  description: "Background video asset",
   category: "background",
   icon: ({ className }) => <Video className={className} />,
   schema: BackgroundVideoSchema,

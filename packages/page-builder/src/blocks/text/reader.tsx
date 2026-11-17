@@ -3,13 +3,14 @@ import {
   generateClassName,
 } from "@hacado/page-builder-base/reader";
 import { PlateStaticEditor } from "@hacado/rte";
+import { normalizePlateBodyValue } from "@hacado/rte/plate-value";
 import { cn } from "@hacado/ui/cn";
-import { TextPropsDefaults, TextReaderProps } from "./schema";
+import { TextReaderProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";
 
 export const TextReader = ({ props, style, block }: TextReaderProps) => {
-  const value = props?.value ?? TextPropsDefaults.props.value;
+  const value = normalizePlateBodyValue(props?.value);
   const defaults = getDefaults({ props, style }, false);
 
   const className = generateClassName();

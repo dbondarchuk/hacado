@@ -8,6 +8,7 @@ const FlexShrinkSchema = z.coerce.number<number>().min(0).int();
 export const flexShrinkStyle = {
   name: "flexShrink",
   label: "builder.pageBuilder.styles.properties.flexShrink",
+  description: "CSS flex-shrink",
   category: "layout",
   schema: FlexShrinkSchema,
   icon: ({ className }) => <Minimize2 className={className} />,

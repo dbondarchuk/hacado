@@ -116,8 +116,14 @@ Shows recent email and text activity for this customer. Filter by **Direction** 
 
 ![Customer Communications tab with email and text logs](/img/customers/tab-communications.png)
 
-1. Click **Send new** to open the send dialog and message this customer.
-2. Open a card’s **View more** when you need the full log entry.
+1. Click **Send new** to open **Send new message** and email this customer.
+2. Optionally click **Select template**, or write the email in the builder. Use **Hacado AI** on the toolbar or the **AI** inspector tab to draft or rewrite.
+3. Click **Send**. The message is added to this list and to **Communications → Logs**.
+4. Open a card’s **View more** when you need the full log entry.
+
+![Send new message with Hacado AI in the inspector](/img/communications/send-email-ai-panel.png)
+
+The email builder in this dialog matches the one on an email template. See [Email builder](/docs/communications/templates/emails#hacado-ai) and [Communication logs](/docs/communications/logs#on-a-customer).
 
 ### Good to know
 

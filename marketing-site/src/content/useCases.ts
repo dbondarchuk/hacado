@@ -37,7 +37,7 @@ export const useCases: UseCase[] = [
       "Service menu with add-ons (art, paraffin, soak-off)",
       "Deposits so the chair stays booked",
       "Gift cards designed and sold on your website",
-      "SMS before fills every 2–3 weeks",
+      "SMS before fills every 2-3 weeks",
       "Gallery pages next to the book button",
       "Waitlist when Saturdays are gone",
     ],
@@ -274,7 +274,7 @@ export const useCases: UseCase[] = [
     persona: "Lash and brow specialists",
     cluster: "beauty",
     summary:
-      "Fills on a 2–3 week cadence, waitlist when you are booked out, intake before they lie down.",
+      "Fills on a 2-3 week cadence, waitlist when you are booked out, intake before they lie down.",
     problem:
       "Classic vs volume, fills vs full sets - clients guess. Your books close and you still get DMs. No-shows wreck a lash day. Patch-test notes live in a camera roll.",
     outcome:
@@ -288,7 +288,7 @@ export const useCases: UseCase[] = [
     bullets: [
       "Classic, volume, hybrid, and fill as distinct services",
       "Waitlist when Saturdays are gone",
-      "SMS timed to a 2–3 week fill",
+      "SMS timed to a 2-3 week fill",
       "Intake for adhesives, allergies, and aftercare",
       "Packages of fills if you sell a series",
       "Discounts aimed at new sets or slow weekdays",
@@ -721,7 +721,10 @@ export const useCases: UseCase[] = [
     steps: [
       { title: "List session types", body: "Intro, 30, 60 - with prices." },
       { title: "Sell a pack", body: "Prepaid credits on Solo." },
-      { title: "Remind them", body: "SMS the night before so the rack is not empty." },
+      {
+        title: "Remind them",
+        body: "SMS the night before so the rack is not empty.",
+      },
     ],
     faqs: [
       {
@@ -783,7 +786,10 @@ export const useCases: UseCase[] = [
       },
     ],
     steps: [
-      { title: "Define shoot types", body: "Mini, family, brand - with deposits." },
+      {
+        title: "Define shoot types",
+        body: "Mini, family, brand - with deposits.",
+      },
       { title: "Publish the gallery", body: "Work next to the book button." },
       { title: "Open the calendar", body: "Only the windows you can shoot." },
     ],
@@ -847,7 +853,10 @@ export const useCases: UseCase[] = [
       },
     ],
     steps: [
-      { title: "Publish hours", body: "Weekly availability clients can trust." },
+      {
+        title: "Publish hours",
+        body: "Weekly availability clients can trust.",
+      },
       { title: "Set policies", body: "How far ahead they may cancel or move." },
       { title: "Turn on reminders", body: "Fewer empty chairs." },
     ],
@@ -955,6 +964,7 @@ export const useCases: UseCase[] = [
     bullets: [
       "No separate hosting or theme shop",
       "Pages + booking + email in one admin",
+      "AI that builds pages and messages when you are stuck",
       "Free subdomain to start",
       "Custom domain later on Solo",
       "Grow into payments, gift cards, packages, team",
@@ -963,7 +973,7 @@ export const useCases: UseCase[] = [
     sections: [
       {
         title: "Launch is a page, not a vendor list",
-        body: "Setup asks what you do and when you are free. You pick colors and a logo. You publish. That path is the same whether the first client is a manicure, a consult, or a piano lesson.",
+        body: "Setup asks what you do and when you are free. You pick colors and a logo - or ask AI to build the page. You publish. That path is the same whether the first client is a manicure, a consult, or a piano lesson.",
       },
       {
         title: "Pay for complexity when you have it",
@@ -976,7 +986,10 @@ export const useCases: UseCase[] = [
     ],
     steps: [
       { title: "Tell us what you do", body: "About two minutes in setup." },
-      { title: "Make it yours", body: "Logo, colors, a welcome line." },
+      {
+        title: "Make it yours",
+        body: "Logo, colors, a welcome line - or ask AI to build the page.",
+      },
       {
         title: "Share the link",
         body: "Instagram, Google Business Profile, or a paper card.",
@@ -1005,7 +1018,7 @@ export const useCases: UseCase[] = [
       },
       {
         q: "Do I need a designer?",
-        a: "No. Drag and drop. Hire a designer later for photos if you want - the builder will not block launch.",
+        a: "No. Drag and drop, or ask AI to build the page. Hire a designer later for photos if you want - the builder will not block launch.",
       },
     ],
     related: [

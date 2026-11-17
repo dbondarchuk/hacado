@@ -7,8 +7,14 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const BlogPostTitlePropsSchema = z.object({
-  props: z.object({}).optional().nullable(),
-  style: zStyles,
+  props: z
+    .object({})
+    .optional()
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostTitleProps = Prettify<

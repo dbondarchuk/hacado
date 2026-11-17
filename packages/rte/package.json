@@ -10,6 +10,10 @@
     "lint:fix": "eslint . --fix"
   },
   "main": "./src/index.tsx",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./plate-value": "./src/plate-value/index.ts"
+  },
   "devDependencies": {
     "@hacado/eslint-config": "*",
     "@hacado/tailwind-config": "*",
@@ -88,6 +92,7 @@
     "rehype-raw": "^7.0.0",
     "remark-emoji": "^5.0.1",
     "remark-mdx": "^3.1.1",
-    "use-file-picker": "^2.1.2"
+    "use-file-picker": "^2.1.2",
+    "zod": "4.3.6"
   }
 }

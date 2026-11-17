@@ -9,6 +9,7 @@ import {
 import { marketingVideos } from "../content/videos";
 import {
   accordion,
+  builderAiSection,
   button,
   C,
   cardLink,
@@ -41,13 +42,19 @@ export function featuresHubPage() {
     slug: "features",
     headerName: HERO_HEADER_NAME,
     description:
-      "Website, calendar, appointment ops, activity history, payments, messages, gift cards, add-ons, discounts, packages, staff, clients, and a booking funnel - in one admin.",
-    keywords: keywords("features", "scheduling", "payments", "website builder"),
+      "Website builder with AI that builds pages, calendar, appointment ops, activity history, payments, messages AI can write, gift cards, add-ons, discounts, packages, staff, clients, and a booking funnel - in one admin.",
+    keywords: keywords(
+      "features",
+      "scheduling",
+      "payments",
+      "website builder",
+      "AI builder",
+    ),
     children: [
       pageHero({
         eyebrow: "Features",
         title: "Everything that used to be four subscriptions",
-        body: "Website, calendar, appointment ops, activity history, payments, messages, gift cards, add-ons, discounts, packages, staff, clients, and a booking funnel - in one admin.",
+        body: "Website builder with AI that builds pages, calendar, appointment ops, activity history, payments, messages AI can write, gift cards, add-ons, discounts, packages, staff, clients, and a booking funnel - in one admin.",
         image: "/assets/generated/hero-workspace.png",
         overlay: true,
       }),
@@ -138,6 +145,7 @@ export function featurePage(f: (typeof features)[number]) {
               title: "Browse templates - no account needed",
               body: "Walk through ready-made booking sites for your industry. Open a demo, click home, booking, and services like a client would, then start free when you are ready.",
             }),
+            builderAiSection(),
           ]
         : []),
       section(

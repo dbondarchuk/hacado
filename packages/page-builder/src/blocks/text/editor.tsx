@@ -10,6 +10,7 @@ import { useBlockEditor } from "@hacado/builder/overlay";
 import { usePortalContext } from "@hacado/builder/portal";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { PlateEditor, PlateStaticEditor } from "@hacado/rte";
+import { normalizePlateBodyValue } from "@hacado/rte/plate-value";
 import { cn } from "@hacado/ui/cn";
 import { useDebounceCallback } from "@hacado/ui/hooks";
 import { TextProps } from "./schema";
@@ -19,7 +20,7 @@ import { getDefaults } from "./styles.default";
 export const TextEditor = ({ props, style }: TextProps) => {
   const currentBlock = useCurrentBlock<TextProps>();
   const overlayProps = useBlockEditor(currentBlock.id);
-  const value = currentBlock?.data?.props?.value;
+  const value = normalizePlateBodyValue(currentBlock?.data?.props?.value);
   const dispatchAction = useDispatchAction();
   const isSelected = useIsSelectedBlock(currentBlock?.id);
   const isOverlay = useIsCurrentBlockOverlay();
@@ -67,7 +68,7 @@ export const TextEditor = ({ props, style }: TextProps) => {
       >
         {shouldShowEditor ? (
           <PlateEditor
-            value={value ?? []}
+            value={value}
             onChange={onChange}
             overlayToolbar
             className={cn(
@@ -78,7 +79,7 @@ export const TextEditor = ({ props, style }: TextProps) => {
             document={document}
           />
         ) : (
-          <PlateStaticEditor value={value ?? []} />
+          <PlateStaticEditor value={value} />
         )}
       </div>
     </>

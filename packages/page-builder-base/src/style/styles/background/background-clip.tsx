@@ -18,6 +18,7 @@ const BackgroundClipSchema = z.enum(options);
 export const backgroundClipStyle = {
   name: "backgroundClip",
   label: "builder.pageBuilder.styles.properties.backgroundClip",
+  description: "CSS background-clip",
   category: "background",
   icon: ({ className }) => <Scissors className={className} />,
   schema: BackgroundClipSchema,

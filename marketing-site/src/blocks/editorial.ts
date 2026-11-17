@@ -231,6 +231,16 @@ export type EditorialHomeInput = {
   audienceTitleEm: string;
   audienceBody: string;
   audiences: EditorialBits[];
+  ai: {
+    kicker: string;
+    titleLead: string;
+    titleEm: string;
+    body: string;
+    bullets: { href: string; title: string; body: string }[];
+    signupUrl: string;
+    signupLabel: string;
+    secondaryLinks: { href: string; label: string }[];
+  };
   featuresKicker: string;
   featuresTitleLead: string;
   featuresTitleEm: string;
@@ -763,6 +773,136 @@ function templateShowcase(input: EditorialHomeInput) {
   );
 }
 
+function aiShowcase(input: EditorialHomeInput) {
+  const ai = input.ai;
+  return framed(
+    [
+      container(
+        [
+          kicker(ai.kicker, C.accentFg),
+          serifTitle("h2", ai.titleLead, ai.titleEm, titleSize, C.foreground),
+          text(ai.body, {
+            color: sv(C.accentFg),
+            fontSize: size(0.95),
+            lineHeight: sv({ value: 1.7, unit: "" }),
+            maxWidth: size(36, "rem"),
+          }),
+          container(
+            ai.bullets.map((item, index) => {
+              const external = /^https?:\/\//.test(item.href);
+
+              return block("Link", {
+                props: {
+                  url: item.href,
+                  target: external ? "_blank" : "_self",
+                  children: [
+                    inlineText(String(index + 1).padStart(2, "0"), {
+                      fontFamily: sv("TERTIARY"),
+                      fontSize: size(0.625),
+                      color: sv(C.accentFg),
+                    }),
+                    container(
+                      [
+                        heading("h3", item.title, {
+                          fontSize: [
+                            { value: { value: 1.2, unit: "rem" } },
+                            {
+                              value: { value: 1.4, unit: "rem" },
+                              breakpoint: ["md"],
+                            },
+                          ],
+                          fontWeight: sv("500"),
+                          letterSpacing: sv({ value: -0.04, unit: "rem" }),
+                        }),
+                        text(item.body, {
+                          color: sv(C.accentFg),
+                          fontSize: size(0.8125),
+                          lineHeight: sv({ value: 1.55, unit: "" }),
+                        }),
+                      ],
+                      { gap: gap(0.25) },
+                    ),
+                    arrowIcon({
+                      width: size(1.05),
+                      height: size(1.05),
+                      justifySelf: sv("end"),
+                    }),
+                  ],
+                },
+                style: {
+                  display: sv("grid"),
+                  gridTemplateColumns: [
+                    { value: "2.4rem 1fr 1.25rem" },
+                    { value: "3.5rem 1fr 1.5rem", breakpoint: ["md"] },
+                  ],
+                  alignItems: sv("center"),
+                  gap: gap(0.75),
+                  borderStyle: sv("solid"),
+                  borderColor: sv(C.foreground),
+                  borderWidth: hairline("bottom"),
+                  textDecoration: sv("none"),
+                  color: sv(C.foreground),
+                  width: size(100, "%"),
+                  ...listRowMotion(),
+                },
+              });
+            }),
+            {
+              borderStyle: sv("solid"),
+              borderColor: sv(C.foreground),
+              borderWidth: hairline("top"),
+              gap: gap(0),
+              width: size(100, "%"),
+            },
+          ),
+          container(
+            [
+              button(ai.signupLabel, ai.signupUrl, "primary", C.primaryFg, {
+                width: [{ value: "max-content" }],
+              }),
+              ...ai.secondaryLinks.map((item) =>
+                textLink(item.label, item.href),
+              ),
+            ],
+            {
+              display: sv("flex"),
+              flexDirection: [
+                { value: "column" },
+                { value: "row", breakpoint: ["md"] },
+              ],
+              flexWrap: sv("wrap"),
+              alignItems: [
+                { value: "flex-start" },
+                { value: "center", breakpoint: ["md"] },
+              ],
+              gap: gap(1),
+            },
+          ),
+        ],
+        {
+          gap: gap(1.5),
+          padding: [
+            ...pad(2, 1.5, 2, 1.5),
+            {
+              value: {
+                top: { value: 2.75, unit: "rem" },
+                right: { value: 2.5, unit: "rem" },
+                bottom: { value: 2.75, unit: "rem" },
+                left: { value: 2.5, unit: "rem" },
+              },
+              breakpoint: ["md"],
+            },
+          ],
+          backgroundColor: sv(C.accent),
+          width: size(100, "%"),
+        },
+      ),
+    ],
+    "ai",
+    { gap: gap(0) },
+  );
+}
+
 function closing(input: EditorialHomeInput) {
   return withId(
     container(
@@ -915,6 +1055,7 @@ export function buildEditorialHome(input: EditorialHomeInput) {
       after: [productGrid(input.features)],
     }),
     templateShowcase(input),
+    aiShowcase(input),
     split({
       id: "how-it-works",
       kicker: input.stepsKicker,

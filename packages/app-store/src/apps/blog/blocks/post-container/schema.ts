@@ -6,17 +6,26 @@ export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
 export const BlogPostContainerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    children: z.array(z.any()),
-    postUrl: z
-      .string()
-      .min(1, "app_blog_admin.block.postContainer.errors.postUrl.required")
-      .regex(
-        /\[slug\]/,
-        "app_blog_admin.block.postContainer.errors.postUrl.slug",
-      ),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
+  props: z
+    .object({
+      children: z
+        .array(z.any())
+        .describe("Nested blocks rendered inside a single blog post card."),
+      postUrl: z
+        .string()
+        .min(1, "app_blog_admin.block.postContainer.errors.postUrl.required")
+        .regex(
+          /\[slug\]/,
+          "app_blog_admin.block.postContainer.errors.postUrl.slug",
+        )
+        .describe(
+          "Post detail URL template; must include the [slug] placeholder.",
+        ),
+    })
+    .describe("Block configuration props"),
 });
 
 export type BlogPostContainerProps = z.infer<

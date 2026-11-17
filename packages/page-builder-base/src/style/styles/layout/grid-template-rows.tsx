@@ -17,6 +17,7 @@ const GridTemplateRowsSchema = z.string();
 export const gridTemplateRowsStyle = {
   name: "gridTemplateRows",
   label: "builder.pageBuilder.styles.properties.gridTemplateRows",
+  description: "CSS grid-template-rows",
   category: "layout",
   schema: GridTemplateRowsSchema,
   icon: ({ className }) => <Rows3 className={className} />,

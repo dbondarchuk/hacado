@@ -11,6 +11,7 @@ const notAllowedGlobalKeywords = ["auto" as const];
 export const paddingStyle = {
   name: "padding",
   label: "builder.pageBuilder.styles.properties.padding",
+  description: "CSS padding (top/right/bottom/left)",
   category: "spacing",
   schema: PaddingSchema,
   icon: ({ className }) => <PanelLeftClose className={className} />,

@@ -6,12 +6,20 @@ import { MarketingFeatureItemPropsDefaults } from "../marketing-feature-item/sch
 import { zStyles } from "./styles";
 
 export const MarketingFeaturesShowcasePropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    features: z.object({
-      children: z.array(z.any()),
-    }),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      features: z
+        .object({
+          children: z
+            .array(z.any())
+            .describe("MarketingFeatureItem blocks in the showcase"),
+        })
+        .describe("Feature cards slot"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type MarketingFeaturesShowcaseProps = z.infer<

@@ -11,6 +11,10 @@
   },
   "exports": {
     ".": "./src/index.tsx",
+    "./blocks": "./src/blocks/index.tsx",
+    "./blocks/schema": "./src/blocks/schema.ts",
+    "./blocks/defaults": "./src/blocks/defaults.ts",
+    "./blocks/child-allow": "./src/blocks/child-allow.ts",
     "./reader": "./src/reader.tsx",
     "./templates": "./src/templates/index.ts",
     "./plain-text": "./src/plain-text/index.ts",

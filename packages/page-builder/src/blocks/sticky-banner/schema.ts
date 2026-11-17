@@ -9,15 +9,31 @@ export const showStickyBannerType = ["always", "one-time", "on-click"] as const;
 export const stickyBannerPositionType = ["top", "bottom"] as const;
 
 export const StickyBannerPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    show: z.enum(showStickyBannerType),
-    position: z.enum(stickyBannerPositionType),
-    showCloseButton: z.boolean().optional(),
-    content: z.object({
-      children: z.array(z.any()).max(1),
-    }),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      show: z
+        .enum(showStickyBannerType)
+        .describe("When the banner appears (always, once, or on click)"),
+      position: z
+        .enum(stickyBannerPositionType)
+        .describe("Stick the banner to the top or bottom of the viewport"),
+      showCloseButton: z
+        .boolean()
+        .optional()
+        .describe("Allow visitors to dismiss the banner"),
+      content: z
+        .object({
+          children: z
+            .array(z.any())
+            .max(1)
+            .describe("Single container block for banner content"),
+        })
+        .describe("Banner body slot"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type StickyBannerProps = z.infer<typeof StickyBannerPropsSchema>;

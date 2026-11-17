@@ -28,7 +28,7 @@ A day with no blocks is a day off. Add a second block on the same day if you tak
 
 You get one day at a time in a list. Open a day to see its shifts.
 
-![Day list with Monday open and a 9:00 AM–5:00 PM shift](/img/first-steps/schedule-mobile.png)
+![Day list with Monday open and a 9:00 AM-5:00 PM shift](/img/first-steps/schedule-mobile.png)
 
 1. Tap a day to open it.
 2. Tap **Edit** on a shift to change the start and end times, then **Save**.

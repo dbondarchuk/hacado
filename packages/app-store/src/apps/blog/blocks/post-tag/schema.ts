@@ -9,11 +9,18 @@ export const zStyles = getStylesSchema(styles);
 export const BlogPostTagPropsSchema = z.object({
   props: z
     .object({
-      blogListUrl: z.string().optional().nullable(),
+      blogListUrl: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("URL of the blog index used when the tag chip is clicked."),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostTagProps = Prettify<z.infer<typeof BlogPostTagPropsSchema>>;

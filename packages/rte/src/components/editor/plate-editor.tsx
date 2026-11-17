@@ -49,13 +49,51 @@ export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
       overlayToolbar,
     });
 
+    const lastSyncedValueRef = React.useRef<string>(
+      JSON.stringify(value ?? []),
+    );
+
+    const isExternalSyncRef = React.useRef(false);
+
     React.useEffect(() => {
       editor.tf.focus({ edge: "endEditor" });
     }, [editor]);
 
+    React.useEffect(() => {
+      const nextValue = value ?? [];
+      const nextSerialized = JSON.stringify(nextValue);
+
+      if (nextSerialized === lastSyncedValueRef.current) {
+        return;
+      }
+
+      if (nextSerialized === JSON.stringify(editor.children)) {
+        lastSyncedValueRef.current = nextSerialized;
+        return;
+      }
+
+      isExternalSyncRef.current = true;
+      lastSyncedValueRef.current = nextSerialized;
+      editor.tf.setValue(nextValue);
+      queueMicrotask(() => {
+        isExternalSyncRef.current = false;
+      });
+    }, [editor, value]);
+
     return (
       <DndProvider backend={HTML5Backend} context={document?.defaultView}>
-        <Plate editor={editor} onChange={({ value }) => onChange?.(value)}>
+        <Plate
+          editor={editor}
+          onChange={({ value: nextValue }) => {
+            lastSyncedValueRef.current = JSON.stringify(nextValue ?? []);
+
+            if (isExternalSyncRef.current) {
+              return;
+            }
+
+            onChange?.(nextValue);
+          }}
+        >
           <EditorContainer
             context={document?.defaultView}
             usesAbsoluteUrl={usesAbsoluteUrl}

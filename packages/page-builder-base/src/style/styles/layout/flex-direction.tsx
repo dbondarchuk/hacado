@@ -16,6 +16,7 @@ const FlexDirectionSchema = z.enum(flexDirectionKeys);
 export const flexDirectionStyle = {
   name: "flexDirection",
   label: "builder.pageBuilder.styles.properties.flexDirection",
+  description: "CSS flex-direction",
   category: "layout",
   schema: FlexDirectionSchema,
   icon: ({ className }) => <ArrowUpDown className={className} />,

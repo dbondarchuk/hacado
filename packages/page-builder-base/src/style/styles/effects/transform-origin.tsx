@@ -33,6 +33,7 @@ const TransformOriginSchema = z.enum(transformOriginKeys);
 export const transformOriginStyle = {
   name: "transformOrigin",
   label: "builder.pageBuilder.styles.properties.transformOrigin",
+  description: "CSS transform-origin",
   category: "effects",
   icon: ({ className }) => <Crosshair className={className} />,
   schema: TransformOriginSchema,

@@ -237,7 +237,7 @@ const AppointmentItem = ({
                   {t("block.appointments.time")}
                 </p>
                 <p className="text-sm text-foreground mt-1 appointment-item-time-range-text">
-                  {timeLabel} – {endTimeLabel}
+                  {timeLabel} - {endTimeLabel}
                 </p>
               </div>
               {priceLabel && (

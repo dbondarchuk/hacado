@@ -35,6 +35,7 @@ const fontWeightKeys = [
 export const fontWeightStyle = {
   name: "fontWeight",
   label: "builder.pageBuilder.styles.properties.fontWeight",
+  description: "CSS font-weight",
   category: "typography",
   schema: FontWeightSchema,
   icon: ({ className }) => <Bold className={className} />,

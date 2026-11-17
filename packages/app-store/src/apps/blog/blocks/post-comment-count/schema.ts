@@ -9,11 +9,20 @@ export const zStyles = getStylesSchema(styles);
 export const BlogPostCommentCountPropsSchema = z.object({
   props: z
     .object({
-      format: z.string().optional().nullable(),
+      format: z
+        .string()
+        .optional()
+        .nullable()
+        .describe(
+          'How the comment count is formatted (e.g. "count" or a custom pattern).',
+        ),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostCommentCountProps = Prettify<

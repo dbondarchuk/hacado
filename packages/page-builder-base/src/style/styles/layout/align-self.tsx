@@ -18,6 +18,7 @@ const AlignSelfSchema = z.enum(alignSelfKeys);
 export const alignSelfStyle = {
   name: "alignSelf",
   label: "builder.pageBuilder.styles.properties.alignSelf",
+  description: "CSS align-self for flex/grid item",
   category: "layout",
   schema: AlignSelfSchema,
   icon: ({ className }) => <AlignVerticalSpaceAround className={className} />,

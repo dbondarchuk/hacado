@@ -6,7 +6,7 @@ import {
 } from "@hacado/types/booking";
 import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
-import { demoBookingOptionsResponse } from "../../utils/fixtures";
+import { loadEditorBookingOptions } from "../../utils/fixtures";
 import { Appointments } from "./appointments";
 import { BookingProps } from "./types";
 
@@ -37,9 +37,22 @@ export const Booking: React.FC<
   React.useEffect(() => {
     if (!isEditor) {
       void loadOptions();
-    } else {
-      setResponse(demoBookingOptionsResponse);
+      return;
     }
+
+    let cancelled = false;
+
+    void loadEditorBookingOptions()
+      .then((data) => {
+        if (!cancelled) setResponse(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [isEditor, loadOptions]);
 
   if (!response)

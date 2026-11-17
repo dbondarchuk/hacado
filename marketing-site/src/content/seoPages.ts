@@ -96,7 +96,7 @@ export const categoryHubPages: SeoLandingPage[] = [
     bullets: [
       "Service menu with add-ons and durations",
       "Deposits so the chair stays booked",
-      "SMS before fills every 2–3 weeks",
+      "SMS before fills every 2-3 weeks",
       "Gift cards sold on your website",
     ],
     sections: [
@@ -165,8 +165,14 @@ export const categoryHubPages: SeoLandingPage[] = [
     ],
     links: [
       { label: "Compare alternatives", href: "/compare" },
-      { label: "How to leave a marketplace", href: "/how-to-leave-a-booking-marketplace" },
-      { label: "Salon software no commission", href: "/salon-software-no-commission" },
+      {
+        label: "How to leave a marketplace",
+        href: "/how-to-leave-a-booking-marketplace",
+      },
+      {
+        label: "Salon software no commission",
+        href: "/salon-software-no-commission",
+      },
       { label: "Migrate from Fresha", href: "/migrate-from-fresha" },
     ],
     faqs: [
@@ -197,7 +203,8 @@ export const categoryHubPages: SeoLandingPage[] = [
       "no commission booking software",
     ],
     heroEyebrow: "No commission",
-    heroTitle: "Salon software you pay for with a plan - not a cut of every client",
+    heroTitle:
+      "Salon software you pay for with a plan - not a cut of every client",
     heroBody:
       "Marketplace platforms earn when discovery sends bookings. Hacado does not run a client directory. You pay Solo or Studio; the list stays yours.",
     image: "/assets/photos/nails-studio.jpg",
@@ -219,7 +226,10 @@ export const categoryHubPages: SeoLandingPage[] = [
     ],
     links: [
       { label: "Pricing", href: "/pricing" },
-      { label: "Booking without marketplace", href: "/booking-system-without-marketplace" },
+      {
+        label: "Booking without marketplace",
+        href: "/booking-system-without-marketplace",
+      },
       { label: "Fresha alternative", href: "/compare/fresha" },
       { label: "Booksy alternative", href: "/compare/booksy" },
     ],
@@ -254,7 +264,8 @@ export const migrationGuidePages: SeoLandingPage[] = [
       "move off fresha",
     ],
     heroEyebrow: "Leaving Fresha",
-    heroTitle: "Migrate from Fresha without losing the clients you already have",
+    heroTitle:
+      "Migrate from Fresha without losing the clients you already have",
     heroBody:
       "Publish your Hacado site, recreate services and hours, then send your URL instead of the marketplace profile. Marketplace discovery stops; your brand takes over.",
     image: "/assets/generated/usecase-nails.png",
@@ -279,8 +290,14 @@ export const migrationGuidePages: SeoLandingPage[] = [
     ],
     links: [
       { label: "Fresha alternative (full compare)", href: "/compare/fresha" },
-      { label: "Import clients into Hacado", href: "/import-clients-into-hacado" },
-      { label: "How to leave a marketplace", href: "/how-to-leave-a-booking-marketplace" },
+      {
+        label: "Import clients into Hacado",
+        href: "/import-clients-into-hacado",
+      },
+      {
+        label: "How to leave a marketplace",
+        href: "/how-to-leave-a-booking-marketplace",
+      },
       { label: "Pricing", href: "/pricing" },
     ],
     faqs: [
@@ -332,7 +349,10 @@ export const migrationGuidePages: SeoLandingPage[] = [
     ],
     links: [
       { label: "Booksy alternative (full compare)", href: "/compare/booksy" },
-      { label: "Import clients into Hacado", href: "/import-clients-into-hacado" },
+      {
+        label: "Import clients into Hacado",
+        href: "/import-clients-into-hacado",
+      },
       { label: "Nail salon booking", href: "/online-booking-for-nail-salons" },
       { label: "Pricing", href: "/pricing" },
     ],
@@ -364,7 +384,8 @@ export const migrationGuidePages: SeoLandingPage[] = [
       "booking without marketplace",
     ],
     heroEyebrow: "Switcher guide",
-    heroTitle: "How to leave a booking marketplace without stranding your clients",
+    heroTitle:
+      "How to leave a booking marketplace without stranding your clients",
     heroBody:
       "Whether you are on Fresha, Booksy, StyleSeat, or Mindbody, the cutover pattern is the same: stand up your site, move regulars, then change the public links.",
     image: "/assets/generated/hero-workspace.png",
@@ -389,7 +410,10 @@ export const migrationGuidePages: SeoLandingPage[] = [
     links: [
       { label: "Migrate from Fresha", href: "/migrate-from-fresha" },
       { label: "Migrate from Booksy", href: "/migrate-from-booksy" },
-      { label: "Booking without marketplace", href: "/booking-system-without-marketplace" },
+      {
+        label: "Booking without marketplace",
+        href: "/booking-system-without-marketplace",
+      },
       { label: "All compare pages", href: "/compare" },
     ],
     faqs: [
@@ -496,13 +520,16 @@ export const featurePersonaPages: SeoLandingPage[] = [
       },
       {
         title: "Same stack for fills",
-        body: "Fills every 2–3 weeks need the same honesty: duration on the menu, deposit when you require it, reminder before they ghost.",
+        body: "Fills every 2-3 weeks need the same honesty: duration on the menu, deposit when you require it, reminder before they ghost.",
       },
     ],
     links: [
       { label: "Nail artists use case", href: "/use-cases/nail-artists" },
       { label: "Payments", href: "/features/payments" },
-      { label: "Online booking for nail salons", href: "/online-booking-for-nail-salons" },
+      {
+        label: "Online booking for nail salons",
+        href: "/online-booking-for-nail-salons",
+      },
       { label: "Deposits for stylists", href: "/deposits-for-stylists" },
     ],
     cta: {
@@ -607,12 +634,15 @@ export const featurePersonaPages: SeoLandingPage[] = [
       },
       {
         title: "Cadence businesses",
-        body: "Lash fills and nail fills live on a 2–3 week rhythm. Automated nudges beat hoping they remember.",
+        body: "Lash fills and nail fills live on a 2-3 week rhythm. Automated nudges beat hoping they remember.",
       },
     ],
     links: [
       { label: "Email & SMS feature", href: "/features/notifications" },
-      { label: "Resend / SMS integration", href: "/integrations/sms-notifications" },
+      {
+        label: "Resend / SMS integration",
+        href: "/integrations/sms-notifications",
+      },
       { label: "Appointments", href: "/features/appointments" },
       { label: "Pricing", href: "/pricing" },
     ],
@@ -650,7 +680,10 @@ export const featurePersonaPages: SeoLandingPage[] = [
     links: [
       { label: "Staff management", href: "/features/team" },
       { label: "Salons & clinics", href: "/use-cases/salons-clinics" },
-      { label: "Booking website for salons", href: "/booking-website-for-salons" },
+      {
+        label: "Booking website for salons",
+        href: "/booking-website-for-salons",
+      },
       { label: "Boulevard alternative", href: "/compare/boulevard" },
     ],
     cta: {
@@ -687,7 +720,10 @@ export const featurePersonaPages: SeoLandingPage[] = [
     links: [
       { label: "Payments feature", href: "/features/payments" },
       { label: "Stripe integration", href: "/integrations/stripe" },
-      { label: "Square Appointments alternative", href: "/compare/square-appointments" },
+      {
+        label: "Square Appointments alternative",
+        href: "/compare/square-appointments",
+      },
       { label: "Pricing", href: "/pricing" },
     ],
     cta: {
@@ -728,7 +764,10 @@ export const integrationLandingPages: SeoLandingPage[] = [
       { label: "Calendars & video feature", href: "/features/calendars-video" },
       { label: "All integrations", href: "/integrations" },
       { label: "Outlook booking", href: "/integrations/outlook" },
-      { label: "Docs: Google Calendar", href: "https://docs.hacado.com/docs/apps/google-calendar" },
+      {
+        label: "Docs: Google Calendar",
+        href: "https://docs.hacado.com/docs/apps/google-calendar",
+      },
     ],
     faqs: [
       {
@@ -769,9 +808,15 @@ export const integrationLandingPages: SeoLandingPage[] = [
     ],
     links: [
       { label: "Calendars & video", href: "/features/calendars-video" },
-      { label: "Google Calendar lander", href: "/integrations/google-calendar" },
+      {
+        label: "Google Calendar lander",
+        href: "/integrations/google-calendar",
+      },
       { label: "All integrations", href: "/integrations" },
-      { label: "Docs: Outlook", href: "https://docs.hacado.com/docs/apps/outlook" },
+      {
+        label: "Docs: Outlook",
+        href: "https://docs.hacado.com/docs/apps/outlook",
+      },
     ],
     cta: {
       title: "Connect Outlook",
@@ -805,7 +850,10 @@ export const integrationLandingPages: SeoLandingPage[] = [
       },
     ],
     links: [
-      { label: "Booking website with Stripe", href: "/booking-website-with-stripe" },
+      {
+        label: "Booking website with Stripe",
+        href: "/booking-website-with-stripe",
+      },
       { label: "Payments feature", href: "/features/payments" },
       { label: "Square alternative", href: "/compare/square-appointments" },
       { label: "All integrations", href: "/integrations" },
@@ -922,7 +970,10 @@ export const integrationLandingPages: SeoLandingPage[] = [
     links: [
       { label: "Booking tracking feature", href: "/features/booking-tracking" },
       { label: "All integrations", href: "/integrations" },
-      { label: "Docs: Google Analytics", href: "https://docs.hacado.com/docs/apps/google-analytics" },
+      {
+        label: "Docs: Google Analytics",
+        href: "https://docs.hacado.com/docs/apps/google-analytics",
+      },
       { label: "Pricing", href: "/pricing" },
     ],
     faqs: [

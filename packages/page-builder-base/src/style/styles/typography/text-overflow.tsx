@@ -11,6 +11,7 @@ const TextOverflowSchema = z.enum(textOverflowKeys);
 export const textOverflowStyle = {
   name: "textOverflow",
   label: "builder.pageBuilder.styles.properties.textOverflow",
+  description: "CSS text-overflow (ellipsis clipping)",
   category: "typography",
   icon: ({ className }) => <TextInitial className={className} />,
   schema: TextOverflowSchema,

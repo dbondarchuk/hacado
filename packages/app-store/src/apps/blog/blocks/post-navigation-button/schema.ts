@@ -10,7 +10,9 @@ import * as z from "zod";
 export const styles = ALL_STYLES;
 export const zStyles = getStylesSchema(styles);
 
-export const BlogPostNavigationButtonDirection = z.enum(["prev", "next"]);
+export const BlogPostNavigationButtonDirection = z
+  .enum(["prev", "next"])
+  .describe("Which adjacent post the navigation button links to.");
 
 export const BlogPostNavigationButtonPropsSchema = z.object({
   props: z
@@ -18,8 +20,11 @@ export const BlogPostNavigationButtonPropsSchema = z.object({
       direction: BlogPostNavigationButtonDirection,
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostNavigationButtonProps = Prettify<

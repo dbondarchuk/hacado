@@ -193,7 +193,7 @@ export const OutlinePanel = () => {
           <X className="h-4 w-4" />
         </Button>
       </div>
-      <ScrollArea className="py-2 pr-2 h-[calc(100vh-400px)] min-h-0">
+      <ScrollArea className="min-h-0 py-2 pr-2">
         <div className="space-y-1">
           <DocumentOutlineItem
             key={outlineRootId}

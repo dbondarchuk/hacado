@@ -18,6 +18,7 @@ const TextTransformSchema = z.enum(textTransformKeys);
 export const textTransformStyle = {
   name: "textTransform",
   label: "builder.pageBuilder.styles.properties.textTransform",
+  description: "CSS text-transform (uppercase/lowercase/capitalize)",
   category: "typography",
   icon: ({ className }) => <Type className={className} />,
   schema: TextTransformSchema,

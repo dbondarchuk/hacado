@@ -11,6 +11,7 @@ const OverflowSchema = z.enum(overflowKeys);
 export const overflowStyle = {
   name: "overflow",
   label: "builder.pageBuilder.styles.properties.overflow",
+  description: "CSS overflow clipping/scroll",
   category: "layout",
   icon: ({ className }) => <Crop className={className} />,
   schema: OverflowSchema,

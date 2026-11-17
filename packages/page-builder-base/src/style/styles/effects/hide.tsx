@@ -11,6 +11,7 @@ const HideSchema = z.coerce.boolean<boolean>();
 export const hideStyle = {
   name: "hide",
   label: "builder.pageBuilder.styles.properties.hide",
+  description: "Hide the element (display none / visibility helper)",
   category: "layout",
   schema: HideSchema,
   icon: ({ className }) => <EyeOff className={className} />,

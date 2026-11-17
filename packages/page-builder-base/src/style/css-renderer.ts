@@ -11,6 +11,23 @@ export type DefaultCSSProperties<
   [K in keyof T]?: unknown;
 };
 
+/** Coerce AI/legacy string-or-array fields into a string array. */
+function asStringList(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.filter((item): item is string => typeof item === "string");
+  }
+
+  if (typeof value === "string" && value.length > 0) {
+    return [value];
+  }
+
+  return [];
+}
+
+function breakpointKeyFromList(breakpoints: string[]): string {
+  return [...breakpoints].sort().join("|");
+}
+
 // Helper to render a style object to CSS string (for direct styles only)
 function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
   styleDefinitions: StyleDictionary<T>,
@@ -52,20 +69,25 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
         const variantCSS = styleDef.renderToCSS(variant.value, isEditor);
         if (!variantCSS) return;
 
-        if (!variant.breakpoint?.length && !variant.state?.length) {
+        const breakpoints = asStringList(variant.breakpoint);
+        const states = Array.isArray(variant.state)
+          ? (variant.state as StateWithTarget[])
+          : [];
+
+        if (!breakpoints.length && !states.length) {
           css += variantCSS + "\n";
           return;
         }
 
         // If both breakpoints and states are provided, states are scoped to breakpoints
-        if (variant.breakpoint?.length && variant.state?.length) {
+        if (breakpoints.length && states.length) {
           // Create a combined breakpoint key for AND condition
-          const breakpointKey = variant.breakpoint.sort().join("|");
+          const breakpointKey = breakpointKeyFromList(breakpoints);
           if (!variantsByBreakpoint[breakpointKey]) {
             variantsByBreakpoint[breakpointKey] = {};
           }
 
-          variant.state!.forEach((stateWithParent: StateWithTarget) => {
+          states.forEach((stateWithParent: StateWithTarget) => {
             const stateSelector = generateStateTargetSelector(stateWithParent);
             if (!variantsByBreakpoint[breakpointKey][stateSelector]) {
               variantsByBreakpoint[breakpointKey][stateSelector] = [];
@@ -75,9 +97,9 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
           });
         }
         // If only breakpoints are provided (no states)
-        else if (variant.breakpoint?.length) {
+        else if (breakpoints.length) {
           // Create a combined breakpoint key for AND condition
-          const breakpointKey = variant.breakpoint.sort().join("|");
+          const breakpointKey = breakpointKeyFromList(breakpoints);
           if (!variantsByBreakpoint[breakpointKey]) {
             variantsByBreakpoint[breakpointKey] = {};
           }
@@ -89,8 +111,8 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
           variantsByBreakpoint[breakpointKey]["base"].push(variantCSS);
         }
         // If only states are provided (no breakpoints)
-        else if (variant.state?.length) {
-          variant.state.forEach((stateWithParent: StateWithTarget) => {
+        else if (states.length) {
+          states.forEach((stateWithParent: StateWithTarget) => {
             const stateSelector = generateStateTargetSelector(stateWithParent);
             if (!variantsByState[stateSelector]) {
               variantsByState[stateSelector] = [];

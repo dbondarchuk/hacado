@@ -80,6 +80,7 @@
     "./template-selector": "./src/components/template-selector.tsx",
     "./textarea-mention": "./src/components/textarea-mention.tsx",
     "./title-slug-identity-bar": "./src/components/title-slug-identity-bar.tsx",
+    "./two-field-identity-bar": "./src/components/two-field-identity-bar.tsx",
     "./week-selector": "./src/components/week-selector.tsx"
   }
 }

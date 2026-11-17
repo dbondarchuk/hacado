@@ -18,6 +18,7 @@ const TextShadowSchema = z.object({
 export const textShadowStyle = {
   name: "textShadow",
   label: "builder.pageBuilder.styles.properties.textShadow",
+  description: "CSS text-shadow",
   category: "typography",
   icon: ({ className }) => <Type className={className} />,
   schema: TextShadowSchema,

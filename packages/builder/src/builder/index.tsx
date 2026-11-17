@@ -3,19 +3,22 @@
 import { UploadedFile } from "@hacado/types/assets";
 import { cn } from "@hacado/ui/cn";
 import { SidebarInset, SidebarProvider, useSidebar } from "@hacado/ui/sidebar";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import { createPortal } from "react-dom";
 import type { ZodTypeAny } from "zod";
 import {
   EditorArgsContext,
   EditorStateProvider,
+  useDispatchAction,
   useEditorStateErrors,
   useFullScreen,
   useResetDocument,
+  useSetOpenInspectorDrawer,
   useSetToggleInspectorDrawer,
 } from "../documents/editor/context";
 import { TEditorBlock, TEditorConfiguration } from "../documents/editor/core";
+import { DocumentApplyErrorBoundary } from "../documents/editor/document-apply-error-boundary";
 import { ReaderDocumentBlocksDictionary } from "../documents/reader/core";
 import {
   BaseZodDictionary,
@@ -26,7 +29,10 @@ import { InspectorDrawer, SidebarTab } from "./inspector-drawer";
 import { TemplatePanel } from "./template-panel";
 import { PortalProvider } from "./template-panel/portal-context";
 import { BuilderToolbar } from "./template-panel/toolbar/builder-toolbar";
-import type { ToolbarButtonInjection } from "./template-panel/toolbar/toolbar-buttons";
+import {
+  ToolbarButtonsProvider,
+  type ToolbarButtonInjection,
+} from "./template-panel/toolbar/toolbar-buttons";
 
 export type { SidebarTab } from "./inspector-drawer";
 export type {
@@ -61,11 +67,28 @@ const SIDEBAR_COOKIE_NAME = "builder-sidebar-open";
 
 const BuilderSidebarListener = () => {
   const setToggleInspectorDrawer = useSetToggleInspectorDrawer();
-  const { toggleSidebar } = useSidebar();
+  const setOpenInspectorDrawer = useSetOpenInspectorDrawer();
+  const { toggleSidebar, setOpen, setOpenMobile, isMobile } = useSidebar();
 
-  useEffect(() => {
+  // Layout effect so the toolbar never sees a noop on the first click after load.
+  useLayoutEffect(() => {
     setToggleInspectorDrawer(toggleSidebar);
-  }, [toggleSidebar, setToggleInspectorDrawer]);
+    setOpenInspectorDrawer(() => {
+      if (isMobile) {
+        setOpenMobile(true);
+        return;
+      }
+
+      setOpen(true);
+    });
+  }, [
+    isMobile,
+    setOpen,
+    setOpenInspectorDrawer,
+    setOpenMobile,
+    setToggleInspectorDrawer,
+    toggleSidebar,
+  ]);
 
   return null;
 };
@@ -87,7 +110,7 @@ const BuilderSidebarProvider = ({
       // suppressHydrationWarning for open/close state
       suppressHydrationWarning
       className={cn(
-        "!bg-transparent h-full min-h-full w-full justify-center relative",
+        "!bg-transparent relative flex h-full min-h-0 w-full overflow-hidden",
       )}
       style={
         {
@@ -111,7 +134,7 @@ const BuilderFullScreenProvider = ({
   const Element = (
     <div
       className={cn(
-        "flex min-w-0 flex-col w-full h-full min-h-full",
+        "flex h-full min-h-0 min-w-0 w-full flex-col overflow-hidden",
         fullScreen && "fixed inset-0 z-50 pointer-events-auto bg-background",
       )}
       data-shimmer-no-children
@@ -138,6 +161,7 @@ const BuilderInternal = ({
   modalsPanel,
 }: Omit<BuilderProps<any>, "editorBlocks" | "rootBlock" | "schemas">) => {
   const resetDocument = useResetDocument();
+  const dispatch = useDispatchAction();
   const errors = useEditorStateErrors();
   const isValid = Object.keys(errors).length === 0;
 
@@ -149,24 +173,35 @@ const BuilderInternal = ({
 
   return (
     <BuilderFullScreenProvider>
-      <PortalProvider>
-        <BuilderToolbar args={args} toolbarButtons={toolbarButtons} />
-        <BuilderSidebarProvider sidebarWidth={sidebarWidth}>
-          <SidebarInset
-            className="flex flex-col w-full h-full min-h-full"
-            asDiv
+      <ToolbarButtonsProvider buttons={toolbarButtons}>
+        <PortalProvider>
+          <BuilderToolbar args={args} />
+          <DocumentApplyErrorBoundary
+            onRollback={(document) => {
+              dispatch({
+                type: "document",
+                value: { document },
+              });
+            }}
           >
-            <TemplatePanel
-              args={args}
-              readerBlocks={readerBlocks}
-              header={header}
-              footer={footer}
-              modalsPanel={modalsPanel}
-            />
-          </SidebarInset>
-          <InspectorDrawer extraTabs={extraTabs} />
-        </BuilderSidebarProvider>
-      </PortalProvider>
+            <BuilderSidebarProvider sidebarWidth={sidebarWidth}>
+              <SidebarInset
+                className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
+                asDiv
+              >
+                <TemplatePanel
+                  args={args}
+                  readerBlocks={readerBlocks}
+                  header={header}
+                  footer={footer}
+                  modalsPanel={modalsPanel}
+                />
+              </SidebarInset>
+              <InspectorDrawer extraTabs={extraTabs} />
+            </BuilderSidebarProvider>
+          </DocumentApplyErrorBoundary>
+        </PortalProvider>
+      </ToolbarButtonsProvider>
     </BuilderFullScreenProvider>
   );
 };

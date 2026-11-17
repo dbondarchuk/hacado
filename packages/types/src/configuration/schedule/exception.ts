@@ -7,7 +7,7 @@ export type ScheduleExceptionScope = z.infer<
   typeof scheduleExceptionScopeSchema
 >;
 
-/** Luxon weekday 1 (Mon) – 7 (Sun). */
+/** Luxon weekday 1 (Mon) - 7 (Sun). */
 export type ScheduleWeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 type DaySchedule = z.infer<typeof shiftsSchema>[number]["shifts"];
@@ -96,7 +96,7 @@ export type ScheduleDaySource =
 export type ResolveDayScheduleInput = {
   /** YYYY-MM-DD */
   date: string;
-  /** Luxon weekday 1–7 */
+  /** Luxon weekday 1-7 */
   weekDay: ScheduleWeekDay;
   defaultShifts: DaySchedule | undefined;
   companyExceptions: ScheduleException[];

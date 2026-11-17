@@ -6,30 +6,65 @@ import { zStyles } from "./styles";
 export const flowOrderSchema = z
   .enum(["service-first", "specialist-first"])
   .default("service-first")
-  .optional();
+  .optional()
+  .describe("Whether the guest picks a service or a specialist first");
 
 export type FlowOrder = z.infer<typeof flowOrderSchema>;
 
 export const summaryPositionSchema = z
   .enum(["bottom", "right"])
   .default("bottom")
-  .optional();
+  .optional()
+  .describe("Where the booking summary panel appears on large screens");
 
 export type SummaryPosition = z.infer<typeof summaryPositionSchema>;
 
 export const BookingPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    confirmationPage: z.string().optional().nullable(),
-    hideTitle: z.boolean().optional().nullable(),
-    hideSteps: z.boolean().optional().nullable(),
-    scrollToTop: z.boolean().optional().nullable(),
-    summaryPosition: summaryPositionSchema,
-    flowOrder: flowOrderSchema,
-    dontAllowAnySpecialist: z.boolean().optional(),
-    lockServiceId: zObjectId().optional().nullable(),
-    lockMemberId: zObjectId().optional().nullable(),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      confirmationPage: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Page slug or URL to open after a successful booking"),
+      hideTitle: z
+        .boolean()
+        .optional()
+        .nullable()
+        .describe("Hide the booking block title"),
+      hideSteps: z
+        .boolean()
+        .optional()
+        .nullable()
+        .describe("Hide step indicators in the booking flow"),
+      scrollToTop: z
+        .boolean()
+        .optional()
+        .nullable()
+        .describe("Scroll to top when moving between booking steps"),
+      summaryPosition: summaryPositionSchema,
+      flowOrder: flowOrderSchema,
+      dontAllowAnySpecialist: z
+        .boolean()
+        .optional()
+        .describe('When true, hide the "any available specialist" option'),
+      lockServiceId: zObjectId()
+        .optional()
+        .nullable()
+        .describe(
+          "MongoDB ObjectId of a service; locks the flow so guests cannot change the selected service",
+        ),
+      lockMemberId: zObjectId()
+        .optional()
+        .nullable()
+        .describe(
+          "MongoDB ObjectId of a staff member; locks the flow so guests cannot change the selected specialist",
+        ),
+    })
+    .describe("Block configuration props"),
 });
 
 export type BookingProps = z.infer<typeof BookingPropsSchema>;

@@ -76,6 +76,7 @@ export * from "./tabs";
 export * from "./tag-input";
 export * from "./text";
 export * from "./textarea";
+export * from "./textarea-group";
 export * from "./time-picker";
 export * from "./tips-picker";
 export * from "./toaster";

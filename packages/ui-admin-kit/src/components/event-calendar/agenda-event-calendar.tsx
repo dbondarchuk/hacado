@@ -267,7 +267,7 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                                   : `${eventDate.toLocaleString(
                                       DateTime.TIME_SIMPLE,
                                       { locale },
-                                    )} – ${endDate.toLocaleString(
+                                    )} - ${endDate.toLocaleString(
                                       DateTime.TIME_SIMPLE,
                                       { locale },
                                     )}`}

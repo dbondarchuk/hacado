@@ -27,6 +27,7 @@ const WhiteSpaceSchema = z.enum(whiteSpaceKeys);
 export const whiteSpaceStyle = {
   name: "whiteSpace",
   label: "builder.pageBuilder.styles.properties.whiteSpace",
+  description: "CSS white-space (how whitespace collapses/wraps)",
   category: "typography",
   icon: ({ className }) => <WrapText className={className} />,
   schema: WhiteSpaceSchema,

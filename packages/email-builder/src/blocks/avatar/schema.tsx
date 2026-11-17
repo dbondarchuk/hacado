@@ -1,17 +1,21 @@
 import * as z from "zod";
 import { zPadding, zTextAlign } from "../../style-inputs/helpers/zod";
 
-export const shape = z.enum(["circle", "square", "rounded"]);
+export const shape = z
+  .enum(["circle", "square", "rounded"])
+  .describe("Avatar crop shape");
+
 export type AvatarShape = z.infer<typeof shape>;
 
 export const AvatarPropsSchema = z.object({
   style: z
     .object({
-      textAlign: zTextAlign,
-      padding: zPadding,
+      textAlign: zTextAlign.describe("Horizontal alignment of the avatar"),
+      padding: zPadding.describe("Padding around the avatar"),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Optional avatar layout styles"),
   props: z
     .object({
       size: z.coerce
@@ -19,26 +23,25 @@ export const AvatarPropsSchema = z.object({
         .gt(0)
         .int("emailBuilder.blocks.avatar.validation.size")
         .optional()
-        .nullable(),
+        .nullable()
+        .describe("Avatar diameter/size in pixels"),
       shape: shape.optional().nullable(),
-      imageUrl: z.string().optional().nullable(),
-      alt: z.string().optional().nullable(),
+      imageUrl: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Avatar image source URL"),
+      alt: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Accessible alt text for the avatar image"),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Block configuration props"),
 });
 
 export type AvatarProps = z.infer<typeof AvatarPropsSchema>;
 
-export const AvatarPropsDefaults = {
-  props: {
-    size: 64,
-    imageUrl: "https://ui-avatars.com/api/?size=128",
-    alt: "",
-    shape: "circle",
-  },
-  style: {
-    padding: { top: 16, bottom: 16, left: 24, right: 24 },
-    textAlign: "left",
-  },
-} as const satisfies AvatarProps;
+export { AvatarPropsDefaults } from "./defaults";

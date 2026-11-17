@@ -24,6 +24,8 @@ export interface StyleDefinition<
 > {
   name: TName;
   label: AllKeys;
+  /** Short English hint for AI / tooling (not i18n). */
+  description?: string;
   icon: (props: { className?: string }) => React.ReactNode;
   category: StyleCategory;
   schema: T;

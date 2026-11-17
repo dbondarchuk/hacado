@@ -2,20 +2,14 @@ import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { AllKeys } from "@hacado/i18n";
 import { FileInput } from "lucide-react";
 import { FormsAdminKeys, FormsAdminNamespace } from "../translations/types";
+import { FormsBlocksAllowedInFooter, FormsBlocksSchema } from "./block-schemas";
 import {
   FormBlockConfiguration,
   FormBlockEditor,
   FormBlockPropsDefaults,
-  FormBlockPropsSchema,
 } from "./form";
 
-export const FormsBlocksSchema = {
-  Form: FormBlockPropsSchema,
-};
-
-export const FormsBlocksAllowedInFooter = {
-  Form: false,
-};
+export { FormsBlocksAllowedInFooter, FormsBlocksSchema };
 
 export const FormsBlocksDefaultMetadata = (
   _appName: string,
@@ -42,6 +36,29 @@ export const FormsEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["block", "form"],
     tags: ["form"],
+    // App-owned AI actions - declare on the block instead of the central registry.
+    aiCapabilities: [
+      {
+        id: "improve_form_copy",
+        label: "Improve form copy",
+        labelKey: "app_forms_admin.block.ai.improveFormCopy" satisfies AllKeys<
+          FormsAdminNamespace,
+          FormsAdminKeys
+        >,
+        description: "Improve field labels, placeholders, and helper text",
+        kind: "generative",
+      },
+      {
+        id: "custom_instruction",
+        label: "Ask AI",
+        labelKey: "app_forms_admin.block.ai.askAi" satisfies AllKeys<
+          FormsAdminNamespace,
+          FormsAdminKeys
+        >,
+        description: "Run a custom instruction on this form block",
+        kind: "generative",
+      },
+    ],
   },
 };
 

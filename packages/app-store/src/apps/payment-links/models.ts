@@ -23,7 +23,7 @@ export const paymentLinksSettingsSchema = z.object({
   footerId: z.string().optional(),
   linkExpiryDays: z.coerce.number<number>().int().min(1).max(365).optional(),
   tipsEnabled: z.boolean().optional(),
-  /** Percentage presets (1–100). Max 4. */
+  /** Percentage presets (1-100). Max 4. */
   tipPresets: z.array(paymentLinksTipPresetSchema).max(4).optional(),
   /** Email the link creator and appointment-assigned member when paid. */
   notifyOnPaid: z.boolean().optional(),

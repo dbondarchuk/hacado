@@ -370,11 +370,32 @@ export const Schedule: React.FC<
   });
 
   const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
-  const locksBootstrapped = React.useRef(!lockServiceId && !lockMemberId);
+  const locksKey = `${lockServiceId ?? ""}:${lockMemberId ?? ""}`;
+  const appliedLocksKey = React.useRef<string | null>(null);
   const suppressNextScrollRef = React.useRef(false);
 
   React.useEffect(() => {
-    if (locksBootstrapped.current) return;
+    if (appliedLocksKey.current === locksKey) return;
+
+    if (!lockServiceId && !lockMemberId) {
+      if (isEditor && appliedLocksKey.current) {
+        setSelectedAppointmentOption(undefined);
+        setSelectedMemberId(null);
+        suppressNextScrollRef.current = true;
+        setCurrentStep(
+          getInitialBookingStep({
+            flow,
+            flowOrder,
+            lockCustomerPackageId,
+            activeStaffCount: 0,
+          }),
+        );
+      }
+
+      appliedLocksKey.current = locksKey;
+      return;
+    }
+
     if (areAppointmentOptionsLoading) return;
 
     const option = lockServiceId
@@ -404,8 +425,10 @@ export const Schedule: React.FC<
       setCurrentStep(nextStep);
     }
 
-    locksBootstrapped.current = true;
+    appliedLocksKey.current = locksKey;
   }, [
+    locksKey,
+    isEditor,
     areAppointmentOptionsLoading,
     appointmentOptions,
     lockServiceId,

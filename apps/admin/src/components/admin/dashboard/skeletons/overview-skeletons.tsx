@@ -46,7 +46,7 @@ export function UpcomingAppointmentsSkeleton() {
               <div className="size-9 shrink-0 rounded-full" />
               <div className="min-w-0 flex-1 space-y-1">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm tabular-nums">Mon 14:00–14:45</p>
+                  <p className="text-sm tabular-nums">Mon 14:00-14:45</p>
                   <span className="text-xs px-2 py-0.5 rounded-full">
                     Status
                   </span>

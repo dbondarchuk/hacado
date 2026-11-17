@@ -1,22 +1,22 @@
+import { plateBodyValueSchema } from "@hacado/rte/plate-value";
 import * as z from "zod";
 import { zStyles } from "../../style-inputs/helpers/zod";
 
 export const TextPropsSchema = z.object({
-  style: zStyles,
+  style: zStyles.describe(
+    "Typography, colors, spacing, and alignment for the text block.",
+  ),
   props: z
     .object({
-      value: z.any().optional().nullable(),
+      value: plateBodyValueSchema.describe(
+        "Rich text body (markdown preferred, or Plate nodes).",
+      ),
     })
     .optional()
-    .nullable(),
+    .nullable()
+    .describe("Text block content settings."),
 });
 
 export type TextProps = z.infer<typeof TextPropsSchema>;
 
-export const TextPropsDefaults = {
-  props: { value: "" },
-  style: {
-    padding: { top: 16, bottom: 16, left: 24, right: 24 },
-    fontWeight: "normal",
-  },
-} satisfies TextProps;
+export { TextPropsDefaults } from "./defaults";

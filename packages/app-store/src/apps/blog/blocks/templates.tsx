@@ -6,7 +6,7 @@ import {
 } from "@hacado/builder/helpers";
 import { TemplatesConfiguration } from "@hacado/builder/types";
 import { AllKeys, I18nFn } from "@hacado/i18n";
-import { TEXT_SIZE_PRESETS } from "@hacado/page-builder-base/shortcuts";
+import { TEXT_SIZE_PRESETS } from "@hacado/page-builder-base/shortcuts/common";
 import { COLORS } from "@hacado/page-builder-base/style";
 import {
   ArrowLeftRight,

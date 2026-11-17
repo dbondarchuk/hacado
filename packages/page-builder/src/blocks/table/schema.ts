@@ -99,21 +99,47 @@ function normalizeTableProps(props: Record<string, unknown>) {
 }
 
 export const TablePropsSchema = z.object({
-  style: zStyles,
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
   props: z.preprocess(
     (val) =>
       val && typeof val === "object"
         ? normalizeTableProps(val as Record<string, unknown>)
         : val,
-    z.object({
-      rowCount: z.coerce.number().int().min(1).max(30),
-      colCount: z.coerce.number().int().min(1).max(30),
-      colspan: z.array(z.coerce.number().int().min(1).max(30)),
-      rowspan: z.array(z.coerce.number().int().min(1).max(30)),
-      cells: z.array(zEmbeddedCell),
-      colWidths: z.array(z.coerce.number().min(1).max(100)).optional(),
-      rowHeights: z.array(z.coerce.number().min(32).max(1200)).optional(),
-    }),
+    z
+      .object({
+        rowCount: z.coerce
+          .number()
+          .int()
+          .min(1)
+          .max(30)
+          .describe("Number of table rows"),
+        colCount: z.coerce
+          .number()
+          .int()
+          .min(1)
+          .max(30)
+          .describe("Number of table columns"),
+        colspan: z
+          .array(z.coerce.number().int().min(1).max(30))
+          .describe("Column span per cell in row-major flat order"),
+        rowspan: z
+          .array(z.coerce.number().int().min(1).max(30))
+          .describe("Row span per cell in row-major flat order"),
+        cells: z
+          .array(zEmbeddedCell)
+          .describe("Embedded slot content for each cell"),
+        colWidths: z
+          .array(z.coerce.number().min(1).max(100))
+          .optional()
+          .describe("Optional column widths as percentages"),
+        rowHeights: z
+          .array(z.coerce.number().min(32).max(1200))
+          .optional()
+          .describe("Optional row heights in pixels"),
+      })
+      .describe("Block configuration props"),
   ),
 });
 

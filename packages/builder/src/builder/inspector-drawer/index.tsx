@@ -6,7 +6,9 @@ import {
 } from "../../documents/editor/context";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Sidebar, SidebarContent } from "@hacado/ui/sidebar";
+import { cn } from "@hacado/ui/cn";
+import { Sheet, SheetContent } from "@hacado/ui/sheet";
+import { useSidebar } from "@hacado/ui/sidebar";
 import {
   ResponsiveTabsList,
   Tabs,
@@ -21,7 +23,6 @@ import {
 } from "./configuration-panel";
 import { StylesPanel, StylesPanelTab } from "./styles-panel";
 
-// Define the SidebarTab type
 export type SidebarTab = {
   value: string;
   label: React.ReactNode;
@@ -32,23 +33,85 @@ export type SidebarTab = {
 const SelectBlockListener: React.FC = memo(() => {
   const selectedBlockId = useSelectedBlockId();
   const selectedSlot = useSelectedSlot();
+  const selectedTab = useSelectedSidebarTab();
   const setSidebarTab = useSetSidebarTab();
   useEffect(() => {
+    // Leave host tabs (AI, settings, …) alone when the selection changes.
+    if (
+      selectedTab !== ConfigurationPanelTab &&
+      selectedTab !== StylesPanelTab
+    ) {
+      return;
+    }
+
     if (selectedBlockId || selectedSlot) {
       setSidebarTab(ConfigurationPanelTab);
     } else {
       setSidebarTab(StylesPanelTab);
     }
-  }, [selectedBlockId, selectedSlot, setSidebarTab]);
+  }, [selectedBlockId, selectedSlot, selectedTab, setSidebarTab]);
 
   return null;
 });
 
+function InspectorTabs(props: {
+  tabs: SidebarTab[];
+  selectedTab: string;
+  onTabChange: (value: string) => void;
+}) {
+  return (
+    <div className="bg-background relative flex h-full min-h-0 w-full flex-col overflow-hidden border-b border-secondary">
+      <Tabs
+        defaultValue={props.tabs[0]?.value}
+        value={props.selectedTab}
+        onValueChange={props.onTabChange}
+        className="flex h-full min-h-0 flex-col px-2 py-2"
+      >
+        <SelectBlockListener />
+        <div className="sticky top-0 z-10 w-full shrink-0">
+          <ResponsiveTabsList
+            dontScrollIntoView
+            variant="line"
+            className="flex w-full flex-row items-center gap-2"
+          >
+            {props.tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className="flex flex-1 gap-2"
+              >
+                {tab.icon} {tab.label}
+              </TabsTrigger>
+            ))}
+          </ResponsiveTabsList>
+        </div>
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          {props.tabs.map((tab) => (
+            <TabsContent
+              key={tab.value}
+              value={tab.value}
+              className="mt-0 h-full min-h-0 overflow-y-auto data-[state=inactive]:hidden"
+            >
+              {tab.content}
+            </TabsContent>
+          ))}
+        </div>
+      </Tabs>
+    </div>
+  );
+}
+
+/**
+ * Builder inspector panel. Uses SidebarProvider open state (same as the
+ * toolbar toggle) but owns its own layout - width collapse + overflow clip,
+ * not offcanvas translate (which left a peeking sliver).
+ */
 export const InspectorDrawer: React.FC<{ extraTabs?: SidebarTab[] }> = ({
   extraTabs = [],
 }) => {
   const selectedTab = useSelectedSidebarTab();
   const setSidebarTab = useSetSidebarTab();
+  const { open, isMobile, openMobile, setOpenMobile } = useSidebar();
   const t = useI18n("builder");
 
   const allTabs = useMemo(
@@ -70,47 +133,40 @@ export const InspectorDrawer: React.FC<{ extraTabs?: SidebarTab[] }> = ({
     [t, extraTabs],
   );
 
+  const onTabChange = (value: string) => setSidebarTab(value as any);
+  const tabs = (
+    <InspectorTabs
+      tabs={allTabs}
+      selectedTab={selectedTab}
+      onTabChange={onTabChange}
+    />
+  );
+
+  if (isMobile) {
+    return (
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+        <SheetContent
+          side="right"
+          className="flex h-full w-[var(--sidebar-width)] flex-col overflow-hidden p-0 [&>button]:hidden"
+        >
+          {tabs}
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
   return (
-    <Sidebar
-      side="right"
-      className="absolute z-[40] h-full group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1.2)] pt-0 [&>[data-sidebar=sidebar]]:sticky [&>[data-sidebar=sidebar]]:top-9 [&>[data-sidebar=sidebar]]:h-fit"
-      variant="inset"
+    <div
+      data-state={open ? "expanded" : "collapsed"}
+      className={cn(
+        "relative hidden h-full min-h-0 shrink-0 overflow-hidden md:block",
+        "transition-[width] duration-200 ease-linear",
+        open ? "w-[var(--sidebar-width)]" : "w-0",
+      )}
     >
-      <SidebarContent className="w-full border-b border-secondary bg-background relative h-full overflow-hidden">
-        <div className="px-2 py-2">
-          <Tabs
-            defaultValue={allTabs[0].value}
-            value={selectedTab}
-            onValueChange={(value) => setSidebarTab(value as any)}
-          >
-            <SelectBlockListener />
-            <div className="w-full sticky top-0 z-10">
-              <ResponsiveTabsList
-                dontScrollIntoView
-                variant="line"
-                className="w-full flex flex-row gap-2 items-center"
-              >
-                {allTabs.map((tab) => (
-                  <TabsTrigger
-                    key={tab.value}
-                    value={tab.value}
-                    className="gap-2 flex-1"
-                  >
-                    {tab.icon} {tab.label}
-                  </TabsTrigger>
-                ))}
-              </ResponsiveTabsList>
-            </div>
-            <div className="max-h-[calc(100vh-120px)] overflow-y-auto">
-              {allTabs.map((tab) => (
-                <TabsContent key={tab.value} value={tab.value}>
-                  {tab.content}
-                </TabsContent>
-              ))}
-            </div>
-          </Tabs>
-        </div>
-      </SidebarContent>
-    </Sidebar>
+      <aside className="flex h-full min-h-0 w-[var(--sidebar-width)] flex-col overflow-hidden border-l border-secondary bg-background">
+        {tabs}
+      </aside>
+    </div>
   );
 };

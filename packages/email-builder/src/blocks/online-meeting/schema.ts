@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { EMAIL_BRAND } from "../../brand";
 import {
   zColorNullable,
   zFontFamily,
@@ -9,43 +8,76 @@ import {
 export const OnlineMeetingPropsSchema = z.object({
   props: z
     .object({
-      title: z.string().optional().nullable(),
-      whenText: z.string().optional().nullable(),
-      codeText: z.string().optional().nullable(),
-      passwordText: z.string().optional().nullable(),
-      buttonText: z.string().optional().nullable(),
-      linkText: z.string().optional().nullable(),
-      buttonTextColor: zColorNullable,
-      buttonBackgroundColor: zColorNullable,
-      type: z.string().optional().nullable(),
-      logoUrl: z.string().optional().nullable(),
+      title: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Meeting title shown in the block header."),
+      whenText: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Human-readable date and time of the meeting."),
+      codeText: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Meeting ID or dial-in code to display."),
+      passwordText: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Meeting passcode or password to display."),
+      buttonText: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Label on the primary join-meeting button."),
+      linkText: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Alternate link text when shown as a text link."),
+      buttonTextColor: zColorNullable.describe(
+        "Color of the join button label.",
+      ),
+      buttonBackgroundColor: zColorNullable.describe(
+        "Background color of the join button.",
+      ),
+      type: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Meeting provider type identifier (e.g. zoom, teams)."),
+      logoUrl: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("URL of the provider logo image."),
     })
     .optional()
-    .nullable(),
-  style: z.object({
-    color: zColorNullable,
-    backgroundColor: zColorNullable,
-    fontFamily: zFontFamily.optional().nullable(),
-    padding: zPadding.optional().nullable(),
-  }),
+    .nullable()
+    .describe("Online meeting details, labels, and button styling."),
+  style: z
+    .object({
+      color: zColorNullable.describe(
+        "Default text color in the meeting block.",
+      ),
+      backgroundColor: zColorNullable.describe(
+        "Background color of the meeting block.",
+      ),
+      fontFamily: zFontFamily
+        .optional()
+        .nullable()
+        .describe("Font family for meeting block text."),
+      padding: zPadding
+        .optional()
+        .nullable()
+        .describe("Inner padding around the meeting block content."),
+    })
+    .describe("Typography, colors, and spacing for the meeting block."),
 });
 
 export type OnlineMeetingProps = z.infer<typeof OnlineMeetingPropsSchema>;
 
-export const OnlineMeetingPropsDefaults = {
-  props: {
-    title: "{{service.name}}",
-    whenText: "When:",
-    codeText: "Code:",
-    passwordText: "Password:",
-    buttonText: "Join Meeting",
-    linkText: "Trouble joining? Copy & paste this link into your browser:",
-    buttonTextColor: EMAIL_BRAND.onPrimary,
-    buttonBackgroundColor: EMAIL_BRAND.primary,
-    type: "{{meetingInformation.type}}",
-    logoUrl: "",
-  },
-  style: {
-    padding: { top: 16, bottom: 16, left: 24, right: 24 },
-  },
-} as const satisfies OnlineMeetingProps;
+export { OnlineMeetingPropsDefaults } from "./defaults";

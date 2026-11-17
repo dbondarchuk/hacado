@@ -1,26 +1,41 @@
-import { generateId } from "@hacado/builder/helpers";
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
-import type { I18nFn } from "@hacado/i18n";
 import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { zStyles } from "./styles";
 
 export const typewriterPhraseSchema = z.object({
-  id: z.string(),
-  text: z.string(),
+  id: z.string().describe("Stable id for this phrase in the rotation"),
+  text: z.string().describe("Text shown while this phrase is active"),
 });
 
 export type TypewriterPhrase = z.infer<typeof typewriterPhraseSchema>;
 
 export const TypewriterTextPropsSchema = z.object({
-  style: zStyles,
-  props: z.object({
-    phrases: z.array(typewriterPhraseSchema),
-    typeDelayMs: z.coerce.number().min(0),
-    deleteDelayMs: z.coerce.number().min(0),
-    pauseAfterPhraseMs: z.coerce.number().min(0),
-    showCursor: z.coerce.boolean(),
-  }),
+  style: zStyles.describe(
+    "Optional responsive styles. Keys must be from this block's supportedStyles; use getStyleSchema for value shapes.",
+  ),
+  props: z
+    .object({
+      phrases: z
+        .array(typewriterPhraseSchema)
+        .describe("Lines cycled with typewriter animation"),
+      typeDelayMs: z.coerce
+        .number()
+        .min(0)
+        .describe("Milliseconds between typed characters"),
+      deleteDelayMs: z.coerce
+        .number()
+        .min(0)
+        .describe("Milliseconds between deleted characters"),
+      pauseAfterPhraseMs: z.coerce
+        .number()
+        .min(0)
+        .describe("Pause after a full phrase before deleting"),
+      showCursor: z.coerce
+        .boolean()
+        .describe("Show a blinking cursor while typing"),
+    })
+    .describe("Block configuration props"),
 });
 
 export type TypewriterTextProps = Prettify<
@@ -30,19 +45,4 @@ export type TypewriterTextProps = Prettify<
 export type TypewriterTextReaderProps = BaseReaderBlockProps<any> &
   TypewriterTextProps;
 
-export const TypewriterTextPropsDefaults = (
-  _t: I18nFn<undefined, undefined>,
-): TypewriterTextProps => ({
-  style: {},
-  props: {
-    phrases: [
-      { id: generateId(), text: "what you love" },
-      { id: generateId(), text: "your clients" },
-      { id: generateId(), text: "growing your business" },
-    ],
-    typeDelayMs: 100,
-    deleteDelayMs: 50,
-    pauseAfterPhraseMs: 2000,
-    showCursor: true,
-  },
-});
+export { TypewriterTextPropsDefaults } from "./defaults";

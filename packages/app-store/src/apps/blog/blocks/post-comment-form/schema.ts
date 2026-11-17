@@ -9,18 +9,53 @@ export const zStyles = getStylesSchema(styles);
 export const BlogPostCommentFormPropsSchema = z.object({
   props: z
     .object({
-      nameLabel: z.string().optional().nullable(),
-      namePlaceholder: z.string().optional().nullable(),
-      emailLabel: z.string().optional().nullable(),
-      emailPlaceholder: z.string().optional().nullable(),
-      bodyLabel: z.string().optional().nullable(),
-      bodyPlaceholder: z.string().optional().nullable(),
-      submitLabel: z.string().optional().nullable(),
-      successMessage: z.string().optional().nullable(),
+      nameLabel: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Label for the commenter name field."),
+      namePlaceholder: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Placeholder text for the name field."),
+      emailLabel: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Label for the commenter email field."),
+      emailPlaceholder: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Placeholder text for the email field."),
+      bodyLabel: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Label for the comment body field."),
+      bodyPlaceholder: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Placeholder text for the comment body."),
+      submitLabel: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Text on the submit button."),
+      successMessage: z
+        .string()
+        .optional()
+        .nullable()
+        .describe("Message shown after a comment is submitted successfully."),
     })
     .optional()
-    .nullable(),
-  style: zStyles,
+    .nullable()
+    .describe("Block configuration props"),
+  style: zStyles.describe(
+    "Optional responsive styles for layout, spacing, colors, and typography.",
+  ),
 });
 
 export type BlogPostCommentFormProps = Prettify<

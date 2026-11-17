@@ -8,6 +8,7 @@ const OrderSchema = z.coerce.number<number>().int();
 export const orderStyle = {
   name: "order",
   label: "builder.pageBuilder.styles.properties.order",
+  description: "CSS order for flex/grid item",
   category: "layout",
   schema: OrderSchema,
   icon: ({ className }) => <ListOrdered className={className} />,
