@@ -1,5 +1,11 @@
 import { appsApi } from "@hacado/api-sdk/admin/apps";
+import type { AskUserRequest } from "@hacado/types/ai";
 import { WithTotal } from "@hacado/types/database";
+import type { GiftCardAiRunResult } from "./ai/run";
+import {
+  normalizeGiftCardAiProposal,
+  type GiftCardAiProposal,
+} from "./ai/schema";
 import {
   CheckDesignNameUniqueActionType,
   CreateDesignActionType,
@@ -19,6 +25,8 @@ import {
   GetPurchasedGiftCardsAction,
   GetPurchasedGiftCardsActionType,
   GetSettingsActionType,
+  GiftCardAiGenerateAction,
+  GiftCardAiGenerateActionType,
   MarkGiftCardStudioPurchasesReadActionType,
   PurchasedGiftCardListModel,
   RegenerateGiftCardAssetsActionType,
@@ -378,3 +386,91 @@ export async function resendEmail(
 
   return result;
 }
+
+export async function generateGiftCardDesignAi(
+  appId: string,
+  input: Omit<GiftCardAiGenerateAction, never>,
+  options?: {
+    signal?: AbortSignal;
+    onEvent?: (event: string, data: unknown) => void;
+  },
+): Promise<GiftCardAiRunResult> {
+  const logger = loggerFactory("generateGiftCardDesignAi");
+  logger.debug(
+    { appId, actionId: input.actionId },
+    "Generating gift card design AI proposal",
+  );
+
+  try {
+    const raw = await appsApi.processRequestStream(
+      appId,
+      {
+        type: GiftCardAiGenerateActionType,
+        ...input,
+      },
+      {
+        signal: options?.signal,
+        onEvent: options?.onEvent,
+      },
+    );
+
+    const result = normalizeGiftCardAiRunResult(raw);
+
+    logger.info(
+      { appId, actionId: input.actionId, status: result.status },
+      "Successfully finished gift card design AI generate",
+    );
+
+    return result;
+  } catch (error: any) {
+    logger.error(
+      { appId, error: error?.message || error?.toString() },
+      "Error generating gift card design AI proposal",
+    );
+
+    throw error;
+  }
+}
+
+function normalizeGiftCardAiRunResult(value: unknown): GiftCardAiRunResult {
+  if (
+    value &&
+    typeof value === "object" &&
+    "status" in value &&
+    (value as { status: string }).status === "waiting_for_user" &&
+    "askUser" in value
+  ) {
+    const waiting = value as {
+      askUser: AskUserRequest;
+      text?: unknown;
+    };
+
+    return {
+      status: "waiting_for_user",
+      askUser: waiting.askUser,
+      text: typeof waiting.text === "string" ? waiting.text : undefined,
+    };
+  }
+
+  if (
+    value &&
+    typeof value === "object" &&
+    "status" in value &&
+    (value as { status: string }).status === "completed" &&
+    "proposal" in value
+  ) {
+    return {
+      status: "completed",
+      proposal: normalizeGiftCardAiProposal(
+        (value as { proposal: unknown }).proposal,
+      ),
+    };
+  }
+
+  return {
+    status: "completed",
+    proposal: normalizeGiftCardAiProposal(value),
+  };
+}
+
+export type { GiftCardAiProposal, GiftCardAiRunResult };

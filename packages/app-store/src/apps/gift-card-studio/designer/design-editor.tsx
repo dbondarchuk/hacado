@@ -13,6 +13,8 @@ import type { Design } from "./lib/types";
 export const getDefaultDesign = getDefaultDesignFromStore;
 
 export interface DesignEditorProps {
+  /** Connected app id for Gift Card Studio AI process calls. */
+  appId: string;
   /** Design ID when editing an existing design; undefined for new design. Used to sync store when switching designs. */
   designId?: string;
   /** Initial design to load into the editor (e.g. from initialData.design or getDefaultDesign()). */
@@ -27,6 +29,7 @@ export interface DesignEditorProps {
  * design from the store on submit via getDesignFromStore().
  */
 export function DesignEditor({
+  appId,
   designId,
   initialDesign,
   disabled,
@@ -44,7 +47,15 @@ export function DesignEditor({
     });
   }, [designId]);
 
-  return <EditorLayout allowGrouping embedded />;
+  return (
+    <EditorLayout
+      allowGrouping
+      embedded
+      appId={appId}
+      designId={designId}
+      disabled={disabled}
+    />
+  );
 }
 
 export function useIsValidDesign(): boolean {

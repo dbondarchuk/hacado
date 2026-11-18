@@ -49,6 +49,9 @@ interface EditorState {
   undo: () => void;
   redo: () => void;
   pushHistory: () => void;
+
+  /** Replace the whole design (AI apply). Clears selection and records history. */
+  replaceDesign: (design: Design) => void;
 }
 
 const initialCanvas: Canvas = {
@@ -514,4 +517,22 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       };
     });
   }, 300),
+
+  replaceDesign: (design) => {
+    set((state) => {
+      const newHistory = state.history.slice(0, state.historyIndex + 1);
+      newHistory.push(design);
+
+      if (newHistory.length > 50) {
+        newHistory.shift();
+      }
+
+      return {
+        design,
+        selectedElements: [],
+        history: newHistory,
+        historyIndex: newHistory.length - 1,
+      };
+    });
+  },
 }));

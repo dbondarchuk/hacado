@@ -9,6 +9,7 @@ import {
 } from "@hacado/ui/resizable";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@hacado/ui/sheet";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { GiftCardAiPanel } from "../../ai/panel";
 import {
   GiftCardStudioAdminKeys,
   GiftCardStudioAdminNamespace,
@@ -29,12 +30,18 @@ interface EditorLayoutProps {
   allowGrouping?: boolean;
   /** When true, use h-full instead of h-screen so the editor fits inside a parent container (e.g. form). */
   embedded?: boolean;
+  appId: string;
+  designId?: string;
+  disabled?: boolean;
 }
 
 export function EditorLayout({
   allowGrouping = true,
   embedded = false,
-}: EditorLayoutProps = {}) {
+  appId,
+  designId,
+  disabled,
+}: EditorLayoutProps) {
   const {
     undo,
     redo,
@@ -52,6 +59,7 @@ export function EditorLayout({
   const [isLgUp, setIsLgUp] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
 
   useLayoutEffect(() => {
     const mq = window.matchMedia(LG_MEDIA);
@@ -168,7 +176,11 @@ export function EditorLayout({
   const toggleLeft = () => {
     setLeftOpen((prev) => {
       const next = !prev;
-      if (next && !isLgUp) setRightOpen(false);
+      if (next && !isLgUp) {
+        setRightOpen(false);
+        setAiOpen(false);
+      }
+
       return next;
     });
   };
@@ -176,7 +188,23 @@ export function EditorLayout({
   const toggleRight = () => {
     setRightOpen((prev) => {
       const next = !prev;
-      if (next && !isLgUp) setLeftOpen(false);
+      if (next && !isLgUp) {
+        setLeftOpen(false);
+        setAiOpen(false);
+      }
+
+      return next;
+    });
+  };
+
+  const toggleAi = () => {
+    setAiOpen((prev) => {
+      const next = !prev;
+      if (next && !isLgUp) {
+        setLeftOpen(false);
+        setRightOpen(false);
+      }
+
       return next;
     });
   };
@@ -207,8 +235,10 @@ export function EditorLayout({
       <Toolbar
         leftPanelOpen={leftOpen}
         rightPanelOpen={rightOpen}
+        aiPanelOpen={aiOpen}
         onToggleLeft={toggleLeft}
         onToggleRight={toggleRight}
+        onToggleAi={toggleAi}
       />
       <div className="flex-1 flex overflow-hidden min-h-0">
         {/* Desktop: docked left sidebar */}
@@ -243,7 +273,7 @@ export function EditorLayout({
 
         <CanvasWorkspace allowGrouping={allowGrouping} />
 
-        {/* Desktop: docked right stack */}
+        {/* Desktop: docked properties + layers */}
         <div
           className={cn(
             "hidden lg:flex shrink-0 border-l border-border bg-background overflow-hidden transition-[width] duration-200 ease-out",
@@ -252,6 +282,22 @@ export function EditorLayout({
         >
           <div className="w-80 h-full min-h-0 shrink-0 flex flex-col overflow-hidden">
             {rightPanelInner}
+          </div>
+        </div>
+
+        {/* Desktop: dedicated AI column */}
+        <div
+          className={cn(
+            "hidden lg:flex shrink-0 border-l border-border bg-background overflow-hidden transition-[width] duration-200 ease-out",
+            aiOpen ? "w-96" : "w-0 border-transparent",
+          )}
+        >
+          <div className="w-96 h-full min-h-0 shrink-0 flex flex-col overflow-hidden px-1">
+            <GiftCardAiPanel
+              appId={appId}
+              designId={designId}
+              disabled={disabled}
+            />
           </div>
         </div>
 
@@ -268,6 +314,28 @@ export function EditorLayout({
               </SheetHeader>
               <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
                 {rightPanelInner}
+              </div>
+            </SheetContent>
+          </Sheet>
+        )}
+
+        {!isLgUp && (
+          <Sheet open={aiOpen} onOpenChange={setAiOpen}>
+            <SheetContent
+              side="right"
+              className="flex flex-col p-0 gap-0 w-[min(24rem,100vw)] sm:max-w-md [&>button]:right-2 [&>button]:top-3"
+            >
+              <SheetHeader className="px-4 pt-4 pb-3 border-b shrink-0 space-y-0 text-left">
+                <SheetTitle className="text-base pr-8">
+                  {t("designer.layout.aiSheetTitle")}
+                </SheetTitle>
+              </SheetHeader>
+              <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+                <GiftCardAiPanel
+                  appId={appId}
+                  designId={designId}
+                  disabled={disabled}
+                />
               </div>
             </SheetContent>
           </Sheet>

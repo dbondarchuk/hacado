@@ -108,6 +108,8 @@ scopes:
   llms-full-txt-provider: Fournisseur de texte intégral LLM
   public-event-context-provider: Fournisseur de contexte d'événement public
   public-page-provider: Fournisseur de pages publiques
+  command-search-provider: Fournisseur de recherche de commandes
+  ai-tools-provider: Fournisseur d'outils IA
 target:
   company: Entreprise
   member: Membre

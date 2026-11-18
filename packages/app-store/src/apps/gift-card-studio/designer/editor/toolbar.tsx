@@ -17,6 +17,7 @@ import {
   PanelLeft,
   PanelRight,
   Redo,
+  Sparkles,
   Undo,
   ZoomIn,
   ZoomOut,
@@ -32,15 +33,19 @@ import { CanvasSetupDialog } from "./canvas-setup-dialog";
 export interface CanvasToolbarProps {
   leftPanelOpen: boolean;
   rightPanelOpen: boolean;
+  aiPanelOpen: boolean;
   onToggleLeft: () => void;
   onToggleRight: () => void;
+  onToggleAi: () => void;
 }
 
 export function Toolbar({
   leftPanelOpen,
   rightPanelOpen,
+  aiPanelOpen,
   onToggleLeft,
   onToggleRight,
+  onToggleAi,
 }: CanvasToolbarProps) {
   const {
     zoom,
@@ -354,6 +359,30 @@ export function Toolbar({
             {rightPanelOpen
               ? t("designer.toolbar.closePropertiesPanel")
               : t("designer.toolbar.openPropertiesPanel")}
+          </TooltipResponsiveContent>
+        </TooltipResponsive>
+
+        <TooltipResponsive>
+          <TooltipResponsiveTrigger>
+            <Button
+              variant={aiPanelOpen ? "secondary" : "ghost"}
+              size="icon"
+              className="shrink-0 size-8 sm:size-9"
+              aria-expanded={aiPanelOpen}
+              aria-label={
+                aiPanelOpen
+                  ? t("designer.toolbar.closeAiPanel")
+                  : t("designer.toolbar.openAiPanel")
+              }
+              onClick={onToggleAi}
+            >
+              <Sparkles className="size-4" />
+            </Button>
+          </TooltipResponsiveTrigger>
+          <TooltipResponsiveContent>
+            {aiPanelOpen
+              ? t("designer.toolbar.closeAiPanel")
+              : t("designer.toolbar.openAiPanel")}
           </TooltipResponsiveContent>
         </TooltipResponsive>
 

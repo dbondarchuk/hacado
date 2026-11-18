@@ -49,6 +49,22 @@ import type { BlogAiProposal } from "./schema";
 const TOOLBAR_GAP_PX = 4;
 const ASK_AI_BUTTON_CLASS = "h-7 shrink-0 gap-1.5 text-xs";
 const ACTION_BUTTON_CLASS = "h-7 shrink-0 px-2 text-xs";
+const PROGRESS_MAX_VISIBLE = 12;
+const PROGRESS_IDLE_MS = 5_000;
+
+const PROGRESS_FILLER_KEYS = [
+  "drafting",
+  "researching",
+  "matchingVoice",
+  "outlining",
+  "writing",
+  "headlines",
+  "tags",
+  "images",
+  "polishing",
+  "stillThinking",
+  "looseEnds",
+] as const;
 
 type SideTab = "settings" | "ai";
 
@@ -110,21 +126,56 @@ function appendTextSegment(
   return next;
 }
 
-/** Keep tool/progress steps; drop streamed text (may be raw JSON). */
-function keepStepSegments(
-  segments: AiChatStreamSegment[] | undefined,
-): AiChatStreamSegment[] | undefined {
-  const steps = (segments ?? []).filter(
-    (segment): segment is Extract<AiChatStreamSegment, { type: "steps" }> =>
-      segment.type === "steps",
-  );
-
-  return steps.length ? steps : undefined;
-}
-
 function looksLikeJsonPayload(text: string): boolean {
   const trimmed = text.trim();
   return trimmed.startsWith("{") || trimmed.startsWith("```");
+}
+
+/** Keep steps + human narration in stream order; drop raw JSON dumps. */
+function keepDisplaySegments(
+  segments: AiChatStreamSegment[] | undefined,
+): AiChatStreamSegment[] | undefined {
+  const kept = (segments ?? []).filter((segment) => {
+    if (segment.type === "steps") return true;
+
+    return (
+      segment.type === "text" &&
+      Boolean(segment.text.trim()) &&
+      !looksLikeJsonPayload(segment.text)
+    );
+  });
+
+  return kept.length ? kept : undefined;
+}
+
+function finalizeAssistantSegments(
+  segments: AiChatStreamSegment[] | undefined,
+  summary: string,
+): { segments: AiChatStreamSegment[]; content: string } {
+  const next = [...(keepDisplaySegments(segments) ?? [])];
+  const narration = next.filter(
+    (segment): segment is Extract<AiChatStreamSegment, { type: "text" }> =>
+      segment.type === "text",
+  );
+
+  const hasSummaryAlready = narration.some((segment) =>
+    segment.text.includes(summary),
+  );
+
+  if (!hasSummaryAlready) {
+    next.push({ type: "text", text: summary });
+  }
+
+  return {
+    segments: next,
+    content: next
+      .filter(
+        (segment): segment is Extract<AiChatStreamSegment, { type: "text" }> =>
+          segment.type === "text",
+      )
+      .map((segment) => segment.text.trim())
+      .join("\n\n"),
+  };
 }
 
 function BlogAskAIToolbar(props: {
@@ -496,6 +547,11 @@ export function BlogPostAiChrome({
   const [messages, setMessages] = useState<BlogAiChatMessage[]>([]);
   const abortRef = useRef<AbortController | null>(null);
   const liveAssistantIdRef = useRef<string | null>(null);
+  const progressIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+
+  const progressFillerIndexRef = useRef(0);
 
   const quickActions = useMemo<ResolvedAction[]>(
     () =>
@@ -509,6 +565,109 @@ export function BlogPostAiChrome({
   );
 
   const openAiTab = useCallback(() => setSideTab("ai"), []);
+
+  const clearIdleProgressTimer = useCallback(() => {
+    if (progressIdleTimerRef.current) {
+      clearTimeout(progressIdleTimerRef.current);
+      progressIdleTimerRef.current = null;
+    }
+  }, []);
+
+  const appendLiveStep = useCallback((assistantId: string, label: string) => {
+    setMessages((current) =>
+      current.map((message) =>
+        message.id === assistantId
+          ? {
+              ...message,
+              segments: appendStepSegment(message.segments, label),
+            }
+          : message,
+      ),
+    );
+  }, []);
+
+  const scheduleIdleFiller = useCallback(
+    (assistantId: string) => {
+      clearIdleProgressTimer();
+      progressIdleTimerRef.current = setTimeout(() => {
+        if (liveAssistantIdRef.current !== assistantId) return;
+
+        const fillers = PROGRESS_FILLER_KEYS.map((key) =>
+          t(`ai.progress.${key}`),
+        );
+
+        setMessages((current) => {
+          const live = current.find((message) => message.id === assistantId);
+          const steps = (live?.segments ?? []).flatMap((segment) =>
+            segment.type === "steps" ? segment.steps : [],
+          );
+
+          let attempts = 0;
+          let label = fillers[progressFillerIndexRef.current % fillers.length]!;
+
+          while (
+            attempts < fillers.length &&
+            steps[steps.length - 1] === label
+          ) {
+            progressFillerIndexRef.current += 1;
+            label = fillers[progressFillerIndexRef.current % fillers.length]!;
+            attempts += 1;
+          }
+
+          progressFillerIndexRef.current += 1;
+
+          return current.map((message) => {
+            if (message.id !== assistantId) return message;
+
+            let segments = appendStepSegment(message.segments, label);
+            const last = segments[segments.length - 1];
+
+            if (
+              last?.type === "steps" &&
+              last.steps.length > PROGRESS_MAX_VISIBLE
+            ) {
+              segments = [
+                ...segments.slice(0, -1),
+                {
+                  type: "steps",
+                  steps: last.steps.slice(-PROGRESS_MAX_VISIBLE),
+                },
+              ];
+            }
+
+            return { ...message, segments };
+          });
+        });
+
+        scheduleIdleFiller(assistantId);
+      }, PROGRESS_IDLE_MS);
+    },
+    [clearIdleProgressTimer, t],
+  );
+
+  const beginProgress = useCallback(
+    (assistantId: string) => {
+      clearIdleProgressTimer();
+      progressFillerIndexRef.current = 0;
+      appendLiveStep(assistantId, t("ai.progress.understanding"));
+      scheduleIdleFiller(assistantId);
+    },
+    [appendLiveStep, clearIdleProgressTimer, scheduleIdleFiller, t],
+  );
+
+  const noteProgressActivity = useCallback(
+    (assistantId: string) => {
+      scheduleIdleFiller(assistantId);
+    },
+    [scheduleIdleFiller],
+  );
+
+  useEffect(() => {
+    return () => {
+      clearIdleProgressTimer();
+      abortRef.current?.abort();
+    };
+  }, [clearIdleProgressTimer]);
 
   const patchAssistant = useCallback(
     (messageId: string, patch: Partial<BlogAiChatMessage>) => {
@@ -668,6 +827,7 @@ export function BlogPostAiChrome({
       setMessages((current) => [...current, userMessage, assistantMessage]);
       setLoading(true);
       setDraft("");
+      beginProgress(assistantId);
 
       try {
         const result = await generateBlogPostAi(
@@ -700,16 +860,8 @@ export function BlogPostAiChrome({
 
                 if (!label) return;
 
-                setMessages((current) =>
-                  current.map((message) =>
-                    message.id === assistantId
-                      ? {
-                          ...message,
-                          segments: appendStepSegment(message.segments, label),
-                        }
-                      : message,
-                  ),
-                );
+                appendLiveStep(assistantId, label);
+                noteProgressActivity(assistantId);
 
                 return;
               }
@@ -718,6 +870,7 @@ export function BlogPostAiChrome({
                 const payload = data as BlogAiAskUserPayload | undefined;
                 if (!payload) return;
 
+                clearIdleProgressTimer();
                 patchAssistant(assistantId, {
                   askUser: payload,
                   askUserAnswered: false,
@@ -733,6 +886,7 @@ export function BlogPostAiChrome({
                 // Ignore raw proposal JSON dumps; only accept human summary text.
                 if (looksLikeJsonPayload(payload.text)) return;
 
+                noteProgressActivity(assistantId);
                 setMessages((current) =>
                   current.map((message) =>
                     message.id === assistantId
@@ -760,8 +914,8 @@ export function BlogPostAiChrome({
                     ...message,
                     askUser: result.askUser,
                     askUserAnswered: false,
-                    content: result.text?.trim() || "",
-                    segments: keepStepSegments(message.segments),
+                    content: result.text?.trim() || message.content,
+                    segments: keepDisplaySegments(message.segments),
                   }
                 : message,
             ),
@@ -810,34 +964,16 @@ export function BlogPostAiChrome({
           current.map((message) => {
             if (message.id !== assistantId) return message;
 
-            const stepSegments = keepStepSegments(message.segments) ?? [];
-            const narrationSegments = (message.segments ?? []).filter(
-              (
-                segment,
-              ): segment is Extract<AiChatStreamSegment, { type: "text" }> =>
-                segment.type === "text" &&
-                Boolean(segment.text.trim()) &&
-                !looksLikeJsonPayload(segment.text),
+            const finalized = finalizeAssistantSegments(
+              message.segments,
+              summary,
             );
-
-            const hasSummaryAlready = narrationSegments.some((segment) =>
-              segment.text.includes(summary),
-            );
-
-            const textSegments = hasSummaryAlready
-              ? narrationSegments
-              : [
-                  ...narrationSegments,
-                  { type: "text" as const, text: summary },
-                ];
 
             return {
               ...message,
               proposal: appliedProposal,
-              content: textSegments
-                .map((segment) => segment.text.trim())
-                .join("\n\n"),
-              segments: [...stepSegments, ...textSegments],
+              content: finalized.content,
+              segments: finalized.segments,
             };
           }),
         );
@@ -855,6 +991,8 @@ export function BlogPostAiChrome({
           error: err?.message || t("ai.errorGeneric"),
         });
       } finally {
+        clearIdleProgressTimer();
+
         if (abortRef.current === abortController) {
           abortRef.current = null;
         }
@@ -867,10 +1005,14 @@ export function BlogPostAiChrome({
       }
     },
     [
+      appendLiveStep,
       appId,
       applyProposal,
+      beginProgress,
+      clearIdleProgressTimer,
       draft,
       form,
+      noteProgressActivity,
       openAiTab,
       patchAssistant,
       postId,
@@ -959,7 +1101,10 @@ export function BlogPostAiChrome({
           onSubmit={() => {
             void runAction("custom_instruction", draft);
           }}
-          onStop={() => abortRef.current?.abort()}
+          onStop={() => {
+            clearIdleProgressTimer();
+            abortRef.current?.abort();
+          }}
           onAnswerAskUser={answerAskUser}
           t={t}
         />

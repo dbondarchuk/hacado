@@ -110,6 +110,8 @@ scopes:
   llms-full-txt-provider: LLMs full text provider
   public-event-context-provider: Public event context provider
   public-page-provider: Public page provider
+  command-search-provider: Command search provider
+  ai-tools-provider: AI tools provider
 target:
   company: Company
   member: Member

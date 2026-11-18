@@ -25,6 +25,7 @@ export const GiftCardStudioApp: App<
     "quick-link-provider",
     "command-search-provider",
     "event-subscriber",
+    "ai-tools-provider",
   ],
   subscribeTo: [GIFT_CARD_STATUS_CHANGED_EVENT_TYPE],
   type: "complex",

@@ -430,40 +430,42 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
         role={state === "error" ? "alert" : "status"}
         aria-live="polite"
       >
-        <div className="flex min-w-0 items-center gap-2.5">
-          {state === "saving" && <Spinner className="h-4 w-4 shrink-0" />}
-          {state === "saved" && <Check className="h-5 w-5 shrink-0" />}
-          {state === "error" && <CircleAlert className="h-5 w-5 shrink-0" />}
-          {state === "dirty" && showFieldErrors ? (
-            <>
-              <button
-                type="button"
-                className="min-w-0 truncate font-medium underline underline-offset-4 hover:opacity-80"
-                onClick={revealFieldErrors}
-              >
-                {t("saveButton.fixErrors")}
-              </button>
-              <TooltipButton
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="size-7 shrink-0 text-current hover:bg-primary-foreground/15 hover:text-current"
-                tooltip={t("saveButton.showErrors")}
-                aria-label={t("saveButton.showErrors")}
-                onClick={() => openErrorsDialog()}
-              >
-                <List className="size-4" />
-              </TooltipButton>
-            </>
-          ) : (
-            <span className="truncate font-medium">
-              {state === "saving" && t("saveButton.saving")}
-              {state === "saved" && t("saveButton.saved")}
-              {state === "error" && (serverError || t("saveButton.failed"))}
-              {state === "dirty" && t("saveButton.unsaved")}
-            </span>
-          )}
-        </div>
+        {state === "dirty" && !!ignoreDirty && !showFieldErrors ? null : (
+          <div className="flex min-w-0 items-center gap-2.5">
+            {state === "saving" && <Spinner className="h-4 w-4 shrink-0" />}
+            {state === "saved" && <Check className="h-5 w-5 shrink-0" />}
+            {state === "error" && <CircleAlert className="h-5 w-5 shrink-0" />}
+            {state === "dirty" && showFieldErrors ? (
+              <>
+                <button
+                  type="button"
+                  className="min-w-0 truncate font-medium underline underline-offset-4 hover:opacity-80"
+                  onClick={revealFieldErrors}
+                >
+                  {t("saveButton.fixErrors")}
+                </button>
+                <TooltipButton
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="size-7 shrink-0 text-current hover:bg-primary-foreground/15 hover:text-current"
+                  tooltip={t("saveButton.showErrors")}
+                  aria-label={t("saveButton.showErrors")}
+                  onClick={() => openErrorsDialog()}
+                >
+                  <List className="size-4" />
+                </TooltipButton>
+              </>
+            ) : (
+              <span className="truncate font-medium">
+                {state === "saving" && t("saveButton.saving")}
+                {state === "saved" && t("saveButton.saved")}
+                {state === "error" && (serverError || t("saveButton.failed"))}
+                {state === "dirty" && t("saveButton.unsaved")}
+              </span>
+            )}
+          </div>
+        )}
 
         {state !== "saved" && (
           <div className="flex shrink-0 gap-2">

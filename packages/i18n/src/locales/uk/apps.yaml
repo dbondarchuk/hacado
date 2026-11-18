@@ -110,6 +110,8 @@ scopes:
   llms-full-txt-provider: Постачальник llms.txt
   public-event-context-provider: Постачальник публічного контексту подій
   public-page-provider: Постачальник публічних сторінок
+  command-search-provider: Постачальник пошуку команд
+  ai-tools-provider: Постачальник інструментів ШІ
 target:
   company: Компанія
   member: Учасник

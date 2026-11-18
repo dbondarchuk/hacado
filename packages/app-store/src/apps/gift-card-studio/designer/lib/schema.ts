@@ -150,12 +150,13 @@ const canvasSchema = z.object({
 
 const REQUIRED_FIELD_KEYS = ["amount", "code"] as const;
 
-const designSchemaBase = z.object({
+/** Canvas + elements without gift-card required-field rules (AI input / intermediate). */
+export const designDocumentSchema = z.object({
   canvas: canvasSchema,
   elements: z.array(elementSchema),
 });
 
-export const designSchema = designSchemaBase.superRefine((data, ctx) => {
+export const designSchema = designDocumentSchema.superRefine((data, ctx) => {
   const fieldKeys = data.elements
     .filter((el): el is z.infer<typeof textElementSchema> => el.type === "text")
     .map((el) => el.fieldKey)

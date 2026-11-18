@@ -5,6 +5,7 @@ import {
   zUniqueArray,
 } from "@hacado/types/utils";
 import * as z from "zod";
+import { designDocumentSchema } from "../designer/lib/schema";
 import type { GiftCardStudioAdminAllKeys } from "../translations/types";
 import { designSchemaBase, getDesignsQuerySchema } from "./design";
 import {
@@ -239,6 +240,27 @@ export type UpdateSettingsAction = z.infer<typeof updateSettingsActionSchema>;
 export const UpdateSettingsActionType =
   "gift-card-studio-update-settings" as const;
 
+// Gift Card AI Generate Action
+
+export const giftCardAiGenerateActionSchema = z.object({
+  actionId: z.string().min(1),
+  instruction: z.string().max(4000).optional(),
+  designId: zObjectId().optional(),
+  /** Current editor design; required fields may be missing on a blank canvas. */
+  design: designDocumentSchema,
+  selectionIds: z.array(z.string().min(1)).max(50).optional(),
+  /** Current form design name; empty on new designs. */
+  currentName: z.string().max(64).optional(),
+  /** When true, model should propose a design name. */
+  needsDesignName: z.boolean().optional(),
+});
+
+export type GiftCardAiGenerateAction = z.infer<
+  typeof giftCardAiGenerateActionSchema
+>;
+
+export const GiftCardAiGenerateActionType = "gift-card-ai-generate" as const;
+
 export const requestActionSchema = zTaggedUnion([
   { type: CreateDesignActionType, data: createDesignActionSchema },
   { type: UpdateDesignActionType, data: updateDesignActionSchema },
@@ -283,6 +305,7 @@ export const requestActionSchema = zTaggedUnion([
     type: MarkGiftCardStudioPurchasesReadActionType,
     data: markGiftCardStudioPurchasesReadActionSchema,
   },
+  { type: GiftCardAiGenerateActionType, data: giftCardAiGenerateActionSchema },
 ]);
 
 export type RequestAction = Prettify<z.infer<typeof requestActionSchema>>;

@@ -1,3 +1,4 @@
+import { checkRateLimit } from "@hacado/ai-core";
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLocale } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
@@ -7,6 +8,7 @@ import {
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppUninstallResult,
+  createAppProcessStream,
   DashboardNotification,
   DemoArguments,
   ICommandSearchProvider,
@@ -43,6 +45,8 @@ import { normalizeToE164 } from "@hacado/utils/phone";
 import { canUseFeature } from "@hacado/utils/subscription";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
+import { getGiftCardAiAction } from "../ai/actions";
+import { runGiftCardAiGenerate } from "../ai/run";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
 import { demoPurchasedGiftCard } from "../demo-arguments";
 import { renderGiftCard } from "../designer/lib/render/render";
@@ -60,6 +64,7 @@ import type {
   DeleteDesignsAction,
   DeletePurchasedGiftCardAction,
   DesignModel,
+  GiftCardAiGenerateAction,
   GiftCardStudioJobPayload,
   RegenerateGiftCardAssetsAction,
   ResendEmailAction,
@@ -79,6 +84,7 @@ import {
   GetPurchasedGiftCardByIdActionType,
   GetPurchasedGiftCardsActionType,
   GetSettingsActionType,
+  GiftCardAiGenerateActionType,
   MarkGiftCardStudioPurchasesReadActionType,
   PurchasedGiftCardModel,
   RegenerateGiftCardAssetsActionType,
@@ -398,10 +404,116 @@ export class GiftCardStudioConnectedApp
         );
 
         return this.processResendEmail(appData, data, repo);
+      case GiftCardAiGenerateActionType:
+        return this.processGiftCardAiGenerateRequest(appData, data);
       default:
         logger.warn({ type: (data as any).type }, "Unknown request type");
         return null;
     }
+  }
+
+  private processGiftCardAiGenerateRequest(
+    appData: ConnectedAppData,
+    data: GiftCardAiGenerateAction,
+  ) {
+    const logger = this.loggerFactory("processGiftCardAiGenerateRequest");
+    logger.debug(
+      { appId: appData._id, actionId: data.actionId },
+      "Processing gift card AI generate request",
+    );
+
+    const rate = checkRateLimit({
+      key: `gift-card-ai:${appData.organizationId}`,
+      limit: Number(process.env.AI_RATE_LIMIT ?? 30),
+      windowMs: Number(process.env.AI_RATE_WINDOW_MS ?? 60_000),
+    });
+
+    if (!rate.allowed) {
+      throw new ConnectedAppRequestError(
+        "gift_card_ai_rate_limited",
+        { resetAt: rate.resetAt },
+        429,
+        "Gift card AI rate limit exceeded",
+      );
+    }
+
+    const action = getGiftCardAiAction(data.actionId);
+    if (!action) {
+      throw new ConnectedAppRequestError(
+        "gift_card_ai_unknown_action",
+        { actionId: data.actionId },
+        400,
+        "Unknown gift card AI action",
+      );
+    }
+
+    const instruction =
+      data.instruction?.trim() ||
+      (action.id === "custom_instruction" ? "" : action.message);
+
+    if (!instruction) {
+      throw new ConnectedAppRequestError(
+        "gift_card_ai_instruction_required",
+        {},
+        400,
+        "Instruction is required",
+      );
+    }
+
+    return createAppProcessStream(async ({ emit, signal }) => {
+      try {
+        const result = await runGiftCardAiGenerate({
+          appData,
+          services: this.props.services,
+          actionId: action.id,
+          instruction,
+          designId: data.designId,
+          context: {
+            design: data.design,
+            selectionIds: data.selectionIds,
+            currentName: data.currentName,
+            needsDesignName: data.needsDesignName,
+          },
+          signal,
+          emit,
+        });
+
+        logger.debug(
+          {
+            appId: appData._id,
+            actionId: data.actionId,
+            status: result.status,
+          },
+          "Gift card AI generate finished",
+        );
+
+        return result;
+      } catch (error: any) {
+        if (
+          (error instanceof DOMException && error.name === "AbortError") ||
+          (error instanceof Error && error.name === "AbortError") ||
+          signal.aborted
+        ) {
+          throw error;
+        }
+
+        logger.error(
+          { appId: appData._id, error: error?.message || error?.toString() },
+          "Gift card AI generate failed",
+        );
+
+        if (error instanceof ConnectedAppRequestError) {
+          throw error;
+        }
+
+        throw new ConnectedAppRequestError(
+          "gift_card_ai_generate_failed",
+          { message: error?.message || String(error) },
+          500,
+          "Gift card AI generate failed",
+        );
+      }
+    });
   }
 
   public async install(appData: ConnectedAppData): Promise<void> {

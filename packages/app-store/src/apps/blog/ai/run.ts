@@ -44,16 +44,35 @@ function looksLikeJsonPayload(text: string): boolean {
   return trimmed.startsWith("{") || trimmed.startsWith("```");
 }
 
+/** Prefer prose before a JSON object so mixed model turns still talk to the user. */
+function extractNarrationText(text: string | undefined): string | undefined {
+  const trimmed = text?.trim();
+  if (!trimmed) return undefined;
+  if (!looksLikeJsonPayload(trimmed)) return trimmed;
+
+  const fenceIdx = trimmed.search(/```(?:json)?/i);
+  const braceIdx = trimmed.indexOf("{");
+  const jsonStart =
+    fenceIdx >= 0 && (braceIdx < 0 || fenceIdx < braceIdx)
+      ? fenceIdx
+      : braceIdx;
+
+  if (jsonStart <= 0) return undefined;
+
+  const leading = trimmed.slice(0, jsonStart).trim();
+  return leading || undefined;
+}
+
 /** Emit short user-facing narration; never stream raw proposal JSON. */
 function emitNarration(
   emit: (event: string, data: unknown) => void,
   text: string | undefined,
 ) {
-  const trimmed = text?.trim();
-  if (!trimmed || looksLikeJsonPayload(trimmed)) return;
+  const narration = extractNarrationText(text);
+  if (!narration) return;
 
   emit(BLOG_AI_SSE_DELTA, {
-    text: trimmed.endsWith("\n") ? trimmed : `${trimmed}\n\n`,
+    text: narration.endsWith("\n") ? narration : `${narration}\n\n`,
   });
 }
 
@@ -141,11 +160,7 @@ export async function runBlogAiGenerate(input: {
       });
 
       assistantText = result.text || assistantText;
-
-      // Builder-style: show what the model will do / is doing before tools.
-      if (result.toolCalls.length) {
-        emitNarration(input.emit, result.text);
-      }
+      emitNarration(input.emit, result.text);
 
       if (!result.toolCalls.length) {
         break;

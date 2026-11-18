@@ -8,7 +8,48 @@ import { getLoggerFactory } from "@hacado/logger";
 import type { CommunicationChannel } from "@hacado/types/communication";
 import type { IServicesContainer } from "@hacado/types/services";
 import type { StockMediaProviderFilter } from "@hacado/types/stock-media";
+import { getWebsiteUrl } from "@hacado/utils/website";
 import { executeAskUser } from "../ask-user";
+
+function isAbsoluteHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+/** Prefer an absolute logo URL for AI consumers that place images on canvases. */
+async function withAbsoluteLogoUrl(
+  services: IServicesContainer,
+  slice: BusinessContextSlice,
+): Promise<BusinessContextSlice> {
+  const logoAsset =
+    typeof slice.logoAsset === "string" ? slice.logoAsset.trim() : "";
+
+  if (!logoAsset) return slice;
+
+  if (isAbsoluteHttpUrl(logoAsset)) {
+    return { ...slice, logoUrl: logoAsset };
+  }
+
+  try {
+    const organization = await services.organizationService.getOrganization();
+    if (!organization?.slug) return slice;
+
+    const websiteUrl = getWebsiteUrl(organization).replace(/\/$/, "");
+    const path = logoAsset.startsWith("/")
+      ? logoAsset
+      : logoAsset.startsWith("assets/") || logoAsset.startsWith("files/")
+        ? `/${logoAsset}`
+        : `/assets/${logoAsset.replace(/^\/+/, "")}`;
+
+    return { ...slice, logoUrl: `${websiteUrl}${path}` };
+  } catch {
+    return slice;
+  }
+}
 
 function pageHref(slug: string): string {
   if (!slug || slug === "home") return "/";
@@ -65,14 +106,17 @@ async function executePlatformToolInner(
           need !== "summary",
       );
 
-      const slice = selectBusinessSlice(
-        raw,
-        sliceNeeds.length
-          ? sliceNeeds
-          : wantsSummary
-            ? ["members", "services", "addons", "packages", "profile"]
-            : ["profile", "branding"],
-      );
+      const sliceNeedsResolved: BusinessContextNeed[] = sliceNeeds.length
+        ? sliceNeeds
+        : wantsSummary
+          ? ["members", "services", "addons", "packages", "profile"]
+          : ["profile", "branding"];
+
+      let slice = selectBusinessSlice(raw, sliceNeedsResolved);
+
+      if (sliceNeedsResolved.includes("branding")) {
+        slice = await withAbsoluteLogoUrl(services, slice);
+      }
 
       if (!wantsSummary) return slice;
 

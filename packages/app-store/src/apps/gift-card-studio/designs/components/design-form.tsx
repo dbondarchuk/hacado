@@ -180,9 +180,10 @@ export const DesignForm: React.FC<{
           >
             <DesignEditor
               key={initialData?._id ?? "new"}
+              appId={appId}
               designId={initialData?._id}
               initialDesign={defaultDesign}
-              disabled={loading}
+              disabled={loading || Boolean(initialData?.isArchived)}
             />
             {(loading || initialData?.isArchived) && (
               <div className="absolute inset-0 bg-muted/50 z-[100] flex items-center justify-center pointer-events-none">
@@ -191,7 +192,12 @@ export const DesignForm: React.FC<{
             )}
           </div>
         </div>
-        <SaveButton form={form} isLoading={loading} disabled={!isValidDesign} />
+        <SaveButton
+          form={form}
+          isLoading={loading}
+          disabled={!isValidDesign}
+          ignoreDirty
+        />
       </form>
     </Form>
   );

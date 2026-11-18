@@ -9,7 +9,10 @@ export type BusinessContextSlice = {
   currency?: string;
   brandTitle?: string;
   brandDescription?: string;
+  /** Raw brand logo asset name or stored URL. */
   logoAsset?: string;
+  /** Absolute http(s) logo URL when resolvable from logoAsset + website. */
+  logoUrl?: string;
   socialLinks?: Array<{ type: string; url: string }>;
   colors?: unknown[];
   fonts?: unknown;
