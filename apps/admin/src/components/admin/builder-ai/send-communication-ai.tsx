@@ -33,7 +33,8 @@ function createEmptyEmailDocument() {
 function SendCommunicationEmailBuilder(
   props: CommunicationEmailBuilderAIProps,
 ) {
-  useBuilderAIHostLifecycle();
+  // contentKey changes when a template is loaded (or the dialog resets).
+  useBuilderAIHostLifecycle(props.contentKey);
 
   const documentSettings = useMemo<BuilderDocumentSettings>(
     () => ({
@@ -96,7 +97,8 @@ function SendCommunicationEmailBuilder(
 function SendCommunicationTextMessageBuilder(
   props: CommunicationTextMessageBuilderAIProps,
 ) {
-  useBuilderAIHostLifecycle();
+  // contentKey changes when a template is loaded (or the dialog resets).
+  useBuilderAIHostLifecycle(props.contentKey);
 
   const { field, args } = props;
   const onContentChange = field.onChange;
@@ -120,7 +122,11 @@ function SendCommunicationTextMessageBuilder(
 
   return (
     <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden">
-      <TextMessageAIChrome args={args} documentSettings={documentSettings}>
+      <TextMessageAIChrome
+        args={args}
+        documentId={props.contentKey}
+        documentSettings={documentSettings}
+      >
         {(toolbar) => (
           <TextMessageBuilder args={args} field={field} toolbar={toolbar} />
         )}

@@ -31,6 +31,7 @@ import {
 import { MoreDropdownMenu } from "./more-dropdown-menu";
 
 import { ToolbarGroup } from "@hacado/ui/toolbar";
+// import { AIToolbarButton } from "./ai-toolbar-button";
 import { AlignDropdownMenu } from "./align-dropdown-menu";
 import { ColorDropdownMenu } from "./color-dropdown-menu";
 import { EmojiDropdownMenu } from "./emoji-dropdown-menu";
@@ -66,7 +67,7 @@ export function FixedToolbarButtons({ isMarkdown }: { isMarkdown?: boolean }) {
           </ToolbarGroup>
           {/* <ToolbarGroup>
             <AIToolbarButton tooltip="AI commands">
-              <WandSparklesIcon />
+              <Sparkles />
             </AIToolbarButton>
           </ToolbarGroup> */}
           {/* <ToolbarGroup>

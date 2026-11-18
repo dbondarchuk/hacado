@@ -16,6 +16,8 @@ export type CommunicationEmailBuilderAIProps = {
 export type CommunicationTextMessageBuilderAIProps = {
   args: Record<string, any>;
   field: ControllerRenderProps<any, "content">;
+  /** Changes when a template is loaded so Builder AI can reset host-scoped chat. */
+  contentKey?: string;
 };
 
 export type CommunicationBuilderAIAdapters = {

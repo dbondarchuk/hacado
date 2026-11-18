@@ -1,5 +1,5 @@
 import {
-  catalogFromEditorBlocks,
+  catalogFromSchemas,
   createAdapterFromCatalog,
   mergeBlockCatalogs,
   resolveCatalogDefaultValue,
@@ -8,7 +8,8 @@ import {
   type BuilderKind,
 } from "@hacado/ai-builder-core";
 import { AppsBlocksEditors } from "@hacado/app-store/blocks/editors";
-import { EditorBlocks } from "@hacado/page-builder/blocks";
+import { PAGE_BLOCK_AI_CATALOG_META } from "@hacado/page-builder/blocks/ai-catalog-meta";
+import { EditorBlockDefaults } from "@hacado/page-builder/blocks/defaults";
 import { EditorBlocksSchema as PageSchemas } from "@hacado/page-builder/blocks/schema";
 import { connectedAppMetadata, type ConnectedAppRef } from "./connected-apps";
 import {
@@ -72,10 +73,13 @@ export function createPageBuilderAIAdapter(input: {
   builder: Extract<BuilderKind, "page" | "footer">;
   apps?: ConnectedAppRef[];
 }): BuilderAIAdapter {
-  const core = catalogFromEditorBlocks({
+  // Do not import `@hacado/page-builder/blocks` here — that registry is
+  // `"use client"` and AI capabilities would be missing in API routes.
+  const core = catalogFromSchemas({
     schemas: PageSchemas,
-    editors: EditorBlocks,
+    defaults: EditorBlockDefaults,
     providerName: "core",
+    meta: PAGE_BLOCK_AI_CATALOG_META,
   });
 
   const apps = appBlockCatalog(

@@ -101,10 +101,6 @@ function finalizeSegmentsWithSummary(
   segments: BuilderAIStreamSegment[],
   summary: string,
 ): BuilderAIStreamSegment[] {
-  const trimmed = summary.trim();
-
-  if (!trimmed) return segments;
-
   const withoutTrailingEmptyText = [...segments];
 
   while (withoutTrailingEmptyText.length) {
@@ -117,6 +113,10 @@ function finalizeSegmentsWithSummary(
 
     break;
   }
+
+  const trimmed = summary.trim();
+
+  if (!trimmed) return withoutTrailingEmptyText;
 
   const last = withoutTrailingEmptyText[withoutTrailingEmptyText.length - 1];
 

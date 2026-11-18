@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { ToolbarGroup } from "@hacado/ui/toolbar";
+// import { AIToolbarButton } from "./ai-toolbar-button";
 import { InlineEquationToolbarButton } from "./inline-equation-toolbar-button";
 import { LinkToolbarButton } from "./link-toolbar-button";
 import { MarkToolbarButton } from "./mark-toolbar-button";
@@ -36,7 +37,7 @@ export function FloatingToolbarButtons({
         <>
           {/* <ToolbarGroup>
             <AIToolbarButton tooltip="AI commands">
-              <WandSparklesIcon />
+              <Sparkles />
               Ask AI
             </AIToolbarButton>
           </ToolbarGroup> */}

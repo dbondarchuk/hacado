@@ -52,6 +52,8 @@ import {
 
 import { Value } from "@udecode/plate";
 import { SingleLinePlugin } from "@udecode/plate-break/react";
+// import { AIPlugin } from "@udecode/plate-ai/react";
+// import { AILeaf } from "../plate-ui/ai-leaf";
 import { BlockquoteElement } from "../plate-ui/blockquote-element";
 import { CodeBlockElement } from "../plate-ui/code-block-element";
 import { CodeLeaf } from "../plate-ui/code-leaf";

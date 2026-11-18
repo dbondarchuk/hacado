@@ -1,10 +1,10 @@
 "use client";
 
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { withRef } from "@udecode/cn";
 import { AIChatPlugin } from "@udecode/plate-ai/react";
 import { useEditorPlugin } from "@udecode/plate/react";
-
-import { ToolbarButton } from "./toolbar";
+import type { MouseEvent } from "react";
 
 export const AIToolbarButton = withRef<typeof ToolbarButton>(
   ({ children, ...rest }, ref) => {
@@ -17,7 +17,7 @@ export const AIToolbarButton = withRef<typeof ToolbarButton>(
         onClick={() => {
           api.aiChat.show();
         }}
-        onMouseDown={(e) => {
+        onMouseDown={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
         }}
       >

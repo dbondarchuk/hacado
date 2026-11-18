@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
   useOpenState,
 } from "@hacado/ui/dropdown-menu";
-import { ToolbarButton } from "./toolbar";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 
 export function ModeDropdownMenu(props: DropdownMenuProps) {
   const editor = useEditorRef();

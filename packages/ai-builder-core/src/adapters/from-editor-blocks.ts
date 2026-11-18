@@ -66,17 +66,19 @@ export function catalogFromSchemas(input: {
   providerNames?: Record<string, string>;
   meta?: Record<
     string,
-    Pick<
-      BlockCatalogEntry,
-      | "displayName"
-      | "category"
-      | "tags"
-      | "capabilities"
-      | "aiCapabilities"
-      | "allowedIn"
-      | "allowedChildren"
-      | "allowedBuilderTypes"
-      | "hideInBlocksPanel"
+    Partial<
+      Pick<
+        BlockCatalogEntry,
+        | "displayName"
+        | "category"
+        | "tags"
+        | "capabilities"
+        | "aiCapabilities"
+        | "allowedIn"
+        | "allowedChildren"
+        | "allowedBuilderTypes"
+        | "hideInBlocksPanel"
+      >
     >
   >;
 }): BlockCatalogEntry[] {

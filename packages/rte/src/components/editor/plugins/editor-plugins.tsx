@@ -73,7 +73,7 @@ export const viewPlugins = [
 ] as const;
 
 export const editorPlugins = [
-  // AI
+  // AI (hidden for now)
   // ...aiPlugins,
 
   // Nodes

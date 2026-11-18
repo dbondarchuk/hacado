@@ -14,6 +14,7 @@
     "./blocks": "./src/blocks/index.tsx",
     "./blocks/schema": "./src/blocks/schema.ts",
     "./blocks/defaults": "./src/blocks/defaults.ts",
+    "./blocks/ai-catalog-meta": "./src/blocks/ai-catalog-meta.ts",
     "./blocks/child-allow": "./src/blocks/child-allow.ts",
     "./reader": "./src/reader.tsx",
     "./templates": "./src/templates/index.ts",

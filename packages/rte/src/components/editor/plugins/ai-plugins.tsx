@@ -1,24 +1,22 @@
 "use client";
 
 import { AIChatPlugin, AIPlugin } from "@udecode/plate-ai/react";
-import { MarkdownPlugin } from "@udecode/plate-markdown";
 
 import { AIMenu } from "../../plate-ui/ai-menu";
 
-import { cursorOverlayPlugin } from "./cursor-overlay-plugin";
-
 const systemCommon = `\
-You are an advanced AI-powered note-taking assistant, designed to enhance productivity and creativity in note management.
+You are an advanced AI writing assistant inside Hacado's rich text editor.
 Respond directly to user prompts with clear, concise, and relevant content. Maintain a neutral, helpful tone.
 
 Rules:
 - <Document> is the entire note the user is working on.
 - <Reminder> is a reminder of how you should reply to INSTRUCTIONS. It does not apply to questions.
 - Anything else is the user prompt.
-- Your response should be tailored to the user's prompt, providing precise assistance to optimize note management.
+- Your response should be tailored to the user's prompt.
 - For INSTRUCTIONS: Follow the <Reminder> exactly. Provide ONLY the content to be inserted or replaced. No explanations or comments.
 - For QUESTIONS: Provide a helpful and concise answer. You may include brief explanations if necessary.
 - CRITICAL: Distinguish between INSTRUCTIONS and QUESTIONS. Instructions typically ask you to modify or add content. Questions ask for information or clarification.
+- Keep Mustache/template placeholders such as {{customer.name}} intact unless the user asks to remove them.
 `;
 
 const systemDefault = `\
@@ -88,9 +86,8 @@ export const PROMPT_TEMPLATES = {
   userSelecting,
 };
 
+/** AIPlugin + AIChat only. Cursor overlay and Markdown stay in editorPlugins. */
 export const aiPlugins = [
-  cursorOverlayPlugin,
-  MarkdownPlugin,
   AIPlugin,
   AIChatPlugin.configure({
     options: {
@@ -111,4 +108,4 @@ export const aiPlugins = [
     },
     render: { afterEditable: () => <AIMenu /> },
   }),
-] as const;
+];

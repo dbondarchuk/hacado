@@ -352,7 +352,11 @@ export const SendCommunicationDialog: React.FC<
                   )}
                   {channel === "text-message" &&
                     (TextMessageBuilderAI ? (
-                      <TextMessageBuilderAI args={args} field={field} />
+                      <TextMessageBuilderAI
+                        args={args}
+                        field={field}
+                        contentKey={contentKey}
+                      />
                     ) : (
                       <TextMessageBuilder args={args} field={field} />
                     ))}
