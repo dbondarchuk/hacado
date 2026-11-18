@@ -32,6 +32,7 @@ import { S3AssetsStorageService } from "./s3-assets-storage";
 import { getS3Configuration } from "./s3-assets-storage/utils";
 import { ScheduleService } from "./schedule.service";
 import { ShortLinksService } from "./short-links";
+import { StockMediaProvider } from "./stock-media";
 import { SyncedPaymentsService } from "./synced-payments.service";
 import { TeamService } from "./team.service";
 import { TemplatesService } from "./templates.service";
@@ -214,6 +215,7 @@ export const ServicesContainer: (
     });
 
     const shortLinksService = new ShortLinksService();
+    const stockMediaProvider = new StockMediaProvider(redisClient);
 
     const services: IServicesContainer = {
       activityService,
@@ -244,6 +246,7 @@ export const ServicesContainer: (
       shortLinksService,
       smsConsentService,
       textMessageConfigurationService,
+      stockMediaProvider,
       redisClient,
     };
 

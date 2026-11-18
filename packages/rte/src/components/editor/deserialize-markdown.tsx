@@ -1,5 +1,6 @@
 import { Value } from "@udecode/plate";
 import { MarkdownPlugin, remarkMdx } from "@udecode/plate-markdown";
+import remarkGfm from "remark-gfm";
 import { fontRules } from "./font-rules";
 import { createPlateStaticEditor } from "./plate-static-editor";
 
@@ -10,12 +11,10 @@ export const deserializeMarkdown = (
   const editor = createPlateStaticEditor(undefined, { includeMarkdown: true });
   const api = editor.getApi(MarkdownPlugin);
 
-  const result = api.markdown.deserialize(
-    value,
-    options?.allowHtml
-      ? { remarkPlugins: [remarkMdx], rules: fontRules }
-      : undefined,
-  );
+  const result = api.markdown.deserialize(value, {
+    remarkPlugins: options?.allowHtml ? [remarkGfm, remarkMdx] : [remarkGfm],
+    ...(options?.allowHtml ? { rules: fontRules } : {}),
+  });
 
   return result;
 };

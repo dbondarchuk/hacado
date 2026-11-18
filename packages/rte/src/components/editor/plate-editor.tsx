@@ -4,11 +4,17 @@ import React, { forwardRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { Plate } from "@udecode/plate/react";
-
 import { Value } from "@udecode/plate";
+import { MarkdownPlugin } from "@udecode/plate-markdown";
+import { Plate } from "@udecode/plate/react";
+import remarkGfm from "remark-gfm";
 import { Editor, EditorContainer } from "../plate-ui/editor";
 import { useCreateEditor } from "./use-create-editor";
+
+export type PlateEditorHandle = {
+  /** Deserialize markdown with the live editor plugins (tables, headings, …). */
+  setMarkdown: (markdown: string) => void;
+};
 
 export type PlateEditorProps = {
   onChange?: (value: Value) => void;
@@ -23,6 +29,7 @@ export type PlateEditorProps = {
   document?: Document;
   id?: string;
   usesAbsoluteUrl?: boolean;
+  editorRef?: React.Ref<PlateEditorHandle | null>;
 };
 
 export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
@@ -40,6 +47,7 @@ export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
       id,
       document,
       usesAbsoluteUrl,
+      editorRef,
     },
     ref,
   ) => {
@@ -54,6 +62,8 @@ export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
     );
 
     const isExternalSyncRef = React.useRef(false);
+    const onChangeRef = React.useRef(onChange);
+    onChangeRef.current = onChange;
 
     React.useEffect(() => {
       editor.tf.focus({ edge: "endEditor" });
@@ -79,6 +89,30 @@ export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
         isExternalSyncRef.current = false;
       });
     }, [editor, value]);
+
+    React.useImperativeHandle(
+      editorRef,
+      () => ({
+        setMarkdown(markdown: string) {
+          const nodes = editor.getApi(MarkdownPlugin).markdown.deserialize(
+            markdown,
+            // Ensure GFM tables even if plugin defaults were overridden.
+            { remarkPlugins: [remarkGfm] },
+          );
+
+          const nextValue = (Array.isArray(nodes) ? nodes : [nodes]) as Value;
+
+          isExternalSyncRef.current = true;
+          lastSyncedValueRef.current = JSON.stringify(nextValue);
+          editor.tf.setValue(nextValue);
+          onChangeRef.current?.(nextValue);
+          queueMicrotask(() => {
+            isExternalSyncRef.current = false;
+          });
+        },
+      }),
+      [editor],
+    );
 
     return (
       <DndProvider backend={HTML5Backend} context={document?.defaultView}>

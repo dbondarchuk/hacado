@@ -1,5 +1,6 @@
 import type { Redis } from "ioredis";
 import type { IAssetsStorage } from "../apps/assets/assets-storage";
+import type { IStockMediaProvider } from "../stock-media";
 import type { IActivityService } from "./activity.service";
 import type { IAssetsService } from "./assets.service";
 import type { IBillingService } from "./billing.service";
@@ -59,5 +60,6 @@ export type IServicesContainer = {
   shortLinksService: IShortLinksService;
   smsConsentService: ISmsConsentService;
   textMessageConfigurationService: ITextMessageConfigurationService;
+  stockMediaProvider: IStockMediaProvider;
   redisClient: Redis;
 };

@@ -2,7 +2,7 @@
 
 import { usersApi } from "@hacado/api-sdk/admin/users";
 import { useI18n } from "@hacado/i18n/client";
-import { PlateEditor } from "@hacado/rte";
+import { PlateEditor, type PlateEditorHandle } from "@hacado/rte";
 import { DatabaseId } from "@hacado/types/database";
 import { AssetPreview } from "@hacado/ui-admin/asset-preview";
 import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
@@ -37,7 +37,7 @@ import { DateTimePicker } from "@hacado/ui/time-picker";
 import { fileNameToMimeType } from "@hacado/utils/assets";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
@@ -45,6 +45,7 @@ import {
   createBlogPost,
   updateBlogPost,
 } from "./actions";
+import { BlogPostAiChrome } from "./ai/chrome";
 import type { OrganizationAuthorMember } from "./author-actions";
 import { getOrganizationAuthorMembers } from "./author-actions";
 import {
@@ -113,6 +114,11 @@ export const BlogPostForm: React.FC<{
       author: { type: "member", memberId: "" },
     },
   });
+
+  const contentEditorRef = useRef<PlateEditorHandle | null>(null);
+  const setContentMarkdown = useCallback((markdown: string) => {
+    contentEditorRef.current?.setMarkdown(markdown);
+  }, []);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -251,268 +257,313 @@ export const BlogPostForm: React.FC<{
             }
           />
         </div>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full h-full space-y-8"
+        <BlogPostAiChrome
+          appId={appId}
+          postId={initialData?._id}
+          form={form}
+          slugManuallyChanged={slugManuallyChanged}
+          onSlugManualChange={() => setSlugManuallyChanged(true)}
+          generateSlug={generateSlug}
+          setContentMarkdown={setContentMarkdown}
+          disabled={loading}
         >
-          <div className="grid lg:grid-cols-3 gap-4">
-            <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
-              <FormField
-                control={form.control}
-                name="content"
-                render={({ field }) => (
-                  <FormItem className="w-full flex-grow relative h-full">
-                    <FormLabelWithRequiredIndicator required>
-                      {t("form.content")}
-                    </FormLabelWithRequiredIndicator>
-                    <FormControl>
-                      <div className="min-h-[400px] border rounded-md min-w-0">
-                        <PlateEditor
-                          className="bg-background px-4 sm:px-4 pb-24 min-h-[400px]"
-                          disabled={loading}
-                          value={field.value || []}
-                          onChange={(v) => {
-                            field.onChange(v);
-                            field.onBlur();
-                          }}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormDescription>
-                      {t("form.contentTooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <FormField
-                control={form.control}
-                name="publicationDate"
-                render={({ field }) => {
-                  const uses12HourFormat = use12HourFormat();
-                  return (
-                    <FormItem>
-                      <FormLabelWithRequiredIndicator required>
-                        {t("form.publicationDate")}
-                      </FormLabelWithRequiredIndicator>
-                      <FormControl>
-                        <DateTimePicker
-                          use12HourFormat={uses12HourFormat}
-                          onChange={(e) => {
-                            field.onChange(e);
-                            field.onBlur();
-                          }}
-                          value={field.value}
-                          className="w-full"
-                          classNames={{}}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t("form.publicationDateTooltip")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-              <FormField
-                control={form.control}
-                name="isPublished"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>{t("form.isPublished.label")}</FormLabel>
-                    <FormControl>
-                      <BooleanSelect
-                        disabled={loading}
-                        trueLabel={t("form.isPublished.published")}
-                        falseLabel={t("form.isPublished.draft")}
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                          field.onBlur();
-                        }}
-                        value={field.value}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t("form.isPublished.tooltip")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="author"
-                render={({ field }) => {
-                  const authorValue = field.value as BlogPostAuthor | undefined;
-                  const authorSource = authorValue?.type ?? "member";
-
-                  return (
-                    <FormItem className="w-full">
-                      <FormLabelWithRequiredIndicator required>
-                        {t("form.author.label")}
-                      </FormLabelWithRequiredIndicator>
-                      <Select
-                        disabled={loading}
-                        value={authorSource}
-                        onValueChange={(value: "member" | "custom") => {
-                          if (value === "member") {
-                            field.onChange({
-                              type: "member",
-                              memberId:
-                                authorValue?.type === "member"
-                                  ? authorValue.memberId
-                                  : "",
-                            });
-                          } else {
-                            field.onChange({
-                              type: "custom",
-                              name:
-                                authorValue?.type === "custom"
-                                  ? authorValue.name
-                                  : "",
-                            });
-                          }
-
-                          void form.trigger("author");
-                        }}
-                      >
+          {({ toolbar: aiToolbar, sidebar: aiSidebar }) => (
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full h-full space-y-8"
+            >
+              <div className="grid lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
+                  <FormField
+                    control={form.control}
+                    name="content"
+                    render={({ field }) => (
+                      <FormItem className="w-full flex-grow relative h-full">
+                        <FormLabelWithRequiredIndicator required>
+                          {t("form.content")}
+                        </FormLabelWithRequiredIndicator>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="member">
-                            {t("form.author.source.user")}
-                          </SelectItem>
-                          <SelectItem value="custom">
-                            {t("form.author.source.custom")}
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {authorSource === "member" ? (
-                        <Combobox
-                          disabled={loading}
-                          value={
-                            authorValue?.type === "member"
-                              ? authorValue.memberId
-                              : ""
-                          }
-                          onItemSelect={(value) => {
-                            field.onChange({ type: "member", memberId: value });
-                            field.onBlur();
-                            form.trigger("author");
-                          }}
-                          values={authorMembers.map((member) => ({
-                            value: member.id,
-                            label: member.name,
-                          }))}
-                          placeholder={t("form.author.userPlaceholder")}
-                        />
-                      ) : (
-                        <FormControl>
-                          <Input
-                            disabled={loading}
-                            placeholder={t("form.author.customNamePlaceholder")}
-                            value={
-                              authorValue?.type === "custom"
-                                ? authorValue.name
-                                : ""
-                            }
-                            onChange={(e) => {
-                              field.onChange({
-                                type: "custom",
-                                name: e.target.value,
-                              });
-                            }}
-                            onBlur={() => {
-                              field.onBlur();
-                              void form.trigger("author");
-                            }}
-                          />
-                        </FormControl>
-                      )}
-                      <FormDescription>
-                        {t("form.author.tooltip")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-
-              <FormField
-                control={form.control}
-                name="featuredImage"
-                render={({ field }) => {
-                  const mimeType = field.value
-                    ? fileNameToMimeType(field.value)
-                    : undefined;
-
-                  return (
-                    <FormItem>
-                      <FormLabel>{t("form.featuredImage.label")}</FormLabel>
-                      <FormControl>
-                        <div className="flex flex-col gap-4">
-                          <AssetSelectorInput
-                            value={field.value ?? ""}
-                            onChange={(value) => {
-                              field.onChange(value);
-                              field.onBlur();
-                            }}
-                            disabled={loading}
-                            accept="image/*"
-                            placeholder={t("form.featuredImage.placeholder")}
-                          />
-                          {field.value && mimeType?.startsWith("image/") && (
-                            <AssetPreview
-                              size="md"
-                              src={field.value}
-                              mimeType={mimeType}
+                          <div className="min-h-[400px] border rounded-md min-w-0 overflow-hidden">
+                            <div className="border-b bg-muted/20 px-2 py-1.5">
+                              {aiToolbar}
+                            </div>
+                            <PlateEditor
+                              editorRef={contentEditorRef}
+                              className="bg-background px-4 sm:px-4 pb-24 min-h-[400px]"
+                              disabled={loading}
+                              value={field.value || []}
+                              onChange={(v) => {
+                                field.onChange(v);
+                                field.onBlur();
+                              }}
                             />
-                          )}
-                        </div>
-                      </FormControl>
-                      <FormDescription>
-                        {t("form.featuredImage.tooltip")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-
-              <FormField
-                control={form.control}
-                name="tags"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.tags")}</FormLabel>
-                    <FormControl>
-                      <TagInput
-                        {...field}
-                        value={field.value || []}
-                        onChange={(e) => {
-                          field.onChange(e);
-                          field.onBlur();
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          {t("form.contentTooltip")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex min-h-[420px] min-w-0 flex-col lg:sticky lg:top-4 lg:h-[max(720px,calc(100vh-10rem))] lg:self-start">
+                  {aiSidebar(
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="publicationDate"
+                        render={({ field }) => {
+                          const uses12HourFormat = use12HourFormat();
+                          return (
+                            <FormItem>
+                              <FormLabelWithRequiredIndicator required>
+                                {t("form.publicationDate")}
+                              </FormLabelWithRequiredIndicator>
+                              <FormControl>
+                                <DateTimePicker
+                                  use12HourFormat={uses12HourFormat}
+                                  onChange={(e) => {
+                                    field.onChange(e);
+                                    field.onBlur();
+                                  }}
+                                  value={field.value}
+                                  className="w-full"
+                                  classNames={{}}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                {t("form.publicationDateTooltip")}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          );
                         }}
-                        h="sm"
-                        tagValidator={blogPostTagSchema}
                       />
-                    </FormControl>
-                    <FormDescription>{t("form.tagsTooltip")}</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-          <SaveButton form={form} />
-        </form>
+                      <FormField
+                        control={form.control}
+                        name="isPublished"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>{t("form.isPublished.label")}</FormLabel>
+                            <FormControl>
+                              <BooleanSelect
+                                disabled={loading}
+                                trueLabel={t("form.isPublished.published")}
+                                falseLabel={t("form.isPublished.draft")}
+                                onValueChange={(value) => {
+                                  field.onChange(value);
+                                  field.onBlur();
+                                }}
+                                value={field.value}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.isPublished.tooltip")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="author"
+                        render={({ field }) => {
+                          const authorValue = field.value as
+                            | BlogPostAuthor
+                            | undefined;
+
+                          const authorSource = authorValue?.type ?? "member";
+
+                          return (
+                            <FormItem className="w-full">
+                              <FormLabelWithRequiredIndicator required>
+                                {t("form.author.label")}
+                              </FormLabelWithRequiredIndicator>
+                              <Select
+                                disabled={loading}
+                                value={authorSource}
+                                onValueChange={(value: "member" | "custom") => {
+                                  if (value === "member") {
+                                    field.onChange({
+                                      type: "member",
+                                      memberId:
+                                        authorValue?.type === "member"
+                                          ? authorValue.memberId
+                                          : "",
+                                    });
+                                  } else {
+                                    field.onChange({
+                                      type: "custom",
+                                      name:
+                                        authorValue?.type === "custom"
+                                          ? authorValue.name
+                                          : "",
+                                    });
+                                  }
+
+                                  void form.trigger("author");
+                                }}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="member">
+                                    {t("form.author.source.user")}
+                                  </SelectItem>
+                                  <SelectItem value="custom">
+                                    {t("form.author.source.custom")}
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+                              {authorSource === "member" ? (
+                                <Combobox
+                                  disabled={loading}
+                                  value={
+                                    authorValue?.type === "member"
+                                      ? authorValue.memberId
+                                      : ""
+                                  }
+                                  onItemSelect={(value) => {
+                                    field.onChange({
+                                      type: "member",
+                                      memberId: value,
+                                    });
+
+                                    field.onBlur();
+                                    form.trigger("author");
+                                  }}
+                                  values={authorMembers.map((member) => ({
+                                    value: member.id,
+                                    label: member.name,
+                                  }))}
+                                  placeholder={t("form.author.userPlaceholder")}
+                                />
+                              ) : (
+                                <FormControl>
+                                  <Input
+                                    disabled={loading}
+                                    placeholder={t(
+                                      "form.author.customNamePlaceholder",
+                                    )}
+                                    value={
+                                      authorValue?.type === "custom"
+                                        ? authorValue.name
+                                        : ""
+                                    }
+                                    onChange={(e) => {
+                                      field.onChange({
+                                        type: "custom",
+                                        name: e.target.value,
+                                      });
+                                    }}
+                                    onBlur={() => {
+                                      field.onBlur();
+                                      void form.trigger("author");
+                                    }}
+                                  />
+                                </FormControl>
+                              )}
+                              <FormDescription>
+                                {t("form.author.tooltip")}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="featuredImage"
+                        render={({ field }) => {
+                          const value = field.value?.trim() ?? "";
+                          const fromName = value
+                            ? fileNameToMimeType(value)
+                            : undefined;
+
+                          // Asset filenames resolve via extension; remote URLs
+                          // (e.g. Unsplash) often have none — still preview as image.
+                          const mimeType = fromName?.startsWith("image/")
+                            ? fromName
+                            : /^https?:\/\//i.test(value)
+                              ? "image/jpeg"
+                              : undefined;
+
+                          return (
+                            <FormItem>
+                              <FormLabel>
+                                {t("form.featuredImage.label")}
+                              </FormLabel>
+                              <FormControl>
+                                <div className="flex flex-col gap-4">
+                                  <AssetSelectorInput
+                                    value={field.value ?? ""}
+                                    onChange={(value) => {
+                                      field.onChange(value);
+                                      field.onBlur();
+                                    }}
+                                    disabled={loading}
+                                    accept="image/*"
+                                    placeholder={t(
+                                      "form.featuredImage.placeholder",
+                                    )}
+                                  />
+                                  {value && mimeType ? (
+                                    <AssetPreview
+                                      size="md"
+                                      src={value}
+                                      mimeType={mimeType}
+                                    />
+                                  ) : null}
+                                </div>
+                              </FormControl>
+                              <FormDescription>
+                                {t("form.featuredImage.tooltip")}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="tags"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t("form.tags")}</FormLabel>
+                            <FormControl>
+                              <TagInput
+                                {...field}
+                                value={field.value || []}
+                                onChange={(e) => {
+                                  field.onChange(e);
+                                  field.onBlur();
+                                }}
+                                h="sm"
+                                tagValidator={blogPostTagSchema}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.tagsTooltip")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>,
+                  )}
+                </div>
+              </div>
+              <SaveButton form={form} />
+            </form>
+          )}
+        </BlogPostAiChrome>
       </div>
     </Form>
   );

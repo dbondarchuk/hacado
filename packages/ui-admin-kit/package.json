@@ -12,6 +12,7 @@
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./ai": "./src/components/ai/index.ts",
     "./appointments": "./src/components/appointments/index.ts",
     "./communications": "./src/components/communications/index.ts",
     "./data-table": "./src/components/data-table/index.ts",

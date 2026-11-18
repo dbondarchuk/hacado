@@ -65,6 +65,50 @@ form:
   toasts:
     changesSaved: Blog post saved successfully
     requestError: Error saving blog post
+ai:
+  open: Ask AI…
+  close: Close AI
+  title: Hacado AI
+  tabs:
+    settings: Settings
+    ai: AI
+  panelHint: Ask to draft, rewrite, or improve this post. Title, slug, tags, body, publish settings, and featured image can all be updated.
+  placeholder: Message Hacado AI…
+  instructionLabel: Instruction
+  instructionPlaceholder: Describe the post you want, or how to improve this draft…
+  run: Generate
+  applying: Applying…
+  apply: Apply to form
+  discard: Discard
+  applied: Applied to the form
+  loading: Generating…
+  proposalTitle: Proposal
+  summaryFallback: I updated the post for you.
+  overwriteConfirm: Applying will replace existing content or the featured image. Continue?
+  errorGeneric: Something went wrong while generating. Try again.
+  emptyInstruction: Enter an instruction or choose a quick action.
+  fields:
+    title: Title
+    slug: Slug
+    tags: Tags
+    status: Status
+    publicationDate: Publication date
+    featuredImage: Featured image
+    body: Body
+  actions:
+    generatePost: Generate post
+    rewriteBody: Rewrite body
+    improveClarity: Improve clarity
+    shorten: Shorten
+    expand: Expand
+    suggestTitle: Suggest title
+    suggestTags: Suggest tags
+    suggestSlug: Suggest slug
+    suggestPublishMeta: Suggest publish settings
+    suggestFeaturedImage: Suggest featured image
+    customInstruction: Custom instruction
+  tools:
+    loadingExistingPosts: Loading existing posts…
 app:
   displayName: Blog
   description: Create and manage blog posts with rich content, tags, and publication dates

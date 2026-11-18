@@ -4391,3 +4391,13 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
+ai:
+  send: Enviar
+  stop: Detener
+  copy: Copiar
+  copied: Copiado
+  working: Trabajando
+  thoughtProcess: Proceso de pensamiento
+  askUserSkip: Saltar
+  askUserCustomPlaceholder: O escribe tu respuesta…
+  askUserSubmit: Enviar respuesta

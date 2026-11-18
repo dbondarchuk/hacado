@@ -8,6 +8,7 @@ import type {
 } from "@hacado/ai-builder-core/client";
 import { replaceUndefinedWithNull } from "@hacado/ai-builder-core/client";
 import type { TEditorBlock } from "@hacado/builder/editor";
+import type { AIToolStepEvent } from "@hacado/types/ai";
 
 export type BuilderAIDocumentAction = {
   id: string;
@@ -18,16 +19,8 @@ export type BuilderAIDocumentAction = {
   kind?: string;
 };
 
-export type BuilderAIStreamStep = {
-  id: string;
-  label: string;
-  labelKey?: string;
-  tool?: string;
-  phase: "start" | "done";
-};
-
 export type BuilderAIStreamHandlers = {
-  onStep?: (step: BuilderAIStreamStep) => void;
+  onStep?: (step: AIToolStepEvent) => void;
   onTextDelta?: (text: string) => void;
   onResult?: (result: BuilderAIResponse) => void;
   onError?: (error: { message: string; code?: string }) => void;
@@ -152,7 +145,7 @@ export async function runBuilderAIChat(input: {
       }
 
       if (frame.event === "step") {
-        input.onStep?.(data as BuilderAIStreamStep);
+        input.onStep?.(data as AIToolStepEvent);
       } else if (frame.event === "text-delta") {
         const text =
           data && typeof data === "object" && "text" in data

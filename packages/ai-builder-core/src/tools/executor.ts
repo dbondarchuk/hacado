@@ -1,16 +1,12 @@
 import type { ToolResultCache } from "@hacado/ai-core";
 import { withToolCache } from "@hacado/ai-core";
+import { parseAskUserArgs } from "@hacado/ai-tools";
 import type {
   EditorHistoryEntry,
   TEditorBlock,
 } from "@hacado/builder/editor-types";
 import type { BuilderAIAdapter } from "../adapters/types";
 import { summarizeTemplateArgs } from "../context/args-summary";
-import { selectBusinessSlice } from "../context/assembler";
-import type {
-  BusinessContextNeed,
-  BusinessContextSlice,
-} from "../context/types";
 import {
   buildDocumentSectionPatterns,
   buildDocumentStructure,
@@ -20,7 +16,6 @@ import {
 import { normalizeEditorOperations } from "../operations/normalize";
 import { computeDocumentRevision } from "../operations/revision";
 import { buildDocumentSettingsProposal } from "../operations/settings";
-import { buildCatalogSummary } from "../orchestration/catalog-context";
 import type {
   BuilderDocumentSettings,
   DocumentProposal,
@@ -28,7 +23,6 @@ import type {
   SelectionContextPayload,
   ValidationResult,
 } from "../types";
-import { parseAskUserArgs } from "./ask-user";
 
 export type ToolExecutorDeps = {
   adapter: BuilderAIAdapter;
@@ -36,46 +30,12 @@ export type ToolExecutorDeps = {
   selection: SelectionContextPayload;
   organizationId?: string;
   documentSettings?: BuilderDocumentSettings;
-  /** Available page headers/footers for proposeDocumentSettings. */
-  documentChrome?: {
-    availableHeaders?: Array<{ id: string; name: string; usedCount?: number }>;
-    availableFooters?: Array<{ id: string; name: string; usedCount?: number }>;
-  };
   templateArgs?: Record<string, unknown>;
   cache?: ToolResultCache;
   searchDesignPatterns?: (input: {
     query: string;
     limit?: number;
   }) => Promise<unknown> | unknown;
-  searchStockImages?: (input: {
-    query: string;
-    count?: number;
-  }) => Promise<unknown> | unknown;
-  searchStockVideos?: (input: {
-    query: string;
-    count?: number;
-  }) => Promise<unknown> | unknown;
-  searchPages?: (input: {
-    query?: string;
-    limit?: number;
-    publishedOnly?: boolean;
-  }) => Promise<unknown> | unknown;
-  connectedApps?: Array<{
-    appId: string;
-    appName: string;
-    metadataKey?: string;
-    blockTypesHint?: string[];
-  }>;
-  businessRaw?: {
-    general?: Record<string, unknown> | null;
-    brand?: Record<string, unknown> | null;
-    social?: Record<string, unknown> | null;
-    styling?: Record<string, unknown> | null;
-    services?: BusinessContextSlice["services"];
-    addons?: BusinessContextSlice["addons"];
-    packages?: BusinessContextSlice["packages"];
-    members?: BusinessContextSlice["members"];
-  };
   onProposal?: (proposal: DocumentProposal) => void;
   onSettingsProposal?: (proposal: DocumentSettingsProposal) => void;
 };
@@ -165,10 +125,9 @@ async function executeBuilderAIToolInner(
         key: `builder-ai:doc-settings:${deps.organizationId ?? "anon"}:${computeDocumentRevision(deps.document)}`,
         compute: () => ({
           ...(deps.documentSettings ?? {}),
-          ...(deps.documentChrome ?? {}),
           hint:
             deps.adapter.builder === "page"
-              ? 'On create/design/redesign: proposeDocumentSettings with title, slug, description, keywords; set headerId/footerId from availableHeaders/availableFooters when choosing a chrome. Title is page-only (no "| Brand" suffix - host adds brand automatically). Slug should match that short title.'
+              ? 'On create/design/redesign: call platform_listPageChrome then proposeDocumentSettings with title, slug, description, keywords; set headerId/footerId from that list when choosing chrome. Title is page-only (no "| Brand" suffix - host adds brand automatically). Slug should match that short title.'
               : deps.adapter.builder === "email"
                 ? "On create/design/redesign: proposeDocumentSettings with name and subject."
                 : deps.adapter.builder === "text-message"
@@ -209,72 +168,31 @@ async function executeBuilderAIToolInner(
         hint: "Use cloneBlockForInsert on a matching section id to reuse real structure.",
       };
     }
-    case "searchStockImages": {
-      const count =
-        typeof args.count === "number"
-          ? Math.min(12, Math.max(1, Math.floor(args.count)))
-          : 6;
-
-      if (deps.searchStockImages) {
-        return deps.searchStockImages({
-          query: String(args.query ?? ""),
-          count,
-        });
-      }
-
+    case "searchStockImages":
       return {
         available: false,
         providers: [],
         items: [],
-        hint: "Stock image search is not configured. Leave Image src as schema defaults/placeholders; do not invent Unsplash or Pexels URLs.",
+        hint: "Stock image search requires platform_searchStockImages via services.",
       };
-    }
-    case "searchStockVideos": {
-      const count =
-        typeof args.count === "number"
-          ? Math.min(12, Math.max(1, Math.floor(args.count)))
-          : 6;
-
-      if (deps.searchStockVideos) {
-        return deps.searchStockVideos({
-          query: String(args.query ?? ""),
-          count,
-        });
-      }
-
+    case "searchStockVideos":
       return {
         available: false,
         providers: [],
         items: [],
-        hint: "Stock video search is not configured. Leave Video src as schema defaults/placeholders; do not invent Pexels URLs.",
+        hint: "Stock video search requires platform_searchStockVideos via services.",
       };
-    }
-    case "searchPages": {
-      if (deps.searchPages) {
-        return deps.searchPages({
-          query: typeof args.query === "string" ? args.query : undefined,
-          limit: typeof args.limit === "number" ? args.limit : 20,
-          publishedOnly:
-            typeof args.publishedOnly === "boolean" ? args.publishedOnly : true,
-        });
-      }
-
+    case "searchPages":
       return {
         available: false,
         items: [],
-        hint: "Page search is not available. Prefer /book for booking CTAs; do not invent page slugs.",
+        hint: "Page search requires platform_searchPages via services. Prefer /book for booking CTAs; do not invent page slugs.",
       };
-    }
-    case "getConnectedApps": {
-      const apps = deps.connectedApps ?? [];
-
+    case "getConnectedApps":
       return {
-        apps,
-        hint: apps.length
-          ? "When adding app-powered blocks, set block.metadata[metadataKey] to appId (or use set-block-metadata). Prefer Modern booking/modify variants."
-          : "No connected builder apps.",
+        apps: [],
+        hint: "Connected apps require platform_listConnectedApps via services.",
       };
-    }
     case "getBlocksByIds": {
       const blockIds = Array.isArray(args.blockIds)
         ? args.blockIds.map(String)
@@ -296,50 +214,11 @@ async function executeBuilderAIToolInner(
 
       return cloneBlockForInsert(deps.document, String(args.blockId ?? ""));
     }
-    case "getBusinessProfile": {
-      const needs = Array.isArray(args.needs)
-        ? (args.needs as BusinessContextNeed[])
-        : (["profile", "branding"] satisfies BusinessContextNeed[]);
-
-      const org = deps.organizationId ?? "anon";
-      const needsKey = [...needs].sort().join(",");
-
-      return withToolCache({
-        cache: deps.cache,
-        key: `builder-ai:business:${org}:${needsKey}`,
-        compute: () => {
-          const wantsSummary = needs.includes("summary");
-          const sliceNeeds = needs.filter(
-            (need): need is Exclude<BusinessContextNeed, "summary"> =>
-              need !== "summary",
-          );
-
-          const slice = selectBusinessSlice(
-            deps.businessRaw ?? {},
-            sliceNeeds.length
-              ? sliceNeeds
-              : wantsSummary
-                ? ["members", "services", "addons", "packages", "profile"]
-                : ["profile", "branding"],
-          );
-
-          if (!wantsSummary) return slice;
-
-          const forSummary = selectBusinessSlice(deps.businessRaw ?? {}, [
-            "members",
-            "services",
-            "addons",
-            "packages",
-            "profile",
-          ]);
-
-          return {
-            ...slice,
-            catalogSummary: buildCatalogSummary(forSummary),
-          };
-        },
-      });
-    }
+    case "getBusinessProfile":
+      return {
+        error:
+          "Business profile requires platform_getBusinessProfile via services.",
+      };
     case "getBlockAICapabilities":
       return deps.adapter.getBlockAICapabilities({
         blockType: String(args.blockType ?? ""),

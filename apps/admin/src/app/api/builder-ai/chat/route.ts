@@ -1,8 +1,4 @@
 import { getOrganizationIdAndSlug, getServicesContainer } from "@/app/utils";
-import { listPageChromeForAI } from "@/utils/builder-ai/list-page-chrome-for-ai";
-import { searchPagesForAI } from "@/utils/builder-ai/search-pages-for-ai";
-import { searchStockImagesForAI } from "@/utils/media-sources/search-stock-images-for-ai";
-import { searchStockVideosForAI } from "@/utils/media-sources/search-stock-videos-for-ai";
 import {
   assertDocumentRevision,
   BuilderAIError,
@@ -11,7 +7,6 @@ import {
   resolveContentLanguage,
   runBuilderAIOrchestrator,
   type BuilderAIRequest,
-  type BuilderAIStreamEvent,
   type BuilderKind,
   type ToolResultCache,
 } from "@hacado/ai-builder-core";
@@ -24,7 +19,6 @@ import {
 import {
   buildPageSystemPrompt,
   createPageBuilderAIAdapter,
-  describeConnectedApps,
   searchLiveDesignPatterns,
 } from "@hacado/ai-builder-page";
 import {
@@ -35,6 +29,7 @@ import {
 } from "@hacado/ai-builder-text-message";
 import { getLoggerFactory } from "@hacado/logger";
 import { getRedisClient } from "@hacado/services/bullmq";
+import type { AIStreamEvent } from "@hacado/types/ai";
 import { getTranslations } from "next-intl/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -102,6 +97,20 @@ export async function POST(request: NextRequest) {
     }
 
     const builder = body.builder as BuilderKind;
+
+    logger.debug(
+      {
+        organizationId,
+        builder,
+        documentId: body.documentId,
+        conversationId: body.conversationId,
+        actionId: body.actionId,
+        messageChars: body.message.length,
+        historyTurns: body.messages?.length ?? 0,
+      },
+      "builder-ai chat request",
+    );
+
     const revisionCheck = assertDocumentRevision(
       body.document,
       body.documentRevision,
@@ -131,12 +140,6 @@ export async function POST(request: NextRequest) {
             appName: app.name,
           })));
 
-    const connectedAppsForAi = describeConnectedApps(connectedApps);
-    const documentChrome =
-      builder === "page"
-        ? await listPageChromeForAI(services.pagesService)
-        : undefined;
-
     const adapter = isTextMessage
       ? createTextMessageBuilderAIAdapter()
       : isEmail
@@ -146,6 +149,7 @@ export async function POST(request: NextRequest) {
             apps: connectedApps,
           });
 
+    // Language only — business/catalog/apps/chrome are loaded via platform tools.
     const businessRaw = await loadBusinessContext(services);
     const brandLanguage =
       typeof businessRaw.brand?.language === "string"
@@ -173,7 +177,7 @@ export async function POST(request: NextRequest) {
           controller.enqueue(encodeSse(event, data));
         };
 
-        const onEvent = (event: BuilderAIStreamEvent) => {
+        const onEvent = (event: AIStreamEvent) => {
           if (request.signal.aborted) return;
 
           if (event.type === "step") {
@@ -209,7 +213,7 @@ export async function POST(request: NextRequest) {
                 offTopicRefusal: t("responses.offTopic"),
                 missingProposal: t("responses.missingProposal"),
               },
-              businessRaw,
+              services,
               cache: createRedisToolCache(),
               searchDesignPatterns:
                 isEmail || isTextMessage
@@ -220,26 +224,6 @@ export async function POST(request: NextRequest) {
                         query,
                         limit,
                       }),
-              searchStockImages: isTextMessage
-                ? undefined
-                : ({ query, count }) =>
-                    searchStockImagesForAI(services.redisClient, {
-                      query,
-                      count,
-                    }),
-              searchStockVideos: isTextMessage
-                ? undefined
-                : ({ query, count }) =>
-                    searchStockVideosForAI(services.redisClient, {
-                      query,
-                      count,
-                    }),
-              searchPages:
-                isEmail || isTextMessage
-                  ? undefined
-                  : (input) => searchPagesForAI(services.pagesService, input),
-              connectedApps: isTextMessage ? [] : connectedAppsForAi,
-              documentChrome,
               qualityGate: isTextMessage
                 ? {
                     needsFix: (input) =>
@@ -269,7 +253,21 @@ export async function POST(request: NextRequest) {
             return;
           }
 
-          logger.error({ err: error }, "builder-ai chat failed");
+          logger.error(
+            {
+              err: error,
+              builder,
+              organizationId,
+              documentId: body.documentId,
+              conversationId: body.conversationId,
+              actionId: body.actionId,
+              code: error instanceof BuilderAIError ? error.code : undefined,
+              retryable:
+                error instanceof BuilderAIError ? error.retryable : undefined,
+              aborted: request.signal.aborted,
+            },
+            "builder-ai chat failed",
+          );
 
           if (error instanceof BuilderAIError) {
             send("error", { message: error.message, code: error.code });

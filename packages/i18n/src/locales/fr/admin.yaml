@@ -4391,3 +4391,13 @@ smsConsent:
   attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
+ai:
+  send: Envoyer
+  stop: Arrêter
+  copy: Copier
+  copied: Copié
+  working: En cours
+  thoughtProcess: Processus de réflexion
+  askUserSkip: Sauter
+  askUserCustomPlaceholder: Ou tapez votre réponse…
+  askUserSubmit: Envoyer la réponse

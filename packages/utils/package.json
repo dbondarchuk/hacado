@@ -51,6 +51,7 @@
     "./sms": "./src/sms.ts",
     "./sms-date": "./src/sms-date.ts",
     "./sms-segments": "./src/sms-segments.ts",
+    "./sse": "./src/sse.ts",
     "./stream": "./src/stream.ts",
     "./string": "./src/string.ts",
     "./strip-object": "./src/strip-object.ts",

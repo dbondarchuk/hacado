@@ -4385,6 +4385,16 @@ smsConsent:
   attest: Я підтверджую, що клієнт погодився отримувати текстові повідомлення
   already: Цей клієнт уже погодився отримувати текстові повідомлення.
   optedOut: Цей номер відписався. Клієнт має надіслати START, щоб знову отримувати нагадування.
+ai:
+  send: Надіслати
+  stop: Зупинити
+  copy: Копіювати
+  copied: Скопійовано
+  working: Працюємо
+  thoughtProcess: Хід думок
+  askUserSkip: Пропустити
+  askUserCustomPlaceholder: Або введіть відповідь…
+  askUserSubmit: Надіслати відповідь
 memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений

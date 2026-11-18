@@ -65,6 +65,50 @@ form:
   toasts:
     changesSaved: Article de blog enregistré avec succès
     requestError: Erreur lors de l'enregistrement de l'article de blog
+ai:
+  open: Demander à l'IA…
+  close: Fermer l'IA
+  title: Hacado AI
+  tabs:
+    settings: Paramètres
+    ai: IA
+  panelHint: Demandez de rédiger, réécrire ou améliorer cet article. Titre, slug, tags, corps, publication et image peuvent être mis à jour.
+  placeholder: Écrire à Hacado AI…
+  instructionLabel: Instruction
+  instructionPlaceholder: Décrivez l'article ou comment améliorer ce brouillon…
+  run: Générer
+  applying: Application…
+  apply: Appliquer au formulaire
+  discard: Ignorer
+  applied: Appliqué au formulaire
+  loading: Génération…
+  proposalTitle: Proposition
+  summaryFallback: J'ai mis à jour l'article pour vous.
+  overwriteConfirm: Appliquer remplacera le contenu ou l'image mise en avant existante. Continuer ?
+  errorGeneric: Une erreur s'est produite lors de la génération. Réessayez.
+  emptyInstruction: Saisissez une instruction ou choisissez une action rapide.
+  fields:
+    title: Titre
+    slug: Slug
+    tags: Balises
+    status: Statut
+    publicationDate: Date de publication
+    featuredImage: Image en vedette
+    body: Contenu
+  actions:
+    generatePost: Générer un article
+    rewriteBody: Réécrire le contenu
+    improveClarity: Améliorer la clarté
+    shorten: Raccourcir
+    expand: Développer
+    suggestTitle: Suggérer un titre
+    suggestTags: Suggérer des balises
+    suggestSlug: Suggérer un slug
+    suggestPublishMeta: Suggérer les paramètres de publication
+    suggestFeaturedImage: Suggérer une image en vedette
+    customInstruction: Instruction personnalisée
+  tools:
+    loadingExistingPosts: Chargement des articles existants…
 app:
   displayName: Blogue
   description: Créez et gérez des articles de blog avec un contenu riche, des balises et des dates de publication

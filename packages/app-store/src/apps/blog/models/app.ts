@@ -198,6 +198,25 @@ export type RejectSelectedBlogCommentsAction = z.infer<
 export const RejectSelectedBlogCommentsActionType =
   "reject-blog-comments" as const;
 
+// Blog AI Generate Action
+
+export const blogAiGenerateActionSchema = z.object({
+  actionId: z.string().min(1),
+  instruction: z.string().max(4000).optional(),
+  postId: zObjectId().optional(),
+  title: z.string().optional(),
+  slug: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  contentText: z.string().max(50_000).optional(),
+  // process route parseJSON revives ISO strings to Date
+  publicationDate: z.union([z.string(), z.date()]).optional(),
+  isPublished: z.boolean().optional(),
+  featuredImage: z.string().optional(),
+});
+
+export type BlogAiGenerateAction = z.infer<typeof blogAiGenerateActionSchema>;
+export const BlogAiGenerateActionType = "blog-ai-generate" as const;
+
 // Request Action
 // export const requestActionSchema = z
 //   .object({
@@ -285,6 +304,7 @@ export const requestActionSchema = zTaggedUnion([
     type: RejectSelectedBlogCommentsActionType,
     data: rejectSelectedBlogCommentsActionSchema,
   },
+  { type: BlogAiGenerateActionType, data: blogAiGenerateActionSchema },
 ]);
 
 export type RequestAction = z.infer<typeof requestActionSchema>;

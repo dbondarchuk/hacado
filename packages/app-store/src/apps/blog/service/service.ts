@@ -1,13 +1,17 @@
+import { checkRateLimit } from "@hacado/ai-core";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
+  AppAIToolDefinition,
   CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
+  createAppProcessStream,
   DashboardNotification,
+  IAIToolsProvider,
   ICommandSearchProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -21,6 +25,9 @@ import { EventSource } from "@hacado/types/events";
 import { Page } from "@hacado/types/pages";
 import { SessionUser } from "@hacado/types/users";
 import { hasPermission } from "@hacado/utils/permissions";
+import { getBlogAiAction } from "../ai/actions";
+import { runBlogAiGenerate } from "../ai/run";
+import { BLOG_AI_TOOL_DEFINITIONS, executeBlogAiTool } from "../ai/tools";
 import {
   BLOG_COMMENT_CREATED_EVENT_TYPE,
   BLOG_COMMENT_DELETED_EVENT_TYPE,
@@ -34,6 +41,8 @@ import {
   ApproveBlogCommentActionType,
   ApproveSelectedBlogCommentsAction,
   ApproveSelectedBlogCommentsActionType,
+  BlogAiGenerateAction,
+  BlogAiGenerateActionType,
   BlogConfiguration,
   blogConfigurationSchema,
   CheckBlogPostSlugUniqueAction,
@@ -88,7 +97,8 @@ export class BlogConnectedApp
     ISitemapItemsProvider,
     IDashboardNotifierApp,
     IPageSeoArgumentsProvider,
-    ICommandSearchProvider
+    ICommandSearchProvider,
+    IAIToolsProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -173,6 +183,8 @@ export class BlogConnectedApp
         return this.processRejectBlogCommentsRequest(appData, data);
       case SetConfigurationActionType:
         return this.processSetConfigurationRequest(appData, data.configuration);
+      case BlogAiGenerateActionType:
+        return this.processBlogAiGenerateRequest(appData, data);
       default: {
         const _exhaustive: never = data;
         throw new ConnectedAppRequestError(
@@ -985,6 +997,135 @@ export class BlogConnectedApp
         badges,
       },
     );
+  }
+
+  private processBlogAiGenerateRequest(
+    appData: ConnectedAppData,
+    data: BlogAiGenerateAction,
+  ) {
+    const logger = this.loggerFactory("processBlogAiGenerateRequest");
+    logger.debug(
+      { appId: appData._id, actionId: data.actionId },
+      "Processing blog AI generate request",
+    );
+
+    const rate = checkRateLimit({
+      key: `blog-ai:${appData.organizationId}`,
+      limit: Number(process.env.AI_RATE_LIMIT ?? 30),
+      windowMs: Number(process.env.AI_RATE_WINDOW_MS ?? 60_000),
+    });
+
+    if (!rate.allowed) {
+      throw new ConnectedAppRequestError(
+        "blog_ai_rate_limited",
+        { resetAt: rate.resetAt },
+        429,
+        "Blog AI rate limit exceeded",
+      );
+    }
+
+    const action = getBlogAiAction(data.actionId);
+    if (!action) {
+      throw new ConnectedAppRequestError(
+        "blog_ai_unknown_action",
+        { actionId: data.actionId },
+        400,
+        "Unknown blog AI action",
+      );
+    }
+
+    const instruction =
+      data.instruction?.trim() ||
+      (action.id === "custom_instruction" ? "" : action.message);
+
+    if (!instruction) {
+      throw new ConnectedAppRequestError(
+        "blog_ai_instruction_required",
+        {},
+        400,
+        "Instruction is required",
+      );
+    }
+
+    return createAppProcessStream(async ({ emit, signal }) => {
+      try {
+        const result = await runBlogAiGenerate({
+          appData,
+          services: this.props.services,
+          actionId: action.id,
+          instruction,
+          postId: data.postId,
+          draft: {
+            title: data.title,
+            slug: data.slug,
+            tags: data.tags,
+            contentText: data.contentText,
+            publicationDate: data.publicationDate,
+            isPublished: data.isPublished,
+            featuredImage: data.featuredImage,
+          },
+          signal,
+          emit,
+        });
+
+        logger.debug(
+          {
+            appId: appData._id,
+            actionId: data.actionId,
+            status: result.status,
+          },
+          "Blog AI generate finished",
+        );
+
+        return result;
+      } catch (error: any) {
+        if (
+          (error instanceof DOMException && error.name === "AbortError") ||
+          (error instanceof Error && error.name === "AbortError") ||
+          signal.aborted
+        ) {
+          throw error;
+        }
+
+        logger.error(
+          { appId: appData._id, error: error?.message || error?.toString() },
+          "Blog AI generate failed",
+        );
+
+        if (error instanceof ConnectedAppRequestError) {
+          throw error;
+        }
+
+        throw new ConnectedAppRequestError(
+          "blog_ai_generate_failed",
+          {},
+          500,
+          error?.message || "Failed to generate blog AI proposal",
+        );
+      }
+    });
+  }
+
+  public async listAITools(
+    _appData: ConnectedAppData,
+  ): Promise<AppAIToolDefinition[]> {
+    return BLOG_AI_TOOL_DEFINITIONS;
+  }
+
+  public async executeAITool(
+    appData: ConnectedAppData,
+    name: string,
+    args: Record<string, unknown>,
+  ): Promise<unknown> {
+    const repositoryService = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+
+    return executeBlogAiTool(name, args, {
+      appData,
+      repositoryService,
+    });
   }
 
   private async processSetConfigurationRequest(

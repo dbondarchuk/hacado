@@ -65,6 +65,50 @@ form:
   toasts:
     changesSaved: Publicación de blog guardada exitosamente
     requestError: Error al guardar la publicación del blog
+ai:
+  open: Preguntar a la IA…
+  close: Cerrar IA
+  title: Hacado AI
+  tabs:
+    settings: Ajustes
+    ai: IA
+  panelHint: Pide redactar, reescribir o mejorar esta publicación. Se pueden actualizar título, slug, etiquetas, cuerpo, publicación e imagen destacada.
+  placeholder: Escribe a Hacado AI…
+  instructionLabel: Instrucción
+  instructionPlaceholder: Describe la publicación o cómo mejorar este borrador…
+  run: Generar
+  applying: Aplicando…
+  apply: Aplicar al formulario
+  discard: Descartar
+  applied: Aplicado al formulario
+  loading: Generando…
+  proposalTitle: Propuesta
+  summaryFallback: Actualicé la publicación para ti.
+  overwriteConfirm: Aplicar reemplazará el contenido o la imagen destacada existente. ¿Continuar?
+  errorGeneric: Algo salió mal al generar. Inténtalo de nuevo.
+  emptyInstruction: Escribe una instrucción o elige una acción rápida.
+  fields:
+    title: Título
+    slug: Slug
+    tags: Etiquetas
+    status: Estado
+    publicationDate: Fecha de publicación
+    featuredImage: Imagen destacada
+    body: Contenido
+  actions:
+    generatePost: Generar publicación
+    rewriteBody: Reescribir contenido
+    improveClarity: Mejorar claridad
+    shorten: Acortar
+    expand: Ampliar
+    suggestTitle: Sugerir título
+    suggestTags: Sugerir etiquetas
+    suggestSlug: Sugerir slug
+    suggestPublishMeta: Sugerir ajustes de publicación
+    suggestFeaturedImage: Sugerir imagen destacada
+    customInstruction: Instrucción personalizada
+  tools:
+    loadingExistingPosts: Cargando publicaciones existentes…
 app:
   displayName: Blog
   description: Cree y administre publicaciones de blog con contenido enriquecido, etiquetas y fechas de publicación.

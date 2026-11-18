@@ -3,7 +3,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { PlateStaticEditor } from "@hacado/rte";
+import { PlateStaticEditor } from "@hacado/rte/static";
 import { cn } from "@hacado/ui/cn";
 import { useMemo } from "react";
 import { BlogPublicAllKeys } from "../../translations/types";

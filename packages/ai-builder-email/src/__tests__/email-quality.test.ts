@@ -3,29 +3,54 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   emailNeedsQualityFix,
+  isPlainTextHeavyEmailProposal,
   looksLikeEmailBodyCreate,
   looksLikeSubjectOnlyAsk,
   proposalContainsMustache,
 } from "../email-quality";
 
-const opsProposal = (text: string): DocumentProposal => ({
+const opsProposal = (
+  blocks: Array<{ id: string; type: string; text?: string }>,
+): DocumentProposal => ({
   documentRevision: "rev",
-  operations: [
-    {
-      type: "add-block",
-      value: {
-        block: {
-          id: "t1",
-          type: "Text",
-          data: { props: { value: [{ type: "p", children: [{ text }] }] } },
-        },
-        parentBlockId: "root",
-        index: "last",
+  operations: blocks.map((block, index) => ({
+    type: "add-block",
+    value: {
+      block: {
+        id: block.id,
+        type: block.type,
+        data:
+          block.type === "Text"
+            ? {
+                props: {
+                  value: [
+                    {
+                      type: "p",
+                      children: [{ text: block.text ?? "Hello" }],
+                    },
+                  ],
+                },
+              }
+            : block.type === "Heading"
+              ? { props: { text: block.text ?? "Title" } }
+              : block.type === "Button"
+                ? {
+                    props: {
+                      text: "Manage",
+                      url: "{{manageLink}}",
+                    },
+                  }
+                : { props: {} },
       },
+      parentBlockId: "root",
+      index: index === blocks.length - 1 ? "last" : index,
     },
-  ],
+  })),
   summary: "test",
 });
+
+const textOnlyProposal = (text: string): DocumentProposal =>
+  opsProposal([{ id: "t1", type: "Text", text }]);
 
 describe("email quality gate", () => {
   it("detects subject-only vs body create asks", () => {
@@ -60,16 +85,55 @@ describe("email quality gate", () => {
   });
 
   it("nudges appointment bodies that omit Mustache", () => {
-    assert.equal(proposalContainsMustache(opsProposal("Hello")), false);
+    assert.equal(proposalContainsMustache(textOnlyProposal("Hello")), false);
     assert.equal(
       emailNeedsQualityFix({
         builder: "email",
         task: "document_generation",
         message: "Create an appointment reminder email",
         documentSettings: { name: "Appointment reminder", subject: "Hi" },
-        proposal: opsProposal("Hello friend"),
+        proposal: textOnlyProposal("Hello friend"),
       }),
       true,
+    );
+  });
+
+  it("nudges plain Heading+Text creates without CTA/layout", () => {
+    const plain = opsProposal([
+      { id: "h1", type: "Heading", text: "Reminder" },
+      { id: "t1", type: "Text", text: "See you soon {{fields.name}}" },
+    ]);
+
+    assert.equal(isPlainTextHeavyEmailProposal(plain), true);
+    assert.equal(
+      emailNeedsQualityFix({
+        builder: "email",
+        task: "document_generation",
+        message: "Create an appointment reminder email",
+        documentSettings: { name: "Appointment reminder", subject: "Hi" },
+        proposal: plain,
+      }),
+      true,
+    );
+  });
+
+  it("accepts richer layouts with a Button CTA", () => {
+    const rich = opsProposal([
+      { id: "h1", type: "Heading", text: "Reminder" },
+      { id: "t1", type: "Text", text: "See you soon {{fields.name}}" },
+      { id: "b1", type: "Button" },
+    ]);
+
+    assert.equal(isPlainTextHeavyEmailProposal(rich), false);
+    assert.equal(
+      emailNeedsQualityFix({
+        builder: "email",
+        task: "document_generation",
+        message: "Create an appointment reminder email",
+        documentSettings: { name: "Appointment reminder", subject: "Hi" },
+        proposal: rich,
+      }),
+      false,
     );
   });
 

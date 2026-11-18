@@ -35,8 +35,8 @@ function createAdapter() {
   });
 }
 
-describe("searchPages and getConnectedApps tools", () => {
-  it("returns unavailable when searchPages is not wired", async () => {
+describe("legacy executor stubs for moved platform tools", () => {
+  it("searchPages points at platform_searchPages", async () => {
     const result = (await executeBuilderAITool(
       "searchPages",
       { query: "book" },
@@ -53,41 +53,10 @@ describe("searchPages and getConnectedApps tools", () => {
 
     assert.equal(result.available, false);
     assert.deepEqual(result.items, []);
-    assert.match(String(result.hint ?? ""), /not available/i);
+    assert.match(String(result.hint ?? ""), /platform_searchPages/i);
   });
 
-  it("delegates to the injected searchPages callback", async () => {
-    const result = (await executeBuilderAITool(
-      "searchPages",
-      { query: "book", limit: 5 },
-      {
-        adapter: createAdapter(),
-        document,
-        selection,
-        searchPages: async ({ query }) => ({
-          available: true,
-          items: [
-            {
-              id: "1",
-              title: "Book",
-              slug: "book",
-              href: "/book",
-              published: true,
-            },
-          ].filter((item) => item.slug.includes(query ?? "")),
-          hint: "Prefer /book for booking CTAs",
-        }),
-      },
-    )) as {
-      available: boolean;
-      items: Array<{ href: string }>;
-    };
-
-    assert.equal(result.available, true);
-    assert.equal(result.items[0]?.href, "/book");
-  });
-
-  it("returns connected apps with metadata hints", async () => {
+  it("getConnectedApps points at platform_listConnectedApps", async () => {
     const result = (await executeBuilderAITool(
       "getConnectedApps",
       {},
@@ -95,23 +64,13 @@ describe("searchPages and getConnectedApps tools", () => {
         adapter: createAdapter(),
         document,
         selection,
-        connectedApps: [
-          {
-            appId: "w1",
-            appName: "waitlist",
-            metadataKey: "waitlistAppId",
-            blockTypesHint: ["BookingModern"],
-          },
-        ],
       },
     )) as {
-      apps: Array<{ appId: string; metadataKey?: string }>;
+      apps: unknown[];
       hint?: string;
     };
 
-    assert.equal(result.apps.length, 1);
-    assert.equal(result.apps[0]?.appId, "w1");
-    assert.equal(result.apps[0]?.metadataKey, "waitlistAppId");
-    assert.match(String(result.hint ?? ""), /metadataKey/i);
+    assert.deepEqual(result.apps, []);
+    assert.match(String(result.hint ?? ""), /platform_listConnectedApps/i);
   });
 });

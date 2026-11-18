@@ -20,6 +20,7 @@ import { MarkdownPlugin } from "@udecode/plate-markdown";
 import { SlashPlugin } from "@udecode/plate-slash-command/react";
 import { TogglePlugin } from "@udecode/plate-toggle/react";
 import { TrailingBlockPlugin } from "@udecode/plate-trailing-block";
+import remarkGfm from "remark-gfm";
 
 // import { aiPlugins } from "./ai-plugins";
 import { alignPlugin } from "./align-plugin";
@@ -92,9 +93,13 @@ export const editorPlugins = [
   softBreakPlugin,
   TrailingBlockPlugin,
 
-  // Deserialization
+  // Deserialization (GFM = tables, strikethrough, task lists, autolinks)
   DocxPlugin,
-  MarkdownPlugin,
+  MarkdownPlugin.configure({
+    options: {
+      remarkPlugins: [remarkGfm],
+    },
+  }),
   JuicePlugin,
 
   // UI

@@ -6,6 +6,26 @@ import type {
   DocumentSettingsProposal,
 } from "@hacado/ai-builder-core";
 
+const PLAIN_COPY_TYPES = new Set([
+  "Text",
+  "Heading",
+  "Spacer",
+  "Divider",
+  "EmailLayout",
+]);
+
+const RICH_LAYOUT_TYPES = new Set([
+  "Button",
+  "Image",
+  "Avatar",
+  "Container",
+  "Columns",
+  "ConditionalContainer",
+  "ForeachContainer",
+  "OnlineMeeting",
+  "CustomHTML",
+]);
+
 export function proposalContainsMustache(
   proposal: DocumentProposal | undefined,
 ): boolean {
@@ -20,6 +40,73 @@ export function isValidOpsProposal(
   return (
     !!proposal && !proposal.warnings?.length && proposal.operations.length > 0
   );
+}
+
+function walkBlockTypes(node: unknown, types: string[]): void {
+  if (!node || typeof node !== "object") return;
+
+  if (Array.isArray(node)) {
+    for (const item of node) walkBlockTypes(item, types);
+
+    return;
+  }
+
+  const record = node as Record<string, unknown>;
+
+  if (typeof record.type === "string" && record.type.trim()) {
+    // Skip Plate inline nodes (p, h1, …) - email blocks use PascalCase catalog ids.
+    if (/^[A-Z]/.test(record.type)) {
+      types.push(record.type);
+    }
+  }
+
+  for (const value of Object.values(record)) {
+    if (value && typeof value === "object") {
+      walkBlockTypes(value, types);
+    }
+  }
+}
+
+/** Collect block type names from add/set operations in a proposal. */
+export function collectProposalBlockTypes(
+  proposal: DocumentProposal | undefined,
+): string[] {
+  if (!proposal?.operations.length) return [];
+
+  const types: string[] = [];
+
+  for (const operation of proposal.operations) {
+    const value = (operation as { value?: unknown }).value;
+    if (!value || typeof value !== "object") continue;
+
+    const record = value as Record<string, unknown>;
+    const block =
+      record.block && typeof record.block === "object" ? record.block : record;
+
+    walkBlockTypes(block, types);
+  }
+
+  return types;
+}
+
+/**
+ * True when a create proposal is basically Heading/Text (plus spacer/divider)
+ * with no CTA, image, or layout containers.
+ */
+export function isPlainTextHeavyEmailProposal(
+  proposal: DocumentProposal | undefined,
+): boolean {
+  if (!isValidOpsProposal(proposal)) return false;
+
+  const types = collectProposalBlockTypes(proposal);
+  if (!types.length) return true;
+
+  const hasRich = types.some((type) => RICH_LAYOUT_TYPES.has(type));
+  if (hasRich) return false;
+
+  const hasCopy = types.some((type) => type === "Text" || type === "Heading");
+
+  return hasCopy && types.every((type) => PLAIN_COPY_TYPES.has(type));
 }
 
 /** User only wants host-form subject/name changed - settings-only is enough. */
@@ -60,8 +147,8 @@ function settingsHasName(
 
 /**
  * Incomplete when the user clearly asked for email body content and we still
- * have no ops, an appointment body with zero Mustache, or an empty template
- * name that was not filled.
+ * have no ops, an appointment body with zero Mustache, a text-only layout, or
+ * an empty template name that was not filled.
  */
 export function emailNeedsQualityFix(input: {
   builder: BuilderKind;
@@ -89,8 +176,12 @@ export function emailNeedsQualityFix(input: {
     return true;
   }
 
+  if (isPlainTextHeavyEmailProposal(input.proposal)) {
+    return true;
+  }
+
   return false;
 }
 
 export const EMAIL_QUALITY_NUDGE =
-  "Email create is incomplete. Call proposeDocumentOperations with Heading + Text (appointment Mustache when it applies: {{fields.name}}, {{service.name}}, {{dateTime.full}}, {{member.name}}, {{config.name}}). Via proposeDocumentSettings: set name when empty (plain label, e.g. Appointment reminder); prefer a Mustache subject when date/service belong in the inbox line - static subjects (e.g. OTP) are fine. Do not hard-code business or Preview sample values.";
+  "Email create is too plain or incomplete. Rebuild with a real email layout - not only Heading + Text. Use Container / Spacer / Divider for sections, include a primary Button CTA when there is an action (prefer Mustache links from getTemplateArgs like {{manageLink}}, {{bookingUrl}}, {{websiteUrl}}), and add Image/Avatar only via platform_searchStockImages when it helps. For appointments use Mustache: {{fields.name}}, {{service.name}}, {{dateTime.full}}, {{member.name}}, {{config.name}}. Via proposeDocumentSettings: set name when empty; prefer a Mustache subject when useful. Do not hard-code Preview samples.";

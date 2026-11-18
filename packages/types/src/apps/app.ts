@@ -35,6 +35,7 @@ export type AppScope = Extandable<
   | "public-page-provider"
   | "payment-link"
   | "command-search-provider"
+  | "ai-tools-provider"
 >;
 
 export type AppSetupProps = {

@@ -28,11 +28,9 @@ function createAdapter() {
         type: "Video",
         displayName: "Video",
         category: "content",
-        tags: ["video"],
         schema: z.object({
           props: z.object({
             src: z.string(),
-            poster: z.string().optional(),
           }),
         }),
         providerName: "core",
@@ -41,11 +39,11 @@ function createAdapter() {
   });
 }
 
-describe("searchStockVideos tool", () => {
-  it("returns unavailable when no searchStockVideos callback is wired", async () => {
+describe("legacy searchStockVideos stub", () => {
+  it("points at platform_searchStockVideos", async () => {
     const result = (await executeBuilderAITool(
       "searchStockVideos",
-      { query: "spa massage", count: 4 },
+      { query: "yoga studio", count: 3 },
       {
         adapter: createAdapter(),
         document,
@@ -53,70 +51,12 @@ describe("searchStockVideos tool", () => {
       },
     )) as {
       available: boolean;
-      providers: string[];
       items: unknown[];
       hint?: string;
     };
 
     assert.equal(result.available, false);
-    assert.deepEqual(result.providers, []);
     assert.deepEqual(result.items, []);
-    assert.match(String(result.hint ?? ""), /not configured/i);
-  });
-
-  it("delegates to the injected searchStockVideos callback", async () => {
-    const result = (await executeBuilderAITool(
-      "searchStockVideos",
-      { query: "hair salon", count: 2 },
-      {
-        adapter: createAdapter(),
-        document,
-        selection,
-        searchStockVideos: async ({ query, count }) => ({
-          available: true,
-          providers: ["pexels"],
-          items: [
-            {
-              id: "pexels:1",
-              provider: "pexels",
-              url: "https://videos.pexels.com/video-files/1.mp4",
-              posterUrl: "https://images.pexels.com/videos/1.jpg",
-              alt: query,
-            },
-          ].slice(0, count),
-        }),
-      },
-    )) as {
-      available: boolean;
-      providers: string[];
-      items: Array<{ url: string; alt: string; posterUrl?: string }>;
-    };
-
-    assert.equal(result.available, true);
-    assert.deepEqual(result.providers, ["pexels"]);
-    assert.equal(result.items.length, 1);
-    assert.equal(result.items[0]?.alt, "hair salon");
-    assert.match(result.items[0]?.url ?? "", /pexels/);
-    assert.match(result.items[0]?.posterUrl ?? "", /pexels/);
-  });
-
-  it("clamps count before calling the callback", async () => {
-    let seenCount: number | undefined;
-
-    await executeBuilderAITool(
-      "searchStockVideos",
-      { query: "nails", count: 99 },
-      {
-        adapter: createAdapter(),
-        document,
-        selection,
-        searchStockVideos: async ({ count }) => {
-          seenCount = count;
-          return { available: true, providers: [], items: [] };
-        },
-      },
-    );
-
-    assert.equal(seenCount, 12);
+    assert.match(String(result.hint ?? ""), /platform_searchStockVideos/i);
   });
 });

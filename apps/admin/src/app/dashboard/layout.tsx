@@ -1,5 +1,5 @@
 import { findPendingInvitationForEmail } from "@/app/accept-invitation/actions";
-import { SendCommunicationBuilderAIProvider } from "@/components/admin/builder-ai";
+import { SendCommunicationBuilderAIProvider } from "@/components/admin/builder-ai/send-communication-ai";
 import { NotificationsToastStream } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { SubscriptionStatusListener } from "@/components/admin/dashboard/subscription/subscription-status-listener";
 import { CommandPaletteProvider } from "@/components/admin/layout/command-palette";

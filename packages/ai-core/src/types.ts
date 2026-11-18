@@ -1,3 +1,5 @@
+import type { AllKeys } from "@hacado/i18n";
+
 export type BuilderKind = "page" | "footer" | "email" | "text-message";
 
 export type AITask =
@@ -78,10 +80,20 @@ export type AIMessage = {
   toolCalls?: AIToolCall[];
 };
 
+/** Host UI progress metadata — not sent to the model. */
+export type AIToolUiMeta = {
+  /** Fallback English label when i18n is unavailable. */
+  label: string;
+  /** Full i18n key for unnamespaced `useI18n()` (e.g. `builder.ai.tools.searchingBlocks`). */
+  labelKey?: AllKeys;
+};
+
 export type AIToolDefinition = {
   name: string;
   description: string;
   inputSchema: Record<string, unknown>;
+  /** Progress / step label for host UIs (stripped before provider calls). */
+  ui?: AIToolUiMeta;
 };
 
 export type AIToolCall = {

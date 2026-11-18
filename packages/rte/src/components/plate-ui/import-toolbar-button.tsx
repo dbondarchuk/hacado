@@ -8,6 +8,7 @@ import { getEditorDOMFromHtmlString } from "@udecode/plate";
 import { MarkdownPlugin } from "@udecode/plate-markdown";
 import { useEditorRef } from "@udecode/plate/react";
 import { ArrowUpToLineIcon } from "lucide-react";
+import remarkGfm from "remark-gfm";
 import { useFilePicker } from "use-file-picker";
 
 import {
@@ -39,7 +40,9 @@ export function ImportToolbarButton({ children, ...props }: DropdownMenuProps) {
       return nodes;
     }
 
-    const nodes = editor.getApi(MarkdownPlugin).markdown.deserialize(text);
+    const nodes = editor
+      .getApi(MarkdownPlugin)
+      .markdown.deserialize(text, { remarkPlugins: [remarkGfm] });
 
     return nodes;
   };

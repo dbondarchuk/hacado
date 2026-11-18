@@ -491,17 +491,13 @@ export function BuilderAIRuntime(props: BuilderAIConfig) {
 
   const resolveToolStepLabel = useCallback(
     (step: { label: string; labelKey?: string }) => {
-      if (step.labelKey) {
-        const key = `ai.${step.labelKey}` as const;
-
-        if (t.has(key as any)) {
-          return String(t(key as any));
-        }
+      if (step.labelKey && tAll.has(step.labelKey)) {
+        return String(tAll(step.labelKey));
       }
 
       return step.label;
     },
-    [t],
+    [tAll],
   );
 
   const applyProposalSafely = useCallback(

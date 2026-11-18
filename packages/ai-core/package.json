@@ -24,6 +24,7 @@
   "dependencies": {
     "@ai-sdk/gateway": "4.0.146",
     "@ai-sdk/openai": "4.0.118",
+    "@hacado/i18n": "*",
     "@hacado/logger": "*",
     "@hacado/types": "*",
     "ai": "7.0.173",

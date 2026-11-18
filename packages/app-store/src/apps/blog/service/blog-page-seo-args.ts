@@ -1,4 +1,4 @@
-import { plateValueToPlainTextDescription } from "@hacado/rte";
+import { plateValueToPlainTextDescription } from "@hacado/rte/plain-text";
 import type {
   ConnectedAppData,
   IConnectedAppProps,

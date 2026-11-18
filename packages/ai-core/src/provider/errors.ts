@@ -62,7 +62,14 @@ export function normalizeProviderError(
     };
   }
 
-  if (lower.includes("timeout") || lower.includes("timed out")) {
+  if (
+    lower.includes("timeout") ||
+    lower.includes("timed out") ||
+    lower.includes("other side closed") ||
+    lower.includes("socket") ||
+    lower.includes("econnreset") ||
+    lower.includes("terminated")
+  ) {
     return {
       code: "timeout",
       message,

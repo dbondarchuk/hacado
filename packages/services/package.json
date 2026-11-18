@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/short-links/helpers.test.ts src/short-links/service.test.ts src/booking-tracking/tracker.test.ts src/booking-tracking/summarize.test.ts src/activity.service.test.ts src/text-message/sms.test.ts"
+    "test": "node --import tsx --test src/short-links/helpers.test.ts src/short-links/service.test.ts src/booking-tracking/tracker.test.ts src/booking-tracking/summarize.test.ts src/activity.service.test.ts src/text-message/sms.test.ts src/stock-media/stock-media.provider.test.ts"
   },
   "exports": {
     ".": "./src/index.ts",
@@ -42,6 +42,7 @@
     "./s3-assets-storage": "./src/s3-assets-storage/index.ts",
     "./schedule": "./src/schedule.service.ts",
     "./short-links": "./src/short-links/index.ts",
+    "./stock-media": "./src/stock-media/index.ts",
     "./sms-compliance": "./src/text-message/compliance.ts",
     "./synced-payments": "./src/synced-payments.service.ts",
     "./team": "./src/team.service.ts",

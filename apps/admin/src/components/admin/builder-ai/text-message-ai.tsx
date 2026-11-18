@@ -219,6 +219,7 @@ export type TextMessageAIRuntimeProps = {
 /** Settings-only AI runtime for SMS templates (no block editor). */
 export function TextMessageAIRuntime(props: TextMessageAIRuntimeProps) {
   const t = useI18n("builder");
+  const tAll = useI18n();
   const progressStepsRef = useRef<string[]>([]);
   const liveSegmentsRef = useRef<BuilderAIStreamSegment[]>([]);
   const progressIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
@@ -330,17 +331,13 @@ export function TextMessageAIRuntime(props: TextMessageAIRuntimeProps) {
 
   const resolveToolStepLabel = useCallback(
     (step: { label: string; labelKey?: string }) => {
-      if (step.labelKey) {
-        const key = `ai.${step.labelKey}` as const;
-
-        if (t.has(key as any)) {
-          return String(t(key as any));
-        }
+      if (step.labelKey && tAll.has(step.labelKey)) {
+        return tAll(step.labelKey);
       }
 
       return step.label;
     },
-    [t],
+    [tAll],
   );
 
   const applySettingsProposalSafely = useCallback(

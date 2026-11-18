@@ -5,18 +5,28 @@ import {
   resolveModelForTask,
   trackUsage,
 } from "@hacado/ai-core";
+import {
+  createAIToolsSession,
+  createToolStepEvent,
+  executeAskUser,
+  parseAskUserArgs,
+  PLATFORM_AI_TOOL_DEFINITIONS,
+  type AIToolsSession,
+} from "@hacado/ai-tools";
 import type { TEditorBlock } from "@hacado/builder/editor-types";
+import { getLoggerFactory } from "@hacado/logger";
+import type { AIStreamEvent } from "@hacado/types/ai";
+import type { IServicesContainer } from "@hacado/types/services";
 import { randomUUID } from "node:crypto";
 import type { BuilderAIAdapter } from "../adapters/types";
 import { assembleAIContext } from "../context/assembler";
-import type { BusinessContextSlice } from "../context/types";
-import { parseAskUserArgs } from "../tools/ask-user";
 import { toolsForBuilder } from "../tools/definitions";
 import { executeBuilderAITool } from "../tools/executor";
 import type {
   AIMessage,
   AITask,
   AIToolCall,
+  AIToolDefinition,
   AskUserRequest,
   BuilderAIRequest,
   BuilderAIResponse,
@@ -25,7 +35,6 @@ import type {
   GenerateResult,
   TokenUsage,
 } from "../types";
-import { createToolStepEvent, type BuilderAIStreamEvent } from "./events";
 import {
   buildContextMessage,
   buildSystemPrompt,
@@ -33,6 +42,10 @@ import {
 } from "./prompts";
 import { classifyBuilderScope, OFF_TOPIC_REFUSAL } from "./scope-gate";
 import { compactToolResult } from "./tool-result-compact";
+
+function isAskUserToolName(name: string): boolean {
+  return name === "platform_askUser" || name === "askUser";
+}
 
 export type QualityGateInput = {
   builder: BuilderAIRequest["builder"];
@@ -60,51 +73,19 @@ export type OrchestratorOptions = {
     needsFix: (input: QualityGateInput) => boolean;
     nudge: string;
   };
+  /** Organization services container — enables shared platform tools via @hacado/ai-tools. */
+  services?: IServicesContainer;
   cache?: ToolResultCache;
   searchDesignPatterns?: (input: {
     query: string;
     limit?: number;
   }) => Promise<unknown> | unknown;
-  searchStockImages?: (input: {
-    query: string;
-    count?: number;
-  }) => Promise<unknown> | unknown;
-  searchStockVideos?: (input: {
-    query: string;
-    count?: number;
-  }) => Promise<unknown> | unknown;
-  searchPages?: (input: {
-    query?: string;
-    limit?: number;
-    publishedOnly?: boolean;
-  }) => Promise<unknown> | unknown;
-  connectedApps?: Array<{
-    appId: string;
-    appName: string;
-    metadataKey?: string;
-    blockTypesHint?: string[];
-  }>;
-  documentChrome?: {
-    availableHeaders?: Array<{ id: string; name: string; usedCount?: number }>;
-    availableFooters?: Array<{ id: string; name: string; usedCount?: number }>;
-  };
-  businessRaw?: {
-    general?: Record<string, unknown> | null;
-    brand?: Record<string, unknown> | null;
-    social?: Record<string, unknown> | null;
-    styling?: Record<string, unknown> | null;
-    services?: BusinessContextSlice["services"];
-    addons?: BusinessContextSlice["addons"];
-    packages?: BusinessContextSlice["packages"];
-    members?: BusinessContextSlice["members"];
-  };
-  business?: BusinessContextSlice;
   maxToolIterations?: number;
   maxCorrections?: number;
   providerId?: string;
   abortSignal?: AbortSignal;
   /** Progress + text deltas for SSE clients. Result is still returned. */
-  onEvent?: (event: BuilderAIStreamEvent) => void;
+  onEvent?: (event: AIStreamEvent) => void;
 };
 
 function mergeUsage(a: TokenUsage, b: TokenUsage): TokenUsage {
@@ -168,13 +149,13 @@ function looksLikeFalseCompletion(text: string): boolean {
 }
 
 const PROPOSE_NUDGE =
-  "No document changes were applied yet. Use available tools and call proposeDocumentOperations and/or proposeDocumentSettings now. Prefer cloneBlockForInsert when mirroring an existing section; otherwise build from defaults. Do not ask the user for data tools can provide, and do not ask them to edit the document manually. If a required fact is only known by the user and tools do not have it, call askUser (structured) and stop - do not invent placeholders or ask only in free text. Do not say Done until a propose tool succeeds.";
+  "No document changes were applied yet. Use available tools and call proposeDocumentOperations and/or proposeDocumentSettings now. Prefer cloneBlockForInsert when mirroring an existing section; otherwise build from defaults. Do not ask the user for data tools can provide, and do not ask them to edit the document manually. If a required fact is only known by the user and tools do not have it, call platform_askUser (structured) and stop - do not invent placeholders or ask only in free text. Do not say Done until a propose tool succeeds.";
 
 const PROPOSE_NUDGE_TEXT_MESSAGE =
-  "No message changes were applied yet. Call getTemplateArgs and getDocumentSettings as needed, then proposeDocumentSettings with value (Mustache SMS body) and name when empty. Do not call proposeDocumentOperations. Do not ask the user for data tools can provide. If a required fact is only known by the user, call askUser and stop.";
+  "No message changes were applied yet. Call getTemplateArgs and getDocumentSettings as needed, then proposeDocumentSettings with value (Mustache SMS body) and name when empty. Do not call proposeDocumentOperations. Do not ask the user for data tools can provide. If a required fact is only known by the user, call platform_askUser and stop.";
 
 const SETTINGS_NUDGE =
-  "Block changes alone are not enough for create/design/redesign. Call getDocumentSettings, then proposeDocumentSettings now (page: title, slug, description, keywords, and headerId/footerId when choosing chrome; email: name + subject; footer: name). Keep any valid proposeDocumentOperations.";
+  "Block changes alone are not enough for create/design/redesign. Call getDocumentSettings (and platform_listPageChrome for pages), then proposeDocumentSettings now (page: title, slug, description, keywords, and headerId/footerId when choosing chrome; email: name + subject; footer: name). Keep any valid proposeDocumentOperations.";
 
 const SUMMARY_NUDGE =
   'Changes are proposed. Reply with ONLY a short past-tense summary of what you did for the user (e.g. "Created a gel strengthening service page with overview, inclusions, and a Book CTA."). Do not call tools. Do not describe plans or future tense.';
@@ -254,23 +235,23 @@ function proposeNudgeFor(builder: BuilderAIRequest["builder"]): string {
     : PROPOSE_NUDGE;
 }
 
-async function runModelTurn(input: {
+async function runModelTurnOnce(input: {
   provider: AIProvider;
   task: AITask;
   model: string;
   messages: AIMessage[];
-  builder: BuilderAIRequest["builder"];
+  tools: AIToolDefinition[];
   temperature?: number;
   maxOutputTokens?: number;
   promptCacheKey?: string;
   abortSignal?: AbortSignal;
-  onEvent?: (event: BuilderAIStreamEvent) => void;
+  onEvent?: (event: AIStreamEvent) => void;
 }): Promise<GenerateResult> {
   const generateInput = {
     task: input.task,
     model: input.model,
     messages: input.messages,
-    tools: toolsForBuilder(input.builder),
+    tools: input.tools,
     temperature: input.temperature,
     maxOutputTokens: input.maxOutputTokens,
     promptCacheKey: input.promptCacheKey,
@@ -329,10 +310,52 @@ async function runModelTurn(input: {
   return result;
 }
 
+/** One automatic retry for transient gateway/stream drops (e.g. other side closed). */
+async function runModelTurn(
+  input: Parameters<typeof runModelTurnOnce>[0],
+): Promise<GenerateResult> {
+  const logger = getLoggerFactory("ai-builder-core")("runModelTurn");
+
+  try {
+    return await runModelTurnOnce(input);
+  } catch (error) {
+    if (
+      !(error instanceof BuilderAIError) ||
+      !error.retryable ||
+      input.abortSignal?.aborted
+    ) {
+      throw error;
+    }
+
+    logger.warn(
+      {
+        err: error,
+        model: input.model,
+        task: input.task,
+        toolCount: input.tools.length,
+        code: error.code,
+      },
+      "Retryable model turn failed; retrying once",
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    if (input.abortSignal?.aborted) {
+      throw new DOMException("Aborted", "AbortError");
+    }
+
+    return runModelTurnOnce(input);
+  }
+}
+
 export async function runBuilderAIOrchestrator(
   request: BuilderAIRequest,
   options: OrchestratorOptions,
 ): Promise<BuilderAIResponse> {
+  const logger = getLoggerFactory("ai-builder-core")(
+    "runBuilderAIOrchestrator",
+  );
+
   const started = Date.now();
   const conversationId = request.conversationId ?? randomUUID();
   const task = inferTaskFromRequest({
@@ -340,6 +363,20 @@ export async function runBuilderAIOrchestrator(
     actionId: request.actionId,
     selectionType: request.selection.selectionType,
   });
+
+  logger.debug(
+    {
+      conversationId,
+      builder: request.builder,
+      task,
+      actionId: request.actionId,
+      organizationId: options.organizationId,
+      hasServices: Boolean(options.services),
+      messageChars: request.message?.length ?? 0,
+      historyTurns: request.messages?.length ?? 0,
+    },
+    "Starting builder AI orchestrator",
+  );
 
   let modelCalls = 0;
   let toolCalls = 0;
@@ -402,7 +439,6 @@ export async function runBuilderAIOrchestrator(
       selection: request.selection,
       instruction: request.message,
       actionId: request.actionId,
-      business: options.business,
       args: request.args,
       documentSettings: request.documentSettings,
     });
@@ -473,6 +509,93 @@ export async function runBuilderAIOrchestrator(
 
     const proposeNudge = proposeNudgeFor(request.builder);
 
+    const jobToolDefinitions = toolsForBuilder(request.builder);
+    const jobToolDepsRef: {
+      current: Parameters<typeof executeBuilderAITool>[2];
+    } = {
+      current: {
+        adapter: options.adapter,
+        document: request.document,
+        selection: request.selection,
+        organizationId: options.organizationId,
+        documentSettings: request.documentSettings,
+        templateArgs: request.args,
+        cache: options.cache,
+        searchDesignPatterns: options.searchDesignPatterns,
+      },
+    };
+
+    let toolsSession: AIToolsSession | undefined;
+
+    if (options.services) {
+      toolsSession = await createAIToolsSession({
+        consumer: `builder-ai:${request.builder}`,
+        services: options.services,
+        signal: options.abortSignal,
+        jobTools: jobToolDefinitions.map((definition) => ({
+          definition,
+          execute: (args) =>
+            executeBuilderAITool(definition.name, args, jobToolDepsRef.current),
+        })),
+      });
+    }
+
+    const availableTools: AIToolDefinition[] = toolsSession?.definitions ?? [
+      ...PLATFORM_AI_TOOL_DEFINITIONS,
+      ...jobToolDefinitions,
+    ];
+
+    logger.debug(
+      {
+        conversationId,
+        builder: request.builder,
+        toolCount: availableTools.length,
+        toolNames: availableTools.map((tool) => tool.name),
+        viaSession: Boolean(toolsSession),
+      },
+      "Builder AI tool surface ready",
+    );
+
+    const executeTool = async (
+      name: string,
+      args: Record<string, unknown>,
+      toolDeps: Parameters<typeof executeBuilderAITool>[2],
+    ) => {
+      jobToolDepsRef.current = toolDeps;
+
+      if (toolsSession) {
+        return toolsSession.execute(name, args);
+      }
+
+      // Unit-test / no-services path: map platform_* onto legacy executor names.
+      if (name === "platform_askUser") {
+        return executeAskUser(args);
+      }
+
+      const legacyName =
+        name === "platform_getBusinessProfile"
+          ? "getBusinessProfile"
+          : name === "platform_searchStockImages"
+            ? "searchStockImages"
+            : name === "platform_searchStockVideos"
+              ? "searchStockVideos"
+              : name === "platform_searchPages"
+                ? "searchPages"
+                : name === "platform_listConnectedApps"
+                  ? "getConnectedApps"
+                  : name.startsWith("platform_")
+                    ? null
+                    : name;
+
+      if (!legacyName) {
+        return {
+          error: `Platform tool ${name} requires services on the orchestrator`,
+        };
+      }
+
+      return executeBuilderAITool(legacyName, args, toolDeps);
+    };
+
     while (correctionAttempt <= maxCorrections) {
       const resolved = resolveModelForTask(task, { escalate });
       const provider = getAIProvider(options.providerId ?? resolved.provider);
@@ -493,7 +616,7 @@ export async function runBuilderAIOrchestrator(
           task,
           model: resolved.model,
           messages,
-          builder: request.builder,
+          tools: availableTools,
           temperature: resolved.temperature,
           maxOutputTokens: resolved.maxOutputTokens,
           promptCacheKey,
@@ -541,8 +664,8 @@ export async function runBuilderAIOrchestrator(
         });
 
         let pausedForAskUser = false;
-        const askUserCall = result.toolCalls.find(
-          (toolCall) => toolCall.name === "askUser",
+        const askUserCall = result.toolCalls.find((toolCall) =>
+          isAskUserToolName(toolCall.name),
         );
 
         // If askUser is present, run it first and skip document mutations.
@@ -566,16 +689,18 @@ export async function runBuilderAIOrchestrator(
             toolCall.name === "proposeDocumentOperations" ||
             toolCall.name === "proposeDocumentSettings";
 
-          const isAskUserTool = toolCall.name === "askUser";
+          const isAskUserTool = isAskUserToolName(toolCall.name);
 
           if (!isProposeTool && !isAskUserTool) {
             usedDiscoveryTools = true;
             discoveryToolCalls += 1;
           }
 
-          options.onEvent?.(createToolStepEvent(toolCall, "start"));
+          options.onEvent?.(
+            createToolStepEvent(toolCall, "start", availableTools),
+          );
 
-          const toolResult = await executeBuilderAITool(
+          const toolResult = await executeTool(
             toolCall.name,
             toolCall.arguments,
             {
@@ -587,12 +712,6 @@ export async function runBuilderAIOrchestrator(
               templateArgs: request.args,
               cache: options.cache,
               searchDesignPatterns: options.searchDesignPatterns,
-              searchStockImages: options.searchStockImages,
-              searchStockVideos: options.searchStockVideos,
-              searchPages: options.searchPages,
-              connectedApps: options.connectedApps,
-              documentChrome: options.documentChrome,
-              businessRaw: options.businessRaw,
               onProposal: (next) => {
                 if (askUser || pausedForAskUser) return;
 
@@ -614,7 +733,9 @@ export async function runBuilderAIOrchestrator(
             },
           );
 
-          options.onEvent?.(createToolStepEvent(toolCall, "done"));
+          options.onEvent?.(
+            createToolStepEvent(toolCall, "done", availableTools),
+          );
 
           if (isAskUserTool) {
             const parsed =
@@ -869,6 +990,26 @@ export async function runBuilderAIOrchestrator(
     const status =
       hasProposal || !taskRequiresProposal(task) ? "completed" : "failed";
 
+    logger.debug(
+      {
+        conversationId,
+        builder: request.builder,
+        task,
+        status,
+        model: lastModel,
+        provider: lastProvider,
+        modelCalls,
+        toolCalls,
+        retries,
+        escalations,
+        durationMs: Date.now() - started,
+        hasProposal: Boolean(hasOpsProposal && !qualityIncomplete),
+        hasSettings: Boolean(hasSettings),
+        askUser: Boolean(askUser),
+      },
+      "Builder AI orchestrator completed",
+    );
+
     return {
       conversationId,
       text,
@@ -883,6 +1024,22 @@ export async function runBuilderAIOrchestrator(
     };
   } catch (error) {
     errorCode = error instanceof BuilderAIError ? error.code : "unknown";
+    logger.error(
+      {
+        err: error,
+        conversationId,
+        builder: request.builder,
+        task,
+        model: lastModel,
+        provider: lastProvider,
+        errorCode,
+        modelCalls,
+        toolCalls,
+        durationMs: Date.now() - started,
+        aborted: Boolean(options.abortSignal?.aborted),
+      },
+      "Builder AI orchestrator failed",
+    );
 
     throw error;
   } finally {

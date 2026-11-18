@@ -41,8 +41,8 @@ function createAdapter() {
   });
 }
 
-describe("searchStockImages tool", () => {
-  it("returns unavailable when no searchStockImages callback is wired", async () => {
+describe("legacy searchStockImages stub", () => {
+  it("points at platform_searchStockImages", async () => {
     const result = (await executeBuilderAITool(
       "searchStockImages",
       { query: "spa massage", count: 4 },
@@ -53,68 +53,12 @@ describe("searchStockImages tool", () => {
       },
     )) as {
       available: boolean;
-      providers: string[];
       items: unknown[];
       hint?: string;
     };
 
     assert.equal(result.available, false);
-    assert.deepEqual(result.providers, []);
     assert.deepEqual(result.items, []);
-    assert.match(String(result.hint ?? ""), /not configured/i);
-  });
-
-  it("delegates to the injected searchStockImages callback", async () => {
-    const result = (await executeBuilderAITool(
-      "searchStockImages",
-      { query: "hair salon", count: 2 },
-      {
-        adapter: createAdapter(),
-        document,
-        selection,
-        searchStockImages: async ({ query, count }) => ({
-          available: true,
-          providers: ["unsplash"],
-          items: [
-            {
-              id: "unsplash:1",
-              provider: "unsplash",
-              url: "https://images.unsplash.com/photo-1",
-              alt: query,
-            },
-          ].slice(0, count),
-        }),
-      },
-    )) as {
-      available: boolean;
-      providers: string[];
-      items: Array<{ url: string; alt: string }>;
-    };
-
-    assert.equal(result.available, true);
-    assert.deepEqual(result.providers, ["unsplash"]);
-    assert.equal(result.items.length, 1);
-    assert.equal(result.items[0]?.alt, "hair salon");
-    assert.match(result.items[0]?.url ?? "", /unsplash/);
-  });
-
-  it("clamps count before calling the callback", async () => {
-    let seenCount: number | undefined;
-
-    await executeBuilderAITool(
-      "searchStockImages",
-      { query: "nails", count: 99 },
-      {
-        adapter: createAdapter(),
-        document,
-        selection,
-        searchStockImages: async ({ count }) => {
-          seenCount = count;
-          return { available: true, providers: [], items: [] };
-        },
-      },
-    );
-
-    assert.equal(seenCount, 12);
+    assert.match(String(result.hint ?? ""), /platform_searchStockImages/i);
   });
 });

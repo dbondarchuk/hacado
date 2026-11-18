@@ -15,6 +15,7 @@ export const BlogApp: App<"app_blog_admin", BlogAdminKeys> = {
     "quick-link-provider",
     "command-search-provider",
     "page-seo-arguments-provider",
+    "ai-tools-provider",
   ],
   type: "complex",
   target: "company",

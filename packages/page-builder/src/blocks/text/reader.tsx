@@ -2,8 +2,8 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { PlateStaticEditor } from "@hacado/rte";
 import { normalizePlateBodyValue } from "@hacado/rte/plate-value";
+import { PlateStaticEditor } from "@hacado/rte/static";
 import { cn } from "@hacado/ui/cn";
 import { TextReaderProps } from "./schema";
 import { styles } from "./styles";

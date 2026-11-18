@@ -1,0 +1,30 @@
+{
+  "name": "@hacado/ai-tools",
+  "version": "0.0.1",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "type-check": "tsc --pretty --noEmit",
+    "type-check:ci": "tsc-absolute --pretty --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "node --import tsx --test src/__tests__/*.test.ts"
+  },
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@hacado/ai-core": "*",
+    "@hacado/logger": "*",
+    "@hacado/types": "*",
+    "@hacado/utils": "*"
+  },
+  "devDependencies": {
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
+    "@types/node": "^20",
+    "tsx": "4.19.0",
+    "typescript": "6.0.2"
+  }
+}

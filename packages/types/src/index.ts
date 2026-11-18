@@ -1,5 +1,6 @@
 export * from "./activity";
 export * from "./admin";
+export * from "./ai";
 export * from "./apps";
 export * from "./assets";
 export * from "./billing";
@@ -13,6 +14,7 @@ export * from "./jobs";
 export * from "./organizations";
 export * from "./pages";
 export * from "./pexels";
+export * from "./stock-media";
 export * from "./templates";
 export * from "./text-message/registration";
 export * from "./unsplash";

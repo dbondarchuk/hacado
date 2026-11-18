@@ -1,7 +1,9 @@
 export { createEmailBuilderAIAdapter } from "./create-adapter";
 export {
   EMAIL_QUALITY_NUDGE,
+  collectProposalBlockTypes,
   emailNeedsQualityFix,
+  isPlainTextHeavyEmailProposal,
   looksLikeEmailBodyCreate,
   looksLikeSubjectOnlyAsk,
   proposalContainsMustache,

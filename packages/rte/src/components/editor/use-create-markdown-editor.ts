@@ -52,6 +52,7 @@ import { FixedToolbarPlugin } from "./plugins/fixed-toolbar-plugin";
 import { FloatingToolbarPlugin } from "./plugins/floating-toolbar-plugin";
 
 import remarkEmoji from "remark-emoji";
+import remarkGfm from "remark-gfm";
 
 export const useCreateMarkdownEditor = (value?: string) => {
   return usePlateEditor({
@@ -91,7 +92,7 @@ export const useCreateMarkdownEditor = (value?: string) => {
     ],
     value: (editor: PlateEditor) =>
       deserializeMd(editor, value || "", {
-        remarkPlugins: [remarkEmoji as any],
+        remarkPlugins: [remarkGfm, remarkEmoji as any],
       }),
   });
 };

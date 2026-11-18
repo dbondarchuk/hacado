@@ -7,6 +7,7 @@ const UNCOMPACTED_TOOLS = new Set([
   "proposeDocumentOperations",
   "proposeDocumentSettings",
   "askUser",
+  "platform_askUser",
 ]);
 
 /** Keep tool transcripts from blowing up multi-iteration prompt size. */

@@ -55,6 +55,8 @@
     "@googleapis/analyticsadmin": "22.0.0",
     "@googleapis/calendar": "^12.0.0",
     "@googleapis/meet": "^3.0.0",
+    "@hacado/ai-core": "*",
+    "@hacado/ai-tools": "*",
     "@hacado/api-sdk": "*",
     "@hacado/email-builder": "*",
     "@hacado/i18n": "*",

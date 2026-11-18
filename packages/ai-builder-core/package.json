@@ -20,9 +20,12 @@
   },
   "dependencies": {
     "@hacado/ai-core": "*",
+    "@hacado/ai-tools": "*",
     "@hacado/builder": "*",
     "@hacado/i18n": "*",
+    "@hacado/logger": "*",
     "@hacado/rte": "*",
+    "@hacado/types": "*",
     "zod": "4.3.6"
   },
   "devDependencies": {

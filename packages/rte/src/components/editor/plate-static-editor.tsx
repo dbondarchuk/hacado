@@ -69,6 +69,7 @@ import {
   BaseTableRowPlugin,
 } from "@udecode/plate-table";
 import { BaseTogglePlugin } from "@udecode/plate-toggle";
+import remarkGfm from "remark-gfm";
 import { BlockquoteElementStatic } from "../plate-ui/blockquote-element-static";
 import { CodeBlockElementStatic } from "../plate-ui/code-block-element-static";
 import { CodeLeafStatic } from "../plate-ui/code-leaf-static";
@@ -321,7 +322,15 @@ export const createPlateStaticEditor = (
       BaseImagePlugin,
       BaseMentionPlugin,
       BaseTogglePlugin,
-      ...(options?.includeMarkdown ? [MarkdownPlugin] : []),
+      ...(options?.includeMarkdown
+        ? [
+            MarkdownPlugin.configure({
+              options: {
+                remarkPlugins: [remarkGfm],
+              },
+            }),
+          ]
+        : []),
     ],
     value: value,
   });

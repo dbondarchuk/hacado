@@ -1,8 +1,13 @@
 import { appsApi } from "@hacado/api-sdk/admin/apps";
+import type { AskUserRequest } from "@hacado/types/ai";
 import { WithTotal } from "@hacado/types/database";
+import type { BlogAiRunResult } from "./ai/run";
+import { normalizeBlogAiProposal, type BlogAiProposal } from "./ai/schema";
 import {
   ApproveBlogCommentActionType,
   ApproveSelectedBlogCommentsActionType,
+  BlogAiGenerateAction,
+  BlogAiGenerateActionType,
   BlogComment,
   BlogCommentListItem,
   BlogPost,
@@ -291,3 +296,92 @@ export async function checkBlogPostSlugUnique(
     throw error;
   }
 }
+
+export async function generateBlogPostAi(
+  appId: string,
+  input: Omit<BlogAiGenerateAction, never>,
+  options?: {
+    signal?: AbortSignal;
+    onEvent?: (event: string, data: unknown) => void;
+  },
+): Promise<BlogAiRunResult> {
+  const logger = loggerFactory("generateBlogPostAi");
+  logger.debug(
+    { appId, actionId: input.actionId },
+    "Generating blog post AI proposal",
+  );
+
+  try {
+    const raw = await appsApi.processRequestStream(
+      appId,
+      {
+        type: BlogAiGenerateActionType,
+        ...input,
+      },
+      {
+        signal: options?.signal,
+        onEvent: options?.onEvent,
+      },
+    );
+
+    const result = normalizeBlogAiRunResult(raw);
+
+    logger.info(
+      { appId, actionId: input.actionId, status: result.status },
+      "Successfully finished blog post AI generate",
+    );
+
+    return result;
+  } catch (error: any) {
+    logger.error(
+      { appId, error: error?.message || error?.toString() },
+      "Error generating blog post AI proposal",
+    );
+
+    throw error;
+  }
+}
+
+function normalizeBlogAiRunResult(value: unknown): BlogAiRunResult {
+  if (
+    value &&
+    typeof value === "object" &&
+    "status" in value &&
+    (value as { status: string }).status === "waiting_for_user" &&
+    "askUser" in value
+  ) {
+    const waiting = value as {
+      askUser: AskUserRequest;
+      text?: unknown;
+    };
+
+    return {
+      status: "waiting_for_user",
+      askUser: waiting.askUser,
+      text: typeof waiting.text === "string" ? waiting.text : undefined,
+    };
+  }
+
+  if (
+    value &&
+    typeof value === "object" &&
+    "status" in value &&
+    (value as { status: string }).status === "completed" &&
+    "proposal" in value
+  ) {
+    return {
+      status: "completed",
+      proposal: normalizeBlogAiProposal(
+        (value as { proposal: unknown }).proposal,
+      ),
+    };
+  }
+
+  // Backward-compatible: bare proposal object
+  return {
+    status: "completed",
+    proposal: normalizeBlogAiProposal(value),
+  };
+}
+
+export type { BlogAiProposal, BlogAiRunResult };

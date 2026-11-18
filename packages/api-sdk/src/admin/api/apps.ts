@@ -1,12 +1,28 @@
 import {
+  APP_PROCESS_SSE_DONE,
+  APP_PROCESS_SSE_ERROR,
   AppScope,
   ConnectedApp,
   ConnectedAppData,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
+  type AppProcessSseDonePayload,
+  type AppProcessSseErrorPayload,
 } from "@hacado/types/apps";
 import { okStatus } from "@hacado/types/general";
+import { parseSseChunk } from "@hacado/utils/sse";
 import { fetchAdminApi } from "./utils";
+
+export class AppProcessStreamError extends Error {
+  constructor(
+    message: string,
+    public readonly code?: string,
+    public readonly data?: unknown,
+  ) {
+    super(message);
+    this.name = "AppProcessStreamError";
+  }
+}
 
 export const addNewApp = async (type: string) => {
   console.debug("Adding new app", {
@@ -109,6 +125,102 @@ export const processRequest = async <TResponse extends any = any>(
   });
 
   return result;
+};
+
+export type ProcessRequestStreamOptions = {
+  signal?: AbortSignal;
+  /** Called for every non-terminal SSE event (opaque to the platform). */
+  onEvent?: (event: string, data: unknown) => void;
+};
+
+/**
+ * Opt-in SSE process: sends Accept: text/event-stream and resolves with the
+ * reserved `done` payload. Mid-stream events are forwarded via `onEvent`.
+ */
+export const processRequestStream = async <TResponse = unknown>(
+  appId: string,
+  data: unknown,
+  options?: ProcessRequestStreamOptions,
+): Promise<TResponse> => {
+  console.debug("Processing app request (SSE)", {
+    appId,
+    hasData: !!data,
+  });
+
+  const response = await fetchAdminApi(`/apps/${appId}/process`, {
+    method: "POST",
+    headers: {
+      Accept: "text/event-stream",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+    signal: options?.signal,
+  });
+
+  if (!response.body) {
+    throw new Error("App process stream returned an empty body");
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  let donePayload: TResponse | undefined;
+  let sawDone = false;
+  let streamError: AppProcessSseErrorPayload | null = null;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const parsed = parseSseChunk(buffer);
+    buffer = parsed.rest;
+
+    for (const frame of parsed.events) {
+      let payload: unknown = undefined;
+      if (frame.data.length) {
+        try {
+          payload = JSON.parse(frame.data);
+        } catch {
+          payload = frame.data;
+        }
+      }
+
+      if (frame.event === APP_PROCESS_SSE_DONE) {
+        const typed = payload as AppProcessSseDonePayload<TResponse>;
+        donePayload = typed?.data as TResponse;
+        sawDone = true;
+        continue;
+      }
+
+      if (frame.event === APP_PROCESS_SSE_ERROR) {
+        streamError = (payload ?? {
+          message: "App process stream failed",
+        }) as AppProcessSseErrorPayload;
+
+        continue;
+      }
+
+      options?.onEvent?.(frame.event, payload);
+    }
+  }
+
+  if (streamError) {
+    throw new AppProcessStreamError(
+      streamError.message || "App process stream failed",
+      streamError.code,
+      streamError.data,
+    );
+  }
+
+  if (!sawDone) {
+    throw new AppProcessStreamError(
+      "App process stream ended without a done event",
+    );
+  }
+
+  console.debug("App request stream completed", { appId });
+  return donePayload as TResponse;
 };
 
 export const processStaticRequest = async <TResponse extends any = any>(

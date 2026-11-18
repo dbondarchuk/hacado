@@ -4700,3 +4700,14 @@ smsConsent:
   attest: I attest, that customer agreed to receive text messages
   already: This customer already consented to text messages.
   optedOut: This number is opted out. The customer must text START before reminders can be sent.
+# Shared embeddable AI chat chrome (Builder, Blog, and other hosts).
+ai:
+  send: Send
+  stop: Stop
+  copy: Copy
+  copied: Copied
+  working: Working
+  thoughtProcess: Thought process
+  askUserSkip: Skip
+  askUserCustomPlaceholder: Or type your answer…
+  askUserSubmit: Send answer

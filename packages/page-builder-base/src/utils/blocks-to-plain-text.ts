@@ -1,9 +1,9 @@
 import { isSlotLikeObject } from "@hacado/builder/reader";
-import { plateValueToPlainTextBlocks } from "@hacado/rte";
 import {
   richTextToString,
   type RichTextValue,
 } from "@hacado/rte-inline/reader";
+import { plateValueToPlainTextBlocks } from "@hacado/rte/plain-text";
 import sanitizeHtml from "sanitize-html";
 
 type EditorBlockLike = {

@@ -65,6 +65,50 @@ form:
   toasts:
     changesSaved: Запис блогу збережено
     requestError: Помилка збереження запису
+ai:
+  open: Запитати AI…
+  close: Закрити AI
+  title: Hacado AI
+  tabs:
+    settings: Налаштування
+    ai: AI
+  panelHint: Попросіть написати, переписати або покращити цей запис. Можна оновити заголовок, slug, теги, текст, налаштування публікації та зображення.
+  placeholder: Написати Hacado AI…
+  instructionLabel: Інструкція
+  instructionPlaceholder: Опишіть запис або як покращити чернетку…
+  run: Згенерувати
+  applying: Застосування…
+  apply: Застосувати до форми
+  discard: Відхилити
+  applied: Застосовано до форми
+  loading: Генерація…
+  proposalTitle: Пропозиція
+  summaryFallback: Я оновив запис для вас.
+  overwriteConfirm: Застосування замінить наявний контент або головне зображення. Продовжити?
+  errorGeneric: Не вдалося згенерувати. Спробуйте ще раз.
+  emptyInstruction: Введіть інструкцію або оберіть швидку дію.
+  fields:
+    title: Заголовок
+    slug: Слаг
+    tags: Теги
+    status: Статус
+    publicationDate: Дата публікації
+    featuredImage: Головне зображення
+    body: Контент
+  actions:
+    generatePost: Згенерувати запис
+    rewriteBody: Переписати контент
+    improveClarity: Покращити ясність
+    shorten: Скоротити
+    expand: Розширити
+    suggestTitle: Запропонувати заголовок
+    suggestTags: Запропонувати теги
+    suggestSlug: Запропонувати слаг
+    suggestPublishMeta: Запропонувати налаштування публікації
+    suggestFeaturedImage: Запропонувати головне зображення
+    customInstruction: Власна інструкція
+  tools:
+    loadingExistingPosts: Завантаження наявних дописів…
 app:
   displayName: Блог
   description: Створюйте та керуйте записами блогу з контентом, тегами та датами публікації

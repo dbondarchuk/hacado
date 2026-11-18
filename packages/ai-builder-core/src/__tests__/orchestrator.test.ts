@@ -308,7 +308,7 @@ describe("orchestrator", () => {
           toolCalls: [
             {
               id: "call-ask",
-              name: "askUser",
+              name: "platform_askUser",
               arguments: {
                 question:
                   "What are the exact start and end dates of your vacation, including the year?",
@@ -396,7 +396,7 @@ describe("orchestrator", () => {
         toolCalls: [
           {
             id: "call-ask",
-            name: "askUser",
+            name: "platform_askUser",
             arguments: {
               question: "Which primary color should I use?",
               reason: "No brand color was specified.",

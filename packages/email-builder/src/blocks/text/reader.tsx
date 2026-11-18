@@ -1,4 +1,4 @@
-import { PlateStaticEditor } from "@hacado/rte";
+import { PlateStaticEditor } from "@hacado/rte/static";
 import { coerceEmailTextValue } from "./coerce-value";
 import { TextProps } from "./schema";
 import { getStyles } from "./styles";
