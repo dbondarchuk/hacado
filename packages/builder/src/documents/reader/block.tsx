@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import { templateProps } from "../helpers/template-props";
 import { BaseZodDictionary } from "../types";
 import {
@@ -11,9 +11,19 @@ export type TReaderBlockProps = BaseReaderBlockProps & {
   [x: string]: any;
 };
 
+const readerBlockRendererCache = new WeakMap<
+  object,
+  React.ComponentType<TReaderBlockProps>
+>();
+
 export const getReaderBlockRenderer = <T extends BaseZodDictionary>(
   blocks: ReaderDocumentBlocksDictionary<T>,
 ) => {
+  const cached = readerBlockRendererCache.get(blocks);
+  if (cached) {
+    return cached;
+  }
+
   const ReaderBlock = ({ block, ...rest }: TReaderBlockProps) => {
     const Component = blocks[block.type]?.Reader;
     if (!Component) {
@@ -31,6 +41,7 @@ export const getReaderBlockRenderer = <T extends BaseZodDictionary>(
   };
 
   ReaderBlock.displayName = "ReaderBlock";
+  readerBlockRendererCache.set(blocks, ReaderBlock);
   return ReaderBlock;
 };
 
@@ -48,7 +59,7 @@ function ReaderInner<T extends BaseZodDictionary>({
   blocks,
   isEditor,
 }: TReaderProps<T>) {
-  const ReaderBlock = useMemo(() => getReaderBlockRenderer(blocks), [blocks]);
+  const ReaderBlock = getReaderBlockRenderer(blocks);
 
   return (
     <ReaderBlock

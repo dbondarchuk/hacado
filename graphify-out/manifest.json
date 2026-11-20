@@ -6830,8 +6830,8 @@
     "semantic_hash": ""
   },
   "packages/builder/src/builder/template-panel/viewport-emulator.tsx": {
-    "mtime": 1795140379.544936,
-    "ast_hash": "f3fa8555acb5543a374a42d9d6e82eee",
+    "mtime": 1795143380.1352262,
+    "ast_hash": "2be95593d330f89945ed5f2f3a63a2c6",
     "semantic_hash": ""
   },
   "packages/builder/src/builder/toolbars/color.tsx": {
@@ -6965,8 +6965,8 @@
     "semantic_hash": ""
   },
   "packages/builder/src/documents/reader/block.tsx": {
-    "mtime": 1795136230.65919,
-    "ast_hash": "eb12641a6d7a5841d2fbc5a0c9443f63",
+    "mtime": 1795143454.8100173,
+    "ast_hash": "e01db92dd25d7a1a8fb56ed5e44b476a",
     "semantic_hash": ""
   },
   "packages/builder/src/documents/reader/core.tsx": {
