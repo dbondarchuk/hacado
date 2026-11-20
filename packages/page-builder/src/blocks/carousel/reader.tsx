@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -40,7 +39,7 @@ export const CarouselReader = ({
         <CarouselContent className={cn(className, base?.className)}>
           {children.map((child) => (
             <CarouselItem key={child.id} className="carousel-item pl-4">
-              <ReaderBlock key={child.id} {...rest} block={child} />
+              <rest.ReaderBlock key={child.id} {...rest} block={child} />
             </CarouselItem>
           ))}
         </CarouselContent>

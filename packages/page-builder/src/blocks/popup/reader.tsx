@@ -1,7 +1,3 @@
-import { Popup } from "./popup";
-import { PopupReaderProps } from "./schema";
-
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -15,6 +11,8 @@ import {
   DialogTitle,
 } from "@hacado/ui/dialog";
 import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Popup } from "./popup";
+import { PopupReaderProps } from "./schema";
 import { styles } from "./styles";
 
 export const PopupReader = ({
@@ -49,23 +47,23 @@ export const PopupReader = ({
         <DialogHeader>
           <DialogTitle>
             {title.map((child) => (
-              <ReaderBlock key={child.id} {...rest} block={child} />
+              <rest.ReaderBlock key={child.id} {...rest} block={child} />
             ))}
           </DialogTitle>
           <DialogDescription>
             {subtitle.map((child) => (
-              <ReaderBlock key={child.id} {...rest} block={child} />
+              <rest.ReaderBlock key={child.id} {...rest} block={child} />
             ))}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="max-h-[70svh]">
           {content.map((child) => (
-            <ReaderBlock key={child.id} block={child} {...rest} />
+            <rest.ReaderBlock key={child.id} block={child} {...rest} />
           ))}
         </ScrollArea>
         <DialogFooter>
           {buttons.map((child) => (
-            <ReaderBlock key={child.id} block={child} {...rest} />
+            <rest.ReaderBlock key={child.id} block={child} {...rest} />
           ))}
         </DialogFooter>
       </Popup>

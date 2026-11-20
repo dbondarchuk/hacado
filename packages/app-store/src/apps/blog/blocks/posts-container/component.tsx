@@ -1,4 +1,4 @@
-import { ReaderBlock } from "@hacado/builder/reader";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -16,7 +16,9 @@ type BlogPostsContainerComponentProps = {
   children: BlogPostsContainerReaderProps["props"]["children"];
   style: BlogPostsContainerReaderProps["style"];
   blockBase?: { className?: string; id?: string };
-  restProps: any;
+  restProps: any & {
+    ReaderBlock: React.ComponentType<BaseReaderBlockProps<any>>;
+  };
   isEditor?: boolean;
   appId?: string;
   args?: any;
@@ -56,7 +58,7 @@ export const BlogPostsContainerComponent = ({
       <BlockStyle name={className} styleDefinitions={styles} styles={style} />
       <div className={cn(className, base?.className)} id={base?.id}>
         {children.map((child) => (
-          <ReaderBlock
+          <restProps.ReaderBlock
             key={child.id}
             {...restProps}
             block={child}

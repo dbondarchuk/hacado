@@ -1,10 +1,8 @@
 import {
   isEmbeddedSlot,
-  ReaderBlock,
-  TReaderProps,
+  type BaseReaderBlockProps,
   type TReaderBlock,
 } from "@hacado/builder/reader";
-import type { BaseZodDictionary } from "@hacado/builder/types";
 import { BlockStyle } from "../helpers/styling";
 import type { StyleValue } from "../style/css-renderer";
 import type { BaseStyleDictionary } from "../style/types";
@@ -14,7 +12,7 @@ export function slotClassName(slot: EmbeddedSlotData) {
   return `pb-slot-${slot.id}`;
 }
 
-type ReaderBlockProps = TReaderProps<BaseZodDictionary>;
+type ReaderBlockProps = Omit<BaseReaderBlockProps, "block">;
 
 export function ReaderEmbeddedSlotChildren({
   slot,
@@ -39,7 +37,7 @@ export function ReaderEmbeddedSlotChildren({
         const block = child as TReaderBlock;
         if (!block?.id || !block?.type) return null;
 
-        return <ReaderBlock key={block.id} {...rest} block={block} />;
+        return <rest.ReaderBlock key={block.id} {...rest} block={block} />;
       })}
     </>
   );

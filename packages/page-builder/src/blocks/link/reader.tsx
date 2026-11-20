@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -31,7 +30,7 @@ export const Link = ({ props, style, block, ...rest }: LinkReaderProps) => {
         id={base?.id}
       >
         {children.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
       </a>
     </>

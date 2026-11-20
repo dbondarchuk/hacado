@@ -1,4 +1,4 @@
-import { ReaderBlock, TReaderBlock } from "@hacado/builder/reader";
+import { TReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -31,19 +31,19 @@ export const MarketingFeaturesShowcaseReader = (
     return {
       id: fb.id,
       cardIcon: cardIconBlock ? (
-        <ReaderBlock {...rest} block={cardIconBlock} />
+        <rest.ReaderBlock {...rest} block={cardIconBlock} />
       ) : null,
       title: (
         <>
           {titleChildren.map((c: TReaderBlock) => (
-            <ReaderBlock key={c.id} {...rest} block={c} />
+            <rest.ReaderBlock key={c.id} {...rest} block={c} />
           ))}
         </>
       ),
       description: (
         <>
           {descriptionChildren.map((c: TReaderBlock) => (
-            <ReaderBlock key={c.id} {...rest} block={c} />
+            <rest.ReaderBlock key={c.id} {...rest} block={c} />
           ))}
         </>
       ),
@@ -51,12 +51,12 @@ export const MarketingFeaturesShowcaseReader = (
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground feature-card-icon-container-expanded">
             {cardIconBlock ? (
-              <ReaderBlock {...rest} block={cardIconBlock} />
+              <rest.ReaderBlock {...rest} block={cardIconBlock} />
             ) : null}
           </div>
           <div className="flex min-w-0 flex-col items-start gap-1">
             {titleChildren.map((c: TReaderBlock) => (
-              <ReaderBlock key={c.id} {...rest} block={c} />
+              <rest.ReaderBlock key={c.id} {...rest} block={c} />
             ))}
           </div>
         </div>
@@ -65,11 +65,11 @@ export const MarketingFeaturesShowcaseReader = (
         <>
           {detailHeadlineChildren.map((c: TReaderBlock) => (
             <div key={c.id} className="text-lg font-medium text-foreground">
-              <ReaderBlock {...rest} block={c} />
+              <rest.ReaderBlock {...rest} block={c} />
             </div>
           ))}
           {detailBulletsChildren.map((c: TReaderBlock) => (
-            <ReaderBlock key={c.id} {...rest} block={c} />
+            <rest.ReaderBlock key={c.id} {...rest} block={c} />
           ))}
         </>
       ),

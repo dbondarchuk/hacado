@@ -1,4 +1,4 @@
-import { isEmbeddedSlot, ReaderBlock } from "@hacado/builder/reader";
+import { isEmbeddedSlot } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -106,14 +106,14 @@ export const TableReader = ({
             <div className={cn("min-h-24 w-full", innerClass)}>
               {slotChildren.map((child: any) =>
                 isBlock(child) || (child?.id && child?.type) ? (
-                  <ReaderBlock key={child.id} {...rest} block={child} />
+                  <rest.ReaderBlock key={child.id} {...rest} block={child} />
                 ) : null,
               )}
             </div>
           ) : (
             slotChildren.map((child: any) =>
               isBlock(child) || (child?.id && child?.type) ? (
-                <ReaderBlock key={child.id} {...rest} block={child} />
+                <rest.ReaderBlock key={child.id} {...rest} block={child} />
               ) : null,
             )
           )}

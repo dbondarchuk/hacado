@@ -1,5 +1,4 @@
 import { evaluate } from "@hacado/builder/helpers";
-import { ReaderBlock } from "@hacado/builder/reader";
 import { Fragment } from "react";
 import { ForeachContainerReaderProps } from "./schema";
 import { sliceForeachArray } from "./utils";
@@ -32,7 +31,7 @@ export const ForeachContainerReader = ({
       {items.map((item, index) => (
         <Fragment key={index}>
           {children.map((child) => (
-            <ReaderBlock
+            <rest.ReaderBlock
               key={child.id}
               {...rest}
               block={child}

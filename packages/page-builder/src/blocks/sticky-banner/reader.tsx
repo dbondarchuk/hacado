@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -35,7 +34,7 @@ export const StickyBannerReader = ({
       >
         <ReplaceOriginalColors />
         {content.map((child) => (
-          <ReaderBlock key={child.id} block={child} {...rest} />
+          <rest.ReaderBlock key={child.id} block={child} {...rest} />
         ))}
       </StickyBanner>
     </>

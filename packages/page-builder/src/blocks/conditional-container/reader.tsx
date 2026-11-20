@@ -1,5 +1,4 @@
 import { evaluate } from "@hacado/builder/helpers";
-import { ReaderBlock } from "@hacado/builder/reader";
 import { ConditionalContainerReaderProps } from "./schema";
 
 export const ConditionalContainerReader = ({
@@ -15,7 +14,7 @@ export const ConditionalContainerReader = ({
   return (
     <>
       {(result ? thenChildren : otherwiseChildren).map((child) => (
-        <ReaderBlock key={child.id} {...rest} block={child} />
+        <rest.ReaderBlock key={child.id} {...rest} block={child} />
       ))}
     </>
   );

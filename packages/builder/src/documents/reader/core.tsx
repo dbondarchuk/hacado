@@ -11,30 +11,18 @@ export type TReaderBlock = {
 
 export type TReaderDocument = TReaderBlock;
 
-export type BaseReaderBlockProps<T extends BuilderSchema> = {
-  document: TReaderBlock; // TReaderDocument
-  blocks: ReaderDocumentBlocksDictionary<T>;
+export type BaseReaderBlockProps<_T extends BuilderSchema = any> = {
   args: Record<string, any>;
   block: TReaderBlock;
   isEditor?: boolean;
+  ReaderBlock: React.ComponentType<BaseReaderBlockProps<_T>>;
 };
 
-export type ReaderProps<T> = T & {
-  document: TReaderBlock;
-  args: Record<string, any>;
-  block: TReaderBlock;
-  isEditor?: boolean;
-};
+export type ReaderProps<T> = BaseReaderBlockProps & T;
 
 export type ReaderDocumentBlocksDictionary<T extends BuilderSchema = any> = {
   [K in keyof T]: {
-    Reader: React.ComponentType<
-      ReaderProps<
-        z.infer<T[K]> & {
-          blocks: ReaderDocumentBlocksDictionary<T>;
-        }
-      >
-    >;
+    Reader: React.ComponentType<ReaderProps<z.infer<T[K]>>>;
   };
 };
 

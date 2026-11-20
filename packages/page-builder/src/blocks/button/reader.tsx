@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -36,7 +35,7 @@ export const ButtonReader = ({
         {...restProps}
       >
         {children?.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
       </Button>
     </>

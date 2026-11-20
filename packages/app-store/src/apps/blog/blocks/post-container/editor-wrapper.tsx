@@ -1,6 +1,6 @@
 "use client";
 
-import { ReaderBlock } from "@hacado/builder/reader";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -14,7 +14,9 @@ type BlogPostContainerEditorWrapperProps = {
   props: BlogPostContainerReaderProps["props"];
   style: BlogPostContainerReaderProps["style"];
   blockBase?: { className?: string; id?: string };
-  restProps: any;
+  restProps: any & {
+    ReaderBlock: React.ComponentType<BaseReaderBlockProps<any>>;
+  };
   appId?: string;
   args?: any;
 };
@@ -60,7 +62,7 @@ export const BlogPostContainerEditorWrapper = ({
         {children
           .filter((child) => !!child)
           .map((child) => (
-            <ReaderBlock
+            <restProps.ReaderBlock
               key={child.id}
               {...restProps}
               block={child}

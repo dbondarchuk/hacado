@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -30,7 +29,7 @@ export const MarketingScrollingLogosReader = ({
           {items.length > 0 ? (
             <div className="hidden flex-wrap justify-center gap-4">
               {items.map((child: any) => (
-                <ReaderBlock key={child.id} {...rest} block={child} />
+                <rest.ReaderBlock key={child.id} {...rest} block={child} />
               ))}
             </div>
           ) : null}
@@ -54,11 +53,11 @@ export const MarketingScrollingLogosReader = ({
               )}
             >
               {items.map((child: any) => (
-                <ReaderBlock key={child.id} {...rest} block={child} />
+                <rest.ReaderBlock key={child.id} {...rest} block={child} />
               ))}
               {Array.from({ length: 10 }).flatMap((_, index) =>
                 items.map((child: any) => (
-                  <ReaderBlock
+                  <rest.ReaderBlock
                     key={`${child.id}-marquee-dup-${index}`}
                     {...rest}
                     block={child}

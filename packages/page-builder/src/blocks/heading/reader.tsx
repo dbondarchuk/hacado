@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -32,7 +31,7 @@ export const Heading = ({
       />
       <Element className={cn(className, base?.className)} id={base?.id}>
         {children.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
       </Element>
     </>

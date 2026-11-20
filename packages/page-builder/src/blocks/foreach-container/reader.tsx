@@ -1,5 +1,4 @@
 import { evaluate } from "@hacado/builder/helpers";
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -41,7 +40,7 @@ export const ForeachContainerReader = ({
         {items.map((item, index) => (
           <Fragment key={index}>
             {children.map((child) => (
-              <ReaderBlock
+              <rest.ReaderBlock
                 key={child.id}
                 {...rest}
                 block={child}

@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BackgroundVideoLayer,
   BlockStyle,
@@ -26,13 +25,13 @@ export const PageHeroReader = ({
       <section className={cn(className, base?.className)} id={base?.id}>
         <BackgroundVideoLayer style={style} />
         {title.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
         {subtitle.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
         {buttons.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
       </section>
     </>

@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -41,7 +40,7 @@ export const Accordion = ({
         iconStyle={iconStyle}
       >
         {children.map((child: any) => (
-          <ReaderBlock key={child.id} block={child} {...rest} />
+          <rest.ReaderBlock key={child.id} block={child} {...rest} />
         ))}
       </AccordionClient>
     </>

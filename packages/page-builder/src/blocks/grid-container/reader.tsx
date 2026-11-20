@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BackgroundVideoLayer,
   BlockStyle,
@@ -24,7 +23,7 @@ export const GridContainerReader = ({
       <div className={cn(className, base?.className)} id={base?.id}>
         <BackgroundVideoLayer style={style} />
         {children.map((child) => (
-          <ReaderBlock key={child.id} {...rest} block={child} />
+          <rest.ReaderBlock key={child.id} {...rest} block={child} />
         ))}
       </div>
     </>

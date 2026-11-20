@@ -1,4 +1,4 @@
-import { ReaderBlock, TReaderBlock } from "@hacado/builder/reader";
+import { TReaderBlock } from "@hacado/builder/reader";
 import { BaseColumnsContainer } from "./base";
 import { ColumnsContainerReaderProps } from "./schema";
 
@@ -12,7 +12,7 @@ export const ColumnsContainerReader = ({
   if (columns) {
     cols = columns.map((col) =>
       col.children.map((child: TReaderBlock) => (
-        <ReaderBlock key={child.id} {...rest} block={child} />
+        <rest.ReaderBlock key={child.id} {...rest} block={child} />
       )),
     );
   }

@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import { BaseContainer } from "./base";
 import { ContainerReaderProps } from "./schema";
 
@@ -11,7 +10,7 @@ export const ContainerReader = ({
   return (
     <BaseContainer style={style}>
       {children.map((child) => (
-        <ReaderBlock key={child.id} {...rest} block={child} />
+        <rest.ReaderBlock key={child.id} {...rest} block={child} />
       ))}
     </BaseContainer>
   );

@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BackgroundVideoLayer,
   BlockStyle,
@@ -187,7 +186,7 @@ ${desktopChildCss}
             className="min-h-0 min-w-0"
           >
             <div className="fluid-child-rotate h-full w-full min-h-0 min-w-0">
-              <ReaderBlock {...rest} block={child} />
+              <rest.ReaderBlock {...rest} block={child} />
             </div>
           </div>
         ))}

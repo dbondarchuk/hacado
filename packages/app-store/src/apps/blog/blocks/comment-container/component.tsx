@@ -1,4 +1,4 @@
-import { ReaderBlock } from "@hacado/builder/reader";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import { I18nText } from "@hacado/i18n/components";
 import {
   BlockStyle,
@@ -15,7 +15,9 @@ type BlogCommentContainerComponentProps = {
   children: BlogCommentContainerReaderProps["props"]["children"];
   style: BlogCommentContainerReaderProps["style"];
   blockBase?: { className?: string; id?: string };
-  restProps: any;
+  restProps: any & {
+    ReaderBlock: React.ComponentType<BaseReaderBlockProps<any>>;
+  };
   isEditor?: boolean;
   args?: Record<string, unknown>;
 };
@@ -48,7 +50,7 @@ export const BlogCommentContainerComponent = ({
           children
             .filter(Boolean)
             .map((child) => (
-              <ReaderBlock
+              <restProps.ReaderBlock
                 key={child.id}
                 {...restProps}
                 block={child}

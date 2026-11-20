@@ -1,4 +1,4 @@
-import { ReaderBlock, ReaderProps } from "@hacado/builder/reader";
+import { ReaderProps } from "@hacado/builder/reader";
 import {
   getFontFamily,
   ReaderProvider,
@@ -10,7 +10,6 @@ import { PageLayoutReaderProps } from "./schema";
 
 export const PageLayoutReader = ({
   args,
-  document,
   ...props
 }: ReaderProps<PageLayoutReaderProps>) => {
   const children = props.children ?? [];
@@ -43,12 +42,11 @@ export const PageLayoutReader = ({
           )}
         >
           {children.map((child) => (
-            <ReaderBlock
-              blocks={props.blocks}
+            <props.ReaderBlock
+              ReaderBlock={props.ReaderBlock}
               key={child.id}
               block={child}
               args={args}
-              document={document}
               isEditor={props.isEditor}
             />
           ))}

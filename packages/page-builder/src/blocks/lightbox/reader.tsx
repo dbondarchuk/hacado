@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import { LightboxProvider } from "./context";
 import { Lightbox } from "./lightbox";
 import { LightboxReaderProps } from "./schema";
@@ -13,7 +12,7 @@ export const LightboxReader = ({
     <LightboxProvider>
       <Lightbox {...restProps} />
       {children.map((child) => (
-        <ReaderBlock key={child.id} {...rest} block={child} />
+        <rest.ReaderBlock key={child.id} {...rest} block={child} />
       ))}
     </LightboxProvider>
   );

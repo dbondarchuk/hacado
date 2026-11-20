@@ -1,10 +1,9 @@
-import { ReaderBlock, ReaderProps } from "@hacado/builder/reader";
+import { ReaderProps } from "@hacado/builder/reader";
 import { getFontFamily, getPadding } from "../../style-inputs/helpers/styles";
 import { EmailLayoutDefaultProps, EmailLayoutReaderProps } from "./schema";
 
 export const EmailLayoutReader = ({
   args,
-  document,
   ...props
 }: ReaderProps<EmailLayoutReaderProps>) => {
   const children = props.children ?? [];
@@ -58,12 +57,11 @@ export const EmailLayoutReader = ({
             <tr style={{ width: "100%" }}>
               <td>
                 {children.map((child) => (
-                  <ReaderBlock
-                    blocks={props.blocks}
+                  <props.ReaderBlock
+                    ReaderBlock={props.ReaderBlock}
                     key={child.id}
                     block={child}
                     args={args}
-                    document={document}
                     isEditor={props.isEditor}
                   />
                 ))}

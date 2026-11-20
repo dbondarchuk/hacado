@@ -1,47 +1,63 @@
+import { memo, useMemo } from "react";
 import { templateProps } from "../helpers/template-props";
 import { BaseZodDictionary } from "../types";
-import { BaseReaderBlockProps, TReaderBlock } from "./core";
+import {
+  BaseReaderBlockProps,
+  ReaderDocumentBlocksDictionary,
+  TReaderBlock,
+} from "./core";
 
-export type TReaderBlockProps = BaseReaderBlockProps<any> & {
-  block: TReaderBlock;
-} & {
+export type TReaderBlockProps = BaseReaderBlockProps & {
   [x: string]: any;
 };
 
-export function ReaderBlock({ block, ...rest }: TReaderBlockProps) {
-  const Component = rest.blocks[block.type]?.Reader;
-  if (!Component) {
-    return null;
-  }
+export const getReaderBlockRenderer = <T extends BaseZodDictionary>(
+  blocks: ReaderDocumentBlocksDictionary<T>,
+) => {
+  const ReaderBlock = ({ block, ...rest }: TReaderBlockProps) => {
+    const Component = blocks[block.type]?.Reader;
+    if (!Component) {
+      return null;
+    }
 
-  return (
-    <Component
-      {...rest}
-      {...templateProps(block.data, rest.args)}
-      block={block}
-      key={block.id}
-    />
-  );
-}
+    return (
+      <Component
+        {...rest}
+        {...templateProps(block.data, rest.args)}
+        block={block}
+        key={block.id}
+      />
+    );
+  };
+
+  ReaderBlock.displayName = "ReaderBlock";
+  return ReaderBlock;
+};
 
 export type TReaderProps<T extends BaseZodDictionary> = Omit<
-  BaseReaderBlockProps<T>,
-  "block"
->;
+  BaseReaderBlockProps,
+  "block" | "ReaderBlock"
+> & {
+  blocks: ReaderDocumentBlocksDictionary<T>;
+  document: TReaderBlock;
+};
 
-export function Reader<T extends BaseZodDictionary>({
+function ReaderInner<T extends BaseZodDictionary>({
   document,
   args,
   blocks,
   isEditor,
 }: TReaderProps<T>) {
+  const ReaderBlock = useMemo(() => getReaderBlockRenderer(blocks), [blocks]);
+
   return (
     <ReaderBlock
+      ReaderBlock={ReaderBlock}
       block={document}
-      document={document}
       args={args}
-      blocks={blocks}
       isEditor={isEditor}
     />
   );
 }
+
+export const Reader = memo(ReaderInner) as typeof ReaderInner;

@@ -1,8 +1,7 @@
-import { memo } from "react";
-import { ReaderBlock } from "../reader/block";
+import { memo, useMemo } from "react";
+import { getReaderBlockRenderer } from "../reader/block";
 import {
   useBlockChildrenBlockIds,
-  useDocument,
   useDocumentBlock,
   useEditorArgs,
   useReaderBlocks,
@@ -12,28 +11,15 @@ export const EditorReaderBlock = memo(({ blockId }: { blockId: string }) => {
   const block = useDocumentBlock(blockId);
   const blocks = useReaderBlocks();
   const args = useEditorArgs();
-  const document = useDocument();
+
+  const ReaderBlock = useMemo(() => {
+    return getReaderBlockRenderer(blocks);
+  }, [blocks]);
+
   if (!block) return null;
 
   return (
-    <ReaderBlock
-      document={document}
-      block={block}
-      blocks={blocks}
-      args={args}
-      isEditor
-    />
-    // <EditorBlock
-    //   blockId={blockId}
-    //   index={0}
-    //   parentBlockId={""}
-    //   parentProperty={""}
-    //   disableClone
-    //   disableDelete
-    //   disableMove
-    //   disableDrag
-    //   isOverlay
-    // />
+    <ReaderBlock block={block} args={args} isEditor ReaderBlock={ReaderBlock} />
   );
 });
 

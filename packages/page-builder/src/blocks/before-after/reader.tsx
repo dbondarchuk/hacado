@@ -1,4 +1,3 @@
-import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
@@ -41,17 +40,25 @@ export const BeforeAfterReader = ({
         showLabels={showLabels}
         beforeLabel={
           beforeLabel ? (
-            <ReaderBlock {...rest} block={beforeLabel} key={beforeLabel.id} />
+            <rest.ReaderBlock
+              {...rest}
+              block={beforeLabel}
+              key={beforeLabel.id}
+            />
           ) : null
         }
         afterLabel={
           afterLabel ? (
-            <ReaderBlock {...rest} block={afterLabel} key={afterLabel.id} />
+            <rest.ReaderBlock
+              {...rest}
+              block={afterLabel}
+              key={afterLabel.id}
+            />
           ) : null
         }
         orientation={orientation}
-        before={<ReaderBlock {...rest} block={before} key={before.id} />}
-        after={<ReaderBlock {...rest} block={after} key={after.id} />}
+        before={<rest.ReaderBlock {...rest} block={before} key={before.id} />}
+        after={<rest.ReaderBlock {...rest} block={after} key={after.id} />}
       />
     </div>
   );
