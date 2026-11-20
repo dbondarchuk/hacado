@@ -1960,8 +1960,8 @@
     "semantic_hash": ""
   },
   "apps/app-external-server/src/index.ts": {
-    "mtime": 1794703173.460207,
-    "ast_hash": "d535da7c65713df39475d21afc8c3ce5",
+    "mtime": 1795140780.2540455,
+    "ast_hash": "b295e676aa179f8d383e5491aeae8924",
     "semantic_hash": ""
   },
   "apps/app-external-server/tsconfig.json": {
@@ -1990,8 +1990,8 @@
     "semantic_hash": ""
   },
   "apps/domain-checker/src/index.ts": {
-    "mtime": 1793559269.627972,
-    "ast_hash": "f8acaa6039b78b2056593d40370d8fa9",
+    "mtime": 1795140776.4304583,
+    "ast_hash": "61605178fffa0f81328ad1440a7a4270",
     "semantic_hash": ""
   },
   "apps/domain-checker/tsconfig.json": {
@@ -6830,8 +6830,8 @@
     "semantic_hash": ""
   },
   "packages/builder/src/builder/template-panel/viewport-emulator.tsx": {
-    "mtime": 1793559203.2636597,
-    "ast_hash": "2be95593d330f89945ed5f2f3a63a2c6",
+    "mtime": 1795140379.544936,
+    "ast_hash": "f3fa8555acb5543a374a42d9d6e82eee",
     "semantic_hash": ""
   },
   "packages/builder/src/builder/toolbars/color.tsx": {
@@ -25895,8 +25895,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/proxy-chain/with-organization-id.ts": {
-    "mtime": 1793739812.042862,
-    "ast_hash": "567aae383f13ecdf86703d039520d7a0",
+    "mtime": 1795140774.2779887,
+    "ast_hash": "280725563a3d49fdc4011a7f5fb1cc1f",
     "semantic_hash": ""
   },
   "apps/web/src/proxy.ts": {
@@ -26115,8 +26115,8 @@
     "semantic_hash": ""
   },
   "apps/link-shortener/src/index.ts": {
-    "mtime": 1793559269.7943587,
-    "ast_hash": "9de2feb9989faeb856597ba207c78be3",
+    "mtime": 1795140778.0891376,
+    "ast_hash": "d1b941e06ee5174dd4f0070bff0dfb2b",
     "semantic_hash": ""
   },
   "apps/link-shortener/tsconfig.json": {
@@ -33975,8 +33975,8 @@
     "semantic_hash": ""
   },
   "docker-compose.prod.yaml": {
-    "mtime": 1794093118.0334008,
-    "ast_hash": "3ce19e3bbb047cce628324ab78304fd9",
+    "mtime": 1795140809.6751804,
+    "ast_hash": "d03fb65f8ba9c8cf04c78b5793ec45b3",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/data-table/index.ts": {
@@ -39070,13 +39070,13 @@
     "semantic_hash": ""
   },
   "packages/ai-builder-core/src/orchestration/orchestrator.ts": {
-    "mtime": 1795033886.4929316,
+    "mtime": 1795139750.2849765,
     "ast_hash": "9ec9bac35019d3c908448c28da37c155",
     "semantic_hash": ""
   },
   "packages/ai-builder-core/src/orchestration/prompts.ts": {
-    "mtime": 1795017481.755857,
-    "ast_hash": "f135ff8b392b78aef3ce05496316a327",
+    "mtime": 1795140140.0441287,
+    "ast_hash": "85538e544f3a771e321dff1e8c32f330",
     "semantic_hash": ""
   },
   "packages/ai-builder-core/src/orchestration/scope-gate.ts": {
@@ -39470,8 +39470,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/builder-ai/send-communication-ai.tsx": {
-    "mtime": 1795139175.4213665,
-    "ast_hash": "43d72b17d093029eaa132fbb8deed626",
+    "mtime": 1795139626.5063083,
+    "ast_hash": "9dfbac46799aa7f08ac4a5d6a0f0080e",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/communications/builder-ai-context.tsx": {
@@ -39812,6 +39812,26 @@
   "packages/app-store/src/apps/gift-card-studio/ai/absolute-image-url.ts": {
     "mtime": 1795037838.6473658,
     "ast_hash": "3d54fbd80d68e0f8c96ce42ab517c1e9",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/health/route.ts": {
+    "mtime": 1795140771.701815,
+    "ast_hash": "65110cb4655dae31e3a59cfaf9a65165",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/builder-ai/send-communication-ai-adapters.tsx": {
+    "mtime": 1795139626.5053291,
+    "ast_hash": "914c1721b18e9da3ea175b53fa08fdbb",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/health/route.ts": {
+    "mtime": 1795140772.3319952,
+    "ast_hash": "65110cb4655dae31e3a59cfaf9a65165",
+    "semantic_hash": ""
+  },
+  "docs/app/health/route.ts": {
+    "mtime": 1795140772.8694506,
+    "ast_hash": "65110cb4655dae31e3a59cfaf9a65165",
     "semantic_hash": ""
   }
 }

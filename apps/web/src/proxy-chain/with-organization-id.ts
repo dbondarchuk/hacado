@@ -62,7 +62,10 @@ function responseWhenSubscriptionInactive(
 
 export const withOrganizationId: MiddlewareProxy = (next) => {
   return async (request: NextRequest, event: NextFetchEvent) => {
-    if (request.nextUrl.pathname.startsWith("/_next")) {
+    if (
+      request.nextUrl.pathname.startsWith("/_next") ||
+      request.nextUrl.pathname === "/health"
+    ) {
       return next(request, event);
     }
 

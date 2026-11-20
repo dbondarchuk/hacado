@@ -249,6 +249,12 @@ async function startServer(): Promise<void> {
         "Incoming request",
       );
 
+      if (pathname === "/health" || pathname === "/health/") {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ status: "ok" }));
+        return;
+      }
+
       const body = await readRequestBody(req);
       const request = toWebRequest(req, body);
 

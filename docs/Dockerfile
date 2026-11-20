@@ -44,6 +44,8 @@ ENV NODE_ENV=production
 ENV PORT=3003
 ENV HOSTNAME=0.0.0.0
 
+RUN apk add --no-cache curl
+
 RUN addgroup --system --gid 1001 nodejs
 
 COPY --from=builder /app ./

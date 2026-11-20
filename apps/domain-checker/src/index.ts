@@ -52,6 +52,12 @@ async function startServer(): Promise<void> {
 
       logger.debug({ pathname, domain }, "Incoming request");
 
+      if (pathname === "/health" || pathname === "/health/") {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ status: "ok" }));
+        return;
+      }
+
       // Handle /check endpoint
       if (pathname === "/check") {
         if (!domain) {

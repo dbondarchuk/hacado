@@ -50,15 +50,23 @@ services:
       - "TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}"
       - "SIGNUP_GEO_BLOCKING_ENABLED=${SIGNUP_GEO_BLOCKING_ENABLED:-false}"
       - "SIGNUP_EMAIL_BLOCKING_ENABLED=${SIGNUP_EMAIL_BLOCKING_ENABLED:-true}"
-      - "VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}"
-      - "VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}"
-      - "VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}"
+      - VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}
+      - VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}
+      - VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}
     restart: unless-stopped
     ports:
       - "3001:3001"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
     depends_on:
-      - hacado-job-processor
-      - hacado-notification-sender
+      hacado-job-processor:
+        condition: service_healthy
+      hacado-notification-sender:
+        condition: service_healthy
     labels:
       logging: promtail
       logging_jobname: hacado-app
@@ -95,10 +103,19 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
     depends_on:
-      - hacado-job-processor
-      - hacado-notification-sender
-      - hacado-app
+      hacado-job-processor:
+        condition: service_healthy
+      hacado-notification-sender:
+        condition: service_healthy
+      hacado-app:
+        condition: service_healthy
     labels:
       logging: promtail
       logging_jobname: hacado-web
@@ -157,10 +174,16 @@ services:
       - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
       - "SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}"
       - "SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}"
-      - "VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}"
-      - "VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}"
-      - "VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}"
+      - VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}
+      - VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}
+      - VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "kill -0 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     labels:
       logging: promtail
       logging_jobname: hacado-notification-sender
@@ -194,11 +217,16 @@ services:
       - "S3_BUCKET=${S3_BUCKET:-assets}"
       - "S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}"
       - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
-      - "SMS_APPOINTMENT_CONSENT_BEFORE=${SMS_APPOINTMENT_CONSENT_BEFORE:-}"
-      - "VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}"
-      - "VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}"
-      - "VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}"
+      - VAPID_PUBLIC_KEY=${VAPID_PUBLIC_KEY}
+      - VAPID_PRIVATE_KEY=${VAPID_PRIVATE_KEY}
+      - VAPID_SUBJECT=${VAPID_SUBJECT:-mailto:support@hacado.com}
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "kill -0 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     labels:
       logging: promtail
       logging_jobname: hacado-job-processor
@@ -247,6 +275,12 @@ services:
     restart: unless-stopped
     ports:
       - "5556:5556"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5556/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     labels:
       logging: promtail
       logging_jobname: hacado-app-external-server
@@ -266,6 +300,12 @@ services:
     restart: unless-stopped
     ports:
       - "5555:5555"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5555/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     labels:
       logging: promtail
       logging_jobname: hacado-domain-checker
@@ -274,6 +314,12 @@ services:
     restart: unless-stopped
     ports:
       - "3003:3003"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3003/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
     labels:
       logging: promtail
       logging_jobname: hacado-docs
@@ -296,6 +342,12 @@ services:
     restart: unless-stopped
     ports:
       - "5557:5557"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5557/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     labels:
       logging: promtail
       logging_jobname: hacado-link-shortener
