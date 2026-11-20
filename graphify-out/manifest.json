@@ -39125,8 +39125,8 @@
     "semantic_hash": ""
   },
   "packages/ai-builder-email/src/__tests__/email-quality.test.ts": {
-    "mtime": 1795021985.9864311,
-    "ast_hash": "9b1b2b6dc8525bd160d73102e65ad73f",
+    "mtime": 1795139753.666089,
+    "ast_hash": "b3e642cd0e4cfa5681773ef2706fd761",
     "semantic_hash": ""
   },
   "packages/ai-builder-email/src/create-adapter.ts": {
@@ -39135,8 +39135,8 @@
     "semantic_hash": ""
   },
   "packages/ai-builder-email/src/email-quality.ts": {
-    "mtime": 1795033889.248967,
-    "ast_hash": "2eedcb6443a587c440fda88dd4b914fd",
+    "mtime": 1795139736.246516,
+    "ast_hash": "81e8fdf4b887d99997c592e9e42247ba",
     "semantic_hash": ""
   },
   "packages/ai-builder-email/src/index.ts": {

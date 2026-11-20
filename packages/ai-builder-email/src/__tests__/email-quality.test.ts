@@ -84,6 +84,26 @@ describe("email quality gate", () => {
     );
   });
 
+  it("rejects settings-only completion for body creates classified as editing", () => {
+    assert.equal(
+      emailNeedsQualityFix({
+        builder: "email",
+        task: "document_editing",
+        message: "Make a birthday email with 20% off and a booking button",
+        documentSettings: { subject: "" },
+        proposal: undefined,
+        settingsProposal: {
+          summary: "Set birthday promotion email name and subject",
+          settings: {
+            name: "Birthday 20% Offer",
+            subject: "Happy birthday! Enjoy 20% off",
+          },
+        },
+      }),
+      true,
+    );
+  });
+
   it("nudges appointment bodies that omit Mustache", () => {
     assert.equal(proposalContainsMustache(textOnlyProposal("Hello")), false);
     assert.equal(

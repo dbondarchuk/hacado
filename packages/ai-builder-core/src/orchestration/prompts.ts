@@ -1,6 +1,6 @@
 import { contentLanguageInstruction } from "../context/language";
 import type { AssembledAIContext } from "../context/types";
-import type { BuilderKind } from "../types";
+import type { AITask, BuilderKind } from "../types";
 
 /**
  * Shared runtime protocol only - no product role, design, or builder framing.
@@ -78,14 +78,18 @@ export function inferTaskFromRequest(input: {
   message: string;
   actionId?: string;
   selectionType: string;
-}): import("../types").AITask {
+}): AITask {
   const text = `${input.actionId ?? ""} ${input.message}`.toLowerCase();
 
   if (
     ((text.includes("create") ||
       text.includes("design") ||
       text.includes("redesign") ||
-      text.includes("build")) &&
+      text.includes("build") ||
+      text.includes("generate") ||
+      text.includes("make") ||
+      // Whole-word only so "rewrite" does not become generation.
+      /\bwrite\b/.test(text)) &&
       (text.includes("page") ||
         text.includes("homepage") ||
         text.includes("email") ||

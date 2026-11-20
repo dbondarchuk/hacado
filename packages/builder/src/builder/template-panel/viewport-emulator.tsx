@@ -266,7 +266,7 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
         .viewport-emulator-scroll {
           width: 100%;
           overflow-x: auto;
-          display: grid;
+          display: contents;
         }
 
         .viewport-emulator {

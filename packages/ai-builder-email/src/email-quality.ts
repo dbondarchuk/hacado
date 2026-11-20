@@ -149,6 +149,10 @@ function settingsHasName(
  * Incomplete when the user clearly asked for email body content and we still
  * have no ops, an appointment body with zero Mustache, a text-only layout, or
  * an empty template name that was not filled.
+ *
+ * Intentionally not limited to `document_generation`: create-style asks are
+ * often classified as `document_editing`, and settings-only (name/subject)
+ * must not count as done without body operations.
  */
 export function emailNeedsQualityFix(input: {
   builder: BuilderKind;
@@ -159,7 +163,6 @@ export function emailNeedsQualityFix(input: {
   settingsProposal?: DocumentSettingsProposal;
 }): boolean {
   if (input.builder !== "email") return false;
-  if (input.task !== "document_generation") return false;
   if (looksLikeSubjectOnlyAsk(input.message)) return false;
   if (!looksLikeEmailBodyCreate(input.message)) return false;
 
