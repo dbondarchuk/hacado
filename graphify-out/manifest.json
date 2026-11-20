@@ -1,11 +1,11 @@
 {
   ".husky/_/applypatch-msg": {
-    "mtime": 1795135379.2959464,
+    "mtime": 1795136516.3260584,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/commit-msg": {
-    "mtime": 1795135379.2959464,
+    "mtime": 1795136516.3260584,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
@@ -15,67 +15,67 @@
     "semantic_hash": ""
   },
   ".husky/_/husky.sh": {
-    "mtime": 1795135379.2979462,
+    "mtime": 1795136516.328607,
     "ast_hash": "13871d2ab13e8423790ecb2c01c78c18",
     "semantic_hash": ""
   },
   ".husky/_/post-applypatch": {
-    "mtime": 1795135379.2969475,
+    "mtime": 1795136516.3270588,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-checkout": {
-    "mtime": 1795135379.2979462,
+    "mtime": 1795136516.3280592,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-commit": {
-    "mtime": 1795135379.2959464,
+    "mtime": 1795136516.3260584,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-merge": {
-    "mtime": 1795135379.2979462,
+    "mtime": 1795136516.328607,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-rewrite": {
-    "mtime": 1795135379.2979462,
+    "mtime": 1795136516.3280592,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-applypatch": {
-    "mtime": 1795135379.2969475,
+    "mtime": 1795136516.3270588,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-auto-gc": {
-    "mtime": 1795135379.2979462,
+    "mtime": 1795136516.328607,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-commit": {
-    "mtime": 1795135379.2959464,
+    "mtime": 1795136516.3250856,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-merge-commit": {
-    "mtime": 1795135379.2959464,
+    "mtime": 1795136516.3260584,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-push": {
-    "mtime": 1795135379.2979462,
+    "mtime": 1795136516.328607,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-rebase": {
-    "mtime": 1795135379.2969475,
+    "mtime": 1795136516.3270588,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/prepare-commit-msg": {
-    "mtime": 1795135379.2959464,
+    "mtime": 1795136516.3260584,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
@@ -1210,8 +1210,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/customers/table/columns.tsx": {
-    "mtime": 1794852924.6449242,
-    "ast_hash": "32916fa5ba2904af49f763e90f1f9cba",
+    "mtime": 1795138866.4060054,
+    "ast_hash": "7b626876e8aa00c0b0e61e1b2cb91bad",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/customers/table/delete-selected.tsx": {
@@ -3255,8 +3255,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/comment-container/component.tsx": {
-    "mtime": 1795133764.3560536,
-    "ast_hash": "7c4cea90d37bd25c195f5b5f9ec07da0",
+    "mtime": 1795137669.6810975,
+    "ast_hash": "aa70e46ac83f3ad513b3c296867ba79c",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/comment-container/configuration.tsx": {
@@ -3350,8 +3350,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/comments-container/component.tsx": {
-    "mtime": 1795133788.105947,
-    "ast_hash": "ef9f8c3afc8bef6cbcfbe7c5949a7fa3",
+    "mtime": 1795137679.7842379,
+    "ast_hash": "d280468d9508943f095c61e706a3727d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/comments-container/configuration.tsx": {
@@ -3525,8 +3525,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/post-container/component.tsx": {
-    "mtime": 1795133855.1109066,
-    "ast_hash": "805411825342a53e6fd6cf375ae9da73",
+    "mtime": 1795137687.4663312,
+    "ast_hash": "f5c9e81ca12b0ca4cad0bc171d53c723",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/post-container/configuration.tsx": {
@@ -3535,8 +3535,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/post-container/editor-wrapper.tsx": {
-    "mtime": 1795134000.7057576,
-    "ast_hash": "76f1a597673641cc8658ef3fab6fa52c",
+    "mtime": 1795137694.2242603,
+    "ast_hash": "6f1e5110a9b1d538a8f10c2e1b4ac1f2",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/post-container/editor.tsx": {
@@ -3770,8 +3770,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/posts-container/component.tsx": {
-    "mtime": 1795134013.3117807,
-    "ast_hash": "c8271d91772079aaf446cce620c102a6",
+    "mtime": 1795137700.9290848,
+    "ast_hash": "bbe0fd8e7e48f507d5ebc303bc56469b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/blocks/posts-container/configuration.tsx": {
@@ -6910,8 +6910,8 @@
     "semantic_hash": ""
   },
   "packages/builder/src/documents/editor/editor-reader-block.tsx": {
-    "mtime": 1795134944.837788,
-    "ast_hash": "edd129885d6b6ae0de10e04b0f80dcbd",
+    "mtime": 1795137290.3751607,
+    "ast_hash": "f417e4582993abda9e6b87ab6610e3a6",
     "semantic_hash": ""
   },
   "packages/builder/src/documents/editor/history.ts": {
@@ -39470,8 +39470,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/builder-ai/send-communication-ai.tsx": {
-    "mtime": 1795033722.9829156,
-    "ast_hash": "9dfbac46799aa7f08ac4a5d6a0f0080e",
+    "mtime": 1795139175.4213665,
+    "ast_hash": "43d72b17d093029eaa132fbb8deed626",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/communications/builder-ai-context.tsx": {
@@ -39767,11 +39767,6 @@
   "docs/public/img/communications/text-ai-toolbar.png": {
     "mtime": 1794953918.596551,
     "ast_hash": "4ba6caa071408499ade10761fcb97498",
-    "semantic_hash": ""
-  },
-  "apps/admin/src/components/admin/builder-ai/send-communication-ai-adapters.tsx": {
-    "mtime": 1795033600.0208473,
-    "ast_hash": "914c1721b18e9da3ea175b53fa08fdbb",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/ai/actions.ts": {

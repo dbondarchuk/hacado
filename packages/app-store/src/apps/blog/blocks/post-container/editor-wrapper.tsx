@@ -14,7 +14,7 @@ type BlogPostContainerEditorWrapperProps = {
   props: BlogPostContainerReaderProps["props"];
   style: BlogPostContainerReaderProps["style"];
   blockBase?: { className?: string; id?: string };
-  restProps: any & {
+  restProps: {} & {
     ReaderBlock: React.ComponentType<BaseReaderBlockProps<any>>;
   };
   appId?: string;

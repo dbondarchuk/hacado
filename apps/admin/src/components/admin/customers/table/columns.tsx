@@ -81,8 +81,9 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       <img
         alt={row.original.name}
         src={row.original.avatar ?? "/unknown-person.png"}
-        width={50}
-        height={50}
+        width={32}
+        height={32}
+        className="size-8 min-w-8 max-w-8 shrink-0 rounded-full object-cover"
       />
     ),
     id: "avatar",

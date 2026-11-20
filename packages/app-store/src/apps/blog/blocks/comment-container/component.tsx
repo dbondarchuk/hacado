@@ -15,7 +15,7 @@ type BlogCommentContainerComponentProps = {
   children: BlogCommentContainerReaderProps["props"]["children"];
   style: BlogCommentContainerReaderProps["style"];
   blockBase?: { className?: string; id?: string };
-  restProps: any & {
+  restProps: {} & {
     ReaderBlock: React.ComponentType<BaseReaderBlockProps<any>>;
   };
   isEditor?: boolean;
